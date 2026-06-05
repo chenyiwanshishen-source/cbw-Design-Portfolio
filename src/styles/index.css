@@ -1,0 +1,14 @@
+@import './fonts.css';
+@import './tailwind.css';
+@import './theme.css';
+
+/* 全局中文字体 */
+html {
+  font-family: "PingFang SC", "Source Han Sans SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+}
+
+/* 文本选中颜色 */
+::selection {
+  background: #E5EBFF;
+  color: #1A42B8;
+}
