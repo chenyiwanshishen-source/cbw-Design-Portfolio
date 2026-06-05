@@ -1385,7 +1385,7 @@ export function ProjectDetail({ onBack }: Props) {
                   "不只是使用系统默认数据，而是支持用户引入外链知识和本地知识库，补充报告生成所需的输入依据，并在后续查看章节引用来源。",
                 points: ["系统数据", "外链知识", "本地知识库", "来源追溯"],
                 visual: "知识库页面大图",
-                image: "images/设计方案/data01.png",
+                image: "images/optimized/ai-data01-1600.jpg",
               },
               {
                 icon: Users,
@@ -1394,8 +1394,8 @@ export function ProjectDetail({ onBack }: Props) {
                   "用户在产业分析平台中沉淀的企业监控和企业分组，可以通过同一账户权限关联到报告生成流程，减少重复选择和重复维护。",
                 points: ["企业监控", "企业分组", "账户权限", "跨系统关联"],
                 visual: "跨系统联动关系图",
-                image: "images/设计方案/group02.png",
-                overlayImage: "images/设计方案/group01.png",
+                image: "images/optimized/ai-group02-1600.jpg",
+                overlayImage: "images/optimized/ai-group01-1600.jpg",
               },
               {
                 icon: GitBranch,
@@ -1404,7 +1404,7 @@ export function ProjectDetail({ onBack }: Props) {
                   "系统先根据用户输入匹配相似章节，用户修改或新增章节时再匹配内置章节，让高频报告结构更稳定，也便于复用历史经验。",
                 points: ["用户输入匹配", "编辑新增匹配", "内置章节复用"],
                 visual: "章节匹配逻辑截图",
-                image: "images/设计方案/marry01.png",
+                image: "images/optimized/ai-marry01-1600.jpg",
                 overlayImage: "images/设计方案/marry02.png",
                 overlayRaw: true,
               },

@@ -1309,7 +1309,7 @@ export function QixinProjectDetail({ onBack }: Props) {
               className="max-h-[640px] overflow-hidden rounded-t-3xl relative border-t border-l border-r border-[#E6E7EB]"
             >
               <img
-                src="images/首页/home.png"
+                src="images/optimized/qixin-home-1920.jpg"
                 alt="启信产业大脑首页截图"
                 {...DETAIL_IMAGE_EAGER_PROPS}
                 className="block w-full rounded-none"
@@ -1868,7 +1868,7 @@ export function QixinProjectDetail({ onBack }: Props) {
           <div className="grid gap-8 lg:grid-cols-[0.94fr_1.1fr] lg:items-start xl:gap-10">
             <div className="overflow-hidden rounded-[24px] border border-[#E6E7EB] bg-[#FAFBFF]">
               <img
-                src="images/启信产业大脑/首页入口.png"
+                src="images/optimized/qixin-entry-1920.jpg"
                 alt="启信产业大脑首页工作台截图"
                 {...DETAIL_IMAGE_LAZY_PROPS}
                 className="block h-auto w-full object-contain object-top"

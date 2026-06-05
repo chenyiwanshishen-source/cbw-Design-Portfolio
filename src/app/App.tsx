@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { Suspense, lazy, useEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
 import { ArrowUp } from "lucide-react";
 import { Hero } from "./components/Hero";
@@ -10,8 +10,13 @@ import { Footer } from "./components/Footer";
 import { Nav } from "./components/Nav";
 import { ScopeCursor } from "./components/ScopeCursor";
 import { ParticleField } from "./components/ParticleField";
-import { ProjectDetail } from "./components/ProjectDetail";
-import { QixinProjectDetail } from "./components/QixinProjectDetail";
+
+const ProjectDetail = lazy(() =>
+  import("./components/ProjectDetail").then((module) => ({ default: module.ProjectDetail }))
+);
+const QixinProjectDetail = lazy(() =>
+  import("./components/QixinProjectDetail").then((module) => ({ default: module.QixinProjectDetail }))
+);
 
 export default function App() {
   const [mounted, setMounted] = useState(false);
@@ -73,6 +78,11 @@ export default function App() {
 
   const isAiDetail = route === "#/project/ai-report";
   const isQixinDetail = route === "#/project/qixin-brain";
+  const detailFallback = (
+    <div className="min-h-screen px-6 pt-32 text-center text-sm text-[#696D7A]">
+      正在加载项目详情...
+    </div>
+  );
 
   return (
     <div className="relative min-h-screen bg-[#FAFBFF] text-[#1A1C24] overflow-x-hidden selection:bg-[#E5EBFF] selection:text-[#1A1C24]">
@@ -133,9 +143,13 @@ export default function App() {
 
       <main className="relative z-10">
         {isAiDetail ? (
-          <ProjectDetail onBack={goHome} />
+          <Suspense fallback={detailFallback}>
+            <ProjectDetail onBack={goHome} />
+          </Suspense>
         ) : isQixinDetail ? (
-          <QixinProjectDetail onBack={goHome} />
+          <Suspense fallback={detailFallback}>
+            <QixinProjectDetail onBack={goHome} />
+          </Suspense>
         ) : (
           <>
             <Hero />
