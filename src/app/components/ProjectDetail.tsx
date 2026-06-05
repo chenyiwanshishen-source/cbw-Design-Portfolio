@@ -352,7 +352,7 @@ export function ProjectDetail({ onBack }: Props) {
       tagline: "确认方向",
       icon: CheckCircle2,
       placeholder: "大纲确认页面",
-      image: "images/ai-report-flow/step-02-final-outline-02.png",
+      image: "images/optimized/ai-outline-confirm-900.png",
       scrollContent: true,
       decision: "用户可配置报告标题、监测范围、产业、维度，确认后进入生成。",
       why: "把复杂配置拆成可理解的操作，让用户在生成前控制输入边界。",
@@ -486,12 +486,12 @@ export function ProjectDetail({ onBack }: Props) {
             >
               {[
                 { label: "项目类型", value: "AI 报告生成 · B 端 SaaS" },
-                { label: "项目阶段", value: "内部 1.0 测试上线" },
+                { label: "项目阶段", value: "1.0版本上线" },
                 { label: "主要场景", value: "企业 / 产业 / 地区监测报告" },
                 { label: "我的角色", value: "产品设计师" },
               ].map((m) => (
                 <div key={m.label} className="text-left md:text-center">
-                  <div style={T.metaLabel} className="mb-2">
+                  <div style={{ ...T.metaLabel, fontSize: 14 }} className="mb-2">
                     {m.label}
                   </div>
                   <div style={T.metaValue}>{m.value}</div>
@@ -864,7 +864,7 @@ export function ProjectDetail({ onBack }: Props) {
                           transition={{ duration: 0.82, delay: 0.48, ease: [0.22, 1, 0.36, 1] }}
                         />
                         <motion.img
-                          src="images/04/liushiwenzi.png"
+                          src="images/optimized/ai-stream-text-1400.jpg"
                           alt="流式生成报告正文"
                           {...DETAIL_IMAGE_LAZY_PROPS}
                           className="absolute right-0 top-[5.6%] z-30 h-[88.9%] w-[60.7%] object-contain object-top"
@@ -1282,7 +1282,7 @@ export function ProjectDetail({ onBack }: Props) {
                       />
                       <div className="absolute left-[19.2%] top-[9.8%] h-[88.5%] w-[72.2%] overflow-hidden">
                         <motion.img
-                          src="images/ai-report-flow/step-02-final-outline-02.png"
+                          src="images/optimized/ai-outline-confirm-900.png"
                           alt="章节大纲确认长图"
                           {...DETAIL_IMAGE_LAZY_PROPS}
                           className="block w-full max-w-none"

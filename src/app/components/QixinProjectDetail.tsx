@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import type { CSSProperties, ImgHTMLAttributes, MouseEvent as ReactMouseEvent, PointerEvent as ReactPointerEvent, ReactNode } from "react";
+import type { CSSProperties, MouseEvent as ReactMouseEvent, PointerEvent as ReactPointerEvent, ReactNode } from "react";
 import { motion } from "motion/react";
 import {
   ArrowDown,
@@ -65,48 +65,6 @@ const DETAIL_IMAGE_EAGER_PROPS = {
   fetchPriority: "high" as const,
 };
 
-type DeferredImageProps = Omit<ImgHTMLAttributes<HTMLImageElement>, "src"> & {
-  src: string;
-  rootMargin?: string;
-};
-
-function DeferredImage({ src, rootMargin = "280px 0px", style, ...props }: DeferredImageProps) {
-  const imgRef = useRef<HTMLImageElement | null>(null);
-  const [shouldLoad, setShouldLoad] = useState(false);
-
-  useEffect(() => {
-    const img = imgRef.current;
-    if (!img || shouldLoad) return;
-    if (!("IntersectionObserver" in window)) {
-      setShouldLoad(true);
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries.some((entry) => entry.isIntersecting)) {
-          setShouldLoad(true);
-          observer.disconnect();
-        }
-      },
-      { rootMargin }
-    );
-
-    observer.observe(img);
-    return () => observer.disconnect();
-  }, [rootMargin, shouldLoad]);
-
-  return (
-    <img
-      ref={imgRef}
-      src={shouldLoad ? src : undefined}
-      data-src={!shouldLoad ? src : undefined}
-      style={{ minHeight: shouldLoad ? undefined : 1, ...style }}
-      {...props}
-    />
-  );
-}
-
 const SECTIONS = [
   { id: "qx01", index: "01", label: "项目概览" },
   { id: "qx02", index: "02", label: "业务背景" },
@@ -168,7 +126,7 @@ function FoundationRulesPreview() {
     >
       <div className="absolute left-[19.8%] top-[4%] h-[104%] w-[86.6%] overflow-hidden rounded-[16px] bg-white">
         <img
-          src="images/启信产业大脑/color.png"
+          src="images/optimized/qixin-color-1600.jpg"
           alt="DGG 组件库色彩 Token 命名规范局部"
           draggable={false}
           className="block h-auto w-full max-w-none select-none object-contain object-top"
@@ -179,7 +137,7 @@ function FoundationRulesPreview() {
 
       <div className="absolute left-[-4.2%] top-[48.6%] h-[55.5%] w-[77.2%] overflow-hidden rounded-[16px] bg-white shadow-[0_14px_28px_rgba(26,28,36,0.10)]">
         <img
-          src="images/启信产业大脑/text.png"
+          src="images/optimized/qixin-text-1600.jpg"
           alt="DGG 组件库字体、间距、圆角与阴影规范"
           draggable={false}
           className="block h-auto w-full max-w-none select-none object-contain object-top"
@@ -215,7 +173,7 @@ function KeyComponentStatesPreview() {
     >
       <div className="absolute bottom-[-8%] left-[10%] z-0 w-[106%] overflow-hidden rounded-[16px] bg-white ring-1 ring-[#E6E7EB]">
         <img
-          src="images/启信产业大脑/%C2%A0园区招商.png"
+          src="images/optimized/qixin-park-recruit-1600.jpg"
           alt="园区招商列表页面截图"
           draggable={false}
           className="block h-auto w-full max-w-none select-none object-contain object-top"
@@ -1236,11 +1194,18 @@ export function QixinProjectDetail({ onBack }: Props) {
 
   useEffect(() => {
     const onScroll = () => {
-      const y = window.scrollY + 160;
+      const documentHeight = document.documentElement.scrollHeight;
+      const viewportBottom = window.scrollY + window.innerHeight;
+      const isAtPageEnd = Math.ceil(viewportBottom) >= documentHeight - 4;
+      const y = window.scrollY + Math.min(window.innerHeight * 0.42, 360);
       let current = SECTIONS[0].id;
-      for (const section of SECTIONS) {
-        const el = document.getElementById(section.id);
-        if (el && el.offsetTop <= y) current = section.id;
+      if (isAtPageEnd) {
+        current = SECTIONS[SECTIONS.length - 1].id;
+      } else {
+        for (const section of SECTIONS) {
+          const el = document.getElementById(section.id);
+          if (el && el.offsetTop <= y) current = section.id;
+        }
       }
       setActive(current);
       const second = document.getElementById("qx02");
@@ -1257,7 +1222,11 @@ export function QixinProjectDetail({ onBack }: Props) {
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
   }, []);
 
   const scrollTo = (id: string) => {
@@ -1717,7 +1686,7 @@ export function QixinProjectDetail({ onBack }: Props) {
                               cursor: isActive ? "default" : "pointer",
                             }}
                           >
-                            <DeferredImage
+                            <img
                               src={slide.src}
                               alt={slide.alt}
                               {...DETAIL_IMAGE_LAZY_PROPS}
@@ -1765,7 +1734,7 @@ export function QixinProjectDetail({ onBack }: Props) {
                               cursor: isRelation && !isFront ? "pointer" : "default",
                             }}
                           >
-                            <DeferredImage
+                            <img
                               src={slide.src}
                               alt={slide.alt}
                               {...DETAIL_IMAGE_LAZY_PROPS}
@@ -1859,7 +1828,7 @@ export function QixinProjectDetail({ onBack }: Props) {
                         data-zoom
                         data-zoom-src={item.image}
                       >
-                        <DeferredImage
+                        <img
                           src={item.image}
                           alt={item.imageAlt}
                           draggable={false}
@@ -1909,8 +1878,8 @@ export function QixinProjectDetail({ onBack }: Props) {
           </div>
           <div className="grid gap-8 lg:grid-cols-[0.94fr_1.1fr] lg:items-start xl:gap-10">
             <div className="overflow-hidden rounded-[24px] border border-[#E6E7EB] bg-[#FAFBFF]">
-              <DeferredImage
-                src="images/optimized/qixin-entry-1920.jpg"
+              <img
+                src="images/optimized/qixin-entry-1600.jpg"
                 alt="启信产业大脑首页工作台截图"
                 {...DETAIL_IMAGE_LAZY_PROPS}
                 className="block h-auto w-full object-contain object-top"
@@ -2211,7 +2180,7 @@ export function QixinProjectDetail({ onBack }: Props) {
           <div className="grid grid-cols-1 gap-5 min-[1280px]:mx-auto min-[1280px]:w-[1152px] min-[1280px]:grid-cols-[512px_620px] min-[1280px]:items-stretch min-[1440px]:w-[1248px] min-[1440px]:grid-cols-[560px_668px] min-[1536px]:w-[1280px] min-[1536px]:grid-cols-[576px_684px] min-[1680px]:w-[1424px] min-[1680px]:grid-cols-[640px_764px] min-[1904px]:w-[1648px] min-[1904px]:grid-cols-[768px_860px] min-[1936px]:w-[1680px] min-[1936px]:grid-cols-[784px_876px]">
             <div className="relative overflow-hidden rounded-[28px] bg-white p-4 shadow-[0_1px_2px_rgba(15,20,25,0.04)] ring-1 ring-[#E6E7EB]">
               <img
-                src="images/启信产业大脑/高级搜索.png"
+                src="images/optimized/qixin-search-1600.jpg"
                 alt="高级搜索筛选企业截图"
                 {...DETAIL_IMAGE_LAZY_PROPS}
                 className="block h-auto w-full rounded-2xl object-contain object-top ring-1 ring-[#E6E7EB]"
@@ -2261,7 +2230,7 @@ export function QixinProjectDetail({ onBack }: Props) {
                   eyebrow: "扩展关系",
                   title: "从企业扩展上下游关系",
                   desc: "围绕供应商、客户和产业链关系，帮助用户从单个企业继续发现招商线索。",
-                  image: "images/启信产业大脑/供应链.png",
+                  image: "images/optimized/qixin-supply-chain-1600.jpg",
                   alt: "供应链招商企业列表截图",
                   tags: ["供应商", "客户数", "产业筛选"],
                 },
@@ -2271,7 +2240,7 @@ export function QixinProjectDetail({ onBack }: Props) {
                   eyebrow: "批量分析",
                   title: "把外部名单转成分析资产",
                   desc: "支持上传企业名单并选择指标，批量补全企业信息，为监控、分析和报告生成提供结构化输入。",
-                  image: "images/启信产业大脑/批量查询.png",
+                  image: "images/optimized/qixin-batch-query-1600.jpg",
                   alt: "批量查询选择指标截图",
                   tags: ["名单上传", "指标选择", "信息补全"],
                 },
@@ -2346,7 +2315,7 @@ export function QixinProjectDetail({ onBack }: Props) {
               <article className="h-full overflow-hidden rounded-[28px] bg-white p-4 shadow-[0_1px_2px_rgba(15,20,25,0.04)] ring-1 ring-[#E6E7EB]">
                 <div className="aspect-[16/10] overflow-hidden rounded-2xl bg-white shadow-[0_10px_24px_rgba(26,28,36,0.07)] ring-1 ring-[#E6E7EB]">
                   <img
-                    src="images/启信产业大脑/自定义产业链编辑01.png"
+                    src="images/optimized/qixin-custom-chain-edit01-1600.jpg"
                     alt="自定义产业链图谱编辑界面"
                     {...DETAIL_IMAGE_LAZY_PROPS}
                     className="block h-full w-full object-contain object-top"
@@ -2371,7 +2340,7 @@ export function QixinProjectDetail({ onBack }: Props) {
               <article className="h-full overflow-hidden rounded-[28px] bg-white p-4 shadow-[0_1px_2px_rgba(15,20,25,0.04)] ring-1 ring-[#E6E7EB]">
                 <div className="aspect-[16/10] overflow-hidden rounded-2xl bg-white shadow-[0_10px_24px_rgba(26,28,36,0.07)] ring-1 ring-[#E6E7EB]">
                   <img
-                    src="images/启信产业大脑/自定义产业链.png"
+                    src="images/optimized/qixin-custom-chain-list-1600.jpg"
                     alt="自定义产业链列表管理界面"
                     {...DETAIL_IMAGE_LAZY_PROPS}
                     className="block h-full w-full object-contain object-top"
@@ -2398,14 +2367,14 @@ export function QixinProjectDetail({ onBack }: Props) {
                   icon: Settings2,
                   title: "为产业节点补充企业范围",
                   desc: "每个节点既能批量导入已有企业名单，也能从平台数据中继续筛选补充。两种方式共享同一个企业池，避免手动维护两份名单的重复工作。",
-                  image: "images/启信产业大脑/自定义产业链编辑02.png",
+                  image: "images/optimized/qixin-custom-chain-edit02-1600.jpg",
                   alt: "自定义产业链添加企业菜单界面",
                 },
                 {
                   icon: Map,
                   title: "在编辑态校准节点关系",
                   desc: "调整节点关系时只高亮当前层级，让用户在复杂图谱中不会被无关信息干扰。编辑完成后恢复完整视图，所见即所得。",
-                  image: "images/启信产业大脑/自定义产业链编辑03.png",
+                  image: "images/optimized/qixin-custom-chain-edit03-1600.jpg",
                   alt: "自定义产业链节点关系编辑界面",
                 },
               ].map((item) => (
