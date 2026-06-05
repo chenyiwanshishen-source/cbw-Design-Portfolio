@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import type { CSSProperties, MouseEvent as ReactMouseEvent, PointerEvent as ReactPointerEvent, ReactNode } from "react";
+import type { CSSProperties, ImgHTMLAttributes, MouseEvent as ReactMouseEvent, PointerEvent as ReactPointerEvent, ReactNode } from "react";
 import { motion } from "motion/react";
 import {
   ArrowDown,
@@ -64,6 +64,48 @@ const DETAIL_IMAGE_EAGER_PROPS = {
   decoding: "async" as const,
   fetchPriority: "high" as const,
 };
+
+type DeferredImageProps = Omit<ImgHTMLAttributes<HTMLImageElement>, "src"> & {
+  src: string;
+  rootMargin?: string;
+};
+
+function DeferredImage({ src, rootMargin = "280px 0px", style, ...props }: DeferredImageProps) {
+  const imgRef = useRef<HTMLImageElement | null>(null);
+  const [shouldLoad, setShouldLoad] = useState(false);
+
+  useEffect(() => {
+    const img = imgRef.current;
+    if (!img || shouldLoad) return;
+    if (!("IntersectionObserver" in window)) {
+      setShouldLoad(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          setShouldLoad(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin }
+    );
+
+    observer.observe(img);
+    return () => observer.disconnect();
+  }, [rootMargin, shouldLoad]);
+
+  return (
+    <img
+      ref={imgRef}
+      src={shouldLoad ? src : undefined}
+      data-src={!shouldLoad ? src : undefined}
+      style={{ minHeight: shouldLoad ? undefined : 1, ...style }}
+      {...props}
+    />
+  );
+}
 
 const SECTIONS = [
   { id: "qx01", index: "01", label: "项目概览" },
@@ -1160,14 +1202,14 @@ export function QixinProjectDetail({ onBack }: Props) {
   const [recruitFront, setRecruitFront] = useState<"detail" | "relation">("detail");
 
   const chainSlides = [
-    { src: "images/启信产业大脑/产业洞察详情-carousel@2x.png", alt: "产业洞察详情" },
-    { src: "images/启信产业大脑/产业链图.png", alt: "产业链图" },
-    { src: "images/启信产业大脑/强链补链延链.png", alt: "强链补链延链" },
+    { src: "images/optimized/qixin-industry-detail-1600.jpg", alt: "产业洞察详情" },
+    { src: "images/optimized/qixin-chain-map-1600.jpg", alt: "产业链图" },
+    { src: "images/optimized/qixin-chain-action-1600.jpg", alt: "强链补链延链" },
   ];
 
   const recruitSlides = [
-    { id: "detail", src: "images/启信产业大脑/企业详情.png", alt: "企业详情" },
-    { id: "relation", src: "images/启信产业大脑/找关系.png", alt: "找关系" },
+    { id: "detail", src: "images/optimized/qixin-company-detail-1600.jpg", alt: "企业详情" },
+    { id: "relation", src: "images/optimized/qixin-relation-1600.jpg", alt: "找关系" },
   ] as const;
 
   const PAIN_POINTS = [
@@ -1675,7 +1717,7 @@ export function QixinProjectDetail({ onBack }: Props) {
                               cursor: isActive ? "default" : "pointer",
                             }}
                           >
-                            <img
+                            <DeferredImage
                               src={slide.src}
                               alt={slide.alt}
                               {...DETAIL_IMAGE_LAZY_PROPS}
@@ -1723,7 +1765,7 @@ export function QixinProjectDetail({ onBack }: Props) {
                               cursor: isRelation && !isFront ? "pointer" : "default",
                             }}
                           >
-                            <img
+                            <DeferredImage
                               src={slide.src}
                               alt={slide.alt}
                               {...DETAIL_IMAGE_LAZY_PROPS}
@@ -1762,7 +1804,7 @@ export function QixinProjectDetail({ onBack }: Props) {
                   title: "企业信息",
                   desc: "整合工商、风险、融资、经营动态等信息，辅助判断企业价值。",
                   tags: ["企业形象", "风险信息", "经营动态"],
-                  image: "images/启信产业大脑/工商图片.png",
+                  image: "images/optimized/qixin-business-info-1600.jpg",
                   imageAlt: "企业工商信息截图",
                   imageLabel: "企业信息截图",
                 },
@@ -1772,7 +1814,7 @@ export function QixinProjectDetail({ onBack }: Props) {
                   title: "企业监控",
                   desc: "把一次性筛选结果沉淀为可分组、可监控、可持续跟进的工作名单。",
                   tags: ["企业分组", "企业监控", "进度标注"],
-                  image: "images/启信产业大脑/企业监控.png",
+                  image: "images/optimized/qixin-monitor-1600.jpg",
                   imageAlt: "企业监控截图",
                   imageLabel: "企业分组与进度标注截图",
                 },
@@ -1782,7 +1824,7 @@ export function QixinProjectDetail({ onBack }: Props) {
                   title: "企业及产业报告中心",
                   desc: "将企业动态和产业变化转化为后续研判、监测反馈和报告输出。",
                   tags: ["企业监控", "报告中心", "AI 报告联动"],
-                  image: "images/启信产业大脑/产业报告.png",
+                  image: "images/optimized/qixin-report-center-1600.jpg",
                   imageAlt: "企业及产业报告中心截图",
                   imageLabel: "企业监控 / 报告中心 / AI 报告联动截图",
                 },
@@ -1817,7 +1859,7 @@ export function QixinProjectDetail({ onBack }: Props) {
                         data-zoom
                         data-zoom-src={item.image}
                       >
-                        <img
+                        <DeferredImage
                           src={item.image}
                           alt={item.imageAlt}
                           draggable={false}
@@ -1867,7 +1909,7 @@ export function QixinProjectDetail({ onBack }: Props) {
           </div>
           <div className="grid gap-8 lg:grid-cols-[0.94fr_1.1fr] lg:items-start xl:gap-10">
             <div className="overflow-hidden rounded-[24px] border border-[#E6E7EB] bg-[#FAFBFF]">
-              <img
+              <DeferredImage
                 src="images/optimized/qixin-entry-1920.jpg"
                 alt="启信产业大脑首页工作台截图"
                 {...DETAIL_IMAGE_LAZY_PROPS}
