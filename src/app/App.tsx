@@ -10,12 +10,18 @@ import { Footer } from "./components/Footer";
 import { Nav } from "./components/Nav";
 import { ScopeCursor } from "./components/ScopeCursor";
 import { ParticleField } from "./components/ParticleField";
+import {
+  loadAiProjectDetail,
+  loadQixinProjectDetail,
+  preloadProjectDetailAssets,
+  scheduleHomeProjectPreload,
+} from "./projectPreload";
 
 const ProjectDetail = lazy(() =>
-  import("./components/ProjectDetail").then((module) => ({ default: module.ProjectDetail }))
+  loadAiProjectDetail().then((module) => ({ default: module.ProjectDetail }))
 );
 const QixinProjectDetail = lazy(() =>
-  import("./components/QixinProjectDetail").then((module) => ({ default: module.QixinProjectDetail }))
+  loadQixinProjectDetail().then((module) => ({ default: module.QixinProjectDetail }))
 );
 
 export default function App() {
@@ -78,6 +84,26 @@ export default function App() {
 
   const isAiDetail = route === "#/project/ai-report";
   const isQixinDetail = route === "#/project/qixin-brain";
+
+  useEffect(() => {
+    if (isAiDetail || isQixinDetail) return;
+    return scheduleHomeProjectPreload();
+  }, [isAiDetail, isQixinDetail]);
+
+  useEffect(() => {
+    let cancelled = false;
+    if (isAiDetail) {
+      void preloadProjectDetailAssets("ai-report", "high").then(() => {
+        if (!cancelled) void preloadProjectDetailAssets("qixin-brain", "low");
+      });
+    } else if (isQixinDetail) {
+      void preloadProjectDetailAssets("qixin-brain", "high");
+    }
+    return () => {
+      cancelled = true;
+    };
+  }, [isAiDetail, isQixinDetail]);
+
   const detailFallback = (
     <div className="min-h-screen px-6 pt-32 text-center text-sm text-[#696D7A]">
       正在加载项目详情...
@@ -153,7 +179,7 @@ export default function App() {
         ) : (
           <>
             <Hero />
-            <Projects />
+            <Projects onProjectIntent={preloadProjectDetailAssets} />
             <Skills />
             <Experience />
             <Contact />

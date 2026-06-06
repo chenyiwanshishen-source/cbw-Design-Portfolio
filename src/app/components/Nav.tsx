@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
+import { preloadProjectDetailAssets } from "../projectPreload";
 
 const navItems = [
   { label: "AI报告生成", href: "#/project/ai-report" },
@@ -41,8 +42,17 @@ export function Nav() {
   const goRoute = (e: React.MouseEvent, href: string) => {
     e.preventDefault();
     if (!href) return;
+    preloadForHref(href);
     if (href.startsWith("#/")) {
       window.location.hash = href.slice(1);
+    }
+  };
+
+  const preloadForHref = (href: string) => {
+    if (href === "#/project/ai-report") {
+      void preloadProjectDetailAssets("ai-report", "high");
+    } else if (href === "#/project/qixin-brain") {
+      void preloadProjectDetailAssets("qixin-brain", "high");
     }
   };
 
@@ -87,6 +97,9 @@ export function Nav() {
                 key={item.label}
                 href={item.href || "#"}
                 onClick={(e) => goRoute(e, item.href)}
+                onMouseEnter={() => preloadForHref(item.href)}
+                onFocus={() => preloadForHref(item.href)}
+                onTouchStart={() => preloadForHref(item.href)}
                 className={`${navLinkBase} ${
                   isActive ? navLinkActive : navLinkInactive
                 }`}

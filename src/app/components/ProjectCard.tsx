@@ -11,6 +11,7 @@ interface ProjectCardProps {
   accent: string;
   index: number;
   href?: string;
+  onIntent?: () => void;
 }
 
 export function ProjectCard({
@@ -23,11 +24,15 @@ export function ProjectCard({
   accent,
   index,
   href,
+  onIntent,
 }: ProjectCardProps) {
   const MotionWrapper: any = href ? motion.a : motion.div;
   return (
     <MotionWrapper
       {...(href ? { href } : {})}
+      onMouseEnter={onIntent}
+      onFocus={onIntent}
+      onTouchStart={onIntent}
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}

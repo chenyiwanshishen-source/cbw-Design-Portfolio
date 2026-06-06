@@ -126,7 +126,7 @@ function FoundationRulesPreview() {
     >
       <div className="absolute left-[19.8%] top-[4%] h-[104%] w-[86.6%] overflow-hidden rounded-[16px] bg-white">
         <img
-          src="images/optimized/qixin-color-1600.jpg"
+          src="./images/optimized/qixin-color-1600.jpg"
           alt="DGG 组件库色彩 Token 命名规范局部"
           draggable={false}
           className="block h-auto w-full max-w-none select-none object-contain object-top"
@@ -137,7 +137,7 @@ function FoundationRulesPreview() {
 
       <div className="absolute left-[-4.2%] top-[48.6%] h-[55.5%] w-[77.2%] overflow-hidden rounded-[16px] bg-white shadow-[0_14px_28px_rgba(26,28,36,0.10)]">
         <img
-          src="images/optimized/qixin-text-1600.jpg"
+          src="./images/optimized/qixin-text-1600.jpg"
           alt="DGG 组件库字体、间距、圆角与阴影规范"
           draggable={false}
           className="block h-auto w-full max-w-none select-none object-contain object-top"
@@ -173,7 +173,7 @@ function KeyComponentStatesPreview() {
     >
       <div className="absolute bottom-[-8%] left-[10%] z-0 w-[106%] overflow-hidden rounded-[16px] bg-white ring-1 ring-[#E6E7EB]">
         <img
-          src="images/optimized/qixin-park-recruit-1600.jpg"
+          src="./images/optimized/qixin-park-recruit-1600.jpg"
           alt="园区招商列表页面截图"
           draggable={false}
           className="block h-auto w-full max-w-none select-none object-contain object-top"
@@ -183,7 +183,7 @@ function KeyComponentStatesPreview() {
       </div>
       <div className="absolute left-[2%] top-[16%] z-20 w-[32%] overflow-hidden rounded-[10px] bg-white shadow-[0_8px_18px_rgba(26,28,36,0.06)] ring-1 ring-[#E6E7EB]">
         <img
-          src="images/启信产业大脑/时间选择器.png"
+          src="./images/启信产业大脑/时间选择器.png"
           alt="时间选择器组件截图"
           draggable={false}
           className="block h-auto w-full max-w-none select-none object-contain object-top"
@@ -193,7 +193,7 @@ function KeyComponentStatesPreview() {
       </div>
       <div className="absolute bottom-[2%] right-[2%] z-20 w-[38%] overflow-hidden rounded-[10px] bg-white shadow-[0_10px_22px_rgba(26,28,36,0.08)] ring-1 ring-[#E6E7EB]">
         <img
-          src="images/启信产业大脑/弹窗.png"
+          src="./images/启信产业大脑/弹窗.png"
           alt="添加同级环节弹窗截图"
           draggable={false}
           className="block h-auto w-full max-w-none select-none object-contain object-top"
@@ -1160,14 +1160,14 @@ export function QixinProjectDetail({ onBack }: Props) {
   const [recruitFront, setRecruitFront] = useState<"detail" | "relation">("detail");
 
   const chainSlides = [
-    { src: "images/optimized/qixin-industry-detail-1600.jpg", alt: "产业洞察详情" },
-    { src: "images/optimized/qixin-chain-map-1600.jpg", alt: "产业链图" },
-    { src: "images/optimized/qixin-chain-action-1600.jpg", alt: "强链补链延链" },
+    { src: "./images/optimized/qixin-industry-detail-1600.jpg", alt: "产业洞察详情" },
+    { src: "./images/optimized/qixin-chain-map-1600.jpg", alt: "产业链图" },
+    { src: "./images/optimized/qixin-chain-action-1600.jpg", alt: "强链补链延链" },
   ];
 
   const recruitSlides = [
-    { id: "detail", src: "images/optimized/qixin-company-detail-1600.jpg", alt: "企业详情" },
-    { id: "relation", src: "images/optimized/qixin-relation-1600.jpg", alt: "找关系" },
+    { id: "detail", src: "./images/optimized/qixin-company-detail-1600.jpg", alt: "企业详情" },
+    { id: "relation", src: "./images/optimized/qixin-relation-1600.jpg", alt: "找关系" },
   ] as const;
 
   const PAIN_POINTS = [
@@ -1320,7 +1320,7 @@ export function QixinProjectDetail({ onBack }: Props) {
               className="max-h-[640px] overflow-hidden rounded-t-3xl relative border-t border-l border-r border-[#E6E7EB]"
             >
               <img
-                src="images/optimized/qixin-home-1920.jpg"
+                src="./images/optimized/qixin-home-1920.jpg"
                 alt="启信产业大脑首页截图"
                 {...DETAIL_IMAGE_EAGER_PROPS}
                 className="block w-full rounded-none"
@@ -1333,7 +1333,7 @@ export function QixinProjectDetail({ onBack }: Props) {
               />
             </div>
             <img
-              src="images/首页/login.png"
+              src="./images/首页/login.png"
               alt="登录页截图"
               {...DETAIL_IMAGE_LAZY_PROPS}
               className="absolute -left-12 bottom-2 z-20 w-[28%] rounded-lg border border-[#E6E7EB]"
@@ -1342,7 +1342,7 @@ export function QixinProjectDetail({ onBack }: Props) {
               }}
             />
             <img
-              src="images/首页/push group.png"
+              src="./images/首页/push group.png"
               alt="推送分组截图"
               {...DETAIL_IMAGE_LAZY_PROPS}
               className="absolute -right-12 bottom-4 z-10 w-[28%] rounded-lg border border-[#E6E7EB]"
@@ -1773,7 +1773,7 @@ export function QixinProjectDetail({ onBack }: Props) {
                   title: "企业信息",
                   desc: "整合工商、风险、融资、经营动态等信息，辅助判断企业价值。",
                   tags: ["企业形象", "风险信息", "经营动态"],
-                  image: "images/optimized/qixin-business-info-1600.jpg",
+                  image: "./images/optimized/qixin-business-info-1600.jpg",
                   imageAlt: "企业工商信息截图",
                   imageLabel: "企业信息截图",
                 },
@@ -1783,7 +1783,7 @@ export function QixinProjectDetail({ onBack }: Props) {
                   title: "企业监控",
                   desc: "把一次性筛选结果沉淀为可分组、可监控、可持续跟进的工作名单。",
                   tags: ["企业分组", "企业监控", "进度标注"],
-                  image: "images/optimized/qixin-monitor-1600.jpg",
+                  image: "./images/optimized/qixin-monitor-1600.jpg",
                   imageAlt: "企业监控截图",
                   imageLabel: "企业分组与进度标注截图",
                 },
@@ -1793,7 +1793,7 @@ export function QixinProjectDetail({ onBack }: Props) {
                   title: "企业及产业报告中心",
                   desc: "将企业动态和产业变化转化为后续研判、监测反馈和报告输出。",
                   tags: ["企业监控", "报告中心", "AI 报告联动"],
-                  image: "images/optimized/qixin-report-center-1600.jpg",
+                  image: "./images/optimized/qixin-report-center-1600.jpg",
                   imageAlt: "企业及产业报告中心截图",
                   imageLabel: "企业监控 / 报告中心 / AI 报告联动截图",
                 },
@@ -1879,7 +1879,7 @@ export function QixinProjectDetail({ onBack }: Props) {
           <div className="grid gap-8 lg:grid-cols-[0.94fr_1.1fr] lg:items-start xl:gap-10">
             <div className="overflow-hidden rounded-[24px] border border-[#E6E7EB] bg-[#FAFBFF]">
               <img
-                src="images/optimized/qixin-entry-1600.jpg"
+                src="./images/optimized/qixin-entry-1600.jpg"
                 alt="启信产业大脑首页工作台截图"
                 {...DETAIL_IMAGE_LAZY_PROPS}
                 className="block h-auto w-full object-contain object-top"
@@ -1940,13 +1940,13 @@ export function QixinProjectDetail({ onBack }: Props) {
                           <div className="absolute left-[29%] right-[29%] top-[58%] h-px bg-[linear-gradient(90deg,rgba(168,190,255,0),rgba(168,190,255,0.55),rgba(168,190,255,0))]" />
                           <div className="absolute left-[49%] top-[calc(58%-3px)] size-1.5 rounded-full bg-[#A8BEFF]/70" />
                           <img
-                            src="images/启信产业大脑/企业报告.svg"
+                            src="./images/启信产业大脑/企业报告.svg"
                             alt="企业报告封面"
                             {...DETAIL_IMAGE_LAZY_PROPS}
                             className="absolute left-[28%] top-[31%] h-[74%] -translate-x-1/2 object-contain"
                           />
                           <img
-                            src="images/启信产业大脑/产业报告.svg"
+                            src="./images/启信产业大脑/产业报告.svg"
                             alt="产业报告封面"
                             {...DETAIL_IMAGE_LAZY_PROPS}
                             className="absolute left-[72%] top-[31%] h-[74%] -translate-x-1/2 object-contain"
@@ -1983,7 +1983,7 @@ export function QixinProjectDetail({ onBack }: Props) {
                             <div className="absolute left-[54%] top-[55%] h-1.5 w-5 rounded-full bg-[#F5F5F7]" />
                           </div>
                           <img
-                            src="images/启信产业大脑/舆情速递.png"
+                            src="./images/启信产业大脑/舆情速递.png"
                             alt="舆情速递"
                             {...DETAIL_IMAGE_LAZY_PROPS}
                             className="absolute left-1/2 top-[24%] z-10 block h-auto w-[94%] max-w-none -translate-x-1/2 rounded-[12px] border border-[#E6E7EB] object-contain object-top"
@@ -2048,7 +2048,7 @@ export function QixinProjectDetail({ onBack }: Props) {
                               }}
                             >
                               <img
-                                src="images/启信产业大脑/异动预警.png"
+                                src="./images/启信产业大脑/异动预警.png"
                                 alt="异动预警"
                                 {...DETAIL_IMAGE_LAZY_PROPS}
                                 className="block h-auto w-full object-contain object-top"
@@ -2062,7 +2062,7 @@ export function QixinProjectDetail({ onBack }: Props) {
                               }}
                             >
                               <img
-                                src="images/启信产业大脑/企业监控入口.png"
+                                src="./images/启信产业大脑/企业监控入口.png"
                                 alt="企业监控入口"
                                 {...DETAIL_IMAGE_LAZY_PROPS}
                                 className="block h-auto w-full object-contain object-top"
@@ -2084,7 +2084,7 @@ export function QixinProjectDetail({ onBack }: Props) {
                             }}
                           >
                             <img
-                              src="images/启信产业大脑/产业信息.png"
+                              src="./images/启信产业大脑/产业信息.png"
                               alt="产业信息"
                               {...DETAIL_IMAGE_LAZY_PROPS}
                               className="block h-auto w-full object-contain object-top"
@@ -2125,7 +2125,7 @@ export function QixinProjectDetail({ onBack }: Props) {
                             }}
                           >
                             <img
-                              src="images/启信产业大脑/常用功能.png"
+                              src="./images/启信产业大脑/常用功能.png"
                               alt="常用功能"
                               {...DETAIL_IMAGE_LAZY_PROPS}
                               className="block h-auto w-full object-contain object-top"
@@ -2180,7 +2180,7 @@ export function QixinProjectDetail({ onBack }: Props) {
           <div className="grid grid-cols-1 gap-5 min-[1280px]:mx-auto min-[1280px]:w-[1152px] min-[1280px]:grid-cols-[512px_620px] min-[1280px]:items-stretch min-[1440px]:w-[1248px] min-[1440px]:grid-cols-[560px_668px] min-[1536px]:w-[1280px] min-[1536px]:grid-cols-[576px_684px] min-[1680px]:w-[1424px] min-[1680px]:grid-cols-[640px_764px] min-[1904px]:w-[1648px] min-[1904px]:grid-cols-[768px_860px] min-[1936px]:w-[1680px] min-[1936px]:grid-cols-[784px_876px]">
             <div className="relative overflow-hidden rounded-[28px] bg-white p-4 shadow-[0_1px_2px_rgba(15,20,25,0.04)] ring-1 ring-[#E6E7EB]">
               <img
-                src="images/optimized/qixin-search-1600.jpg"
+                src="./images/optimized/qixin-search-1600.jpg"
                 alt="高级搜索筛选企业截图"
                 {...DETAIL_IMAGE_LAZY_PROPS}
                 className="block h-auto w-full rounded-2xl object-contain object-top ring-1 ring-[#E6E7EB]"
@@ -2230,7 +2230,7 @@ export function QixinProjectDetail({ onBack }: Props) {
                   eyebrow: "扩展关系",
                   title: "从企业扩展上下游关系",
                   desc: "围绕供应商、客户和产业链关系，帮助用户从单个企业继续发现招商线索。",
-                  image: "images/optimized/qixin-supply-chain-1600.jpg",
+                  image: "./images/optimized/qixin-supply-chain-1600.jpg",
                   alt: "供应链招商企业列表截图",
                   tags: ["供应商", "客户数", "产业筛选"],
                 },
@@ -2240,7 +2240,7 @@ export function QixinProjectDetail({ onBack }: Props) {
                   eyebrow: "批量分析",
                   title: "把外部名单转成分析资产",
                   desc: "支持上传企业名单并选择指标，批量补全企业信息，为监控、分析和报告生成提供结构化输入。",
-                  image: "images/optimized/qixin-batch-query-1600.jpg",
+                  image: "./images/optimized/qixin-batch-query-1600.jpg",
                   alt: "批量查询选择指标截图",
                   tags: ["名单上传", "指标选择", "信息补全"],
                 },
@@ -2315,7 +2315,7 @@ export function QixinProjectDetail({ onBack }: Props) {
               <article className="h-full overflow-hidden rounded-[28px] bg-white p-4 shadow-[0_1px_2px_rgba(15,20,25,0.04)] ring-1 ring-[#E6E7EB]">
                 <div className="aspect-[16/10] overflow-hidden rounded-2xl bg-white shadow-[0_10px_24px_rgba(26,28,36,0.07)] ring-1 ring-[#E6E7EB]">
                   <img
-                    src="images/optimized/qixin-custom-chain-edit01-1600.jpg"
+                    src="./images/optimized/qixin-custom-chain-edit01-1600.jpg"
                     alt="自定义产业链图谱编辑界面"
                     {...DETAIL_IMAGE_LAZY_PROPS}
                     className="block h-full w-full object-contain object-top"
@@ -2340,7 +2340,7 @@ export function QixinProjectDetail({ onBack }: Props) {
               <article className="h-full overflow-hidden rounded-[28px] bg-white p-4 shadow-[0_1px_2px_rgba(15,20,25,0.04)] ring-1 ring-[#E6E7EB]">
                 <div className="aspect-[16/10] overflow-hidden rounded-2xl bg-white shadow-[0_10px_24px_rgba(26,28,36,0.07)] ring-1 ring-[#E6E7EB]">
                   <img
-                    src="images/optimized/qixin-custom-chain-list-1600.jpg"
+                    src="./images/optimized/qixin-custom-chain-list-1600.jpg"
                     alt="自定义产业链列表管理界面"
                     {...DETAIL_IMAGE_LAZY_PROPS}
                     className="block h-full w-full object-contain object-top"
@@ -2367,14 +2367,14 @@ export function QixinProjectDetail({ onBack }: Props) {
                   icon: Settings2,
                   title: "为产业节点补充企业范围",
                   desc: "每个节点既能批量导入已有企业名单，也能从平台数据中继续筛选补充。两种方式共享同一个企业池，避免手动维护两份名单的重复工作。",
-                  image: "images/optimized/qixin-custom-chain-edit02-1600.jpg",
+                  image: "./images/optimized/qixin-custom-chain-edit02-1600.jpg",
                   alt: "自定义产业链添加企业菜单界面",
                 },
                 {
                   icon: Map,
                   title: "在编辑态校准节点关系",
                   desc: "调整节点关系时只高亮当前层级，让用户在复杂图谱中不会被无关信息干扰。编辑完成后恢复完整视图，所见即所得。",
-                  image: "images/optimized/qixin-custom-chain-edit03-1600.jpg",
+                  image: "./images/optimized/qixin-custom-chain-edit03-1600.jpg",
                   alt: "自定义产业链节点关系编辑界面",
                 },
               ].map((item) => (

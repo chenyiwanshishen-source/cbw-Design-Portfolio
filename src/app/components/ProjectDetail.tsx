@@ -183,7 +183,7 @@ function AgentWorkflowDiagram() {
         />
         <div className="relative overflow-x-auto">
           <img
-            src="images/章节提示词/line-01.svg"
+            src="./images/章节提示词/line-01.svg"
             alt="Agent 报告生成工作流"
             {...DETAIL_IMAGE_LAZY_PROPS}
             className="mx-auto block h-auto w-[950px] max-w-none"
@@ -235,8 +235,8 @@ export function ProjectDetail({ onBack }: Props) {
   const sideNavRef = useRef(false);
 
   const heroToggleImages = [
-    "images/ai-report-hero-toggle-01.png",
-    "images/ai-report-hero-toggle-02.png",
+    "./images/ai-report-hero-toggle-01.png",
+    "./images/ai-report-hero-toggle-02.png",
   ];
   const heroToggleCaptions = [
     "学习文档风格，生成一致表达",
@@ -302,30 +302,30 @@ export function ProjectDetail({ onBack }: Props) {
       tagline: "明确报告场景",
       icon: FileText,
       placeholder: "模板中心页面",
-      image: "images/ai-report-flow/step-01-blank-canvas.png",
-      sidebar: "images/ai-report-flow/step-01-sidebar.png",
-      finalImage: "images/ai-report-flow/step-01-final-template-center.png",
+      image: "./images/ai-report-flow/step-01-blank-canvas.png",
+      sidebar: "./images/ai-report-flow/step-01-sidebar.png",
+      finalImage: "./images/ai-report-flow/step-01-final-template-center.png",
       templateCards: [
         {
-          src: "images/ai-report-flow/step-01-template-region.png",
+          src: "./images/ai-report-flow/step-01-template-region.png",
           label: "区域监测报告",
           className: "left-[19%] top-[17%] w-[19.5%]",
           from: { x: -80, y: 60 },
         },
         {
-          src: "images/ai-report-flow/step-01-template-opinion.png",
+          src: "./images/ai-report-flow/step-01-template-opinion.png",
           label: "地区舆情分析报告",
           className: "left-[41.5%] top-[17%] w-[19.5%]",
           from: { x: 0, y: 80 },
         },
         {
-          src: "images/ai-report-flow/step-01-template-chain.png",
+          src: "./images/ai-report-flow/step-01-template-chain.png",
           label: "产业链区域画像",
           className: "left-[86.5%] top-[17%] w-[19.5%]",
           from: { x: 90, y: 70 },
         },
         {
-          src: "images/ai-report-flow/step-01-template-futian.png",
+          src: "./images/ai-report-flow/step-01-template-futian.png",
           label: "福田监测",
           className: "left-[64%] top-[17%] w-[19.5%]",
           from: { x: 130, y: -36 },
@@ -341,8 +341,8 @@ export function ProjectDetail({ onBack }: Props) {
       tagline: "先定结构",
       icon: GitBranch,
       placeholder: "章节大纲生成页面",
-      image: "images/ai-report-flow/step-01-blank-canvas.png",
-      finalImage: "images/ai-report-flow/step-02-final-outline.png",
+      image: "./images/ai-report-flow/step-01-blank-canvas.png",
+      finalImage: "./images/ai-report-flow/step-02-final-outline.png",
       compactCanvas: true,
       decision: "系统先生成章节大纲，再进入正文生成。",
       why: "把控制点前置，避免用户等到全文生成后才发现结构不对。",
@@ -352,7 +352,7 @@ export function ProjectDetail({ onBack }: Props) {
       tagline: "确认方向",
       icon: CheckCircle2,
       placeholder: "大纲确认页面",
-      image: "images/optimized/ai-outline-confirm-900.png",
+      image: "./images/optimized/ai-outline-confirm-900.png",
       scrollContent: true,
       decision: "用户可配置报告标题、监测范围、产业、维度，确认后进入生成。",
       why: "把复杂配置拆成可理解的操作，让用户在生成前控制输入边界。",
@@ -507,7 +507,7 @@ export function ProjectDetail({ onBack }: Props) {
             className="relative z-10 mx-auto mt-9 max-w-[1060px] overflow-visible rounded-[32px]"
           >
             <img
-              src="images/ai-report-hero-full.png"
+              src="./images/ai-report-hero-full.png"
               alt="AI 报告生成产品完整界面"
               {...DETAIL_IMAGE_EAGER_PROPS}
               className="block h-auto w-full rounded-[32px] border border-white/80 object-contain shadow-[0_30px_90px_rgba(15,20,25,0.14)]"
@@ -516,7 +516,7 @@ export function ProjectDetail({ onBack }: Props) {
             {/* Decorative placeholder thumbnails around hero */}
             <div className="absolute top-[10%] -left-[18%] z-10 w-[20%] max-w-[190px]">
               <img
-                src="images/ai-repor- left-01.png"
+                src="./images/ai-repor- left-01.png"
                 alt="模板中心截图"
                 {...DETAIL_IMAGE_LAZY_PROPS}
                 className="w-full overflow-hidden rounded-xl shadow-[0_8px_24px_rgba(15,20,25,0.12)]"
@@ -526,7 +526,7 @@ export function ProjectDetail({ onBack }: Props) {
 
             <div className="absolute top-[8%] -right-[14%] z-10 w-[18%] max-w-[170px]">
               <img
-                src="images/ai- report-right-01.png"
+                src="./images/ai- report-right-01.png"
                 alt="监测维度配置截图"
                 {...DETAIL_IMAGE_LAZY_PROPS}
                 className="w-full overflow-hidden rounded-xl shadow-[0_8px_24px_rgba(15,20,25,0.12)]"
@@ -817,7 +817,7 @@ export function ProjectDetail({ onBack }: Props) {
                         transition={{ duration: 0.62, ease: [0.22, 1, 0.36, 1] }}
                       >
                         <img
-                          src="images/05/lishijilupng.png"
+                          src="./images/05/lishijilupng.png"
                           alt="历史文档页面"
                           {...DETAIL_IMAGE_LAZY_PROPS}
                           className="absolute inset-0 h-full w-full object-contain object-top"
@@ -838,7 +838,7 @@ export function ProjectDetail({ onBack }: Props) {
                         transition={{ duration: isFromStreamingToHistory ? 0.42 : 0.72, ease: [0.22, 1, 0.36, 1] }}
                       >
                         <motion.img
-                          src="images/04/kongbaihuabu.png"
+                          src="./images/04/kongbaihuabu.png"
                           alt="流式生成空白画布"
                           {...DETAIL_IMAGE_LAZY_PROPS}
                           className="absolute inset-0 h-full w-full object-contain object-top"
@@ -850,7 +850,7 @@ export function ProjectDetail({ onBack }: Props) {
                           transition={{ duration: 0.26, ease: [0.22, 1, 0.36, 1] }}
                         />
                         <motion.img
-                          src="images/04/liushihuaban.png"
+                          src="./images/04/liushihuaban.png"
                           alt="流式生成报告空白面板"
                           {...DETAIL_IMAGE_LAZY_PROPS}
                           className="absolute right-0 top-0 z-20 h-full w-[60.7%] object-contain object-top"
@@ -864,7 +864,7 @@ export function ProjectDetail({ onBack }: Props) {
                           transition={{ duration: 0.82, delay: 0.48, ease: [0.22, 1, 0.36, 1] }}
                         />
                         <motion.img
-                          src="images/optimized/ai-stream-text-1400.jpg"
+                          src="./images/optimized/ai-stream-text-1400.jpg"
                           alt="流式生成报告正文"
                           {...DETAIL_IMAGE_LAZY_PROPS}
                           className="absolute right-0 top-[5.6%] z-30 h-[88.9%] w-[60.7%] object-contain object-top"
@@ -1275,14 +1275,14 @@ export function ProjectDetail({ onBack }: Props) {
                       transition={{ type: "spring", stiffness: 210, damping: 24, mass: 0.9 }}
                     >
                       <img
-                        src="images/ai-report-flow/step-02-final-outline.png"
+                        src="./images/ai-report-flow/step-02-final-outline.png"
                         alt="章节大纲空白画布"
                         {...DETAIL_IMAGE_LAZY_PROPS}
                         className="absolute inset-0 h-full w-full object-contain object-top"
                       />
                       <div className="absolute left-[19.2%] top-[9.8%] h-[88.5%] w-[72.2%] overflow-hidden">
                         <motion.img
-                          src="images/optimized/ai-outline-confirm-900.png"
+                          src="./images/optimized/ai-outline-confirm-900.png"
                           alt="章节大纲确认长图"
                           {...DETAIL_IMAGE_LAZY_PROPS}
                           className="block w-full max-w-none"
@@ -1385,7 +1385,7 @@ export function ProjectDetail({ onBack }: Props) {
                   "不只是使用系统默认数据，而是支持用户引入外链知识和本地知识库，补充报告生成所需的输入依据，并在后续查看章节引用来源。",
                 points: ["系统数据", "外链知识", "本地知识库", "来源追溯"],
                 visual: "知识库页面大图",
-                image: "images/optimized/ai-data01-1600.jpg",
+                image: "./images/optimized/ai-data01-1600.jpg",
               },
               {
                 icon: Users,
@@ -1394,8 +1394,8 @@ export function ProjectDetail({ onBack }: Props) {
                   "用户在产业分析平台中沉淀的企业监控和企业分组，可以通过同一账户权限关联到报告生成流程，减少重复选择和重复维护。",
                 points: ["企业监控", "企业分组", "账户权限", "跨系统关联"],
                 visual: "跨系统联动关系图",
-                image: "images/optimized/ai-group02-1600.jpg",
-                overlayImage: "images/optimized/ai-group01-1600.jpg",
+                image: "./images/optimized/ai-group02-1600.jpg",
+                overlayImage: "./images/optimized/ai-group01-1600.jpg",
               },
               {
                 icon: GitBranch,
@@ -1404,8 +1404,8 @@ export function ProjectDetail({ onBack }: Props) {
                   "系统先根据用户输入匹配相似章节，用户修改或新增章节时再匹配内置章节，让高频报告结构更稳定，也便于复用历史经验。",
                 points: ["用户输入匹配", "编辑新增匹配", "内置章节复用"],
                 visual: "章节匹配逻辑截图",
-                image: "images/optimized/ai-marry01-1600.jpg",
-                overlayImage: "images/设计方案/marry02.png",
+                image: "./images/optimized/ai-marry01-1600.jpg",
+                overlayImage: "./images/设计方案/marry02.png",
                 overlayRaw: true,
               },
             ];

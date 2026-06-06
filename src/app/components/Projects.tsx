@@ -1,6 +1,12 @@
 import { ProjectCard } from "./ProjectCard";
 
-export function Projects() {
+type ProjectPreloadKey = "ai-report" | "qixin-brain";
+
+interface ProjectsProps {
+  onProjectIntent?: (project: ProjectPreloadKey, priority?: "high" | "low") => void;
+}
+
+export function Projects({ onProjectIntent }: ProjectsProps) {
   const projects = [
     {
       number: "01",
@@ -18,6 +24,7 @@ export function Projects() {
       tags: ["AI 智能体", "提示词体系", "生成式体验", "多源数据"],
       accent: "from-[#0D800D] to-[#64BC64]",
       href: "#/project/ai-report",
+      preloadKey: "ai-report" as const,
     },
     {
       number: "02",
@@ -35,6 +42,7 @@ export function Projects() {
       tags: ["B 端设计", "数据可视化", "政务服务", "产业分析"],
       accent: "from-[#2258F4] to-[#618AFF]",
       href: "#/project/qixin-brain",
+      preloadKey: "qixin-brain" as const,
     },
   ];
 
@@ -53,7 +61,12 @@ export function Projects() {
 
         <div className={`grid grid-cols-1 items-start gap-6 md:grid-cols-2 ${projectGridColumns}`}>
           {projects.map((p, i) => (
-            <ProjectCard key={p.number} {...p} index={i} />
+            <ProjectCard
+              key={p.number}
+              {...p}
+              index={i}
+              onIntent={p.preloadKey ? () => onProjectIntent?.(p.preloadKey, "high") : undefined}
+            />
           ))}
         </div>
       </div>
