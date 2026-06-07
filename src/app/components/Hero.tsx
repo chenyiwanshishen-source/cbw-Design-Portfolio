@@ -27,7 +27,7 @@ export function Hero() {
             {" · "}
           </span>
           <span className="text-[#2258F4]">
-            产品设计师
+            UI产品设计师
           </span>
         </motion.h1>
 

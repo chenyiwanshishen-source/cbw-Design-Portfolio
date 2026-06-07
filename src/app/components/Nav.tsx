@@ -75,7 +75,7 @@ export function Nav() {
             陈
           </span>
           <span className="text-sm tracking-wide text-[#4E525E] group-hover:text-[#1A1C24] transition-colors">
-            陈俊学 · 产品设计师
+            陈俊学 · UI产品设计师
           </span>
         </a>
 
