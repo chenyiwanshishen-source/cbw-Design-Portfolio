@@ -2438,6 +2438,30 @@ export function ProjectDetail({ onBack }: Props) {
               </div>
             </div>
           </Reveal>
+
+          <Reveal className="mt-6" delay={0.2} y={18}>
+            <a
+              href="./report-agent-page.html"
+              target="_blank"
+              rel="noreferrer"
+              className="group flex flex-col gap-3 rounded-[18px] border border-[#A8BEFF] bg-[#EEF2FF] px-5 py-4 text-left transition-all duration-300 hover:border-[#85A3FF] hover:bg-[#E5EBFF] hover:shadow-[0_12px_32px_rgba(34,88,244,0.12)] sm:flex-row sm:items-center sm:justify-between md:px-6"
+            >
+              <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:gap-5">
+                <span className="text-[18px] font-semibold leading-tight text-[#1A1C24]">
+                  最终成果
+                </span>
+                <span className="text-[13px] leading-[1.6] text-[#4E525E]">
+                  报告智能体 10+1 模块配置框架
+                </span>
+              </div>
+              <span
+                className="inline-flex size-9 shrink-0 items-center justify-center rounded-full bg-white text-[#1A42B8] transition-all duration-300 group-hover:translate-x-1.5 group-hover:bg-[#2258F4] group-hover:text-white"
+                aria-hidden="true"
+              >
+                <ArrowRight className="size-4" />
+              </span>
+            </a>
+          </Reveal>
         </div>
       </section>
 

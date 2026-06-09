@@ -1400,10 +1400,10 @@ export function QixinProjectDetail({ onBack }: Props) {
           <Reveal>
           <div className="text-center">
             <h2 className="tracking-tight text-[#1A1C24] leading-[1.12]" style={{ fontSize: "clamp(28px, 3.5vw, 48px)", fontWeight: 700 }}>
-              从单一查询工具到多场景数据平台
+              多场景企业数据工作台设计
             </h2>
             <p className="mt-4 text-[#696D7A] max-w-[1080px] mx-auto" style={T.bodyMuted}>
-              政府招商、产业服务、企业服务、金融服务、区域治理——启信产业大脑同时面对五类场景，每类场景的核心设计命题不是数据量的堆叠，而是让用户按自己的任务逻辑连续完成工作。以下以招商场景为典型，拆解从发现企业到持续跟进的全链路体验设计。
+              覆盖招商、产业服务、企业服务、金融服务和区域治理五类场景，把企业查询、对象筛选、价值评估、任务跟进和报告输出串成一套工作流程
             </p>
           </div>
         </Reveal>
@@ -1465,42 +1465,42 @@ export function QixinProjectDetail({ onBack }: Props) {
                 {[
                   {
                     stage: "理解产业",
-                    task: "看清产业结构与重点方向",
-                    friction: "产业数据分散，口径不统一",
-                    opportunity: "用产业链建立统一观察入口",
-                    support: "产业洞察 / 自定义产业链",
+                    task: "看清产业结构和重点方向",
+                    problem: "产业数据分散，口径不统一",
+                    opportunity: "用产业链视图统一展示产业结构，提供默认观察入口",
+                    feature: "产业洞察 / 自定义产业链",
                     scene: "产业规划 / 区域治理",
                   },
                   {
                     stage: "识别对象",
-                    task: "找到企业、服务或风险对象",
-                    friction: "对象数量多，筛选维度复杂",
-                    opportunity: "用筛选、标签和关系图谱定位对象",
-                    support: "精准招商 / 企业检索 / 关系图谱",
+                    task: "找到目标企业、服务对象或风险对象",
+                    problem: "企业数量多，筛选条件复杂",
+                    opportunity: "用筛选、标签和关系图谱帮助用户快速定位对象",
+                    feature: "精准招商 / 企业搜索 / 关系图谱",
                     scene: "招商 / 企业服务 / 金融辅助",
                   },
                   {
                     stage: "判断价值",
-                    task: "判断价值、风险与优先级",
-                    friction: "信息分散，判断依据不完整",
-                    opportunity: "用企业画像整合多维判断依据",
-                    support: "企业画像 / 风险信息 / 经营动态",
+                    task: "判断企业价值、风险和优先级",
+                    problem: "信息分散、判断依据不完整",
+                    opportunity: "将企业信息、风险信息和经营动态整合到同一页面",
+                    feature: "企业画像 / 风险信息 / 经营动态",
                     scene: "招商 / 金融辅助 / 企业服务",
                   },
                   {
                     stage: "沉淀任务",
-                    task: "形成可管理的工作名单",
-                    friction: "线索散落在表格和记录中",
-                    opportunity: "用分组、状态和进度承接任务",
-                    support: "企业分组 / 企业监控 / 进度标注",
+                    task: "把线索变成可管理的工作名单",
+                    problem: "线索散落在表格和记录中，后续跟进困难",
+                    opportunity: "通过分组、状态和标签承接企业线索，方便持续跟进",
+                    feature: "企业分组 / 企业监控 / 指示灯标签",
                     scene: "招商 / 企业服务",
                   },
                   {
                     stage: "持续监测",
-                    task: "跟踪动态、变化和任务进展",
-                    friction: "后续变化难持续感知",
-                    opportunity: "用监控、提醒和报告形成反馈",
-                    support: "企业监控 / 报告中心 / AI 报告联动",
+                    task: "跟踪企业动态、变化和任务进展",
+                    problem: "后续变化难以及时感知，反馈链路不完整",
+                    opportunity: "用监控、提醒和报告，把变化转化为可查看的反馈",
+                    feature: "企业监控 / 报告中心 / AI 报告联动",
                     scene: "区域治理 / 企业服务 / 招商",
                   },
                 ].map((item, i) => (
@@ -1513,11 +1513,11 @@ export function QixinProjectDetail({ onBack }: Props) {
                         <div className="text-[15px] font-semibold text-[#1A1C24]">{item.stage}</div>
                       </div>
                       <div className="grid gap-2 text-[13px] leading-[1.6]">
-                        <p className="text-[#696D7A]"><span className="font-medium text-[#1A1C24]">用户任务：</span>{item.task}</p>
-                        <p className="text-[#696D7A]"><span className="font-medium text-[#1A1C24]">核心阻力：</span>{item.friction}</p>
+                        <p className="text-[#696D7A]"><span className="font-medium text-[#1A1C24]">用户要做什么：</span>{item.task}</p>
+                        <p className="text-[#696D7A]"><span className="font-medium text-[#1A1C24]">遇到的问题：</span>{item.problem}</p>
                         <p className="text-[#1A42B8]"><span className="font-medium">设计机会：</span>{item.opportunity}</p>
-                        <p className="text-[#696D7A]"><span className="font-medium text-[#1A1C24]">产品承接：</span>{item.support}</p>
-                        <p className="text-[#696D7A]"><span className="font-medium text-[#1A1C24]">适用场景：</span>{item.scene}</p>
+                        <p className="text-[#696D7A]"><span className="font-medium text-[#1A1C24]">对应功能：</span>{item.feature}</p>
+                        <p className="text-[#696D7A]"><span className="font-medium text-[#1A1C24]">覆盖场景：</span>{item.scene}</p>
                       </div>
                     </div>
                   </Reveal>
@@ -1528,45 +1528,50 @@ export function QixinProjectDetail({ onBack }: Props) {
                 <div className="overflow-x-auto rounded-2xl border border-[#E6E7EB] bg-white">
                   <div className="grid min-w-[1600px] grid-cols-[120px_repeat(5,minmax(0,1fr))] overflow-hidden">
                     <div className="border-b border-r border-[#E6E7EB] bg-[#FAFBFF] py-4 pl-5">
-                      <span className="text-xs font-semibold text-[#B3B6BF]">阶段</span>
+                      <span className="text-[13px] font-semibold text-[#B3B6BF]">阶段</span>
                     </div>
-                    {["理解产业", "识别对象", "判断价值", "沉淀任务", "持续监测"].map((stage) => (
-                      <div key={stage} className="border-b border-r border-[#E6E7EB]/40 bg-[#FAFBFF] px-4 py-4 text-center last:border-r-0">
-                        <div className="text-sm font-semibold text-[#1A1C24]">{stage}</div>
+                    {["理解产业", "识别对象", "判断价值", "沉淀任务", "持续监测"].map((stage, index) => (
+                      <div
+                        key={stage}
+                        className={`border-b border-[#E6E7EB] bg-[#FAFBFF] px-4 py-4 text-center ${
+                          index < 4 ? "border-r border-r-[#E6E7EB]/40" : ""
+                        }`}
+                      >
+                        <div className="text-[13px] font-semibold text-[#1A1C24]">{stage}</div>
                       </div>
                     ))}
 
                     {[
                       {
-                        label: "用户任务",
+                        label: "用户要做什么",
                         labelClass: "bg-[#FAFBFF] text-[#696D7A]",
                         cellClass: "text-[#696D7A]",
                         rowClass: "",
-                        cells: ["看清产业结构与重点方向", "找到企业、服务或风险对象", "判断价值、风险与优先级", "形成可管理的工作名单", "跟踪动态、变化和任务进展"],
+                        cells: ["看清产业结构和重点方向", "找到目标企业、服务对象或风险对象", "判断企业价值、风险和优先级", "把线索变成可管理的工作名单", "跟踪企业动态、变化和任务进展"],
                       },
                       {
-                        label: "核心阻力",
+                        label: "遇到的问题",
                         labelClass: "bg-[#FAFBFF] text-[#696D7A]",
                         cellClass: "text-[#696D7A]",
                         rowClass: "",
-                        cells: ["产业数据分散，口径不统一", "对象数量多，筛选维度复杂", "信息分散，判断依据不完整", "线索散落在表格和记录中", "后续变化难持续感知"],
+                        cells: ["产业数据分散，口径不统一", "企业数量多，筛选条件复杂", "信息分散，判断依据不完整", "线索散落在表格和记录中，后续跟进困难", "后续变化难以及时感知，反馈链路不完整"],
                       },
                       {
                         label: "设计机会",
                         labelClass: "bg-[#E5EBFF] text-[#1A42B8]",
                         cellClass: "font-medium text-[#1A42B8]",
                         rowClass: "bg-[#EEF2FF]/50",
-                        cells: ["用产业链建立统一观察入口", "用筛选、标签和关系图谱定位对象", "用企业画像整合多维判断依据", "用分组、状态和进度承接任务", "用监控、提醒和报告形成反馈"],
+                        cells: ["用产业链视图统一展示产业结构，提供默认观察入口", "用筛选、标签和关系图谱帮助用户快速定位对象", "将企业信息、风险信息和经营动态整合到同一页面", "通过分组、状态和标签承接企业线索，方便持续跟进", "用监控、提醒和报告，把变化转化为可查看的反馈"],
                       },
                       {
-                        label: "产品承接",
+                        label: "对应功能",
                         labelClass: "bg-[#FAFBFF] text-[#696D7A]",
                         cellClass: "text-[#696D7A]",
                         rowClass: "",
-                        cells: ["产业洞察 / 自定义产业链", "精准招商 / 企业检索 / 关系图谱", "企业画像 / 风险信息 / 经营动态", "企业分组 / 企业监控 / 进度标注", "企业监控 / 报告中心 / AI 报告联动"],
+                        cells: ["产业洞察 / 自定义产业链", "精准招商 / 企业搜索 / 关系图谱", "企业画像 / 风险信息 / 经营动态", "企业分组 / 企业监控 / 指示灯标签", "企业监控 / 报告中心 / AI 报告联动"],
                       },
                       {
-                        label: "适用场景",
+                        label: "覆盖场景",
                         labelClass: "bg-[#FAFBFF] text-[#696D7A]",
                         cellClass: "text-[#696D7A]",
                         rowClass: "",
@@ -1575,12 +1580,14 @@ export function QixinProjectDetail({ onBack }: Props) {
                     ].map((row, rowIndex, rows) => (
                       <div key={row.label} className="contents">
                         <div className={`flex items-center border-r border-[#E6E7EB] px-5 py-4 ${rowIndex < rows.length - 1 ? "border-b" : ""} ${row.labelClass}`}>
-                          <span className="text-xs font-semibold">{row.label}</span>
+                          <span className="text-[13px] font-semibold">{row.label}</span>
                         </div>
                         {row.cells.map((cell, cellIndex) => (
                           <div
                             key={`${row.label}-${cell}`}
-                            className={`flex items-center border-r border-[#E6E7EB]/40 px-4 py-4 ${cellIndex === row.cells.length - 1 ? "border-r-0" : ""} ${rowIndex < rows.length - 1 ? "border-b" : ""} ${row.rowClass}`}
+                            className={`flex items-center border-r border-[#E6E7EB]/40 px-4 py-4 ${
+                              cellIndex === row.cells.length - 1 ? "border-r-0" : ""
+                            } ${rowIndex < rows.length - 1 ? "border-b border-[#E6E7EB]" : ""} ${row.rowClass}`}
                           >
                             <p className={`text-[13px] leading-relaxed ${row.cellClass}`}>{cell}</p>
                           </div>
@@ -1602,17 +1609,17 @@ export function QixinProjectDetail({ onBack }: Props) {
                 {
                   n: "01",
                   stage: "理解产业",
-                  title: "产业链概况",
-                  desc: "通过产业洞察和产业链视图，帮助用户看清区域产业结构、优势环节和重点企业分布。",
-                  tags: ["产业洞察", "默认产业链", "自定义产业链"],
+                  title: "产业结构总览",
+                  problem: "数据分散，用户难以快速看清产业结构。",
+                  decision: "将产业链和重点企业整合到同一视图，建立全局认知。",
                   imageLabel: "产业洞察详情 / 产业链图 / 强链补链延链",
                 },
                 {
                   n: "02",
                   stage: "识别对象",
-                  title: "精准招商",
-                  desc: "通过企业检索、筛选条件和关系图谱，从产业链中定位目标企业、服务对象或风险对象。",
-                  tags: ["精准招商", "企业检索", "关系图谱"],
+                  title: "目标对象筛选",
+                  problem: "企业多、条件复杂，查找效率低。",
+                  decision: "用多维筛选和关系图谱快速定位目标企业。",
                   imageLabel: "精准招商 / 企业检索 / 关系图谱截图",
                 },
               ].map((item) => (
@@ -1624,14 +1631,14 @@ export function QixinProjectDetail({ onBack }: Props) {
                   style={item.n === "01" || item.n === "02" ? { background: SCREEN_CARD_BG } : undefined}
                 >
                   <h4 className="text-[24px] font-medium leading-[28px] text-[#1A1C24]">{item.title}</h4>
-                  <p className="mb-4 mt-3 text-[16px] font-normal leading-[24px] text-[#696D7A]">{item.desc}</p>
-                  <div className="mb-4 flex flex-wrap gap-2">
-                    {item.tags.map((tag) => (
-                      <span key={tag} className="rounded-md bg-[#EEF2FF] px-2 py-1 text-[12px] font-normal leading-[14px] text-[#1A42B8]">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
+                  <p className="mt-3 text-[15px] font-normal leading-[22px] text-[#696D7A]">
+                    <span className="font-medium text-[#1A1C24]">问题：</span>
+                    {item.problem}
+                  </p>
+                  <p className="mb-4 mt-2 text-[15px] font-normal leading-[22px] text-[#696D7A]">
+                    <span className="font-medium text-[#1A1C24]">设计决策：</span>
+                    {item.decision}
+                  </p>
                   {item.n === "01" ? (
                     <div
                       className="relative h-[400px] w-full overflow-visible 2xl:h-[420px]"
@@ -1770,9 +1777,9 @@ export function QixinProjectDetail({ onBack }: Props) {
                 {
                   n: "03",
                   stage: "判断价值",
-                  title: "企业信息",
-                  desc: "整合工商、风险、融资、经营动态等信息，辅助判断企业价值。",
-                  tags: ["企业形象", "风险信息", "经营动态"],
+                  title: "企业价值判断",
+                  problem: "信息分散，判断企业价值成本高。",
+                  decision: "整合工商、风险、经营动态形成企业画像。",
                   image: "./images/optimized/qixin-business-info-1600.jpg",
                   imageAlt: "企业工商信息截图",
                   imageLabel: "企业信息截图",
@@ -1780,9 +1787,9 @@ export function QixinProjectDetail({ onBack }: Props) {
                 {
                   n: "04",
                   stage: "沉淀任务",
-                  title: "企业监控",
-                  desc: "把一次性筛选结果沉淀为可分组、可监控、可持续跟进的工作名单。",
-                  tags: ["企业分组", "企业监控", "进度标注"],
+                  title: "企业跟进管理",
+                  problem: "筛选结果难持续跟进。",
+                  decision: "通过分组、状态和标签把任务沉淀为可管理列表。",
                   image: "./images/optimized/qixin-monitor-1600.jpg",
                   imageAlt: "企业监控截图",
                   imageLabel: "企业分组与进度标注截图",
@@ -1790,9 +1797,9 @@ export function QixinProjectDetail({ onBack }: Props) {
                 {
                   n: "05",
                   stage: "持续监测",
-                  title: "企业及产业报告中心",
-                  desc: "将企业动态和产业变化转化为后续研判、监测反馈和报告输出。",
-                  tags: ["企业监控", "报告中心", "AI 报告联动"],
+                  title: "监测与报告输出",
+                  problem: "动态数据难输出成报告。",
+                  decision: "将监测和变化信息整合，生成可复用报告。",
                   image: "./images/optimized/qixin-report-center-1600.jpg",
                   imageAlt: "企业及产业报告中心截图",
                   imageLabel: "企业监控 / 报告中心 / AI 报告联动截图",
@@ -1806,21 +1813,14 @@ export function QixinProjectDetail({ onBack }: Props) {
                   style={item.n === "03" || item.n === "04" || item.n === "05" ? { background: SCREEN_CARD_BG } : undefined}
                 >
                   <h4 className="text-[24px] font-medium leading-[28px] text-[#1A1C24]">{item.title}</h4>
-                  <p className={`${item.n === "03" || item.n === "04" || item.n === "05" ? "max-w-[760px] leading-[20px]" : "leading-[24px]"} mt-3 text-[16px] font-normal text-[#696D7A]`}>
-                    {item.desc}
+                  <p className="mt-3 text-[15px] font-normal leading-[22px] text-[#696D7A]">
+                    <span className="font-medium text-[#1A1C24]">问题：</span>
+                    {item.problem}
                   </p>
-                  <div className="mt-4 flex flex-wrap gap-2">
-                    {item.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className={`bg-[#E5EBFF] text-[12px] font-normal leading-[16px] text-[#1A42B8] ${
-                          item.n === "03" || item.n === "04" || item.n === "05" ? "rounded-full px-2 py-0.5" : "rounded-md px-2 py-1"
-                        }`}
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
+                  <p className="mt-2 text-[15px] font-normal leading-[22px] text-[#696D7A]">
+                    <span className="font-medium text-[#1A1C24]">设计决策：</span>
+                    {item.decision}
+                  </p>
                   {(item.n === "03" || item.n === "04" || item.n === "05") && item.image ? (
                     <>
                       <div
@@ -1870,10 +1870,10 @@ export function QixinProjectDetail({ onBack }: Props) {
           <Reveal>
           <div className="mb-10 text-center md:mb-12">
             <h2 className="mx-auto max-w-4xl tracking-tight text-[#1A1C24]" style={T.h2}>
-              从功能入口到任务起点
+              首页工作台设计：从找功能到做任务
             </h2>
-            <p className="mx-auto mt-4 max-w-3xl text-[#696D7A]" style={T.h2Sub}>
-              用户进入系统后不应该先想我要点哪个菜单，而是第一眼就能看到自己关心的信息，直接开始工作。
+            <p className="mx-auto mt-4 max-w-[1120px] text-[#696D7A]" style={T.h2Sub}>
+              用户进入系统后，不应该先在菜单里找入口，而是先看到报告、动态、业务概览和常用功能，直接进入查询、判断、跟进和输出。
             </p>
           </div>
           <div className="grid gap-8 lg:grid-cols-[0.94fr_1.1fr] lg:items-start xl:gap-10">
@@ -1885,35 +1885,43 @@ export function QixinProjectDetail({ onBack }: Props) {
                 className="block h-auto w-full object-contain object-top"
               />
             </div>
-            <div className="relative">
-              <div className="pointer-events-none absolute inset-y-0 left-1/2 hidden w-px -translate-x-1/2 bg-[linear-gradient(180deg,rgba(230,231,235,0),rgba(203,205,212,0.9)_50%,rgba(230,231,235,0))] lg:block" />
-              <div className="pointer-events-none absolute inset-x-0 top-1/2 hidden h-px -translate-y-1/2 bg-[linear-gradient(90deg,rgba(230,231,235,0),rgba(203,205,212,0.9)_50%,rgba(230,231,235,0))] lg:block" />
-              <div className="grid lg:grid-cols-2">
+            <div>
+              <div className="grid gap-y-8 lg:grid-cols-[minmax(0,1fr)_32px_minmax(0,1fr)] lg:grid-rows-[auto_32px_auto] lg:gap-0">
+                <div className="pointer-events-none hidden h-full w-px justify-self-center bg-[linear-gradient(180deg,rgba(230,231,235,0),rgba(203,205,212,0.9)_50%,rgba(230,231,235,0))] lg:col-start-2 lg:row-start-1 lg:row-span-3 lg:block" />
+                <div className="pointer-events-none hidden h-px self-center bg-[linear-gradient(90deg,rgba(230,231,235,0),rgba(203,205,212,0.9)_50%,rgba(230,231,235,0))] lg:col-start-1 lg:col-span-3 lg:row-start-2 lg:block" />
                 {[
                   {
-                    title: "报告入口",
-                    desc: "企业分析报告和产业分析报告前置到首页，用户不用进菜单就能直接生成或查看最近报告。",
+                    title: "报告快捷入口",
+                    desc: "我将前置企业报告、产业报告和最近报告，减少菜单跳转，快速进入报告输出。",
                     label: "首页功能图占位",
                   },
                   {
-                    title: "快讯与舆情入口",
-                    desc: "将快讯、融资动态和舆情信息前置到首页，帮助用户在进入业务分析前先感知市场变化和企业风险信号。",
+                    title: "动态信息入口",
+                    desc: "我将前置快讯、融资和舆情信息，帮助用户先感知变化，再进入判断。",
                     label: "报告入口图占位",
                   },
                   {
-                    title: "业务信息速览",
-                    desc: "地区概览、产业信息、异动预警和企业推荐等内容前置，帮助用户先判断再深入。",
+                    title: "业务概览卡片",
+                    desc: "我将集中展示地区、产业、预警和企业推荐，帮助用户快速判断关注重点。",
                     label: "业务速览图占位",
                   },
                   {
-                    title: "高频功能工作台",
-                    desc: "将常用功能和榜单入口集中暴露，让用户更快进入查询、筛选和跟进任务。",
+                    title: "常用功能区",
+                    desc: "我将集中高频功能和榜单入口，让用户更快进入查询、筛选和跟进任务。",
                     label: "常用功能图占位",
                   },
                 ].map((item, index) => (
                   <div
                     key={item.title}
-                    className="px-6 pb-6 md:px-7 md:pb-7"
+                    className={`${
+                      index === 0
+                        ? "lg:col-start-1 lg:row-start-1"
+                        : index === 1
+                          ? "lg:col-start-3 lg:row-start-1"
+                          : index === 2
+                            ? "lg:col-start-1 lg:row-start-3"
+                            : "lg:col-start-3 lg:row-start-3"
+                    }`}
                   >
                     <div
                       className={`rounded-[24px] ${
@@ -2171,10 +2179,10 @@ export function QixinProjectDetail({ onBack }: Props) {
           <Reveal>
           <div className="text-center mb-10">
             <h2 className="tracking-tight text-[#1A1C24] leading-[1.12]" style={{ fontSize: "clamp(28px, 3.5vw, 48px)", fontWeight: 700 }}>
-              企业数据能力底座
+              企业数据处理流程设计
             </h2>
             <p className="mt-4 max-w-[760px] mx-auto" style={{ fontSize: 16, lineHeight: 1.7, color: "#696D7A" }}>
-              复杂业务判断的前提，是先把企业找准、关系看清、名单处理干净。
+              将找企业、看关系、处理名单三个高频动作整合为可操作流程，使分散数据可筛选、可扩展、可复用。
             </p>
           </div>
           <div className="grid grid-cols-1 gap-5 min-[1280px]:mx-auto min-[1280px]:w-[1152px] min-[1280px]:grid-cols-[512px_620px] min-[1280px]:items-stretch min-[1440px]:w-[1248px] min-[1440px]:grid-cols-[560px_668px] min-[1536px]:w-[1280px] min-[1536px]:grid-cols-[576px_684px] min-[1680px]:w-[1424px] min-[1680px]:grid-cols-[640px_764px] min-[1904px]:w-[1648px] min-[1904px]:grid-cols-[768px_860px] min-[1936px]:w-[1680px] min-[1936px]:grid-cols-[784px_876px]">
@@ -2187,10 +2195,10 @@ export function QixinProjectDetail({ onBack }: Props) {
               />
               <div className="pt-4">
                 <div className="mb-2 text-xs font-semibold tracking-[0.16em] text-[#696D7A]">
-                  01 · 定位企业
+                  01
                 </div>
                 <div className="mb-3 flex items-start gap-3">
-                  <h3 className="flex-1" style={{ fontSize: 24, lineHeight: "32px", fontWeight: 700, color: "#1A1C24" }}>多条件收敛目标企业池</h3>
+                  <h3 className="flex-1" style={{ fontSize: 24, lineHeight: "32px", fontWeight: 700, color: "#1A1C24" }}>多条件找企业</h3>
                   <span
                     className="mt-1 inline-flex size-4 shrink-0 items-center justify-center"
                     style={{ color: ICON_GRAY }}
@@ -2199,26 +2207,9 @@ export function QixinProjectDetail({ onBack }: Props) {
                   </span>
                 </div>
                 <p className="max-w-[600px]" style={{ fontSize: 16, lineHeight: "28px", color: "#4E525E" }}>
-                  通过地区、行业、资本背景、经营状态、机构类型等条件，把海量企业数据转化为可操作的目标范围。
+                  数据量大、条件多，用户难快速定位目标企业。<br />
+                  通过条件分组和筛选逻辑，让用户一步锁定可跟进企业。
                 </p>
-                <div className="mt-3 flex flex-wrap gap-2">
-                  {["地区范围", "行业产业", "资本状态", "经营状态", "机构类型"].map((tag) => (
-                    <span
-                      key={tag}
-                      className="inline-flex h-7 items-center rounded-full px-3 ring-1"
-                      style={{
-                        ["--tw-ring-color" as string]: ICON_BORDER,
-                        background: "rgba(229,235,255,0.6)",
-                        color: ICON_BLUE,
-                        fontSize: 13,
-                        lineHeight: "16px",
-                        fontWeight: 500,
-                      }}
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
               </div>
             </div>
 
@@ -2227,22 +2218,18 @@ export function QixinProjectDetail({ onBack }: Props) {
                 {
                   icon: Network,
                   index: "02",
-                  eyebrow: "扩展关系",
-                  title: "从企业扩展上下游关系",
-                  desc: "围绕供应商、客户和产业链关系，帮助用户从单个企业继续发现招商线索。",
+                  title: "关系线索扩展",
+                  desc: "用户需要从单个企业发现上下游和关联线索。将供应商、客户和产业链关系放在同一条扩展路径中，形成连续探索流程。",
                   image: "./images/optimized/qixin-supply-chain-1600.jpg",
                   alt: "供应链招商企业列表截图",
-                  tags: ["供应商", "客户数", "产业筛选"],
                 },
                 {
                   icon: Table2,
                   index: "03",
-                  eyebrow: "批量分析",
-                  title: "把外部名单转成分析资产",
-                  desc: "支持上传企业名单并选择指标，批量补全企业信息，为监控、分析和报告生成提供结构化输入。",
+                  title: "名单批量处理",
+                  desc: "外部名单来源不统一，难直接用于分析。将名单上传、指标选择和信息补全串成流程，使名单可直接用于监控和报告。",
                   image: "./images/optimized/qixin-batch-query-1600.jpg",
                   alt: "批量查询选择指标截图",
-                  tags: ["名单上传", "指标选择", "信息补全"],
                 },
               ].map((item) => (
                 <div key={item.title} className="relative min-h-0 overflow-hidden rounded-[28px] bg-white p-4 shadow-[0_1px_2px_rgba(15,20,25,0.04)] ring-1 ring-[#E6E7EB] min-[1280px]:h-full">
@@ -2255,7 +2242,7 @@ export function QixinProjectDetail({ onBack }: Props) {
                     />
                     <div className="flex flex-col pt-3 min-[1280px]:h-[208px] min-[1280px]:pt-0 min-[1440px]:h-[230px] min-[1536px]:h-[235px] min-[1680px]:h-[258px] min-[1904px]:h-[298px] min-[1936px]:h-[303px]">
                       <div className="mb-2 text-xs font-semibold tracking-[0.16em] text-[#696D7A]">
-                        {item.index} · {item.eyebrow}
+                        {item.index}
                       </div>
                       <div className="mt-4 min-[1280px]:mb-8 min-[1280px]:mt-auto">
                         <div className="mb-4 flex items-start gap-3">
@@ -2268,24 +2255,6 @@ export function QixinProjectDetail({ onBack }: Props) {
                           </span>
                         </div>
                         <p style={{ fontSize: 16, lineHeight: "28px", color: "#4E525E" }}>{item.desc}</p>
-                        <div className="mt-3 flex flex-wrap gap-2">
-                          {item.tags.map((tag) => (
-                            <span
-                              key={tag}
-                              className="inline-flex h-7 items-center rounded-full px-3 ring-1"
-                              style={{
-                                ["--tw-ring-color" as string]: ICON_BORDER,
-                                background: "rgba(229,235,255,0.6)",
-                                color: ICON_BLUE,
-                                fontSize: 13,
-                                lineHeight: "16px",
-                                fontWeight: 500,
-                              }}
-                            >
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
                       </div>
                     </div>
                   </div>
@@ -2304,10 +2273,10 @@ export function QixinProjectDetail({ onBack }: Props) {
           <Reveal>
             <div className="mx-auto mb-10 max-w-[880px] text-center">
               <h2 className="tracking-tight text-[#1A1C24] leading-[1.12]" style={{ fontSize: "clamp(28px, 3.5vw, 48px)", fontWeight: 700 }}>
-                让产业分析适配本地口径
+                自定义产业链设计：让标准图谱适配本地口径
               </h2>
               <p className="mt-4 text-[#696D7A]" style={{ fontSize: 16, lineHeight: 1.72 }}>
-                标准产业链无法覆盖每个地方政府的真实招商口径，因此系统需要让用户把本地产业理解沉淀为可编辑、可授权、可复用的产业图谱。
+                标准产业链很难覆盖每个地方的招商口径，因此我将产业链设计成可编辑、可校准、可复用的图谱资产，让用户能按本地产业结构维护节点关系和企业范围。
               </p>
             </div>
 
@@ -2323,7 +2292,7 @@ export function QixinProjectDetail({ onBack }: Props) {
                 </div>
                 <div className="px-1 pt-5">
                   <div className="mb-3 flex items-start gap-4">
-                    <h3 className="flex-1" style={{ fontSize: 24, lineHeight: "32px", fontWeight: 700, color: "#1A1C24" }}>在一张图谱里维护上中下游关系</h3>
+                    <h3 className="flex-1" style={{ fontSize: 24, lineHeight: "32px", fontWeight: 700, color: "#1A1C24" }}>图谱关系维护</h3>
                     <span
                       className="ml-auto mt-1 inline-flex size-4 shrink-0 items-center justify-center"
                       style={{ color: ICON_GRAY }}
@@ -2332,7 +2301,7 @@ export function QixinProjectDetail({ onBack }: Props) {
                     </span>
                   </div>
                   <p className="max-w-[760px]" style={{ fontSize: 16, lineHeight: "28px", color: "#4E525E" }}>
-                    用户可以直接在图谱上增删和调整产业链节点，不用在列表和图谱之间来回切换。每个节点支持编辑、移动和设置企业范围，让产业关系的维护像操作地图一样直观。
+                    将节点新增、移动和企业范围设置放在图谱中完成，让用户直接维护本地产业关系。
                   </p>
                 </div>
               </article>
@@ -2348,7 +2317,7 @@ export function QixinProjectDetail({ onBack }: Props) {
                 </div>
                 <div className="px-1 pt-5">
                   <div className="mb-3 flex items-start gap-4">
-                    <h3 className="flex-1" style={{ fontSize: 24, lineHeight: "32px", fontWeight: 700, color: "#1A1C24" }}>管理多条本地产业链资产</h3>
+                    <h3 className="flex-1" style={{ fontSize: 24, lineHeight: "32px", fontWeight: 700, color: "#1A1C24" }}>本地产业链资产</h3>
                     <span
                       className="ml-auto mt-1 inline-flex size-4 shrink-0 items-center justify-center"
                       style={{ color: ICON_GRAY }}
@@ -2357,7 +2326,7 @@ export function QixinProjectDetail({ onBack }: Props) {
                     </span>
                   </div>
                   <p style={{ fontSize: 16, lineHeight: "28px", color: "#4E525E" }}>
-                    每条产业链都有独立的分组、链主、创建人和企业统计，让自定义产业链从一次性配置变成可持续维护的业务资产。谁建的、管哪个领域、覆盖了多少企业，一目了然。
+                    把自定义产业链做成可分组、可统计、可持续维护的资产，而不是一次性配置。
                   </p>
                 </div>
               </article>
@@ -2365,15 +2334,15 @@ export function QixinProjectDetail({ onBack }: Props) {
               {[
                 {
                   icon: Settings2,
-                  title: "为产业节点补充企业范围",
-                  desc: "每个节点既能批量导入已有企业名单，也能从平台数据中继续筛选补充。两种方式共享同一个企业池，避免手动维护两份名单的重复工作。",
+                  title: "企业范围补充",
+                  desc: "通过名单导入和平台筛选补充企业范围，让产业节点真正对应可分析的企业池。",
                   image: "./images/optimized/qixin-custom-chain-edit02-1600.jpg",
                   alt: "自定义产业链添加企业菜单界面",
                 },
                 {
                   icon: Map,
-                  title: "在编辑态校准节点关系",
-                  desc: "调整节点关系时只高亮当前层级，让用户在复杂图谱中不会被无关信息干扰。编辑完成后恢复完整视图，所见即所得。",
+                  title: "编辑态关系校准",
+                  desc: "编辑时只高亮当前节点和相关层级，减少复杂图谱干扰，让用户专注调整关系。",
                   image: "./images/optimized/qixin-custom-chain-edit03-1600.jpg",
                   alt: "自定义产业链节点关系编辑界面",
                 },

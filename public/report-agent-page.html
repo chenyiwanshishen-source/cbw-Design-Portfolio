@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>报告智能体 · 10+1 模块配置</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#F5F4EF;color:#1a1a18;line-height:1.5}
+.app{display:flex;min-height:100vh}
+
+/* Sidebar */
+.sidebar{width:220px;flex-shrink:0;background:#fff;border-right:0.5px solid #e5e3db;position:sticky;top:0;height:100vh;overflow-y:auto;display:flex;flex-direction:column}
+.sb-head{padding:20px 16px 14px;border-bottom:0.5px solid #e5e3db}
+.sb-brand{font-size:14px;font-weight:500;color:#1a1a18}
+.sb-sub{font-size:11px;color:#888780;margin-top:2px}
+.sb-group{padding:10px 0 4px}
+.sb-label{font-size:10px;color:#888780;padding:0 14px 4px;letter-spacing:0.05em;text-transform:uppercase}
+.sb-item{display:flex;align-items:center;gap:8px;padding:7px 14px;font-size:12px;color:#5f5e5a;cursor:pointer;transition:background 0.1s;text-decoration:none}
+.sb-item:hover{background:#f5f4ef;color:#1a1a18}
+.sb-item.active{background:#f5f4ef;color:#1a1a18;font-weight:500}
+.sb-dot{width:5px;height:5px;border-radius:50%;background:#d3d1c7;flex-shrink:0}
+.sb-item.active .sb-dot{background:#1D9E75}
+.sb-badge{font-size:10px;padding:1px 6px;border-radius:3px;margin-left:auto;font-weight:500}
+.core-b{background:#E1F5EE;color:#085041}
+.warn-b{background:#FAEEDA;color:#633806}
+
+/* Main */
+.main{flex:1;padding:32px 40px;max-width:900px}
+.global-header{display:flex;align-items:flex-start;gap:12px;margin-bottom:32px;padding-bottom:24px;border-bottom:0.5px solid #e5e3db}
+.g-icon{width:44px;height:44px;border-radius:12px;background:#E1F5EE;border:0.5px solid #9FE1CB;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:500;color:#085041;flex-shrink:0}
+.g-info{flex:1}
+.g-title{font-size:20px;font-weight:500;color:#1a1a18}
+.g-desc{font-size:13px;color:#5f5e5a;margin-top:4px}
+.g-meta{display:flex;gap:8px;margin-top:8px}
+.meta-tag{font-size:11px;padding:2px 8px;border-radius:4px;background:#f5f4ef;color:#888780;border:0.5px solid #e5e3db}
+
+/* Flow */
+.flow-card{background:#fff;border-radius:14px;padding:20px 24px;margin-bottom:20px;border:0.5px solid #e5e3db}
+.flow-steps{display:flex;align-items:center;gap:0;flex-wrap:wrap}
+.flow-step{display:flex;align-items:center;gap:6px;font-size:12px;color:#5f5e5a}
+.flow-step strong{color:#1a1a18;font-weight:500}
+.flow-arrow{color:#d3d1c7;margin:0 4px;font-size:11px}
+.flow-note{font-size:12px;color:#888780;margin-top:8px;padding-top:8px;border-top:0.5px solid #e5e3db}
+
+/* Module sections */
+.module{background:#fff;border-radius:16px;margin-bottom:16px;border:0.5px solid #e5e3db;overflow:hidden}
+.module-header{display:flex;align-items:center;gap:12px;padding:18px 24px;border-bottom:0.5px solid #e5e3db}
+.module-num{width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:500;flex-shrink:0}
+.num-amber{background:#FAEEDA;color:#633806;border:0.5px solid #FAC775}
+.num-blue{background:#E6F1FB;color:#0C447C;border:0.5px solid #B5D4F4}
+.num-green{background:#E1F5EE;color:#085041;border:0.5px solid #9FE1CB}
+.num-gray{background:#F1EFE8;color:#444441;border:0.5px solid #D3D1C7}
+.num-purple{background:#EEEDFE;color:#3C3489;border:0.5px solid #CECBF6}
+.module-title{font-size:15px;font-weight:500;color:#1a1a18}
+.module-sub{font-size:12px;color:#888780;margin-top:1px}
+.module-right{margin-left:auto;display:flex;align-items:center;gap:8px}
+.badge{font-size:11px;padding:3px 9px;border-radius:5px;font-weight:500}
+.b-core{background:#E1F5EE;color:#085041}
+.b-eng{background:#E6F1FB;color:#0C447C}
+.b-zero{background:#F1EFE8;color:#3B6D11}
+.b-opt{background:#FAEEDA;color:#633806}
+.toggle{width:36px;height:20px;border-radius:10px;background:#1D9E75;position:relative;cursor:pointer;flex-shrink:0}
+.toggle-thumb{position:absolute;top:3px;left:18px;width:14px;height:14px;background:#fff;border-radius:50%}
+.toggle.off{background:#d3d1c7}
+.toggle.off .toggle-thumb{left:3px}
+.module-body{padding:20px 24px}
+.section-label{font-size:11px;font-weight:500;color:#888780;margin-bottom:8px;letter-spacing:0.03em}
+.desc{font-size:13px;color:#5f5e5a;margin-bottom:14px;line-height:1.6}
+
+/* Switches */
+.sw-list{border:0.5px solid #e5e3db;border-radius:10px;overflow:hidden;margin-bottom:16px}
+.sw-row{display:flex;align-items:center;gap:12px;padding:12px 14px;border-bottom:0.5px solid #e5e3db}
+.sw-row:last-child{border-bottom:none}
+.sw-info{flex:1}
+.sw-name{font-size:13px;font-weight:500;color:#1a1a18}
+.sw-desc{font-size:11px;color:#888780;margin-top:1px}
+
+/* Tables */
+.tbl-wrap{border:0.5px solid #e5e3db;border-radius:10px;overflow:hidden;margin-bottom:16px}
+.tbl{width:100%;border-collapse:collapse}
+.tbl th{font-size:11px;font-weight:500;color:#888780;padding:9px 12px;text-align:left;background:#f5f4ef;border-bottom:0.5px solid #e5e3db}
+.tbl td{font-size:12px;color:#1a1a18;padding:10px 12px;border-bottom:0.5px solid #e5e3db;vertical-align:top;line-height:1.5}
+.tbl tr:last-child td{border-bottom:none}
+.tbl td.muted{color:#5f5e5a}
+
+/* Tags */
+.tag{display:inline-block;font-size:11px;padding:2px 7px;border-radius:4px;font-weight:500}
+.t-serial{background:#FAECE7;color:#712B13}
+.t-parallel{background:#E1F5EE;color:#085041}
+.t-mixed{background:#E6F1FB;color:#0C447C}
+.t-fail{background:#FAEEDA;color:#633806}
+.t-ok{background:#E1F5EE;color:#085041}
+.t-req{background:#FAECE7;color:#712B13}
+.t-sys{background:#E6F1FB;color:#0C447C}
+.t-opt-tag{background:#F1EFE8;color:#444441}
+.t-new{background:#E1F5EE;color:#085041;font-size:10px;padding:1px 5px}
+
+/* Form */
+textarea,input[type=text]{width:100%;border:0.5px solid #d3d1c7;border-radius:10px;padding:12px 14px;font-size:13px;font-family:inherit;color:#1a1a18;background:#f5f4ef;resize:vertical;line-height:1.6}
+textarea::placeholder,input::placeholder{color:#b4b2a9}
+textarea{min-height:80px}
+.field{margin-bottom:12px}
+.field:last-child{margin-bottom:0}
+.fl{font-size:11px;font-weight:500;color:#5f5e5a;margin-bottom:5px}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.add-row{display:flex;gap:8px;margin-top:12px}
+.add-input{flex:1;min-height:auto!important;resize:none}
+.btn{border:0.5px solid #d3d1c7;border-radius:9px;padding:10px 16px;font-size:12px;background:#fff;color:#5f5e5a;cursor:pointer;white-space:nowrap;font-family:inherit;font-weight:500}
+.btn:hover{background:#f5f4ef}
+
+/* Checklist */
+.check-item{display:flex;align-items:flex-start;gap:10px;padding:11px 0;border-bottom:0.5px solid #e5e3db;font-size:13px;color:#1a1a18;line-height:1.5}
+.check-item:last-of-type{border-bottom:none}
+.ck{width:18px;height:18px;border-radius:5px;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center}
+.ck-blue{background:#E6F1FB;border:0.5px solid #B5D4F4}
+.ck-green{background:#E1F5EE;border:0.5px solid #9FE1CB}
+.ck svg{width:10px;height:10px}
+
+/* Divider */
+.div-label{display:flex;align-items:center;gap:8px;margin:12px 0 4px}
+.div-line{flex:1;height:0.5px;background:#e5e3db}
+.div-text{font-size:11px;color:#888780;white-space:nowrap}
+
+/* Code */
+.code-block{background:#f5f4ef;border:0.5px solid #e5e3db;border-radius:10px;padding:12px 14px;font-family:monospace;font-size:12px;color:#5f5e5a;line-height:1.7;white-space:pre;margin-bottom:12px;overflow-x:auto}
+.code-err{border-color:#F5C4B3;color:#993C1D}
+
+/* Tip */
+.tip{background:#EBF5FF;border:0.5px solid #B5D4F4;border-radius:8px;padding:10px 14px;font-size:12px;color:#0C447C;line-height:1.5;margin-top:12px}
+.tip-warn{background:#FAEEDA;border-color:#FAC775;color:#633806}
+
+/* Flow box */
+.flow-box{background:#f5f4ef;border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:5px}
+.fb-step{display:flex;align-items:center;gap:8px;font-size:12px}
+.fb-num{width:20px;height:20px;border-radius:50%;background:#fff;border:0.5px solid #d3d1c7;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:500;color:#5f5e5a;flex-shrink:0}
+.fb-arr{font-size:9px;color:#b4b2a9;margin-left:23px}
+
+/* Layer cards */
+.layer-card{border:0.5px solid #e5e3db;border-radius:10px;padding:14px;margin-bottom:10px}
+.layer-card:last-child{margin-bottom:0}
+.lc-head{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.lc-title{font-size:13px;font-weight:500;color:#1a1a18}
+.lc-body{font-size:12px;color:#5f5e5a;line-height:1.5}
+
+/* Test table */
+.test-row{display:grid;grid-template-columns:40px 1fr 1fr 80px;gap:8px;padding:10px 0;border-bottom:0.5px solid #e5e3db;font-size:12px;align-items:start}
+.test-row.head{font-weight:500;color:#888780;font-size:11px;padding-bottom:6px}
+.test-row:last-child{border-bottom:none}
+.test-num{font-weight:500;color:#888780}
+.block-tag{font-size:10px;padding:2px 6px;border-radius:4px;background:#f5f4ef;color:#888780;border:0.5px solid #e5e3db;white-space:nowrap;display:inline-block}
+
+/* Inline field value */
+.fv{font-size:12px;color:#5f5e5a;background:#f5f4ef;border:0.5px solid #e5e3db;border-radius:8px;padding:8px 10px;line-height:1.5}
+</style>
+</head>
+<body>
+<div class="app">
+
+<div class="sidebar">
+  <div class="sb-head">
+    <div class="sb-brand">报告智能体</div>
+    <div class="sb-sub">10+1 模块配置</div>
+  </div>
+  <div class="sb-group">
+    <div class="sb-item active" onclick="scrollTo('overview')"><div class="sb-dot"></div>总览</div>
+  </div>
+  <div class="sb-group">
+    <div class="sb-label">核心层</div>
+    <div class="sb-item" onclick="scrollTo('m01')"><div class="sb-dot"></div>M01 · 安全红线</div>
+    <div class="sb-item" onclick="scrollTo('m02')"><div class="sb-dot"></div>M02 · 身份设定</div>
+    <div class="sb-item" onclick="scrollTo('m03')"><div class="sb-dot"></div>M03 · 任务拆分</div>
+    <div class="sb-item" onclick="scrollTo('m04')"><div class="sb-dot"></div>M04 · 数据注入</div>
+  </div>
+  <div class="sb-group">
+    <div class="sb-label">调度层</div>
+    <div class="sb-item" onclick="scrollTo('m05')"><div class="sb-dot"></div>M05 · 调度路由 <span class="sb-badge core-b">核心</span></div>
+    <div class="sb-item" onclick="scrollTo('m06')"><div class="sb-dot"></div>M06 · 章节调用</div>
+    <div class="sb-item" onclick="scrollTo('m06p')"><div class="sb-dot"></div>M06+ · 结果研判</div>
+  </div>
+  <div class="sb-group">
+    <div class="sb-label">质量层</div>
+    <div class="sb-item" onclick="scrollTo('m07')"><div class="sb-dot"></div>M07 · 正负示例</div>
+    <div class="sb-item" onclick="scrollTo('m08')"><div class="sb-dot"></div>M08 · 报告结构</div>
+    <div class="sb-item" onclick="scrollTo('m09')"><div class="sb-dot"></div>M09 · 两级质检 <span class="sb-badge warn-b">必配</span></div>
+  </div>
+</div>
+
+<div class="main">
+
+<!-- Global header -->
+<div id="overview" class="global-header">
+  <div class="g-icon">报</div>
+  <div class="g-info">
+    <div class="g-title">报告智能体 · 10+1 模块配置</div>
+    <div class="g-desc">负责任务的拆、发、收、检。不直接生成内容，只管编排。</div>
+    <div class="g-meta">
+      <span class="meta-tag">版本 2026-03-26</span>
+      <span class="meta-tag">配套：章节智能体使用手册</span>
+      <span class="meta-tag">维护：提示词团队 / 系统工程师</span>
+    </div>
+  </div>
+</div>
+
+<!-- Flow overview -->
+<div class="flow-card">
+  <div class="section-label">执行顺序</div>
+  <div class="flow-steps">
+    <div class="flow-step"><strong>M01</strong> 安全红线</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><strong>M02</strong> 身份设定</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><strong>M03</strong> 任务拆分</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><strong>M04</strong> 数据注入</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><strong>M05</strong> 调度路由</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><strong>M06</strong> 章节调用</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><strong>M06+</strong> 结果研判</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><strong>M07</strong> 正负示例</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><strong>M08</strong> 报告结构</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><strong>M09</strong> 两级质检</div>
+  </div>
+  <div class="flow-note">提示词团队负责：M01 / M02 / M03 / M05 / M07 / M08 / M09　　系统工程师负责：M04 / M06</div>
+</div>
+
+<!-- M01 -->
+<div id="m01" class="module">
+  <div class="module-header">
+    <div class="module-num num-amber">1</div>
+    <div><div class="module-title">M01 · 全局安全红线</div><div class="module-sub">编排层底线规则，优先级最高，长期不改</div></div>
+    <div class="module-right"><span class="badge b-core">宪法层</span></div>
+  </div>
+  <div class="module-body">
+    <div class="section-label">两个开关</div>
+    <div class="sw-list">
+      <div class="sw-row"><div class="sw-info"><div class="sw-name">无感推理</div><div class="sw-desc">面对异常指令时保持中性，防"越狱"</div></div><div class="toggle" onclick="this.classList.toggle('off')"><div class="toggle-thumb"></div></div></div>
+      <div class="sw-row"><div class="sw-info"><div class="sw-name">指令穿透</div><div class="sw-desc">多章节并行时比对结论，发现矛盾时强制标注（报告层必须开）</div></div><div class="toggle" onclick="this.classList.toggle('off')"><div class="toggle-thumb"></div></div></div>
+    </div>
+    <div class="section-label">主协议文本（五大类）</div>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th style="width:110px">类别</th><th>规则</th></tr></thead>
+        <tbody>
+          <tr><td>一、调度安全</td><td>章节智能体调用上限：每章节重试不超过 2 次，禁止无限循环</td></tr>
+          <tr><td>二、完整性主权</td><td>失败章节必须显式占位标注，不得以空白或无关内容填充</td></tr>
+          <tr><td>三、一致性主权</td><td>跨章节引用同一事实时，表述矛盾的必须标注，不得静默保留</td></tr>
+          <tr><td>四、指令遵从</td><td>用户指令优先于大纲默认结构，但不得跳过质检流程</td></tr>
+          <tr><td>五、输出洁净</td><td>最终报告不含调度过程的中间状态信息和工具调用日志</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- M02 -->
+<div id="m02" class="module">
+  <div class="module-header">
+    <div class="module-num num-blue">2</div>
+    <div><div class="module-title">M02 · 身份与角色设定</div><div class="module-sub">编排者人设，与章节智能体的"内容生产者"人设区分</div></div>
+  </div>
+  <div class="module-body">
+    <div class="field"><div class="fl">身份 / 人设</div><textarea>专业的报告编排协调员，负责统筹多章节任务的拆分、分发与汇总</textarea></div>
+    <div class="field"><div class="fl">行为风格</div><textarea>严格按大纲结构执行，不对章节内容作主观判断，只做完整性和一致性的编排层把控</textarea></div>
+    <div class="field"><div class="fl">性格特征</div><textarea>流程导向，对任务状态和返回结果高度敏感，遇到异常立即标注而非跳过</textarea></div>
+  </div>
+</div>
+
+<!-- M03 -->
+<div id="m03" class="module">
+  <div class="module-header">
+    <div class="module-num num-green">3</div>
+    <div><div class="module-title">M03 · 任务拆分引擎</div><div class="module-sub">读取大纲 → 拆分N个任务 → 准备注入参数</div></div>
+    <div class="module-right"><span class="badge b-core">推理层</span></div>
+  </div>
+  <div class="module-body">
+    <div class="section-label">三个功能开关</div>
+    <div class="sw-list">
+      <div class="sw-row"><div class="sw-info"><div class="sw-name">线性拆分逻辑</div><div class="sw-desc">严格按大纲层级顺序拆分，不跳章节</div></div><div class="toggle" onclick="this.classList.toggle('off')"><div class="toggle-thumb"></div></div></div>
+      <div class="sw-row"><div class="sw-info"><div class="sw-name">依赖关系识别</div><div class="sw-desc">自动识别章节间是否有引用依赖，标记串行/并行</div></div><div class="toggle" onclick="this.classList.toggle('off')"><div class="toggle-thumb"></div></div></div>
+      <div class="sw-row"><div class="sw-info"><div class="sw-name">参数完整性校验</div><div class="sw-desc">每个任务的注入参数齐全才允许分发，缺字段不发出</div></div><div class="toggle" onclick="this.classList.toggle('off')"><div class="toggle-thumb"></div></div></div>
+    </div>
+    <div class="section-label">四步拆分逻辑</div>
+    <div class="flow-box" style="margin-bottom:16px">
+      <div class="fb-step"><div class="fb-num">1</div><span style="color:#5f5e5a">解析大纲，识别所有末级章节节点（非末级节点只作为B层背景注入）</span></div>
+      <div class="fb-arr">↓</div>
+      <div class="fb-step"><div class="fb-num">2</div><span style="color:#5f5e5a">识别章节间依赖关系，有引用依赖标记"串行"，无依赖标记"并行"</span></div>
+      <div class="fb-arr">↓</div>
+      <div class="fb-step"><div class="fb-num">3</div><span style="color:#5f5e5a">为每个任务准备完整注入参数（7项，见下表），参数不完整不允许分发</span></div>
+      <div class="fb-arr">↓</div>
+      <div class="fb-step"><div class="fb-num">4</div><span style="color:#5f5e5a">输出结构化任务列表，含章节编号、串/并行标记、完整注入参数，交给M05</span></div>
+    </div>
+    <div class="section-label">每个任务必须携带的注入参数（7项）</div>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th style="width:130px">参数</th><th>来源</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td>章节标题格式</td><td class="muted">大纲</td><td>精确复现，一字不差</td></tr>
+          <tr><td>章节路径</td><td class="muted">大纲</td><td>如 3.2.1</td></tr>
+          <tr><td>父节点标题</td><td class="muted">大纲</td><td>供章节智能体理解上下文</td></tr>
+          <tr><td>章节任务说明</td><td class="muted">用户指令/大纲描述</td><td>内容生成的核心依据</td></tr>
+          <tr><td>字数要求</td><td class="muted">C 层执行限制</td><td>未指定时按默认值</td></tr>
+          <tr><td>监测时间范围</td><td class="muted">C 层执行限制</td><td>统一下发，所有章节一致</td></tr>
+          <tr><td>当前日期</td><td class="muted">C 层执行限制</td><td>系统自动注入</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- M04 -->
+<div id="m04" class="module">
+  <div class="module-header">
+    <div class="module-num num-gray">4</div>
+    <div><div class="module-title">M04 · 数据注入层</div><div class="module-sub">提示词团队无需维护变量名称，理解三层含义即可</div></div>
+    <div class="module-right"><span class="badge b-eng">工程师维护</span></div>
+  </div>
+  <div class="module-body">
+    <div class="layer-card">
+      <div class="lc-head"><span class="tag t-req">A 层</span><span class="lc-title">用户指令（最高优先级）</span></div>
+      <div class="lc-body">用户输入的报告需求：主题、范围、特殊要求。可覆盖大纲默认行为。</div>
+    </div>
+    <div class="layer-card">
+      <div class="lc-head"><span class="tag t-sys">B 层</span><span class="lc-title">报告背景（系统自动注入）</span></div>
+      <div class="lc-body">完整大纲结构、报告类型、所属项目信息。AI 按需取用，不认识的字段跳过。</div>
+    </div>
+    <div class="layer-card">
+      <div class="lc-head"><span class="tag t-ok">C 层</span><span class="lc-title">执行限制（不可被任何指令覆盖）</span></div>
+      <div class="lc-body" style="margin-bottom:8px">总字数上限、时间范围、章节字数默认值、当前日期</div>
+      <div class="code-block" style="margin-bottom:0;font-size:11px">质检粒度: 报告级　← 报告智能体专属字段，M09 读到后自动切换报告级逻辑</div>
+    </div>
+    <div class="tip">冲突优先级：C 层 &gt; A 层 &gt; B 层。B 层字段缺失时不报错，由 AI 从 A 层推断。</div>
+  </div>
+</div>
+
+<!-- M05 -->
+<div id="m05" class="module">
+  <div class="module-header">
+    <div class="module-num num-amber">5</div>
+    <div><div class="module-title">M05 · 调度路由</div><div class="module-sub">报告智能体中从"可选"升级为核心必配模块</div></div>
+    <div class="module-right"><span class="badge b-opt">报告层核心</span></div>
+  </div>
+  <div class="module-body">
+    <div class="section-label">执行顺序路由</div>
+    <div class="tbl-wrap" style="margin-bottom:16px">
+      <table class="tbl">
+        <thead><tr><th style="width:80px">M03标记</th><th>M05决策</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td><span class="tag t-serial">串行</span></td><td>前置章节完成后才分发后续</td><td>有引用依赖，必须保证顺序</td></tr>
+          <tr><td><span class="tag t-parallel">并行</span></td><td>同时分发，不等待彼此</td><td>无依赖关系的章节，效率优先</td></tr>
+          <tr><td><span class="tag t-mixed">混合</span></td><td>并行组内同时发，组间串行等待</td><td>大型报告的常见结构</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="section-label">失败处理路由</div>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th style="width:110px">失败类型</th><th>触发条件</th><th>M05决策</th></tr></thead>
+        <tbody>
+          <tr><td><span class="tag t-fail">数据不足</span></td><td>章节智能体触发兜底返回</td><td>接受兜底内容，标注"数据不足"，继续分发其余章节</td></tr>
+          <tr><td><span class="tag t-fail">调用超时</span></td><td>章节智能体无响应</td><td>重试 1 次；仍无响应则占位标注，继续</td></tr>
+          <tr><td><span class="tag t-fail">格式异常</span></td><td>返回内容不符合M08格式</td><td>退回重试 1 次；仍异常则占位标注</td></tr>
+          <tr><td><span class="tag t-fail">彻底失败</span></td><td>重试后仍无合格结果</td><td>标准占位文本替代，记录失败原因，不阻塞其余章节</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="section-label" style="margin-top:16px">占位标准文本</div>
+    <div class="code-block">【本章节生成失败】
+章节：[章节标题]
+原因：[数据不足 / 调用超时 / 格式异常]
+建议：请手动补充或重新触发本章节生成。</div>
+  </div>
+</div>
+
+<!-- M06 -->
+<div id="m06" class="module">
+  <div class="module-header">
+    <div class="module-num num-gray">6</div>
+    <div><div class="module-title">M06 · 章节智能体调用层</div><div class="module-sub">按M05指令调用章节智能体，结果原样传递给M06+</div></div>
+    <div class="module-right"><span class="badge b-eng">工程师维护</span></div>
+  </div>
+  <div class="module-body">
+    <div class="sw-list">
+      <div class="sw-row"><div class="sw-info"><div class="sw-name">每章节调用一次</div><div class="sw-desc">初次调用失败才触发重试，不主动多次调用</div></div><div class="toggle" onclick="this.classList.toggle('off')"><div class="toggle-thumb"></div></div></div>
+      <div class="sw-row"><div class="sw-info"><div class="sw-name">参数完整才调用</div><div class="sw-desc">M03 标记参数缺失的任务，M06 不发出，退回 M03 补充</div></div><div class="toggle" onclick="this.classList.toggle('off')"><div class="toggle-thumb"></div></div></div>
+      <div class="sw-row"><div class="sw-info"><div class="sw-name">结果原样传递</div><div class="sw-desc">章节智能体的返回内容不在 M06 层做任何修改，原样交给 M06+</div></div><div class="toggle" onclick="this.classList.toggle('off')"><div class="toggle-thumb"></div></div></div>
+      <div class="sw-row"><div class="sw-info"><div class="sw-name">工具名称语义化</div><div class="sw-desc">只写"调用章节智能体"，不写具体接口名称，防工具迭代时多处修改</div></div><div class="toggle" onclick="this.classList.toggle('off')"><div class="toggle-thumb"></div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- M06+ -->
+<div id="m06p" class="module">
+  <div class="module-header">
+    <div class="module-num num-green">6+</div>
+    <div><div class="module-title">M06+ · 返回结果研判</div><div class="module-sub">章节返回后、拼装前判断质量，逻辑固定不改</div></div>
+    <div class="module-right"><span class="badge b-zero">零维护</span></div>
+  </div>
+  <div class="module-body">
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th style="width:120px">判断结果</th><th>触发条件</th><th>下一步</th></tr></thead>
+        <tbody>
+          <tr><td style="color:#085041;font-weight:500">合格，接收</td><td>返回内容符合M08格式，无占位标注</td><td>加入待拼装队列，等待M09</td></tr>
+          <tr><td style="color:#633806;font-weight:500">不合格，重试</td><td>格式异常 / 内容明显不完整</td><td>通知M05触发重试（最多1次）</td></tr>
+          <tr><td style="color:#712B13;font-weight:500">彻底失败，占位</td><td>重试后仍不合格 / 返回兜底内容</td><td>通知M05生成占位文本，记录失败原因</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tip">"什么算合格"的判断标准在 M08 的格式定义里修改，M06+ 自动适配，无需改动本模块。</div>
+  </div>
+</div>
+
+<!-- M07 -->
+<div id="m07" class="module">
+  <div class="module-header">
+    <div class="module-num num-purple">7</div>
+    <div><div class="module-title">M07 · 正负示例</div><div class="module-sub">示例对象：任务分发指令（给开发/提示词团队维护用）</div></div>
+  </div>
+  <div class="module-body">
+    <div class="section-label">正确骨架</div>
+    <div class="code-block">【报告任务分发清单】
+报告标题：【报告标题】　监测周期：XXXX年XX月　总章节数：N 个
+
+- 任务01 | 路径：1.1 | 标题：[章节标题] | 执行：串行 | 前置依赖：无
+  注入参数：{任务说明, 字数要求, 时间范围, 父节点标题}
+- 任务02 | 路径：1.2 | 标题：[章节标题] | 执行：并行 | 前置依赖：无
+  注入参数：{任务说明, 字数要求, 时间范围, 父节点标题}
+- 任务03 | 路径：1.3 | 标题：[章节标题] | 执行：串行 | 前置依赖：任务01
+  注入参数：{任务说明, 字数要求, 时间范围, 父节点标题}
+
+执行顺序：任务01完成后，任务02/03并行；任务03依赖任务01，须等任务01返回后才发出。</div>
+    <div class="section-label">错误骨架（典型错误示范）</div>
+    <div class="code-block code-err">【报告任务分发清单】
+报告标题：【报告标题】
+
+- 任务01 | 路径：1.1 | 标题：[章节标题]
+- 任务03 | 路径：1.3 | 标题：[章节标题]   ← 跳章！缺少1.2
+- 任务02 | 路径：1.2 | 标题：[章节标题]   ← 顺序错位
+
+错误点：跳章 / 顺序错位 / 缺串并行标记 / 缺前置依赖 / 注入参数未列出 / 无执行顺序说明</div>
+    <div class="section-label">常见错误类型速查</div>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>错误类型</th><th>表现</th><th>影响</th></tr></thead>
+        <tbody>
+          <tr><td>跳章</td><td>大纲有1.2，分发清单里没有</td><td>章节缺失，报告不完整</td></tr>
+          <tr><td>顺序错位</td><td>任务编号与大纲层级不对应</td><td>拼装时章节顺序乱</td></tr>
+          <tr><td>依赖关系缺失</td><td>有引用依赖的章节标记为并行</td><td>后置章节拿不到前置结论</td></tr>
+          <tr><td>参数不完整</td><td>某任务缺少字数要求或时间范围</td><td>章节智能体无法正确执行</td></tr>
+          <tr><td>无执行顺序说明</td><td>只列任务，不说明先后关系</td><td>开发无法判断调度逻辑是否正确</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="section-label">场景示例（专属，按报告类型填写）</div>
+    <textarea placeholder="填入真实章节标题和参数，覆盖该报告类型的典型错误。新建报告类型时先复制骨架，再替换为真实内容。"></textarea>
+  </div>
+</div>
+
+<!-- M08 -->
+<div id="m08" class="module">
+  <div class="module-header">
+    <div class="module-num num-blue">8</div>
+    <div><div class="module-title">M08 · 报告结构规范</div><div class="module-sub">定义最终报告整体骨架，章节内容格式由章节智能体M08控制</div></div>
+  </div>
+  <div class="module-body">
+    <div class="section-label">三个强制开关</div>
+    <div class="sw-list">
+      <div class="sw-row"><div class="sw-info"><div class="sw-name">严格按大纲序号层级输出</div><div class="sw-desc">所有标题必须带序号，层级与大纲一致，不得随意升降级</div></div><div class="toggle" onclick="this.classList.toggle('off')"><div class="toggle-thumb"></div></div></div>
+      <div class="sw-row"><div class="sw-info"><div class="sw-name">占位章节必须显式标注</div><div class="sw-desc">失败章节不得留空，必须用标准占位文本填充并标注原因</div></div><div class="toggle" onclick="this.classList.toggle('off')"><div class="toggle-thumb"></div></div></div>
+      <div class="sw-row"><div class="sw-info"><div class="sw-name">报告末尾附生成摘要</div><div class="sw-desc">每份报告末尾必须有章节完成状态的摘要说明</div></div><div class="toggle" onclick="this.classList.toggle('off')"><div class="toggle-thumb"></div></div></div>
+    </div>
+    <div class="section-label">序号层级规则</div>
+    <div class="tbl-wrap" style="margin-bottom:16px">
+      <table class="tbl">
+        <thead><tr><th style="width:100px">层级</th><th>格式</th><th>示例</th></tr></thead>
+        <tbody>
+          <tr><td>一级章节</td><td>中文数字 + 顿号</td><td>一、二、三、</td></tr>
+          <tr><td>二级章节</td><td>阿拉伯数字小数点</td><td>1.1 / 1.2 / 2.1</td></tr>
+          <tr><td>三级章节</td><td>括号数字</td><td>（1）（2）（3）</td></tr>
+          <tr><td>四级及以下</td><td>不建议使用</td><td>确需时用 ① ② ③</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="section-label">报告头部格式</div>
+    <div class="code-block"># 【报告标题】
+监测主体：[B层注入]
+监测周期：[C层时间范围]
+生成日期：[C层当前日期]
+
+---</div>
+    <div class="section-label">章节间衔接规则</div>
+    <div class="tbl-wrap" style="margin-bottom:16px">
+      <table class="tbl">
+        <tbody>
+          <tr><td style="width:140px">一级章节间</td><td>用 <code>---</code> 分隔线隔开</td></tr>
+          <tr><td>二级及以下章节间</td><td>空一行，不加分隔线</td></tr>
+          <tr><td>章节间过渡语</td><td>禁止插入"综上所述，下面进入第二章"等过渡段落，直接开始下一章节</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="section-label">报告末尾摘要格式</div>
+    <div class="code-block">---
+## 报告生成摘要
+
+生成时间：[C层当前日期]
+共 N 个章节：正常完成 X 个 / 数据不足 X 个 / 生成失败 X 个
+
+[如有失败章节，逐条列出]
+- [章节序号] [章节标题]：[失败原因]</div>
+  </div>
+</div>
+
+<!-- M09 -->
+<div id="m09" class="module">
+  <div class="module-header">
+    <div class="module-num num-amber">9</div>
+    <div><div class="module-title">最终输出守门员（裁判）</div><div class="module-sub">C层注入「质检粒度: 报告级」触发，章节级10条 + 报告级5条</div></div>
+    <div class="module-right">
+      <div class="toggle" onclick="this.classList.toggle('off')"><div class="toggle-thumb"></div></div>
+      <span style="font-size:13px;color:#5f5e5a">输出前全面自检</span>
+    </div>
+  </div>
+  <div class="module-body">
+
+    <div class="section-label"><span class="tag t-req">必填</span>　① PM 自定义约束</div>
+    <div class="desc">填写本报告场景专属的业务规则。系统无预设内容，PM 全权负责。</div>
+    <textarea placeholder="例：政务报告中不得出现企业商业评价性语言
+例：同一章节内同一主体名称必须全程使用全称，不得混用简称
+例：涉及具体数字的结论必须标注数据来源和统计口径"></textarea>
+
+    <div style="height:20px"></div>
+
+    <div class="section-label"><span class="tag t-sys">系统默认</span>　② 通用自检清单</div>
+    <div class="desc">以下规则对所有场景生效，不可删改。可在末尾追加本场景的额外检查项。</div>
+
+    <div class="div-label"><div class="div-line"></div><div class="div-text">章节级默认 · 10 条（锁定）</div><div class="div-line"></div></div>
+    <div class="check-item"><div class="ck ck-blue"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5L4 7.5L8.5 2.5" stroke="#185FA5" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>每条结论必须有原始链接，无链接的行直接删除</div>
+    <div class="check-item"><div class="ck ck-blue"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5L4 7.5L8.5 2.5" stroke="#185FA5" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>禁止编造、"据悉"等未经证实的表述</div>
+    <div class="check-item"><div class="ck ck-blue"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5L4 7.5L8.5 2.5" stroke="#185FA5" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>来源互相矛盾时，采用可信度更高的版本，不得两个都用</div>
+    <div class="check-item"><div class="ck ck-blue"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5L4 7.5L8.5 2.5" stroke="#185FA5" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>章节标题必须与系统注入的标题格式完全一致，一个字符都不差</div>
+    <div class="check-item"><div class="ck ck-blue"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5L4 7.5L8.5 2.5" stroke="#185FA5" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>禁止开场介绍语和结尾社交性结语</div>
+    <div class="check-item"><div class="ck ck-blue"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5L4 7.5L8.5 2.5" stroke="#185FA5" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>输出结构不因内容复杂或数据不足而改变</div>
+    <div class="check-item"><div class="ck ck-blue"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5L4 7.5L8.5 2.5" stroke="#185FA5" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>所有引用内容的日期必须在监测时间范围内，超出的不引用</div>
+    <div class="check-item"><div class="ck ck-blue"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5L4 7.5L8.5 2.5" stroke="#185FA5" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>自动识别并过滤广告文、SEO软文、营销推广内容</div>
+    <div class="check-item"><div class="ck ck-blue"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5L4 7.5L8.5 2.5" stroke="#185FA5" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>禁止输出未经证实的个人隐私信息</div>
+    <div class="check-item"><div class="ck ck-blue"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5L4 7.5L8.5 2.5" stroke="#185FA5" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>发现任何不合格项，必须在输出中标注位置和原因，不得隐藏</div>
+
+    <div class="div-label"><div class="div-line"></div><div class="div-text">报告级新增 · 5 条（锁定）</div><div class="div-line"></div></div>
+    <div class="check-item"><div class="ck ck-green"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5L4 7.5L8.5 2.5" stroke="#0F6E56" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>所有章节均已返回结果，无缺失章节（失败的必须有占位标注）<span class="tag t-new" style="margin-left:8px">报告级</span></div>
+    <div class="check-item"><div class="ck ck-green"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5L4 7.5L8.5 2.5" stroke="#0F6E56" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>章节顺序与原始大纲完全一致，不因并行执行顺序而错位<span class="tag t-new" style="margin-left:8px">报告级</span></div>
+    <div class="check-item"><div class="ck ck-green"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5L4 7.5L8.5 2.5" stroke="#0F6E56" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>占位章节必须有显式标注，不得以空白或无关内容填充<span class="tag t-new" style="margin-left:8px">报告级</span></div>
+    <div class="check-item"><div class="ck ck-green"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5L4 7.5L8.5 2.5" stroke="#0F6E56" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>跨章节引用同一事件时，表述不得互相矛盾<span class="tag t-new" style="margin-left:8px">报告级</span></div>
+    <div class="check-item"><div class="ck ck-green"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5L4 7.5L8.5 2.5" stroke="#0F6E56" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>全报告不得出现高度重复的段落（同一内容在不同章节重复出现）<span class="tag t-new" style="margin-left:8px">报告级</span></div>
+
+    <div class="add-row">
+      <input class="add-input" type="text" placeholder="追加检查项（从第 16 条开始）..."/>
+      <button class="btn">+ 追加</button>
+    </div>
+
+    <div style="height:20px"></div>
+
+    <div class="section-label"><span class="tag t-sys">系统预设</span>　③ 兜底说明文本</div>
+    <div class="desc">系统预设通用版，PM 可按业务习惯改写措辞，但结构（章节列表 + 原因说明）不变。</div>
+    <textarea style="font-family:monospace;font-size:12px">本次报告生成完成，但存在以下异常：
+
+- 【章节编号】【章节标题】：数据不足 / 调用超时 / 格式异常
+
+以上章节已用占位说明替代，其余章节内容不受影响。
+建议对占位章节进行人工补充或重新触发生成。</textarea>
+    <div class="tip">【章节编号】和【章节标题】由系统从 B 层大纲结构自动填入，无需手动维护。</div>
+
+    <div style="height:20px"></div>
+
+    <div class="section-label"><span class="tag t-opt-tag">选填</span>　④ 场景专属约束</div>
+    <div class="desc">处理"任务完成但结论是否定"的边界情况。两个字段均不填时，AI 只走②的通用清单。</div>
+    <div class="two-col">
+      <div>
+        <div class="fl">字段 A · 本场景的判断逻辑</div>
+        <textarea placeholder="例：核心章节（第一章、第二章）任意一章失败 → 整份报告标注为「不完整版本，请勿直接使用」
+非核心章节失败 → 正常交付，在摘要中注明缺失章节"></textarea>
+      </div>
+      <div>
+        <div class="fl">字段 B · 不完整报告的输出格式</div>
+        <textarea placeholder="例：⚠️ 本报告为不完整版本
+核心章节【章节标题】生成失败，报告结论可能不完整。
+请补充缺失章节后再使用。"></textarea>
+      </div>
+    </div>
+
+    <div style="height:20px"></div>
+
+    <div class="section-label"><span class="tag t-ok">系统默认 + 可追加</span>　⑤ 鲁棒性测试用例</div>
+    <div class="desc">上线前及每次改动后验证 M09 是否正常工作。T1–T6 系统锁定，T7 起 PM 自定义补充。</div>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th style="width:44px">编号</th><th>测试输入</th><th>预期行为</th><th style="width:80px">验证区块</th></tr></thead>
+        <tbody>
+          <tr><td class="test-num">T1</td><td>某章节智能体返回空内容</td><td>该章节被占位标注，不以空白出现</td><td><span class="block-tag">② 条目11</span></td></tr>
+          <tr><td class="test-num">T2</td><td>并行执行章节的返回顺序与大纲不一致</td><td>拼装时按大纲顺序纠正，不按返回顺序</td><td><span class="block-tag">② 条目12</span></td></tr>
+          <tr><td class="test-num">T3</td><td>两个章节对同一事件描述相互矛盾</td><td>矛盾处被标注，不静默保留两个版本</td><td><span class="block-tag">② 条目14</span></td></tr>
+          <tr><td class="test-num">T4</td><td>两个章节出现高度重复段落</td><td>重复段落被检出并标注</td><td><span class="block-tag">② 条目15</span></td></tr>
+          <tr><td class="test-num">T5</td><td>所有章节正常完成</td><td>末尾生成摘要显示"全部正常"</td><td><span class="block-tag">M08摘要</span></td></tr>
+          <tr><td class="test-num">T6</td><td>④ 字段 A/B 均留空</td><td>AI 走②通用清单，不报错</td><td><span class="block-tag">④</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="desc" style="margin-top:8px;font-size:12px">PM 自定义：① 每新增一条规则，同步补一条测试用例，编号从 T7 开始。</div>
+    <div class="add-row">
+      <input class="add-input" type="text" placeholder="T7 · 测试输入描述..."/>
+      <input class="add-input" type="text" placeholder="预期行为..."/>
+      <button class="btn">+ 追加</button>
+    </div>
+
+  </div>
+</div>
+
+</div>
+</div>
+
+<script>
+function scrollTo(id){
+  const el=document.getElementById(id);
+  if(el)el.scrollIntoView({behavior:'smooth',block:'start'});
+  document.querySelectorAll('.sb-item').forEach(i=>i.classList.remove('active'));
+}
+</script>
+</body>
+</html>
