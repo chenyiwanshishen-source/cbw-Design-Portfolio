@@ -472,10 +472,10 @@ export function ProjectDetail({ onBack }: Props) {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.1 }}
-              className="mx-auto mt-4 max-w-[660px] whitespace-nowrap"
+              className="mx-auto mt-4 max-w-[980px]"
               style={T.heroSub}
             >
-              把原来靠人工检索和撰写的报告流程，做成可配置的在线产品。1.0 已内部测试上线。
+              面向企业、产业和地区监测报告，将模板选择、大纲确认、数据配置、流式生成和历史文档串成完整流程，让用户在生成前控制范围，生成中看到进度，生成后复用结果。
             </motion.p>
 
             <motion.div
@@ -1380,18 +1380,18 @@ export function ProjectDetail({ onBack }: Props) {
             const designStrategies = [
               {
                 icon: Database,
-                title: "数据来源可控",
+                title: "数据来源配置",
                 desc:
-                  "不只是使用系统默认数据，而是支持用户引入外链知识和本地知识库，补充报告生成所需的输入依据，并在后续查看章节引用来源。",
+                  "系统默认数据无法覆盖所有报告依据，用户还需要补充外部资料和本地知识。我将系统数据、外链知识和本地知识库做成可选输入，并保留章节引用来源。",
                 points: ["系统数据", "外链知识", "本地知识库", "来源追溯"],
                 visual: "知识库页面大图",
                 image: "./images/optimized/ai-data01-1600.jpg",
               },
               {
                 icon: Users,
-                title: "企业范围多系统关联",
+                title: "企业范围复用",
                 desc:
-                  "用户在产业分析平台中沉淀的企业监控和企业分组，可以通过同一账户权限关联到报告生成流程，减少重复选择和重复维护。",
+                  "企业名单已经在产业平台中沉淀，如果重新选择会增加重复成本。我打通企业监控和企业分组，让已维护的企业对象直接进入报告生成流程。",
                 points: ["企业监控", "企业分组", "账户权限", "跨系统关联"],
                 visual: "跨系统联动关系图",
                 image: "./images/optimized/ai-group02-1600.jpg",
@@ -1399,9 +1399,9 @@ export function ProjectDetail({ onBack }: Props) {
               },
               {
                 icon: GitBranch,
-                title: "章节结构可匹配",
+                title: "章节结构匹配",
                 desc:
-                  "系统先根据用户输入匹配相似章节，用户修改或新增章节时再匹配内置章节，让高频报告结构更稳定，也便于复用历史经验。",
+                  "高频报告结构相似，但每次从头配置会影响效率和一致性。我通过相似章节匹配和内置章节复用，让报告结构更稳定，也方便用户二次调整。",
                 points: ["用户输入匹配", "编辑新增匹配", "内置章节复用"],
                 visual: "章节匹配逻辑截图",
                 image: "./images/optimized/ai-marry01-1600.jpg",
@@ -1626,17 +1626,17 @@ export function ProjectDetail({ onBack }: Props) {
             {[
               {
                 title: "上下文漂移",
-                desc: "章节生成容易忽略父节点、章节位置和报告大纲关系。",
+                desc: "章节生成容易脱离父节点、章节位置和报告大纲。因此需要在每次生成前注入章节背景和当前任务范围。",
                 visual: "context",
               },
               {
                 title: "维护成本高",
-                desc: "提示词依赖个人经验，换人书写后效果难稳定复现。",
+                desc: "如果提示词依赖个人经验，换人后效果很难复现。因此需要把写法拆成统一模块，让规则可以复用和维护。",
                 visual: "maintenance",
               },
               {
                 title: "质量不可控",
-                desc: "工具结果合流、URL、时间范围、数据量和格式校验缺少统一约束。",
+                desc: "来源、时间、字段和格式如果没有约束，结果容易不稳定。因此需要设置输出门禁，未通过检查不进入最终结果。",
                 visual: "quality",
               },
             ].map((item, i) => (
