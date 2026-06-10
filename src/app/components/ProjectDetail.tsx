@@ -232,6 +232,7 @@ export function ProjectDetail({ onBack }: Props) {
   const [isCardsMerging, setIsCardsMerging] = useState(false);
   const [showOutline, setShowOutline] = useState(false);
   const [heroToggleIndex, setHeroToggleIndex] = useState(0);
+  const [activeValidationIndex, setActiveValidationIndex] = useState(0);
   const sideNavRef = useRef(false);
 
   const heroToggleImages = [
@@ -241,6 +242,57 @@ export function ProjectDetail({ onBack }: Props) {
   const heroToggleCaptions = [
     "学习文档风格，生成一致表达",
     "理解原文风格，完成结构化仿写",
+  ];
+
+  const validationPanels = [
+    {
+      label: "之前状态",
+      summary: "人工整理、模板套用、手动校对",
+      heroCard: {
+        icon: Workflow,
+        title: "Excel + Word + 模板的手工链路",
+        desc: "多个工具分散承载数据处理、内容组织和格式交付，无法沉淀成下一次可直接复用的生成流程。",
+        meta: "原始流程",
+      },
+      cards: [
+        { icon: Database, title: "Excel 处理", desc: "整理企业名单、动态项和统计口径。", tag: "数据整理" },
+        { icon: FileText, title: "Word 编辑", desc: "按固定模板补充章节和正文。", tag: "人工撰写" },
+        { icon: Layers, title: "模板套用", desc: "模板固定，难覆盖每次变化的企业范围。", tag: "结构约束" },
+        { icon: CheckCircle2, title: "人工校对", desc: "逐项确认来源、企业名称和表达准确性。", tag: "质量检查" },
+      ],
+    },
+    {
+      label: "问题来源",
+      summary: "客户需求、内部测试、反馈沉淀",
+      heroCard: {
+        icon: Users,
+        title: "客户直接找团队手写报告",
+        desc: "当报告口径、企业范围和章节重点发生变化时，固定模板很难独立完成交付，团队需要重新组织材料。",
+        meta: "客户需求",
+      },
+      cards: [
+        { icon: Compass, title: "报告口径变化", desc: "地区、产业和企业范围变化后，同类报告也需要调整。", tag: "场景差异" },
+        { icon: ListChecks, title: "内部测试反馈", desc: "大纲结构、动态项引用和生成结果需要前置校验。", tag: "可控性" },
+        { icon: Link2, title: "来源追溯缺口", desc: "投融资、迁入迁出等内容需要保留来源链接。", tag: "可信度" },
+        { icon: ShieldCheck, title: "交付风险", desc: "缺少统一规则时，结构遗漏和来源缺失更难发现。", tag: "稳定性" },
+      ],
+    },
+    {
+      label: "验证场景",
+      summary: "区域企业动态监测周报",
+      heroCard: {
+        icon: FileText,
+        title: "区域企业动态监测周报",
+        desc: "以招商办高频周报为验证对象，检验系统能否在结构、范围和来源都受控的情况下持续生成业务材料。",
+        meta: "验证场景",
+      },
+      cards: [
+        { icon: Layers, title: "结构相对固定", desc: "周报栏目稳定，可由报告模板和章节大纲承接。", tag: "模板中心" },
+        { icon: Settings2, title: "企业范围可配置", desc: "支持系统筛选、重点企业选择或名单上传。", tag: "范围控制" },
+        { icon: Link2, title: "结果可追溯", desc: "保留企业名称、动态项和来源链接。", tag: "来源依据" },
+        { icon: Sparkles, title: "结果可复用", desc: "生成后的报告沉淀为历史文档，便于持续迭代。", tag: "业务周报" },
+      ],
+    },
   ];
 
   useEffect(() => {
@@ -623,72 +675,176 @@ export function ProjectDetail({ onBack }: Props) {
       >
         <BlueAccentBlob side="left" />
         <div className={`relative ${READ}`}>
-          <Reveal>
-            <SectionHeader
-              index="02"
-              kicker="项目验证"
-              title="用真实场景验证生成链路"
-              subtitle="以深圳市某区招商办的每周企业动态监测报告为验证场景，验证系统能否在固定报告结构、可配置企业范围和可信来源约束下，持续输出可复用的业务周报。"
-              align="center"
-            />
-          </Reveal>
+          <Reveal delay={0.08}>
+            <div className="grid grid-cols-1 lg:grid-cols-[minmax(320px,0.86fr)_minmax(0,1.14fr)]">
+              <div className="relative px-6 py-7 sm:px-8 md:py-9 xl:px-10">
+                <h3 className="max-w-[520px] tracking-tight text-[#1A1C24]" style={T.h2}>
+                  为什么要重做报告生产流程
+                </h3>
+                <p className="mt-4 max-w-[540px]" style={T.h2Sub}>
+                  企业用户、产业分析师和政府部门仍在用 Excel、Word 和固定模板整理报告。每次企业范围、报告维度和来源材料变化时，人工链路都很难稳定复用。
+                </p>
 
-          {/* 场景复杂度 — 3 卡片 */}
-          <Reveal className="grid sm:grid-cols-3 gap-4 -mt-6" delay={0.08}>
-            {[
-              {
-                icon: Layers,
-                t: "结构相对固定",
-                d: "周报栏目相对稳定，适合通过报告模板和章节大纲进行承接。",
-                extra: "企业舆情 / 本区投融资 / 外区→本区投融资 / 迁出预警 / 迁入服务跟踪 / 他山之石",
-                points: ["模板中心", "章节大纲"],
-              },
-              {
-                icon: Users,
-                t: "企业范围可配置",
-                d: "可由系统按企业规模、产业标签筛选，也可由用户上传或选择重点企业。",
-                points: ["系统筛选", "用户上传", "重点企业"],
-              },
-              {
-                icon: Link2,
-                t: "结果需要可追溯",
-                d: "投融资、迁入迁出等章节不能只输出概括性文字，需给出企业名称、动态项和来源链接。",
-                points: ["企业名称", "动态项", "来源链接"],
-              },
-            ].map((c) => {
-              const Icon = c.icon;
-              return (
-                <div
-                  key={c.t}
-                  className="flex flex-col p-5 rounded-2xl border"
-                  style={{ borderColor: LINE, background: SURFACE_2 }}
-                >
-                  <div className="mb-2.5 flex items-start gap-3">
-                    <div className="flex-1" style={T.cardTitle}>{c.t}</div>
-                    <span className="mt-1 inline-flex size-4 shrink-0 items-center justify-center" style={{ color: ICON_GRAY }}>
-                      <Icon className="size-4" />
-                    </span>
-                  </div>
-                  <p style={{ ...T.cardDesc, marginBottom: 8 }}>{c.d}</p>
-                  {c.extra && (
-                    <p style={{ fontSize: 12, color: INK_DIM, lineHeight: 1.5, marginBottom: 8 }}>
-                      核心栏目：{c.extra}
-                    </p>
-                  )}
-                  <div className="flex flex-wrap gap-1.5 mt-auto">
-                    {c.points.map((p) => (
-                      <span
-                        key={p}
-                        className="px-2 py-0.5 rounded text-xs"
-                        style={{ background: SURFACE, color: INK_DIM, border: `1px solid rgba(15,20,25,0.06)` }}
+                <div className="mt-9 grid gap-3">
+                  {validationPanels.map((item, index) => {
+                    const isActive = activeValidationIndex === index;
+                    return (
+                      <button
+                        key={item.label}
+                        type="button"
+                        onClick={() => setActiveValidationIndex(index)}
+                        className="group flex items-start gap-4 rounded-[18px] border px-4 py-3 text-left transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A8BEFF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#FAFBFF]"
+                        style={{
+                          borderColor: isActive ? ICON_BORDER : LINE,
+                          background: isActive ? ICON_BG : SURFACE,
+                        }}
+                        aria-pressed={isActive}
                       >
-                        {p}
-                      </span>
-                    ))}
-                  </div>
+                        <span className="min-w-0 flex-1">
+                          <span className="block text-[15px] font-semibold leading-[1.35] text-[#1A1C24]">
+                            {item.label}
+                          </span>
+                          <span
+                            className="mt-1 block text-[13px] leading-[1.45]"
+                            style={{ color: isActive ? ICON_BLUE : INK_MUTED }}
+                          >
+                            {item.summary}
+                          </span>
+                        </span>
+                        <ArrowRight
+                          className="mt-2 size-4 shrink-0 transition-transform duration-300 group-hover:translate-x-1"
+                          style={{ color: isActive ? ICON_BLUE : ICON_GRAY }}
+                        />
+                      </button>
+                    );
+                  })}
                 </div>
-              );
-            })}
+              </div>
+
+              <div className="relative flex min-h-[520px] items-center justify-center overflow-hidden px-6 py-7 sm:px-8 md:py-9 xl:px-10">
+                <AnimatePresence mode="wait">
+                  {(() => {
+                    const panel = validationPanels[activeValidationIndex];
+                    const primaryRow = {
+                      icon: panel.heroCard.icon,
+                      title: panel.heroCard.title,
+                      desc: panel.heroCard.desc,
+                      tag: panel.heroCard.meta,
+                      isPrimary: true,
+                    };
+                    const rows = [
+                      { ...panel.cards[0], isPrimary: false },
+                      { ...panel.cards[1], isPrimary: false },
+                      primaryRow,
+                      { ...panel.cards[2], isPrimary: false },
+                      { ...panel.cards[3], isPrimary: false },
+                    ];
+                    const rowLayout = [
+                      {
+                        width: "min(430px, 68%)",
+                        marginTop: "0px",
+                        opacity: 1,
+                        blur: "blur(0.65px)",
+                        zIndex: 1,
+                        isSoft: true,
+                      },
+                      {
+                        width: "min(570px, 86%)",
+                        marginTop: "10px",
+                        opacity: 1,
+                        blur: "none",
+                        zIndex: 5,
+                        isSoft: false,
+                      },
+                      {
+                        width: "min(640px, 96%)",
+                        marginTop: "10px",
+                        opacity: 1,
+                        blur: "none",
+                        zIndex: 6,
+                        isSoft: false,
+                      },
+                      {
+                        width: "min(570px, 86%)",
+                        marginTop: "10px",
+                        opacity: 1,
+                        blur: "none",
+                        zIndex: 5,
+                        isSoft: false,
+                      },
+                      {
+                        width: "min(430px, 68%)",
+                        marginTop: "10px",
+                        opacity: 1,
+                        blur: "blur(0.55px)",
+                        zIndex: 1,
+                        isSoft: true,
+                      },
+                    ];
+                    return (
+                      <motion.div
+                        key={panel.label}
+                        className="relative z-10 flex w-full max-w-[660px] flex-col items-center justify-center"
+                        initial={{ opacity: 0, y: 18, filter: "blur(6px)" }}
+                        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                        exit={{ opacity: 0, y: -12, filter: "blur(5px)" }}
+                        transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+                      >
+                        {rows.map((row, index) => {
+                          const RowIcon = row.icon;
+                          const isPrimary = row.isPrimary;
+                          const layout = rowLayout[index];
+                          const isSoft = layout.isSoft;
+                          return (
+                            <motion.article
+                              key={row.title}
+                              className="relative flex min-h-[50px] items-center gap-3 rounded-[16px] border bg-white p-4"
+                              style={{
+                                borderColor: isPrimary ? ICON_BORDER : isSoft ? "#EEF0F5" : LINE,
+                                background: SURFACE,
+                                width: layout.width,
+                                marginTop: layout.marginTop,
+                                opacity: layout.opacity,
+                                filter: layout.blur,
+                                zIndex: layout.zIndex,
+                              }}
+                              initial={{ opacity: 0, y: 16, scale: 0.98 }}
+                              animate={{ opacity: layout.opacity, y: 0, scale: 1 }}
+                              transition={{ duration: 0.34, delay: index * 0.04, ease: [0.22, 1, 0.36, 1] }}
+                            >
+                              <span
+                                className="inline-flex size-8 shrink-0 items-center justify-center rounded-xl border"
+                                style={{
+                                  borderColor: isPrimary ? ICON_BORDER : isSoft ? "#EEF0F5" : LINE,
+                                  background: isPrimary ? ICON_BG : SURFACE_2,
+                                  color: isPrimary ? ICON_BLUE : isSoft ? "#8D94A3" : INK_DIM,
+                                }}
+                              >
+                                <RowIcon className="size-4" />
+                              </span>
+                              <span className="min-w-0 flex-1">
+                                <span
+                                  className="block text-[14px] font-semibold leading-[1.25]"
+                                  style={{ color: isSoft ? "#8D94A3" : "#1A1C24" }}
+                                >
+                                  {row.title}
+                                </span>
+                                <span
+                                  className={`mt-0.5 block text-[12px] leading-[1.35] ${isPrimary ? "whitespace-normal" : "max-w-[430px] truncate"}`}
+                                  style={{ color: isSoft ? "#A8ADBA" : "#696D7A" }}
+                                >
+                                  {row.desc}
+                                </span>
+                              </span>
+                            </motion.article>
+                          );
+                        })}
+                      </motion.div>
+                    );
+                  })()}
+                </AnimatePresence>
+              </div>
+            </div>
           </Reveal>
         </div>
       </section>
@@ -704,93 +860,6 @@ export function ProjectDetail({ onBack }: Props) {
               subtitle="通过大纲确认、用户确认和流式生成，把 AI 报告从一次性写作变成可控的业务流程。"
               align="center"
             />
-          </Reveal>
-
-          {/* Stepper — lightweight flow navigation */}
-          <Reveal className="mb-12 overflow-x-auto pt-3 pb-3" delay={0.08} y={18}>
-            <div className="relative min-w-[880px] px-2 pt-1">
-              <div
-                className="absolute top-[25px] h-px"
-                style={{
-                  left: `${stepperInsetPercent}%`,
-                  right: `${stepperInsetPercent}%`,
-                  background: "rgba(15,20,25,0.12)",
-                }}
-              />
-              <div
-                className="absolute top-[25px] h-px transition-[width] duration-1000 ease-out"
-                style={{
-                  left: `${stepperInsetPercent}%`,
-                  width: `${(activeStep / (flowSteps.length - 1)) * stepperTrackPercent}%`,
-                  background: ICON_BLUE,
-                }}
-              />
-              <div
-                className="relative grid"
-                style={{ gridTemplateColumns: `repeat(${flowSteps.length}, minmax(0, 1fr))` }}
-              >
-                {flowSteps.map((step, i) => {
-                  const Icon = step.icon;
-                  const isActive = activeStep === i;
-                  const isDone = i < activeStep;
-                  return (
-                    <button
-                      key={step.label}
-                      onClick={() => handleFlowStepChange(i)}
-                      data-zoom
-                      className="group flex flex-col items-center text-center px-3 focus:outline-none"
-                      aria-current={isActive ? "step" : undefined}
-                    >
-                      <span
-                        className="relative z-10 inline-flex size-12 items-center justify-center rounded-full border transition-all duration-200"
-                        style={{
-                          borderColor: isActive || isDone ? ICON_BORDER : "rgba(15,20,25,0.14)",
-                          background: isActive ? ICON_BG : isDone ? "#F0F4FF" : SURFACE,
-                          color: isActive || isDone ? ICON_BLUE : INK_DIM,
-                          boxShadow: isActive ? "0 10px 24px rgba(34,88,244,0.16)" : "none",
-                        }}
-                      >
-                        <Icon className="size-4" />
-                      </span>
-                      <span
-                        className="mt-3"
-                        style={{
-                          fontSize: 14,
-                          lineHeight: 1.2,
-                          fontWeight: 700,
-                          letterSpacing: "0.04em",
-                          color: isActive ? ICON_BLUE : INK_DIM,
-                        }}
-                      >
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                      <span
-                        className="mt-1"
-                        style={{
-                          fontSize: 16,
-                          lineHeight: 1.35,
-                          fontWeight: isActive ? 700 : 600,
-                          color: isActive ? INK : INK_MUTED,
-                        }}
-                      >
-                        {step.label}
-                      </span>
-                      <span
-                        className="mt-1 max-w-[96px]"
-                        style={{
-                          fontSize: 14,
-                          lineHeight: 1.35,
-                          fontWeight: 400,
-                          color: isActive ? ICON_BLUE : INK_DIM,
-                        }}
-                      >
-                        {step.tagline}
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
           </Reveal>
 
           {/* Detail area: left image + right decision */}
