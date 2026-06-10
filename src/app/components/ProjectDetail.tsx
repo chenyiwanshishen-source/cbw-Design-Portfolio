@@ -862,6 +862,93 @@ export function ProjectDetail({ onBack }: Props) {
             />
           </Reveal>
 
+          {/* Stepper — lightweight flow navigation */}
+          <Reveal className="mb-12 overflow-x-auto pt-3 pb-3" delay={0.08} y={18}>
+            <div className="relative min-w-[880px] px-2 pt-1">
+              <div
+                className="absolute top-[25px] h-px"
+                style={{
+                  left: `${stepperInsetPercent}%`,
+                  right: `${stepperInsetPercent}%`,
+                  background: "rgba(15,20,25,0.12)",
+                }}
+              />
+              <div
+                className="absolute top-[25px] h-px transition-[width] duration-1000 ease-out"
+                style={{
+                  left: `${stepperInsetPercent}%`,
+                  width: `${(activeStep / (flowSteps.length - 1)) * stepperTrackPercent}%`,
+                  background: ICON_BLUE,
+                }}
+              />
+              <div
+                className="relative grid"
+                style={{ gridTemplateColumns: `repeat(${flowSteps.length}, minmax(0, 1fr))` }}
+              >
+                {flowSteps.map((step, i) => {
+                  const Icon = step.icon;
+                  const isActive = activeStep === i;
+                  const isDone = i < activeStep;
+                  return (
+                    <button
+                      key={step.label}
+                      onClick={() => handleFlowStepChange(i)}
+                      data-zoom
+                      className="group flex flex-col items-center px-3 text-center focus:outline-none"
+                      aria-current={isActive ? "step" : undefined}
+                    >
+                      <span
+                        className="relative z-10 inline-flex size-12 items-center justify-center rounded-full border transition-all duration-200"
+                        style={{
+                          borderColor: isActive || isDone ? ICON_BORDER : "rgba(15,20,25,0.14)",
+                          background: isActive ? ICON_BG : isDone ? "#F0F4FF" : SURFACE,
+                          color: isActive || isDone ? ICON_BLUE : INK_DIM,
+                          boxShadow: isActive ? "0 10px 24px rgba(34,88,244,0.16)" : "none",
+                        }}
+                      >
+                        <Icon className="size-4" />
+                      </span>
+                      <span
+                        className="mt-3"
+                        style={{
+                          fontSize: 14,
+                          lineHeight: 1.2,
+                          fontWeight: 700,
+                          letterSpacing: "0.04em",
+                          color: isActive ? ICON_BLUE : INK_DIM,
+                        }}
+                      >
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <span
+                        className="mt-1"
+                        style={{
+                          fontSize: 16,
+                          lineHeight: 1.35,
+                          fontWeight: isActive ? 700 : 600,
+                          color: isActive ? INK : INK_MUTED,
+                        }}
+                      >
+                        {step.label}
+                      </span>
+                      <span
+                        className="mt-1 max-w-[96px]"
+                        style={{
+                          fontSize: 14,
+                          lineHeight: 1.35,
+                          fontWeight: 400,
+                          color: isActive ? ICON_BLUE : INK_DIM,
+                        }}
+                      >
+                        {step.tagline}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          </Reveal>
+
           {/* Detail area: left image + right decision */}
           <Reveal delay={0.16} y={22}>
           {(() => {
@@ -1379,14 +1466,6 @@ export function ProjectDetail({ onBack }: Props) {
                       exit={{ opacity: 0, y: -8, filter: "blur(3px)" }}
                       transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
                     >
-                      <div className="mb-5 inline-flex items-center gap-2 rounded-full px-3 py-1.5" style={{ background: ICON_BG, color: ICON_BLUE }}>
-                        <span style={{ fontSize: 14, fontWeight: 700, lineHeight: 1 }}>
-                          {String(activeStep + 1).padStart(2, "0")}
-                        </span>
-                        <span style={{ fontSize: 14, fontWeight: 500, lineHeight: 1 }}>
-                          当前步骤
-                        </span>
-                      </div>
                       <h3 style={{ fontSize: 24, fontWeight: 700, color: INK, lineHeight: 1.25, marginBottom: 22 }}>
                         {step.label}
                       </h3>
