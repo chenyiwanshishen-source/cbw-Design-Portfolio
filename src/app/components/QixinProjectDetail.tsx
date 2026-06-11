@@ -65,16 +65,6 @@ const DETAIL_IMAGE_EAGER_PROPS = {
   fetchPriority: "high" as const,
 };
 
-const SECTIONS = [
-  { id: "qx01", index: "01", label: "项目概览" },
-  { id: "qx02", index: "02", label: "业务背景" },
-  { id: "qx05", index: "03", label: "首页工作台" },
-  { id: "qx06", index: "04", label: "企业数据" },
-  { id: "qx07", index: "05", label: "自定义产业链" },
-  { id: "qx08", index: "06", label: "设计系统" },
-  { id: "qx10", index: "07", label: "项目总结" },
-];
-
 const T = {
   h1: { fontSize: "clamp(36px, 5vw, 60px)", lineHeight: 1.12, fontWeight: 700 },
   heroTitle: { fontSize: "clamp(42px, 2.45vw, 60px)", lineHeight: 1.12, fontWeight: 700 },
@@ -1150,9 +1140,6 @@ function Reveal({
   );
 }
 export function QixinProjectDetail({ onBack }: Props) {
-  const [active, setActive] = useState(SECTIONS[0].id);
-  const [sideNav, setSideNav] = useState(false);
-  const sideNavRef = useRef(false);
   const chainPointerRef = useRef({ x: -1, y: -1 });
   const chainSwitchPointRef = useRef({ x: -1, y: -1 });
   const recruitPointerRef = useRef({ x: -1, y: -1 });
@@ -1192,82 +1179,8 @@ export function QixinProjectDetail({ onBack }: Props) {
     { id: "05", name: "区域治理", users: "政府部门、区域经济管理者", tasks: ["区域经济", "迁入迁出", "舆情动态", "输出报告"] },
   ];
 
-  useEffect(() => {
-    const onScroll = () => {
-      const documentHeight = document.documentElement.scrollHeight;
-      const viewportBottom = window.scrollY + window.innerHeight;
-      const isAtPageEnd = Math.ceil(viewportBottom) >= documentHeight - 4;
-      const y = window.scrollY + Math.min(window.innerHeight * 0.42, 360);
-      let current = SECTIONS[0].id;
-      if (isAtPageEnd) {
-        current = SECTIONS[SECTIONS.length - 1].id;
-      } else {
-        for (const section of SECTIONS) {
-          const el = document.getElementById(section.id);
-          if (el && el.offsetTop <= y) current = section.id;
-        }
-      }
-      setActive(current);
-      const second = document.getElementById("qx02");
-      if (second) {
-        const pastIntro = window.scrollY > second.offsetTop + 100;
-        if (pastIntro && !sideNavRef.current) {
-          sideNavRef.current = true;
-          setSideNav(true);
-        } else if (!pastIntro && window.scrollY < second.offsetTop - 100 && sideNavRef.current) {
-          sideNavRef.current = false;
-          setSideNav(false);
-        }
-      }
-    };
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-    };
-  }, []);
-
-  const scrollTo = (id: string) => {
-    const el = document.getElementById(id);
-    if (!el) return;
-    const y = el.getBoundingClientRect().top + window.scrollY - 110;
-    window.scrollTo({ top: y, behavior: "smooth" });
-  };
-
   return (
     <div className="relative z-10">
-      {sideNav && (
-        <nav className="fixed right-6 lg:right-10 top-1/2 -translate-y-1/2 z-30 hidden 2xl:block">
-          <div className="flex flex-col gap-1 px-4 py-4 rounded-2xl border border-neutral-200 bg-white/90 backdrop-blur-xl shadow-sm">
-            {SECTIONS.map((s) => {
-              const isActive = active === s.id;
-              return (
-                <button key={s.id} onClick={() => scrollTo(s.id)} className="group flex items-center gap-3 py-1.5">
-                  <span
-                    className={`size-2 rounded-full border-2 transition-colors ${
-                      isActive ? "bg-[#2258F4] border-[#2258F4]" : "bg-transparent border-neutral-600 group-hover:border-neutral-400"
-                    }`}
-                  />
-                  <span
-                    className={`text-xs transition-colors ${
-                      isActive ? "text-[#1A42B8]" : "text-neutral-500 group-hover:text-neutral-700"
-                    }`}
-                    style={T.nav}
-                  >
-                    {s.label}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-        </nav>
-      )}
-
-
-
-
       <>
       <section id="qx01" className={`relative pt-24 md:pt-28 overflow-hidden ${HERO_PAD}`}>
         <AccentBlob side="right" />

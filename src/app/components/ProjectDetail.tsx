@@ -1,5 +1,8 @@
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { AnimatePresence, motion } from "motion/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 import {
   ArrowLeft,
   ArrowRight,
@@ -22,6 +25,8 @@ import {
 } from "lucide-react";
 import { Placeholder } from "./Placeholder";
 import { Footer } from "./Footer";
+
+gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 interface Props {
   onBack: () => void;
@@ -49,16 +54,8 @@ const DETAIL_IMAGE_LAZY_PROPS = {
 const DETAIL_IMAGE_EAGER_PROPS = {
   loading: "eager" as const,
   decoding: "async" as const,
-  fetchPriority: "high" as const,
+  fetchpriority: "high" as const,
 };
-
-const SECTIONS = [
-  { id: "s01", index: "01", label: "项目概览" },
-  { id: "s02", index: "02", label: "验证场景" },
-  { id: "s03", index: "03", label: "生成流程" },
-  { id: "s04", index: "04", label: "产品设计" },
-  { id: "s05", index: "05", label: "提示词编排" },
-];
 
 // Typography tokens — strict hierarchy, no clamp
 const T = {
@@ -222,18 +219,64 @@ function Reveal({
   );
 }
 
+function OutlineConfirmFrame({
+  className = "",
+  style,
+  contentTranslate = 0,
+  contentXTranslate = 0,
+  contentOpacity = 1,
+  showShell = true,
+  showContent = true,
+}: {
+  className?: string;
+  style?: CSSProperties;
+  contentTranslate?: number;
+  contentXTranslate?: number;
+  contentOpacity?: number;
+  showShell?: boolean;
+  showContent?: boolean;
+}) {
+  const frameChrome = showShell
+    ? "overflow-hidden rounded-[24px] border border-white/80 shadow-[0_28px_80px_rgba(15,20,25,0.14)]"
+    : "overflow-visible";
+
+  return (
+    <div
+      className={`absolute inset-0 m-auto ${frameChrome} ${className}`}
+      style={{ aspectRatio: "16 / 10", ...style }}
+    >
+      {showShell && (
+        <img
+          src="./images/ai-report-flow/step-02-final-outline.png"
+          alt="章节大纲确认页面外层框架"
+          {...DETAIL_IMAGE_LAZY_PROPS}
+          className="absolute inset-0 h-full w-full object-contain object-top"
+        />
+      )}
+      {showContent && <div className="absolute left-[30.9%] top-[7.4%] h-[88.5%] w-[52.1%] overflow-hidden">
+        <img
+          src="./images/ai-report-flow/step-02-final-outline-02.png"
+          alt="章节大纲确认完整内容"
+          {...DETAIL_IMAGE_LAZY_PROPS}
+          className="block w-full max-w-none object-contain object-top"
+          style={{
+            opacity: contentOpacity,
+            transform: `translate3d(${contentXTranslate}%, ${contentTranslate}%, 0)`,
+          }}
+        />
+      </div>}
+    </div>
+  );
+}
+
 export function ProjectDetail({ onBack }: Props) {
-  const [active, setActive] = useState("s01");
-  const [sideNav, setSideNav] = useState(false);
   const [activeStep, setActiveStep] = useState(0);
-  const [previousActiveStep, setPreviousActiveStep] = useState(0);
-  const [flowFinalVisible, setFlowFinalVisible] = useState(false);
-  const [showStep02Cards, setShowStep02Cards] = useState(false);
-  const [isCardsMerging, setIsCardsMerging] = useState(false);
-  const [showOutline, setShowOutline] = useState(false);
+  const [flowProgress, setFlowProgress] = useState(0);
   const [heroToggleIndex, setHeroToggleIndex] = useState(0);
   const [activeValidationIndex, setActiveValidationIndex] = useState(0);
-  const sideNavRef = useRef(false);
+  const flowSectionRef = useRef<HTMLElement | null>(null);
+  const flowStageRef = useRef<HTMLDivElement | null>(null);
+  const activeStepRef = useRef(0);
 
   const heroToggleImages = [
     "./images/ai-report-hero-toggle-01.png",
@@ -296,56 +339,12 @@ export function ProjectDetail({ onBack }: Props) {
   ];
 
   useEffect(() => {
-    const onScroll = () => {
-      const y = window.scrollY + 160;
-      let cur = SECTIONS[0].id;
-      for (const s of SECTIONS) {
-        const el = document.getElementById(s.id);
-        if (el && el.offsetTop <= y) cur = s.id;
-      }
-      // Force last section active when scrolled to page bottom
-      if (window.scrollY + window.innerHeight >= document.body.scrollHeight - 80) {
-        cur = SECTIONS[SECTIONS.length - 1].id;
-      }
-      setActive(cur);
-      // Hysteresis: show side nav after passing s02 by 100px, hide only when back above s02 top
-      const s02 = document.getElementById("s02");
-      if (s02) {
-        const pastHero = window.scrollY > s02.offsetTop + 100;
-        if (pastHero && !sideNavRef.current) {
-          sideNavRef.current = true;
-          setSideNav(true);
-        } else if (!pastHero && window.scrollY < s02.offsetTop - 100 && sideNavRef.current) {
-          sideNavRef.current = false;
-          setSideNav(false);
-        }
-      }
-    };
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  useEffect(() => {
     const timer = window.setInterval(() => {
       setHeroToggleIndex((current) => (current + 1) % heroToggleImages.length);
     }, 5000);
 
     return () => window.clearInterval(timer);
   }, [heroToggleImages.length]);
-
-  const scrollTo = (id: string) => {
-    const el = document.getElementById(id);
-    if (el) {
-      const y = el.getBoundingClientRect().top + window.scrollY - 110;
-      window.scrollTo({ top: y, behavior: "smooth" });
-    }
-  };
-
-  const handleFlowStepChange = (index: number) => {
-    setPreviousActiveStep(activeStep);
-    setActiveStep(index);
-  };
 
   // Flow step data for s03 interactive module
   const flowSteps = [
@@ -404,7 +403,7 @@ export function ProjectDetail({ onBack }: Props) {
       tagline: "确认方向",
       icon: CheckCircle2,
       placeholder: "大纲确认页面",
-      image: "./images/optimized/ai-outline-confirm-900.png",
+      image: "./images/ai-report-flow/step-02-final-outline-02.png",
       scrollContent: true,
       decision: "用户可配置报告标题、监测范围、产业、维度，确认后进入生成。",
       why: "把复杂配置拆成可理解的操作，让用户在生成前控制输入边界。",
@@ -426,75 +425,130 @@ export function ProjectDetail({ onBack }: Props) {
       why: "对于高频周报场景，报告不是一次性结果，而是需要持续沉淀的业务材料。",
     },
   ];
-  const stepperInsetPercent = 100 / (flowSteps.length * 2);
-  const stepperTrackPercent = 100 - stepperInsetPercent * 2;
 
-  useEffect(() => {
-    setFlowFinalVisible(false);
-    setShowStep02Cards(false);
-    setIsCardsMerging(false);
-    setShowOutline(false);
-    if (activeStep !== 0 && activeStep !== 1) return;
+  const flowConfigCards = [
+    {
+      title: "报告标题",
+      body: "福田区区域监测报告",
+      primaryTags: [],
+      mutedTags: [],
+      className: "left-[22%] top-[7%]",
+      fromX: -80,
+      fromY: 6,
+      mergeX: 280,
+      mergeY: 180,
+      variant: "title",
+    },
+    {
+      title: "一、区域企业监测",
+      body: "覆盖全量企业主体，采集工商注册、经营状况、纳税信用、创新能力等多维数据",
+      primaryTags: ["深圳市-福田区", "2026.01.01-01.07"],
+      mutedTags: ["央企", "世界500强", "中国各类500强", "+添加企业"],
+      className: "left-[18%] top-[32%]",
+      fromX: -130,
+      fromY: 10,
+      mergeX: 300,
+      mergeY: 60,
+    },
+    {
+      title: "二、区域重点产业监测",
+      body: "聚焦主导产业和战略性新兴产业，跟踪产业链供应链运行态势及市场竞争力",
+      primaryTags: [],
+      mutedTags: ["软件与信息技术服务", "智能机器人", "集成电路", "+4"],
+      className: "right-[10%] top-[8%]",
+      fromX: 90,
+      fromY: -8,
+      mergeX: -280,
+      mergeY: 180,
+    },
+    {
+      title: "三、重点对标区域动态监测",
+      body: "选取标杆区域持续比较经济指标、产业发展、营商环境等关键维度",
+      primaryTags: ["深圳市-罗湖区", "深圳市-宝安区", "深圳市-龙岗区"],
+      mutedTags: ["新发布政策", "重大招商引资项目", "新设立的产业基金"],
+      className: "right-[9%] top-[58%]",
+      fromX: 100,
+      fromY: 16,
+      mergeX: -300,
+      mergeY: -80,
+    },
+    {
+      title: "添加章节",
+      body: "继续补充报告结构",
+      primaryTags: [],
+      mutedTags: [],
+      className: "left-[42%] bottom-[7%]",
+      fromX: -50,
+      fromY: 14,
+      mergeX: 80,
+      mergeY: -220,
+      variant: "add",
+    },
+  ];
 
-    const delay = activeStep === 0 ? 2050 : 1500;
-    const timer = window.setTimeout(() => {
-      setFlowFinalVisible(true);
-    }, delay);
+  useGSAP(
+    () => {
+      const section = flowSectionRef.current;
+      const stage = flowStageRef.current;
+      if (!section || !stage) return;
 
-    return () => window.clearTimeout(timer);
-  }, [activeStep]);
+      const proxy = { value: 0 };
+      let lastProgress = -1;
 
-  // Step 02: keep the enlarged blank canvas visible briefly before cards enter.
-  useEffect(() => {
-    if (!flowFinalVisible || activeStep !== 1) return;
-    const timer = window.setTimeout(() => setShowStep02Cards(true), 520);
-    return () => window.clearTimeout(timer);
-  }, [flowFinalVisible, activeStep]);
+      gsap.to(proxy, {
+        value: 1,
+        ease: "none",
+        onUpdate: () => {
+          const nextProgress = Number(proxy.value.toFixed(4));
+          if (Math.abs(nextProgress - lastProgress) < 0.001) return;
+          lastProgress = nextProgress;
+          setFlowProgress(nextProgress);
 
-  // Step 02 auto-merge: cards display ~1s then fly to center.
-  useEffect(() => {
-    if (!showStep02Cards || activeStep !== 1) return;
-    const timer = window.setTimeout(() => setIsCardsMerging(true), 1000);
-    return () => window.clearTimeout(timer);
-  }, [showStep02Cards, activeStep]);
+          const nextStep = Math.min(flowSteps.length - 1, Math.floor(nextProgress * flowSteps.length));
+          if (activeStepRef.current !== nextStep) {
+            activeStepRef.current = nextStep;
+            setActiveStep(nextStep);
+          }
+        },
+        scrollTrigger: {
+          trigger: section,
+          start: "top top",
+          end: () => `+=${Math.max(window.innerHeight * 4.8, 4200)}`,
+          pin: stage,
+          scrub: 0.7,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+        },
+      });
+    },
+    { scope: flowSectionRef, dependencies: [flowSteps.length] }
+  );
 
-  // After merge animation, show outline page
-  useEffect(() => {
-    if (!isCardsMerging) return;
-    const timer = window.setTimeout(() => setShowOutline(true), 450);
-    return () => window.clearTimeout(timer);
-  }, [isCardsMerging]);
+  const clamp01 = (value: number) => Math.max(0, Math.min(1, value));
+  const lerp = (from: number, to: number, progress: number) => from + (to - from) * clamp01(progress);
+  const rangeProgress = (value: number, start: number, end: number) => {
+    if (end === start) return value >= end ? 1 : 0;
+    return clamp01((value - start) / (end - start));
+  };
+  const stepCount = flowSteps.length;
+  const lastStepIndex = stepCount - 1;
+  const rawFlowStep = Math.min(flowSteps.length - 1, flowProgress * flowSteps.length);
+  const stepLocalProgress = (index: number) => {
+    const start = index / stepCount;
+    const end = index === lastStepIndex ? 1 : (index + 1) / stepCount;
+    return rangeProgress(flowProgress, start, end);
+  };
+  const layerPresence = (index: number) => {
+    const start = index / stepCount;
+    const end = index === lastStepIndex ? 1 : (index + 1) / stepCount;
+    const fadeWindow = 0.025;
+    const fadeIn = index === 0 ? 1 : rangeProgress(flowProgress, start, Math.min(end, start + fadeWindow));
+    const fadeOut = index === lastStepIndex ? 0 : rangeProgress(flowProgress, Math.max(start, end - fadeWindow), end);
+    return clamp01(fadeIn * (1 - fadeOut));
+  };
 
   return (
     <div className="relative z-10">
-      {/* ===== Side vertical nav — visible after scrolling past hero ===== */}
-      {sideNav && (
-        <nav className="fixed right-6 lg:right-10 top-1/2 -translate-y-1/2 z-30 hidden 2xl:block">
-          <div className="flex flex-col gap-1 px-4 py-4 rounded-2xl border border-neutral-200 bg-white/90 backdrop-blur-xl shadow-sm">
-            {SECTIONS.map((s) => {
-              const isActive = active === s.id;
-              return (
-                <button key={s.id} onClick={() => scrollTo(s.id)} className="group flex items-center gap-3 py-1.5">
-                  <span
-                    className={`size-2 rounded-full border-2 transition-colors ${
-                      isActive ? "bg-[#2258F4] border-[#2258F4]" : "bg-transparent border-neutral-600 group-hover:border-neutral-400"
-                    }`}
-                  />
-                  <span
-                    className={`text-xs transition-colors ${
-                      isActive ? "text-[#1A42B8]" : "text-neutral-500 group-hover:text-neutral-700"
-                    }`}
-                    style={T.nav}
-                  >
-                    {s.label}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-        </nav>
-      )}
-
       {/* ===== 01. HERO / Overview — centered product hero ===== */}
       <section
         id="s01"
@@ -850,9 +904,16 @@ export function ProjectDetail({ onBack }: Props) {
       </section>
 
       {/* ===== 03. Interactive flow: 模板选择 → 历史文档 ===== */}
-      <section id="s03" className={`relative py-20 md:py-28 ${SECTION_PAD} overflow-visible`}>
-        <div className="relative max-w-[1180px] mx-auto">
-          <Reveal>
+      <section
+        id="s03"
+        ref={flowSectionRef}
+        className={`relative py-20 md:py-28 lg:py-0 lg:min-h-screen ${SECTION_PAD} overflow-visible`}
+      >
+        <div
+          ref={flowStageRef}
+          className="relative mx-auto flex min-h-screen max-w-[1320px] items-start pb-6 pt-36"
+        >
+          <div className="w-full">
             <SectionHeader
               index="03"
               kicker="生成流程"
@@ -860,117 +921,356 @@ export function ProjectDetail({ onBack }: Props) {
               subtitle="通过大纲确认、用户确认和流式生成，把 AI 报告从一次性写作变成可控的业务流程。"
               align="center"
             />
-          </Reveal>
 
-          {/* Stepper — lightweight flow navigation */}
-          <Reveal className="mb-12 overflow-x-auto pt-3 pb-3" delay={0.08} y={18}>
-            <div className="relative min-w-[880px] px-2 pt-1">
-              <div
-                className="absolute top-[25px] h-px"
-                style={{
-                  left: `${stepperInsetPercent}%`,
-                  right: `${stepperInsetPercent}%`,
-                  background: "rgba(15,20,25,0.12)",
-                }}
-              />
-              <div
-                className="absolute top-[25px] h-px transition-[width] duration-1000 ease-out"
-                style={{
-                  left: `${stepperInsetPercent}%`,
-                  width: `${(activeStep / (flowSteps.length - 1)) * stepperTrackPercent}%`,
-                  background: ICON_BLUE,
-                }}
-              />
-              <div
-                className="relative grid"
-                style={{ gridTemplateColumns: `repeat(${flowSteps.length}, minmax(0, 1fr))` }}
-              >
-                {flowSteps.map((step, i) => {
-                  const Icon = step.icon;
-                  const isActive = activeStep === i;
-                  const isDone = i < activeStep;
-                  return (
-                    <button
-                      key={step.label}
-                      onClick={() => handleFlowStepChange(i)}
-                      data-zoom
-                      className="group flex flex-col items-center px-3 text-center focus:outline-none"
-                      aria-current={isActive ? "step" : undefined}
+            {(() => {
+              const p0 = stepLocalProgress(0);
+              const p1 = stepLocalProgress(1);
+              const p2 = stepLocalProgress(2);
+              const p3 = stepLocalProgress(3);
+              const p4 = stepLocalProgress(4);
+
+              const templateFinal = rangeProgress(p0, 0.62, 0.84);
+              const templateCardIn = rangeProgress(p0, 0.12, 0.42);
+
+              const outlineCardsIn = rangeProgress(p1, 0.04, 0.22);
+              const outlineMerge = rangeProgress(p1, 0.52, 0.74);
+              const outlineContentIn = rangeProgress(p1, 0.72, 0.88);
+              const outlineSharedPresence =
+                rawFlowStep < 1
+                  ? 0
+                  : rawFlowStep < 2
+                    ? 1
+                    : rawFlowStep < 2.94
+                      ? 1
+                      : 1 - rangeProgress(rawFlowStep, 2.94, 3.04);
+
+              const confirmScroll = rangeProgress(p2, 0.08, 0.92);
+              const streamPanelIn = rangeProgress(p3, 0.12, 0.36);
+              const streamTextIn = rangeProgress(p3, 0.34, 0.88);
+              const streamShine = rangeProgress(p3, 0.78, 1);
+              const historyIn = p4;
+              const currentFlowStep = flowSteps[activeStep] ?? flowSteps[0];
+
+              return (
+              <div className="grid grid-cols-1 gap-8 lg:grid-cols-[220px_minmax(0,1fr)] lg:items-start xl:gap-12">
+                <aside aria-label="生成流程进度" className="relative hidden lg:block">
+                  <div className="absolute left-4 top-4 bottom-4 z-0 w-px bg-[#DDE3F2]" />
+                  <div
+                    className="absolute left-4 top-4 z-0 w-px transition-[height] duration-300 ease-out"
+                    style={{
+                      height: `calc((100% - 32px) * ${activeStep / Math.max(flowSteps.length - 1, 1)})`,
+                      background: BLUE,
+                    }}
+                  />
+                  <div className="relative space-y-6">
+                    {flowSteps.map((item, index) => {
+                      const Icon = item.icon;
+                      const isActive = activeStep === index;
+                      const isDone = index < activeStep;
+                      return (
+                        <div
+                          key={item.label}
+                          aria-current={isActive ? "step" : undefined}
+                          className="grid grid-cols-[32px_minmax(0,1fr)] items-center gap-4"
+                        >
+                          <span
+                            className="relative z-10 inline-flex size-8 items-center justify-center rounded-full border transition-all duration-200"
+                            style={{
+                              borderColor: isActive || isDone ? ICON_BORDER : "rgba(15,20,25,0.14)",
+                              background: isActive ? ICON_BG : isDone ? "#F0F4FF" : SURFACE,
+                              color: isActive || isDone ? ICON_BLUE : INK_DIM,
+                              boxShadow: isActive ? "0 10px 24px rgba(34,88,244,0.16)" : "none",
+                            }}
+                          >
+                            <Icon className="size-3.5" />
+                          </span>
+                          <span
+                            className="transition-colors duration-200"
+                            style={{
+                              fontSize: 16,
+                              lineHeight: 1.35,
+                              fontWeight: isActive ? 700 : 600,
+                              color: isActive ? INK : INK_MUTED,
+                            }}
+                          >
+                            {item.label}
+                          </span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </aside>
+
+                <div className="min-w-0">
+                  <div className="relative aspect-[16/10] overflow-visible">
+                    <div
+                      className="absolute inset-0 z-[70]"
+                      style={{
+                        opacity: layerPresence(0),
+                        transform: `translate3d(0, ${lerp(0, -34, rangeProgress(rawFlowStep, 0.82, 1))}px, 0)`,
+                        pointerEvents: "none",
+                      }}
                     >
-                      <span
-                        className="relative z-10 inline-flex size-12 items-center justify-center rounded-full border transition-all duration-200"
+                      <div
+                        className="absolute left-[3%] right-[4%] top-[12%] bottom-[8%] rounded-[34px]"
                         style={{
-                          borderColor: isActive || isDone ? ICON_BORDER : "rgba(15,20,25,0.14)",
-                          background: isActive ? ICON_BG : isDone ? "#F0F4FF" : SURFACE,
-                          color: isActive || isDone ? ICON_BLUE : INK_DIM,
-                          boxShadow: isActive ? "0 10px 24px rgba(34,88,244,0.16)" : "none",
+                          background:
+                            "radial-gradient(circle at 18% 18%, rgba(34,88,244,0.16), transparent 32%), linear-gradient(135deg, #F8FAFF, #EEF3FF 52%, #FFFFFF)",
+                          boxShadow: "inset 0 0 0 1px rgba(34,88,244,0.08), 0 28px 80px rgba(34,88,244,0.08)",
                         }}
+                      />
+                      <div
+                        className="absolute inset-0 m-auto w-[99%] overflow-visible"
+                        style={{ aspectRatio: "16 / 10" }}
                       >
-                        <Icon className="size-4" />
-                      </span>
-                      <span
-                        className="mt-3"
+                        <img
+                          src="./images/ai-report-flow/step-01-blank-canvas.png"
+                          alt="模板中心页面"
+                          {...DETAIL_IMAGE_LAZY_PROPS}
+                          className="relative h-full w-full rounded-[22px] border border-white/80 object-contain object-top shadow-[0_24px_70px_rgba(15,20,25,0.12)]"
+                          style={{
+                            opacity: 1 - templateFinal,
+                            filter: `blur(${lerp(0, 8, templateFinal)}px)`,
+                          }}
+                        />
+                      </div>
+                      <img
+                        src="./images/ai-report-flow/step-01-sidebar.png"
+                        alt="模板中心侧边栏"
+                        {...DETAIL_IMAGE_LAZY_PROPS}
+                        className="absolute left-[0.6%] top-[-2%] z-20 h-[104%] rounded-[15px] object-contain object-top shadow-[10px_0_24px_rgba(15,20,25,0.07)]"
                         style={{
-                          fontSize: 14,
-                          lineHeight: 1.2,
-                          fontWeight: 700,
-                          letterSpacing: "0.04em",
-                          color: isActive ? ICON_BLUE : INK_DIM,
+                          opacity: templateCardIn * (1 - templateFinal),
+                          transform: `translate3d(${lerp(-140, 0, templateCardIn)}px, 0, 0)`,
                         }}
-                      >
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                      <span
-                        className="mt-1"
+                      />
+                      {flowSteps[0].templateCards?.map((item, index) => (
+                        <img
+                          key={item.src}
+                          src={item.src}
+                          alt={item.label}
+                          {...DETAIL_IMAGE_LAZY_PROPS}
+                          className={`absolute z-20 rounded-[14px] object-contain object-top ${
+                            item.emphasis
+                              ? "shadow-[0_24px_56px_rgba(34,88,244,0.18)]"
+                              : "shadow-[0_18px_42px_rgba(15,20,25,0.14)]"
+                          } ${item.className}`}
+                          style={{
+                            opacity: templateCardIn * (1 - templateFinal),
+                            transform: `translate3d(${lerp(item.from.x, 0, templateCardIn)}px, ${lerp(item.from.y, 0, templateCardIn)}px, 0) scale(${item.emphasis ? lerp(0.96, 1.015, templateCardIn) : lerp(0.96, 1, templateCardIn)})`,
+                          }}
+                        />
+                      ))}
+                      <img
+                        src={flowSteps[0].finalImage}
+                        alt="模板中心完整页面"
+                        {...DETAIL_IMAGE_LAZY_PROPS}
+                        className="absolute inset-0 z-30 m-auto w-[99%] rounded-[24px] border border-white/80 object-contain object-top shadow-[0_28px_80px_rgba(15,20,25,0.14)]"
                         style={{
-                          fontSize: 16,
-                          lineHeight: 1.35,
-                          fontWeight: isActive ? 700 : 600,
-                          color: isActive ? INK : INK_MUTED,
+                          aspectRatio: "16 / 10",
+                          opacity: templateFinal,
+                          transform: `translate3d(0, ${lerp(26, 0, templateFinal)}px, 0)`,
+                          filter: `blur(${lerp(10, 0, templateFinal)}px)`,
                         }}
-                      >
-                        {step.label}
-                      </span>
-                      <span
-                        className="mt-1 max-w-[96px]"
-                        style={{
-                          fontSize: 14,
-                          lineHeight: 1.35,
-                          fontWeight: 400,
-                          color: isActive ? ICON_BLUE : INK_DIM,
-                        }}
-                      >
-                        {step.tagline}
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          </Reveal>
+                      />
+                    </div>
 
-          {/* Detail area: left image + right decision */}
-          <Reveal delay={0.16} y={22}>
-          {(() => {
-            const step = flowSteps[activeStep];
-            const isCompactCanvas = Boolean(step.compactCanvas);
-            const isOutlineScrollCanvas = (activeStep === 1 && showOutline) || activeStep === 2;
-            const isStreamingCanvas = activeStep === 3;
-            const isHistoryCanvas = activeStep === 4;
-            const isFromStreamingToHistory = previousActiveStep === 3 && activeStep === 4;
-            return (
-              <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1.5fr)_minmax(340px,0.85fr)] gap-8 lg:gap-10 xl:gap-14 items-start lg:items-center">
-                <div className="relative min-h-[260px] md:min-h-[340px] lg:min-h-[390px] overflow-visible">
-                  <AnimatePresence mode="wait">
-                    {isHistoryCanvas ? (
-                      <motion.div
-                        key="history-documents-canvas"
+                    <OutlineConfirmFrame
+                      className="z-10 w-[99%]"
+                      showContent={false}
+                      style={{
+                        opacity: outlineSharedPresence,
+                        pointerEvents: "none",
+                      }}
+                    />
+
+                    <div
+                      className="absolute inset-0 z-[70]"
+                      style={{
+                        opacity: p1 > 0 && p1 < 1 ? 1 : 0,
+                        transform: `translate3d(0, ${lerp(32, 0, rangeProgress(p1, 0.04, 0.24))}px, 0) scale(${lerp(0.985, 1, rangeProgress(p1, 0.04, 0.24))})`,
+                        pointerEvents: "none",
+                      }}
+                    >
+                      {flowConfigCards.map((card, index) => {
+                        const cardIn = rangeProgress(outlineCardsIn, index * 0.08, 0.58 + index * 0.08);
+                        const isTitleCard = card.variant === "title";
+                        const isAddCard = card.variant === "add";
+                        return (
+                          <div
+                            key={card.title}
+                            className={
+                              isAddCard
+                                ? `absolute z-[80] inline-flex items-center gap-1.5 rounded-lg border border-neutral-100 bg-white px-3 py-1.5 shadow-[0_4px_14px_rgba(15,20,25,0.06)] ${card.className}`
+                                : `absolute z-[80] rounded-xl border border-neutral-100 bg-white px-3 py-2.5 shadow-[0_6px_20px_rgba(15,20,25,0.08)] ${card.className}`
+                            }
+                            style={{
+                              opacity: cardIn * (1 - outlineMerge),
+                              transform: `translate3d(${lerp(card.fromX, card.mergeX, outlineMerge)}px, ${lerp(card.fromY, card.mergeY, outlineMerge)}px, 0) scale(${lerp(0.96, 0.2, outlineMerge)})`,
+                            }}
+                          >
+                            {isTitleCard ? (
+                              <>
+                                <div className="flex items-center justify-between gap-2">
+                                  <span className="shrink-0 text-[13px] font-medium text-[#1A1C24]">{card.title}</span>
+                                  <svg
+                                    className="size-3 shrink-0 -rotate-90 text-neutral-400"
+                                    viewBox="0 0 12 12"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="1.5"
+                                  >
+                                    <path d="M3 4.5L6 7.5L9 4.5" />
+                                  </svg>
+                                </div>
+                                <div className="mt-1.5 rounded-lg border border-[#E6E7EB] bg-[#F5F5F7] px-2 py-1.5">
+                                  <span className="text-[12px] text-[#1A1C24]">{card.body}</span>
+                                </div>
+                              </>
+                            ) : isAddCard ? (
+                              <>
+                                <span className="flex size-5 shrink-0 items-center justify-center rounded-full bg-[#2258F4] text-white">
+                                  <svg className="size-2.5" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="2">
+                                    <path d="M5 1v8M1 5h8" />
+                                  </svg>
+                                </span>
+                                <span className="text-[13px] text-neutral-600">{card.title}</span>
+                              </>
+                            ) : (
+                              <>
+                                <div className="flex items-center justify-between gap-2">
+                                  <span className="shrink-0 text-[13px] font-medium text-[#1A1C24]">{card.title}</span>
+                                  <svg
+                                    className="size-3 shrink-0 -rotate-90 text-neutral-400"
+                                    viewBox="0 0 12 12"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="1.5"
+                                  >
+                                    <path d="M3 4.5L6 7.5L9 4.5" />
+                                  </svg>
+                                </div>
+                                {card.primaryTags.length > 0 && (
+                                  <div className="mt-1.5 flex flex-wrap gap-1.5">
+                                    {card.primaryTags.map((tag) => (
+                                      <span
+                                        key={tag}
+                                        className="inline-flex items-center gap-1 rounded-full bg-[#E5EBFF] px-1.5 py-0.5 text-[10px] font-medium text-[#1A42B8]"
+                                      >
+                                        {tag}
+                                      </span>
+                                    ))}
+                                  </div>
+                                )}
+                                <p className={`${card.primaryTags.length > 0 ? "mt-1.5" : "mt-1"} text-[10px] leading-relaxed text-[#696D7A]`}>
+                                  {card.body}
+                                </p>
+                                {card.mutedTags.length > 0 && (
+                                  <div className="mt-1.5 flex flex-wrap gap-1">
+                                    {card.mutedTags.map((tag) => (
+                                      <span
+                                        key={tag}
+                                        className={`rounded-md border border-[#E6E7EB] bg-[#F5F5F7] px-1.5 py-0.5 text-[10px] ${
+                                          tag.startsWith("+")
+                                            ? "text-neutral-400"
+                                            : "text-neutral-700"
+                                        }`}
+                                      >
+                                        {tag}
+                                      </span>
+                                    ))}
+                                  </div>
+                                )}
+                              </>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+
+                    <OutlineConfirmFrame
+                      className="z-30 w-[99%]"
+                      showShell={false}
+                      contentXTranslate={0}
+                      contentTranslate={lerp(0, -74, confirmScroll)}
+                      contentOpacity={rawFlowStep < 2 ? outlineContentIn : 1}
+                      style={{
+                        opacity: outlineSharedPresence,
+                        transform:
+                          rawFlowStep < 2
+                            ? "translate3d(0, 0, 0)"
+                            : `translate3d(0, ${lerp(0, -24, rangeProgress(rawFlowStep, 2.82, 3))}px, 0)`,
+                        filter: "blur(0px)",
+                        pointerEvents: "none",
+                      }}
+                    />
+
+                    <div
+                      className="absolute inset-0"
+                      style={{
+                        opacity: layerPresence(3),
+                        transform: `translate3d(0, ${lerp(34, -28, rangeProgress(rawFlowStep, 2.82, 4))}px, 0)`,
+                        pointerEvents: "none",
+                      }}
+                    >
+                      <div
                         className="absolute inset-0 z-30 m-auto w-[99%] overflow-hidden rounded-[24px] border border-white/80 shadow-[0_28px_80px_rgba(15,20,25,0.14)]"
                         style={{ aspectRatio: "16 / 10" }}
-                        initial={{ opacity: 0, y: 34, scale: 0.98, filter: "blur(8px)" }}
-                        animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
-                        exit={{ opacity: 0, y: -18, scale: 0.96, filter: "blur(6px)" }}
-                        transition={{ duration: 0.62, ease: [0.22, 1, 0.36, 1] }}
+                      >
+                        <img
+                          src="./images/04/kongbaihuabu.png"
+                          alt="流式生成空白画布"
+                          {...DETAIL_IMAGE_LAZY_PROPS}
+                          className="absolute inset-0 h-full w-full object-contain object-top"
+                        />
+                        <img
+                          src="./images/04/liushihuaban.png"
+                          alt="流式生成报告空白面板"
+                          {...DETAIL_IMAGE_LAZY_PROPS}
+                          className="absolute right-0 top-0 z-20 h-full w-[60.7%] object-contain object-top"
+                          style={{
+                            opacity: streamPanelIn,
+                            transform: `translate3d(${lerp(110, 0, streamPanelIn)}px, 0, 0)`,
+                            clipPath: `inset(0 0 0 ${lerp(100, 0, streamPanelIn)}%)`,
+                            filter: `blur(${lerp(5, 0, streamPanelIn)}px)`,
+                          }}
+                        />
+                        <img
+                          src="./images/optimized/ai-stream-text-1400.jpg"
+                          alt="流式生成报告正文"
+                          {...DETAIL_IMAGE_LAZY_PROPS}
+                          className="absolute right-0 top-[5.6%] z-30 h-[88.9%] w-[60.7%] object-contain object-top"
+                          style={{
+                            opacity: streamTextIn,
+                            clipPath: `inset(0 0 ${lerp(100, 0, streamTextIn)}% 0)`,
+                            filter: `blur(${lerp(3, 0, streamTextIn)}px)`,
+                          }}
+                        />
+                        <div
+                          className="pointer-events-none absolute right-0 top-0 z-40 h-full w-[60.7%]"
+                          style={{
+                            opacity: streamShine < 0.5 ? lerp(0, 0.75, streamShine * 2) : lerp(0.75, 0, (streamShine - 0.5) * 2),
+                            transform: `translate3d(${lerp(-75, 92, streamShine)}%, 0, 0)`,
+                            background:
+                              "linear-gradient(115deg, transparent 0%, rgba(255,255,255,0.02) 36%, rgba(255,255,255,0.58) 48%, rgba(34,88,244,0.14) 54%, transparent 68%)",
+                            mixBlendMode: "screen",
+                          }}
+                        />
+                      </div>
+                    </div>
+
+                    <div
+                      className="absolute inset-0"
+                      style={{
+                        opacity: layerPresence(4),
+                        transform: `translate3d(0, ${lerp(80, 0, historyIn)}px, 0)`,
+                        filter: `blur(${lerp(8, 0, historyIn)}px)`,
+                        pointerEvents: "none",
+                      }}
+                    >
+                      <div
+                        className="absolute inset-0 z-30 m-auto w-[99%] overflow-hidden rounded-[24px] border border-white/80 shadow-[0_28px_80px_rgba(15,20,25,0.14)]"
+                        style={{ aspectRatio: "16 / 10" }}
                       >
                         <img
                           src="./images/05/lishijilupng.png"
@@ -978,513 +1278,36 @@ export function ProjectDetail({ onBack }: Props) {
                           {...DETAIL_IMAGE_LAZY_PROPS}
                           className="absolute inset-0 h-full w-full object-contain object-top"
                         />
-                      </motion.div>
-                    ) : isStreamingCanvas ? (
-                      <motion.div
-                        key="streaming-blank-canvas"
-                        className="absolute inset-0 z-30 m-auto w-[99%] overflow-hidden rounded-[24px] border border-white/80 shadow-[0_28px_80px_rgba(15,20,25,0.14)]"
-                        style={{ aspectRatio: "16 / 10" }}
-                        initial={{ opacity: 0, clipPath: "circle(0% at 50% 50%)", filter: "blur(10px)" }}
-                        animate={{ opacity: 1, clipPath: "circle(125% at 50% 50%)", filter: "blur(0px)" }}
-                        exit={
-                          isFromStreamingToHistory
-                            ? { opacity: 0, scale: 0.96, filter: "blur(6px)" }
-                            : { opacity: 0, clipPath: "circle(0% at 50% 50%)", filter: "blur(8px)" }
-                        }
-                        transition={{ duration: isFromStreamingToHistory ? 0.42 : 0.72, ease: [0.22, 1, 0.36, 1] }}
-                      >
-                        <motion.img
-                          src="./images/04/kongbaihuabu.png"
-                          alt="流式生成空白画布"
-                          {...DETAIL_IMAGE_LAZY_PROPS}
-                          className="absolute inset-0 h-full w-full object-contain object-top"
-                          exit={
-                            isFromStreamingToHistory
-                              ? { opacity: 0, scale: 0.985, filter: "blur(5px)" }
-                              : undefined
-                          }
-                          transition={{ duration: 0.26, ease: [0.22, 1, 0.36, 1] }}
-                        />
-                        <motion.img
-                          src="./images/04/liushihuaban.png"
-                          alt="流式生成报告空白面板"
-                          {...DETAIL_IMAGE_LAZY_PROPS}
-                          className="absolute right-0 top-0 z-20 h-full w-[60.7%] object-contain object-top"
-                          initial={{ opacity: 0, x: 110, clipPath: "inset(0 0 0 100%)", filter: "blur(5px)" }}
-                          animate={{ opacity: 1, x: 0, clipPath: "inset(0 0 0 0%)", filter: "blur(0px)" }}
-                          exit={
-                            isFromStreamingToHistory
-                              ? { opacity: 0, x: -54, scale: 0.88, filter: "blur(8px)" }
-                              : undefined
-                          }
-                          transition={{ duration: 0.82, delay: 0.48, ease: [0.22, 1, 0.36, 1] }}
-                        />
-                        <motion.img
-                          src="./images/optimized/ai-stream-text-1400.jpg"
-                          alt="流式生成报告正文"
-                          {...DETAIL_IMAGE_LAZY_PROPS}
-                          className="absolute right-0 top-[5.6%] z-30 h-[88.9%] w-[60.7%] object-contain object-top"
-                          initial={{ opacity: 0, clipPath: "inset(0 0 100% 0)", filter: "blur(3px)" }}
-                          animate={{ opacity: 1, clipPath: "inset(0 0 0% 0)", filter: "blur(0px)" }}
-                          exit={
-                            isFromStreamingToHistory
-                              ? { opacity: 0, x: -54, scale: 0.88, filter: "blur(8px)" }
-                              : undefined
-                          }
-                          transition={{ duration: 1.65, delay: 1.18, ease: [0.22, 1, 0.36, 1] }}
-                        />
-                        <motion.div
-                          className="pointer-events-none absolute right-0 top-0 z-40 h-full w-[60.7%]"
-                          style={{
-                            background:
-                              "linear-gradient(115deg, transparent 0%, rgba(255,255,255,0.02) 36%, rgba(255,255,255,0.58) 48%, rgba(34,88,244,0.14) 54%, transparent 68%)",
-                            mixBlendMode: "screen",
-                          }}
-                          initial={{ opacity: 0, x: "-75%" }}
-                          animate={{ opacity: [0, 0.75, 0], x: ["-75%", "18%", "92%"] }}
-                          exit={isFromStreamingToHistory ? { opacity: 0 } : undefined}
-                          transition={{ duration: 1.05, delay: 2.95, ease: [0.22, 1, 0.36, 1] }}
-                        />
-                      </motion.div>
-                    ) : step.image && activeStep !== 2 ? (
-                      <motion.div
-                        key={`image-${activeStep}`}
-                        className="absolute inset-0 overflow-visible"
-                        initial={
-                          isCompactCanvas
-                            ? { opacity: 0, x: 0, y: 0, scale: 1 }
-                            : { opacity: 0, x: 120, y: 36, scale: 0.94 }
-                        }
-                        animate={{ opacity: 1, x: 0, y: 0, scale: 1 }}
-                        exit={
-                          isCompactCanvas
-                            ? { opacity: 0, x: 0, y: 0, scale: 0.98 }
-                            : { opacity: 0, x: -110, y: -24, scale: 0.96 }
-                        }
-                        transition={{ duration: isCompactCanvas ? 0.24 : 0.48, ease: [0.22, 1, 0.36, 1] }}
-                      >
-                        <motion.div
-                          className="absolute inset-0 overflow-visible"
-                          animate={
-                            flowFinalVisible && step.finalImage && !isCompactCanvas
-                              ? { opacity: 0, y: -12, scale: 0.86, filter: "blur(8px)" }
-                              : { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }
-                          }
-                          transition={
-                            flowFinalVisible && step.finalImage && !isCompactCanvas
-                              ? { type: "spring", stiffness: 260, damping: 21, mass: 0.8 }
-                              : { duration: 0.2 }
-                          }
-                        >
-                          {isCompactCanvas ? (
-                            <div className="pointer-events-none absolute left-0 right-0 top-[8%] bottom-[4%] z-0 overflow-visible">
-                              {Array.from({ length: 9 }).map((_, index) => (
-                                <motion.span
-                                  key={`trail-${index}`}
-                                  className="absolute block h-[3px] rounded-full"
-                                  style={{
-                                    top:
-                                      index % 4 === 0
-                                        ? `${6 + (index % 3) * 7}%`
-                                        : index % 4 === 1
-                                          ? `${82 + (index % 3) * 5}%`
-                                          : `${22 + ((index * 13) % 54)}%`,
-                                    left: `${6 + ((index * 17) % 80)}%`,
-                                    width: `${90 + (index % 4) * 26}px`,
-                                    background:
-                                      "linear-gradient(90deg, transparent, rgba(34,88,244,0.56), rgba(105,178,255,0.24), transparent)",
-                                    boxShadow: "0 0 14px rgba(34,88,244,0.22)",
-                                  }}
-                                  initial={{ opacity: 0, x: 90, scaleX: 0.36, filter: "blur(3px)" }}
-                                  animate={{
-                                    opacity: [0, 0.68, 0.48, 0],
-                                    x: -170,
-                                    scaleX: [0.36, 0.9, 0.78, 0.5],
-                                    filter: ["blur(3px)", "blur(0px)", "blur(0px)", "blur(3px)"],
-                                  }}
-                                  transition={{
-                                    duration: 1.25,
-                                    delay: index * 0.055,
-                                    ease: [0.22, 1, 0.36, 1],
-                                  }}
-                                />
-                              ))}
-                              {Array.from({ length: 12 }).map((_, index) => (
-                                <motion.span
-                                  key={`particle-${index}`}
-                                  className="absolute block rounded-full"
-                                  style={{
-                                    top: `${8 + ((index * 17) % 84)}%`,
-                                    left: `${4 + ((index * 11) % 92)}%`,
-                                    width: index % 4 === 0 ? 5 : 3,
-                                    height: index % 4 === 0 ? 5 : 3,
-                                    background: index % 3 === 0 ? "rgba(34,88,244,0.58)" : "rgba(15,20,25,0.22)",
-                                    boxShadow: index % 3 === 0 ? "0 0 10px rgba(34,88,244,0.26)" : "none",
-                                  }}
-                                  initial={{ opacity: 0, x: 60, scale: 0.45 }}
-                                  animate={{ opacity: [0, 0.68, 0.48, 0], x: -120, scale: [0.45, 0.92, 0.78, 0.5] }}
-                                  transition={{
-                                    duration: 1.08,
-                                    delay: 0.08 + index * 0.035,
-                                    ease: [0.22, 1, 0.36, 1],
-                                  }}
-                                />
-                              ))}
-                            </div>
-                          ) : (
-                            <div
-                              className="absolute left-[3%] right-[4%] top-[12%] bottom-[8%] rounded-[34px]"
-                              style={{
-                                background:
-                                  "radial-gradient(circle at 18% 18%, rgba(34,88,244,0.16), transparent 32%), linear-gradient(135deg, #F8FAFF, #EEF3FF 52%, #FFFFFF)",
-                                boxShadow: "inset 0 0 0 1px rgba(34,88,244,0.08), 0 28px 80px rgba(34,88,244,0.08)",
-                              }}
-                            />
-                          )}
-                          <div
-                            className={`absolute inset-0 m-auto overflow-visible ${isCompactCanvas ? "z-10" : "z-0"} ${
-                              isCompactCanvas ? "w-[72%]" : "w-[96%]"
-                            }`}
-                            style={{ aspectRatio: "16 / 10" }}
-                          >
-                            <motion.img
-                              src={step.image}
-                              alt={step.placeholder}
-                              {...DETAIL_IMAGE_LAZY_PROPS}
-                              className="relative h-full w-full rounded-[22px] border border-white/80 object-contain object-top shadow-[0_24px_70px_rgba(15,20,25,0.12)]"
-                                initial={{
-                                  opacity: 0,
-                                  y: isCompactCanvas ? 0 : 18,
-                                  scale: isCompactCanvas ? 0.76 : 0.97,
-                                  filter: isCompactCanvas ? "blur(12px)" : "blur(0px)",
-                                  rotate: 0,
-                                }}
-                                animate={
-                                  (isCompactCanvas && (isCardsMerging || showOutline))
-                                    ? { opacity: 0, scale: 0.78, filter: "blur(4px)" }
-                                    : isCompactCanvas
-                                    ? {
-                                        opacity: 1,
-                                        x: flowFinalVisible ? 0 : [28, 18, 10, 4, -8, 5, 0],
-                                        y: flowFinalVisible ? 0 : [0, -5, 4, -3, 7, -4, 0],
-                                        scale: flowFinalVisible ? 1.24 : 0.9,
-                                        filter: "blur(0px)",
-                                        rotate: flowFinalVisible ? 0 : [-0.25, 0.18, -0.18, 0.12, -0.8, 0.34, 0],
-                                      }
-                                    : {
-                                        opacity: 1,
-                                        y: 0,
-                                        scale: 1,
-                                        filter: "blur(0px)",
-                                        rotate: 0,
-                                      }
-                                }
-                                transition={
-                                  (isCompactCanvas && (isCardsMerging || showOutline))
-                                    ? { duration: 0.45, ease: [0.4, 0, 0.2, 1] }
-                                    : isCompactCanvas
-                                    ? flowFinalVisible
-                                      ? {
-                                          opacity: { duration: 0.42, ease: [0.22, 1, 0.36, 1] },
-                                          filter: { duration: 0.42, ease: [0.22, 1, 0.36, 1] },
-                                          x: { duration: 0.35 },
-                                          y: { duration: 0.35 },
-                                          rotate: { duration: 0.35 },
-                                          scale: { type: "spring", stiffness: 200, damping: 22, mass: 0.7 },
-                                        }
-                                      : {
-                                          opacity: { duration: 0.42, ease: [0.22, 1, 0.36, 1] },
-                                          filter: { duration: 0.42, ease: [0.22, 1, 0.36, 1] },
-                                          x: { duration: 1.18, ease: "linear", times: [0, 0.14, 0.28, 0.42, 0.64, 0.82, 1] },
-                                          y: { duration: 1.18, ease: "linear", times: [0, 0.14, 0.28, 0.42, 0.64, 0.82, 1] },
-                                          rotate: { duration: 1.18, ease: "linear", times: [0, 0.14, 0.28, 0.42, 0.64, 0.82, 1] },
-                                          scale: { type: "spring", stiffness: 200, damping: 22, mass: 0.7 },
-                                        }
-                                    : {
-                                        duration: 0.5,
-                                        ease: [0.22, 1, 0.36, 1],
-                                      }
-                                }
-                              />
-                          </div>
-                          {step.sidebar && (
-                            <motion.img
-                              src={step.sidebar}
-                              alt="模板中心侧边栏"
-                              {...DETAIL_IMAGE_LAZY_PROPS}
-                              className="absolute -left-[0.8%] top-[-8%] z-20 h-[116%] rounded-[16px] object-contain object-top shadow-[10px_0_28px_rgba(15,20,25,0.08)]"
-                              initial={{ opacity: 0, x: -140, scale: 0.98 }}
-                              animate={{ opacity: 1, x: 0, scale: 1 }}
-                              transition={{ duration: 0.48, delay: 0.22, ease: [0.22, 1, 0.36, 1] }}
-                            />
-                          )}
-                          {step.templateCards?.map((item, index) => (
-                            <motion.img
-                              key={item.src}
-                              src={item.src}
-                              alt={item.label}
-                              {...DETAIL_IMAGE_LAZY_PROPS}
-                              className={`absolute z-20 rounded-[14px] object-contain object-top ${
-                                item.emphasis
-                                  ? "shadow-[0_24px_56px_rgba(34,88,244,0.18)]"
-                                  : "shadow-[0_18px_42px_rgba(15,20,25,0.14)]"
-                              } ${item.className}`}
-                              initial={{
-                                opacity: 0,
-                                x: item.from.x,
-                                y: item.from.y,
-                                scale: 0.96,
-                              }}
-                              animate={{ opacity: 1, x: 0, y: 0, scale: item.emphasis ? 1.015 : 1 }}
-                              transition={{
-                                duration: item.emphasis ? 0.54 : 0.48,
-                                delay: 0.42 + index * 0.1,
-                                ease: [0.22, 1, 0.36, 1],
-                              }}
-                            />
-                          ))}
-                          {step.callouts?.map((item, index) => (
-                            <motion.figure
-                              key={item.src}
-                              className={`absolute overflow-hidden rounded-[18px] border border-white bg-white shadow-[0_22px_48px_rgba(15,20,25,0.18)] ${item.className}`}
-                              initial={{ opacity: 0, y: 18, scale: 0.94 }}
-                              animate={{ opacity: 1, y: 0, scale: 1 }}
-                              transition={{
-                                duration: 0.34,
-                                delay: 0.1 + index * 0.06,
-                                ease: [0.22, 1, 0.36, 1],
-                              }}
-                            >
-                              <img src={item.src} alt={item.label} {...DETAIL_IMAGE_LAZY_PROPS} className="block w-full" />
-                            </motion.figure>
-                          ))}
-                        </motion.div>
-                        <AnimatePresence>
-                          {flowFinalVisible && step.finalImage && !isCompactCanvas && (
-                            <motion.img
-                              key={`${step.finalImage}-final`}
-                              src={step.finalImage}
-                              alt="模板中心完整页面"
-                              {...DETAIL_IMAGE_LAZY_PROPS}
-                              className="absolute inset-0 m-auto w-[99%] rounded-[24px] border border-white/80 object-contain object-top shadow-[0_28px_80px_rgba(15,20,25,0.14)]"
-                              style={{ aspectRatio: "16 / 10" }}
-                              initial={{ opacity: 0, y: 26, scale: 1.08, filter: "blur(10px)" }}
-                              animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
-                              exit={{ opacity: 0, y: -18, scale: 0.96, filter: "blur(8px)" }}
-                              transition={{ type: "spring", stiffness: 210, damping: 24, mass: 0.9 }}
-                            />
-                          )}
-                        </AnimatePresence>
-                      </motion.div>
-                    ) : isOutlineScrollCanvas || isStreamingCanvas || isHistoryCanvas ? null : (
-                      <motion.div
-                        key={`placeholder-${activeStep}`}
-                        initial={{ opacity: 0, x: 48, scale: 0.98 }}
-                        animate={{ opacity: 1, x: 0, scale: 1 }}
-                        exit={{ opacity: 0, x: -48, scale: 0.98 }}
-                        transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
-                      >
-                        <Placeholder size="lg" ratio="16 / 9" label={step.placeholder} />
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-
-                  {/* Config cards around canvas — compact Figma replicas */}
-                  {isCompactCanvas && showStep02Cards && !showOutline && (
-                    <>
-                      {/* Card 1: 报告标题 */}
-                      <motion.div
-                        className="absolute left-[8%] top-[2%] z-20 rounded-xl bg-white px-3 py-2.5 border border-neutral-100 shadow-[0_6px_20px_rgba(15,20,25,0.08)]"
-                        initial={{ opacity: 0, x: -80, y: 6 }}
-                        animate={isCardsMerging
-                          ? { opacity: 0, x: 280, y: 180, scale: 0.2 }
-                          : { opacity: 1, x: 0, y: 0 }
-                        }
-                        transition={isCardsMerging
-                          ? { duration: 0.38, ease: [0.4, 0, 0.2, 1] }
-                          : { duration: 0.36, delay: 0.06, ease: [0.22, 1, 0.36, 1] }
-                        }
-                      >
-                        <div className="flex items-center justify-between gap-2">
-                          <span className="text-[13px] font-medium text-[#1A1C24]">报告标题</span>
-                          <svg className="size-3 text-neutral-400 flex-shrink-0 -rotate-90" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M3 4.5L6 7.5L9 4.5"/></svg>
-                        </div>
-                        <div className="mt-1.5 rounded-lg bg-[#F5F5F7] border border-[#E6E7EB] px-2 py-1.5">
-                          <span className="text-[12px] text-[#1A1C24]">福田区区域监测报告</span>
-                        </div>
-                      </motion.div>
-
-                      {/* Card 2: 一、区域企业监测 */}
-                      <motion.div
-                        className="absolute left-[0%] top-[30%] z-20 rounded-xl bg-white px-3 py-2.5 border border-neutral-100 shadow-[0_6px_20px_rgba(15,20,25,0.08)]"
-                        initial={{ opacity: 0, x: -130, y: 10 }}
-                        animate={isCardsMerging
-                          ? { opacity: 0, x: 300, y: 60, scale: 0.2 }
-                          : { opacity: 1, x: 0, y: 0 }
-                        }
-                        transition={isCardsMerging
-                          ? { duration: 0.40, ease: [0.4, 0, 0.2, 1] }
-                          : { duration: 0.40, delay: 0.16, ease: [0.22, 1, 0.36, 1] }
-                        }
-                      >
-                        <div className="flex items-center justify-between gap-2">
-                          <span className="text-[13px] font-medium text-[#1A1C24] flex-shrink-0">一、区域企业监测</span>
-                          <svg className="size-3 text-neutral-400 flex-shrink-0 -rotate-90" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M3 4.5L6 7.5L9 4.5"/></svg>
-                        </div>
-                        <div className="mt-1.5 flex gap-1.5">
-                          <span className="inline-flex items-center gap-1 rounded-full bg-[#E5EBFF] px-1.5 py-0.5 text-[10px] font-medium text-[#1A42B8]">深圳市-福田区</span>
-                          <span className="inline-flex items-center gap-1 rounded-full bg-[#E5EBFF] px-1.5 py-0.5 text-[10px] font-medium text-[#1A42B8]">2026.01.01-01.07</span>
-                        </div>
-                        <p className="mt-1.5 text-[10px] text-[#696D7A] leading-relaxed">覆盖全量企业主体，采集工商注册、经营状况、纳税信用、创新能力等多维数据</p>
-                        <div className="mt-1.5 flex flex-wrap gap-1">
-                          <span className="rounded-md bg-[#F5F5F7] border border-[#E6E7EB] px-1.5 py-0.5 text-[10px] text-neutral-700">央企</span>
-                          <span className="rounded-md bg-[#F5F5F7] border border-[#E6E7EB] px-1.5 py-0.5 text-[10px] text-neutral-700">世界500强</span>
-                          <span className="rounded-md bg-[#F5F5F7] border border-[#E6E7EB] px-1.5 py-0.5 text-[10px] text-neutral-700">中国各类500强</span>
-                          <span className="rounded-md bg-[#F5F5F7] border border-[#E6E7EB] px-1.5 py-0.5 text-[10px] text-neutral-400">+添加企业</span>
-                        </div>
-                      </motion.div>
-
-                      {/* Card 3: 二、区域重点产业监测 */}
-                      <motion.div
-                        className="absolute right-[0%] top-[2%] z-20 rounded-xl bg-white px-3 py-2.5 border border-neutral-100 shadow-[0_6px_20px_rgba(15,20,25,0.08)]"
-                        initial={{ opacity: 0, x: 90, y: -8 }}
-                        animate={isCardsMerging
-                          ? { opacity: 0, x: -280, y: 180, scale: 0.2 }
-                          : { opacity: 1, x: 0, y: 0 }
-                        }
-                        transition={isCardsMerging
-                          ? { duration: 0.38, ease: [0.4, 0, 0.2, 1] }
-                          : { duration: 0.40, delay: 0.24, ease: [0.22, 1, 0.36, 1] }
-                        }
-                      >
-                        <div className="flex items-center justify-between gap-2">
-                          <span className="text-[13px] font-medium text-[#1A1C24]">二、区域重点产业监测</span>
-                          <svg className="size-3 text-neutral-400 flex-shrink-0 -rotate-90" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M3 4.5L6 7.5L9 4.5"/></svg>
-                        </div>
-                        <p className="mt-1 text-[10px] text-[#696D7A] leading-relaxed">聚焦主导产业和战略性新兴产业，跟踪产业链供应链运行态势及市场竞争力</p>
-                        <div className="mt-1.5 flex flex-wrap gap-1">
-                          <span className="rounded-md bg-[#F5F5F7] border border-[#E6E7EB] px-1.5 py-0.5 text-[10px] text-neutral-700">软件与信息技术服务</span>
-                          <span className="rounded-md bg-[#F5F5F7] border border-[#E6E7EB] px-1.5 py-0.5 text-[10px] text-neutral-700">智能机器人</span>
-                          <span className="rounded-md bg-[#F5F5F7] border border-[#E6E7EB] px-1.5 py-0.5 text-[10px] text-neutral-700">集成电路</span>
-                          <span className="rounded-md bg-[#F5F5F7] border border-[#E6E7EB] px-1.5 py-0.5 text-[10px] text-neutral-400">+4</span>
-                        </div>
-                      </motion.div>
-
-                      {/* Card 4: 三、重点对标区域动态监测 */}
-                      <motion.div
-                        className="absolute right-[-4%] top-[56%] z-20 rounded-xl bg-white px-3 py-2.5 border border-neutral-100 shadow-[0_6px_20px_rgba(15,20,25,0.08)]"
-                        initial={{ opacity: 0, x: 100, y: 16 }}
-                        animate={isCardsMerging
-                          ? { opacity: 0, x: -300, y: -80, scale: 0.2 }
-                          : { opacity: 1, x: 0, y: 0 }
-                        }
-                        transition={isCardsMerging
-                          ? { duration: 0.42, ease: [0.4, 0, 0.2, 1] }
-                          : { duration: 0.38, delay: 0.32, ease: [0.22, 1, 0.36, 1] }
-                        }
-                      >
-                        <div className="flex items-center justify-between gap-2">
-                          <span className="text-[13px] font-medium text-[#1A1C24] flex-shrink-0">三、重点对标区域动态监测</span>
-                          <svg className="size-3 text-neutral-400 flex-shrink-0 -rotate-90" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M3 4.5L6 7.5L9 4.5"/></svg>
-                        </div>
-                        <div className="mt-1.5 flex flex-wrap gap-1">
-                          <span className="inline-flex items-center gap-1 rounded-full bg-[#E5EBFF] px-1.5 py-0.5 text-[10px] font-medium text-[#1A42B8]">深圳市-罗湖区</span>
-                          <span className="inline-flex items-center gap-1 rounded-full bg-[#E5EBFF] px-1.5 py-0.5 text-[10px] font-medium text-[#1A42B8]">深圳市-宝安区</span>
-                          <span className="inline-flex items-center gap-1 rounded-full bg-[#E5EBFF] px-1.5 py-0.5 text-[10px] font-medium text-[#1A42B8]">深圳市-龙岗区</span>
-                        </div>
-                        <p className="mt-1.5 text-[10px] text-[#696D7A] leading-relaxed">选取标杆区域持续比较经济指标、产业发展、营商环境等关键维度</p>
-                        <div className="mt-1.5 flex flex-wrap gap-1">
-                          <span className="rounded-md bg-[#F5F5F7] border border-[#E6E7EB] px-1.5 py-0.5 text-[10px] text-neutral-700">新发布政策</span>
-                          <span className="rounded-md bg-[#F5F5F7] border border-[#E6E7EB] px-1.5 py-0.5 text-[10px] text-neutral-700">重大招商引资项目</span>
-                          <span className="rounded-md bg-[#F5F5F7] border border-[#E6E7EB] px-1.5 py-0.5 text-[10px] text-neutral-700">新设立的产业基金</span>
-                        </div>
-                      </motion.div>
-
-                      {/* Card 5: 添加章节 */}
-                      <motion.div
-                        className="absolute left-[30%] bottom-[4%] z-20 inline-flex items-center gap-1.5 rounded-lg bg-white px-3 py-1.5 border border-neutral-100 shadow-[0_4px_14px_rgba(15,20,25,0.06)]"
-                        initial={{ opacity: 0, x: -50, y: 14 }}
-                        animate={isCardsMerging
-                          ? { opacity: 0, x: 80, y: -220, scale: 0.2 }
-                          : { opacity: 1, x: 0, y: 0 }
-                        }
-                        transition={isCardsMerging
-                          ? { duration: 0.35, ease: [0.4, 0, 0.2, 1] }
-                          : { duration: 0.30, delay: 0.40, ease: [0.22, 1, 0.36, 1] }
-                        }
-                      >
-                        <span className="flex size-5 items-center justify-center rounded-full bg-[#2258F4] text-white flex-shrink-0">
-                          <svg className="size-2.5" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 1v8M1 5h8"/></svg>
-                        </span>
-                        <span className="text-[13px] text-neutral-600">添加章节</span>
-                      </motion.div>
-                    </>
-                  )}
-
-                  {isOutlineScrollCanvas && (
-                    <motion.div
-                      key="outline-scroll-canvas"
-                      className="absolute inset-0 z-30 m-auto w-[99%] overflow-hidden rounded-[24px] border border-white/80 shadow-[0_28px_80px_rgba(15,20,25,0.14)]"
-                      style={{ aspectRatio: "16 / 10" }}
-                      initial={{ opacity: 0, y: 26, scale: 1.08, filter: "blur(10px)" }}
-                      animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
-                      transition={{ type: "spring", stiffness: 210, damping: 24, mass: 0.9 }}
-                    >
-                      <img
-                        src="./images/ai-report-flow/step-02-final-outline.png"
-                        alt="章节大纲空白画布"
-                        {...DETAIL_IMAGE_LAZY_PROPS}
-                        className="absolute inset-0 h-full w-full object-contain object-top"
-                      />
-                      <div className="absolute left-[19.2%] top-[9.8%] h-[88.5%] w-[72.2%] overflow-hidden">
-                        <motion.img
-                          src="./images/optimized/ai-outline-confirm-900.png"
-                          alt="章节大纲确认长图"
-                          {...DETAIL_IMAGE_LAZY_PROPS}
-                          className="block w-full max-w-none"
-                          initial={false}
-                          animate={{ y: activeStep === 2 ? "-74%" : "0%" }}
-                          transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
-                        />
                       </div>
-                    </motion.div>
-                  )}
-                </div>
-                <div
-                  className="relative p-7 md:p-8 rounded-3xl border overflow-hidden"
-                  style={{
-                    borderColor: "rgba(18, 24, 40, 0.1)",
-                    background: "linear-gradient(180deg, #FFFFFF, #F5F7FF)",
-                    boxShadow: "0 18px 50px rgba(18, 24, 40, 0.06)",
-                  }}
-                >
+                    </div>
+                  </div>
                   <AnimatePresence mode="wait">
                     <motion.div
-                      key={`flow-copy-${activeStep}`}
-                      initial={{ opacity: 0, y: 10, filter: "blur(3px)" }}
+                      key={`flow-note-${activeStep}`}
+                      className="mt-6 grid gap-4 rounded-[16px] border bg-white/92 px-4 py-3 backdrop-blur-md md:grid-cols-[0.88fr_1.12fr]"
+                      style={{
+                        borderColor: LINE,
+                        boxShadow: "0 12px 34px rgba(15,20,25,0.07)",
+                      }}
+                      initial={{ opacity: 0, y: 8, filter: "blur(4px)" }}
                       animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                      exit={{ opacity: 0, y: -8, filter: "blur(3px)" }}
-                      transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                      exit={{ opacity: 0, y: -6, filter: "blur(4px)" }}
+                      transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
                     >
-                      <h3 style={{ fontSize: 24, fontWeight: 700, color: INK, lineHeight: 1.25, marginBottom: 22 }}>
-                        {step.label}
-                      </h3>
-
-                      <div style={{ marginBottom: 22 }}>
-                        <div style={{ fontSize: 15, fontWeight: 700, color: INK, marginBottom: 8 }}>
+                      <div className="min-w-0">
+                        <div className="text-[13px] font-semibold" style={{ color: INK }}>
                           设计决策
                         </div>
-                        <p style={{ fontSize: 16, fontWeight: 400, color: INK_MUTED, lineHeight: 1.7 }}>
-                          {step.decision}
+                        <p className="mt-0.5 text-[13px] leading-[1.55]" style={{ color: INK_DIM }}>
+                          {currentFlowStep.decision}
                         </p>
                       </div>
-
-                      <div className="pt-5 border-t" style={{ borderColor: LINE }}>
-                        <div style={{ fontSize: 15, fontWeight: 700, color: INK, marginBottom: 8 }}>
+                      <div className="min-w-0 border-t pt-2 md:border-l md:border-t-0 md:pl-4 md:pt-0" style={{ borderColor: LINE }}>
+                        <div className="text-[13px] font-semibold" style={{ color: INK }}>
                           为什么这样做
                         </div>
-                        <p style={{ fontSize: 15, fontWeight: 400, color: INK_DIM, lineHeight: 1.7 }}>
-                          {step.why}
+                        <p className="mt-0.5 text-[13px] leading-[1.55]" style={{ color: INK_DIM }}>
+                          {currentFlowStep.why}
                         </p>
                       </div>
                     </motion.div>
@@ -1492,8 +1315,8 @@ export function ProjectDetail({ onBack }: Props) {
                 </div>
               </div>
             );
-          })()}
-          </Reveal>
+            })()}
+          </div>
         </div>
       </section>
 
@@ -1762,15 +1585,21 @@ export function ProjectDetail({ onBack }: Props) {
               index="05"
               kicker="章节提示词编排规则"
               title="章节提示词编排规则"
-              subtitle="将用户指令、章节背景和执行限制统一注入章节智能体，让每个章节都能按稳定流程完成检索、合流、校验和输出。"
+              subtitle=""
             />
           </Reveal>
 
-          <Reveal className="mb-6" delay={0.08} y={20}>
+          <Reveal className="mb-12 max-w-[860px]" delay={0.08}>
+            <p style={bodyText}>
+              将用户指令、章节背景和执行限制统一注入章节智能体，让每个章节都能按稳定流程完成检索、合流、校验和输出。
+            </p>
+          </Reveal>
+
+          <Reveal className="mb-6" delay={0.16} y={24}>
             <AgentWorkflowDiagram />
           </Reveal>
 
-          <Reveal className="mb-6 grid gap-4 md:grid-cols-3" delay={0.12} y={20}>
+          <Reveal className="mb-6 grid gap-4 md:grid-cols-3" delay={0.2} y={20}>
             {[
               {
                 title: "上下文漂移",
