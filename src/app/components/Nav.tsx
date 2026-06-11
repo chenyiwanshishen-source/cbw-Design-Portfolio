@@ -17,6 +17,7 @@ const navLinkInactive =
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [activeNav, setActiveNav] = useState("home");
+  const [pendingHref, setPendingHref] = useState<string | null>(null);
 
   useEffect(() => {
     const updateNavState = () => {
@@ -39,10 +40,16 @@ export function Nav() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const goRoute = (e: React.MouseEvent, href: string) => {
+  const goRoute = async (e: React.MouseEvent, href: string) => {
     e.preventDefault();
     if (!href) return;
-    preloadForHref(href);
+    if (pendingHref) return;
+    if (window.location.hash === href) return;
+
+    setPendingHref(href);
+    await preloadForHref(href);
+    setPendingHref(null);
+
     if (href.startsWith("#/")) {
       window.location.hash = href.slice(1);
     }
@@ -50,10 +57,11 @@ export function Nav() {
 
   const preloadForHref = (href: string) => {
     if (href === "#/project/ai-report") {
-      void preloadProjectDetailAssets("ai-report", "high");
+      return preloadProjectDetailAssets("ai-report", "high");
     } else if (href === "#/project/qixin-brain") {
-      void preloadProjectDetailAssets("qixin-brain", "high");
+      return preloadProjectDetailAssets("qixin-brain", "high");
     }
+    return Promise.resolve();
   };
 
   return (
@@ -97,12 +105,13 @@ export function Nav() {
                 key={item.label}
                 href={item.href || "#"}
                 onClick={(e) => goRoute(e, item.href)}
-                onMouseEnter={() => preloadForHref(item.href)}
-                onFocus={() => preloadForHref(item.href)}
-                onTouchStart={() => preloadForHref(item.href)}
+                onMouseEnter={() => void preloadForHref(item.href)}
+                onFocus={() => void preloadForHref(item.href)}
+                onTouchStart={() => void preloadForHref(item.href)}
+                aria-busy={pendingHref === item.href}
                 className={`${navLinkBase} ${
                   isActive ? navLinkActive : navLinkInactive
-                }`}
+                } ${pendingHref === item.href ? "cursor-progress opacity-80" : ""}`}
               >
                 {item.label}
               </a>

@@ -18,6 +18,8 @@ export function PortfolioLoader({ route }: PortfolioLoaderProps) {
   const niceRef = useRef<HTMLDivElement | null>(null);
   const buttonRef = useRef<HTMLButtonElement | null>(null);
   const contentRef = useRef<HTMLSpanElement | null>(null);
+  const percentTrackRef = useRef<HTMLSpanElement | null>(null);
+  const percentRef = useRef<HTMLSpanElement | null>(null);
   const labelRef = useRef<HTMLSpanElement | null>(null);
   const fillRef = useRef<HTMLSpanElement | null>(null);
   const initialRouteRef = useRef(route);
@@ -55,8 +57,10 @@ export function PortfolioLoader({ route }: PortfolioLoaderProps) {
       const nice = niceRef.current;
       const button = buttonRef.current;
       const content = contentRef.current;
+      const percentTrack = percentTrackRef.current;
+      const percent = percentRef.current;
       const fill = fillRef.current;
-      if (!hello || !nice || !button || !content || !fill) return;
+      if (!hello || !nice || !button || !content || !percentTrack || !percent || !fill) return;
 
       const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       const markIntroDone = contextSafe(() => setIntroDone(true));
@@ -77,6 +81,8 @@ export function PortfolioLoader({ route }: PortfolioLoaderProps) {
       });
       gsap.set([hello, nice], { autoAlpha: 0, y: 10, filter: "blur(6px)" });
       gsap.set(content, { autoAlpha: 0, y: 6 });
+      gsap.set(percentTrack, { autoAlpha: 0, width: "8%" });
+      gsap.set(percent, { autoAlpha: 1, yPercent: -50 });
       gsap.set(fill, {
         autoAlpha: reduceMotion ? 1 : 0,
         scaleX: reduceMotion ? 0.08 : 0.03,
@@ -175,7 +181,8 @@ export function PortfolioLoader({ route }: PortfolioLoaderProps) {
           },
           "morph"
         )
-        .to(fill, { autoAlpha: 1, scaleX: 0.08, duration: 0.2, ease: "power3.out" }, "morph+=0.12");
+        .to(fill, { autoAlpha: 1, scaleX: 0.08, duration: 0.2, ease: "power3.out" }, "morph+=0.12")
+        .to(percentTrack, { autoAlpha: 1, duration: 0.2, ease: "power3.out" }, "morph+=0.16");
     },
     { scope: rootRef }
   );
@@ -194,6 +201,22 @@ export function PortfolioLoader({ route }: PortfolioLoaderProps) {
       fillTween.kill();
     };
   }, [introDone, rawProgress]);
+
+  useEffect(() => {
+    if (!introDone || !percentTrackRef.current) return;
+
+    const target = Math.max(0.08, rawProgress);
+    const percentTween = gsap.to(percentTrackRef.current, {
+      width: `${target * 100}%`,
+      autoAlpha: ready ? 0 : 1,
+      duration: rawProgress >= 1 ? 0.36 : 0.5,
+      ease: "power3.out",
+    });
+
+    return () => {
+      percentTween.kill();
+    };
+  }, [introDone, rawProgress, ready]);
 
   useEffect(() => {
     if (!introDone || !contentRef.current) return;
@@ -377,6 +400,17 @@ export function PortfolioLoader({ route }: PortfolioLoaderProps) {
               ref={fillRef}
               className="absolute inset-0 origin-left rounded-full bg-[#2258F4]"
             />
+            <span
+              ref={percentTrackRef}
+              className="pointer-events-none absolute inset-y-0 left-0 z-20 overflow-hidden rounded-full"
+            >
+              <span
+                ref={percentRef}
+                className="absolute right-4 top-1/2 whitespace-nowrap rounded-full text-[14px] font-semibold leading-none text-white"
+              >
+                {Math.round(rawProgress * 100)}%
+              </span>
+            </span>
             <span
               ref={contentRef}
               className="relative z-10 flex h-full w-full items-center justify-between px-4 text-white"
