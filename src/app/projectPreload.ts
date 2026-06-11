@@ -1,5 +1,6 @@
 type ProjectKey = "ai-report" | "qixin-brain";
 type Priority = "high" | "low";
+type ProgressCallback = (progress: number) => void;
 
 type PrioritizedImage = HTMLImageElement & {
   fetchPriority?: "high" | "low" | "auto";
@@ -15,6 +16,10 @@ export const loadQixinProjectDetail = () => import("./components/QixinProjectDet
 
 const AI_FLOW_IMAGES = [
   "./images/ai-report-hero-full.png",
+  "./images/ai-report-hero-toggle-01.png",
+  "./images/ai-report-hero-toggle-02.png",
+  "./images/ai-repor- left-01.png",
+  "./images/ai- report-right-01.png",
   "./images/ai-report-flow/step-01-blank-canvas.png",
   "./images/ai-report-flow/step-01-sidebar.png",
   "./images/ai-report-flow/step-01-final-template-center.png",
@@ -23,11 +28,18 @@ const AI_FLOW_IMAGES = [
   "./images/ai-report-flow/step-01-template-chain.png",
   "./images/ai-report-flow/step-01-template-futian.png",
   "./images/ai-report-flow/step-02-final-outline.png",
+  "./images/ai-report-flow/step-02-final-outline-02.png",
   "./images/optimized/ai-outline-confirm-900.png",
   "./images/04/kongbaihuabu.png",
   "./images/04/liushihuaban.png",
   "./images/optimized/ai-stream-text-1400.jpg",
   "./images/05/lishijilupng.png",
+  "./images/optimized/ai-data01-1600.jpg",
+  "./images/optimized/ai-group02-1600.jpg",
+  "./images/optimized/ai-group01-1600.jpg",
+  "./images/optimized/ai-marry01-1600.jpg",
+  "./images/设计方案/marry02.png",
+  "./images/章节提示词/line-01.svg",
 ];
 
 const QIXIN_CRITICAL_IMAGES = [
@@ -106,6 +118,58 @@ export function preloadProjectDetailAssets(project: ProjectKey, priority: Priori
   const promise = project === "ai-report" ? preloadAi(priority) : preloadQixin(priority);
   preloadGroups.set(key, promise);
   return promise;
+}
+
+function currentRouteTasks(route: string, priority: Priority) {
+  const tasks: Promise<void>[] = [];
+  if (!isBrowser()) return tasks;
+
+  tasks.push(
+    (document.fonts?.ready ?? Promise.resolve()).then(() => undefined)
+  );
+
+  if (route === "#/project/ai-report") {
+    tasks.push(loadAiProjectDetail().then(() => undefined));
+    tasks.push(...AI_FLOW_IMAGES.map((src) => preloadImage(src, priority)));
+  } else if (route === "#/project/qixin-brain") {
+    tasks.push(loadQixinProjectDetail().then(() => undefined));
+    tasks.push(...QIXIN_CRITICAL_IMAGES.map((src) => preloadImage(src, priority)));
+  } else {
+    tasks.push(
+      preloadImage("./images/ai-report-hero-full.png", "low"),
+      preloadImage("./images/optimized/qixin-home-1920.jpg", "low")
+    );
+  }
+
+  return tasks;
+}
+
+export async function preloadPortfolioEntryAssets(route: string, onProgress: ProgressCallback) {
+  if (!isBrowser()) {
+    onProgress(1);
+    return;
+  }
+
+  const tasks = currentRouteTasks(route, "high");
+  if (tasks.length === 0) {
+    onProgress(1);
+    return;
+  }
+
+  let completed = 0;
+  const total = tasks.length;
+  onProgress(0);
+
+  await Promise.allSettled(
+    tasks.map((task) =>
+      task.finally(() => {
+        completed += 1;
+        onProgress(completed / total);
+      })
+    )
+  );
+
+  onProgress(1);
 }
 
 export function scheduleHomeProjectPreload() {

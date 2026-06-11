@@ -170,7 +170,7 @@ export function ScopeCursor() {
               ? "inset 0 1px 2px rgba(255,255,255,0.42), inset 0 -2px 5px rgba(255,255,255,0.10), 0 0 0 1px rgba(255,255,255,0.48), 0 0 0 1.5px rgba(34,88,244,0.18), 0 8px 24px rgba(34,88,244,0.12)"
               : "inset 0 1px 1px rgba(255,255,255,0.45), inset 0 -1px 2px rgba(255,255,255,0.10), 0 0 0 1px rgba(255,255,255,0.25), 0 4px 16px rgba(0,0,0,0.18)",
         }}
-        className="pointer-events-none fixed top-0 left-0 z-[100] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-full"
+        className="pointer-events-none fixed top-0 left-0 z-[10050] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-full"
       >
         {/* Top glass highlight */}
         <div

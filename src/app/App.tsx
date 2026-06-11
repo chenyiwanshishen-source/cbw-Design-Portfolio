@@ -10,6 +10,7 @@ import { Footer } from "./components/Footer";
 import { Nav } from "./components/Nav";
 import { ScopeCursor } from "./components/ScopeCursor";
 import { ParticleField } from "./components/ParticleField";
+import { PortfolioLoader } from "./components/PortfolioLoader";
 import {
   loadAiProjectDetail,
   loadQixinProjectDetail,
@@ -148,6 +149,7 @@ export default function App() {
 
       {mounted && <ParticleField />}
       {mounted && <ScopeCursor />}
+      <PortfolioLoader route={route} />
 
       <Nav />
 
