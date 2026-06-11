@@ -102,7 +102,13 @@ function preloadImage(src: string, priority: Priority) {
     img.decoding = "async";
     img.loading = "eager";
     img.fetchPriority = priority;
-    img.onload = () => resolve();
+    img.onload = () => {
+      if (typeof img.decode === "function") {
+        void img.decode().then(resolve).catch(resolve);
+        return;
+      }
+      resolve();
+    };
     img.onerror = () => resolve();
     img.src = href;
   });
@@ -146,6 +152,15 @@ export function preloadProjectDetailAssets(project: ProjectKey, priority: Priori
   return promise;
 }
 
+function allPortfolioEntryTasks(priority: Priority) {
+  return [
+    loadAiProjectDetail().then(() => undefined),
+    loadQixinProjectDetail().then(() => undefined),
+    ...AI_FLOW_IMAGES.map((src) => preloadImage(src, priority)),
+    ...QIXIN_IMAGES.map((src) => preloadImage(src, priority)),
+  ];
+}
+
 function currentRouteTasks(route: string, priority: Priority) {
   const tasks: Promise<void>[] = [];
   if (!isBrowser()) return tasks;
@@ -154,20 +169,7 @@ function currentRouteTasks(route: string, priority: Priority) {
     (document.fonts?.ready ?? Promise.resolve()).then(() => undefined)
   );
 
-  if (route === "#/project/ai-report") {
-    tasks.push(loadAiProjectDetail().then(() => undefined));
-    tasks.push(...AI_FLOW_IMAGES.map((src) => preloadImage(src, priority)));
-  } else if (route === "#/project/qixin-brain") {
-    tasks.push(loadQixinProjectDetail().then(() => undefined));
-    tasks.push(...QIXIN_IMAGES.map((src) => preloadImage(src, priority)));
-  } else {
-    tasks.push(
-      loadAiProjectDetail().then(() => undefined),
-      loadQixinProjectDetail().then(() => undefined),
-      ...AI_FLOW_IMAGES.map((src) => preloadImage(src, priority)),
-      ...QIXIN_IMAGES.map((src) => preloadImage(src, priority))
-    );
-  }
+  tasks.push(...allPortfolioEntryTasks(priority));
 
   return tasks;
 }
