@@ -42,12 +42,38 @@ const AI_FLOW_IMAGES = [
   "./images/章节提示词/line-01.svg",
 ];
 
-const QIXIN_CRITICAL_IMAGES = [
+const QIXIN_IMAGES = [
+  "./images/首页/login.png",
+  "./images/首页/push group.png",
+  "./images/启信产业大脑/产业信息.png",
+  "./images/启信产业大脑/产业报告.svg",
+  "./images/启信产业大脑/企业报告.svg",
+  "./images/启信产业大脑/企业监控入口.png",
+  "./images/启信产业大脑/常用功能.png",
+  "./images/启信产业大脑/异动预警.png",
+  "./images/启信产业大脑/弹窗.png",
+  "./images/启信产业大脑/时间选择器.png",
+  "./images/启信产业大脑/舆情速递.png",
   "./images/optimized/qixin-home-1920.jpg",
   "./images/optimized/qixin-entry-1600.jpg",
   "./images/optimized/qixin-search-1600.jpg",
   "./images/optimized/qixin-supply-chain-1600.jpg",
   "./images/optimized/qixin-batch-query-1600.jpg",
+  "./images/optimized/qixin-business-info-1600.jpg",
+  "./images/optimized/qixin-chain-action-1600.jpg",
+  "./images/optimized/qixin-chain-map-1600.jpg",
+  "./images/optimized/qixin-color-1600.jpg",
+  "./images/optimized/qixin-company-detail-1600.jpg",
+  "./images/optimized/qixin-custom-chain-edit01-1600.jpg",
+  "./images/optimized/qixin-custom-chain-edit02-1600.jpg",
+  "./images/optimized/qixin-custom-chain-edit03-1600.jpg",
+  "./images/optimized/qixin-custom-chain-list-1600.jpg",
+  "./images/optimized/qixin-industry-detail-1600.jpg",
+  "./images/optimized/qixin-monitor-1600.jpg",
+  "./images/optimized/qixin-park-recruit-1600.jpg",
+  "./images/optimized/qixin-relation-1600.jpg",
+  "./images/optimized/qixin-report-center-1600.jpg",
+  "./images/optimized/qixin-text-1600.jpg",
 ];
 
 const imagePromises = new Map<string, Promise<void>>();
@@ -106,7 +132,7 @@ async function preloadAi(priority: Priority) {
 async function preloadQixin(priority: Priority) {
   await Promise.allSettled([
     loadQixinProjectDetail(),
-    preloadImagesInBatches(QIXIN_CRITICAL_IMAGES, priority, priority === "high" ? 3 : 2),
+    preloadImagesInBatches(QIXIN_IMAGES, priority, priority === "high" ? 3 : 2),
   ]);
 }
 
@@ -133,11 +159,13 @@ function currentRouteTasks(route: string, priority: Priority) {
     tasks.push(...AI_FLOW_IMAGES.map((src) => preloadImage(src, priority)));
   } else if (route === "#/project/qixin-brain") {
     tasks.push(loadQixinProjectDetail().then(() => undefined));
-    tasks.push(...QIXIN_CRITICAL_IMAGES.map((src) => preloadImage(src, priority)));
+    tasks.push(...QIXIN_IMAGES.map((src) => preloadImage(src, priority)));
   } else {
     tasks.push(
-      preloadImage("./images/ai-report-hero-full.png", "low"),
-      preloadImage("./images/optimized/qixin-home-1920.jpg", "low")
+      loadAiProjectDetail().then(() => undefined),
+      loadQixinProjectDetail().then(() => undefined),
+      ...AI_FLOW_IMAGES.map((src) => preloadImage(src, priority)),
+      ...QIXIN_IMAGES.map((src) => preloadImage(src, priority))
     );
   }
 
