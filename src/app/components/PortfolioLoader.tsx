@@ -8,6 +8,9 @@ import { preloadPortfolioEntryAssets } from "../projectPreload";
 
 gsap.registerPlugin(useGSAP, CustomEase, CustomBounce);
 
+const MAX_ENTRY_WAIT_MS = 5000;
+const READY_SETTLE_MS = 520;
+
 interface PortfolioLoaderProps {
   route: string;
   onEntered?: () => void;
@@ -235,10 +238,16 @@ export function PortfolioLoader({ route, onEntered }: PortfolioLoaderProps) {
   }, [introDone, ready]);
 
   useEffect(() => {
-    if (!introDone || rawProgress < 1) return;
-    const timer = window.setTimeout(() => setReady(true), 520);
+    if (ready) return;
+    const timer = window.setTimeout(() => setReady(true), MAX_ENTRY_WAIT_MS);
     return () => window.clearTimeout(timer);
-  }, [introDone, rawProgress]);
+  }, [ready]);
+
+  useEffect(() => {
+    if (!introDone || rawProgress < 1 || ready) return;
+    const timer = window.setTimeout(() => setReady(true), READY_SETTLE_MS);
+    return () => window.clearTimeout(timer);
+  }, [introDone, rawProgress, ready]);
 
   useGSAP(
     (_, contextSafe) => {
