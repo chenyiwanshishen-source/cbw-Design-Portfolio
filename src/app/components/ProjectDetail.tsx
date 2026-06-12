@@ -289,40 +289,24 @@ export function ProjectDetail({ onBack }: Props) {
 
   const validationPanels = [
     {
-      label: "之前状态",
-      summary: "人工整理、模板套用、手动校对",
-      heroCard: {
-        icon: Workflow,
-        title: "Excel + Word + 模板的手工链路",
-        desc: "多个工具分散承载数据处理、内容组织和格式交付，无法沉淀成下一次可直接复用的生成流程。",
-        meta: "原始流程",
-      },
-      cards: [
-        { icon: Database, title: "Excel 处理", desc: "整理企业名单、动态项和统计口径。", tag: "数据整理" },
-        { icon: FileText, title: "Word 编辑", desc: "按固定模板补充章节和正文。", tag: "人工撰写" },
-        { icon: Layers, title: "模板套用", desc: "模板固定，难覆盖每次变化的企业范围。", tag: "结构约束" },
-        { icon: CheckCircle2, title: "人工校对", desc: "逐项确认来源、企业名称和表达准确性。", tag: "质量检查" },
-      ],
-    },
-    {
       label: "问题来源",
-      summary: "客户需求、内部测试、反馈沉淀",
+      summary: "我通过访谈收集的一些问题",
       heroCard: {
         icon: Users,
-        title: "客户直接找团队手写报告",
-        desc: "当报告口径、企业范围和章节重点发生变化时，固定模板很难独立完成交付，团队需要重新组织材料。",
-        meta: "客户需求",
+        title: "用户需要的不是写作工具，而是可控流程",
+        desc: "访谈反复指向四个控制点：报告口径、企业范围、章节结构和来源依据。",
+        meta: "访谈洞察",
       },
       cards: [
-        { icon: Compass, title: "报告口径变化", desc: "地区、产业和企业范围变化后，同类报告也需要调整。", tag: "场景差异" },
-        { icon: ListChecks, title: "内部测试反馈", desc: "大纲结构、动态项引用和生成结果需要前置校验。", tag: "可控性" },
-        { icon: Link2, title: "来源追溯缺口", desc: "投融资、迁入迁出等内容需要保留来源链接。", tag: "可信度" },
-        { icon: ShieldCheck, title: "交付风险", desc: "缺少统一规则时，结构遗漏和来源缺失更难发现。", tag: "稳定性" },
+        { icon: Compass, title: "需求经常变化", desc: "地区、产业、企业范围和章节重点变化后，固定模板很难直接复用。", tag: "需求变化" },
+        { icon: Database, title: "材料分散在多工具里", desc: "企业名单和统计口径在 Excel，正文和格式在 Word，信息难以沉淀复用。", tag: "材料分散" },
+        { icon: ListChecks, title: "结构偏差会返工", desc: "大纲和章节重点如果没有提前确认，正文完成后再改成本很高。", tag: "结构确认" },
+        { icon: ShieldCheck, title: "来源需要反复校对", desc: "企业名称、动态来源和引用链接都要核查，否则报告可信度会下降。", tag: "可信校验" },
       ],
     },
     {
-      label: "验证场景",
-      summary: "区域企业动态监测周报",
+      label: "设计方案",
+      summary: "从访谈问题转成生成控制点",
       heroCard: {
         icon: FileText,
         title: "区域企业动态监测周报",
@@ -730,13 +714,13 @@ export function ProjectDetail({ onBack }: Props) {
         <BlueAccentBlob side="left" />
         <div className={`relative ${READ}`}>
           <Reveal delay={0.08}>
-            <div className="grid grid-cols-1 lg:grid-cols-[minmax(320px,0.86fr)_minmax(0,1.14fr)]">
+            <div className="grid grid-cols-1 items-center lg:grid-cols-[minmax(320px,0.86fr)_minmax(0,1.14fr)]">
               <div className="relative px-6 py-7 sm:px-8 md:py-9 xl:px-10">
                 <h3 className="max-w-[520px] tracking-tight text-[#1A1C24]" style={T.h2}>
-                  为什么要重做报告生产流程
+                  我如何从报告链路中提炼设计机会
                 </h3>
                 <p className="mt-4 max-w-[540px]" style={T.h2Sub}>
-                  企业用户、产业分析师和政府部门仍在用 Excel、Word 和固定模板整理报告。每次企业范围、报告维度和来源材料变化时，人工链路都很难稳定复用。
+                  我基于客户需求、内部测试和历史交付复盘，拆解角色、任务和失控点，把隐性的人工判断转成可配置、可确认、可追溯的生成流程。
                 </p>
 
                 <div className="mt-9 grid gap-3">
@@ -775,7 +759,7 @@ export function ProjectDetail({ onBack }: Props) {
                 </div>
               </div>
 
-              <div className="relative flex min-h-[520px] items-center justify-center overflow-hidden px-6 py-7 sm:px-8 md:py-9 xl:px-10">
+              <div className="relative flex min-h-[620px] items-center justify-center overflow-visible px-6 py-7 sm:px-8 md:py-9 xl:px-10">
                 <AnimatePresence mode="wait">
                   {(() => {
                     const panel = validationPanels[activeValidationIndex];
@@ -795,7 +779,7 @@ export function ProjectDetail({ onBack }: Props) {
                     ];
                     const rowLayout = [
                       {
-                        width: "min(430px, 68%)",
+                        width: "min(460px, 70%)",
                         marginTop: "0px",
                         opacity: 1,
                         blur: "blur(0.65px)",
@@ -827,7 +811,7 @@ export function ProjectDetail({ onBack }: Props) {
                         isSoft: false,
                       },
                       {
-                        width: "min(430px, 68%)",
+                        width: "min(460px, 70%)",
                         marginTop: "10px",
                         opacity: 1,
                         blur: "blur(0.55px)",
@@ -852,7 +836,7 @@ export function ProjectDetail({ onBack }: Props) {
                           return (
                             <motion.article
                               key={row.title}
-                              className="relative flex min-h-[50px] items-center gap-3 rounded-[16px] border bg-white p-4"
+                              className="relative flex min-h-[50px] items-start gap-3 rounded-[16px] border bg-white p-4"
                               style={{
                                 borderColor: isPrimary ? ICON_BORDER : isSoft ? "#EEF0F5" : LINE,
                                 background: SURFACE,
@@ -884,7 +868,7 @@ export function ProjectDetail({ onBack }: Props) {
                                   {row.title}
                                 </span>
                                 <span
-                                  className={`mt-0.5 block text-[12px] leading-[1.35] ${isPrimary ? "whitespace-normal" : "max-w-[430px] truncate"}`}
+                                  className="mt-0.5 block whitespace-normal break-words text-[12px] leading-[1.4]"
                                   style={{ color: isSoft ? "#A8ADBA" : "#696D7A" }}
                                 >
                                   {row.desc}
