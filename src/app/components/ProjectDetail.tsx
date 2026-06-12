@@ -725,7 +725,7 @@ export function ProjectDetail({ onBack }: Props) {
       {/* ===== 02. Validation scenario ===== */}
       <section
         id="s02"
-        className={`relative pt-24 pb-20 md:pt-28 md:pb-28 ${SECTION_PAD} overflow-visible`}
+        className={`relative z-0 overflow-hidden pt-24 pb-24 md:pt-28 md:pb-32 ${SECTION_PAD}`}
       >
         <BlueAccentBlob side="left" />
         <div className={`relative ${READ}`}>
@@ -907,11 +907,11 @@ export function ProjectDetail({ onBack }: Props) {
       <section
         id="s03"
         ref={flowSectionRef}
-        className={`relative py-20 md:py-28 lg:py-0 lg:min-h-screen ${SECTION_PAD} overflow-visible`}
+        className={`relative z-10 isolate overflow-hidden bg-[#FAFBFF] py-20 md:py-28 lg:min-h-screen lg:py-0 ${SECTION_PAD}`}
       >
         <div
           ref={flowStageRef}
-          className="relative mx-auto flex min-h-screen max-w-[1320px] items-start pb-6 pt-36"
+          className="relative z-10 mx-auto flex min-h-screen max-w-[1320px] items-start pb-10 pt-40 lg:pt-[clamp(8.5rem,15vh,11rem)]"
         >
           <div className="w-full">
             <SectionHeader

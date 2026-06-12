@@ -10,9 +10,10 @@ gsap.registerPlugin(useGSAP, CustomEase, CustomBounce);
 
 interface PortfolioLoaderProps {
   route: string;
+  onEntered?: () => void;
 }
 
-export function PortfolioLoader({ route }: PortfolioLoaderProps) {
+export function PortfolioLoader({ route, onEntered }: PortfolioLoaderProps) {
   const rootRef = useRef<HTMLDivElement | null>(null);
   const helloRef = useRef<HTMLDivElement | null>(null);
   const niceRef = useRef<HTMLDivElement | null>(null);
@@ -352,7 +353,10 @@ export function PortfolioLoader({ route }: PortfolioLoaderProps) {
     gsap
       .timeline({
         defaults: { ease: "power3.out" },
-        onComplete: () => setVisible(false),
+        onComplete: () => {
+          setVisible(false);
+          onEntered?.();
+        },
       })
       .to(buttonRef.current, { scale: 1.025, duration: 0.14 })
       .to(buttonRef.current, { scale: 1, duration: 0.16 })

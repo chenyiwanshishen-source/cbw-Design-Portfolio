@@ -27,6 +27,7 @@ const QixinProjectDetail = lazy(() =>
 
 export default function App() {
   const [mounted, setMounted] = useState(false);
+  const [portfolioEntered, setPortfolioEntered] = useState(false);
   useEffect(() => setMounted(true), []);
 
   // Cursor-following grid spotlight
@@ -87,9 +88,10 @@ export default function App() {
   const isQixinDetail = route === "#/project/qixin-brain";
 
   useEffect(() => {
+    if (!portfolioEntered) return;
     if (isAiDetail || isQixinDetail) return;
     return scheduleHomeProjectPreload();
-  }, [isAiDetail, isQixinDetail]);
+  }, [portfolioEntered, isAiDetail, isQixinDetail]);
 
   useEffect(() => {
     let cancelled = false;
@@ -149,7 +151,7 @@ export default function App() {
 
       {mounted && <ParticleField />}
       {mounted && <ScopeCursor />}
-      <PortfolioLoader route={route} />
+      <PortfolioLoader route={route} onEntered={() => setPortfolioEntered(true)} />
 
       <Nav />
 

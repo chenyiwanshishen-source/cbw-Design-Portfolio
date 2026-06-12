@@ -277,11 +277,12 @@ export function preloadProjectDetailAssets(project: ProjectKey, priority: Priori
   return promise;
 }
 
-function portfolioEntryImages() {
-  return [...AI_FLOW_IMAGES, ...QIXIN_IMAGES];
+function portfolioEntryImages(route: string) {
+  if (route === "#/project/qixin-brain") return QIXIN_IMAGES;
+  return AI_FLOW_IMAGES;
 }
 
-async function currentRouteWeightedTasks(_route: string, priority: Priority) {
+async function currentRouteWeightedTasks(route: string, priority: Priority) {
   const tasks: WeightedTask[] = [];
   if (!isBrowser()) return tasks;
 
@@ -292,22 +293,16 @@ async function currentRouteWeightedTasks(_route: string, priority: Priority) {
     },
   });
 
-  tasks.push(
-    {
-      weight: MODULE_PROGRESS_WEIGHT,
-      run: async () => {
-        await loadAiProjectDetail();
-      },
-    },
-    {
-      weight: MODULE_PROGRESS_WEIGHT,
-      run: async () => {
-        await loadQixinProjectDetail();
-      },
-    }
-  );
+  const loadEntryModule = route === "#/project/qixin-brain" ? loadQixinProjectDetail : loadAiProjectDetail;
 
-  const images = portfolioEntryImages();
+  tasks.push({
+    weight: MODULE_PROGRESS_WEIGHT,
+    run: async () => {
+      await loadEntryModule();
+    },
+  });
+
+  const images = portfolioEntryImages(route);
   const imageWeights = await Promise.all(images.map(getAssetByteSize));
   images.forEach((src, index) => {
     const weight = imageWeights[index] ?? FALLBACK_IMAGE_WEIGHT;
@@ -364,9 +359,7 @@ export function scheduleHomeProjectPreload() {
   const run = () => {
     if (cancelled) return;
     void (async () => {
-      await preloadProjectDetailAssets("ai-report", "low");
-      if (cancelled) return;
-      await delay(500);
+      await delay(700);
       if (cancelled) return;
       await preloadProjectDetailAssets("qixin-brain", "low");
     })();
