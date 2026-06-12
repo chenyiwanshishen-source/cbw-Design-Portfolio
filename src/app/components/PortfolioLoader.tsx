@@ -437,7 +437,7 @@ export function PortfolioLoader({ route }: PortfolioLoaderProps) {
             ref={niceRef}
             className="absolute left-0 right-0 top-[128px] text-center text-[24px] font-semibold leading-none tracking-tight"
           >
-            很高兴认识你！
+            再等一下!
           </div>
         </div>
       </div>
