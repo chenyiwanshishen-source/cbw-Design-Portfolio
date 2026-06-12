@@ -1,6 +1,10 @@
 type ProjectKey = "ai-report" | "qixin-brain";
 type Priority = "high" | "low";
 type ProgressCallback = (progress: number) => void;
+type WeightedTask = {
+  run: (reportDelta: (delta: number) => void) => Promise<void>;
+  weight: number;
+};
 
 type PrioritizedImage = HTMLImageElement & {
   fetchPriority?: "high" | "low" | "auto";
@@ -78,6 +82,12 @@ const QIXIN_IMAGES = [
 
 const imagePromises = new Map<string, Promise<void>>();
 const preloadGroups = new Map<string, Promise<void>>();
+const assetSizePromises = new Map<string, Promise<number>>();
+
+const FONT_PROGRESS_WEIGHT = 80_000;
+const MODULE_PROGRESS_WEIGHT = 140_000;
+const FALLBACK_IMAGE_WEIGHT = 360_000;
+const IMAGE_PROGRESS_TIMEOUT_MS = 20_000;
 
 function isBrowser() {
   return typeof window !== "undefined" && typeof Image !== "undefined";
@@ -117,6 +127,121 @@ function preloadImage(src: string, priority: Priority) {
   return promise;
 }
 
+function reportClampedProgress(loaded: number, total: number, onProgress: ProgressCallback) {
+  onProgress(Math.max(0, Math.min(1, loaded / total)));
+}
+
+function getAssetByteSize(src: string) {
+  if (!isBrowser()) return Promise.resolve(FALLBACK_IMAGE_WEIGHT);
+
+  const href = resolveAssetUrl(src);
+  const cached = assetSizePromises.get(href);
+  if (cached) return cached;
+
+  const promise = fetch(href, { method: "HEAD", cache: "force-cache" })
+    .then((response) => {
+      const length = Number(response.headers.get("content-length"));
+      return Number.isFinite(length) && length > 0 ? length : FALLBACK_IMAGE_WEIGHT;
+    })
+    .catch(() => FALLBACK_IMAGE_WEIGHT);
+
+  assetSizePromises.set(href, promise);
+  return promise;
+}
+
+function decodeImageUrl(href: string, priority: Priority) {
+  return new Promise<void>((resolve) => {
+    const img = new Image() as PrioritizedImage;
+    img.decoding = "async";
+    img.loading = "eager";
+    img.fetchPriority = priority;
+    img.onload = () => {
+      if (typeof img.decode === "function") {
+        void img.decode().then(resolve).catch(resolve);
+        return;
+      }
+      resolve();
+    };
+    img.onerror = () => resolve();
+    img.src = href;
+  });
+}
+
+async function preloadImageWithByteProgress(
+  src: string,
+  priority: Priority,
+  weight: number,
+  reportDelta: (delta: number) => void
+) {
+  if (!isBrowser()) {
+    reportDelta(weight);
+    return;
+  }
+
+  const href = resolveAssetUrl(src);
+  const cached = imagePromises.get(href);
+  if (cached) {
+    await cached;
+    reportDelta(weight);
+    return;
+  }
+
+  let reported = 0;
+  let timeoutId: number | undefined;
+  const finish = () => {
+    const delta = weight - reported;
+    if (delta > 0) {
+      reported = weight;
+      reportDelta(delta);
+    }
+  };
+  const reportLoadedBytes = (loadedBytes: number, totalBytes: number) => {
+    const ratio = totalBytes > 0 ? loadedBytes / totalBytes : 0;
+    const next = Math.min(weight * 0.92, Math.max(0, ratio) * weight * 0.92);
+    const delta = next - reported;
+    if (delta > 0) {
+      reported = next;
+      reportDelta(delta);
+    }
+  };
+
+  const loadPromise = (async () => {
+    try {
+      const response = await fetch(href, { cache: "force-cache" });
+      const totalBytes = Number(response.headers.get("content-length")) || weight;
+
+      if (response.ok && response.body) {
+        const reader = response.body.getReader();
+        let loadedBytes = 0;
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          loadedBytes += value.byteLength;
+          reportLoadedBytes(loadedBytes, totalBytes);
+        }
+      }
+
+      await decodeImageUrl(href, priority);
+    } catch {
+      await decodeImageUrl(href, priority);
+    } finally {
+      finish();
+      if (timeoutId) window.clearTimeout(timeoutId);
+    }
+  })();
+
+  const guardedPromise = new Promise<void>((resolve) => {
+    timeoutId = window.setTimeout(() => {
+      finish();
+      resolve();
+    }, IMAGE_PROGRESS_TIMEOUT_MS);
+    void loadPromise.then(resolve).catch(resolve);
+  });
+
+  imagePromises.set(href, guardedPromise);
+  await guardedPromise;
+}
+
 async function preloadImagesInBatches(images: string[], priority: Priority, batchSize: number) {
   for (let i = 0; i < images.length; i += batchSize) {
     const batch = images.slice(i, i + batchSize);
@@ -152,24 +277,45 @@ export function preloadProjectDetailAssets(project: ProjectKey, priority: Priori
   return promise;
 }
 
-function allPortfolioEntryTasks(priority: Priority) {
-  return [
-    loadAiProjectDetail().then(() => undefined),
-    loadQixinProjectDetail().then(() => undefined),
-    ...AI_FLOW_IMAGES.map((src) => preloadImage(src, priority)),
-    ...QIXIN_IMAGES.map((src) => preloadImage(src, priority)),
-  ];
+function portfolioEntryImages() {
+  return [...AI_FLOW_IMAGES, ...QIXIN_IMAGES];
 }
 
-function currentRouteTasks(route: string, priority: Priority) {
-  const tasks: Promise<void>[] = [];
+async function currentRouteWeightedTasks(_route: string, priority: Priority) {
+  const tasks: WeightedTask[] = [];
   if (!isBrowser()) return tasks;
 
+  tasks.push({
+    weight: FONT_PROGRESS_WEIGHT,
+    run: async () => {
+      await (document.fonts?.ready ?? Promise.resolve());
+    },
+  });
+
   tasks.push(
-    (document.fonts?.ready ?? Promise.resolve()).then(() => undefined)
+    {
+      weight: MODULE_PROGRESS_WEIGHT,
+      run: async () => {
+        await loadAiProjectDetail();
+      },
+    },
+    {
+      weight: MODULE_PROGRESS_WEIGHT,
+      run: async () => {
+        await loadQixinProjectDetail();
+      },
+    }
   );
 
-  tasks.push(...allPortfolioEntryTasks(priority));
+  const images = portfolioEntryImages();
+  const imageWeights = await Promise.all(images.map(getAssetByteSize));
+  images.forEach((src, index) => {
+    const weight = imageWeights[index] ?? FALLBACK_IMAGE_WEIGHT;
+    tasks.push({
+      weight,
+      run: (reportDelta) => preloadImageWithByteProgress(src, priority, weight, reportDelta),
+    });
+  });
 
   return tasks;
 }
@@ -180,23 +326,30 @@ export async function preloadPortfolioEntryAssets(route: string, onProgress: Pro
     return;
   }
 
-  const tasks = currentRouteTasks(route, "high");
+  const tasks = await currentRouteWeightedTasks(route, "high");
   if (tasks.length === 0) {
     onProgress(1);
     return;
   }
 
-  let completed = 0;
-  const total = tasks.length;
+  let loaded = 0;
+  const total = tasks.reduce((sum, task) => sum + task.weight, 0);
   onProgress(0);
 
   await Promise.allSettled(
-    tasks.map((task) =>
-      task.finally(() => {
-        completed += 1;
-        onProgress(completed / total);
-      })
-    )
+    tasks.map(async (task) => {
+      let reported = 0;
+      const reportDelta = (delta: number) => {
+        const safeDelta = Math.min(Math.max(0, delta), task.weight - reported);
+        if (safeDelta <= 0) return;
+        reported += safeDelta;
+        loaded += safeDelta;
+        reportClampedProgress(loaded, total, onProgress);
+      };
+
+      await task.run(reportDelta);
+      reportDelta(task.weight - reported);
+    })
   );
 
   onProgress(1);

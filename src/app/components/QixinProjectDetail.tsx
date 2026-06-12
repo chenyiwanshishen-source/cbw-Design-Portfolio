@@ -2184,11 +2184,11 @@ export function QixinProjectDetail({ onBack }: Props) {
         <AccentBlob side="left" />
         <div className={`relative ${BUSINESS_READ}`}>
           <Reveal>
-            <div className="mx-auto mb-10 max-w-[880px] text-center">
-              <h2 className="tracking-tight text-[#1A1C24] leading-[1.12]" style={{ fontSize: "clamp(28px, 3.5vw, 48px)", fontWeight: 700 }}>
+            <div className="mx-auto mb-10 max-w-[1120px] text-center">
+              <h2 className="whitespace-normal tracking-tight text-[#1A1C24] leading-[1.12] md:whitespace-nowrap" style={{ fontSize: "clamp(28px, 3vw, 44px)", fontWeight: 700 }}>
                 自定义产业链设计：让标准图谱适配本地口径
               </h2>
-              <p className="mt-4 text-[#696D7A]" style={{ fontSize: 16, lineHeight: 1.72 }}>
+              <p className="mx-auto mt-4 max-w-[880px] text-[#696D7A]" style={{ fontSize: 16, lineHeight: 1.72 }}>
                 标准产业链很难覆盖每个地方的招商口径，因此我将产业链设计成可编辑、可校准、可复用的图谱资产，让用户能按本地产业结构维护节点关系和企业范围。
               </p>
             </div>

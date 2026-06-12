@@ -402,13 +402,13 @@ export function PortfolioLoader({ route }: PortfolioLoaderProps) {
             />
             <span
               ref={percentTrackRef}
-              className="pointer-events-none absolute inset-y-0 left-0 z-20 overflow-hidden rounded-full"
+              className={`pointer-events-none absolute inset-y-0 left-0 z-20 overflow-hidden rounded-full ${ready ? "hidden" : ""}`}
             >
               <span
                 ref={percentRef}
                 className="absolute right-4 top-1/2 whitespace-nowrap rounded-full text-[14px] font-semibold leading-none text-white"
               >
-                {Math.round(rawProgress * 100)}%
+                马上好!
               </span>
             </span>
             <span
