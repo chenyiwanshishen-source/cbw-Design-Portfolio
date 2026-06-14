@@ -17,7 +17,7 @@ export function Projects({ onProjectIntent }: ProjectsProps) {
         "基于 AI Agent 架构与多源数据整合能力,支持根据用户模板自动生成产业分析报告与企业分析报告。1.0 版本已上线。",
       highlights: [
         "主导制定 AI 报告生成场景的提示词基础框架,沉淀标准化提示词结构",
-        "负责相关产品流程、核心页面与结果展示设计，推动项目 1.0 上线，完成从设计到验收的闭环",
+        "负责产品流程、核心页面与结果展示设计，推动 1.0 上线并完成设计验收闭环",
         "梳理生成式内容场景下的提示词框架,兼顾业务逻辑、内容呈现与维护效率",
         "提升报告生成稳定性与团队协作效率,降低提示词撰写与维护门槛",
       ],
@@ -25,6 +25,7 @@ export function Projects({ onProjectIntent }: ProjectsProps) {
       accent: "from-[#0D800D] to-[#64BC64]",
       href: "#/project/ai-report",
       preloadKey: "ai-report" as const,
+      visual: "previewStack" as const,
     },
     {
       number: "02",
@@ -43,6 +44,7 @@ export function Projects({ onProjectIntent }: ProjectsProps) {
       accent: "from-[#2258F4] to-[#618AFF]",
       href: "#/project/qixin-brain",
       preloadKey: "qixin-brain" as const,
+      visual: "qixinPreviewStack" as const,
     },
   ];
 
