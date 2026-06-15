@@ -37,6 +37,7 @@ const BLUE = "#2258F4";
 const ICON_BLUE = "#1A42B8";
 const ICON_BG = "#E5EBFF";
 const ICON_BORDER = "#A8BEFF";
+const FLOW_BLUE = "#2258F4";
 const ICON_GRAY = "#CBCDD4";
 const INK = "#0F1419";
 const INK_MUTED = "rgba(15,20,25,0.72)";
@@ -62,7 +63,7 @@ const DETAIL_IMAGE_LAZY_PROPS = {
 const DETAIL_IMAGE_EAGER_PROPS = {
   loading: "eager" as const,
   decoding: "async" as const,
-  fetchPriority: "high" as const,
+  fetchpriority: "high" as const,
 };
 
 const T = {
@@ -822,6 +823,213 @@ function SystemLayerCardIllustration({ index }: { index: number }) {
   return null;
 }
 
+function SystemLayerCardIllustrationStable({ index }: { index: number }) {
+  const Header = () => (
+    <g>
+      <rect x="20" y="14" width="280" height="170" rx="15" fill="#FFFFFF" stroke="#E6E7EB" strokeWidth="1.2" />
+      <path d="M 20 50 H 300" stroke="#E6E7EB" strokeWidth="1" />
+      <circle cx="42" cy="32" r="3.6" fill="#2258F4" />
+      <circle cx="56" cy="32" r="3.6" fill="#A8BEFF" />
+      <circle cx="70" cy="32" r="3.6" fill="#E5EBFF" />
+      <rect x="98" y="25" width="124" height="14" rx="7" fill="#F5F5F7" />
+    </g>
+  );
+
+  return (
+    <svg className="absolute inset-0 h-full w-full" viewBox="0 0 320 176" aria-hidden="true">
+      <Header />
+
+      {index === 0 && (
+        <g>
+          {Array.from({ length: 10 }).map((_, itemIndex) => (
+            <rect key={itemIndex} x={42 + itemIndex * 22} y="51" width="12" height="128" fill="#F6F8FF" />
+          ))}
+          <rect x="36" y="76" width="136" height="58" rx="10" fill="#FFFFFF" stroke="#E6E7EB" />
+          <rect x="48" y="88" width="18" height="14" rx="5" fill="#E5EBFF" stroke="#A8BEFF" />
+          <text x="57" y="98.2" textAnchor="middle" fill="#1A42B8" fontSize="7.5" fontWeight="800">B</text>
+          <text x="82" y="98.2" textAnchor="middle" fill="#696D7A" fontSize="7.2" fontWeight="600">T</text>
+          <line x1="104" x2="123" y1="92" y2="92" stroke="#A8BEFF" strokeWidth="1.2" strokeLinecap="round" />
+          <line x1="104" x2="116" y1="99" y2="99" stroke="#A8BEFF" strokeWidth="1.2" strokeLinecap="round" />
+          <line x1="136" x2="155" y1="92" y2="92" stroke="#A8BEFF" strokeWidth="1.2" strokeLinecap="round" />
+          <line x1="140" x2="151" y1="99" y2="99" stroke="#A8BEFF" strokeWidth="1.2" strokeLinecap="round" />
+          <rect x="48" y="113" width="24" height="14" rx="7" fill="#FAFBFF" />
+          <text x="60" y="122.5" textAnchor="middle" fill="#696D7A" fontSize="6.8" fontWeight="700">S</text>
+          <rect x="80" y="113" width="26" height="14" rx="7" fill="#E5EBFF" stroke="#A8BEFF" strokeWidth="0.8" />
+          <text x="93" y="122.5" textAnchor="middle" fill="#1A42B8" fontSize="6.8" fontWeight="800">M</text>
+          <rect x="114" y="113" width="30" height="14" rx="7" fill="#FAFBFF" />
+          <text x="129" y="122.5" textAnchor="middle" fill="#696D7A" fontSize="6.6" fontWeight="700">XL</text>
+          <rect x="150" y="113" width="30" height="14" rx="7" fill="#FAFBFF" />
+          <text x="165" y="122.5" textAnchor="middle" fill="#696D7A" fontSize="6.6" fontWeight="700">XXL</text>
+
+          {[194, 218, 242, 266, 288].map((x, itemIndex) => (
+            <circle key={`blue-${itemIndex}`} cx={x} cy="78" r="6.4" fill={["#2258F4", "#4777FF", "#618AFF", "#85A3FF", "#A8BEFF"][itemIndex]} />
+          ))}
+          {[194, 218, 242, 266, 288].map((x, itemIndex) => (
+            <circle key={`warm-${itemIndex}`} cx={x} cy="100" r="6.4" fill={["#7575FA", "#B973FF", "#FE668C", "#FF8157", "#FFD659"][itemIndex]} />
+          ))}
+          {[194, 218, 242, 266, 288].map((x, itemIndex) => (
+            <circle key={`soft-${itemIndex}`} cx={x} cy="122" r="6.4" fill={["#E5EBFF", "#EFEFFF", "#F3E7FF", "#FFE6EC", "#FFF0E0"][itemIndex]} stroke="#E6E7EB" strokeWidth="0.7" />
+          ))}
+
+          {[78, 118, 158, 198].map((x) => (
+            <rect key={x} x={x} y="150" width="30" height="14" rx="6" fill="#E5EBFF" stroke="#A8BEFF" strokeWidth="0.8" />
+          ))}
+          <line x1="108" x2="108" y1="142" y2="178" stroke="#A8BEFF" strokeWidth="0.9" strokeLinecap="round" strokeDasharray="3 4" />
+          <line x1="158" x2="158" y1="142" y2="178" stroke="#A8BEFF" strokeWidth="0.9" strokeLinecap="round" strokeDasharray="3 4" />
+        </g>
+      )}
+
+      {index === 1 && (
+        <g>
+          <rect x="36" y="70" width="82" height="114" rx="12" fill="#FFFFFF" stroke="#E6E7EB" />
+          <rect x="46" y="82" width="62" height="5" rx="2.5" fill="#E5EBFF" />
+          <circle cx="44" cy="102" r="4.6" fill="#FFFFFF" stroke="#E6E7EB" />
+          <rect x="58" y="99.5" width="46" height="4.5" rx="2.25" fill="#E5EBFF" />
+          <rect x="42" y="114" width="68" height="22" rx="8" fill="#E5EBFF" />
+          <circle cx="50" cy="125" r="5" fill="#2258F4" />
+          <path d="M 47.5 124.8 L 49.6 126.8 L 53.2 122.8" fill="none" stroke="#FFFFFF" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
+          <rect x="62" y="122.5" width="40" height="5" rx="2.5" fill="#A8BEFF" />
+          <circle cx="44" cy="148" r="4.6" fill="#FFFFFF" stroke="#E6E7EB" />
+          <rect x="58" y="145.5" width="38" height="4.5" rx="2.25" fill="#E5EBFF" />
+          <circle cx="44" cy="170" r="4.6" fill="#FFFFFF" stroke="#E6E7EB" />
+          <rect x="58" y="167.5" width="34" height="4.5" rx="2.25" fill="#E5EBFF" />
+
+          <rect x="132" y="72" width="154" height="94" rx="13" fill="#FFFFFF" stroke="#E6E7EB" />
+          <line x1="136" x2="274" y1="104" y2="104" stroke="#E6E7EB" strokeWidth="1.1" strokeLinecap="round" />
+          <line x1="156" x2="254" y1="104" y2="104" stroke="#2258F4" strokeWidth="2.8" strokeLinecap="round" />
+          <circle cx="156" cy="104" r="6" fill="#2258F4" />
+          <circle cx="254" cy="104" r="6" fill="#2258F4" />
+          <rect x="146" y="84" width="20" height="16" rx="8" fill="#2258F4" />
+          <text x="156" y="94.8" textAnchor="middle" fill="#FFFFFF" fontSize="7.2" fontWeight="800">1</text>
+          <rect x="244" y="84" width="20" height="16" rx="8" fill="#2258F4" />
+          <text x="254" y="94.8" textAnchor="middle" fill="#FFFFFF" fontSize="7.2" fontWeight="800">2</text>
+          <rect x="136" y="116" width="68" height="28" rx="8" fill="#FAFBFF" stroke="#E6E7EB" />
+          <text x="144" y="128" fill="#696D7A" fontSize="6.4" fontWeight="650">From</text>
+          <text x="144" y="139" fill="#1A1C24" fontSize="7.8" fontWeight="800">12,340.45</text>
+          <rect x="208" y="116" width="68" height="28" rx="8" fill="#FAFBFF" stroke="#E6E7EB" />
+          <text x="216" y="128" fill="#696D7A" fontSize="6.4" fontWeight="650">To</text>
+          <text x="216" y="139" fill="#1A1C24" fontSize="7.8" fontWeight="800">40,350.90</text>
+          <rect x="136" y="148" width="94" height="17" rx="8.5" fill="#2258F4" />
+          <text x="183" y="159.8" textAnchor="middle" fill="#FFFFFF" fontSize="7.4" fontWeight="750">应用</text>
+          <rect x="236" y="148" width="40" height="17" rx="8.5" fill="#FFFFFF" stroke="#E6E7EB" />
+          <text x="256" y="159.8" textAnchor="middle" fill="#4E525E" fontSize="7.4" fontWeight="700">取消</text>
+        </g>
+      )}
+
+      {index === 2 && (
+        <g>
+          <rect x="36" y="72" width="104" height="106" rx="12" fill="#FFFFFF" stroke="#E6E7EB" />
+          <rect x="50" y="86" width="48" height="4.8" rx="2.4" fill="#E5EBFF" />
+          {[106, 128, 150].map((y, itemIndex) => (
+            <g key={y}>
+              <rect x="48" y={y - 6} width="10" height="10" rx="4" fill={itemIndex < 2 ? "#E5EBFF" : "#F5F5F7"} stroke={itemIndex < 2 ? "#A8BEFF" : "#E6E7EB"} strokeWidth="0.7" />
+              <rect x="68" y={y - 4} width={itemIndex === 0 ? 44 : itemIndex === 1 ? 50 : 40} height="4.5" rx="2.25" fill="#A8BEFF" />
+              <rect x="120" y={y - 5} width="18" height="9" rx="4.5" fill={itemIndex < 2 ? "#2258F4" : "#E6E7EB"} />
+              <circle cx={itemIndex < 2 ? 133 : 125} cy={y - 0.5} r="3.8" fill="#FFFFFF" />
+            </g>
+          ))}
+
+          <rect x="148" y="66" width="150" height="112" rx="13" fill="#FFFFFF" stroke="#E6E7EB" />
+          <rect x="164" y="82" width="70" height="4.8" rx="2.4" fill="#E5EBFF" />
+          <path d="M 148 102 H 298" stroke="#E6E7EB" strokeWidth="0.9" />
+          <rect x="164" y="116" width="72" height="5" rx="2.5" fill="#A8BEFF" />
+          <rect x="164" y="134" width="66" height="4.2" rx="2.1" fill="#2258F4" />
+          <rect x="236" y="134" width="42" height="4.2" rx="2.1" fill="#A8BEFF" />
+          <circle cx="164" cy="150" r="2.1" fill="#2258F4" />
+          <rect x="172" y="148.5" width="32" height="3" rx="1.5" fill="#E5EBFF" />
+          <circle cx="220" cy="150" r="2.1" fill="#A8BEFF" />
+          <rect x="228" y="148.5" width="34" height="3" rx="1.5" fill="#E5EBFF" />
+          <rect x="164" y="162" width="44" height="12" rx="6" fill="#FAFBFF" stroke="#E6E7EB" />
+          <rect x="176" y="166" width="18" height="3.4" rx="1.7" fill="#A8BEFF" />
+          <path d="M 200 165.8 L 204 168.5 L 200 171.2" fill="none" stroke="#1A42B8" strokeWidth="0.8" strokeLinecap="round" strokeLinejoin="round" />
+        </g>
+      )}
+
+      {index === 3 && (
+        <g>
+          <rect x="42" y="66" width="236" height="44" rx="10" fill="#FFFFFF" stroke="#E6E7EB" />
+          <line x1="64" x2="254" y1="82" y2="82" stroke="#A8BEFF" strokeWidth="1.2" strokeLinecap="round" />
+          {[64, 128, 192, 254].map((x, itemIndex) => (
+            <g key={x}>
+              <circle cx={x} cy="82" r="7" fill={itemIndex === 3 ? "#FFFFFF" : "#2258F4"} stroke={itemIndex === 3 ? "#A8BEFF" : "none"} strokeWidth="1.1" />
+              {itemIndex === 3 && <circle cx={x} cy="82" r="2.6" fill="#A8BEFF" />}
+              <rect x={x - 18} y="96" width="36" height="4.5" rx="2.25" fill={itemIndex === 3 ? "#E6E7EB" : "#A8BEFF"} />
+              <rect x={x - 14} y="105" width="28" height="3.6" rx="1.8" fill="#E5EBFF" />
+            </g>
+          ))}
+
+          <rect x="42" y="120" width="236" height="74" rx="10" fill="#FFFFFF" stroke="#E6E7EB" />
+          <rect x="42" y="120" width="236" height="21" rx="10" fill="#FAFBFF" />
+          <path d="M 42 141 H 278" stroke="#E6E7EB" strokeWidth="0.9" />
+          <rect x="56" y="129" width="44" height="4" rx="2" fill="#CBCDD4" />
+          <rect x="148" y="129" width="32" height="4" rx="2" fill="#CBCDD4" />
+          <rect x="206" y="129" width="38" height="4" rx="2" fill="#CBCDD4" />
+          {[154, 180].map((y, itemIndex) => (
+            <g key={y}>
+              <rect x="56" y={y - 7} width="14" height="14" rx="5" fill={itemIndex === 0 ? "#E5EBFF" : "#EEF2FF"} stroke="#A8BEFF" strokeWidth="0.8" />
+              <rect x="80" y={y - 6} width={itemIndex === 0 ? 52 : 46} height="4.6" rx="2.3" fill="#A8BEFF" />
+              <rect x="80" y={y + 4} width={itemIndex === 0 ? 38 : 42} height="3.5" rx="1.75" fill="#E5EBFF" />
+              <rect x="148" y={y - 5} width="38" height="11" rx="5.5" fill={itemIndex === 0 ? "#22C55E" : "#FF2828"} fillOpacity={itemIndex === 0 ? "0.14" : "0.1"} stroke={itemIndex === 0 ? "#22C55E" : "#FF2828"} strokeOpacity={itemIndex === 0 ? "0.42" : "0.34"} strokeWidth="0.8" />
+              <rect x="206" y={y - 5} width="38" height="11" rx="5.5" fill={itemIndex === 0 ? "#F97316" : "#22C55E"} fillOpacity="0.14" stroke={itemIndex === 0 ? "#F97316" : "#22C55E"} strokeOpacity="0.42" strokeWidth="0.8" />
+            </g>
+          ))}
+
+          <rect x="238" y="58" width="64" height="21" rx="10.5" fill="#FFFFFF" stroke="#E6E7EB" />
+          <rect x="250" y="66" width="32" height="4" rx="2" fill="#A8BEFF" />
+          <path d="M 290 65 L 294 69 L 298 65" fill="none" stroke="#1A42B8" strokeWidth="1.1" strokeLinecap="round" strokeLinejoin="round" />
+          <rect x="238" y="86" width="66" height="82" rx="9" fill="#FFFFFF" stroke="#E6E7EB" />
+          <rect x="248" y="96" width="40" height="4" rx="2" fill="#A8BEFF" />
+          <rect x="248" y="113" width="42" height="5" rx="2.5" fill="#22C55E" fillOpacity="0.16" stroke="#22C55E" strokeOpacity="0.45" strokeWidth="0.7" />
+          <rect x="248" y="130" width="42" height="5" rx="2.5" fill="#F97316" fillOpacity="0.16" stroke="#F97316" strokeOpacity="0.45" strokeWidth="0.7" />
+          <rect x="248" y="147" width="42" height="5" rx="2.5" fill="#FF2828" fillOpacity="0.11" stroke="#FF2828" strokeOpacity="0.38" strokeWidth="0.7" />
+        </g>
+      )}
+
+      {index === 4 && (
+        <g>
+          <rect x="20" y="50" width="62" height="134" fill="#FAFBFF" />
+          <path d="M 82 50 V 184" stroke="#E6E7EB" />
+          <rect x="38" y="68" width="28" height="4.5" rx="2.25" fill="#CBCDD4" />
+          <circle cx="40" cy="91" r="3.2" fill="#E5EBFF" stroke="#A8BEFF" strokeWidth="0.7" />
+          <rect x="50" y="88.8" width="28" height="3.8" rx="1.9" fill="#696D7A" opacity="0.62" />
+          <rect x="50" y="102" width="34" height="3.8" rx="1.9" fill="#E5EBFF" />
+          <rect x="50" y="113" width="28" height="3.8" rx="1.9" fill="#E5EBFF" />
+          <circle cx="40" cy="142" r="3.2" fill="#2258F4" />
+          <rect x="50" y="139.8" width="34" height="3.8" rx="1.9" fill="#2258F4" />
+          <rect x="50" y="153" width="36" height="3.8" rx="1.9" fill="#E5EBFF" />
+
+          <rect x="104" y="70" width="82" height="7" rx="3.5" fill="#CBCDD4" />
+          <rect x="104" y="88" width="48" height="4.6" rx="2.3" fill="#E6E7EB" />
+          <rect x="104" y="104" width="68" height="26" rx="7" fill="#FFFFFF" stroke="#E6E7EB" strokeWidth="0.8" />
+          <circle cx="120" cy="117" r="2.4" fill="none" stroke="#CBCDD4" strokeWidth="0.8" />
+          <rect x="134" y="115" width="26" height="4.5" rx="2.25" fill="#E5EBFF" />
+          <rect x="182" y="104" width="68" height="26" rx="7" fill="#FFFFFF" stroke="#E6E7EB" strokeWidth="0.8" />
+          <circle cx="198" cy="117" r="2.4" fill="none" stroke="#CBCDD4" strokeWidth="0.8" />
+          <rect x="212" y="115" width="26" height="4.5" rx="2.25" fill="#E5EBFF" />
+          <rect x="104" y="142" width="152" height="48" rx="9" fill="#FAFBFF" />
+          <path d="M 118 166 L 132 154 L 148 160 L 166 144 L 184 160 L 206 150" fill="none" stroke="#2258F4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          <circle cx="166" cy="144" r="2.4" fill="#FFFFFF" stroke="#2258F4" />
+          <circle cx="184" cy="160" r="2.4" fill="#FFFFFF" stroke="#2258F4" />
+          <rect x="224" y="154" width="28" height="4.5" rx="2.25" fill="#E5EBFF" />
+
+          <rect x="236" y="62" width="72" height="50" rx="9" fill="#FFFFFF" stroke="#E6E7EB" strokeWidth="0.8" />
+          <rect x="258" y="75" width="34" height="5.2" rx="2.6" fill="#CBCDD4" />
+          <text x="246" y="102" fill="#1A1C24" fontFamily="PingFang SC, sans-serif" fontSize="15" fontWeight="700">248</text>
+          <text x="281" y="98" fill="#2258F4" fontFamily="PingFang SC, sans-serif" fontSize="5.8" fontWeight="700">+36</text>
+          <rect x="246" y="106" width="54" height="4.5" rx="2.25" fill="#EEF2FF" />
+          <rect x="246" y="106" width="24" height="4.5" rx="2.25" fill="#2258F4" />
+          <rect x="236" y="118" width="72" height="48" rx="9" fill="#FFFFFF" stroke="#E6E7EB" strokeWidth="0.8" />
+          <circle cx="246" cy="145" r="2" fill="#A8BEFF" />
+          <text x="246" y="158" fill="#1A1C24" fontFamily="PingFang SC, sans-serif" fontSize="9" fontWeight="700">86</text>
+          <rect x="246" y="162" width="28" height="3.6" rx="1.8" fill="#E6E7EB" />
+          <path d="M 280 140 V 166" stroke="#E6E7EB" />
+          <text x="292" y="158" fill="#1A1C24" fontFamily="PingFang SC, sans-serif" fontSize="9" fontWeight="700">54</text>
+        </g>
+      )}
+    </svg>
+  );
+}
+
 function DesignSystemArchitectureLayers() {
   const [activeLayerId, setActiveLayerId] = useState<ArchitectureLayerId | null>(null);
   const [settled, setSettled] = useState(false);
@@ -1143,8 +1351,24 @@ export function QixinProjectDetail({ onBack }: Props) {
   const chainPointerRef = useRef({ x: -1, y: -1 });
   const chainSwitchPointRef = useRef({ x: -1, y: -1 });
   const recruitPointerRef = useRef({ x: -1, y: -1 });
+  const qxResearchScrollRef = useRef<HTMLDivElement | null>(null);
+  const qxResearchFlowRef = useRef<HTMLDivElement | null>(null);
+  const qxResearchZoomRef = useRef(1);
+  const qxResearchDragRef = useRef({
+    active: false,
+    moved: false,
+    pointerId: -1,
+    startX: 0,
+    scrollLeft: 0,
+  });
   const [chainSlide, setChainSlide] = useState(0);
   const [recruitFront, setRecruitFront] = useState<"detail" | "relation">("detail");
+  const [qxResearchFlow, setQxResearchFlow] = useState<{
+    width: number;
+    height: number;
+    routes: Array<{ id: string; d: string; dot: { x: number; y: number } }>;
+  }>({ width: 0, height: 0, routes: [] });
+  const [qxResearchZoom, setQxResearchZoom] = useState(1);
 
   const chainSlides = [
     { src: "./images/optimized/qixin-industry-detail-1600.jpg", alt: "产业洞察详情" },
@@ -1172,12 +1396,391 @@ export function QixinProjectDetail({ onBack }: Props) {
   ];
 
   const SCENARIOS = [
-    { id: "01", name: "招商场景", users: "招商办、园区招商人员", tasks: ["找产业", "找企业", "建名单", "跟进线索"] },
-    { id: "02", name: "产业服务", users: "产业部门、园区运营人员", tasks: ["看产业结构", "识别优势环节", "服务本地企业"] },
-    { id: "03", name: "企业服务", users: "企业服务部门", tasks: ["企业画像", "识别风险", "政策扶持", "跟踪成长"] },
-    { id: "04", name: "金融场景", users: "银行、投资机构、金融服务人员", tasks: ["企业筛选", "风险判断", "融资动态", "价值评估"] },
-    { id: "05", name: "区域治理", users: "政府部门、区域经济管理者", tasks: ["区域经济", "迁入迁出", "舆情动态", "输出报告"] },
+    {
+      id: "01",
+      name: "招商场景",
+      users: "招商办 / 园区招商人员",
+      goal: "找到高匹配企业，建立候选名单",
+      tasks: ["找产业", "找企业", "建名单"],
+      avatars: ["招", "园"],
+      tint: "#EEF2FF",
+    },
+    {
+      id: "02",
+      name: "产业服务",
+      users: "产业部门 / 园区运营人员",
+      goal: "识别优势环节，服务本地企业",
+      tasks: ["看结构", "识别环节", "企业服务"],
+      avatars: ["产", "运"],
+      tint: "#F2F6FF",
+    },
+    {
+      id: "03",
+      name: "企业服务",
+      users: "企业服务部门",
+      goal: "识别画像、风险和成长需求",
+      tasks: ["企业画像", "识别风险", "跟踪成长"],
+      avatars: ["企", "服"],
+      tint: "#EEF2FF",
+    },
+    {
+      id: "04",
+      name: "金融场景",
+      users: "银行 / 投资机构 / 金融服务人员",
+      goal: "筛选企业，辅助风险与价值判断",
+      tasks: ["企业筛选", "风险判断", "价值评估"],
+      avatars: ["银", "投"],
+      tint: "#F2F6FF",
+    },
+    {
+      id: "05",
+      name: "区域治理",
+      users: "政府部门 / 区域经济管理者",
+      goal: "跟踪区域变化，输出分析报告",
+      tasks: ["区域经济", "迁入迁出", "输出报告"],
+      avatars: ["政", "域"],
+      tint: "#EEF2FF",
+    },
   ];
+
+  const COMMON_PROBLEMS = [
+    {
+      title: "定位范围难",
+      desc: "产业、区域、政策分散，缺少统一入口判断范围。",
+    },
+    {
+      title: "筛选成本高",
+      desc: "企业多、条件复杂，仍依赖多平台查询和整理。",
+    },
+    {
+      title: "判断依据散",
+      desc: "价值、风险、经营动态分散，判断依据不完整。",
+    },
+    {
+      title: "线索难沉淀",
+      desc: "结果散落在表格和记录中，后续跟进不透明。",
+    },
+    {
+      title: "输出效率低",
+      desc: "变化感知和反馈材料依赖人工整理，报告成本高。",
+    },
+  ];
+
+  const HUB_CAPABILITIES = ["定位数据", "筛选目标", "价值评估", "状态追踪", "持续管理", "输出结果"];
+
+  const DESIGN_DECISIONS = [
+    {
+      title: "统一认知入口",
+      problem: "定位范围难",
+      decision: "把产业、区域、政策和企业信息收进同一入口。",
+      advantage: "先建立判断范围，再进入企业筛选。",
+      boundary: "不替代业务专家的产业判断。",
+      modules: ["产业洞察", "产业链视图", "区域分析", "产业规划"],
+    },
+    {
+      title: "条件化筛选企业",
+      problem: "筛选成本高",
+      decision: "将行业、区域、规模、风险等条件组合筛选。",
+      advantage: "减少跨平台查询和 Excel 整理。",
+      boundary: "复杂招商意图仍需人工校准。",
+      modules: ["精准搜索", "企业筛选", "条件筛选", "关系图谱"],
+    },
+    {
+      title: "多维判断面板",
+      problem: "判断依据散",
+      decision: "集中呈现企业画像、风险、经营和融资信息。",
+      advantage: "判断依据集中且可追溯。",
+      boundary: "不能替代实地沟通和策略判断。",
+      modules: ["企业画像", "风险信息", "经营动态", "价值评估", "融资动态"],
+    },
+    {
+      title: "线索跟进闭环",
+      problem: "线索难沉淀",
+      decision: "把名单转为可分组、可标记、可跟进的线索。",
+      advantage: "避免线索停留在一次性表格里。",
+      boundary: "转化仍依赖团队跟进机制。",
+      modules: ["企业分组", "状态标记", "跟进管理", "企业监控"],
+    },
+    {
+      title: "监测与报告输出",
+      problem: "输出效率低",
+      decision: "串联动态监测、提醒和报告输出。",
+      advantage: "降低持续跟踪和汇报整理成本。",
+      boundary: "AI 报告仍需人工审核口径。",
+      modules: ["动态提醒", "企业监测", "报告中心", "AI 报告联动"],
+    },
+  ];
+
+  const FlowNode = ({ title, desc, anchor }: { title: string; desc: string; anchor?: string }) => (
+    <div
+      data-flow-anchor={anchor}
+      className="relative z-20 flex shrink-0 flex-col rounded-[16px] border border-[#E6E7EB] bg-white p-3 shadow-[0_12px_28px_rgba(34,88,244,0.06)]"
+      style={{ width: Math.max(116, title.length * 15 + 34) }}
+    >
+      <div className="whitespace-nowrap text-[15px] font-semibold leading-[1.35] text-[#1A1C24]">{title}</div>
+      <p className="mt-1 text-[13px] font-medium leading-[1.45] text-[#696D7A]">{desc}</p>
+    </div>
+  );
+
+  const NodeBadge = ({ label }: { label: string }) => (
+    <span className="absolute -top-2.5 right-4 z-10 rounded-full border border-[#A8BEFF] bg-[#E5EBFF] px-3.5 py-1.5 text-[12px] font-semibold leading-[1.15] text-[#1A42B8] shadow-[0_6px_14px_rgba(34,88,244,0.08)]">
+      {label}
+    </span>
+  );
+
+  const FlowToolButton = ({
+    label,
+    children,
+    onClick,
+  }: {
+    label: string;
+    children: ReactNode;
+    onClick: () => void;
+  }) => (
+    <button
+      type="button"
+      aria-label={label}
+      title={label}
+      onClick={onClick}
+      className="inline-flex size-10 items-center justify-center rounded-[10px] border border-[#E6E7EB] bg-white text-[#0F1419] shadow-[0_8px_18px_rgba(15,20,25,0.05)] transition-colors duration-200 hover:border-[#2258F4] hover:text-[#2258F4] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2258F4]/25"
+    >
+      {children}
+    </button>
+  );
+
+  const ZoomInIcon = () => (
+    <svg aria-hidden="true" className="size-[22px]" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.65" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="8.5" cy="8.5" r="4.75" />
+      <path d="M8.5 6.25v4.5M6.25 8.5h4.5M12.1 12.1 16 16" />
+    </svg>
+  );
+
+  const ZoomOutIcon = () => (
+    <svg aria-hidden="true" className="size-[22px]" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.65" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="8.5" cy="8.5" r="4.75" />
+      <path d="M6.25 8.5h4.5M12.1 12.1 16 16" />
+    </svg>
+  );
+
+  const FlowLineLayer = () => {
+    if (!qxResearchFlow.width || !qxResearchFlow.height || !qxResearchFlow.routes.length) return null;
+
+    return (
+      <>
+        <svg
+          aria-hidden="true"
+          className="pointer-events-none absolute left-0 top-0 z-0 overflow-visible"
+          width={qxResearchFlow.width}
+          height={qxResearchFlow.height}
+          viewBox={`0 0 ${qxResearchFlow.width} ${qxResearchFlow.height}`}
+          fill="none"
+        >
+          {qxResearchFlow.routes.map((route) => (
+            <path
+              key={route.id}
+              d={route.d}
+              stroke={FLOW_BLUE}
+              strokeWidth="1.25"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          ))}
+        </svg>
+        {qxResearchFlow.routes.map((route) => (
+          <span
+            key={`${route.id}-dot`}
+            aria-hidden="true"
+            className="pointer-events-none absolute z-30 size-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white"
+            style={{
+              left: route.dot.x,
+              top: route.dot.y,
+              backgroundColor: FLOW_BLUE,
+              boxShadow: `0 0 0 1px ${FLOW_BLUE}`,
+            }}
+          />
+        ))}
+      </>
+    );
+  };
+
+  const handleQxResearchDragStart = (event: ReactPointerEvent<HTMLDivElement>) => {
+    if (event.button !== 0 || event.pointerType === "mouse" || event.pointerType === "touch") return;
+    qxResearchDragRef.current = {
+      active: true,
+      moved: false,
+      pointerId: event.pointerId,
+      startX: event.clientX,
+      scrollLeft: event.currentTarget.scrollLeft,
+    };
+    event.currentTarget.setPointerCapture?.(event.pointerId);
+  };
+
+  const handleQxResearchDragMove = (event: ReactPointerEvent<HTMLDivElement>) => {
+    const drag = qxResearchDragRef.current;
+    if (!drag.active || drag.pointerId !== event.pointerId) return;
+    const deltaX = event.clientX - drag.startX;
+    if (Math.abs(deltaX) > 3) drag.moved = true;
+    event.currentTarget.scrollLeft = drag.scrollLeft - deltaX;
+    event.preventDefault();
+  };
+
+  const endQxResearchDrag = (event: ReactPointerEvent<HTMLDivElement>) => {
+    const drag = qxResearchDragRef.current;
+    if (drag.pointerId === event.pointerId) {
+      event.currentTarget.releasePointerCapture?.(event.pointerId);
+      qxResearchDragRef.current.active = false;
+    }
+  };
+
+  const handleQxResearchMouseDown = (event: ReactMouseEvent<HTMLDivElement>) => {
+    if (event.button !== 0) return;
+    qxResearchDragRef.current = {
+      active: true,
+      moved: false,
+      pointerId: -1,
+      startX: event.clientX,
+      scrollLeft: event.currentTarget.scrollLeft,
+    };
+    event.preventDefault();
+  };
+
+  const handleQxResearchMouseMove = (event: ReactMouseEvent<HTMLDivElement>) => {
+    const drag = qxResearchDragRef.current;
+    if (!drag.active || drag.pointerId !== -1) return;
+    const deltaX = event.clientX - drag.startX;
+    if (Math.abs(deltaX) > 3) drag.moved = true;
+    event.currentTarget.scrollLeft = drag.scrollLeft - deltaX;
+    event.preventDefault();
+  };
+
+  const endQxResearchMouseDrag = () => {
+    if (qxResearchDragRef.current.pointerId === -1) {
+      qxResearchDragRef.current.active = false;
+    }
+  };
+
+  const handleQxResearchZoomIn = () => {
+    setQxResearchZoom((zoom) => Math.min(1.16, Number((zoom + 0.08).toFixed(2))));
+  };
+
+  const getQxResearchFitZoom = () => {
+    const scrollArea = qxResearchScrollRef.current;
+    const flowWidth = qxResearchFlow.width || qxResearchFlowRef.current?.offsetWidth || 0;
+    if (!scrollArea || !flowWidth) return 0.68;
+
+    const fitZoom = (scrollArea.clientWidth - 8) / flowWidth;
+    return Math.max(0.56, Math.min(1, Number(fitZoom.toFixed(2))));
+  };
+
+  const handleQxResearchZoomOut = () => {
+    setQxResearchZoom((zoom) => {
+      const fitZoom = getQxResearchFitZoom();
+      const nextZoom = Math.max(fitZoom, Number((zoom - 0.08).toFixed(2)));
+
+      if (nextZoom <= fitZoom + 0.001) {
+        window.requestAnimationFrame(() => {
+          qxResearchScrollRef.current?.scrollTo({ left: 0, behavior: "smooth" });
+        });
+      }
+
+      return nextZoom;
+    });
+  };
+
+  useEffect(() => {
+    qxResearchZoomRef.current = qxResearchZoom;
+  }, [qxResearchZoom]);
+
+  useEffect(() => {
+    const container = qxResearchFlowRef.current;
+    if (!container) return;
+
+    const routes = [
+      { id: "who-to-scenario-layer", from: "who", to: "scenarioLayer", fromSide: "right", toSide: "left", fromY: "center", toY: "from" },
+      { id: "scenario-layer-to-usage", from: "scenarioLayer", to: "usageNode", fromSide: "right", toSide: "left", fromY: "center", toY: "center" },
+      { id: "usage-to-problem-layer", from: "usageNode", to: "problemLayer", fromSide: "right", toSide: "left", fromY: "center", toY: "from" },
+      { id: "problem-layer-to-solve", from: "problemLayer", to: "solveNode", fromSide: "right", toSide: "left", fromY: "center", toY: "center" },
+      { id: "solve-to-hub", from: "solveNode", to: "hubNode", fromSide: "right", toSide: "left", fromY: "center", toY: "center" },
+      { id: "hub-to-why", from: "hubNode", to: "whyNode", fromSide: "right", toSide: "left", fromY: "to", toY: "center" },
+      { id: "why-to-decision-layer", from: "whyNode", to: "decisionLayer", fromSide: "right", toSide: "left", fromY: "center", toY: "from" },
+    ] as const;
+
+    const makeRoundedRoute = (start: { x: number; y: number }, end: { x: number; y: number }) => {
+      const deltaX = end.x - start.x;
+      const deltaY = end.y - start.y;
+
+      if (Math.abs(deltaY) < 12) {
+        return `M ${start.x} ${start.y} H ${end.x}`;
+      }
+
+      const midX = start.x + deltaX * 0.55;
+      const directionY = deltaY > 0 ? 1 : -1;
+      const radius = Math.min(18, Math.abs(deltaY) / 2, Math.abs(midX - start.x) / 2, Math.abs(end.x - midX) / 2);
+
+      return [
+        `M ${start.x} ${start.y}`,
+        `H ${midX - radius}`,
+        `Q ${midX} ${start.y} ${midX} ${start.y + directionY * radius}`,
+        `V ${end.y - directionY * radius}`,
+        `Q ${midX} ${end.y} ${midX + radius} ${end.y}`,
+        `H ${end.x}`,
+      ].join(" ");
+    };
+
+    const updateRoutes = () => {
+      const rootRect = container.getBoundingClientRect();
+      const zoom = qxResearchZoomRef.current || 1;
+      const anchorRects = new globalThis.Map<string, DOMRect>();
+
+      container.querySelectorAll<HTMLElement>("[data-flow-anchor]").forEach((anchor) => {
+        const key = anchor.dataset.flowAnchor;
+        if (key) anchorRects.set(key, anchor.getBoundingClientRect());
+      });
+
+      const centerY = (rect: DOMRect) => (rect.top - rootRect.top + rect.height / 2) / zoom;
+      const sideX = (rect: DOMRect, side: "left" | "right") =>
+        ((side === "right" ? rect.right : rect.left) - rootRect.left) / zoom;
+      const point = (rect: DOMRect, side: "left" | "right", y: number) => ({
+        x: sideX(rect, side),
+        y,
+      });
+
+      const nextRoutes = routes.flatMap((route) => {
+        const fromRect = anchorRects.get(route.from);
+        const toRect = anchorRects.get(route.to);
+        if (!fromRect || !toRect) return [];
+
+        const fromCenter = centerY(fromRect);
+        const toCenter = centerY(toRect);
+        const startY = route.fromY === "to" ? toCenter : fromCenter;
+        const endY = route.toY === "from" ? startY : toCenter;
+        const start = point(fromRect, route.fromSide, startY);
+        const end = point(toRect, route.toSide, endY);
+
+        return [{ id: route.id, d: makeRoundedRoute(start, end), dot: end }];
+      });
+
+      setQxResearchFlow({
+        width: Math.ceil(rootRect.width / zoom),
+        height: Math.ceil(rootRect.height / zoom),
+        routes: nextRoutes,
+      });
+    };
+
+    const frame = window.requestAnimationFrame(updateRoutes);
+    const lateFrame = window.setTimeout(updateRoutes, 180);
+    const resizeObserver = new ResizeObserver(updateRoutes);
+    resizeObserver.observe(container);
+    container.querySelectorAll<HTMLElement>("[data-flow-anchor]").forEach((anchor) => resizeObserver.observe(anchor));
+    window.addEventListener("resize", updateRoutes);
+
+    return () => {
+      window.cancelAnimationFrame(frame);
+      window.clearTimeout(lateFrame);
+      resizeObserver.disconnect();
+      window.removeEventListener("resize", updateRoutes);
+    };
+  }, []);
 
   return (
     <div className="relative z-10">
@@ -1308,22 +1911,212 @@ export function QixinProjectDetail({ onBack }: Props) {
         </div>
 
 
-      <section id="qx02" className={`relative py-20 md:py-28 ${SECTION_PAD}`}>
+      <section id="qx02" className={`relative pt-20 pb-10 md:pt-28 md:pb-14 ${SECTION_PAD}`}>
         <div className={BUSINESS_READ}>
           <Reveal>
           <div className="text-center">
             <h2 className="tracking-tight text-[#1A1C24] leading-[1.12]" style={{ fontSize: "clamp(28px, 3.5vw, 48px)", fontWeight: 700 }}>
-              多场景企业数据工作台设计
+              用户研究和产品背景
             </h2>
-            <p className="mt-4 text-[#696D7A] max-w-[1080px] mx-auto" style={T.bodyMuted}>
-              覆盖招商、产业服务、企业服务、金融服务和区域治理五类场景，把企业查询、对象筛选、价值评估、任务跟进和报告输出串成一套工作流程
+            <p className="mx-auto mt-4 max-w-[820px] text-[17px] leading-[1.8] text-[#696D7A] md:text-[18px]">
+              从 5 类业务场景中抽象企业决策的共性问题，并推导系统设计机会。
             </p>
           </div>
         </Reveal>
         </div>
 
+        <div className={`${BUSINESS_READ} mt-10`}>
+          <Reveal>
+            <div className="relative">
+              <div
+                ref={qxResearchScrollRef}
+                className="overflow-auto select-none cursor-grab active:cursor-grabbing"
+                style={{
+                  height: qxResearchFlow.height || undefined,
+                  overscrollBehaviorX: "contain",
+                  overscrollBehaviorY: "auto",
+                }}
+                onWheel={(event) => {
+                  if (!event.shiftKey && Math.abs(event.deltaY) > Math.abs(event.deltaX)) {
+                    window.scrollBy({ top: event.deltaY, left: 0, behavior: "auto" });
+                    event.preventDefault();
+                  }
+                }}
+                onPointerDown={handleQxResearchDragStart}
+                onPointerMove={handleQxResearchDragMove}
+                onPointerUp={endQxResearchDrag}
+                onPointerCancel={endQxResearchDrag}
+                onPointerLeave={endQxResearchDrag}
+                onMouseDown={handleQxResearchMouseDown}
+                onMouseMove={handleQxResearchMouseMove}
+                onMouseUp={endQxResearchMouseDrag}
+                onMouseLeave={endQxResearchMouseDrag}
+                onDragStart={(event) => event.preventDefault()}
+                onClickCapture={(event) => {
+                  if (qxResearchDragRef.current.moved) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                  }
+                }}
+              >
+                <div
+                  className="relative w-max"
+                  style={{
+                    width: qxResearchFlow.width ? qxResearchFlow.width * qxResearchZoom : undefined,
+                    height: qxResearchFlow.height ? qxResearchFlow.height * qxResearchZoom : undefined,
+                  }}
+                >
+                  <div
+                    ref={qxResearchFlowRef}
+                    className="relative w-max"
+                    style={{
+                      transform: qxResearchZoom === 1 ? undefined : `scale(${qxResearchZoom})`,
+                      transformOrigin: "top left",
+                    }}
+                  >
+                    <FlowLineLayer />
+                    <div className="relative z-10 grid grid-cols-[max-content_max-content_max-content_max-content_max-content_max-content_max-content] items-start gap-x-6">
+                      <div className="relative grid grid-cols-[max-content_max-content] items-start gap-x-6 overflow-visible">
+                        <FlowNode anchor="who" title="确定用户是谁" desc="谁用，谁不用" />
+
+                        <div data-flow-anchor="scenarioLayer" className="relative z-10 rounded-[28px] border border-[#A8BEFF]/45 bg-white/45 p-4">
+                          <div className="mb-5">
+                            <h3 className="text-[20px] font-semibold leading-[1.25] text-[#1A1C24]">场景输入层</h3>
+                            <p className="mt-1 text-[13px] font-medium leading-[1.5] text-[#696D7A]">先确认业务角色和使用边界。</p>
+                          </div>
+
+                          <div className="space-y-4">
+                            {SCENARIOS.map((scenario) => (
+                              <article
+                                key={scenario.id}
+                                className="relative rounded-[18px] border border-[#E6E7EB] bg-white px-4 pb-4 pt-7 shadow-[0_8px_20px_rgba(34,88,244,0.035)]"
+                              >
+                                <NodeBadge label={scenario.name} />
+                                <div className="space-y-1.5">
+                                  <p className="text-[13px] font-medium leading-[1.45] text-[#4E525E]">
+                                    <span className="mr-2 font-semibold text-[#1A42B8]">角色</span>
+                                    {scenario.users}
+                                  </p>
+                                  <p className="text-[13px] font-medium leading-[1.45] text-[#4E525E]">
+                                    <span className="mr-2 font-semibold text-[#1A42B8]">目标</span>
+                                    {scenario.goal}
+                                  </p>
+                                </div>
+                              </article>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="relative z-20 pt-[328px]">
+                        <FlowNode anchor="usageNode" title="在什么场景下用" desc="用户高频使用的场景有哪些" />
+                      </div>
+
+                      <div data-flow-anchor="problemLayer" className="relative overflow-visible rounded-[28px] border border-[#A8BEFF]/45 bg-white/35 p-4">
+                        <div className="relative z-10">
+                          <div className="mb-5">
+                            <h3 className="text-[20px] font-semibold leading-[1.25] text-[#1A1C24]">共性问题层</h3>
+                            <p className="mt-1 text-[13px] font-medium leading-[1.5] text-[#696D7A]">从五类场景里抽出共同阻塞点。</p>
+                          </div>
+
+                          <div className="space-y-4">
+                            {COMMON_PROBLEMS.map((problem) => (
+                              <article
+                                key={problem.title}
+                                className="relative rounded-[18px] border border-[#E6E7EB] bg-white px-4 pb-4 pt-7 shadow-[0_8px_20px_rgba(34,88,244,0.035)]"
+                              >
+                                <NodeBadge label={problem.title} />
+                                <div className="space-y-1.5">
+                                  <p className="text-[13px] font-medium leading-[1.5] text-[#4E525E]">{problem.desc}</p>
+                                </div>
+                              </article>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="relative z-20 pt-[438px]">
+                        <FlowNode anchor="solveNode" title="解决什么问题" desc="把分散问题收拢成工作流" />
+                      </div>
+
+                      <div className="relative overflow-visible">
+                        <div className="relative z-10">
+                          <article data-flow-anchor="hubNode" className="relative w-[252px] overflow-hidden rounded-[22px] border-2 border-dashed border-[#A8BEFF] bg-white p-4 shadow-[0_8px_20px_rgba(34,88,244,0.045)]">
+                            <div className="text-[20px] font-semibold leading-[1.35] text-[#1A1C24]">启信产业大脑</div>
+                            <p className="mt-1.5 text-[13px] font-medium leading-[1.55] text-[#4E525E]">
+                              统一承接企业筛选、评估、管理与报告输出流程。
+                            </p>
+
+                            <div className="mt-3 grid grid-cols-2 gap-2">
+                              {HUB_CAPABILITIES.map((capability) => (
+                                <div
+                                  key={capability}
+                                  className="rounded-[10px] bg-[#EEF2FF]/75 px-3 py-2.5 text-[12px] font-semibold leading-[1.45] text-[#1A42B8]"
+                                >
+                                  {capability}
+                                </div>
+                              ))}
+                            </div>
+                          </article>
+                        </div>
+                      </div>
+
+                      <div className="relative z-20 pt-[68px]">
+                        <FlowNode anchor="whyNode" title="为什么选我们" desc="优势、边界与设计取舍" />
+                      </div>
+
+                      <div data-flow-anchor="decisionLayer" className="relative overflow-visible rounded-[28px] border border-[#A8BEFF]/45 bg-white/35 p-4">
+                        <div className="relative z-10">
+                          <div className="mb-5">
+                            <h3 className="text-[20px] font-semibold leading-[1.25] text-[#1A1C24]">设计决策层</h3>
+                            <p className="mt-1 text-[13px] font-medium leading-[1.5] text-[#696D7A]">从共性问题推导设计回应。</p>
+                          </div>
+
+                          <div className="space-y-4">
+                            {DESIGN_DECISIONS.map((decision) => (
+                              <article
+                                key={decision.title}
+                                className="relative overflow-visible rounded-[18px] border border-[#E6E7EB] bg-white px-4 pb-4 pt-7 shadow-[0_8px_20px_rgba(34,88,244,0.035)]"
+                              >
+                                <NodeBadge label={decision.title} />
+
+                                <div className="space-y-1.5">
+                                  {[
+                                    ["设计决策", decision.decision],
+                                    ["产品优势", decision.advantage],
+                                    ["使用边界", decision.boundary],
+                                  ].map(([label, value]) => (
+                                    <div key={label} className="grid grid-cols-[64px_1fr] gap-2">
+                                      <div className="text-[12px] font-semibold leading-[1.45] text-[#1A42B8]">{label}</div>
+                                      <p className="text-[13px] font-medium leading-[1.45] text-[#4E525E]">{value}</p>
+                                    </div>
+                                  ))}
+                                </div>
+                              </article>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="pointer-events-none absolute bottom-0 left-0 z-40">
+                <div className="pointer-events-auto inline-flex items-center gap-2 rounded-[14px] border border-[#E6E7EB] bg-white/95 px-2 py-2 shadow-[0_10px_22px_rgba(15,20,25,0.06)]">
+                  <FlowToolButton label="放大流程图" onClick={handleQxResearchZoomIn}>
+                    <ZoomInIcon />
+                  </FlowToolButton>
+                  <FlowToolButton label="缩小流程图" onClick={handleQxResearchZoomOut}>
+                    <ZoomOutIcon />
+                  </FlowToolButton>
+                </div>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+
         {/* ───── 5 场景卡片 ───── */}
-        <div className="mx-auto mt-10 max-w-[1600px]">
+        <div className="hidden">
           <Reveal>
           <div className="flex flex-wrap lg:flex-nowrap gap-4">
             {SCENARIOS.map((s) => (
@@ -1343,7 +2136,7 @@ export function QixinProjectDetail({ onBack }: Props) {
         </div>
 
         {/* ───── 招商场景深挖 ───── */}
-        <div className={`${BUSINESS_READ} mt-4`}>
+        <div className="hidden">
           <Reveal>
             <div className="space-y-4">
               <Reveal>
@@ -2303,60 +3096,82 @@ export function QixinProjectDetail({ onBack }: Props) {
               </p>
             </div>
 
-            <div className="grid gap-6 lg:grid-cols-[minmax(360px,0.72fr)_minmax(0,1.28fr)] lg:items-stretch">
-              <article className="h-full min-w-0 rounded-[28px] border bg-white p-6 shadow-[0_1px_2px_rgba(15,20,25,0.04)] md:p-8" style={{ borderColor: "#E6E7EB" }}>
-                <h3 className="text-[#1A1C24]" style={{ fontSize: 24, lineHeight: "32px", fontWeight: 700 }}>
-                  把反复判断沉淀为共同标准
+            <div className="space-y-6">
+              <article className="min-w-0 rounded-[28px] border bg-white p-5 shadow-[0_1px_2px_rgba(15,20,25,0.04)] md:p-7" style={{ borderColor: "#E6E7EB" }}>
+                <h3 className="text-[#1A1C24]" style={{ fontSize: 26, lineHeight: "34px", fontWeight: 700 }}>
+                  从场景情绪到可复用色板
                 </h3>
-                <p className="mt-5" style={T.body}>
-                  我主导协同组内设计师从 0 到 1 建设组件库与标品规范，把颜色、字号、间距、状态、表格、筛选和侧边栏这些高频判断收束成可复用规则。
-                </p>
-                <div className="mt-6 flex flex-wrap gap-2">
-                  {["140 个颜色样式", "24 个文本样式", "11 大色系", "5 层结构"].map((item) => (
-                    <span
-                      key={item}
-                      className="inline-flex rounded-full border px-3 py-1.5"
-                      style={{
-                        borderColor: "rgba(168,190,255,0.65)",
-                        background: "rgba(229,235,255,0.42)",
-                        color: ICON_BLUE,
-                        fontSize: 13,
-                        lineHeight: 1.25,
-                        fontWeight: 600,
-                      }}
-                    >
-                      {item}
-                    </span>
-                  ))}
-                </div>
-                <div className="mt-6 space-y-3">
+                <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
                   {[
-                    ["页面与框架", "定义统一的页面尺寸、留白和布局层级，让不同模块在同一套框架下自然对齐，而不是各自为政。"],
-                    ["组件与状态", "把按钮、筛选、表格、弹窗等高频组件抽象为可复用单元，新增页面时直接组合，不用每次重新画。"],
-                    ["协作与交付", "设计和研发共用同一套命名、状态和组件规则，减少沟通成本，后续迭代不用回滚调整基础样式。"],
-                  ].map(([title, desc]) => (
-                    <div key={title} className="rounded-2xl border border-[#E6E7EB] bg-[#FAFBFF] p-4">
-                      <div className="text-[#1A1C24]" style={{ fontSize: 15, lineHeight: "22px", fontWeight: 700 }}>
-                        {title}
+                    {
+                      step: "01",
+                      title: "确定用户场景",
+                      meta: "场景 Scene",
+                      desc: "先判断客群、业务环境和使用压力，决定视觉表达保持克制、清晰、有秩序。",
+                      bg: "rgba(238,242,255,0.78)",
+                      accent: "#2258F4",
+                      rotate: "-0.8deg",
+                    },
+                    {
+                      step: "02",
+                      title: "提取情绪基因",
+                      meta: "情绪 Mood",
+                      desc: "寻找氛围图片和行业参照，把设计情感收束为主色方向，而不是直接套颜色。",
+                      bg: "rgba(229,235,255,0.72)",
+                      accent: "#4777FF",
+                      rotate: "0.7deg",
+                    },
+                    {
+                      step: "03",
+                      title: "建立色相梯度",
+                      meta: "色彩 HSB / HSL",
+                      desc: "确定基因主色后，对色相做 ±15° 小范围偏移，再用明度与饱和度拉开层级。",
+                      bg: "rgba(245,245,247,0.86)",
+                      accent: "#6366F1",
+                      rotate: "-0.5deg",
+                    },
+                    {
+                      step: "04",
+                      title: "测试并产出色板",
+                      meta: "测试 A11y",
+                      desc: "完成明亮度、对比度和无障碍测试，确认可用于状态、图表和业务页面的色板。",
+                      bg: "rgba(250,251,255,0.92)",
+                      accent: "#1A42B8",
+                      rotate: "0.5deg",
+                    },
+                  ].map((item) => (
+                    <div
+                      key={item.step}
+                      className="rounded-[22px] border border-dashed border-[#CBCDD4] bg-white p-3.5 shadow-[0_10px_20px_rgba(15,20,25,0.045)]"
+                      style={{ transform: `rotate(${item.rotate})` }}
+                    >
+                      <div className="mb-2 flex items-center justify-between border-b border-dashed border-[#E6E7EB] pb-2">
+                        <div className="text-[12px] font-semibold leading-none text-[#1A1C24]">{item.step}</div>
+                        <div className="text-[12px] font-semibold leading-none text-[#B3B6BF]">{item.meta}</div>
                       </div>
-                      <p className="mt-1" style={{ fontSize: 14, lineHeight: "24px", color: "#4E525E" }}>
-                        {desc}
-                      </p>
+                      <div className="rounded-[14px] px-3.5 py-3" style={{ background: item.bg }}>
+                        <div className="flex gap-3">
+                          <span className="mt-1 h-12 w-0.5 shrink-0 rounded-full" style={{ backgroundColor: item.accent }} />
+                          <div className="min-w-0">
+                            <div className="text-[15px] font-semibold leading-[1.45] text-[#1A1C24]">{item.title}</div>
+                            <p className="mt-1 text-[13px] font-medium leading-[1.6] text-[#4E525E]">{item.desc}</p>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   ))}
                 </div>
+
               </article>
 
-              <div className="grid min-w-0 gap-4 md:grid-cols-6 lg:self-start lg:content-start">
+              <div className="grid min-w-0 items-start gap-4 xl:grid-cols-5">
                 {SYSTEM_LAYER_CARDS.map((item, index) => (
                   <article
                     key={item.title}
-                    className={`min-h-[278px] overflow-hidden rounded-[24px] border bg-white shadow-[0_1px_2px_rgba(15,20,25,0.04)] ${
-                      index < 3 ? "md:col-span-2" : "md:col-span-3"
-                    }`}
+                    className="overflow-hidden rounded-[24px] border bg-white shadow-[0_1px_2px_rgba(15,20,25,0.04)]"
                     style={{ borderColor: "#E6E7EB" }}
                   >
-                    <div className="relative h-[196px] overflow-hidden border-b border-[#E6E7EB] bg-[#FAFBFF]">
+                    <div className="relative h-[154px] overflow-hidden border-b border-[#E6E7EB] bg-[#FAFBFF]">
                       <div
                         className="absolute inset-0"
                         style={{
@@ -2366,13 +3181,15 @@ export function QixinProjectDetail({ onBack }: Props) {
                           backgroundSize: "8px 8px",
                         }}
                       />
-                      <SystemLayerCardIllustration index={index} />
+                      <div className="absolute bottom-[-8px] left-1/2 h-[164px] w-full -translate-x-1/2">
+                        <SystemLayerCardIllustration index={index} />
+                      </div>
                     </div>
-                    <div className="p-4 pt-4">
-                      <h3 className="text-[#1A1C24]" style={{ fontSize: 16, lineHeight: "22px", fontWeight: 700 }}>
+                    <div className="p-4 pb-5">
+                      <h3 className="text-[#1A1C24]" style={{ fontSize: 17, lineHeight: "23px", fontWeight: 700 }}>
                         {item.title}
                       </h3>
-                      <p className="mt-2 text-[#696D7A]" style={{ fontSize: 13, lineHeight: "21px", fontWeight: 500 }}>
+                      <p className="mt-2 text-[#696D7A]" style={{ fontSize: 13, lineHeight: "22px", fontWeight: 500 }}>
                         {item.desc}
                       </p>
                     </div>
