@@ -80,9 +80,28 @@ const QIXIN_IMAGES = [
   "./images/optimized/qixin-text-1600.jpg",
 ];
 
+const AI_ENTRY_IMAGES = [
+  "./images/ai-report-hero-full.png",
+  "./images/ai-report-hero-toggle-01.png",
+  "./images/ai-report-hero-toggle-02.png",
+];
+
+const QIXIN_ENTRY_IMAGES = [
+  "./images/optimized/qixin-home-1920.jpg",
+  "./images/首页/login.png",
+  "./images/首页/push group.png",
+];
+
+function withoutEntryImages(images: string[], entryImages: string[]) {
+  const entrySet = new Set(entryImages);
+  return images.filter((src) => !entrySet.has(src));
+}
+
+const AI_DEFERRED_IMAGES = withoutEntryImages(AI_FLOW_IMAGES, AI_ENTRY_IMAGES);
+const QIXIN_DEFERRED_IMAGES = withoutEntryImages(QIXIN_IMAGES, QIXIN_ENTRY_IMAGES);
+
 const imagePromises = new Map<string, Promise<void>>();
 const preloadGroups = new Map<string, Promise<void>>();
-const assetSizePromises = new Map<string, Promise<number>>();
 
 const FONT_PROGRESS_WEIGHT = 80_000;
 const MODULE_PROGRESS_WEIGHT = 140_000;
@@ -110,10 +129,10 @@ function preloadImage(src: string, priority: Priority) {
   const promise = new Promise<void>((resolve) => {
     const img = new Image() as PrioritizedImage;
     img.decoding = "async";
-    img.loading = "eager";
+    img.loading = priority === "high" ? "eager" : "lazy";
     img.fetchPriority = priority;
     img.onload = () => {
-      if (typeof img.decode === "function") {
+      if (priority === "high" && typeof img.decode === "function") {
         void img.decode().then(resolve).catch(resolve);
         return;
       }
@@ -129,24 +148,6 @@ function preloadImage(src: string, priority: Priority) {
 
 function reportClampedProgress(loaded: number, total: number, onProgress: ProgressCallback) {
   onProgress(Math.max(0, Math.min(1, loaded / total)));
-}
-
-function getAssetByteSize(src: string) {
-  if (!isBrowser()) return Promise.resolve(FALLBACK_IMAGE_WEIGHT);
-
-  const href = resolveAssetUrl(src);
-  const cached = assetSizePromises.get(href);
-  if (cached) return cached;
-
-  const promise = fetch(href, { method: "HEAD", cache: "force-cache" })
-    .then((response) => {
-      const length = Number(response.headers.get("content-length"));
-      return Number.isFinite(length) && length > 0 ? length : FALLBACK_IMAGE_WEIGHT;
-    })
-    .catch(() => FALLBACK_IMAGE_WEIGHT);
-
-  assetSizePromises.set(href, promise);
-  return promise;
 }
 
 function decodeImageUrl(href: string, priority: Priority) {
@@ -246,6 +247,9 @@ async function preloadImagesInBatches(images: string[], priority: Priority, batc
   for (let i = 0; i < images.length; i += batchSize) {
     const batch = images.slice(i, i + batchSize);
     await Promise.all(batch.map((src) => preloadImage(src, priority)));
+    if (priority === "low" && i + batchSize < images.length) {
+      await delay(220);
+    }
   }
 }
 
@@ -254,16 +258,18 @@ function delay(ms: number) {
 }
 
 async function preloadAi(priority: Priority) {
+  const images = priority === "high" ? AI_ENTRY_IMAGES : AI_DEFERRED_IMAGES;
   await Promise.allSettled([
     loadAiProjectDetail(),
-    preloadImagesInBatches(AI_FLOW_IMAGES, priority, priority === "high" ? 3 : 2),
+    preloadImagesInBatches(images, priority, priority === "high" ? 3 : 2),
   ]);
 }
 
 async function preloadQixin(priority: Priority) {
+  const images = priority === "high" ? QIXIN_ENTRY_IMAGES : QIXIN_DEFERRED_IMAGES;
   await Promise.allSettled([
     loadQixinProjectDetail(),
-    preloadImagesInBatches(QIXIN_IMAGES, priority, priority === "high" ? 3 : 2),
+    preloadImagesInBatches(images, priority, priority === "high" ? 3 : 2),
   ]);
 }
 
@@ -278,8 +284,12 @@ export function preloadProjectDetailAssets(project: ProjectKey, priority: Priori
 }
 
 function portfolioEntryImages(route: string) {
-  if (route === "#/project/qixin-brain") return QIXIN_IMAGES;
-  return AI_FLOW_IMAGES;
+  if (route === "#/project/qixin-brain") return QIXIN_ENTRY_IMAGES;
+  return AI_ENTRY_IMAGES;
+}
+
+function projectFromRoute(route: string): ProjectKey {
+  return route === "#/project/qixin-brain" ? "qixin-brain" : "ai-report";
 }
 
 async function currentRouteWeightedTasks(route: string, priority: Priority) {
@@ -303,9 +313,8 @@ async function currentRouteWeightedTasks(route: string, priority: Priority) {
   });
 
   const images = portfolioEntryImages(route);
-  const imageWeights = await Promise.all(images.map(getAssetByteSize));
-  images.forEach((src, index) => {
-    const weight = imageWeights[index] ?? FALLBACK_IMAGE_WEIGHT;
+  images.forEach((src) => {
+    const weight = FALLBACK_IMAGE_WEIGHT;
     tasks.push({
       weight,
       run: (reportDelta) => preloadImageWithByteProgress(src, priority, weight, reportDelta),
@@ -348,6 +357,21 @@ export async function preloadPortfolioEntryAssets(route: string, onProgress: Pro
   );
 
   onProgress(1);
+  scheduleProjectRemainderPreload(projectFromRoute(route));
+}
+
+function scheduleProjectRemainderPreload(project: ProjectKey) {
+  if (!isBrowser()) return;
+
+  const idleWindow = window as IdleWindow;
+  const run = () => {
+    void (async () => {
+      await delay(700);
+      await preloadProjectDetailAssets(project, "low");
+    })();
+  };
+
+  idleWindow.requestIdleCallback?.(run, { timeout: 2400 }) ?? window.setTimeout(run, 1600);
 }
 
 export function scheduleHomeProjectPreload() {
@@ -361,7 +385,7 @@ export function scheduleHomeProjectPreload() {
     void (async () => {
       await delay(700);
       if (cancelled) return;
-      await preloadProjectDetailAssets("qixin-brain", "low");
+      await preloadProjectDetailAssets("qixin-brain", "high");
     })();
   };
 

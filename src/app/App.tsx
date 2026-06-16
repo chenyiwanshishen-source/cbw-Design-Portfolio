@@ -11,6 +11,7 @@ import { Nav } from "./components/Nav";
 import { ScopeCursor } from "./components/ScopeCursor";
 import { ParticleField } from "./components/ParticleField";
 import { PortfolioLoader } from "./components/PortfolioLoader";
+import { ViewportScrollbars } from "./components/ScrollArea";
 import {
   loadAiProjectDetail,
   loadQixinProjectDetail,
@@ -97,10 +98,12 @@ export default function App() {
     let cancelled = false;
     if (isAiDetail) {
       void preloadProjectDetailAssets("ai-report", "high").then(() => {
-        if (!cancelled) void preloadProjectDetailAssets("qixin-brain", "low");
+        if (!cancelled) void preloadProjectDetailAssets("ai-report", "low");
       });
     } else if (isQixinDetail) {
-      void preloadProjectDetailAssets("qixin-brain", "high");
+      void preloadProjectDetailAssets("qixin-brain", "high").then(() => {
+        if (!cancelled) void preloadProjectDetailAssets("qixin-brain", "low");
+      });
     }
     return () => {
       cancelled = true;
@@ -151,6 +154,7 @@ export default function App() {
 
       {mounted && <ParticleField />}
       {mounted && <ScopeCursor />}
+      {mounted && <ViewportScrollbars />}
       <PortfolioLoader route={route} onEntered={() => setPortfolioEntered(true)} />
 
       <Nav />

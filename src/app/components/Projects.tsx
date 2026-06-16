@@ -11,7 +11,6 @@ export function Projects({ onProjectIntent }: ProjectsProps) {
     {
       number: "01",
       title: "AI 报告生成创新项目",
-      subtitle: "AI 智能体 · 产业/企业分析报告产品",
       role: "产品设计师",
       description:
         "基于 AI Agent 架构与多源数据整合能力,支持根据用户模板自动生成产业分析报告与企业分析报告。1.0 版本已上线。",
@@ -25,7 +24,14 @@ export function Projects({ onProjectIntent }: ProjectsProps) {
       accent: "from-[#0D800D] to-[#64BC64]",
       href: "#/project/ai-report",
       preloadKey: "ai-report" as const,
-      visual: "previewStack" as const,
+      visual: "imagePreview" as const,
+      previewImage: "./images/首页/AI报告生成.png",
+      previewAlt: "AI 报告生成产品界面截图",
+      previewImageWidth: "100%",
+      previewImageLeft: "0px",
+      previewImageTop: "0px",
+      previewMoveX: 54,
+      previewMoveY: 34,
     },
     {
       number: "02",
@@ -44,15 +50,22 @@ export function Projects({ onProjectIntent }: ProjectsProps) {
       accent: "from-[#2258F4] to-[#618AFF]",
       href: "#/project/qixin-brain",
       preloadKey: "qixin-brain" as const,
-      visual: "qixinPreviewStack" as const,
+      visual: "imagePreview" as const,
+      previewImage: "./images/首页/自定义产业链.png",
+      previewAlt: "启信产业大脑自定义产业链界面截图",
+      previewImageWidth: "108%",
+      previewImageLeft: "-18px",
+      previewImageTop: "0px",
+      previewMoveX: 58,
+      previewMoveY: 34,
     },
   ];
 
-  const projectGridColumns = projects.length > 2 ? "lg:grid-cols-3" : "lg:grid-cols-2";
+  const projectGridColumns = projects.length > 2 ? "xl:grid-cols-3" : "xl:grid-cols-2";
 
   return (
-    <section id="work" className="relative pt-8 md:pt-12 pb-24 md:pb-32 px-6 sm:px-10 lg:px-16 xl:px-24 2xl:px-32">
-      <div className="w-full">
+    <section id="work" className="relative pt-8 pb-24 px-6 sm:px-10 md:pt-12 md:pb-32 lg:px-16 xl:px-20 2xl:px-32">
+      <div className="mx-auto w-full max-w-[1600px]">
         <div className="mb-16">
           <div>
             <h2 className="tracking-tight text-[#1A1C24] text-[clamp(2rem,5.5vw,4.5rem)]">
@@ -61,7 +74,7 @@ export function Projects({ onProjectIntent }: ProjectsProps) {
           </div>
         </div>
 
-        <div className={`grid grid-cols-1 items-start gap-6 md:grid-cols-2 ${projectGridColumns}`}>
+        <div className={`grid grid-cols-1 items-stretch gap-6 ${projectGridColumns}`}>
           {projects.map((p, i) => (
             <ProjectCard
               key={p.number}

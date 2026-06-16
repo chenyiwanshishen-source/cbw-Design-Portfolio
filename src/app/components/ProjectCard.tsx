@@ -1,15 +1,10 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { motion } from "motion/react";
 import { ArrowUpRight } from "lucide-react";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
-
-gsap.registerPlugin(useGSAP);
 
 interface ProjectCardProps {
   number: string;
   title: string;
-  subtitle: string;
   role: string;
   description: string;
   highlights: string[];
@@ -17,7 +12,14 @@ interface ProjectCardProps {
   index: number;
   href?: string;
   onIntent?: () => void;
-  visual?: "previewStack" | "qixinPreviewStack";
+  visual?: "previewStack" | "qixinPreviewStack" | "imagePreview";
+  previewImage?: string;
+  previewAlt?: string;
+  previewImageWidth?: string;
+  previewImageLeft?: string;
+  previewImageTop?: string;
+  previewMoveX?: number;
+  previewMoveY?: number;
 }
 
 function ScreenshotPlaceholder({ variant }: { variant: "list" | "report" | "chart" }) {
@@ -185,120 +187,157 @@ function QixinScreenshotPlaceholder({ variant }: { variant: "map" | "monitor" | 
   );
 }
 
-function ProjectPreviewStack({ active, tone = "green" }: { active: boolean; tone?: "green" | "blue" }) {
-  const stackRef = useRef<HTMLDivElement | null>(null);
-  const timelineRef = useRef<gsap.core.Timeline | null>(null);
-
-  useGSAP(
-    () => {
-      const root = stackRef.current;
-
-      if (!root) return;
-
-      const leftCard = root.querySelector<HTMLElement>("[data-preview-card='left']");
-      const centerCard = root.querySelector<HTMLElement>("[data-preview-card='center']");
-      const rightCard = root.querySelector<HTMLElement>("[data-preview-card='right']");
-
-      if (!leftCard || !centerCard || !rightCard) return;
-
-      const cards = [leftCard, centerCard, rightCard];
-      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      const initialShadow = "0 6px 16px rgba(26,28,36,0.04)";
-      const activeShadow = tone === "blue" ? "0 16px 34px rgba(34,88,244,0.14)" : "0 16px 34px rgba(13,128,13,0.14)";
-
-      gsap.set(cards, {
-        force3D: true,
-        transformOrigin: "50% 112%",
-        boxShadow: initialShadow,
-      });
-
-      gsap.set(leftCard, { xPercent: -78, y: 8, rotation: -10, scale: 1 });
-      gsap.set(centerCard, { xPercent: -50, y: -18, rotation: 0, scale: 1 });
-      gsap.set(rightCard, { xPercent: -22, y: 8, rotation: 10, scale: 1 });
-
-      const tl = gsap.timeline({
-        paused: true,
-        defaults: {
-          overwrite: "auto",
-        },
-      });
-
-      tl.addLabel("fan", 0)
-        .to(cards, { boxShadow: activeShadow, duration: prefersReducedMotion ? 0 : 0.24, ease: "power2.out" }, "fan")
-        .to(
-          centerCard,
-          {
-            y: -26,
-            rotation: 0,
-            scale: 1,
-            duration: prefersReducedMotion ? 0 : 0.26,
-            ease: "expo.out",
-          },
-          "fan"
-        )
-        .to(
-          leftCard,
-          {
-            xPercent: -88,
-            y: 6,
-            rotation: -15,
-            duration: prefersReducedMotion ? 0 : 0.5,
-            ease: "back.out(1.2)",
-          },
-          "fan+=0.04"
-        )
-        .to(
-          rightCard,
-          {
-            xPercent: -12,
-            y: 6,
-            rotation: 15,
-            duration: prefersReducedMotion ? 0 : 0.52,
-            ease: "back.out(1.2)",
-          },
-          "fan+=0.07"
-        );
-
-      timelineRef.current = tl;
-
-      return () => {
-        timelineRef.current?.kill();
-        timelineRef.current = null;
-      };
-    },
-    { scope: stackRef, dependencies: [tone] }
-  );
-
-  useGSAP(
-    () => {
-      const timeline = timelineRef.current;
-
-      if (!timeline) return;
-
-      if (active) {
-        timeline.timeScale(1).play();
-      } else {
-        timeline.timeScale(1.35).reverse();
-      }
-    },
-    { scope: stackRef, dependencies: [active] }
-  );
-
-  const cardBase =
-    "absolute bottom-0 left-1/2 h-[204px] w-[256px] origin-bottom overflow-hidden rounded-[24px] border-[7px] border-white bg-white shadow-[0_6px_16px_rgba(26,28,36,0.04)] will-change-transform";
-  const layer = tone === "blue" ? { left: "z-[3]", center: "z-[2]", right: "z-[1]" } : { left: "z-[1]", center: "z-[3]", right: "z-[2]" };
+function ProjectPreviewCompact({ tone }: { tone: "green" | "blue" }) {
+  const cards =
+    tone === "blue"
+      ? [
+          { key: "map", node: <QixinScreenshotPlaceholder variant="map" />, className: "-rotate-[7deg] translate-y-4 z-[1]" },
+          { key: "monitor", node: <QixinScreenshotPlaceholder variant="monitor" />, className: "z-[3]" },
+          { key: "cluster", node: <QixinScreenshotPlaceholder variant="cluster" />, className: "rotate-[7deg] translate-y-5 z-[2]" },
+        ]
+      : [
+          { key: "list", node: <ScreenshotPlaceholder variant="list" />, className: "-rotate-[7deg] translate-y-4 z-[1]" },
+          { key: "report", node: <ScreenshotPlaceholder variant="report" />, className: "z-[3]" },
+          { key: "chart", node: <ScreenshotPlaceholder variant="chart" />, className: "rotate-[7deg] translate-y-5 z-[2]" },
+        ];
 
   return (
-    <div ref={stackRef} data-preview-stack className="pointer-events-none absolute right-16 top-24 z-0 hidden h-[262px] w-[430px] xl:block">
-      <div data-preview-card="left" className={`${cardBase} ${layer.left}`}>
-        {tone === "blue" ? <QixinScreenshotPlaceholder variant="map" /> : <ScreenshotPlaceholder variant="list" />}
+    <div data-preview-compact className="relative mb-6 h-[clamp(260px,24vw,380px)] overflow-hidden rounded-[22px] border border-[#E6E7EB] bg-[#FAFBFF] shadow-[inset_0_1px_0_rgba(255,255,255,0.9)]">
+      <div
+        className="absolute inset-0 opacity-70"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(203,205,212,0.24) 1px, transparent 1px), linear-gradient(90deg, rgba(203,205,212,0.24) 1px, transparent 1px)",
+          backgroundSize: "18px 18px",
+        }}
+      />
+      <div className="absolute bottom-[-10px] left-1/2 flex w-[min(104%,560px)] -translate-x-1/2 items-end justify-center -space-x-6">
+        {cards.map((card) => (
+          <div
+            key={card.key}
+            className={`relative h-[clamp(210px,19vw,310px)] w-[40%] min-w-[154px] max-w-[214px] shrink-0 origin-bottom overflow-hidden rounded-[20px] border-[6px] border-white bg-white shadow-[0_12px_28px_rgba(26,28,36,0.08)] ${card.className}`}
+          >
+            {card.node}
+          </div>
+        ))}
       </div>
-      <div data-preview-card="center" className={`${cardBase} ${layer.center}`}>
-        {tone === "blue" ? <QixinScreenshotPlaceholder variant="monitor" /> : <ScreenshotPlaceholder variant="report" />}
-      </div>
-      <div data-preview-card="right" className={`${cardBase} ${layer.right}`}>
-        {tone === "blue" ? <QixinScreenshotPlaceholder variant="cluster" /> : <ScreenshotPlaceholder variant="chart" />}
-      </div>
+    </div>
+  );
+}
+
+function ProjectImagePreview({
+  src,
+  alt,
+  imageWidth = "100%",
+  imageLeft = "0px",
+  imageTop = "0px",
+  moveX = 40,
+  moveY = 26,
+}: {
+  src: string;
+  alt: string;
+  imageWidth?: string;
+  imageLeft?: string;
+  imageTop?: string;
+  moveX?: number;
+  moveY?: number;
+}) {
+  const frameRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const frame = frameRef.current;
+    if (!frame) return;
+
+    const image = frame.querySelector<HTMLImageElement>("img");
+    if (!image) return;
+
+    let raf = 0;
+    let targetX = 0;
+    let targetY = 0;
+    let currentX = 0;
+    let currentY = 0;
+
+    const render = () => {
+      currentX += (targetX - currentX) * 0.2;
+      currentY += (targetY - currentY) * 0.2;
+      image.style.transform = `translate3d(${currentX.toFixed(2)}px, ${currentY.toFixed(2)}px, 0)`;
+
+      if (Math.abs(targetX - currentX) > 0.08 || Math.abs(targetY - currentY) > 0.08) {
+        raf = window.requestAnimationFrame(render);
+      } else {
+        raf = 0;
+      }
+    };
+
+    const start = () => {
+      if (!raf) raf = window.requestAnimationFrame(render);
+    };
+
+    const handleMove = (event: MouseEvent | PointerEvent) => {
+      if ("pointerType" in event && event.pointerType === "touch") return;
+
+      const rect = frame.getBoundingClientRect();
+      const xRatio = Math.min(1, Math.max(0, (event.clientX - rect.left) / rect.width));
+      const yRatio = Math.min(1, Math.max(0, (event.clientY - rect.top) / rect.height));
+
+      targetX = (xRatio - 0.5) * moveX;
+      targetY = (yRatio - 0.5) * moveY;
+      start();
+    };
+
+    const handleLeave = () => {
+      targetX = 0;
+      targetY = 0;
+      start();
+    };
+
+    image.style.transform = "translate3d(0, 0, 0)";
+    frame.addEventListener("mousemove", handleMove);
+    frame.addEventListener("pointermove", handleMove);
+    frame.addEventListener("mouseleave", handleLeave);
+    frame.addEventListener("pointercancel", handleLeave);
+
+    return () => {
+      if (raf) window.cancelAnimationFrame(raf);
+      frame.removeEventListener("mousemove", handleMove);
+      frame.removeEventListener("pointermove", handleMove);
+      frame.removeEventListener("mouseleave", handleLeave);
+      frame.removeEventListener("pointercancel", handleLeave);
+    };
+  }, [moveX, moveY]);
+
+  return (
+    <div
+      ref={frameRef}
+      data-preview-compact
+      className="relative mb-6 h-[clamp(220px,20vw,330px)] overflow-hidden rounded-[18px]"
+    >
+      <img
+        src={src}
+        alt={alt}
+        loading="eager"
+        decoding="async"
+        className="absolute h-auto max-w-none select-none"
+        style={{
+          left: imageLeft,
+          top: imageTop,
+          width: imageWidth,
+          transform: "translate3d(0, 0, 0)",
+        }}
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 z-10"
+        style={{
+          background: "rgba(248,249,252,0.34)",
+          backdropFilter: "blur(3.5px)",
+          WebkitBackdropFilter: "blur(3.5px)",
+          maskImage:
+            "radial-gradient(ellipse 66% 50% at 55% 48%, transparent 0%, transparent 56%, rgba(0,0,0,0.42) 70%, #000 100%)",
+          WebkitMaskImage:
+            "radial-gradient(ellipse 66% 50% at 55% 48%, transparent 0%, transparent 56%, rgba(0,0,0,0.42) 70%, #000 100%)",
+        }}
+      />
     </div>
   );
 }
@@ -306,7 +345,6 @@ function ProjectPreviewStack({ active, tone = "green" }: { active: boolean; tone
 export function ProjectCard({
   number,
   title,
-  subtitle,
   role,
   description,
   highlights,
@@ -315,28 +353,28 @@ export function ProjectCard({
   href,
   onIntent,
   visual,
+  previewImage,
+  previewAlt,
+  previewImageWidth,
+  previewImageLeft,
+  previewImageTop,
+  previewMoveX,
+  previewMoveY,
 }: ProjectCardProps) {
   const MotionWrapper: any = href ? motion.a : motion.div;
   const hasPreviewVisual = visual === "previewStack" || visual === "qixinPreviewStack";
+  const hasImagePreview = visual === "imagePreview" && Boolean(previewImage);
   const previewTone = visual === "qixinPreviewStack" ? "blue" : "green";
-  const [previewActive, setPreviewActive] = useState(false);
 
   const handlePreviewEnter = () => {
-    if (hasPreviewVisual) setPreviewActive(true);
     onIntent?.();
-  };
-
-  const handlePreviewLeave = () => {
-    if (hasPreviewVisual) setPreviewActive(false);
   };
 
   return (
     <MotionWrapper
       {...(href ? { href } : {})}
       onMouseEnter={handlePreviewEnter}
-      onMouseLeave={handlePreviewLeave}
       onFocus={handlePreviewEnter}
-      onBlur={handlePreviewLeave}
       onTouchStart={handlePreviewEnter}
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -351,10 +389,9 @@ export function ProjectCard({
       <div
         className={`pointer-events-none absolute -bottom-40 -left-40 size-80 rounded-full blur-3xl opacity-0 group-hover:opacity-10 transition-opacity duration-700 bg-gradient-to-br ${accent}`}
       />
-      {hasPreviewVisual && <ProjectPreviewStack active={previewActive} tone={previewTone} />}
-      <div className={`relative z-10 flex h-full flex-col p-7 lg:p-8 ${hasPreviewVisual ? "xl:min-h-[420px]" : ""}`}>
+      <div className="relative z-10 flex h-full flex-col p-6 sm:p-7 lg:p-8">
         {/* Top: number + arrow */}
-        <div className="flex items-start justify-between mb-6">
+        <div className="mb-5 flex items-start justify-between">
           <div
             className={`leading-none tracking-tighter bg-gradient-to-br ${accent} bg-clip-text text-transparent text-[clamp(3rem,5vw,5rem)]`}
             style={{ fontWeight: 700 }}
@@ -368,16 +405,27 @@ export function ProjectCard({
           </div>
         </div>
 
-        <div className={hasPreviewVisual ? "xl:max-w-[54%]" : ""}>
-          {/* Title */}
+        <div className="mb-5">
           <h3 className="text-xl lg:text-2xl tracking-tight text-[#1A1C24] mb-1.5">{title}</h3>
-          <p className="text-sm text-[#696D7A] mb-5">{subtitle}</p>
-
-          {/* Meta */}
-          <div className="flex items-center gap-4 mb-5 text-sm text-[#696D7A]">
+          <div className="text-sm text-[#696D7A]">
             <span>{role}</span>
           </div>
+        </div>
 
+        {hasImagePreview && (
+          <ProjectImagePreview
+            src={previewImage!}
+            alt={previewAlt ?? `${title}系统截图`}
+            imageWidth={previewImageWidth}
+            imageLeft={previewImageLeft}
+            imageTop={previewImageTop}
+            moveX={previewMoveX}
+            moveY={previewMoveY}
+          />
+        )}
+        {hasPreviewVisual && <ProjectPreviewCompact tone={previewTone} />}
+
+        <div>
           {/* Description */}
           <p className="text-base text-[#4E525E] leading-relaxed mb-5">{description}</p>
 

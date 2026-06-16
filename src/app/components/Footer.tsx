@@ -1,7 +1,7 @@
 export function Footer() {
   return (
     <footer className="relative py-10 md:py-12 px-6 sm:px-10 lg:px-16 xl:px-24 2xl:px-32 border-t border-[#E6E7EB] mt-12">
-      <div className="w-full flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+      <div className="mx-auto flex w-full max-w-[1600px] flex-col items-start justify-between gap-6 md:flex-row md:items-center">
         <div className="flex items-center gap-3">
           <span className="inline-flex size-8 items-center justify-center rounded-full bg-[#2258F4] text-xs text-white">
             陈

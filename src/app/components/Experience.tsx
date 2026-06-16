@@ -50,7 +50,7 @@ export function Experience() {
 
   return (
     <section id="experience" className="relative py-24 md:py-32 px-6 sm:px-10 lg:px-16 xl:px-24 2xl:px-32">
-      <div className="w-full">
+      <div className="mx-auto w-full max-w-[1600px]">
         <div className="mb-16">
           <div>
             <h2 className="tracking-tight text-[#1A1C24] text-[clamp(2rem,5.5vw,4.5rem)]">

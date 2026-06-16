@@ -5,6 +5,26 @@
 /* 全局中文字体 */
 html {
   font-family: "PingFang SC", "Source Han Sans SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+body {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+.native-scrollbar-hidden::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+.native-scrollbar-hidden {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 /* 文本选中颜色 */

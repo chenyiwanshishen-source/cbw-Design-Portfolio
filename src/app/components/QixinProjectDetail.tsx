@@ -28,6 +28,7 @@ import {
 } from "lucide-react";
 import { Placeholder } from "./Placeholder";
 import { Footer } from "./Footer";
+import { ScrollArea } from "./ScrollArea";
 
 interface Props {
   onBack: () => void;
@@ -1359,7 +1360,9 @@ export function QixinProjectDetail({ onBack }: Props) {
     moved: false,
     pointerId: -1,
     startX: 0,
+    startY: 0,
     scrollLeft: 0,
+    scrollTop: 0,
   });
   const [chainSlide, setChainSlide] = useState(0);
   const [recruitFront, setRecruitFront] = useState<"detail" | "relation">("detail");
@@ -1514,8 +1517,8 @@ export function QixinProjectDetail({ onBack }: Props) {
   const FlowNode = ({ title, desc, anchor }: { title: string; desc: string; anchor?: string }) => (
     <div
       data-flow-anchor={anchor}
-      className="relative z-20 flex shrink-0 flex-col rounded-[16px] border border-[#E6E7EB] bg-white p-3 shadow-[0_12px_28px_rgba(34,88,244,0.06)]"
-      style={{ width: Math.max(116, title.length * 15 + 34) }}
+      className="relative z-20 flex shrink-0 flex-col rounded-[16px] border border-[#E6E7EB] bg-white px-4 py-3 shadow-[0_12px_28px_rgba(34,88,244,0.06)]"
+      style={{ width: Math.max(150, title.length * 16 + 48) }}
     >
       <div className="whitespace-nowrap text-[15px] font-semibold leading-[1.35] text-[#1A1C24]">{title}</div>
       <p className="mt-1 text-[13px] font-medium leading-[1.45] text-[#696D7A]">{desc}</p>
@@ -1610,7 +1613,9 @@ export function QixinProjectDetail({ onBack }: Props) {
       moved: false,
       pointerId: event.pointerId,
       startX: event.clientX,
+      startY: event.clientY,
       scrollLeft: event.currentTarget.scrollLeft,
+      scrollTop: event.currentTarget.scrollTop,
     };
     event.currentTarget.setPointerCapture?.(event.pointerId);
   };
@@ -1619,8 +1624,10 @@ export function QixinProjectDetail({ onBack }: Props) {
     const drag = qxResearchDragRef.current;
     if (!drag.active || drag.pointerId !== event.pointerId) return;
     const deltaX = event.clientX - drag.startX;
-    if (Math.abs(deltaX) > 3) drag.moved = true;
+    const deltaY = event.clientY - drag.startY;
+    if (Math.abs(deltaX) > 3 || Math.abs(deltaY) > 3) drag.moved = true;
     event.currentTarget.scrollLeft = drag.scrollLeft - deltaX;
+    event.currentTarget.scrollTop = drag.scrollTop - deltaY;
     event.preventDefault();
   };
 
@@ -1639,7 +1646,9 @@ export function QixinProjectDetail({ onBack }: Props) {
       moved: false,
       pointerId: -1,
       startX: event.clientX,
+      startY: event.clientY,
       scrollLeft: event.currentTarget.scrollLeft,
+      scrollTop: event.currentTarget.scrollTop,
     };
     event.preventDefault();
   };
@@ -1648,8 +1657,10 @@ export function QixinProjectDetail({ onBack }: Props) {
     const drag = qxResearchDragRef.current;
     if (!drag.active || drag.pointerId !== -1) return;
     const deltaX = event.clientX - drag.startX;
-    if (Math.abs(deltaX) > 3) drag.moved = true;
+    const deltaY = event.clientY - drag.startY;
+    if (Math.abs(deltaX) > 3 || Math.abs(deltaY) > 3) drag.moved = true;
     event.currentTarget.scrollLeft = drag.scrollLeft - deltaX;
+    event.currentTarget.scrollTop = drag.scrollTop - deltaY;
     event.preventDefault();
   };
 
@@ -1928,7 +1939,7 @@ export function QixinProjectDetail({ onBack }: Props) {
         <div className={`${BUSINESS_READ} mt-10`}>
           <Reveal>
             <div className="relative">
-              <div
+              <ScrollArea
                 ref={qxResearchScrollRef}
                 className="overflow-auto select-none cursor-grab active:cursor-grabbing"
                 style={{
@@ -2100,7 +2111,7 @@ export function QixinProjectDetail({ onBack }: Props) {
                     </div>
                   </div>
                 </div>
-              </div>
+              </ScrollArea>
               <div className="pointer-events-none absolute bottom-0 left-0 z-40">
                 <div className="pointer-events-auto inline-flex items-center gap-2 rounded-[14px] border border-[#E6E7EB] bg-white/95 px-2 py-2 shadow-[0_10px_22px_rgba(15,20,25,0.06)]">
                   <FlowToolButton label="放大流程图" onClick={handleQxResearchZoomIn}>
@@ -2231,7 +2242,7 @@ export function QixinProjectDetail({ onBack }: Props) {
               </div>
 
               <Reveal className="hidden lg:block">
-                <div className="overflow-x-auto rounded-2xl border border-[#E6E7EB] bg-white">
+                <ScrollArea className="overflow-x-auto rounded-2xl border border-[#E6E7EB] bg-white">
                   <div className="grid min-w-[1600px] grid-cols-[120px_repeat(5,minmax(0,1fr))] overflow-hidden">
                     <div className="border-b border-r border-[#E6E7EB] bg-[#FAFBFF] py-4 pl-5">
                       <span className="text-[13px] font-semibold text-[#B3B6BF]">阶段</span>
@@ -2301,7 +2312,7 @@ export function QixinProjectDetail({ onBack }: Props) {
                       </div>
                     ))}
                   </div>
-                </div>
+                </ScrollArea>
               </Reveal>
             </div>
         </Reveal>

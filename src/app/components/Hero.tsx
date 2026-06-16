@@ -192,7 +192,7 @@ export function Hero() {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="text-base md:text-lg lg:text-xl text-[#4E525E] leading-relaxed"
           >
-            9 年互联网设计经验，主要做 B/G 端业务系统、数据可视化，近两年也在做 AI 生成式产品相关的设计工作。
+            9 年互联网设计经验，主要做 B 端业务系统、数据可视化，近两年也在做 AI 生成式产品相关的设计工作。
           </motion.p>
 
           <motion.div
@@ -250,7 +250,7 @@ export function Hero() {
         >
           {[
             { k: "9", v: "年设计经验" },
-            { k: "B/G", v: "企业与政府客户" },
+            { k: "B端", v: "企业级产品设计" },
             { k: "AI + 产品", v: "产品设计" },
             { k: "Figma / Blender / Illustrator", v: "工具使用" },
           ].map((s) => (
