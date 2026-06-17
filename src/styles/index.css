@@ -32,3 +32,220 @@ body::-webkit-scrollbar,
   background: #E5EBFF;
   color: #1A42B8;
 }
+
+.hero-drag-frame {
+  --hero-drag-border: rgba(142, 168, 255, 0.34);
+  --hero-drag-handle: rgba(142, 168, 255, 0.52);
+  --hero-drag-bg: rgba(246, 248, 255, 0.16);
+
+  border: 1px dashed var(--hero-drag-border);
+  border-radius: 10px;
+  background: var(--hero-drag-bg);
+  box-shadow: 0 14px 42px rgba(34, 88, 244, 0.04);
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.hero-drag-frame:hover,
+.hero-drag-frame:focus-visible,
+.hero-drag-frame[data-dragging="true"] {
+  --hero-drag-border: rgba(34, 88, 244, 0.78);
+  --hero-drag-handle: rgba(34, 88, 244, 0.9);
+  --hero-drag-bg: rgba(246, 248, 255, 0.56);
+
+  box-shadow: 0 18px 56px rgba(34, 88, 244, 0.1);
+}
+
+.hero-drag-frame[data-dragging="true"] {
+  border-style: solid;
+}
+
+.hero-drag-handle {
+  position: absolute;
+  width: 11px;
+  height: 11px;
+  border: 1px solid var(--hero-drag-handle);
+  border-radius: 999px;
+  background: #FAFBFF;
+  box-shadow: 0 3px 10px rgba(34, 88, 244, 0.12);
+  pointer-events: none;
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.hero-drag-frame:hover .hero-drag-handle,
+.hero-drag-frame:focus-visible .hero-drag-handle,
+.hero-drag-frame[data-dragging="true"] .hero-drag-handle {
+  background: #F1F5FF;
+  box-shadow: 0 4px 14px rgba(34, 88, 244, 0.22);
+}
+
+.hero-drag-handle-tl {
+  left: -6px;
+  top: -6px;
+}
+
+.hero-drag-handle-tr {
+  right: -6px;
+  top: -6px;
+}
+
+.hero-drag-handle-bl {
+  bottom: -6px;
+  left: -6px;
+}
+
+.hero-drag-handle-br {
+  bottom: -6px;
+  right: -6px;
+}
+
+.hero-note-shell {
+  filter: none;
+  transition: filter 220ms ease;
+  will-change: transform;
+}
+
+.hero-note-shell:hover {
+  filter: none;
+}
+
+.hero-note-shell[data-dragging="true"] {
+  filter: none;
+}
+
+@media (min-width: 768px) {
+  .hero-note-shell {
+    filter: drop-shadow(0 8px 18px rgba(34, 88, 244, 0.025));
+  }
+
+  .hero-note-shell:hover {
+    filter: drop-shadow(0 10px 22px rgba(34, 88, 244, 0.035));
+  }
+
+  .hero-note-shell[data-dragging="true"] {
+    filter: drop-shadow(0 12px 26px rgba(34, 88, 244, 0.045));
+  }
+}
+
+@media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
+  .hero-note-shell {
+    cursor: grab;
+    filter: drop-shadow(0 14px 28px rgba(34, 88, 244, 0.05));
+    touch-action: none;
+    will-change: transform, filter;
+  }
+
+  .hero-note-shell:hover {
+    filter: drop-shadow(0 18px 34px rgba(34, 88, 244, 0.075));
+  }
+
+  .hero-note-shell[data-dragging="true"] {
+    cursor: grabbing;
+    filter: drop-shadow(0 22px 44px rgba(34, 88, 244, 0.1));
+  }
+}
+
+@media (min-width: 1440px) and (hover: hover) and (pointer: fine) {
+  .hero-note-shell {
+    filter: drop-shadow(0 18px 34px rgba(34, 88, 244, 0.07));
+  }
+
+  .hero-note-shell:hover {
+    filter: drop-shadow(0 22px 42px rgba(34, 88, 244, 0.1));
+  }
+
+  .hero-note-shell[data-dragging="true"] {
+    filter: drop-shadow(0 26px 52px rgba(34, 88, 244, 0.14));
+  }
+}
+
+.hero-note-card {
+  --note-fold-size: 32px;
+  overflow: hidden;
+  border: 1px solid #E6E7EB;
+  border-radius: 22px 0 22px 22px;
+  clip-path: polygon(
+    0 0,
+    calc(100% - var(--note-fold-size)) 0,
+    100% var(--note-fold-size),
+    100% 100%,
+    0 100%
+  );
+  background:
+    linear-gradient(180deg, rgba(229, 235, 255, 0.78) 0 38px, transparent 38px),
+    repeating-linear-gradient(
+      180deg,
+      transparent 0,
+      transparent 31px,
+      rgba(230, 231, 235, 0.54) 32px,
+      rgba(230, 231, 235, 0.54) 33px
+    ),
+    linear-gradient(180deg, #FFFFFF 0%, #FAFBFF 100%);
+  box-shadow: 0 2px 0 rgba(255, 255, 255, 0.9) inset;
+  transition:
+    border-color 180ms ease;
+}
+
+.hero-note-shell:hover .hero-note-card {
+  border-color: #D6E0FF;
+}
+
+.hero-note-shell[data-dragging="true"] .hero-note-card {
+  border-color: #A8BEFF;
+}
+
+.hero-note-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 38px;
+  height: 1px;
+  background: rgba(168, 190, 255, 0.46);
+  pointer-events: none;
+}
+
+.hero-note-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: var(--note-fold-size);
+  height: var(--note-fold-size);
+  clip-path: polygon(0 0, 100% 100%, 0 100%);
+  background:
+    linear-gradient(
+      135deg,
+      transparent calc(50% - 0.7px),
+      rgba(168, 190, 255, 0.62) 50%,
+      transparent calc(50% + 0.7px)
+    ),
+    linear-gradient(135deg, rgba(250, 251, 255, 0.98) 0%, rgba(238, 242, 255, 0.96) 46%, rgba(213, 224, 255, 0.82) 100%);
+  box-shadow:
+    inset -6px 6px 10px rgba(34, 88, 244, 0.08),
+    inset 5px -5px 8px rgba(255, 255, 255, 0.78);
+  filter:
+    drop-shadow(-1px 1px 0 rgba(168, 190, 255, 0.58))
+    drop-shadow(-5px 7px 8px rgba(34, 88, 244, 0.10));
+  opacity: 0.96;
+  pointer-events: none;
+}
+
+.hero-note-number {
+  border: 1px solid #A8BEFF;
+  background: #FFFFFF;
+  box-shadow: 0 4px 12px rgba(34, 88, 244, 0.08);
+}
+
+.hero-note-rule {
+  background: linear-gradient(90deg, #A8BEFF 0%, #E6E7EB 100%);
+}
+
+.hero-note-text {
+  text-wrap: pretty;
+}

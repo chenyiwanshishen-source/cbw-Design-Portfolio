@@ -35,7 +35,7 @@ export default function App() {
   const [hasFinePointer, setHasFinePointer] = useState(false);
   useEffect(() => setMounted(true), []);
   useEffect(() => {
-    const media = window.matchMedia("(hover: hover) and (pointer: fine)");
+    const media = window.matchMedia("(hover: hover) and (pointer: fine) and (min-width: 768px)");
     const updatePointer = () => setHasFinePointer(media.matches);
     updatePointer();
     media.addEventListener("change", updatePointer);
