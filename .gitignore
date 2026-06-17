@@ -11,3 +11,8 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+
+# Local-only publishing experiments and duplicate image outputs.
+/netlify.toml
+/public/images/kongbaihuabu.png
+/public/images/liushihuaban.png

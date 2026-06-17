@@ -50,6 +50,7 @@ const PROSE = "max-w-[68ch]";
 const DETAIL_IMAGE_LAZY_PROPS = {
   loading: "lazy" as const,
   decoding: "async" as const,
+  fetchpriority: "low" as const,
 };
 const DETAIL_IMAGE_EAGER_PROPS = {
   loading: "eager" as const,

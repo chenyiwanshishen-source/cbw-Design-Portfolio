@@ -1,22 +1,12 @@
 import { Suspense, lazy, useEffect, useRef, useState } from "react";
-import { motion } from "motion/react";
 import { ArrowUp } from "lucide-react";
-import { Hero } from "./components/Hero";
-import { Projects } from "./components/Projects";
-import { Skills } from "./components/Skills";
-import { Experience } from "./components/Experience";
-import { Contact } from "./components/Contact";
-import { Footer } from "./components/Footer";
-import { Nav } from "./components/Nav";
-import { ScopeCursor } from "./components/ScopeCursor";
-import { ParticleField } from "./components/ParticleField";
 import { PortfolioLoader } from "./components/PortfolioLoader";
-import { ViewportScrollbars } from "./components/ScrollArea";
 import {
   loadAiProjectDetail,
   loadQixinProjectDetail,
   preloadProjectDetailAssets,
   scheduleHomeProjectPreload,
+  scheduleProjectRemainderPreload,
 } from "./projectPreload";
 
 const ProjectDetail = lazy(() =>
@@ -25,11 +15,32 @@ const ProjectDetail = lazy(() =>
 const QixinProjectDetail = lazy(() =>
   loadQixinProjectDetail().then((module) => ({ default: module.QixinProjectDetail }))
 );
+const HomeContent = lazy(() =>
+  import("./components/HomeContent").then((module) => ({ default: module.HomeContent }))
+);
+const Nav = lazy(() => import("./components/Nav").then((module) => ({ default: module.Nav })));
+const ParticleField = lazy(() =>
+  import("./components/ParticleField").then((module) => ({ default: module.ParticleField }))
+);
+const ScopeCursor = lazy(() =>
+  import("./components/ScopeCursor").then((module) => ({ default: module.ScopeCursor }))
+);
+const ViewportScrollbars = lazy(() =>
+  import("./components/ScrollArea").then((module) => ({ default: module.ViewportScrollbars }))
+);
 
 export default function App() {
   const [mounted, setMounted] = useState(false);
   const [portfolioEntered, setPortfolioEntered] = useState(false);
+  const [hasFinePointer, setHasFinePointer] = useState(false);
   useEffect(() => setMounted(true), []);
+  useEffect(() => {
+    const media = window.matchMedia("(hover: hover) and (pointer: fine)");
+    const updatePointer = () => setHasFinePointer(media.matches);
+    updatePointer();
+    media.addEventListener("change", updatePointer);
+    return () => media.removeEventListener("change", updatePointer);
+  }, []);
 
   // Cursor-following grid spotlight
   const gridRef = useRef<HTMLDivElement | null>(null);
@@ -95,25 +106,40 @@ export default function App() {
   }, [portfolioEntered, isAiDetail, isQixinDetail]);
 
   useEffect(() => {
-    let cancelled = false;
     if (isAiDetail) {
-      void preloadProjectDetailAssets("ai-report", "high").then(() => {
-        if (!cancelled) void preloadProjectDetailAssets("ai-report", "low");
-      });
+      void preloadProjectDetailAssets("ai-report", "high");
     } else if (isQixinDetail) {
-      void preloadProjectDetailAssets("qixin-brain", "high").then(() => {
-        if (!cancelled) void preloadProjectDetailAssets("qixin-brain", "low");
-      });
+      void preloadProjectDetailAssets("qixin-brain", "high");
     }
-    return () => {
-      cancelled = true;
-    };
   }, [isAiDetail, isQixinDetail]);
+
+  useEffect(() => {
+    if (!portfolioEntered) return;
+    if (isAiDetail) {
+      scheduleProjectRemainderPreload("ai-report");
+    } else if (isQixinDetail) {
+      scheduleProjectRemainderPreload("qixin-brain");
+    }
+  }, [portfolioEntered, isAiDetail, isQixinDetail]);
 
   const detailFallback = (
     <div className="min-h-screen px-6 pt-32 text-center text-sm text-[#696D7A]">
       正在加载项目详情...
     </div>
+  );
+
+  const portfolioContent = isAiDetail ? (
+    <Suspense fallback={detailFallback}>
+      <ProjectDetail onBack={goHome} />
+    </Suspense>
+  ) : isQixinDetail ? (
+    <Suspense fallback={detailFallback}>
+      <QixinProjectDetail onBack={goHome} />
+    </Suspense>
+  ) : (
+    <Suspense fallback={null}>
+      <HomeContent onProjectIntent={preloadProjectDetailAssets} />
+    </Suspense>
   );
 
   return (
@@ -134,14 +160,12 @@ export default function App() {
       />
 
       {/* Floating gradient orbs — toned down for light theme */}
-      <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
-        <motion.div
-          animate={{ x: [0, -100, 60, 0], y: [0, 80, -50, 0] }}
-          transition={{ duration: 30, repeat: Infinity, ease: "easeInOut" }}
+      {portfolioEntered && <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
+        <div
           className="absolute top-1/3 -right-40 size-[600px] rounded-full blur-[160px] opacity-[0.08]"
           style={{ background: "radial-gradient(circle, #2258F4, transparent 70%)" }}
         />
-      </div>
+      </div>}
 
       {/* Noise overlay */}
       <div
@@ -152,19 +176,28 @@ export default function App() {
         }}
       />
 
-      {mounted && <ParticleField />}
-      {mounted && <ScopeCursor />}
-      {mounted && <ViewportScrollbars />}
+      {mounted && hasFinePointer && (
+        <Suspense fallback={null}>
+          <ScopeCursor />
+        </Suspense>
+      )}
+      {mounted && portfolioEntered && (
+        <Suspense fallback={null}>
+          <ParticleField />
+          <ViewportScrollbars />
+        </Suspense>
+      )}
       <PortfolioLoader route={route} onEntered={() => setPortfolioEntered(true)} />
 
-      <Nav />
+      {portfolioEntered && (
+        <Suspense fallback={null}>
+          <Nav />
+        </Suspense>
+      )}
 
       {/* Global back-to-top */}
       {showBackToTop && (
-        <motion.button
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 20 }}
+        <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           className="fixed bottom-8 left-1/2 -translate-x-1/2 z-40 group inline-flex items-center gap-3 pl-7 pr-2 py-2 rounded-full bg-white text-[#1A1C24] hover:shadow-[0_0_40px_rgba(34,88,244,0.45)] transition-all duration-300"
         >
@@ -172,29 +205,10 @@ export default function App() {
           <span className="inline-flex size-10 items-center justify-center rounded-full bg-[#2258F4] text-white group-hover:-translate-y-0.5 transition-transform duration-300">
             <ArrowUp className="size-4" />
           </span>
-        </motion.button>
+        </button>
       )}
 
-      <main className="relative z-10">
-        {isAiDetail ? (
-          <Suspense fallback={detailFallback}>
-            <ProjectDetail onBack={goHome} />
-          </Suspense>
-        ) : isQixinDetail ? (
-          <Suspense fallback={detailFallback}>
-            <QixinProjectDetail onBack={goHome} />
-          </Suspense>
-        ) : (
-          <>
-            <Hero />
-            <Projects onProjectIntent={preloadProjectDetailAssets} />
-            <Skills />
-            <Experience />
-            <Contact />
-            <Footer />
-          </>
-        )}
-      </main>
+      <main className="relative z-10">{portfolioEntered ? portfolioContent : null}</main>
     </div>
   );
 }

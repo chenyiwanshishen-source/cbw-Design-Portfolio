@@ -82,14 +82,10 @@ const QIXIN_IMAGES = [
 
 const AI_ENTRY_IMAGES = [
   "./images/ai-report-hero-full.png",
-  "./images/ai-report-hero-toggle-01.png",
-  "./images/ai-report-hero-toggle-02.png",
 ];
 
 const QIXIN_ENTRY_IMAGES = [
   "./images/optimized/qixin-home-1920.jpg",
-  "./images/首页/login.png",
-  "./images/首页/push group.png",
 ];
 
 function withoutEntryImages(images: string[], entryImages: string[]) {
@@ -107,6 +103,7 @@ const FONT_PROGRESS_WEIGHT = 80_000;
 const MODULE_PROGRESS_WEIGHT = 140_000;
 const FALLBACK_IMAGE_WEIGHT = 360_000;
 const IMAGE_PROGRESS_TIMEOUT_MS = 20_000;
+const HOME_READY_DELAY_MS = 180;
 
 function isBrowser() {
   return typeof window !== "undefined" && typeof Image !== "undefined";
@@ -257,6 +254,24 @@ function delay(ms: number) {
   return new Promise<void>((resolve) => window.setTimeout(resolve, ms));
 }
 
+function isProjectRoute(route: string) {
+  return route === "#/project/ai-report" || route === "#/project/qixin-brain";
+}
+
+function shouldAvoidSpeculativePreload() {
+  if (!isBrowser()) return true;
+
+  const connection = (navigator as Navigator & {
+    connection?: { saveData?: boolean; effectiveType?: string };
+  }).connection;
+  return Boolean(
+    connection?.saveData ||
+      connection?.effectiveType === "slow-2g" ||
+      connection?.effectiveType === "2g" ||
+      connection?.effectiveType === "3g"
+  );
+}
+
 async function preloadAi(priority: Priority) {
   const images = priority === "high" ? AI_ENTRY_IMAGES : AI_DEFERRED_IMAGES;
   await Promise.allSettled([
@@ -283,13 +298,13 @@ export function preloadProjectDetailAssets(project: ProjectKey, priority: Priori
   return promise;
 }
 
+export function warmProjectDetailModule(project: ProjectKey) {
+  return project === "ai-report" ? loadAiProjectDetail() : loadQixinProjectDetail();
+}
+
 function portfolioEntryImages(route: string) {
   if (route === "#/project/qixin-brain") return QIXIN_ENTRY_IMAGES;
   return AI_ENTRY_IMAGES;
-}
-
-function projectFromRoute(route: string): ProjectKey {
-  return route === "#/project/qixin-brain" ? "qixin-brain" : "ai-report";
 }
 
 async function currentRouteWeightedTasks(route: string, priority: Priority) {
@@ -302,6 +317,16 @@ async function currentRouteWeightedTasks(route: string, priority: Priority) {
       await (document.fonts?.ready ?? Promise.resolve());
     },
   });
+
+  if (!isProjectRoute(route)) {
+    tasks.push({
+      weight: 20_000,
+      run: async () => {
+        await delay(HOME_READY_DELAY_MS);
+      },
+    });
+    return tasks;
+  }
 
   const loadEntryModule = route === "#/project/qixin-brain" ? loadQixinProjectDetail : loadAiProjectDetail;
 
@@ -357,25 +382,25 @@ export async function preloadPortfolioEntryAssets(route: string, onProgress: Pro
   );
 
   onProgress(1);
-  scheduleProjectRemainderPreload(projectFromRoute(route));
 }
 
-function scheduleProjectRemainderPreload(project: ProjectKey) {
+export function scheduleProjectRemainderPreload(project: ProjectKey) {
   if (!isBrowser()) return;
 
   const idleWindow = window as IdleWindow;
   const run = () => {
     void (async () => {
-      await delay(700);
+      await delay(3200);
       await preloadProjectDetailAssets(project, "low");
     })();
   };
 
-  idleWindow.requestIdleCallback?.(run, { timeout: 2400 }) ?? window.setTimeout(run, 1600);
+  idleWindow.requestIdleCallback?.(run, { timeout: 6500 }) ?? window.setTimeout(run, 5200);
 }
 
 export function scheduleHomeProjectPreload() {
   if (!isBrowser()) return () => {};
+  if (shouldAvoidSpeculativePreload()) return () => {};
 
   let cancelled = false;
   const idleWindow = window as IdleWindow;
@@ -383,15 +408,15 @@ export function scheduleHomeProjectPreload() {
   const run = () => {
     if (cancelled) return;
     void (async () => {
-      await delay(700);
+      await delay(2400);
       if (cancelled) return;
-      await preloadProjectDetailAssets("qixin-brain", "high");
+      await warmProjectDetailModule("qixin-brain");
     })();
   };
 
   const handle =
-    idleWindow.requestIdleCallback?.(run, { timeout: 1800 }) ??
-    window.setTimeout(run, 1400);
+    idleWindow.requestIdleCallback?.(run, { timeout: 5000 }) ??
+    window.setTimeout(run, 4200);
 
   return () => {
     cancelled = true;

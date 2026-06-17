@@ -60,6 +60,7 @@ const SCREEN_STACK_BACK_SHADOW = "0 12px 28px rgba(26,28,36,0.14)";
 const DETAIL_IMAGE_LAZY_PROPS = {
   loading: "lazy" as const,
   decoding: "async" as const,
+  fetchpriority: "low" as const,
 };
 const DETAIL_IMAGE_EAGER_PROPS = {
   loading: "eager" as const,

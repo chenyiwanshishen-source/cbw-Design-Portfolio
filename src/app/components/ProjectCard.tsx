@@ -228,6 +228,8 @@ function ProjectPreviewCompact({ tone }: { tone: "green" | "blue" }) {
 function ProjectImagePreview({
   src,
   alt,
+  loading = "lazy",
+  fetchPriority = "low",
   imageWidth = "100%",
   imageLeft = "0px",
   imageTop = "0px",
@@ -236,6 +238,8 @@ function ProjectImagePreview({
 }: {
   src: string;
   alt: string;
+  loading?: "eager" | "lazy";
+  fetchPriority?: "high" | "low" | "auto";
   imageWidth?: string;
   imageLeft?: string;
   imageTop?: string;
@@ -315,7 +319,8 @@ function ProjectImagePreview({
       <img
         src={src}
         alt={alt}
-        loading="eager"
+        loading={loading}
+        fetchpriority={fetchPriority}
         decoding="async"
         className="absolute h-auto max-w-none select-none"
         style={{
@@ -421,6 +426,8 @@ export function ProjectCard({
             imageTop={previewImageTop}
             moveX={previewMoveX}
             moveY={previewMoveY}
+            loading={index === 0 ? "eager" : "lazy"}
+            fetchPriority={index === 0 ? "high" : "low"}
           />
         )}
         {hasPreviewVisual && <ProjectPreviewCompact tone={previewTone} />}
