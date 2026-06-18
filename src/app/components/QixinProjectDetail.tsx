@@ -338,14 +338,14 @@ const SYSTEM_LAYER_CARDS = [
 function SystemLayerCardIllustration({ index }: { index: number }) {
   if (index === 0) {
     return (
-      <svg className="absolute inset-0 h-full w-full" viewBox="0 0 320 176" aria-hidden="true">
+      <svg className="absolute inset-0 h-full w-full" viewBox="0 0 420 176" aria-hidden="true">
         <defs>
           <clipPath id="foundationWindowDraftBodyClip">
             <path d="M 142 108 H 498 V 262 Q 498 278 482 278 H 158 Q 142 278 142 262 Z" />
           </clipPath>
         </defs>
 
-        <g id="foundation-window-draft" transform="translate(-70 -36) scale(0.72)">
+        <g id="foundation-window-draft" transform="matrix(1.011236 0 0 0.933333 -113.596 -53.467)">
           <g id="foundation-window-frame">
             <rect x="142" y="68" width="356" height="210" rx="16" fill="#FFFFFF" stroke="#E6E7EB" strokeWidth="1.3" />
             <g id="foundation-window-layout-grid" clipPath="url(#foundationWindowDraftBodyClip)">
@@ -432,8 +432,8 @@ function SystemLayerCardIllustration({ index }: { index: number }) {
 
   if (index === 1) {
     return (
-      <svg className="absolute inset-0 h-full w-full" viewBox="0 0 320 176" aria-hidden="true">
-        <g id="basic-window-draft" transform="translate(-70 -36) scale(0.72)">
+      <svg className="absolute inset-0 h-full w-full" viewBox="0 0 420 176" aria-hidden="true">
+        <g id="basic-window-draft" transform="matrix(1.011236 0 0 0.933333 -113.596 -53.467)">
           <g id="basic-window-frame">
             <rect x="142" y="68" width="356" height="210" rx="16" fill="#FFFFFF" stroke="#E6E7EB" strokeWidth="1.3" />
             <path d="M 142 108 H 498" stroke="#E6E7EB" strokeWidth="1.1" />
@@ -518,8 +518,8 @@ function SystemLayerCardIllustration({ index }: { index: number }) {
 
   if (index === 2) {
     return (
-      <svg className="absolute inset-0 h-full w-full" viewBox="0 0 320 176" aria-hidden="true">
-        <g id="compound-window-draft" transform="translate(-70 -36) scale(0.72)">
+      <svg className="absolute inset-0 h-full w-full" viewBox="0 0 420 176" aria-hidden="true">
+        <g id="compound-window-draft" transform="matrix(1.011236 0 0 0.933333 -113.596 -53.467)">
           <g id="compound-window-frame">
             <rect x="142" y="68" width="356" height="210" rx="16" fill="#FFFFFF" stroke="#E6E7EB" strokeWidth="1.3" />
             <path d="M 142 108 H 498" stroke="#E6E7EB" strokeWidth="1.1" />
