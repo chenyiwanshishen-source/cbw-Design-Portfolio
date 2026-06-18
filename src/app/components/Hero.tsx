@@ -18,17 +18,29 @@ const marqueeWords = [
 ];
 
 const capabilityCards = [
-  "9 年 B 端产品设计，熟悉复杂业务系统的信息架构与交互落地。",
-  "近两年聚焦 AI 产品方向，涉及流式对话、智能报告等新型交互场景。",
-  "日常工作以 Figma 为核心工具，按需辅以 Blender、Illustrator。",
-  "关注信息结构的合理性与交互逻辑的一致性，重视设计资产的长期可维护性。",
+  {
+    label: "业务系统",
+    text: "9 年 B 端产品设计，熟悉复杂业务系统的信息架构与交互落地。",
+  },
+  {
+    label: "AI 产品",
+    text: "近两年聚焦 AI 产品方向，涉及流式对话、智能报告等新型交互场景。",
+  },
+  {
+    label: "设计工具",
+    text: "日常工作以 Figma 为核心工具，按需辅以 Blender、Illustrator。",
+  },
+  {
+    label: "长期维护",
+    text: "关注信息结构的合理性与交互逻辑的一致性，重视设计资产的长期可维护性。",
+  },
 ];
 
 const boardCardLayouts = [
-  "lg:left-[5%] lg:top-[3%] lg:w-[24rem] xl:w-[27rem] 2xl:w-[30rem] lg:rotate-[-1.8deg]",
-  "lg:right-[4%] lg:top-[8%] lg:w-[25rem] xl:w-[29rem] 2xl:w-[32rem] lg:rotate-[1.4deg]",
-  "lg:left-[2%] lg:bottom-[14%] lg:w-[24rem] xl:w-[28rem] 2xl:w-[31rem] lg:rotate-[1.2deg]",
-  "lg:right-[7%] lg:bottom-[6%] lg:w-[26rem] xl:w-[30rem] 2xl:w-[33rem] lg:rotate-[-1.1deg]",
+  "lg:left-[7%] lg:top-[7%] lg:w-[21rem] xl:w-[23rem] 2xl:w-[25rem] lg:rotate-[-0.8deg]",
+  "lg:right-[8%] lg:top-[10%] lg:w-[21rem] xl:w-[23.5rem] 2xl:w-[25.5rem] lg:rotate-[0.7deg]",
+  "lg:left-[5%] lg:bottom-[20%] lg:w-[21rem] xl:w-[23rem] 2xl:w-[25rem] lg:rotate-[0.6deg]",
+  "lg:right-[9%] lg:bottom-[14%] lg:w-[21rem] xl:w-[23.5rem] 2xl:w-[25.5rem] lg:rotate-[-0.6deg]",
 ];
 
 export function Hero() {
@@ -430,22 +442,25 @@ export function Hero() {
             ))}
           </svg>
 
-          {capabilityCards.map((text, index) => (
+          {capabilityCards.map((card, index) => (
             <article
-              key={text}
+              key={card.label}
               data-note-drag
               className={`hero-note-shell hero-note-card-${index + 1} relative select-none lg:absolute ${boardCardLayouts[index]}`}
             >
-              <div className="hero-note-card relative min-h-[150px] p-[clamp(1.125rem,2.1vw,1.6rem)] sm:min-h-[172px] lg:min-h-0 lg:p-[clamp(1rem,1.45vw,1.35rem)]">
-                <div className="relative z-10">
-                  <div className="mb-4 flex items-center gap-3 text-[clamp(0.72rem,1.2vw,0.8rem)] text-[#696D7A]">
-                    <span className="hero-note-number inline-flex size-8 items-center justify-center rounded-full text-[#1A42B8]">
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
-                    <span className="hero-note-rule h-px flex-1" />
-                  </div>
-                  <p className="hero-note-text max-w-[28rem] text-[clamp(0.98rem,1.12vw,1.1rem)] leading-[1.72] text-[#1A1C24] lg:max-w-none">
-                    {text}
+              <div className="hero-note-card relative p-3.5 sm:p-4 lg:p-[clamp(0.8rem,1.05vw,1rem)]">
+                <span aria-hidden="true" className="hero-note-selection-frame" />
+                <span aria-hidden="true" className="hero-note-selection-handle hero-note-selection-handle-tl" />
+                <span aria-hidden="true" className="hero-note-selection-handle hero-note-selection-handle-tr" />
+                <span aria-hidden="true" className="hero-note-selection-handle hero-note-selection-handle-bl" />
+                <span aria-hidden="true" className="hero-note-selection-handle hero-note-selection-handle-br" />
+                <div className="hero-note-meta mb-2.5 flex items-center justify-between gap-4">
+                  <span>{card.label}</span>
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                </div>
+                <div className="hero-note-entry">
+                  <p className="hero-note-text text-[clamp(0.88rem,0.98vw,0.98rem)] leading-[1.58] text-[#1A1C24]">
+                    {card.text}
                   </p>
                 </div>
               </div>
