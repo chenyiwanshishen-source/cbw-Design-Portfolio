@@ -14,9 +14,15 @@ type IdleWindow = Window & {
   requestIdleCallback?: (callback: () => void, options?: { timeout?: number }) => number;
   cancelIdleCallback?: (handle: number) => void;
 };
+type PreloadBatchOptions = {
+  batchDelayMs?: number;
+  shouldContinue?: () => boolean;
+};
 
 export const loadAiProjectDetail = () => import("./components/ProjectDetail");
 export const loadQixinProjectDetail = () => import("./components/QixinProjectDetail");
+export const loadHomeContent = () => import("./components/HomeContent");
+export const loadNav = () => import("./components/Nav");
 
 const AI_FLOW_IMAGES = [
   "./images/ai-report-hero-full.png",
@@ -88,6 +94,97 @@ const QIXIN_ENTRY_IMAGES = [
   "./images/optimized/qixin-home-1920.jpg",
 ];
 
+const HOME_ENTRY_IMAGES = [
+  "./images/首页/AI报告生成.png",
+  "./images/首页/自定义产业链.png",
+];
+
+const AI_HOME_WARM_IMAGES = [
+  "./images/ai-report-hero-full.png",
+];
+
+const QIXIN_HOME_WARM_IMAGES = [
+  "./images/optimized/qixin-home-1920.jpg",
+  "./images/optimized/qixin-entry-1600.jpg",
+  "./images/optimized/qixin-search-1600.jpg",
+];
+
+const QIXIN_REMAINDER_IMAGE_STAGES = [
+  [
+    "./images/首页/login.png",
+    "./images/首页/push group.png",
+    "./images/optimized/qixin-entry-1600.jpg",
+    "./images/启信产业大脑/企业报告.svg",
+    "./images/启信产业大脑/产业报告.svg",
+    "./images/启信产业大脑/舆情速递.png",
+  ],
+  [
+    "./images/启信产业大脑/产业信息.png",
+    "./images/启信产业大脑/企业监控入口.png",
+    "./images/启信产业大脑/常用功能.png",
+    "./images/启信产业大脑/异动预警.png",
+    "./images/optimized/qixin-search-1600.jpg",
+    "./images/optimized/qixin-supply-chain-1600.jpg",
+    "./images/optimized/qixin-batch-query-1600.jpg",
+  ],
+  [
+    "./images/optimized/qixin-business-info-1600.jpg",
+    "./images/optimized/qixin-chain-action-1600.jpg",
+    "./images/optimized/qixin-chain-map-1600.jpg",
+    "./images/optimized/qixin-company-detail-1600.jpg",
+    "./images/optimized/qixin-relation-1600.jpg",
+    "./images/optimized/qixin-industry-detail-1600.jpg",
+  ],
+  [
+    "./images/启信产业大脑/弹窗.png",
+    "./images/启信产业大脑/时间选择器.png",
+    "./images/optimized/qixin-color-1600.jpg",
+    "./images/optimized/qixin-custom-chain-edit01-1600.jpg",
+    "./images/optimized/qixin-custom-chain-edit02-1600.jpg",
+    "./images/optimized/qixin-custom-chain-edit03-1600.jpg",
+    "./images/optimized/qixin-custom-chain-list-1600.jpg",
+    "./images/optimized/qixin-monitor-1600.jpg",
+    "./images/optimized/qixin-park-recruit-1600.jpg",
+    "./images/optimized/qixin-report-center-1600.jpg",
+    "./images/optimized/qixin-text-1600.jpg",
+  ],
+];
+
+const AI_REMAINDER_IMAGE_STAGES = [
+  [
+    "./images/ai-repor- left-01.png",
+    "./images/ai- report-right-01.png",
+    "./images/ai-report-hero-toggle-01.png",
+    "./images/ai-report-hero-toggle-02.png",
+    "./images/章节提示词/line-01.svg",
+  ],
+  [
+    "./images/ai-report-flow/step-01-blank-canvas.png",
+    "./images/ai-report-flow/step-01-sidebar.png",
+    "./images/ai-report-flow/step-01-final-template-center.png",
+    "./images/ai-report-flow/step-01-template-region.png",
+    "./images/ai-report-flow/step-01-template-opinion.png",
+    "./images/ai-report-flow/step-01-template-chain.png",
+    "./images/ai-report-flow/step-01-template-futian.png",
+  ],
+  [
+    "./images/ai-report-flow/step-02-final-outline.png",
+    "./images/ai-report-flow/step-02-final-outline-02.png",
+    "./images/optimized/ai-outline-confirm-900.png",
+    "./images/04/kongbaihuabu.png",
+    "./images/04/liushihuaban.png",
+    "./images/optimized/ai-stream-text-1400.jpg",
+    "./images/05/lishijilupng.png",
+  ],
+  [
+    "./images/optimized/ai-data01-1600.jpg",
+    "./images/optimized/ai-group02-1600.jpg",
+    "./images/optimized/ai-group01-1600.jpg",
+    "./images/optimized/ai-marry01-1600.jpg",
+    "./images/设计方案/marry02.png",
+  ],
+];
+
 function withoutEntryImages(images: string[], entryImages: string[]) {
   const entrySet = new Set(entryImages);
   return images.filter((src) => !entrySet.has(src));
@@ -114,6 +211,10 @@ function resolveAssetUrl(src: string) {
   const normalized = src.startsWith("/") ? `.${src}` : src;
   if (!isBrowser()) return normalized;
   return new URL(normalized, window.location.href).href;
+}
+
+function canContinuePreload(options?: PreloadBatchOptions) {
+  return options?.shouldContinue ? options.shouldContinue() : true;
 }
 
 function preloadImage(src: string, priority: Priority) {
@@ -240,12 +341,19 @@ async function preloadImageWithByteProgress(
   await guardedPromise;
 }
 
-async function preloadImagesInBatches(images: string[], priority: Priority, batchSize: number) {
+async function preloadImagesInBatches(
+  images: string[],
+  priority: Priority,
+  batchSize: number,
+  options?: PreloadBatchOptions
+) {
   for (let i = 0; i < images.length; i += batchSize) {
+    if (!canContinuePreload(options)) return;
     const batch = images.slice(i, i + batchSize);
     await Promise.all(batch.map((src) => preloadImage(src, priority)));
+    if (!canContinuePreload(options)) return;
     if (priority === "low" && i + batchSize < images.length) {
-      await delay(220);
+      await delay(options?.batchDelayMs ?? 220);
     }
   }
 }
@@ -270,6 +378,15 @@ function shouldAvoidSpeculativePreload() {
       connection?.effectiveType === "2g" ||
       connection?.effectiveType === "3g"
   );
+}
+
+function shouldAvoidActiveRoutePreload() {
+  if (!isBrowser()) return true;
+
+  const connection = (navigator as Navigator & {
+    connection?: { saveData?: boolean };
+  }).connection;
+  return Boolean(connection?.saveData);
 }
 
 async function preloadAi(priority: Priority) {
@@ -302,6 +419,21 @@ export function warmProjectDetailModule(project: ProjectKey) {
   return project === "ai-report" ? loadAiProjectDetail() : loadQixinProjectDetail();
 }
 
+async function warmProjectPreviewAssets(
+  project: ProjectKey,
+  options?: PreloadBatchOptions
+) {
+  if (!isBrowser() || !canContinuePreload(options)) return;
+
+  const images = project === "ai-report" ? AI_HOME_WARM_IMAGES : QIXIN_HOME_WARM_IMAGES;
+  await warmProjectDetailModule(project);
+  if (!canContinuePreload(options)) return;
+  await preloadImagesInBatches(images, "low", 1, {
+    batchDelayMs: project === "qixin-brain" ? 720 : 420,
+    shouldContinue: options?.shouldContinue,
+  });
+}
+
 function portfolioEntryImages(route: string) {
   if (route === "#/project/qixin-brain") return QIXIN_ENTRY_IMAGES;
   return AI_ENTRY_IMAGES;
@@ -320,10 +452,17 @@ async function currentRouteWeightedTasks(route: string, priority: Priority) {
 
   if (!isProjectRoute(route)) {
     tasks.push({
-      weight: 20_000,
+      weight: MODULE_PROGRESS_WEIGHT,
       run: async () => {
-        await delay(HOME_READY_DELAY_MS);
+        await Promise.allSettled([loadHomeContent(), loadNav(), delay(HOME_READY_DELAY_MS)]);
       },
+    });
+    HOME_ENTRY_IMAGES.forEach((src) => {
+      const weight = FALLBACK_IMAGE_WEIGHT * 0.72;
+      tasks.push({
+        weight,
+        run: (reportDelta) => preloadImageWithByteProgress(src, priority, weight, reportDelta),
+      });
     });
     return tasks;
   }
@@ -385,17 +524,49 @@ export async function preloadPortfolioEntryAssets(route: string, onProgress: Pro
 }
 
 export function scheduleProjectRemainderPreload(project: ProjectKey) {
-  if (!isBrowser()) return;
+  if (!isBrowser()) return () => {};
 
-  const idleWindow = window as IdleWindow;
+  let cancelled = false;
+  const shouldContinue = () => !cancelled && !shouldAvoidActiveRoutePreload();
+
   const run = () => {
     void (async () => {
-      await delay(3200);
-      await preloadProjectDetailAssets(project, "low");
+      await delay(project === "qixin-brain" ? 1400 : 1200);
+      if (!shouldContinue()) return;
+
+      if (project === "qixin-brain") {
+        for (let index = 0; index < QIXIN_REMAINDER_IMAGE_STAGES.length; index += 1) {
+          if (!shouldContinue()) return;
+          await preloadImagesInBatches(QIXIN_REMAINDER_IMAGE_STAGES[index], "low", index === 0 ? 2 : 1, {
+            batchDelayMs: index === 0 ? 520 : 900,
+            shouldContinue,
+          });
+          if (index < QIXIN_REMAINDER_IMAGE_STAGES.length - 1) {
+            await delay(1400);
+          }
+        }
+        return;
+      }
+
+      for (let index = 0; index < AI_REMAINDER_IMAGE_STAGES.length; index += 1) {
+        if (!shouldContinue()) return;
+        await preloadImagesInBatches(AI_REMAINDER_IMAGE_STAGES[index], "low", index <= 1 ? 2 : 1, {
+          batchDelayMs: index <= 1 ? 520 : 820,
+          shouldContinue,
+        });
+        if (index < AI_REMAINDER_IMAGE_STAGES.length - 1) {
+          await delay(index <= 1 ? 960 : 1300);
+        }
+      }
     })();
   };
 
-  idleWindow.requestIdleCallback?.(run, { timeout: 6500 }) ?? window.setTimeout(run, 5200);
+  const handle = window.setTimeout(run, 0);
+
+  return () => {
+    cancelled = true;
+    window.clearTimeout(handle);
+  };
 }
 
 export function scheduleHomeProjectPreload() {
@@ -408,9 +579,9 @@ export function scheduleHomeProjectPreload() {
   const run = () => {
     if (cancelled) return;
     void (async () => {
-      await delay(2400);
+      await delay(1400);
       if (cancelled) return;
-      await warmProjectDetailModule("qixin-brain");
+      await warmProjectPreviewAssets("qixin-brain", { shouldContinue: () => !cancelled });
     })();
   };
 

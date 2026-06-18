@@ -104,6 +104,87 @@ body::-webkit-scrollbar,
   right: -6px;
 }
 
+.route-loader-frame,
+.route-loader-frame:hover,
+.route-loader-frame:focus-visible,
+.route-loader-frame[data-dragging="true"] {
+  --hero-drag-bg: rgba(250, 251, 255, 0.22);
+
+  box-shadow: none;
+}
+
+.route-loader-frame .hero-drag-handle,
+.route-loader-frame:hover .hero-drag-handle,
+.route-loader-frame:focus-visible .hero-drag-handle,
+.route-loader-frame[data-dragging="true"] .hero-drag-handle {
+  box-shadow: none;
+}
+
+.project-route-loader-text {
+  font-kerning: none;
+  text-rendering: optimizeSpeed;
+}
+
+.project-route-loader-caret {
+  height: 0.92em;
+  animation: project-route-loader-caret 860ms steps(1, end) infinite;
+}
+
+@keyframes project-route-loader-caret {
+  0%,
+  48% {
+    opacity: 1;
+  }
+  49%,
+  100% {
+    opacity: 0;
+  }
+}
+
+main img {
+  color: transparent;
+}
+
+main [data-image-pending="true"] {
+  background:
+    linear-gradient(
+      100deg,
+      rgba(229, 235, 255, 0.34) 0%,
+      rgba(250, 251, 255, 0.82) 42%,
+      rgba(229, 235, 255, 0.34) 78%
+    );
+  background-size: 240% 100%;
+}
+
+main img[data-image-ready="false"] {
+  opacity: 0 !important;
+}
+
+main img[data-image-ready="true"] {
+  transition: opacity 220ms ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  main [data-image-pending="true"] {
+    animation: portfolio-image-surface 2.4s ease-in-out infinite;
+  }
+}
+
+main img[src$=".svg"],
+main img[src*=".svg?"] {
+  background: transparent;
+  animation: none;
+}
+
+@keyframes portfolio-image-surface {
+  0% {
+    background-position: 140% 0;
+  }
+  100% {
+    background-position: -80% 0;
+  }
+}
+
 .hero-note-shell {
   filter: none;
   transition: filter 220ms ease;

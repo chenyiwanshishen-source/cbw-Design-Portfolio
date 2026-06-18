@@ -19,6 +19,8 @@ const mobileNavLinkBase =
 const mobileNavLinkActive = "bg-[#E5EBFF] text-[#1A42B8]";
 const mobileNavLinkInactive = "text-[#4E525E] hover:bg-[#F5F5F7] hover:text-[#1A1C24]";
 
+export const PROJECT_ROUTE_LOADING_EVENT = "portfolio:project-route-loading";
+
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [activeNav, setActiveNav] = useState("home");
@@ -66,26 +68,26 @@ export function Nav() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const goRoute = async (e: React.MouseEvent, href: string) => {
+  const goRoute = (e: React.MouseEvent, href: string) => {
     e.preventDefault();
     if (!href) return;
-    if (pendingHref) return;
     if (window.location.hash === href) {
       setMobileMenuOpen(false);
       return;
     }
 
     setPendingHref(href);
-    try {
-      await preloadForHref(href);
-    } finally {
-      setPendingHref(null);
-    }
     setMobileMenuOpen(false);
+    window.dispatchEvent(new CustomEvent(PROJECT_ROUTE_LOADING_EVENT, { detail: { href } }));
 
     if (href.startsWith("#/")) {
       window.location.hash = href.slice(1);
+      window.scrollTo({ top: 0, behavior: "auto" });
     }
+
+    void preloadForHref(href).finally(() => {
+      setPendingHref((current) => (current === href ? null : current));
+    });
   };
 
   const goContact = (e: React.MouseEvent) => {

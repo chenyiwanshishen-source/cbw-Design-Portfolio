@@ -1,8 +1,11 @@
 import { Suspense, lazy, useEffect, useRef, useState } from "react";
 import { ArrowUp } from "lucide-react";
 import { PortfolioLoader } from "./components/PortfolioLoader";
+import { ProjectRouteLoader } from "./components/ProjectRouteLoader";
 import {
   loadAiProjectDetail,
+  loadHomeContent,
+  loadNav,
   loadQixinProjectDetail,
   preloadProjectDetailAssets,
   scheduleHomeProjectPreload,
@@ -16,9 +19,9 @@ const QixinProjectDetail = lazy(() =>
   loadQixinProjectDetail().then((module) => ({ default: module.QixinProjectDetail }))
 );
 const HomeContent = lazy(() =>
-  import("./components/HomeContent").then((module) => ({ default: module.HomeContent }))
+  loadHomeContent().then((module) => ({ default: module.HomeContent }))
 );
-const Nav = lazy(() => import("./components/Nav").then((module) => ({ default: module.Nav })));
+const Nav = lazy(() => loadNav().then((module) => ({ default: module.Nav })));
 const ParticleField = lazy(() =>
   import("./components/ParticleField").then((module) => ({ default: module.ParticleField }))
 );
@@ -28,6 +31,12 @@ const ScopeCursor = lazy(() =>
 const ViewportScrollbars = lazy(() =>
   import("./components/ScrollArea").then((module) => ({ default: module.ViewportScrollbars }))
 );
+
+const PROJECT_ROUTE_LOADING_EVENT = "portfolio:project-route-loading";
+
+function isProjectDetailRoute(route: string) {
+  return route === "#/project/ai-report" || route === "#/project/qixin-brain";
+}
 
 export default function App() {
   const [mounted, setMounted] = useState(false);
@@ -83,6 +92,7 @@ export default function App() {
   const [route, setRoute] = useState<string>(
     typeof window !== "undefined" ? window.location.hash : ""
   );
+  const [routeLoaderHref, setRouteLoaderHref] = useState<string | null>(null);
   useEffect(() => {
     const onHash = () => {
       setRoute(window.location.hash);
@@ -90,6 +100,19 @@ export default function App() {
     };
     window.addEventListener("hashchange", onHash);
     return () => window.removeEventListener("hashchange", onHash);
+  }, []);
+
+  useEffect(() => {
+    const onProjectRouteLoading = (event: Event) => {
+      const href = (event as CustomEvent<{ href?: string }>).detail?.href;
+      if (!href || !isProjectDetailRoute(href)) return;
+      setRouteLoaderHref(href);
+    };
+
+    window.addEventListener(PROJECT_ROUTE_LOADING_EVENT, onProjectRouteLoading as EventListener);
+    return () => {
+      window.removeEventListener(PROJECT_ROUTE_LOADING_EVENT, onProjectRouteLoading as EventListener);
+    };
   }, []);
 
   const goHome = () => {
@@ -116,17 +139,98 @@ export default function App() {
   useEffect(() => {
     if (!portfolioEntered) return;
     if (isAiDetail) {
-      scheduleProjectRemainderPreload("ai-report");
+      return scheduleProjectRemainderPreload("ai-report");
     } else if (isQixinDetail) {
-      scheduleProjectRemainderPreload("qixin-brain");
+      return scheduleProjectRemainderPreload("qixin-brain");
     }
   }, [portfolioEntered, isAiDetail, isQixinDetail]);
 
-  const detailFallback = (
-    <div className="min-h-screen px-6 pt-32 text-center text-sm text-[#696D7A]">
-      正在加载项目详情...
-    </div>
-  );
+  useEffect(() => {
+    if (!portfolioEntered) return;
+
+    const observedImages = new Set<HTMLImageElement>();
+    let scanTimer: number | undefined;
+
+    const updateSurface = (surface: HTMLElement) => {
+      const hasPendingImage = Array.from(surface.querySelectorAll<HTMLImageElement>("img")).some(
+        (image) => image.dataset.imageReady !== "true"
+      );
+      if (hasPendingImage) {
+        surface.dataset.imagePending = "true";
+      } else {
+        delete surface.dataset.imagePending;
+      }
+    };
+
+    const markImage = (image: HTMLImageElement) => {
+      if (!observedImages.has(image)) {
+        observedImages.add(image);
+        image.addEventListener("load", onImageSettled);
+        image.addEventListener("error", onImageSettled);
+      }
+
+      const isReady = image.complete && image.naturalWidth > 0;
+      image.dataset.imageReady = isReady ? "true" : "false";
+
+      const surface = image.parentElement;
+      if (surface) {
+        updateSurface(surface);
+      }
+      return isReady;
+    };
+
+    const scheduleScan = () => {
+      if (scanTimer) return;
+      scanTimer = window.setTimeout(() => {
+        scanTimer = undefined;
+        scanImages();
+      }, 220);
+    };
+
+    const scanImages = () => {
+      let hasPendingImage = false;
+      document.querySelectorAll<HTMLImageElement>("main img").forEach((image) => {
+        if (!markImage(image)) {
+          hasPendingImage = true;
+        }
+      });
+      if (hasPendingImage) {
+        scheduleScan();
+      }
+    };
+
+    const onImageSettled = (event: Event) => {
+      if (event.target instanceof HTMLImageElement) {
+        if (!markImage(event.target)) {
+          scheduleScan();
+        }
+      }
+    };
+
+    const main = document.querySelector("main");
+    const observer = new MutationObserver(scanImages);
+    window.addEventListener("load", onImageSettled, true);
+    window.addEventListener("error", onImageSettled, true);
+    scanImages();
+    if (main) {
+      observer.observe(main, { childList: true, subtree: true });
+    }
+
+    return () => {
+      window.removeEventListener("load", onImageSettled, true);
+      window.removeEventListener("error", onImageSettled, true);
+      if (scanTimer) {
+        window.clearTimeout(scanTimer);
+      }
+      observedImages.forEach((image) => {
+        image.removeEventListener("load", onImageSettled);
+        image.removeEventListener("error", onImageSettled);
+      });
+      observer.disconnect();
+    };
+  }, [portfolioEntered, route]);
+
+  const detailFallback = routeLoaderHref ? null : <ProjectRouteLoader route={route} />;
 
   const portfolioContent = isAiDetail ? (
     <Suspense fallback={detailFallback}>
@@ -193,6 +297,16 @@ export default function App() {
         <Suspense fallback={null}>
           <Nav />
         </Suspense>
+      )}
+
+      {portfolioEntered && routeLoaderHref && (
+        <ProjectRouteLoader
+          key={routeLoaderHref}
+          route={routeLoaderHref}
+          onComplete={() => {
+            setRouteLoaderHref((current) => (current === routeLoaderHref ? null : current));
+          }}
+        />
       )}
 
       {/* Global back-to-top */}

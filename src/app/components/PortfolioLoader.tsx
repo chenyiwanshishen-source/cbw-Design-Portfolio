@@ -10,6 +10,7 @@ gsap.registerPlugin(useGSAP, CustomEase, CustomBounce);
 
 const MAX_ENTRY_WAIT_MS = 5000;
 const READY_SETTLE_MS = 520;
+const FORCED_READY_REVEAL_MS = 360;
 
 interface PortfolioLoaderProps {
   route: string;
@@ -28,10 +29,12 @@ export function PortfolioLoader({ route, onEntered }: PortfolioLoaderProps) {
   const fillRef = useRef<HTMLSpanElement | null>(null);
   const initialRouteRef = useRef(route);
   const [rawProgress, setRawProgress] = useState(0);
+  const [visualProgress, setVisualProgress] = useState(0);
   const [introDone, setIntroDone] = useState(false);
   const [ready, setReady] = useState(false);
   const [visible, setVisible] = useState(true);
   const [exiting, setExiting] = useState(false);
+  const progressLabel = `${Math.round(Math.max(0.08, visualProgress) * 100)}%`;
 
   useEffect(() => {
     let cancelled = false;
@@ -192,35 +195,46 @@ export function PortfolioLoader({ route, onEntered }: PortfolioLoaderProps) {
   );
 
   useEffect(() => {
+    if (ready) {
+      setVisualProgress(1);
+      return;
+    }
+    setVisualProgress((current) => {
+      const next = rawProgress >= 1 ? 1 : Math.min(rawProgress, 0.985);
+      return Math.max(current, next);
+    });
+  }, [rawProgress, ready]);
+
+  useEffect(() => {
     if (!introDone || !fillRef.current) return;
 
-    const target = Math.max(0.08, rawProgress);
+    const target = Math.max(0.08, visualProgress);
     const fillTween = gsap.to(fillRef.current, {
       scaleX: target,
-      duration: rawProgress >= 1 ? 0.42 : 0.5,
+      duration: visualProgress >= 1 ? 0.34 : 0.5,
       ease: "power3.out",
     });
 
     return () => {
       fillTween.kill();
     };
-  }, [introDone, rawProgress]);
+  }, [introDone, visualProgress]);
 
   useEffect(() => {
     if (!introDone || !percentTrackRef.current) return;
 
-    const target = Math.max(0.08, rawProgress);
+    const target = Math.max(0.08, visualProgress);
     const percentTween = gsap.to(percentTrackRef.current, {
       width: `${target * 100}%`,
       autoAlpha: ready ? 0 : 1,
-      duration: rawProgress >= 1 ? 0.36 : 0.5,
+      duration: visualProgress >= 1 ? 0.3 : 0.5,
       ease: "power3.out",
     });
 
     return () => {
       percentTween.kill();
     };
-  }, [introDone, rawProgress, ready]);
+  }, [introDone, visualProgress, ready]);
 
   useEffect(() => {
     if (!introDone || !contentRef.current) return;
@@ -239,12 +253,20 @@ export function PortfolioLoader({ route, onEntered }: PortfolioLoaderProps) {
 
   useEffect(() => {
     if (ready) return;
-    const timer = window.setTimeout(() => setReady(true), MAX_ENTRY_WAIT_MS);
-    return () => window.clearTimeout(timer);
+    let readyTimer: number | undefined;
+    const timer = window.setTimeout(() => {
+      setVisualProgress(1);
+      readyTimer = window.setTimeout(() => setReady(true), FORCED_READY_REVEAL_MS);
+    }, MAX_ENTRY_WAIT_MS);
+    return () => {
+      window.clearTimeout(timer);
+      if (readyTimer) window.clearTimeout(readyTimer);
+    };
   }, [ready]);
 
   useEffect(() => {
     if (!introDone || rawProgress < 1 || ready) return;
+    setVisualProgress(1);
     const timer = window.setTimeout(() => setReady(true), READY_SETTLE_MS);
     return () => window.clearTimeout(timer);
   }, [introDone, rawProgress, ready]);
@@ -421,7 +443,7 @@ export function PortfolioLoader({ route, onEntered }: PortfolioLoaderProps) {
                 ref={percentRef}
                 className="absolute right-4 top-1/2 whitespace-nowrap rounded-full text-[14px] font-semibold leading-none text-white"
               >
-                马上好!
+                {progressLabel}
               </span>
             </span>
             <span
