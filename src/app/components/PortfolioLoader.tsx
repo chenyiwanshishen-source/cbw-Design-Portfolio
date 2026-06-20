@@ -5,12 +5,11 @@ import { CustomEase } from "gsap/CustomEase";
 import { CustomBounce } from "gsap/CustomBounce";
 import { ArrowRight } from "lucide-react";
 import { preloadPortfolioEntryAssets } from "../projectPreload";
+import { curveSwipeStates, getCurveSwipePath, setCurveSwipePath } from "../curveSwipe";
 
 gsap.registerPlugin(useGSAP, CustomEase, CustomBounce);
 
-const MAX_ENTRY_WAIT_MS = 5000;
-const READY_SETTLE_MS = 520;
-const FORCED_READY_REVEAL_MS = 360;
+const MIN_ENTRY_LOADER_DURATION_MS = 5000;
 
 interface PortfolioLoaderProps {
   route: string;
@@ -27,19 +26,19 @@ export function PortfolioLoader({ route, onEntered }: PortfolioLoaderProps) {
   const percentRef = useRef<HTMLSpanElement | null>(null);
   const labelRef = useRef<HTMLSpanElement | null>(null);
   const fillRef = useRef<HTMLSpanElement | null>(null);
+  const contentLayerRef = useRef<HTMLDivElement | null>(null);
+  const swipeBasePathRef = useRef<SVGPathElement | null>(null);
   const initialRouteRef = useRef(route);
   const [rawProgress, setRawProgress] = useState(0);
   const [visualProgress, setVisualProgress] = useState(0);
   const [introProgress, setIntroProgress] = useState(0);
-  const [waitProgress, setWaitProgress] = useState(0);
   const [introDone, setIntroDone] = useState(false);
   const [ready, setReady] = useState(false);
   const [visible, setVisible] = useState(true);
   const [exiting, setExiting] = useState(false);
-  const displayProgress = ready
-    ? 1
-    : Math.min(Math.max(visualProgress, waitProgress), introProgress, 0.995);
-  const progressPercent = ready ? 100 : Math.min(99, Math.floor(Math.max(0.08, displayProgress) * 100));
+  const progressReady = rawProgress >= 1 && visualProgress >= 1;
+  const displayProgress = ready || progressReady ? 1 : Math.min(rawProgress, visualProgress, 0.995);
+  const progressPercent = ready || progressReady ? 100 : Math.min(99, Math.floor(displayProgress * 100));
   const progressLabel = `${progressPercent}%`;
 
   useEffect(() => {
@@ -51,6 +50,21 @@ export function PortfolioLoader({ route, onEntered }: PortfolioLoaderProps) {
 
     return () => {
       cancelled = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    const progressState = { value: 0 };
+    const tween = gsap.to(progressState, {
+      value: 1,
+      duration: MIN_ENTRY_LOADER_DURATION_MS / 1000,
+      ease: "none",
+      onUpdate: () => setVisualProgress(progressState.value),
+      onComplete: () => setVisualProgress(1),
+    });
+
+    return () => {
+      tween.kill();
     };
   }, []);
 
@@ -73,6 +87,7 @@ export function PortfolioLoader({ route, onEntered }: PortfolioLoaderProps) {
       const percentTrack = percentTrackRef.current;
       const percent = percentRef.current;
       const fill = fillRef.current;
+      const swipeBasePath = swipeBasePathRef.current;
       if (!hello || !nice || !button || !content || !percentTrack || !percent || !fill) return;
 
       const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -102,6 +117,7 @@ export function PortfolioLoader({ route, onEntered }: PortfolioLoaderProps) {
         scaleX: reduceMotion ? 0.08 : 0.03,
         transformOrigin: "0% 50%",
       });
+      setCurveSwipePath(swipeBasePath, curveSwipeStates.baseCover);
 
       if (reduceMotion) {
         updateIntroProgress(1);
@@ -204,34 +220,6 @@ export function PortfolioLoader({ route, onEntered }: PortfolioLoaderProps) {
   );
 
   useEffect(() => {
-    if (ready) {
-      setVisualProgress(1);
-      return;
-    }
-    setVisualProgress((current) => {
-      const next = rawProgress >= 1 ? 1 : Math.min(rawProgress, 0.985);
-      return Math.max(current, next);
-    });
-  }, [rawProgress, ready]);
-
-  useEffect(() => {
-    if (ready) {
-      setWaitProgress(1);
-      return;
-    }
-
-    const startedAt = window.performance?.now?.() ?? Date.now();
-    const updateProgress = () => {
-      const now = window.performance?.now?.() ?? Date.now();
-      setWaitProgress(Math.min(1, (now - startedAt) / MAX_ENTRY_WAIT_MS));
-    };
-
-    updateProgress();
-    const timer = window.setInterval(updateProgress, 120);
-    return () => window.clearInterval(timer);
-  }, [ready]);
-
-  useEffect(() => {
     if (!introDone || !fillRef.current) return;
 
     const target = Math.max(0.08, displayProgress);
@@ -278,24 +266,9 @@ export function PortfolioLoader({ route, onEntered }: PortfolioLoaderProps) {
   }, [introDone, ready]);
 
   useEffect(() => {
-    if (ready) return;
-    let readyTimer: number | undefined;
-    const timer = window.setTimeout(() => {
-      setVisualProgress(1);
-      readyTimer = window.setTimeout(() => setReady(true), FORCED_READY_REVEAL_MS);
-    }, MAX_ENTRY_WAIT_MS);
-    return () => {
-      window.clearTimeout(timer);
-      if (readyTimer) window.clearTimeout(readyTimer);
-    };
-  }, [ready]);
-
-  useEffect(() => {
-    if (!introDone || rawProgress < 1 || ready) return;
-    setVisualProgress(1);
-    const timer = window.setTimeout(() => setReady(true), READY_SETTLE_MS);
-    return () => window.clearTimeout(timer);
-  }, [introDone, rawProgress, ready]);
+    if (!introDone || !progressReady || ready) return;
+    setReady(true);
+  }, [introDone, progressReady, ready]);
 
   useGSAP(
     (_, contextSafe) => {
@@ -404,20 +377,52 @@ export function PortfolioLoader({ route, onEntered }: PortfolioLoaderProps) {
   );
 
   const enterPortfolio = () => {
-    if (!ready || exiting || !rootRef.current) return;
+    const root = rootRef.current;
+    const contentLayer = contentLayerRef.current;
+    const swipeBasePath = swipeBasePathRef.current;
+    if (!ready || exiting || !root || !contentLayer || !swipeBasePath) return;
     setExiting(true);
+
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduceMotion) {
+      gsap.to(root, {
+        autoAlpha: 0,
+        duration: 0.12,
+        onComplete: () => {
+          setVisible(false);
+          onEntered?.();
+        },
+      });
+      return;
+    }
+
+    const curveState = { ...curveSwipeStates.baseCover };
+    const renderCurve = () => setCurveSwipePath(swipeBasePath, curveState);
+    renderCurve();
+    gsap.killTweensOf([root, contentLayer, swipeBasePath, buttonRef.current]);
 
     gsap
       .timeline({
-        defaults: { ease: "power3.out" },
+        defaults: { overwrite: "auto" },
         onComplete: () => {
           setVisible(false);
           onEntered?.();
         },
       })
-      .to(buttonRef.current, { scale: 1.025, duration: 0.14 })
-      .to(buttonRef.current, { scale: 1, duration: 0.16 })
-      .to(rootRef.current, { yPercent: -100, autoAlpha: 0, duration: 0.7, ease: "power4.inOut" }, "<0.04");
+      .to(buttonRef.current, { scale: 0.98, y: 96, autoAlpha: 0, duration: 0.16, ease: "power2.out" })
+      .to(contentLayer, { y: -12, autoAlpha: 0, duration: 0.2, ease: "power2.out" }, "<")
+      .to(
+        curveState,
+        {
+          ...curveSwipeStates.baseExit,
+          duration: 0.98,
+          ease: "back.inOut(0.85)",
+          onUpdate: renderCurve,
+          onComplete: renderCurve,
+        },
+        "<0.04"
+      )
+      .to(root, { autoAlpha: 0, duration: 0.06, ease: "power1.out" }, ">-0.06");
   };
 
   if (!visible) return null;
@@ -425,30 +430,43 @@ export function PortfolioLoader({ route, onEntered }: PortfolioLoaderProps) {
   return (
     <div
       ref={rootRef}
-      className="fixed inset-0 z-[9999] flex items-center justify-center overflow-hidden bg-[#FAFBFF] text-[#1A1C24]"
+      className="fixed inset-0 z-[9999] overflow-hidden bg-transparent text-[#1A1C24]"
       aria-busy={!ready}
       aria-live="polite"
     >
-      <div
-        className="pointer-events-none absolute inset-0 opacity-70"
-        style={{
-          background:
-            "radial-gradient(circle at 50% 42%, rgba(34,88,244,0.10), transparent 30%), linear-gradient(180deg, #FAFBFF 0%, #F4F7FF 100%)",
-        }}
-      />
-      <div
-        className="pointer-events-none absolute inset-0 opacity-45"
-        style={{
-          backgroundImage:
-            "radial-gradient(circle, rgba(34,88,244,0.14) 1px, transparent 1px)",
-          backgroundSize: "18px 18px",
-          maskImage: "radial-gradient(circle at 50% 48%, #1A1C24 0%, transparent 62%)",
-          WebkitMaskImage: "radial-gradient(circle at 50% 48%, #1A1C24 0%, transparent 62%)",
-        }}
-      />
+      <svg
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 z-0 h-full w-full"
+        preserveAspectRatio="none"
+        viewBox="0 0 100 100"
+      >
+        <path ref={swipeBasePathRef} fill="#FAFBFF" d={getCurveSwipePath(curveSwipeStates.baseCover)} />
+      </svg>
 
-      <div className="relative flex min-h-[360px] w-full max-w-[420px] flex-col items-center justify-center px-6">
-        <div className="relative h-[280px] w-full">
+      <div
+        ref={contentLayerRef}
+        className="absolute inset-0 z-10 flex items-center justify-center overflow-hidden"
+      >
+        <div
+          className="pointer-events-none absolute inset-0 opacity-70"
+          style={{
+            background:
+              "radial-gradient(circle at 50% 42%, rgba(34,88,244,0.10), transparent 30%), linear-gradient(180deg, #FAFBFF 0%, #F4F7FF 100%)",
+          }}
+        />
+        <div
+          className="pointer-events-none absolute inset-0 opacity-45"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle, rgba(34,88,244,0.14) 1px, transparent 1px)",
+            backgroundSize: "18px 18px",
+            maskImage: "radial-gradient(circle at 50% 48%, #1A1C24 0%, transparent 62%)",
+            WebkitMaskImage: "radial-gradient(circle at 50% 48%, #1A1C24 0%, transparent 62%)",
+          }}
+        />
+
+        <div className="relative flex min-h-[360px] w-full max-w-[420px] flex-col items-center justify-center px-6">
+          <div className="relative h-[280px] w-full">
           <button
             ref={buttonRef}
             type="button"
@@ -474,7 +492,7 @@ export function PortfolioLoader({ route, onEntered }: PortfolioLoaderProps) {
             </span>
             <span
               ref={contentRef}
-              className="relative z-10 flex h-full w-full items-center justify-between px-4 text-white"
+              className={`relative z-10 flex h-full w-full items-center justify-between px-4 text-white ${ready ? "" : "invisible opacity-0"}`}
             >
               <span
                 ref={labelRef}
@@ -499,6 +517,7 @@ export function PortfolioLoader({ route, onEntered }: PortfolioLoaderProps) {
             className="absolute left-0 right-0 top-[128px] text-center text-[24px] font-semibold leading-none tracking-tight"
           >
             再等一下!
+          </div>
           </div>
         </div>
       </div>

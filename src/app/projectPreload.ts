@@ -227,7 +227,7 @@ function preloadImage(src: string, priority: Priority) {
   const promise = new Promise<void>((resolve) => {
     const img = new Image() as PrioritizedImage;
     img.decoding = "async";
-    img.loading = priority === "high" ? "eager" : "lazy";
+    img.loading = "eager";
     img.fetchPriority = priority;
     img.onload = () => {
       if (priority === "high" && typeof img.decode === "function") {
@@ -280,7 +280,7 @@ async function preloadImageWithByteProgress(
   const href = resolveAssetUrl(src);
   const cached = imagePromises.get(href);
   if (cached) {
-    await cached;
+    await Promise.race([cached, delay(IMAGE_PROGRESS_TIMEOUT_MS)]);
     reportDelta(weight);
     return;
   }
@@ -488,13 +488,12 @@ async function currentRouteWeightedTasks(route: string, priority: Priority) {
   return tasks;
 }
 
-export async function preloadPortfolioEntryAssets(route: string, onProgress: ProgressCallback) {
+async function runWeightedProgressTasks(tasks: WeightedTask[], onProgress: ProgressCallback) {
   if (!isBrowser()) {
     onProgress(1);
     return;
   }
 
-  const tasks = await currentRouteWeightedTasks(route, "high");
   if (tasks.length === 0) {
     onProgress(1);
     return;
@@ -521,6 +520,16 @@ export async function preloadPortfolioEntryAssets(route: string, onProgress: Pro
   );
 
   onProgress(1);
+}
+
+export async function preloadPortfolioEntryAssets(route: string, onProgress: ProgressCallback) {
+  const tasks = await currentRouteWeightedTasks(route, "high");
+  await runWeightedProgressTasks(tasks, onProgress);
+}
+
+export async function preloadRouteAssetsWithProgress(route: string, onProgress: ProgressCallback) {
+  const tasks = await currentRouteWeightedTasks(route, "high");
+  await runWeightedProgressTasks(tasks, onProgress);
 }
 
 export function scheduleProjectRemainderPreload(project: ProjectKey) {
