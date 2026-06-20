@@ -30,11 +30,17 @@ export function PortfolioLoader({ route, onEntered }: PortfolioLoaderProps) {
   const initialRouteRef = useRef(route);
   const [rawProgress, setRawProgress] = useState(0);
   const [visualProgress, setVisualProgress] = useState(0);
+  const [introProgress, setIntroProgress] = useState(0);
+  const [waitProgress, setWaitProgress] = useState(0);
   const [introDone, setIntroDone] = useState(false);
   const [ready, setReady] = useState(false);
   const [visible, setVisible] = useState(true);
   const [exiting, setExiting] = useState(false);
-  const progressLabel = `${Math.round(Math.max(0.08, visualProgress) * 100)}%`;
+  const displayProgress = ready
+    ? 1
+    : Math.min(Math.max(visualProgress, waitProgress), introProgress, 0.995);
+  const progressPercent = ready ? 100 : Math.min(99, Math.floor(Math.max(0.08, displayProgress) * 100));
+  const progressLabel = `${progressPercent}%`;
 
   useEffect(() => {
     let cancelled = false;
@@ -71,6 +77,7 @@ export function PortfolioLoader({ route, onEntered }: PortfolioLoaderProps) {
 
       const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       const markIntroDone = contextSafe(() => setIntroDone(true));
+      const updateIntroProgress = contextSafe((progress: number) => setIntroProgress(progress));
 
       gsap.set(button, {
         autoAlpha: reduceMotion ? 1 : 0,
@@ -97,6 +104,7 @@ export function PortfolioLoader({ route, onEntered }: PortfolioLoaderProps) {
       });
 
       if (reduceMotion) {
+        updateIntroProgress(1);
         markIntroDone();
         return;
       }
@@ -115,6 +123,7 @@ export function PortfolioLoader({ route, onEntered }: PortfolioLoaderProps) {
       const tl = gsap.timeline({
         defaults: { ease: "power3.out" },
         delay: 0.1,
+        onUpdate: () => updateIntroProgress(tl.progress()),
         onComplete: markIntroDone,
       });
 
@@ -206,35 +215,52 @@ export function PortfolioLoader({ route, onEntered }: PortfolioLoaderProps) {
   }, [rawProgress, ready]);
 
   useEffect(() => {
+    if (ready) {
+      setWaitProgress(1);
+      return;
+    }
+
+    const startedAt = window.performance?.now?.() ?? Date.now();
+    const updateProgress = () => {
+      const now = window.performance?.now?.() ?? Date.now();
+      setWaitProgress(Math.min(1, (now - startedAt) / MAX_ENTRY_WAIT_MS));
+    };
+
+    updateProgress();
+    const timer = window.setInterval(updateProgress, 120);
+    return () => window.clearInterval(timer);
+  }, [ready]);
+
+  useEffect(() => {
     if (!introDone || !fillRef.current) return;
 
-    const target = Math.max(0.08, visualProgress);
+    const target = Math.max(0.08, displayProgress);
     const fillTween = gsap.to(fillRef.current, {
       scaleX: target,
-      duration: visualProgress >= 1 ? 0.34 : 0.5,
+      duration: displayProgress >= 1 ? 0.34 : 0.5,
       ease: "power3.out",
     });
 
     return () => {
       fillTween.kill();
     };
-  }, [introDone, visualProgress]);
+  }, [displayProgress, introDone]);
 
   useEffect(() => {
     if (!introDone || !percentTrackRef.current) return;
 
-    const target = Math.max(0.08, visualProgress);
+    const target = Math.max(0.08, displayProgress);
     const percentTween = gsap.to(percentTrackRef.current, {
       width: `${target * 100}%`,
       autoAlpha: ready ? 0 : 1,
-      duration: visualProgress >= 1 ? 0.3 : 0.5,
+      duration: displayProgress >= 1 ? 0.3 : 0.5,
       ease: "power3.out",
     });
 
     return () => {
       percentTween.kill();
     };
-  }, [introDone, visualProgress, ready]);
+  }, [displayProgress, introDone, ready]);
 
   useEffect(() => {
     if (!introDone || !contentRef.current) return;

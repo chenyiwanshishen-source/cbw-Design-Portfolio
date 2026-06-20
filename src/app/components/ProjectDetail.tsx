@@ -1383,7 +1383,7 @@ export function ProjectDetail({ onBack }: Props) {
                         <img
                           src="./images/04/liushihuaban.png"
                           alt="流式生成报告空白面板"
-                          {...DETAIL_IMAGE_LAZY_PROPS}
+                          {...DETAIL_IMAGE_EAGER_PROPS}
                           className="absolute right-0 top-0 z-20 h-full w-[60.7%] object-contain object-top"
                           style={{
                             opacity: streamPanelIn,
@@ -1395,7 +1395,7 @@ export function ProjectDetail({ onBack }: Props) {
                         <img
                           src="./images/optimized/ai-stream-text-1400.jpg"
                           alt="流式生成报告正文"
-                          {...DETAIL_IMAGE_LAZY_PROPS}
+                          {...DETAIL_IMAGE_EAGER_PROPS}
                           className="absolute right-0 top-[5.6%] z-30 h-[88.9%] w-[60.7%] object-contain object-top"
                           style={{
                             opacity: streamTextIn,
