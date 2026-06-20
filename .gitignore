@@ -12,8 +12,7 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
-# Cache headers for public builds live in /public/_headers.
-# Keep local deployment experiments and duplicate image outputs untracked.
-/netlify.toml
+# Cache headers for public builds live in /public/_headers and netlify.toml.
+# Keep duplicate local image outputs untracked.
 /public/images/kongbaihuabu.png
 /public/images/liushihuaban.png
