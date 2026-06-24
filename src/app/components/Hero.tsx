@@ -20,19 +20,39 @@ const marqueeWords = [
 const capabilityCards = [
   {
     label: "业务系统",
-    text: "9 年 B 端产品设计，熟悉复杂业务系统的信息架构与交互落地。",
+    items: ["9 年 B/C 端 UI 产品设计", "复杂业务信息架构", "从方案到交互落地"],
+    tone: {
+      fill: "#EEF2FF",
+      line: "#D6E0FF",
+      dot: "#2258F4",
+    },
   },
   {
     label: "AI 产品",
-    text: "近两年聚焦 AI 产品方向，涉及流式对话、智能报告等新型交互场景。",
+    items: ["近两年聚焦 AI 产品", "智能工作流程应用", "智能报告生成体验设计从需求到实现"],
+    tone: {
+      fill: "#F5F3FF",
+      line: "#DDD6FE",
+      dot: "#6366F1",
+    },
   },
   {
     label: "设计工具",
-    text: "日常工作以 Figma 为核心工具，按需辅以 Blender、Illustrator。",
+    items: ["Figma 作为主设计工具", "Blender 辅助三维表达", "Illustrator 处理图形资产"],
+    tone: {
+      fill: "#FFF7ED",
+      line: "#FED7AA",
+      dot: "#F97316",
+    },
   },
   {
-    label: "长期维护",
-    text: "关注信息结构的合理性与交互逻辑的一致性，重视设计资产的长期可维护性。",
+    label: "长期追求",
+    items: ["信息结构长期可扩展", "交互逻辑保持一致", "设计资产便于维护"],
+    tone: {
+      fill: "#F0FDF4",
+      line: "#BBF7D0",
+      dot: "#22C55E",
+    },
   },
 ];
 
@@ -448,7 +468,13 @@ export function Hero() {
               data-note-drag
               className={`hero-note-shell hero-note-card-${index + 1} relative select-none lg:absolute ${boardCardLayouts[index]}`}
             >
-              <div className="hero-note-card relative p-3.5 sm:p-4 lg:p-[clamp(0.8rem,1.05vw,1rem)]">
+              <div
+                className="hero-note-card relative p-3.5 sm:p-4 lg:p-[clamp(0.8rem,1.05vw,1rem)]"
+                style={{
+                  background: "#FFFFFF",
+                  borderColor: card.tone.line,
+                }}
+              >
                 <span aria-hidden="true" className="hero-note-selection-frame" />
                 <span aria-hidden="true" className="hero-note-selection-handle hero-note-selection-handle-tl" />
                 <span aria-hidden="true" className="hero-note-selection-handle hero-note-selection-handle-tr" />
@@ -458,10 +484,23 @@ export function Hero() {
                   <span>{card.label}</span>
                   <span>{String(index + 1).padStart(2, "0")}</span>
                 </div>
-                <div className="hero-note-entry">
-                  <p className="hero-note-text text-[clamp(0.88rem,0.98vw,0.98rem)] leading-[1.58] text-[#1A1C24]">
-                    {card.text}
-                  </p>
+                <div className="hero-note-entry" style={{ background: card.tone.fill }}>
+                  <ul className="hero-note-text text-[clamp(0.82rem,0.92vw,0.92rem)] leading-[1.42] text-[#1A1C24]">
+                    {card.items.map((item) => (
+                      <li
+                        key={item}
+                        className="grid grid-cols-[6px_minmax(0,1fr)] items-start gap-2 border-b py-1.5 first:pt-0"
+                        style={{ borderColor: card.tone.line }}
+                      >
+                        <span
+                          className="mt-[0.55em] size-1.5 rounded-full"
+                          style={{ background: card.tone.dot }}
+                          aria-hidden="true"
+                        />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </div>
             </article>

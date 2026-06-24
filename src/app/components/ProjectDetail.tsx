@@ -907,7 +907,7 @@ export function ProjectDetail({ onBack }: Props) {
                 <div className="rounded-[28px] border bg-white/92 p-5 shadow-[0_18px_50px_rgba(15,20,25,0.05)]" style={{ borderColor: LINE }}>
                     <div className="flex flex-col justify-between gap-3 md:flex-row md:items-start">
                       <div>
-                        <div className="text-[22px] font-semibold leading-[1.25] text-[#1A1C24]">可控感用户旅程图</div>
+                        <div className="text-[22px] font-semibold leading-[1.25] text-[#1A1C24]">用户生成报告旅程图</div>
                         <p className="mt-2 max-w-[760px] text-[14px] leading-[1.68] text-[#696D7A]">
                           以 5 个报告生成阶段观察控制感变化，将失控点转化为配置、确认和追溯能力。
                         </p>
@@ -1815,7 +1815,7 @@ export function ProjectDetail({ onBack }: Props) {
             <SectionHeader
               index="04B"
               kicker="来源可信度"
-              title="提出报告来源可查的设计方案和改动依据"
+              title="设计数据溯源交互方案"
               subtitle="判断报告生成的风险不只在内容是否完整，也在用户是否知道依据来自哪里。因此将参考来源、企业对象和模型运算结果前置展示，并让正文引用回链到具体来源。"
             />
           </Reveal>
@@ -2044,7 +2044,7 @@ export function ProjectDetail({ onBack }: Props) {
             <SectionHeader
               index="05"
               kicker="提示词标准化梳理"
-              title="章节生成从经验 Prompt 梳理成可执行规则"
+              title="主导章节生成从经验 Prompt 梳理成可执行规则"
               subtitle=""
             />
           </Reveal>

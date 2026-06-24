@@ -14,7 +14,7 @@ export function Skills() {
       icon: Brain,
       title: "业务理解能力强",
       description:
-        "深耕 B/G 端产业数据领域多年,熟悉政府招商、产业分析、企业征信等垂直场景,将复杂业务转化为清晰的产品方案。",
+        "长期参与复杂业务与数据产品设计，熟悉从信息结构、任务流程到页面落地的拆解方法，能把高密度业务转化为清晰可执行的产品方案。",
       span: "sm:col-span-2 lg:col-span-2 lg:row-span-2",
       size: "lg",
       accent: "from-[#2258F4]/20 to-[#E5EBFF]/40",
