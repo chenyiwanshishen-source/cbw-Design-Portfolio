@@ -156,10 +156,10 @@ function AgentWorkflowDiagram() {
       <div className="pb-4 lg:flex lg:items-start lg:justify-between lg:gap-4">
         <div className="max-w-[730px]">
           <div className="text-[24px] font-semibold leading-[1.3] tracking-tight text-[#1D2333]">
-            我把章节生成拆成一条可控执行链路
+            章节生成拆成一条可控执行链路
           </div>
           <p className="mt-2 text-[16px] leading-[1.65]" style={{ color: "#596174" }}>
-            我把用户指令、章节背景、工具调用和输出检查串成一条流程，先定边界，再合流校验。
+            用户指令、章节背景、工具调用和输出检查串成一条流程，先定边界，再合流校验。
           </p>
         </div>
         <div
@@ -827,31 +827,16 @@ export function ProjectDetail({ onBack }: Props) {
                 <article className="w-full rounded-[28px] border bg-white/92 p-5 shadow-[0_18px_50px_rgba(15,20,25,0.05)]" style={{ borderColor: LINE }}>
                   <div className="grid gap-4">
                     <div className="mx-auto grid w-full max-w-[472px] gap-4 sm:grid-cols-[210px_minmax(0,1fr)] sm:items-start">
-                      <div className="text-center">
+                      <div className="relative z-20 text-center">
                         <div className="relative mx-auto h-[222px] w-[210px] overflow-visible">
-                          <div className="absolute left-[66px] top-[40px] h-[172px] w-[126px] -rotate-[6deg] rounded-[10px] border border-[#E6E7EB] bg-[#F1F2F5]" />
-
-                          <div className="absolute left-[27px] top-[17px] h-[186px] w-[148px] rotate-[4deg] overflow-visible rounded-[9px] border border-[#D8DCE6] bg-[#FAFBFF]">
-                            <div className="absolute left-[18px] top-[18px] z-10 h-[114px] w-[114px] bg-[#F7F8FA]" />
-
-                            <div className="absolute left-[-55px] top-[-35px] z-30 h-[198px] w-[213px] overflow-hidden">
-                              <img
-                                src="./images/用户画像/boy.png"
-                                alt="研究员用户画像"
-                                loading="lazy"
-                                decoding="async"
-                                className="h-[280px] w-[280px] max-w-none object-contain"
-                              />
-                            </div>
-                            <div className="absolute left-[146px] top-[8px] z-30 h-[72px] w-[63px] overflow-hidden">
-                              <img
-                                src="./images/用户画像/boy.png"
-                                alt=""
-                                loading="lazy"
-                                decoding="async"
-                                className="absolute left-[-209px] top-[-47px] h-[280px] w-[280px] max-w-none object-contain"
-                              />
-                            </div>
+                          <div className="pointer-events-none absolute left-[-28px] top-[-18px] z-40 h-[238px] w-[280px] overflow-hidden">
+                            <img
+                              src="./images/用户画像/boy.png"
+                              alt="研究员用户画像"
+                              loading="lazy"
+                              decoding="async"
+                              className="h-[280px] w-[280px] max-w-none object-contain"
+                            />
                           </div>
                         </div>
                         <div className="mt-2 text-[22px] font-semibold leading-[1.2] text-[#1A1C24]">研究员</div>
@@ -869,7 +854,7 @@ export function ProjectDetail({ onBack }: Props) {
                         </div>
                       </div>
 
-                      <div className="grid gap-3 pt-1">
+                      <div className="relative z-0 grid gap-3 pt-1">
                         {[
                           ["需求", ["快速复用报告模板与历史材料", "生成前确认企业范围和章节结构", "生成后核查来源并复用结果"]],
                           ["痛点", ["材料分散在表格、文档和历史报告里", "需求变化后固定模板难以复用", "AI 一次性生成正文，过程不透明"]],
@@ -1104,16 +1089,16 @@ export function ProjectDetail({ onBack }: Props) {
                           no: "01",
                           title: "生成前：范围是否正确？",
                           body: "地区、产业、企业名单和统计口径如果没有提前确认，后续内容会整体跑偏。",
-                          bg: "#EEF2FF",
-                          border: "#A8BEFF",
+                          bg: "#FAFBFF",
+                          border: "#E6E7EB",
                           rotate: "-0.7deg",
                         },
                         {
                           no: "02",
                           title: "生成中：过程是否可控？",
                           body: "用户不希望 AI 一次性输出一篇黑箱报告，而是希望能在关键节点介入确认。",
-                          bg: "#E5EBFF",
-                          border: "#A8BEFF",
+                          bg: "#FAFBFF",
+                          border: "#E6E7EB",
                           rotate: "0.6deg",
                         },
                         {
@@ -1126,24 +1111,23 @@ export function ProjectDetail({ onBack }: Props) {
                         },
                         {
                           no: "04",
-                          title: "设计判断",
-                          body: "因此，我将报告生成流程从「直接生成文档」调整为「先配置、再确认、后生成、可追溯」的任务链路。",
-                          bg: "#F5F5F7",
-                          border: "#CBCDD4",
+                          title: "设计转化：改为可追溯任务链路",
+                          body: "形成先配置、再确认、后生成、可追溯的任务链路。",
+                          bg: "#EEF2FF",
+                          border: "#A8BEFF",
                           rotate: "0.7deg",
                         },
                       ].map((item) => (
                         <div
                           key={item.no}
                           data-core-insight-note="true"
-                          className="group relative min-h-[172px] rounded-[24px] border p-4 shadow-[0_16px_36px_rgba(15,20,25,0.055)] transition-transform duration-300 hover:-translate-y-1"
+                          className="relative min-h-[172px] rounded-[24px] border p-4 shadow-[0_16px_36px_rgba(15,20,25,0.055)]"
                           style={{ background: item.bg, borderColor: item.border, transform: `rotate(${item.rotate})` }}
                         >
-                          <div className="mb-8 flex items-start justify-between gap-3">
+                          <div className="mb-8 flex items-start gap-3">
                             <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-white/65 text-[13px] font-semibold leading-none text-[#1A42B8] shadow-[inset_0_0_0_1px_rgba(168,190,255,0.55)]">
                               {item.no}
                             </span>
-                            <ArrowRight className="size-5 -rotate-45 text-[#1A42B8] transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                           </div>
                           <div className="text-[16px] font-semibold leading-[1.35] text-[#1A1C24]">{item.title}</div>
                           <p className="mt-2 text-[14px] font-medium leading-[1.65] text-[#4E525E]">{item.body}</p>
@@ -1822,6 +1806,229 @@ export function ProjectDetail({ onBack }: Props) {
         </div>
       </section>
 
+      {/* ===== 04b. Traceability — source evidence setup ===== */}
+      <section
+        className={`relative pt-20 pb-12 md:pt-24 md:pb-16 xl:pt-28 xl:pb-20 ${SECTION_PAD} overflow-hidden`}
+      >
+        <div className={`relative ${READ}`}>
+          <Reveal className="max-w-[980px]">
+            <SectionHeader
+              index="04B"
+              kicker="来源可信度"
+              title="提出报告来源可查的设计方案和改动依据"
+              subtitle="判断报告生成的风险不只在内容是否完整，也在用户是否知道依据来自哪里。因此将参考来源、企业对象和模型运算结果前置展示，并让正文引用回链到具体来源。"
+            />
+          </Reveal>
+          <Reveal className="max-w-[1400px]" delay={0.12} y={24}>
+            <div className="relative grid gap-6 lg:grid-cols-[minmax(0,320px)_minmax(0,696px)] xl:grid-cols-[320px_696px_320px] xl:items-start xl:gap-8">
+              <div className="order-2 flex w-full max-w-[320px] flex-col gap-3 lg:order-1 lg:mt-[40px]">
+                {[
+                  {
+                    src: "./images/首页/数据溯源/多互联网数据.png",
+                    alt: "互联网数据来源卡片",
+                  },
+                  {
+                    src: "./images/首页/数据溯源/启信产业大脑数据.png",
+                    alt: "启信产业大脑数据来源卡片",
+                  },
+                  {
+                    src: "./images/首页/数据溯源/模型运算.png",
+                    alt: "模型运算来源卡片",
+                  },
+                ].map((sourceImage) => (
+                  <img
+                    key={sourceImage.src}
+                    src={sourceImage.src}
+                    alt={sourceImage.alt}
+                    {...DETAIL_IMAGE_EAGER_PROPS}
+                    className="block h-auto w-full object-contain"
+                  />
+                ))}
+              </div>
+
+              <div
+                className="relative order-1 inline-block max-w-full overflow-hidden rounded-[28px] border bg-white p-3 align-top lg:order-2"
+                style={{ borderColor: LINE }}
+              >
+                <img
+                  src="./images/首页/数据溯源/生成内容.png"
+                  alt="带来源引用的报告生成内容"
+                  {...DETAIL_IMAGE_EAGER_PROPS}
+                  className="block h-auto w-[672px] max-w-full object-contain"
+                />
+                <span
+                  className="absolute z-20 hidden size-3 rounded-full border-2 border-white lg:block"
+                  style={{
+                    left: "88.5%",
+                    top: "31.4%",
+                    background: BLUE,
+                    boxShadow: "0 0 0 4px rgba(34,88,244,0.16)",
+                  }}
+                />
+              </div>
+
+              <div
+                className="pointer-events-none absolute hidden lg:block"
+                style={{
+                  left: 320,
+                  top: 277,
+                  width: 132,
+                  borderTop: `2px dashed ${BLUE}`,
+                  zIndex: 30,
+                }}
+              />
+              <span
+                className="pointer-events-none absolute z-20 hidden size-2 rounded-full lg:block"
+                style={{
+                  left: 316,
+                  top: 274,
+                  background: BLUE,
+                  zIndex: 31,
+                }}
+              />
+              <span
+                className="pointer-events-none absolute z-20 hidden size-2 rounded-full lg:block"
+                style={{
+                  left: 448,
+                  top: 274,
+                  background: BLUE,
+                  zIndex: 31,
+                }}
+              />
+              <div
+                className="pointer-events-none absolute hidden lg:block"
+                style={{
+                  left: 320,
+                  top: 715,
+                  width: 491,
+                  borderTop: `2px dashed ${BLUE}`,
+                  zIndex: 30,
+                }}
+              />
+              <span
+                className="pointer-events-none absolute z-20 hidden size-2 rounded-full lg:block"
+                style={{
+                  left: 316,
+                  top: 712,
+                  background: BLUE,
+                  zIndex: 31,
+                }}
+              />
+              <span
+                className="pointer-events-none absolute z-20 hidden size-2 rounded-full lg:block"
+                style={{
+                  left: 807,
+                  top: 712,
+                  background: BLUE,
+                  zIndex: 31,
+                }}
+              />
+              <div
+                className="pointer-events-none absolute hidden xl:block"
+                style={{
+                  left: 968,
+                  top: 277,
+                  width: 112,
+                  borderTop: `2px dashed ${BLUE}`,
+                  zIndex: 30,
+                }}
+              />
+              <span
+                className="pointer-events-none absolute z-20 hidden size-2 rounded-full xl:block"
+                style={{
+                  left: 1076,
+                  top: 274,
+                  background: BLUE,
+                  zIndex: 31,
+                }}
+              />
+              <div
+                className="pointer-events-none absolute hidden xl:block"
+                style={{
+                  left: 1023,
+                  top: 811,
+                  width: 57,
+                  borderTop: `2px dashed ${BLUE}`,
+                  zIndex: 30,
+                }}
+              />
+              <span
+                className="pointer-events-none absolute z-20 hidden size-2 rounded-full xl:block"
+                style={{
+                  left: 1019,
+                  top: 808,
+                  background: BLUE,
+                  zIndex: 31,
+                }}
+              />
+              <span
+                className="pointer-events-none absolute z-20 hidden size-2 rounded-full xl:block"
+                style={{
+                  left: 1076,
+                  top: 808,
+                  background: BLUE,
+                  zIndex: 31,
+                }}
+              />
+
+              <div className="order-3 flex w-full max-w-[320px] flex-col gap-3 xl:relative xl:min-h-[864px]">
+                <div
+                  className="rounded-[24px] border bg-white p-5 xl:absolute xl:left-0 xl:top-[104px]"
+                  style={{ borderColor: LINE }}
+                >
+                  <div className="flex items-center gap-2">
+                    <span className="size-2 rounded-full" style={{ background: BLUE }} />
+                    <div className="text-[15px] font-semibold leading-tight" style={{ color: INK }}>
+                      依据：系统状态可见
+                    </div>
+                  </div>
+                  <p className="mt-3 text-[14px] leading-[1.7]" style={{ color: INK_DIM }}>
+                    AI 生成不能只给结果，也要让用户知道这句话从哪里来。因此将正文引用编号与来源卡片绑定，hover 时即可回查依据。
+                  </p>
+                  <div className="mt-4 space-y-2">
+                    {["正文保留引用编号", "来源卡片可回查", "减少黑箱误信"].map((item) => (
+                      <div key={item} className="flex items-center gap-2 text-[13px]" style={{ color: INK_MUTED }}>
+                        <span className="size-1.5 rounded-full" style={{ background: ICON_BORDER }} />
+                        {item}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div
+                  className="rounded-[24px] border bg-white p-5 xl:absolute xl:left-0 xl:top-[606px]"
+                  style={{ borderColor: LINE }}
+                >
+                  <div className="flex items-center gap-2">
+                    <span className="size-2 rounded-full" style={{ background: BLUE }} />
+                    <div className="text-[15px] font-semibold leading-tight" style={{ color: INK }}>
+                      依据：识别优先于记忆
+                    </div>
+                  </div>
+                  <p className="mt-3 text-[14px] leading-[1.7]" style={{ color: INK_DIM }}>
+                    报告会混用多类依据，不能让用户记规则。用颜色和短标签区分来源类型，让用户看正文时直接识别依据性质。
+                  </p>
+                  <div className="mt-4 space-y-2">
+                    {[
+                      { label: "启信数据", value: "企业库事实依据", color: BLUE },
+                      { label: "知识库", value: "知识库材料补充", color: "#1F7A3A" },
+                      { label: "互联网数据", value: "公开信息校验", color: "#6D35C7" },
+                      { label: "模型运算", value: "推理与计算结果", color: "#B47A12" },
+                    ].map((item) => (
+                      <div key={item.label} className="flex items-center gap-2 text-[13px] leading-tight" style={{ color: INK_MUTED }}>
+                        <span className="size-1.5 shrink-0 rounded-full" style={{ background: item.color }} />
+                        <span className="font-medium" style={{ color: INK }}>{item.label}</span>
+                        <span>{item.value}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
       {/* ===== 05. Prompt standardization — chapter-level protocol ===== */}
       <section
         id="s05"
@@ -1837,14 +2044,14 @@ export function ProjectDetail({ onBack }: Props) {
             <SectionHeader
               index="05"
               kicker="提示词标准化梳理"
-              title="我把章节生成从经验 Prompt 梳理成可执行规则"
+              title="章节生成从经验 Prompt 梳理成可执行规则"
               subtitle=""
             />
           </Reveal>
 
           <Reveal className="mb-6 max-w-none md:whitespace-nowrap" delay={0.08}>
             <p style={bodyText}>
-              我把依赖经验的章节 Prompt，梳理成上下文注入、工具合流、质量门禁和异常兜底规则，让章节生成从个人写法变成统一流程。
+              将依赖经验的章节 Prompt，梳理成上下文注入、工具合流、质量门禁和异常兜底规则，让章节生成从个人写法变成统一流程。
             </p>
           </Reveal>
 
@@ -2087,7 +2294,7 @@ export function ProjectDetail({ onBack }: Props) {
               <div className="mb-6 flex flex-col justify-between gap-4 lg:flex-row lg:items-start">
                 <div className="max-w-none">
                   <div className="text-[24px] font-semibold leading-tight text-[#1A1C24]">
-                    我沉淀的章节生成规则
+                    沉淀的章节生成规则
                   </div>
                   <div className="mt-2 text-[16px] leading-[1.7]" style={{ color: "#4E525E" }}>
                     将节点编排、工具合流、状态门禁和模块化提示词沉淀成可复用规则。

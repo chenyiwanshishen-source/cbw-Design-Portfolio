@@ -49,6 +49,10 @@ const AI_FLOW_IMAGES = [
   "./images/optimized/ai-group01-1600.jpg",
   "./images/optimized/ai-marry01-1600.jpg",
   "./images/设计方案/marry02.png",
+  "./images/首页/数据溯源/多互联网数据.png",
+  "./images/首页/数据溯源/启信产业大脑数据.png",
+  "./images/首页/数据溯源/模型运算.png",
+  "./images/首页/数据溯源/生成内容.png",
   "./images/章节提示词/line-01.svg",
 ];
 
@@ -182,6 +186,12 @@ const AI_REMAINDER_IMAGE_STAGES = [
     "./images/optimized/ai-group01-1600.jpg",
     "./images/optimized/ai-marry01-1600.jpg",
     "./images/设计方案/marry02.png",
+  ],
+  [
+    "./images/首页/数据溯源/生成内容.png",
+    "./images/首页/数据溯源/多互联网数据.png",
+    "./images/首页/数据溯源/启信产业大脑数据.png",
+    "./images/首页/数据溯源/模型运算.png",
   ],
 ];
 
