@@ -151,15 +151,15 @@ function BlueAccentBlob({ side = "right" }: { side?: "right" | "left" }) {
 function AgentWorkflowDiagram() {
   return (
     <div
-      className="relative overflow-hidden rounded-[28px] border bg-white p-2.5"
+      className="relative overflow-hidden rounded-[28px] border bg-white p-4 md:p-5"
     >
-      <div className="px-3 pb-5 pt-4 sm:px-4 md:px-5 md:pt-5 lg:flex lg:items-start lg:justify-between lg:gap-4">
+      <div className="pb-4 lg:flex lg:items-start lg:justify-between lg:gap-4">
         <div className="max-w-[730px]">
           <div className="text-[24px] font-semibold leading-[1.3] tracking-tight text-[#1D2333]">
-            Agent 报告生成工作流
+            我把章节生成拆成一条可控执行链路
           </div>
           <p className="mt-2 text-[16px] leading-[1.65]" style={{ color: "#596174" }}>
-            章节提示词编排嵌在多节点 Agent 工作流里，作为稳定执行规则，而不是孤立写 prompt。
+            我把用户指令、章节背景、工具调用和输出检查串成一条流程，先定边界，再合流校验。
           </p>
         </div>
         <div
@@ -171,7 +171,7 @@ function AgentWorkflowDiagram() {
         </div>
       </div>
 
-      <div className="relative overflow-hidden rounded-2xl bg-[#FAFBFF] py-8">
+      <div className="relative overflow-hidden rounded-2xl bg-[#FAFBFF] py-6">
         <div
           className="pointer-events-none absolute inset-0 opacity-55"
           style={{
@@ -328,7 +328,11 @@ export function ProjectDetail({ onBack }: Props) {
       stage: "任务定义",
       control: "可控感中等",
       x: 10,
-      y: 42,
+      y: 28,
+      emotions: [
+        { src: "./images/用户画像/表情/01.svg", offsetX: -22, offsetY: 0, zIndex: 1 },
+        { src: "./images/用户画像/表情/02.svg", offsetX: 24, offsetY: 0, zIndex: 2 },
+      ],
       calloutTop: 60,
       calloutPosition: "below",
       pain: "任务已定义，但需求变化仍需收敛。",
@@ -336,9 +340,10 @@ export function ProjectDetail({ onBack }: Props) {
     },
     {
       stage: "材料整理",
-      control: "可控感下降",
+      control: "可控感低",
       x: 30,
-      y: 74,
+      y: 60,
+      emotions: [{ src: "./images/用户画像/表情/02.svg", offsetX: 0, offsetY: 0, zIndex: 2 }],
       calloutTop: 31,
       calloutPosition: "above",
       pain: "材料分散，输入口径难统一。",
@@ -346,9 +351,10 @@ export function ProjectDetail({ onBack }: Props) {
     },
     {
       stage: "生成前确认",
-      control: "可控感上升",
+      control: "可控感高",
       x: 50,
-      y: 31,
+      y: 60,
+      emotions: [{ src: "./images/用户画像/表情/02.svg", offsetX: 0, offsetY: 0, zIndex: 2 }],
       calloutTop: 5,
       calloutPosition: "above",
       pain: "范围与大纲已确认，生成方向更稳定。",
@@ -356,9 +362,10 @@ export function ProjectDetail({ onBack }: Props) {
     },
     {
       stage: "内容生成",
-      control: "再次下降",
+      control: "可控感中低",
       x: 70,
-      y: 78,
+      y: 76,
+      emotions: [{ src: "./images/用户画像/表情/03.svg", offsetX: 0, offsetY: 0, zIndex: 2 }],
       calloutTop: 42,
       calloutPosition: "above",
       pain: "正文生成仍是黑箱，过程可见度最低。",
@@ -366,9 +373,13 @@ export function ProjectDetail({ onBack }: Props) {
     },
     {
       stage: "核查交付",
-      control: "先降后升",
+      control: "最低后回升",
       x: 90,
-      y: 48,
+      y: 50,
+      emotions: [
+        { src: "./images/用户画像/表情/03.svg", offsetX: -22, offsetY: 0, zIndex: 1 },
+        { src: "./images/用户画像/表情/02.svg", offsetX: 24, offsetY: 0, zIndex: 2 },
+      ],
       calloutTop: 61,
       calloutPosition: "below",
       pain: "来源可核查后，交付信心回升。",
@@ -376,8 +387,39 @@ export function ProjectDetail({ onBack }: Props) {
     },
   ];
 
-  const journeyPath = "M 10 42 C 17 45 23 72 30 74 C 37 76 43 35 50 31 C 57 27 63 75 70 78 C 77 81 84 51 90 48";
-  const journeyCalloutHeight = 24.8;
+  const journeyPath = "M 10 28 C 17 32 23 58 30 60 C 37 62 43 60 50 60 C 57 60 63 74 70 76 C 77 76 84 52 90 50";
+  const journeyNodeColumns = [
+    {
+      stage: "任务定义",
+      action: "定义报告口径",
+      risk: "目标初定，口径待收敛",
+      control: "前置口径配置",
+    },
+    {
+      stage: "材料整理",
+      action: "汇总输入材料",
+      risk: "输入混乱，控制感下降",
+      control: "结构化输入",
+    },
+    {
+      stage: "生成前确认",
+      action: "确认范围与大纲",
+      risk: "范围确认，预期变清晰",
+      control: "先确认再生成",
+    },
+    {
+      stage: "内容生成",
+      action: "分步查看正文",
+      risk: "过程不透明，担心跑偏",
+      control: "过程可干预",
+    },
+    {
+      stage: "核查交付",
+      action: "核查来源并复用",
+      risk: "来源可查，信心回升",
+      control: "来源追溯与沉淀",
+    },
+  ];
 
   useEffect(() => {
     const timer = window.setInterval(() => {
@@ -795,7 +837,7 @@ export function ProjectDetail({ onBack }: Props) {
                             <div className="absolute left-[-55px] top-[-35px] z-30 h-[198px] w-[213px] overflow-hidden">
                               <img
                                 src="./images/用户画像/boy.png"
-                                alt="产业研究员用户画像"
+                                alt="研究员用户画像"
                                 loading="lazy"
                                 decoding="async"
                                 className="h-[280px] w-[280px] max-w-none object-contain"
@@ -812,7 +854,7 @@ export function ProjectDetail({ onBack }: Props) {
                             </div>
                           </div>
                         </div>
-                        <div className="mt-2 text-[22px] font-semibold leading-[1.2] text-[#1A1C24]">产业研究员</div>
+                        <div className="mt-2 text-[22px] font-semibold leading-[1.2] text-[#1A1C24]">研究员</div>
                         <div className="mt-1 text-[13px] font-medium leading-[1.5] text-[#696D7A]">报告生产负责人</div>
                         <div className="mx-auto mt-3 flex max-w-[210px] flex-wrap justify-center gap-2">
                           {["模板复用", "范围确认", "来源核查"].map((tag) => (
@@ -881,31 +923,58 @@ export function ProjectDetail({ onBack }: Props) {
                     <div className="flex flex-col justify-between gap-3 md:flex-row md:items-start">
                       <div>
                         <div className="text-[22px] font-semibold leading-[1.25] text-[#1A1C24]">可控感用户旅程图</div>
-                        <p className="mt-2 max-w-none whitespace-nowrap text-[14px] leading-[1.68] text-[#696D7A]">
-                          曲线越高代表可控感越强；配置和确认让曲线上升，材料分散、黑箱生成让曲线下探，卡片说明每次变化的原因。
+                        <p className="mt-2 max-w-[760px] text-[14px] leading-[1.68] text-[#696D7A]">
+                          以 5 个报告生成阶段观察控制感变化，将失控点转化为配置、确认和追溯能力。
                         </p>
                       </div>
                     </div>
 
                     <div className="mt-5 overflow-x-auto pb-1">
                       <div className="min-w-[720px]">
-                        <div className="grid grid-cols-5 gap-2">
-                          {journeyStages.map((item) => (
-                            <div key={item.stage} className="rounded-full border bg-white px-3 py-1.5 text-center" style={{ borderColor: LINE }}>
-                              <div className="text-[14px] font-semibold leading-[1.35] text-[#1A1C24]">{item.stage}</div>
-                              <div className="mt-0.5 text-[13px] font-semibold leading-[1.3] text-[#1A42B8]">{item.control}</div>
-                            </div>
-                          ))}
+                        <div
+                          data-journey-node-map="true"
+                          className="relative w-full pb-4 pt-1"
+                        >
+                          <div className="relative grid grid-cols-5 gap-2">
+                            {journeyNodeColumns.map((column) => (
+                              <div key={column.stage} className="min-w-0">
+                                <div className="rounded-full px-2 py-2 text-center text-[14px] font-semibold leading-none text-white shadow-[inset_0_-1px_0_rgba(26,66,184,0.22)]" style={{ background: BLUE }}>
+                                  {column.stage}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+
+                          <div className="relative mt-3 grid grid-cols-5 gap-2">
+                            {journeyNodeColumns.map((column) => (
+                              <div key={`${column.stage}-nodes`} className="relative flex min-w-0 flex-col items-center gap-2.5">
+                                <svg
+                                  className="pointer-events-none absolute left-1/2 top-0 h-full w-8 -translate-x-1/2 overflow-visible"
+                                  viewBox="0 0 32 152"
+                                  preserveAspectRatio="none"
+                                  fill="none"
+                                  aria-hidden="true"
+                                >
+                                  <path
+                                    d="M16 8 V144"
+                                    stroke="#CBCDD4"
+                                    strokeWidth="1"
+                                    strokeDasharray="4 6"
+                                    strokeLinecap="round"
+                                    opacity="0.64"
+                                    vectorEffect="non-scaling-stroke"
+                                  />
+                                </svg>
+
+                                <div className="relative z-10 flex h-9 w-full items-center justify-center rounded-full border bg-white px-2 text-center text-[14px] font-semibold leading-[1.15] text-[#4E525E] shadow-[0_6px_16px_rgba(15,20,25,0.035)]" style={{ borderColor: LINE }}>
+                                  {column.action}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
                         </div>
 
-                        <div data-journey-chart="true" className="relative mt-4 h-[297px] overflow-hidden rounded-[18px] border bg-[#FAFBFF]" style={{ borderColor: "#E5EBFF" }}>
-                          <div
-                            className="pointer-events-none absolute inset-0 opacity-80"
-                            style={{
-                              background:
-                                "linear-gradient(180deg, rgba(238,242,255,0.62) 0%, rgba(250,251,255,0.2) 46%, rgba(238,242,255,0.48) 100%)",
-                            }}
-                          />
+                        <div data-journey-chart="true" className="relative mt-4 h-[288px] overflow-visible bg-transparent">
                           <div className="absolute inset-0 grid grid-cols-5">
                             {journeyStages.map((item, index) => (
                               <div
@@ -917,34 +986,27 @@ export function ProjectDetail({ onBack }: Props) {
                           </div>
 
                           <svg
-                            className="pointer-events-none absolute inset-x-4 top-0 h-full w-[calc(100%-32px)] overflow-visible"
+                            className="pointer-events-none absolute inset-0 h-full w-full overflow-visible"
                             viewBox="0 0 100 100"
                             preserveAspectRatio="none"
                             fill="none"
                             aria-hidden="true"
                           >
-                            {journeyStages.map((item) => {
-                              const isAbove = item.calloutPosition === "above";
-                              const cardEdgeY = isAbove ? item.calloutTop + journeyCalloutHeight : item.calloutTop;
-                              const y1 = isAbove ? cardEdgeY + 2 : item.y + 2.6;
-                              const y2 = isAbove ? item.y - 2.6 : cardEdgeY - 2;
-
-                              return (
-                                <line
-                                  key={`${item.stage}-connector`}
-                                  x1={item.x}
-                                  x2={item.x}
-                                  y1={y1}
-                                  y2={y2}
-                                  stroke="#A8BEFF"
-                                  strokeWidth="1"
-                                  strokeDasharray="2 4"
-                                  strokeLinecap="round"
-                                  opacity="0.72"
-                                  vectorEffect="non-scaling-stroke"
-                                />
-                              );
-                            })}
+                            {journeyStages.map((item) => (
+                              <line
+                                key={`${item.stage}-risk-connector`}
+                                x1={item.x}
+                                x2={item.x}
+                                y1={item.y - 7}
+                                y2={item.y - 2.8}
+                                stroke="#A8BEFF"
+                                strokeWidth="1"
+                                strokeDasharray="3 5"
+                                strokeLinecap="round"
+                                opacity="0.72"
+                                vectorEffect="non-scaling-stroke"
+                              />
+                            ))}
                             <path
                               d={journeyPath}
                               stroke="#D8DCE6"
@@ -964,7 +1026,30 @@ export function ProjectDetail({ onBack }: Props) {
                             />
                           </svg>
 
-                          <div className="pointer-events-none absolute inset-x-4 top-0 h-full">
+                          <div className="pointer-events-none absolute inset-0 h-full">
+                            {journeyStages.flatMap((item) =>
+                              item.emotions?.map((emotion, emotionIndex) => (
+                                <img
+                                  key={`${item.stage}-emotion-${emotion.src}`}
+                                  data-journey-emotion="true"
+                                  data-journey-emotion-index={emotionIndex}
+                                  src={emotion.src}
+                                  alt=""
+                                  aria-hidden="true"
+                                  loading="lazy"
+                                  decoding="async"
+                                  className="absolute h-10 w-10 -translate-x-1/2 object-contain drop-shadow-[0_8px_14px_rgba(34,88,244,0.16)]"
+                                  style={{
+                                    left: `calc(${item.x}% + ${emotion.offsetX}px)`,
+                                    top: `calc(${item.y}% + ${16 + emotion.offsetY}px)`,
+                                    zIndex: emotion.zIndex,
+                                  }}
+                                />
+                              )) ?? [],
+                            )}
+                          </div>
+
+                          <div className="pointer-events-none absolute inset-0 h-full">
                             {journeyStages.map((item) => (
                               <span
                                 key={`${item.stage}-dot`}
@@ -975,28 +1060,39 @@ export function ProjectDetail({ onBack }: Props) {
                             ))}
                           </div>
 
-                          {journeyStages.map((item) => (
-                            <div
-                              key={`${item.stage}-callout`}
-                              data-journey-callout="true"
-                              className="absolute flex h-[68px] w-[132px] -translate-x-1/2 items-center justify-center rounded-[10px] border border-[#A8BEFF] bg-[#EEF2FF] px-3 text-center text-[13px] font-semibold leading-[1.35] text-[#1A42B8] shadow-[0_10px_24px_rgba(34,88,244,0.10)]"
-                              style={{ left: `${item.x}%`, top: `${item.calloutTop}%` }}
-                            >
-                              {item.pain}
-                            </div>
-                          ))}
+                          <div className="pointer-events-none absolute inset-0">
+                            {journeyStages.map((item, index) => (
+                              <div
+                                key={`${item.stage}-risk`}
+                                data-journey-risk="true"
+                                className="absolute z-10 flex h-9 -translate-x-1/2 items-center justify-center rounded-full border border-dashed bg-[#FAFBFF] px-2 text-center text-[12px] font-semibold leading-none text-[#696D7A]"
+                                style={{
+                                  borderColor: "#CBCDD4",
+                                  left: `${item.x}%`,
+                                  top: `calc(${item.y}% - 60px)`,
+                                  width: "calc((100% - 32px) / 5)",
+                                }}
+                              >
+                                {journeyNodeColumns[index].risk}
+                              </div>
+                            ))}
+                          </div>
+
                         </div>
 
-                        <div data-journey-solution="true" className="mt-3">
-                          <div className="grid grid-cols-5 gap-2">
-                          {journeyStages.map((item) => (
-                            <div key={`${item.stage}-solution`} className="rounded-[10px] bg-[#EEF2FF] px-3 py-2 text-[14px] font-medium leading-[1.45] text-[#1A42B8]">
-                              {item.solution}
-                            </div>
-                          ))}
-                          </div>
-                        </div>
                       </div>
+                    </div>
+                    <div className="mt-3 grid grid-cols-5 gap-2">
+                      {journeyNodeColumns.map((column) => (
+                        <div
+                          key={`${column.stage}-control`}
+                          data-journey-control="true"
+                          className="relative z-10 flex min-h-10 w-full items-center justify-center rounded-full border px-2 text-center text-[14px] font-semibold leading-[1.25] text-[#1A42B8] shadow-[0_8px_20px_rgba(34,88,244,0.10)]"
+                          style={{ borderColor: "#A8BEFF", background: "#EEF2FF" }}
+                        >
+                          {column.control}
+                        </div>
+                      ))}
                     </div>
                 </div>
               </div>
@@ -1740,15 +1836,15 @@ export function ProjectDetail({ onBack }: Props) {
           <Reveal>
             <SectionHeader
               index="05"
-              kicker="章节提示词编排规则"
-              title="章节提示词编排规则"
+              kicker="提示词标准化梳理"
+              title="我把章节生成从经验 Prompt 梳理成可执行规则"
               subtitle=""
             />
           </Reveal>
 
-          <Reveal className="mb-12 max-w-[860px]" delay={0.08}>
+          <Reveal className="mb-6 max-w-none md:whitespace-nowrap" delay={0.08}>
             <p style={bodyText}>
-              将用户指令、章节背景和执行限制统一注入章节智能体，让每个章节都能按稳定流程完成检索、合流、校验和输出。
+              我把依赖经验的章节 Prompt，梳理成上下文注入、工具合流、质量门禁和异常兜底规则，让章节生成从个人写法变成统一流程。
             </p>
           </Reveal>
 
@@ -1759,24 +1855,24 @@ export function ProjectDetail({ onBack }: Props) {
           <Reveal className="mb-6 grid gap-4 md:grid-cols-3" delay={0.2} y={20}>
             {[
               {
-                title: "上下文漂移",
-                desc: "章节生成容易脱离父节点、章节位置和报告大纲。因此需要在每次生成前注入章节背景和当前任务范围。",
+                title: "上下文容易漂移",
+                desc: "我发现章节生成容易脱离父节点、章节位置和报告大纲，因此将章节背景、父级约束和当前任务范围作为固定输入。",
                 visual: "context",
               },
               {
-                title: "维护成本高",
-                desc: "如果提示词依赖个人经验，换人后效果很难复现。因此需要把写法拆成统一模块，让规则可以复用和维护。",
+                title: "写法难以复用",
+                desc: "我发现提示词写法依赖个人经验，因此将目标、输入、工具、规则和兜底拆成固定模块。",
                 visual: "maintenance",
               },
               {
-                title: "质量不可控",
-                desc: "来源、时间、字段和格式如果没有约束，结果容易不稳定。因此需要设置输出门禁，未通过检查不进入最终结果。",
+                title: "结果缺少门禁",
+                desc: "我发现来源、时间和格式缺少约束，因此设置输出门禁，未通过校验不进入最终结果。",
                 visual: "quality",
               },
             ].map((item, i) => (
               <div
                 key={item.title}
-                className="overflow-hidden rounded-[28px] border bg-white p-2.5"
+                className="overflow-hidden rounded-[28px] border bg-white p-4"
               >
                 <div
                   className="relative flex h-52 items-center justify-center overflow-hidden rounded-xl"
@@ -1958,7 +2054,7 @@ export function ProjectDetail({ onBack }: Props) {
                     </div>
                   )}
                 </div>
-                <div className="px-1.5 pb-1 pt-4">
+                <div className="pt-4">
                   <div className="mb-3 flex items-center gap-2">
                     <span
                       className="flex size-6 items-center justify-center rounded-md text-[12px] font-semibold"
@@ -1980,7 +2076,7 @@ export function ProjectDetail({ onBack }: Props) {
           </Reveal>
 
           <Reveal
-            className="relative overflow-hidden rounded-[28px] border bg-white p-5 md:p-8"
+            className="relative overflow-hidden rounded-[28px] border bg-white p-4 md:p-5"
             delay={0.16}
             y={24}
             style={{
@@ -1988,21 +2084,15 @@ export function ProjectDetail({ onBack }: Props) {
             }}
           >
             <div className="relative">
-              <div className="mb-8 flex flex-col justify-between gap-4 lg:flex-row lg:items-start">
-                <div className="max-w-[760px]">
+              <div className="mb-6 flex flex-col justify-between gap-4 lg:flex-row lg:items-start">
+                <div className="max-w-none">
                   <div className="text-[24px] font-semibold leading-tight text-[#1A1C24]">
-                    章节生成规则设计
+                    我沉淀的章节生成规则
                   </div>
                   <div className="mt-2 text-[16px] leading-[1.7]" style={{ color: "#4E525E" }}>
-                    把提示词从经验写法，拆成可复用、可校验、可维护的执行规则。
+                    将节点编排、工具合流、状态门禁和模块化提示词沉淀成可复用规则。
                   </div>
                 </div>
-                <span
-                  className="w-fit rounded-full border px-3 py-1.5 text-[12px] font-medium"
-                  style={{ borderColor: ICON_BORDER, background: ICON_BG, color: ICON_BLUE }}
-                >
-                  基于章节生成场景
-                </span>
               </div>
 
               <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_360px]">
