@@ -20,7 +20,7 @@ const marqueeWords = [
 const capabilityCards = [
   {
     label: "业务系统",
-    items: ["9 年 B/C 端 UI 产品设计", "复杂业务信息架构", "从方案到交互落地"],
+    items: ["9 年 B/C 端 UI 产品设计", "其中 1 年 AI 产品设计实践", "复杂业务信息架构", "从方案到交互落地"],
     tone: {
       fill: "#EEF2FF",
       line: "#D6E0FF",
@@ -29,7 +29,13 @@ const capabilityCards = [
   },
   {
     label: "AI 产品",
-    items: ["近两年聚焦 AI 产品", "智能工作流程应用", "智能报告生成体验设计从需求到实现"],
+    items: [
+      "AI 产品 0-1 探索",
+      "AI 工具融入设计流程与原型搭建",
+      "Prompt / Workflow 设计与验证",
+      "多模态输入、生成、编辑和反馈",
+      "异常状态与效率提升设计",
+    ],
     tone: {
       fill: "#F5F3FF",
       line: "#DDD6FE",
@@ -38,7 +44,12 @@ const capabilityCards = [
   },
   {
     label: "设计工具",
-    items: ["Figma 作为主设计工具", "Blender 辅助三维表达", "Illustrator 处理图形资产"],
+    items: [
+      "Figma 作为主设计工具",
+      "AI 辅助资料整理和方案推敲",
+      "Blender 辅助三维表达",
+      "Illustrator 处理图形资产",
+    ],
     tone: {
       fill: "#FFF7ED",
       line: "#FED7AA",
@@ -46,8 +57,8 @@ const capabilityCards = [
     },
   },
   {
-    label: "长期追求",
-    items: ["信息结构长期可扩展", "交互逻辑保持一致", "设计资产便于维护"],
+    label: "设计方式",
+    items: ["先讲清问题，再做方案", "关键步骤保留确认空间", "把常用做法沉淀成组件库和 AI 工作流"],
     tone: {
       fill: "#F0FDF4",
       line: "#BBF7D0",
@@ -58,7 +69,7 @@ const capabilityCards = [
 
 const boardCardLayouts = [
   "lg:left-[7%] lg:top-[7%] lg:w-[21rem] xl:w-[23rem] 2xl:w-[25rem] lg:rotate-[-0.8deg]",
-  "lg:right-[8%] lg:top-[10%] lg:w-[21rem] xl:w-[23.5rem] 2xl:w-[25.5rem] lg:rotate-[0.7deg]",
+  "lg:right-[8%] lg:top-[10%] lg:w-[22.5rem] xl:w-[25rem] 2xl:w-[27rem] lg:rotate-[0.7deg]",
   "lg:left-[5%] lg:bottom-[20%] lg:w-[21rem] xl:w-[23rem] 2xl:w-[25rem] lg:rotate-[0.6deg]",
   "lg:right-[9%] lg:bottom-[14%] lg:w-[21rem] xl:w-[23.5rem] 2xl:w-[25.5rem] lg:rotate-[-0.6deg]",
 ];
@@ -377,7 +388,7 @@ export function Hero() {
                 <span aria-hidden="true" className="hero-drag-handle hero-drag-handle-bl" />
                 <span aria-hidden="true" className="hero-drag-handle hero-drag-handle-br" />
                 <span className="block leading-[1.02] text-[clamp(2.5rem,10vw,5.8rem)] text-[#2258F4] lg:text-[clamp(3.7rem,4.8vw,5.8rem)]">
-                  UI产品设计师
+                  AI产品设计师
                 </span>
               </span>
             </h1>

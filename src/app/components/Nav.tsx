@@ -130,7 +130,7 @@ export function Nav() {
           </span>
           <span className="min-w-0 text-sm tracking-wide text-[#4E525E] transition-colors group-hover:text-[#1A1C24]">
             <span className="sm:hidden">陈俊学</span>
-            <span className="hidden sm:inline">陈俊学 · UI产品设计师</span>
+            <span className="hidden sm:inline">陈俊学 · AI产品设计师</span>
           </span>
         </a>
 
