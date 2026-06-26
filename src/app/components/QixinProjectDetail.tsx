@@ -82,6 +82,8 @@ const T = {
   nav: { fontSize: "13px", lineHeight: 1.4, fontWeight: 500 },
 };
 
+const CHAIN_STAGE_LABELS = ["提出需求", "理解口径", "拆分结构", "内部配置", "交付使用", "反馈修改", "再次配置"];
+
 function AccentBlob({ side = "right" }: { side?: "left" | "right" }) {
   return (
     <div
@@ -103,6 +105,595 @@ function IconBadge({ Icon }: { Icon: any }) {
     >
       <Icon className="size-4" />
     </span>
+  );
+}
+
+function ChainStageFramework() {
+  type ChainNode = { elevated?: boolean; label: string; rotate?: number; x: number; y: number; w: number; text?: string };
+
+  const laneLabelX = 0;
+  const stageX = 78;
+  const stageY = 54;
+  const stageW = 1042;
+  const stageH = 184;
+  const colW = stageW / CHAIN_STAGE_LABELS.length;
+  const problemY = 252;
+  const problemSummary = "旧流程依赖内部配置，用户提出需求后等待交付，修改仍会回流内部流程。";
+  const userNodes: ChainNode[] = [
+    { label: "提出本地需求", x: stageX + 14, y: 74, w: colW - 28 },
+    { label: "等待配置交付", x: stageX + colW + 12, y: 74, w: colW * 2.9 - 24, text: "#B3B6BF" },
+    { label: "使用配置结果", x: stageX + colW * 4 + 12, y: 74, w: colW - 24 },
+    { label: "反馈修改需求", x: stageX + colW * 5 + 12, y: 74, w: colW - 24 },
+  ];
+  const businessNodes: ChainNode[] = [
+    { label: "理解用户口径", x: stageX + colW + 14, y: 130, w: colW - 28 },
+    { label: "拆分产业链环节", x: stageX + colW * 2 + 12, y: 130, w: colW - 24 },
+    { label: "确认上下游关系", x: stageX + colW * 3 + 12, y: 130, w: colW - 24 },
+    { label: "重新确认口径", x: stageX + colW * 5 + 12, y: 130, w: colW * 1.7 - 24 },
+  ];
+  const backendNodes: ChainNode[] = [
+    { label: "定义数据结构", x: stageX + colW * 2 + 14, y: 186, w: colW - 28 },
+    { label: "配置图谱关系", x: stageX + colW * 3 + 12, y: 186, w: colW - 24 },
+    { label: "配置企业范围", x: stageX + colW * 4 + 12, y: 186, w: colW - 24 },
+    { label: "重新配置", x: stageX + colW * 6 + 12, y: 168, w: colW - 24, elevated: true, rotate: -3.2 },
+  ];
+  const laneRows = [
+    {
+      label: "用户侧",
+      labelY: 94,
+      lineY: 91,
+      nodes: userNodes,
+      tone: { fill: "#F5F5F7", stroke: "#D8DBE4", text: "#4E525E" },
+    },
+    {
+      label: "业务侧",
+      labelY: 150,
+      lineY: 147,
+      nodes: businessNodes,
+      tone: { fill: "#EEF2FF", stroke: "#A8BEFF", text: ICON_BLUE },
+    },
+    {
+      label: "数据/后端侧",
+      labelY: 206,
+      lineY: 203,
+      nodes: backendNodes,
+      tone: { fill: "#F5F3FF", stroke: "#DDD6FE", text: "#6366F1" },
+    },
+  ];
+  const keyStageBackgrounds = [3, 6];
+
+  return (
+    <div className="mb-10 overflow-x-auto">
+      <div className="min-w-[960px]">
+        <svg
+          viewBox="0 0 1120 304"
+          className="block w-full"
+          role="img"
+          aria-labelledby="chain-stage-framework-title"
+        >
+          <title id="chain-stage-framework-title">旧流程横向阶段框架</title>
+          <defs>
+            <pattern id="qixin-chain-key-stage-pattern" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+              <line x1="0" y1="0" x2="0" y2="7" stroke="#A8BEFF" strokeWidth="1.35" opacity="0.86" />
+            </pattern>
+            <filter id="qixin-chain-node-shadow" x="-20%" y="-60%" width="140%" height="230%">
+              <feDropShadow dx="0" dy="10" stdDeviation="8" floodColor="#6366F1" floodOpacity="0.18" />
+            </filter>
+            <marker id="qixin-chain-arrow" viewBox="0 0 8 8" refX="6.8" refY="4" markerWidth="7" markerHeight="7" orient="auto">
+              <path d="M1 1L7 4L1 7" fill="none" stroke="#AEB3C1" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+            </marker>
+          </defs>
+          <g id="stage-grid">
+            {keyStageBackgrounds.map((index) => (
+              <rect
+                key={index}
+                x={stageX + colW * index + colW * 0.02}
+                y={stageY + 4}
+                width={colW * 0.96}
+                height={stageH - 8}
+                fill="url(#qixin-chain-key-stage-pattern)"
+                opacity="0.62"
+              />
+            ))}
+            {Array.from({ length: CHAIN_STAGE_LABELS.length + 1 }).map((_, index) => {
+              const x = stageX + colW * index;
+              const isInternalBoundary = index === 3 || index === 6;
+
+              return (
+                <line
+                  key={index}
+                  x1={x}
+                  y1={stageY}
+                  x2={x}
+                  y2={stageY + stageH}
+                  stroke={isInternalBoundary ? "#A8BEFF" : "#D8DBE4"}
+                  strokeWidth={isInternalBoundary ? 1 : 0.8}
+                  strokeDasharray="5 9"
+                  opacity={isInternalBoundary ? 0.58 : 0.62}
+                />
+              );
+            })}
+            {[1, 2].map((index) => (
+              <line
+                key={index}
+                x1={stageX}
+                y1={stageY + (stageH / 3) * index}
+                x2={stageX + stageW}
+                y2={stageY + (stageH / 3) * index}
+                stroke="#EEF2FF"
+                strokeWidth="1"
+                opacity="0.46"
+              />
+            ))}
+          </g>
+
+          <g id="workflow-lanes">
+            {laneRows.map((lane) => {
+              const firstNode = lane.nodes[0];
+              const lastNode = lane.nodes[lane.nodes.length - 1];
+
+              return (
+                <g key={lane.label}>
+                  <text
+                    x={laneLabelX}
+                    y={lane.labelY}
+                    fill="#696D7A"
+                    style={{ fontSize: 13, fontWeight: 400, fontFamily: "inherit" }}
+                  >
+                    {lane.label}
+                  </text>
+                  <line
+                    x1={firstNode.x + firstNode.w - 2}
+                    y1={lane.lineY}
+                    x2={lastNode.x + 2}
+                    y2={lane.lineY}
+                    stroke="#D8DBE4"
+                    strokeWidth="1"
+                    opacity="0.58"
+                  />
+                  {lane.nodes.map((node) => (
+                    <g
+                      key={node.label}
+                      transform={
+                        node.rotate ? `rotate(${node.rotate} ${node.x + node.w / 2} ${node.y + 16})` : undefined
+                      }
+                    >
+                      <rect
+                        x={node.x}
+                        y={node.y - 1}
+                        width={node.w}
+                        height="34"
+                        rx="10"
+                        fill={lane.tone.fill}
+                        filter={node.elevated ? "url(#qixin-chain-node-shadow)" : undefined}
+                        stroke="none"
+                      />
+                      <text
+                        x={node.x + node.w / 2}
+                        y={node.y + 20}
+                        textAnchor="middle"
+                        fill={node.text ?? lane.tone.text}
+                        style={{ fontSize: 13, fontWeight: 560, fontFamily: "inherit" }}
+                      >
+                        {node.label}
+                      </text>
+                    </g>
+                  ))}
+                </g>
+              );
+            })}
+          </g>
+
+          <g id="flow-arrows" fill="none" stroke="#8F96A8" strokeWidth="1.35" strokeLinecap="round" strokeLinejoin="round" opacity="0.88">
+            <path
+              d={`M ${stageX + colW * 0.9} 92 C ${stageX + colW * 1.02} 102, ${stageX + colW * 1.02} 134, ${stageX + colW * 1.09} 146`}
+              markerEnd="url(#qixin-chain-arrow)"
+            />
+            <path
+              d={`M ${stageX + colW * 3.5} 164 C ${stageX + colW * 3.5} 172, ${stageX + colW * 3.5} 178, ${stageX + colW * 3.5} 184`}
+              markerEnd="url(#qixin-chain-arrow)"
+            />
+            <path
+              d={`M ${stageX + colW * 4.52} 184 C ${stageX + colW * 4.62} 164, ${stageX + colW * 4.62} 128, ${stageX + colW * 4.62} 110`}
+              markerEnd="url(#qixin-chain-arrow)"
+            />
+            <path
+              d={`M ${stageX + colW * 5.66} 110 L ${stageX + colW * 5.66} 128`}
+              markerEnd="url(#qixin-chain-arrow)"
+            />
+            <path
+              d={`M ${stageX + colW * 5.74} 162 C ${stageX + colW * 5.88} 174, ${stageX + colW * 5.9} 190, ${stageX + colW * 6 + 12} 186`}
+              markerEnd="url(#qixin-chain-arrow)"
+            />
+          </g>
+
+          <g id="problem-overview">
+            <text
+              x={laneLabelX}
+              y={problemY + 20}
+              fill="#B45309"
+              opacity="0.72"
+              style={{ fontSize: 13, fontWeight: 400, fontFamily: "inherit" }}
+            >
+              设计判断
+            </text>
+            <line
+              x1={stageX}
+              y1={problemY + 16}
+              x2={stageX + stageW}
+              y2={problemY + 16}
+              stroke="#FFD8AA"
+              strokeWidth="1"
+              strokeDasharray="5 10"
+              opacity="0.58"
+            />
+            <rect
+              x={stageX + 14}
+              y={problemY}
+              width={stageW - 28}
+              height="32"
+              rx="16"
+              fill="#FFF0E0"
+              opacity="0.82"
+              stroke="none"
+            />
+            <text
+              x={stageX + stageW / 2}
+              y={problemY + 20}
+              textAnchor="middle"
+              fill="#B45309"
+              style={{ fontSize: 13, fontWeight: 560, fontFamily: "inherit" }}
+            >
+              {problemSummary}
+            </text>
+          </g>
+
+          <g id="stage-labels">
+            {CHAIN_STAGE_LABELS.map((stage, index) => {
+              const cx = stageX + colW * (index + 0.5);
+              const isInternal = index === 3 || index === 6;
+
+              return (
+                <g key={stage}>
+                  <text
+                    x={cx}
+                    y="28"
+                    textAnchor="middle"
+                    fill={isInternal ? ICON_BLUE : "#1A1C24"}
+                    opacity={isInternal ? 0.92 : 0.72}
+                    style={{ fontSize: 14, fontWeight: 400, fontFamily: "inherit" }}
+                  >
+                    {stage}
+                  </text>
+                </g>
+              );
+            })}
+          </g>
+        </svg>
+      </div>
+    </div>
+  );
+}
+
+function ChainThinkingNotes() {
+  const maxRawComplexity = 94;
+  const maxDisplayWidth = 58;
+  const complexityGridLines = Array.from({ length: 9 }, (_, index) => `${(index + 1) * 10}%`);
+  const complexityGroups = [
+    {
+      label: "改版前",
+      hint: "配置复杂度集中在内部",
+      rows: [
+        {
+          role: "用户",
+          task: "提需求 / 等交付",
+          shortTask: "提需求",
+          value: 30,
+          color: "rgba(34,88,244,0.42)",
+          text: "#1F376E",
+        },
+        {
+          role: "系统",
+          task: "展示结果",
+          shortTask: "展示",
+          value: 22,
+          color: "rgba(255,183,43,0.58)",
+          text: "#7A3B00",
+        },
+        {
+          role: "内部",
+          task: "需求理解 / 结构拆解 / 数据配置 / 关系配置 / 企业范围配置",
+          shortTask: "理解 / 配置 / 回流",
+          value: 94,
+          color: "rgba(185,115,255,0.5)",
+          text: "#39338A",
+        },
+      ],
+    },
+    {
+      label: "改版后",
+      hint: "口径判断回到用户，配置动作由系统承接",
+      rows: [
+        {
+          role: "用户",
+          task: "本地口径判断 / 企业校准",
+          shortTask: "口径判断",
+          value: 42,
+          color: "rgba(34,88,244,0.42)",
+          text: "#1F376E",
+        },
+        {
+          role: "系统",
+          task: "标准复用 / 环节新增 / 图谱编辑 / 名单维护",
+          shortTask: "复用 / 编辑 / 维护",
+          value: 78,
+          color: "rgba(255,183,43,0.58)",
+          text: "#7A3B00",
+        },
+        {
+          role: "内部",
+          task: "必要支持 / 异常处理",
+          shortTask: "支持 / 异常",
+          value: 28,
+          color: "rgba(185,115,255,0.5)",
+          text: "#39338A",
+        },
+      ],
+    },
+  ];
+  const notes = [
+    {
+      index: "思考 01",
+      title: "标准环节具备复用价值",
+      body: "产业链不是每次都要从零搭建，很多标准环节可以被选择、组合和复用。",
+      fill: "rgba(168,190,255,0.3)",
+      labelBg: "rgba(34,88,244,0.84)",
+      labelText: "#FAFBFF",
+      rotate: -2.4,
+      position: "sm:left-0 sm:top-0",
+    },
+    {
+      index: "思考 02",
+      title: "真正差异来自本地口径",
+      body: "重复交付主要来自用户对环节划分、企业归属和本地特色产业的理解不同。",
+      fill: "rgba(185,115,255,0.24)",
+      labelBg: "rgba(185,115,255,0.76)",
+      labelText: "#FAFBFF",
+      rotate: 1.8,
+      position: "sm:left-[96px] sm:top-[126px]",
+    },
+    {
+      index: "思考 03",
+      title: "配置能力需要产品化",
+      body: "我没有继续把差异交给内部配置，而是把构建、校准和维护能力前置给用户。",
+      fill: "rgba(255,214,89,0.3)",
+      labelBg: "rgba(255,214,89,0.84)",
+      labelText: "#7A3B00",
+      rotate: -1.4,
+      position: "sm:left-[24px] sm:top-[256px]",
+    },
+  ];
+
+  return (
+    <div className="mb-12 grid w-full items-center gap-8 lg:grid-cols-[minmax(0,560px)_minmax(360px,1fr)] xl:gap-12">
+      <div className="max-w-[560px]">
+        <div className="relative flex flex-col gap-4 sm:block sm:min-h-[430px]">
+          {notes.map((note) => (
+            <article
+              key={note.index}
+              className={`relative min-h-[150px] w-full max-w-[392px] rounded-[16px] px-6 py-5 sm:absolute ${note.position}`}
+              style={{ background: note.fill, transform: `rotate(${note.rotate}deg)` }}
+            >
+              <div className="relative">
+                <div className="mb-3 flex items-start gap-3">
+                  <span
+                    className="inline-flex h-7 shrink-0 items-center justify-center rounded-full px-2.5 text-[12px] font-normal"
+                    style={{ background: note.labelBg, color: note.labelText }}
+                  >
+                    {note.index}
+                  </span>
+                  <h3 style={{ fontSize: 16, lineHeight: "22px", fontWeight: 700, color: "#1A1C24", paddingTop: 2 }}>
+                    {note.title}
+                  </h3>
+                </div>
+                <p style={{ fontSize: 14, lineHeight: "24px", color: "#4E525E" }}>{note.body}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+      <div className="flex min-h-[430px] items-center">
+        <div className="w-full">
+          <div className="mb-5 max-w-[680px]">
+            <h3 style={{ fontSize: 22, lineHeight: "30px", fontWeight: 700, color: "#1A1C24" }}>
+              把复杂配置拆给更合适的角色
+            </h3>
+            <p className="mt-2 max-w-[600px]" style={{ fontSize: 14, lineHeight: "24px", color: "#696D7A" }}>
+              不是减少复杂性，而是把本地口径判断交给用户，把重复配置动作交给系统承接。
+            </p>
+          </div>
+
+          <div className="space-y-8">
+            {complexityGroups.map((group) => (
+              <div key={group.label}>
+                <div className="mb-3 flex items-end gap-4">
+                  <div>
+                    <p style={{ fontSize: 15, lineHeight: "22px", fontWeight: 650, color: "#1A1C24" }}>
+                      {group.label}
+                      <span style={{ color: "#8F96A8", fontWeight: 500 }}> - </span>
+                      <span style={{ color: "#4E525E", fontWeight: 500 }}>{group.hint}</span>
+                    </p>
+                  </div>
+                </div>
+
+                <div className="relative py-1">
+                  <div className="pointer-events-none absolute inset-y-1 left-[54px] right-0 sm:left-[62px]">
+                    {complexityGridLines.map((position) => (
+                      <span
+                        key={position}
+                        className="absolute top-2 bottom-2 w-px"
+                        style={{
+                          left: position,
+                          borderLeft: "1px dashed rgba(216,219,228,0.62)",
+                        }}
+                      />
+                    ))}
+                  </div>
+                  <div className="relative space-y-3">
+                    {group.rows.map((row) => {
+                      const rowWidth = `${(row.value / maxRawComplexity) * maxDisplayWidth}%`;
+                      const barWidth = rowWidth;
+                      const taskLeft = `calc(${rowWidth} + 12px)`;
+
+                      return (
+                        <div
+                          key={`${group.label}-${row.role}`}
+                          className="grid grid-cols-[42px_minmax(0,1fr)] items-center gap-3 sm:grid-cols-[50px_minmax(0,1fr)]"
+                        >
+                          <span style={{ fontSize: 14, lineHeight: "22px", color: "#4E525E" }}>{row.role}</span>
+                          <div className="relative h-8">
+                            <div
+                              className="absolute left-0 right-0 top-1/2 h-px -translate-y-1/2"
+                              style={{
+                                backgroundImage:
+                                  "linear-gradient(90deg, rgba(216,219,228,0.62) 0 5px, transparent 5px 12px)",
+                              }}
+                            />
+                            <div
+                              className="absolute left-0 top-1/2 h-[18px] -translate-y-1/2 rounded-[5px]"
+                              style={{
+                                width: barWidth,
+                                background: row.color,
+                              }}
+                            />
+                            <span
+                              className="absolute top-1/2 z-10 -translate-y-1/2 truncate"
+                              style={{
+                                left: taskLeft,
+                                right: 0,
+                                color: row.text,
+                                fontSize: 12,
+                                lineHeight: "18px",
+                                fontWeight: 560,
+                                textAlign: "left",
+                              }}
+                            >
+                              <span className="hidden sm:inline">{row.task}</span>
+                              <span className="sm:hidden">{row.shortTask ?? row.task}</span>
+                            </span>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ChainResultSummary() {
+  const timelineTicks = [
+    { label: "0天", position: "0%", align: "start" },
+    { label: "3天", position: "21.4%", align: "center" },
+    { label: "7天", position: "50%", align: "center" },
+    { label: "14天", position: "100%", align: "end" },
+  ];
+  const timelineRows = [
+    { label: "改版前", duration: "1–2周", width: "100%", color: "#E5EBFF", durationColor: "#4E525E" },
+    { label: "改版后", duration: "2–3天", width: "21.4%", color: "#2258F4", durationColor: "#2258F4" },
+  ];
+
+  return (
+    <div className="mb-12 grid w-full gap-8 lg:grid-cols-[minmax(220px,360px)_minmax(0,1fr)]">
+      <div className="flex min-h-[172px] flex-col justify-center py-2">
+        <p className="mb-4" style={{ fontSize: 20, lineHeight: "30px", fontWeight: 700, color: "#1A1C24" }}>
+          设计验证-构建周期缩短
+        </p>
+        <div className="flex items-baseline gap-2">
+          <span style={{ fontSize: 18, lineHeight: "28px", fontWeight: 650, color: "#2258F4" }}>约</span>
+          <span style={{ fontSize: "clamp(72px, 8vw, 108px)", lineHeight: 0.9, fontWeight: 760, color: "#2258F4" }}>
+            76%
+          </span>
+        </div>
+      </div>
+      <div className="flex min-h-[172px] flex-col justify-center py-2">
+        <div className="w-full">
+          <div className="relative ml-[64px] mr-[56px] h-7 sm:ml-[76px] sm:mr-[64px]">
+            {timelineTicks.map((tick) => (
+              <span
+                key={tick.label}
+                className="absolute top-0 text-[12px] font-medium"
+                style={{
+                  left: tick.position,
+                  color: "#8F96A8",
+                  transform:
+                    tick.align === "start"
+                      ? "translateX(0)"
+                      : tick.align === "end"
+                        ? "translateX(-100%)"
+                        : "translateX(-50%)",
+                }}
+              >
+                {tick.label}
+              </span>
+            ))}
+          </div>
+
+          <div className="relative">
+            <div className="pointer-events-none absolute bottom-0 left-[64px] right-[56px] top-0 sm:left-[76px] sm:right-[64px]">
+              {timelineTicks.map((tick) => (
+                <span
+                  key={tick.label}
+                  className="absolute top-0 bottom-0 w-px"
+                  style={{
+                    left: tick.position,
+                    borderLeft: "1px dashed rgba(203,205,212,0.58)",
+                  }}
+                />
+              ))}
+            </div>
+
+            <div className="relative space-y-6">
+              {timelineRows.map((row) => (
+                <div key={row.label} className="grid grid-cols-[52px_minmax(0,1fr)] items-center gap-3 sm:grid-cols-[64px_minmax(0,1fr)]">
+                  <div>
+                    <p style={{ fontSize: 14, lineHeight: "20px", fontWeight: 650, color: "#1A1C24" }}>{row.label}</p>
+                  </div>
+                  <div className="relative h-8 pr-[56px] sm:pr-[64px]">
+                    <div
+                      className="absolute left-0 right-[56px] top-1/2 h-px -translate-y-1/2 sm:right-[64px]"
+                      style={{ background: "rgba(230,231,235,0.9)" }}
+                    />
+                    <div
+                      className="absolute left-0 right-[56px] top-1/2 h-[18px] -translate-y-1/2 sm:right-[64px]"
+                    >
+                      <div
+                        className="h-full rounded-full"
+                        style={{
+                          width: row.width,
+                          background: row.color,
+                        }}
+                      />
+                      <span
+                        className="absolute top-1/2 ml-2.5 -translate-y-1/2 whitespace-nowrap text-[12px] font-semibold"
+                        style={{ left: row.width, color: row.durationColor }}
+                      >
+                        {row.duration}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -2583,6 +3174,290 @@ export function QixinProjectDetail({ onBack }: Props) {
         </div>
       </section>
 
+      <section id="qx07" className={`relative py-20 md:py-28 ${SECTION_PAD} overflow-hidden`}>
+        <AccentBlob side="left" />
+        <div className={`relative ${BUSINESS_READ}`}>
+          <Reveal>
+            <div className="mx-auto mb-10 max-w-[1120px] text-center">
+              <h2 className="whitespace-normal tracking-tight text-[#1A1C24] leading-[1.12] md:whitespace-nowrap" style={{ fontSize: "clamp(28px, 3vw, 44px)", fontWeight: 700 }}>
+                产业链图谱的产品化改造
+              </h2>
+              <p className="mx-auto mt-4 max-w-[880px] text-[#696D7A]" style={{ fontSize: 16, lineHeight: 1.72 }}>
+                过去用户按本地口径构建产业链时，往往需要我们先梳理结构，再由开发重新配置。我把标准产业链改成可直接编辑的图谱，让用户能自己调整关系、维护节点企业。
+              </p>
+            </div>
+
+            <ChainStageFramework />
+            <ChainThinkingNotes />
+            <ChainResultSummary />
+
+            <div className="space-y-8">
+              {[
+                {
+                  icon: Layers3,
+                  title: "本地产业链资产",
+                  desc: "先定义本地产业链，再把自定义产业链沉淀为可分组、可统计、可持续维护的资产。",
+                  image: "./images/optimized/qixin-custom-chain-list-1600.jpg",
+                  alt: "自定义产业链列表管理界面",
+                  overlayImage: "./images/启信产业大脑/新建产业链弹窗.png",
+                  overlayAlt: "新建产业链弹窗界面",
+                  overlayChrome: "card",
+                  callouts: [
+                    {
+                      title: "自定义资产维护",
+                      strategy: "复杂度再分配 / 资产化",
+                      body: "将本地产业交给用户维护，沉淀为可复用产业链资产。",
+                    },
+                    {
+                      title: "无匹配时新建",
+                      strategy: "异常路径承接",
+                      body: "标准环节不匹配时，支持直接新建本地特色环节，避免回流内部配置。",
+                    },
+                    {
+                      title: "环节复用",
+                      strategy: "识别优于回忆 / 标准复用",
+                      body: "从标准环节中选择组合，降低从零搭建成本。",
+                    },
+                  ],
+                },
+                {
+                  icon: GitBranch,
+                  title: "图谱关系维护",
+                  desc: "将产业环节、企业范围和上下游关系放回同一张图谱中，让用户按本地口径校准产业链。",
+                  image: "./images/optimized/qixin-custom-chain-edit01-1600.jpg",
+                  alt: "自定义产业链图谱编辑界面",
+                  layout: "textLeft",
+                  supportingImages: [
+                    {
+                      src: "./images/启信产业大脑/一级环节.svg",
+                      alt: "自定义产业链一级环节内容结构",
+                    },
+                    {
+                      src: "./images/启信产业大脑/产品词.svg",
+                      alt: "自定义产业链产品词内容结构",
+                    },
+                  ],
+                  callouts: [
+                    {
+                      title: "按业务口径组织",
+                      strategy: "真实业务映射",
+                      body: "用用户熟悉的产业环节、企业范围和上下游关系组织图谱。",
+                    },
+                    {
+                      title: "复杂操作按需出现",
+                      strategy: "渐进披露",
+                      body: "默认展示关系，选中节点后再出现上传、删除、调整关系等操作。",
+                    },
+                    {
+                      title: "关系配置前台化",
+                      strategy: "直接操纵",
+                      body: "将后台关系配置前置到图谱中，用户可直接维护节点关系。",
+                    },
+                  ],
+                },
+                {
+                  icon: Map,
+                  title: "编辑态关系校准",
+                  desc: "编辑时聚焦当前节点和相关层级，减少复杂图谱干扰，让用户专注调整关系。",
+                  image: "./images/optimized/qixin-custom-chain-edit03-1600.jpg",
+                  alt: "自定义产业链节点关系编辑界面",
+                  overlayImage: "./images/启信产业大脑/菜单托拉拽.svg",
+                  overlayAlt: "菜单拖拉拽交互示意",
+                  overlayChrome: "plain",
+                  callouts: [
+                    {
+                      title: "聚焦当前节点",
+                      strategy: "降低认知负荷",
+                      body: "高亮当前节点、父子层级和关联企业，弱化无关分支。",
+                    },
+                    {
+                      title: "即时关系反馈",
+                      strategy: "直接操纵 / 状态反馈",
+                      body: "用户调整节点关系后，图谱即时呈现结果，减少反复确认。",
+                    },
+                  ],
+                },
+                {
+                  icon: Settings2,
+                  title: "企业池查看与管理",
+                  desc: "将后台企业范围转为可查看、可筛选、可增删的企业池，用户可实时确认当前产业节点下的分析对象，并按本地口径持续维护。",
+                  image: "./images/optimized/qixin-custom-chain-edit02-1600.jpg",
+                  alt: "自定义产业链企业池查看与管理界面",
+                  layout: "textLeft",
+                  callouts: [
+                    {
+                      title: "当前企业池可见",
+                      strategy: "系统状态可见 / 透明化",
+                      body: "通过企业列表、筛选条件和数量展示当前分析对象。",
+                    },
+                    {
+                      title: "快速定位目标企业",
+                      strategy: "识别优于回忆 / 降低认知负荷",
+                      body: "支持按地区、行业、标签、名称筛选，减少查找成本。",
+                    },
+                  ],
+                },
+              ].map((item) => (
+                <article
+                  key={item.title}
+                  className={[
+                    "grid gap-6 lg:items-center xl:gap-8",
+                    item.layout === "textLeft"
+                      ? "lg:grid-cols-[minmax(280px,0.65fr)_minmax(0,1.25fr)]"
+                      : "lg:grid-cols-[minmax(0,1.25fr)_minmax(280px,0.65fr)]",
+                  ].join(" ")}
+                >
+                  {item.overlayImage ? (
+                    <div
+                      className={[
+                        "relative aspect-[16/10] w-full lg:w-[82%] xl:w-[78%]",
+                        item.layout === "textLeft" ? "lg:order-2 lg:justify-self-start" : "",
+                      ].join(" ")}
+                    >
+                      <div className="absolute inset-0 overflow-hidden rounded-2xl bg-white ring-1 ring-[#E6E7EB]">
+                        <img
+                          src={item.image}
+                          alt={item.alt}
+                          {...DETAIL_IMAGE_LAZY_PROPS}
+                          className="block h-full w-full object-contain object-top"
+                        />
+                      </div>
+                      <div
+                        className={[
+                          item.overlayChrome === "plain"
+                            ? "absolute -right-[24%] top-[18%] z-10"
+                            : "absolute -right-[16%] top-[12%] z-10",
+                          item.overlayChrome === "plain" ? "w-[34%]" : "w-[46%]",
+                          item.overlayChrome === "plain"
+                            ? "drop-shadow-[0_14px_22px_rgba(26,28,36,0.14)]"
+                            : "overflow-hidden rounded-xl bg-white shadow-[0_14px_32px_rgba(26,28,36,0.12)] ring-1 ring-[#D8DBE4]",
+                        ].join(" ")}
+                      >
+                        <img
+                          src={item.overlayImage}
+                          alt={item.overlayAlt}
+                          {...DETAIL_IMAGE_LAZY_PROPS}
+                          className="block h-auto w-full object-contain"
+                        />
+                      </div>
+                    </div>
+                  ) : item.supportingImages ? (
+                    <div
+                      className={[
+                        "relative w-full lg:w-[82%] xl:w-[78%]",
+                        item.layout === "textLeft" ? "lg:order-2 lg:justify-self-end" : "",
+                      ].join(" ")}
+                    >
+                      <div className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl bg-white ring-1 ring-[#E6E7EB]">
+                        <img
+                          src={item.image}
+                          alt={item.alt}
+                          {...DETAIL_IMAGE_LAZY_PROPS}
+                          className="block h-full w-full object-contain object-top"
+                        />
+                      </div>
+                      <div
+                        className={[
+                          "pointer-events-none absolute bottom-[12%] z-10 hidden h-[58%] w-[66%] lg:block",
+                          item.layout === "textLeft"
+                            ? "left-[-16%] xl:left-[-18%]"
+                            : "right-[-32.25%] xl:right-[-34.25%]",
+                        ].join(" ")}
+                      >
+                        {item.supportingImages.map((supportingImage, index) => (
+                          <img
+                            key={supportingImage.src}
+                            src={supportingImage.src}
+                            alt={supportingImage.alt}
+                            {...DETAIL_IMAGE_LAZY_PROPS}
+                            className={[
+                              "absolute block w-auto object-contain",
+                              item.layout === "textLeft"
+                                ? index === 0
+                                  ? "left-[4%] top-[-12%] z-10 h-[clamp(224px,13vw,286px)]"
+                                  : "left-[36%] top-[50%] z-20 h-[clamp(254px,14.7vw,322px)]"
+                                : index === 0
+                                  ? "left-[18%] top-[-12%] z-10 h-[clamp(224px,13vw,286px)]"
+                                  : "left-[44%] top-[24%] z-20 h-[clamp(254px,14.7vw,322px)]",
+                            ].join(" ")}
+                          />
+                        ))}
+                      </div>
+                      <div className="mt-5 grid items-start gap-5 sm:grid-cols-2 lg:hidden">
+                        {item.supportingImages.map((supportingImage) => (
+                          <img
+                            key={supportingImage.src}
+                            src={supportingImage.src}
+                            alt={supportingImage.alt}
+                            {...DETAIL_IMAGE_LAZY_PROPS}
+                            className="block h-auto max-h-[320px] w-auto max-w-full object-contain"
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  ) : (
+                    <div
+                      className={[
+                        "relative aspect-[16/10] w-full overflow-hidden rounded-2xl bg-white ring-1 ring-[#E6E7EB] lg:w-[82%] xl:w-[78%]",
+                        item.layout === "textLeft" ? "lg:order-2 lg:justify-self-end" : "",
+                      ].join(" ")}
+                    >
+                      <img
+                        src={item.image}
+                        alt={item.alt}
+                        {...DETAIL_IMAGE_LAZY_PROPS}
+                        className="block h-full w-full object-contain object-top"
+                      />
+                    </div>
+                  )}
+                  <div className={["px-1 lg:px-0", item.layout === "textLeft" ? "lg:order-1" : ""].join(" ")}>
+                    <div className="mb-3 flex items-start gap-4">
+                      <h3 className="flex-1" style={{ fontSize: 24, lineHeight: "32px", fontWeight: 700, color: "#1A1C24" }}>{item.title}</h3>
+                      <span
+                        className="ml-auto mt-1 inline-flex size-4 shrink-0 items-center justify-center"
+                        style={{ color: ICON_GRAY }}
+                      >
+                        <item.icon className="size-4" />
+                      </span>
+                    </div>
+                    <p style={{ fontSize: 16, lineHeight: "28px", color: "#4E525E" }}>{item.desc}</p>
+                    {item.callouts ? (
+                      <div className="mt-7 space-y-5">
+                        {item.callouts.map((callout) => (
+                          <div
+                            key={callout.title}
+                            className="grid grid-cols-[10px_minmax(0,1fr)] gap-4"
+                          >
+                            <span
+                              className="mt-2.5 size-2.5 rounded-full"
+                              style={{
+                                background: ICON_BLUE,
+                                boxShadow: "0 0 0 4px rgba(34,88,244,0.1)",
+                              }}
+                            />
+                            <div>
+                              <h4 style={{ fontSize: 17, lineHeight: "24px", fontWeight: 700, color: "#1A1C24" }}>
+                                {callout.title}
+                              </h4>
+                              <p className="mt-1" style={{ fontSize: 13, lineHeight: "20px", color: ICON_BLUE, fontWeight: 650 }}>
+                                对应策略：{callout.strategy}
+                              </p>
+                              <p className="mt-1.5" style={{ fontSize: 15, lineHeight: "25px", color: "#696D7A" }}>
+                                {callout.body}
+                              </p>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    ) : null}
+                  </div>
+                </article>
+              ))}
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
       <section id="qx05" className="relative px-6 py-20 sm:px-10 md:py-28 lg:px-12 xl:px-16 2xl:px-20">
         <div className="mx-auto max-w-[1680px]">
           <Reveal>
@@ -2982,117 +3857,6 @@ export function QixinProjectDetail({ onBack }: Props) {
           </div>
 
         </Reveal>
-        </div>
-      </section>
-
-      <section id="qx07" className={`relative py-20 md:py-28 ${SECTION_PAD} overflow-hidden`}>
-        <AccentBlob side="left" />
-        <div className={`relative ${BUSINESS_READ}`}>
-          <Reveal>
-            <div className="mx-auto mb-10 max-w-[1120px] text-center">
-              <h2 className="whitespace-normal tracking-tight text-[#1A1C24] leading-[1.12] md:whitespace-nowrap" style={{ fontSize: "clamp(28px, 3vw, 44px)", fontWeight: 700 }}>
-                自定义产业链设计：让标准图谱适配本地口径
-              </h2>
-              <p className="mx-auto mt-4 max-w-[880px] text-[#696D7A]" style={{ fontSize: 16, lineHeight: 1.72 }}>
-                标准产业链很难覆盖每个地方的招商口径，因此我将产业链设计成可编辑、可校准、可复用的图谱资产，让用户能按本地产业结构维护节点关系和企业范围。
-              </p>
-            </div>
-
-            <div className="grid items-stretch gap-5 md:auto-rows-fr md:grid-cols-2 lg:gap-6">
-              <article className="h-full overflow-hidden rounded-[28px] bg-white p-4 shadow-[0_1px_2px_rgba(15,20,25,0.04)] ring-1 ring-[#E6E7EB]">
-                <div className="aspect-[16/10] overflow-hidden rounded-2xl bg-white shadow-[0_10px_24px_rgba(26,28,36,0.07)] ring-1 ring-[#E6E7EB]">
-                  <img
-                    src="./images/optimized/qixin-custom-chain-edit01-1600.jpg"
-                    alt="自定义产业链图谱编辑界面"
-                    {...DETAIL_IMAGE_LAZY_PROPS}
-                    className="block h-full w-full object-contain object-top"
-                  />
-                </div>
-                <div className="px-1 pt-5">
-                  <div className="mb-3 flex items-start gap-4">
-                    <h3 className="flex-1" style={{ fontSize: 24, lineHeight: "32px", fontWeight: 700, color: "#1A1C24" }}>图谱关系维护</h3>
-                    <span
-                      className="ml-auto mt-1 inline-flex size-4 shrink-0 items-center justify-center"
-                      style={{ color: ICON_GRAY }}
-                    >
-                      <GitBranch className="size-4" />
-                    </span>
-                  </div>
-                  <p className="max-w-[760px]" style={{ fontSize: 16, lineHeight: "28px", color: "#4E525E" }}>
-                    将节点新增、移动和企业范围设置放在图谱中完成，让用户直接维护本地产业关系。
-                  </p>
-                </div>
-              </article>
-
-              <article className="h-full overflow-hidden rounded-[28px] bg-white p-4 shadow-[0_1px_2px_rgba(15,20,25,0.04)] ring-1 ring-[#E6E7EB]">
-                <div className="aspect-[16/10] overflow-hidden rounded-2xl bg-white shadow-[0_10px_24px_rgba(26,28,36,0.07)] ring-1 ring-[#E6E7EB]">
-                  <img
-                    src="./images/optimized/qixin-custom-chain-list-1600.jpg"
-                    alt="自定义产业链列表管理界面"
-                    {...DETAIL_IMAGE_LAZY_PROPS}
-                    className="block h-full w-full object-contain object-top"
-                  />
-                </div>
-                <div className="px-1 pt-5">
-                  <div className="mb-3 flex items-start gap-4">
-                    <h3 className="flex-1" style={{ fontSize: 24, lineHeight: "32px", fontWeight: 700, color: "#1A1C24" }}>本地产业链资产</h3>
-                    <span
-                      className="ml-auto mt-1 inline-flex size-4 shrink-0 items-center justify-center"
-                      style={{ color: ICON_GRAY }}
-                    >
-                      <Layers3 className="size-4" />
-                    </span>
-                  </div>
-                  <p style={{ fontSize: 16, lineHeight: "28px", color: "#4E525E" }}>
-                    把自定义产业链做成可分组、可统计、可持续维护的资产，而不是一次性配置。
-                  </p>
-                </div>
-              </article>
-
-              {[
-                {
-                  icon: Settings2,
-                  title: "企业范围补充",
-                  desc: "通过名单导入和平台筛选补充企业范围，让产业节点真正对应可分析的企业池。",
-                  image: "./images/optimized/qixin-custom-chain-edit02-1600.jpg",
-                  alt: "自定义产业链添加企业菜单界面",
-                },
-                {
-                  icon: Map,
-                  title: "编辑态关系校准",
-                  desc: "编辑时只高亮当前节点和相关层级，减少复杂图谱干扰，让用户专注调整关系。",
-                  image: "./images/optimized/qixin-custom-chain-edit03-1600.jpg",
-                  alt: "自定义产业链节点关系编辑界面",
-                },
-              ].map((item) => (
-                <article
-                  key={item.title}
-                  className="h-full overflow-hidden rounded-[28px] bg-white p-4 shadow-[0_1px_2px_rgba(15,20,25,0.04)] ring-1 ring-[#E6E7EB]"
-                >
-                  <div className="aspect-[16/10] overflow-hidden rounded-2xl bg-white shadow-[0_10px_24px_rgba(26,28,36,0.07)] ring-1 ring-[#E6E7EB]">
-                    <img
-                      src={item.image}
-                      alt={item.alt}
-                      {...DETAIL_IMAGE_LAZY_PROPS}
-                      className="block h-full w-full object-contain object-top"
-                    />
-                  </div>
-                  <div className="px-1 pt-5">
-                    <div className="mb-3 flex items-start gap-4">
-                      <h3 className="flex-1" style={{ fontSize: 24, lineHeight: "32px", fontWeight: 700, color: "#1A1C24" }}>{item.title}</h3>
-                      <span
-                        className="ml-auto mt-1 inline-flex size-4 shrink-0 items-center justify-center"
-                        style={{ color: ICON_GRAY }}
-                      >
-                        <item.icon className="size-4" />
-                      </span>
-                    </div>
-                    <p style={{ fontSize: 16, lineHeight: "28px", color: "#4E525E" }}>{item.desc}</p>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </Reveal>
         </div>
       </section>
 
