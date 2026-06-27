@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
+import { motion, useMotionTemplate, useMotionValue, useSpring, useTransform } from "motion/react";
 
 const INTERACTIVE_SELECTOR =
   "a, button, [role='button'], input, textarea, select, [data-zoom]";
@@ -10,8 +10,6 @@ const ZOOM_FACTOR = 2.75;
 
 type ZoomTarget = {
   src: string;
-  x: number;
-  y: number;
   width: number;
   height: number;
 };
@@ -31,12 +29,26 @@ export function ScopeCursor() {
   const [clicking, setClicking] = useState(false);
   const [zoomTarget, setZoomTarget] = useState<ZoomTarget | null>(null);
   const targetRef = useRef<HTMLElement | null>(null);
+  const hoveringRef = useRef(false);
+  const clickingRef = useRef(false);
+  const zoomElementRef = useRef<HTMLElement | null>(null);
+  const zoomRectRef = useRef<DOMRect | null>(null);
 
   // Elastic spring for the cursor scale.
   const scale = useSpring(1, { stiffness: 320, damping: 14, mass: 0.6 });
   const size = useTransform(scale, (v) => `${v * CURSOR_BASE_SIZE}px`);
+  const zoomBgX = useMotionValue("0px");
+  const zoomBgY = useMotionValue("0px");
+  const zoomBackgroundPosition = useMotionTemplate`center, ${zoomBgX} ${zoomBgY}`;
 
   useEffect(() => {
+    const clearZoomTarget = () => {
+      if (!zoomElementRef.current && !zoomRectRef.current) return;
+      zoomElementRef.current = null;
+      zoomRectRef.current = null;
+      setZoomTarget(null);
+    };
+
     const onMove = (e: MouseEvent) => {
       x.set(e.clientX);
       y.set(e.clientY);
@@ -56,35 +68,57 @@ export function ScopeCursor() {
       }
 
       if (forceZoom && zoomEl) {
-        const rect = zoomEl.getBoundingClientRect();
-        const img = zoomEl.querySelector("img") as HTMLImageElement | null;
-        const src = zoomEl.dataset.zoomSrc || img?.currentSrc || img?.src;
+        let rect = zoomRectRef.current;
 
-        if (src && rect.width > 0 && rect.height > 0) {
-          setZoomTarget({
-            src,
-            x: Math.min(Math.max(e.clientX - rect.left, 0), rect.width),
-            y: Math.min(Math.max(e.clientY - rect.top, 0), rect.height),
-            width: rect.width,
-            height: rect.height,
-          });
-        } else {
-          setZoomTarget(null);
+        if (zoomElementRef.current !== zoomEl || !rect) {
+          rect = zoomEl.getBoundingClientRect();
+          const img = zoomEl.querySelector("img") as HTMLImageElement | null;
+          const src = zoomEl.dataset.zoomSrc || img?.currentSrc || img?.src;
+
+          zoomElementRef.current = zoomEl;
+          zoomRectRef.current = rect;
+
+          if (src && rect.width > 0 && rect.height > 0) {
+            setZoomTarget({ src, width: rect.width, height: rect.height });
+          } else {
+            clearZoomTarget();
+            return;
+          }
         }
+
+        const localX = Math.min(Math.max(e.clientX - rect.left, 0), rect.width);
+        const localY = Math.min(Math.max(e.clientY - rect.top, 0), rect.height);
+        const zoomCursorSize = CURSOR_BASE_SIZE * ZOOM_SCALE;
+        zoomBgX.set(`${zoomCursorSize / 2 - localX * ZOOM_FACTOR}px`);
+        zoomBgY.set(`${zoomCursorSize / 2 - localY * ZOOM_FACTOR}px`);
       } else {
-        setZoomTarget(null);
+        clearZoomTarget();
       }
 
-      setHovering(inter);
+      if (hoveringRef.current !== inter) {
+        hoveringRef.current = inter;
+        setHovering(inter);
+      }
     };
     const onLeave = () => {
       targetRef.current?.classList.remove("scope-cursor-target");
       targetRef.current = null;
-      setHovering(false);
-      setZoomTarget(null);
+      if (hoveringRef.current) {
+        hoveringRef.current = false;
+        setHovering(false);
+      }
+      clearZoomTarget();
     };
-    const onDown = () => setClicking(true);
-    const onUp = () => setClicking(false);
+    const onDown = () => {
+      if (clickingRef.current) return;
+      clickingRef.current = true;
+      setClicking(true);
+    };
+    const onUp = () => {
+      if (!clickingRef.current) return;
+      clickingRef.current = false;
+      setClicking(false);
+    };
 
     window.addEventListener("mousemove", onMove);
     window.addEventListener("mouseleave", onLeave);
@@ -119,13 +153,9 @@ export function ScopeCursor() {
       document.documentElement.style.cursor = "";
       document.getElementById("scope-cursor-style")?.remove();
     };
-  }, [x, y]);
+  }, [x, y, zoomBgX, zoomBgY]);
 
   const zooming = !!zoomTarget;
-  const zoomCursorSize = CURSOR_BASE_SIZE * ZOOM_SCALE;
-  const zoomBackgroundPosition = zoomTarget
-    ? `${zoomCursorSize / 2 - zoomTarget.x * ZOOM_FACTOR}px ${zoomCursorSize / 2 - zoomTarget.y * ZOOM_FACTOR}px`
-    : undefined;
   const zoomBackgroundSize = zoomTarget
     ? `${zoomTarget.width * ZOOM_FACTOR}px ${zoomTarget.height * ZOOM_FACTOR}px`
     : undefined;
@@ -162,7 +192,7 @@ export function ScopeCursor() {
               : "radial-gradient(circle at 32% 28%, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.12) 35%, rgba(255,255,255,0.05) 70%, rgba(255,255,255,0.02) 100%)",
           backgroundRepeat: zooming ? "no-repeat, no-repeat" : "no-repeat",
           backgroundSize: zooming ? `100% 100%, ${zoomBackgroundSize}` : "100% 100%",
-          backgroundPosition: zooming ? `center, ${zoomBackgroundPosition}` : "center",
+          backgroundPosition: zooming ? zoomBackgroundPosition : "center",
           boxShadow:
             zooming
               ? "inset 0 1px 2px rgba(255,255,255,0.62), inset 0 -4px 12px rgba(34,88,244,0.08), 0 0 0 1px rgba(255,255,255,0.70), 0 0 0 2px rgba(168,190,255,0.72), 0 18px 42px rgba(34,88,244,0.20)"

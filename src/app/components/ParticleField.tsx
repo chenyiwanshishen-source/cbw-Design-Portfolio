@@ -36,6 +36,7 @@ export function ParticleField() {
       canvas.style.height = h + "px";
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       seed();
+      requestTick();
     };
 
     const seed = () => {
@@ -63,9 +64,11 @@ export function ParticleField() {
       mouseRef.current.x = e.clientX;
       mouseRef.current.y = e.clientY;
       mouseRef.current.active = true;
+      requestTick();
     };
     const onLeave = () => {
       mouseRef.current.active = false;
+      requestTick();
     };
 
     const tick = () => {
@@ -73,6 +76,7 @@ export function ParticleField() {
       const { x: mx, y: my, active } = mouseRef.current;
       const radius = 180;
       const list = particlesRef.current;
+      let shouldContinue = false;
 
       for (let i = 0; i < list.length; i++) {
         const p = list[i];
@@ -93,6 +97,9 @@ export function ParticleField() {
         p.vy *= 0.88;
         p.x += p.vx;
         p.y += p.vy;
+        if (Math.abs(p.vx) + Math.abs(p.vy) > 0.015) {
+          shouldContinue = true;
+        }
 
         const d = active ? Math.hypot(mx - p.x, my - p.y) : 9999;
         const glow = d < radius ? 1 - d / radius : 0;
@@ -108,14 +115,18 @@ export function ParticleField() {
       }
       ctx.shadowBlur = 0;
 
-      rafRef.current = requestAnimationFrame(tick);
+      rafRef.current = shouldContinue ? requestAnimationFrame(tick) : 0;
+    };
+
+    const requestTick = () => {
+      if (!rafRef.current) rafRef.current = requestAnimationFrame(tick);
     };
 
     resize();
     window.addEventListener("resize", resize);
     window.addEventListener("mousemove", onMove);
     window.addEventListener("mouseleave", onLeave);
-    rafRef.current = requestAnimationFrame(tick);
+    requestTick();
 
     return () => {
       cancelAnimationFrame(rafRef.current);

@@ -61,6 +61,7 @@ export default function App() {
     let ty = window.innerHeight / 2;
     let cx = tx;
     let cy = ty;
+    const stopThreshold = 0.35;
     el.style.setProperty("--mx", `${cx}px`);
     el.style.setProperty("--my", `${cy}px`);
     const tick = () => {
@@ -68,17 +69,24 @@ export default function App() {
       cy += (ty - cy) * 0.18;
       el.style.setProperty("--mx", `${cx}px`);
       el.style.setProperty("--my", `${cy}px`);
-      raf = requestAnimationFrame(tick);
+      if (Math.abs(tx - cx) > stopThreshold || Math.abs(ty - cy) > stopThreshold) {
+        raf = requestAnimationFrame(tick);
+      } else {
+        raf = 0;
+      }
+    };
+    const requestTick = () => {
+      if (!raf) raf = requestAnimationFrame(tick);
     };
     const onMove = (e: MouseEvent) => {
       tx = e.clientX;
       ty = e.clientY;
+      requestTick();
     };
     window.addEventListener("mousemove", onMove);
-    raf = requestAnimationFrame(tick);
     return () => {
       window.removeEventListener("mousemove", onMove);
-      cancelAnimationFrame(raf);
+      if (raf) cancelAnimationFrame(raf);
     };
   }, [mounted]);
 
