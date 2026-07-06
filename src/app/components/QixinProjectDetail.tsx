@@ -745,6 +745,190 @@ function FoundationRulesPreview() {
   );
 }
 
+function QixinSystemEvolutionMap({ className = "mt-7" }: { className?: string } = {}) {
+  const rootNode = { x: 0.8, y: 170, width: 178, height: 40 } as const;
+  const mainNode = { x: 260, width: 144, height: 40 } as const;
+  const branchNode = { x: 488, width: 144, height: 40 } as const;
+  const detailNode = { x: 760, width: 156, height: 40 } as const;
+  const resultNode = { x: 1100, y: 196, width: 178, height: 44 } as const;
+  const rootCenterY = rootNode.y + rootNode.height / 2;
+  const qixinCenterY = 270;
+  const productCenterY = 104;
+  const auditCenterY = 272;
+  const rootRightX = rootNode.x + rootNode.width;
+  const mainRightX = mainNode.x + mainNode.width;
+  const branchRightX = branchNode.x + branchNode.width;
+  const resultCenterY = resultNode.y + resultNode.height / 2;
+  const detailRightX = detailNode.x + detailNode.width;
+  const resultMergeX = 1056;
+  const mergeControlStartX = detailRightX + 72;
+  const mergeControlEndX = resultMergeX - 64;
+  const productIdentityNodes = [
+    { label: "品牌色与视觉识别", y: 44 },
+    { label: "字体 / 间距 / 栅格", y: 104 },
+    { label: "页面状态规范", y: 164 },
+  ] as const;
+  const pageAuditNodes = [
+    { label: "存量页面梳理", y: 232 },
+    { label: "共性模块整理", y: 292 },
+    { label: "组件规范更新", y: 352 },
+  ] as const;
+  const nodeLabel = {
+    fontSize: 14,
+    lineHeight: "20px",
+    fontWeight: 700,
+    fontFamily: "inherit",
+  } as const;
+  const branchLabel = {
+    fontSize: 14,
+    lineHeight: "20px",
+    fontWeight: 700,
+    fontFamily: "inherit",
+  } as const;
+  const bluePath = {
+    fill: "none",
+    stroke: "#2258F4",
+    strokeWidth: 1,
+    strokeLinecap: "round",
+    strokeDasharray: "7 12",
+    markerEnd: "url(#qixin-system-evolution-arrow-blue)",
+  } as const;
+  const mergePath = {
+    fill: "none",
+    stroke: "#2258F4",
+    strokeWidth: 1,
+    strokeLinecap: "round",
+    strokeDasharray: "7 12",
+    opacity: 0.76,
+  } as const;
+  const grayPath = {
+    fill: "none",
+    stroke: "#AEB3C1",
+    strokeWidth: 1,
+    strokeLinecap: "round",
+    strokeDasharray: "7 12",
+    markerEnd: "url(#qixin-system-evolution-arrow-gray)",
+  } as const;
+
+  return (
+    <div className={className}>
+      <div className="overflow-x-auto">
+        <div className="min-w-[1120px]">
+          <svg
+            viewBox="0 20 1280 390"
+            className="block w-full"
+            role="img"
+            aria-labelledby="qixin-system-evolution-title"
+          >
+            <title id="qixin-system-evolution-title">启信产业大脑组件库建设关系图</title>
+            <defs>
+              <marker id="qixin-system-evolution-arrow-blue" viewBox="0 0 8 8" refX="6.9" refY="4" markerWidth="7" markerHeight="7" orient="auto">
+                <path d="M1 1L7 4L1 7" fill="none" stroke="#2258F4" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
+              </marker>
+              <marker id="qixin-system-evolution-arrow-gray" viewBox="0 0 8 8" refX="6.9" refY="4" markerWidth="7" markerHeight="7" orient="auto">
+                <path d="M1 1L7 4L1 7" fill="none" stroke="#AEB3C1" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
+              </marker>
+            </defs>
+
+            <path
+              d={`M ${rootRightX} ${rootCenterY} C 224 ${rootCenterY} 215 48 ${mainNode.x} 48`}
+              {...grayPath}
+            />
+            <path
+              d={`M ${rootRightX} ${rootCenterY} C 224 ${rootCenterY} 215 ${qixinCenterY} ${mainNode.x} ${qixinCenterY}`}
+              {...bluePath}
+            />
+            <path
+              d={`M ${mainRightX} ${qixinCenterY} C 452 ${qixinCenterY} 440 ${productCenterY} ${branchNode.x} ${productCenterY}`}
+              {...bluePath}
+            />
+            <path
+              d={`M ${mainRightX} ${qixinCenterY} C 440 ${qixinCenterY} 452 ${auditCenterY} ${branchNode.x} ${auditCenterY}`}
+              {...bluePath}
+            />
+            {productIdentityNodes.map((item) => {
+              const centerY = item.y + detailNode.height / 2;
+              return (
+                <path
+                  key={`product-line-${item.label}`}
+                  d={`M ${branchRightX} ${productCenterY} C 676 ${productCenterY} 680 ${centerY} ${detailNode.x} ${centerY}`}
+                  {...bluePath}
+                />
+              );
+            })}
+            {pageAuditNodes.map((item) => {
+              const centerY = item.y + detailNode.height / 2;
+              return (
+                <path
+                  key={`audit-line-${item.label}`}
+                  d={`M ${branchRightX} ${auditCenterY} C 676 ${auditCenterY} 680 ${centerY} ${detailNode.x} ${centerY}`}
+                  {...bluePath}
+                />
+              );
+            })}
+            {[...productIdentityNodes, ...pageAuditNodes].map((item) => {
+              const centerY = item.y + detailNode.height / 2;
+              return (
+                <path
+                  key={`system-merge-line-${item.label}`}
+                  d={`M ${detailRightX} ${centerY} C ${mergeControlStartX} ${centerY} ${mergeControlEndX} ${resultCenterY} ${resultMergeX} ${resultCenterY}`}
+                  {...mergePath}
+                />
+              );
+            })}
+            <path
+              d={`M ${resultMergeX} ${resultCenterY} L ${resultNode.x} ${resultCenterY}`}
+              {...bluePath}
+            />
+
+            <g>
+              <rect x={rootNode.x} y={rootNode.y} width={rootNode.width} height={rootNode.height} rx="20" fill="#FFFFFF" stroke="#A8BEFF" strokeWidth="1.4" />
+              <circle cx={rootNode.x + 20} cy={rootCenterY} r="6" fill="#2258F4" />
+              <text x={rootNode.x + 34} y={rootCenterY + 5} fill="#1A1C24" style={nodeLabel}>公司企业数据底座</text>
+            </g>
+
+            <g opacity="0.82">
+              <rect x={mainNode.x} y="28" width={mainNode.width} height={mainNode.height} rx="20" fill="#FFFFFF" stroke="#CBCDD4" strokeWidth="1.25" strokeDasharray="4 5" />
+              <text x={mainNode.x + mainNode.width / 2} y="53" textAnchor="middle" fill="#4E525E" style={branchLabel}>启信宝</text>
+            </g>
+
+            <g>
+              <rect x={mainNode.x} y="250" width={mainNode.width} height={mainNode.height} rx="20" fill="#2258F4" />
+              <text x={mainNode.x + mainNode.width / 2} y="275" textAnchor="middle" fill="#FFFFFF" style={branchLabel}>启信产业大脑</text>
+            </g>
+
+            <g>
+              <rect x={branchNode.x} y="84" width={branchNode.width} height={branchNode.height} rx="20" fill="#FFFFFF" stroke="#A8BEFF" strokeWidth="1.25" />
+              <text x={branchNode.x + branchNode.width / 2} y="109" textAnchor="middle" fill="#1A42B8" style={branchLabel}>产品识别度建立</text>
+            </g>
+
+            <g>
+              <rect x={branchNode.x} y="252" width={branchNode.width} height={branchNode.height} rx="20" fill="#FFFFFF" stroke="#A8BEFF" strokeWidth="1.25" />
+              <text x={branchNode.x + branchNode.width / 2} y="277" textAnchor="middle" fill="#1A42B8" style={branchLabel}>已上线页面盘点</text>
+            </g>
+            {productIdentityNodes.map((item) => (
+              <g key={`product-node-${item.label}`}>
+                <rect x={detailNode.x} y={item.y} width={detailNode.width} height={detailNode.height} rx="20" fill="#FFFFFF" stroke="#A8BEFF" strokeWidth="1.15" />
+                <text x={detailNode.x + detailNode.width / 2} y={item.y + 25} textAnchor="middle" fill="#1A42B8" style={branchLabel}>{item.label}</text>
+              </g>
+            ))}
+            {pageAuditNodes.map((item) => (
+              <g key={`audit-node-${item.label}`}>
+                <rect x={detailNode.x} y={item.y} width={detailNode.width} height={detailNode.height} rx="20" fill="#FFFFFF" stroke="#A8BEFF" strokeWidth="1.15" />
+                <text x={detailNode.x + detailNode.width / 2} y={item.y + 25} textAnchor="middle" fill="#1A42B8" style={branchLabel}>{item.label}</text>
+              </g>
+            ))}
+            <g>
+              <rect x={resultNode.x} y={resultNode.y} width={resultNode.width} height={resultNode.height} rx="22" fill="#EEF2FF" stroke="#A8BEFF" strokeWidth="1.25" />
+              <text x={resultNode.x + resultNode.width / 2} y={resultNode.y + 27} textAnchor="middle" fill="#1A42B8" style={branchLabel}>组件库与标品规范</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function KeyComponentStatesPreview() {
   return (
     <figure
@@ -3458,6 +3642,113 @@ export function QixinProjectDetail({ onBack }: Props) {
         </div>
       </section>
 
+      <section id="qx08" className={`relative py-20 md:py-28 ${SECTION_PAD} bg-[#FAFBFF]`}>
+        <div className={BUSINESS_READ}>
+          <Reveal>
+            <div className="mb-12 flex flex-col items-center text-center md:mb-16">
+              <h2 className="max-w-4xl tracking-tight text-[#1A1C24]" style={T.h2}>
+                为产业大脑建立自己的系统语言
+              </h2>
+              <p className="mt-4 max-w-3xl" style={T.h2Sub}>
+                在同一套公司企业数据底座之上，产业大脑需要从视觉语言、页面结构和业务组件上形成更清晰的产品识别度。
+              </p>
+            </div>
+
+            <div className="space-y-6">
+              <article className="min-w-0">
+                <div className="grid gap-4 md:grid-cols-3">
+                  {[
+                    {
+                      step: "01",
+                      title: "共享企业数据底座",
+                      meta: "数据 Data",
+                      desc: "公司企业数据为多条业务线提供基础，产业大脑与启信宝共享部分企业信息、关系线索和风险数据。",
+                      bg: "rgba(238,242,255,0.78)",
+                      accent: "#2258F4",
+                    },
+                    {
+                      step: "02",
+                      title: "早期复用成熟规范",
+                      meta: "启动 Launch",
+                      desc: "孵化阶段沿用启信宝已有颜色、组件和页面规范，帮助产业大脑快速完成早期落地。",
+                      bg: "rgba(229,235,255,0.72)",
+                      accent: "#4777FF",
+                    },
+                    {
+                      step: "03",
+                      title: "产品表达需要区分",
+                      meta: "差异 Identity",
+                      desc: "启信宝偏企业查询、征信与风控，产业大脑聚焦产业经济、区域治理、招商研判和产业链分析。",
+                      bg: "rgba(245,245,247,0.86)",
+                      accent: "#6366F1",
+                    },
+                  ].map((item) => (
+                    <div
+                      key={item.step}
+                      className="rounded-[22px] border border-dashed border-[#CBCDD4] bg-white p-3.5"
+                    >
+                      <div className="mb-2 flex items-center justify-between border-b border-dashed border-[#E6E7EB] pb-2">
+                        <div className="text-[12px] font-semibold leading-none text-[#1A1C24]">{item.step}</div>
+                        <div className="text-[12px] font-semibold leading-none text-[#B3B6BF]">{item.meta}</div>
+                      </div>
+                      <div className="rounded-[14px] px-3.5 py-3" style={{ background: item.bg }}>
+                        <div className="flex gap-3">
+                          <span className="mt-1 h-12 w-0.5 shrink-0 rounded-full" style={{ backgroundColor: item.accent }} />
+                          <div className="min-w-0">
+                            <div className="text-[16px] font-semibold leading-[1.45] text-[#1A1C24]">{item.title}</div>
+                            <p className="mt-1 text-[14px] font-medium leading-[1.6] text-[#4E525E]">{item.desc}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <QixinSystemEvolutionMap />
+              </article>
+
+              <div className="grid min-w-0 items-start gap-4 xl:grid-cols-5">
+                {SYSTEM_LAYER_CARDS.map((item, index) => (
+                  <article
+                    key={item.title}
+                    className="overflow-hidden rounded-[24px] border bg-white shadow-[0_1px_2px_rgba(15,20,25,0.04)]"
+                    style={{ borderColor: "#E6E7EB" }}
+                  >
+                    <div className="relative h-[154px] overflow-hidden border-b border-[#E6E7EB] bg-[#FAFBFF]">
+                      <div
+                        className="absolute inset-0"
+                        style={{
+                          backgroundImage:
+                            "linear-gradient(rgba(203,205,212,0.18) 1px, transparent 1px), linear-gradient(90deg, rgba(203,205,212,0.18) 1px, transparent 1px)",
+                          backgroundPosition: "-1px -1px",
+                          backgroundSize: "8px 8px",
+                        }}
+                      />
+                      <div className="absolute bottom-[-8px] left-1/2 h-[164px] w-full -translate-x-1/2">
+                        <SystemLayerCardIllustration index={index} />
+                      </div>
+                    </div>
+                    <div className="p-4 pb-5">
+                      <h3 className="text-[#1A1C24]" style={{ fontSize: 17, lineHeight: "23px", fontWeight: 700 }}>
+                        {item.title}
+                      </h3>
+                      <p className="mt-2 text-[#696D7A]" style={{ fontSize: 13, lineHeight: "22px", fontWeight: 500 }}>
+                        {item.desc}
+                      </p>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-6 grid gap-5 lg:grid-cols-2">
+              <FoundationRulesPreview />
+              <KeyComponentStatesPreview />
+            </div>
+        </Reveal>
+        </div>
+      </section>
+
       <section id="qx05" className="relative px-6 py-20 sm:px-10 md:py-28 lg:px-12 xl:px-16 2xl:px-20">
         <div className="mx-auto max-w-[1680px]">
           <Reveal>
@@ -3856,128 +4147,6 @@ export function QixinProjectDetail({ onBack }: Props) {
             </div>
           </div>
 
-        </Reveal>
-        </div>
-      </section>
-
-      <section id="qx08" className={`relative py-20 md:py-28 ${SECTION_PAD} bg-[#FAFBFF]`}>
-        <div className={BUSINESS_READ}>
-          <Reveal>
-            <div className="mb-12 flex flex-col items-center text-center md:mb-16">
-              <h2 className="max-w-4xl tracking-tight text-[#1A1C24]" style={T.h2}>
-                用可复用规则代替反复判断
-              </h2>
-              <p className="mt-4 max-w-3xl" style={T.h2Sub}>
-                随着模块持续扩展，组件库的作用不只是让界面保持一致，更在于每次新增功能时不用重新决定颜色、间距和交互状态。
-              </p>
-            </div>
-
-            <div className="space-y-6">
-              <article className="min-w-0 rounded-[28px] border bg-white p-5 shadow-[0_1px_2px_rgba(15,20,25,0.04)] md:p-7" style={{ borderColor: "#E6E7EB" }}>
-                <h3 className="text-[#1A1C24]" style={{ fontSize: 26, lineHeight: "34px", fontWeight: 700 }}>
-                  从场景情绪到可复用色板
-                </h3>
-                <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-                  {[
-                    {
-                      step: "01",
-                      title: "确定用户场景",
-                      meta: "场景 Scene",
-                      desc: "先判断客群、业务环境和使用压力，决定视觉表达保持克制、清晰、有秩序。",
-                      bg: "rgba(238,242,255,0.78)",
-                      accent: "#2258F4",
-                      rotate: "-0.8deg",
-                    },
-                    {
-                      step: "02",
-                      title: "提取情绪基因",
-                      meta: "情绪 Mood",
-                      desc: "寻找氛围图片和行业参照，把设计情感收束为主色方向，而不是直接套颜色。",
-                      bg: "rgba(229,235,255,0.72)",
-                      accent: "#4777FF",
-                      rotate: "0.7deg",
-                    },
-                    {
-                      step: "03",
-                      title: "建立色相梯度",
-                      meta: "色彩 HSB / HSL",
-                      desc: "确定基因主色后，对色相做 ±15° 小范围偏移，再用明度与饱和度拉开层级。",
-                      bg: "rgba(245,245,247,0.86)",
-                      accent: "#6366F1",
-                      rotate: "-0.5deg",
-                    },
-                    {
-                      step: "04",
-                      title: "测试并产出色板",
-                      meta: "测试 A11y",
-                      desc: "完成明亮度、对比度和无障碍测试，确认可用于状态、图表和业务页面的色板。",
-                      bg: "rgba(250,251,255,0.92)",
-                      accent: "#1A42B8",
-                      rotate: "0.5deg",
-                    },
-                  ].map((item) => (
-                    <div
-                      key={item.step}
-                      className="rounded-[22px] border border-dashed border-[#CBCDD4] bg-white p-3.5 shadow-[0_10px_20px_rgba(15,20,25,0.045)]"
-                      style={{ transform: `rotate(${item.rotate})` }}
-                    >
-                      <div className="mb-2 flex items-center justify-between border-b border-dashed border-[#E6E7EB] pb-2">
-                        <div className="text-[12px] font-semibold leading-none text-[#1A1C24]">{item.step}</div>
-                        <div className="text-[12px] font-semibold leading-none text-[#B3B6BF]">{item.meta}</div>
-                      </div>
-                      <div className="rounded-[14px] px-3.5 py-3" style={{ background: item.bg }}>
-                        <div className="flex gap-3">
-                          <span className="mt-1 h-12 w-0.5 shrink-0 rounded-full" style={{ backgroundColor: item.accent }} />
-                          <div className="min-w-0">
-                            <div className="text-[15px] font-semibold leading-[1.45] text-[#1A1C24]">{item.title}</div>
-                            <p className="mt-1 text-[13px] font-medium leading-[1.6] text-[#4E525E]">{item.desc}</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-              </article>
-
-              <div className="grid min-w-0 items-start gap-4 xl:grid-cols-5">
-                {SYSTEM_LAYER_CARDS.map((item, index) => (
-                  <article
-                    key={item.title}
-                    className="overflow-hidden rounded-[24px] border bg-white shadow-[0_1px_2px_rgba(15,20,25,0.04)]"
-                    style={{ borderColor: "#E6E7EB" }}
-                  >
-                    <div className="relative h-[154px] overflow-hidden border-b border-[#E6E7EB] bg-[#FAFBFF]">
-                      <div
-                        className="absolute inset-0"
-                        style={{
-                          backgroundImage:
-                            "linear-gradient(rgba(203,205,212,0.18) 1px, transparent 1px), linear-gradient(90deg, rgba(203,205,212,0.18) 1px, transparent 1px)",
-                          backgroundPosition: "-1px -1px",
-                          backgroundSize: "8px 8px",
-                        }}
-                      />
-                      <div className="absolute bottom-[-8px] left-1/2 h-[164px] w-full -translate-x-1/2">
-                        <SystemLayerCardIllustration index={index} />
-                      </div>
-                    </div>
-                    <div className="p-4 pb-5">
-                      <h3 className="text-[#1A1C24]" style={{ fontSize: 17, lineHeight: "23px", fontWeight: 700 }}>
-                        {item.title}
-                      </h3>
-                      <p className="mt-2 text-[#696D7A]" style={{ fontSize: 13, lineHeight: "22px", fontWeight: 500 }}>
-                        {item.desc}
-                      </p>
-                    </div>
-                  </article>
-                ))}
-              </div>
-            </div>
-
-            <div className="mt-6 grid gap-5 lg:grid-cols-2">
-              <FoundationRulesPreview />
-              <KeyComponentStatesPreview />
-            </div>
         </Reveal>
         </div>
       </section>
