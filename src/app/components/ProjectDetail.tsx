@@ -2055,7 +2055,63 @@ export function ProjectDetail({ onBack }: Props) {
             </p>
           </Reveal>
 
-          <Reveal className="mb-6" delay={0.16} y={24}>
+          <Reveal className="mb-6 grid gap-3 md:grid-cols-3" delay={0.12} y={18}>
+            {[
+              {
+                label: "无关内容带入率",
+                before: "80%",
+                after: "20-30%",
+                note: "章节更少带入无关背景、无关结论和无关材料。",
+              },
+              {
+                label: "有效输出占比",
+                before: "20%",
+                after: "70-80%",
+                note: "生成结果更贴合章节上下文，可进入校验和微调。",
+              },
+              {
+                label: "自检链路覆盖",
+                before: "0%",
+                after: "100%",
+                note: "章节约束、工具来源和格式门禁进入生成链路。",
+              },
+            ].map((item) => (
+              <div
+                key={item.label}
+                className="rounded-[22px] border bg-white p-4"
+                style={{
+                  borderColor: LINE,
+                  boxShadow: "0 1px 2px rgba(34,88,244,0.05)",
+                }}
+              >
+                <p className="text-[16px] font-semibold leading-[1.45]" style={{ color: INK }}>
+                  {item.label}
+                </p>
+                <p className="mt-1 text-[14px] leading-[1.55]" style={{ color: INK_DIM }}>
+                  {item.note}
+                </p>
+                <div className="mt-3 grid grid-cols-[minmax(0,1fr)_28px_minmax(0,1fr)] items-center gap-2">
+                  <div className="rounded-[14px] bg-[#F5F5F7] p-3">
+                    <p className="text-[12px] font-semibold leading-[1.3]" style={{ color: INK_MUTED }}>之前</p>
+                    <p className="mt-1 text-[26px] font-semibold leading-none" style={{ color: INK_DIM }}>
+                      {item.before}
+                    </p>
+                  </div>
+                  <div className="flex size-7 items-center justify-center rounded-full bg-[#EEF2FF]" aria-hidden="true">
+                    <ArrowRight className="size-4" style={{ color: BLUE }} />
+                  </div>
+                  <div className="rounded-[14px] bg-[#EEF2FF] p-3">
+                    <p className="text-[12px] font-semibold leading-[1.3]" style={{ color: ICON_BLUE }}>之后</p>
+                    <p className="mt-1 text-[26px] font-semibold leading-none" style={{ color: BLUE }}>
+                      {item.after}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </Reveal>
+
+          <Reveal className="mb-6" delay={0.18} y={24}>
             <AgentWorkflowDiagram />
           </Reveal>
 
