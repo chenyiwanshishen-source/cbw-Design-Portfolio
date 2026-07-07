@@ -321,9 +321,9 @@ export default function App() {
       {showBackToTop && (
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="fixed bottom-8 left-1/2 -translate-x-1/2 z-40 group inline-flex items-center gap-3 pl-7 pr-2 py-2 rounded-full bg-white text-[#1A1C24] hover:shadow-[0_0_40px_rgba(34,88,244,0.45)] transition-all duration-300"
+          className="fixed bottom-5 right-5 z-40 group inline-flex items-center rounded-full bg-white p-2 text-[#1A1C24] transition-all duration-300 hover:shadow-[0_0_40px_rgba(34,88,244,0.45)] sm:bottom-8 sm:right-8 sm:gap-3 sm:py-2 sm:pl-7 sm:pr-2"
         >
-          <span className="text-sm">回到顶部</span>
+          <span className="hidden text-sm sm:inline">回到顶部</span>
           <span className="inline-flex size-10 items-center justify-center rounded-full bg-[#2258F4] text-white group-hover:-translate-y-0.5 transition-transform duration-300">
             <ArrowUp className="size-4" />
           </span>

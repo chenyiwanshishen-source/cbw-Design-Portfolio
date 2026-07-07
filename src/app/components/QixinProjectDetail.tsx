@@ -745,6 +745,461 @@ function FoundationRulesPreview() {
   );
 }
 
+function QixinColorTokenPreview() {
+  type ColorStep = {
+    step: string;
+    hex: string;
+  };
+  type ColorScale = {
+    name: string;
+    desc: string;
+    token: string;
+    main: string;
+    steps: ColorStep[];
+  };
+
+  const primaryScale: ColorScale = {
+    name: "蓝色基调",
+    desc: "主色完整色阶",
+    token: "Gene/blue",
+    main: "#2258F4",
+    steps: [
+      { step: "01", hex: "#112C7A" },
+      { step: "02", hex: "#153799" },
+      { step: "03", hex: "#1A42B8" },
+      { step: "04", hex: "#1E4DD6" },
+      { step: "05", hex: "#2258F4" },
+      { step: "06", hex: "#4777FF" },
+      { step: "07", hex: "#618AFF" },
+      { step: "08", hex: "#85A3FF" },
+      { step: "09", hex: "#A8BEFF" },
+      { step: "10", hex: "#CCD9FF" },
+    ],
+  };
+  const statusColors = [
+    { name: "成功", hex: "#0D800D" },
+    { name: "警告", hex: "#F5BF1B" },
+    { name: "错误", hex: "#FF2828" },
+    { name: "信息", hex: "#2258F4" },
+  ];
+  const neutralScale = [
+    "#1A1C24",
+    "#373B45",
+    "#4E525E",
+    "#696D7A",
+    "#8A8D96",
+    "#B3B6BF",
+    "#CBCDD4",
+    "#E6E7EB",
+    "#FAFBFF",
+  ];
+  const supportScales: ColorScale[] = [
+    {
+      name: "黄色",
+      desc: "高亮 / 预警",
+      token: "Status/warning",
+      main: "#F5BF1B",
+      steps: [
+        { step: "01", hex: "#664F0B" },
+        { step: "02", hex: "#8A6B0F" },
+        { step: "03", hex: "#AD8713" },
+        { step: "04", hex: "#D1A217" },
+        { step: "05", hex: "#F5BF1B" },
+        { step: "06", hex: "#FACA39" },
+        { step: "07", hex: "#FFD659" },
+        { step: "08", hex: "#FFDF80" },
+        { step: "09", hex: "#FFE9A6" },
+      ],
+    },
+    {
+      name: "橙黄",
+      desc: "提示 / 强调",
+      token: "tangerine",
+      main: "#FD8D1E",
+      steps: [
+        { step: "01", hex: "#6E3D0D" },
+        { step: "02", hex: "#915111" },
+        { step: "03", hex: "#B56515" },
+        { step: "04", hex: "#D97919" },
+        { step: "05", hex: "#FD8D1E" },
+        { step: "06", hex: "#FF9E3D" },
+        { step: "07", hex: "#FFAD5C" },
+        { step: "08", hex: "#FFBD7A" },
+        { step: "09", hex: "#FFCC99" },
+      ],
+    },
+    {
+      name: "橙色",
+      desc: "热度 / 关注",
+      token: "Orange",
+      main: "#FD5219",
+      steps: [
+        { step: "01", hex: "#6E240B" },
+        { step: "02", hex: "#912F0F" },
+        { step: "03", hex: "#B53B12" },
+        { step: "04", hex: "#D94616" },
+        { step: "05", hex: "#FD5219" },
+        { step: "06", hex: "#FF6A38" },
+        { step: "07", hex: "#FF8157" },
+        { step: "08", hex: "#FF9875" },
+        { step: "09", hex: "#FFAF94" },
+      ],
+    },
+    {
+      name: "红色",
+      desc: "风险 / 错误",
+      token: "Status/Error",
+      main: "#FF2828",
+      steps: [
+        { step: "01", hex: "#701212" },
+        { step: "02", hex: "#941717" },
+        { step: "03", hex: "#B81D1D" },
+        { step: "04", hex: "#DB2323" },
+        { step: "05", hex: "#FF2828" },
+        { step: "06", hex: "#FF4D4D" },
+        { step: "07", hex: "#FF7070" },
+        { step: "08", hex: "#FF9494" },
+        { step: "09", hex: "#FFB8B8" },
+      ],
+    },
+    {
+      name: "玫红",
+      desc: "重点 / 警示",
+      token: "Rose red",
+      main: "#FE1F56",
+      steps: [
+        { step: "01", hex: "#700E27" },
+        { step: "02", hex: "#941233" },
+        { step: "03", hex: "#B8163F" },
+        { step: "04", hex: "#DB1A4B" },
+        { step: "05", hex: "#FE1F56" },
+        { step: "06", hex: "#FE4271" },
+        { step: "07", hex: "#FE668C" },
+        { step: "08", hex: "#FE89A6" },
+        { step: "09", hex: "#FEADC1" },
+      ],
+    },
+    {
+      name: "蓝紫",
+      desc: "关系 / 图谱",
+      token: "Bellflower",
+      main: "#5353F0",
+      steps: [
+        { step: "01", hex: "#292975" },
+        { step: "02", hex: "#333394" },
+        { step: "03", hex: "#3E3EB2" },
+        { step: "04", hex: "#4848D1" },
+        { step: "05", hex: "#5353F0" },
+        { step: "06", hex: "#7575FA" },
+        { step: "07", hex: "#9C9CFF" },
+        { step: "08", hex: "#B5B5FF" },
+        { step: "09", hex: "#C9C9FF" },
+      ],
+    },
+    {
+      name: "紫色",
+      desc: "关联 / 分组",
+      token: "Purple",
+      main: "#9132F0",
+      steps: [
+        { step: "01", hex: "#3A1461" },
+        { step: "02", hex: "#501C85" },
+        { step: "03", hex: "#6623A8" },
+        { step: "04", hex: "#7B2ACC" },
+        { step: "05", hex: "#9132F0" },
+        { step: "06", hex: "#A652FA" },
+        { step: "07", hex: "#B973FF" },
+        { step: "08", hex: "#C891FF" },
+        { step: "09", hex: "#D7B0FF" },
+      ],
+    },
+    {
+      name: "绿色",
+      desc: "成功 / 正向",
+      token: "Gene/green",
+      main: "#0D800D",
+      steps: [
+        { step: "01", hex: "#085208" },
+        { step: "02", hex: "#095C09" },
+        { step: "03", hex: "#0A660A" },
+        { step: "04", hex: "#0B700B" },
+        { step: "05", hex: "#0D800D" },
+        { step: "06", hex: "#299E29" },
+        { step: "07", hex: "#64BC64" },
+        { step: "08", hex: "#85D685" },
+        { step: "09", hex: "#B8E5B8" },
+      ],
+    },
+    {
+      name: "草绿",
+      desc: "增长 / 通过",
+      token: "Malachite green",
+      main: "#29800D",
+      steps: [
+        { step: "01", hex: "#154206" },
+        { step: "02", hex: "#1A5208" },
+        { step: "03", hex: "#20610A" },
+        { step: "04", hex: "#24700B" },
+        { step: "05", hex: "#29800D" },
+        { step: "06", hex: "#4BA82C" },
+        { step: "07", hex: "#7FC767" },
+        { step: "08", hex: "#9FD68D" },
+        { step: "09", hex: "#C3E5B8" },
+      ],
+    },
+  ];
+  const typeRows = [
+    { name: "页面标题", spec: "32 / 40", weight: "正常 / 加粗", size: 32, leading: 40, sample: "产业大脑工作台" },
+    { name: "大区块标题", spec: "28 / 36", weight: "正常 / 加粗", size: 28, leading: 36, sample: "招商研判报告" },
+    { name: "区块标题", spec: "24 / 32", weight: "正常 / 加粗", size: 24, leading: 32, sample: "企业风险概览" },
+    { name: "模块标题", spec: "20 / 28", weight: "正常 / 加粗", size: 20, leading: 28, sample: "重点企业列表" },
+    { name: "卡片标题", spec: "18 / 26", weight: "正常 / 加粗", size: 18, leading: 26, sample: "产业链图谱" },
+    { name: "小标题", spec: "16 / 24", weight: "正常 / 加粗", size: 16, leading: 24, sample: "筛选条件" },
+    { name: "正文", spec: "14 / 22", weight: "正常 / 加粗", size: 14, leading: 22, sample: "用于表格说明和页面正文。" },
+    { name: "辅助文字", spec: "13 / 20", weight: "正常 / 加粗", size: 13, leading: 20, sample: "更新时间与来源说明" },
+    { name: "标签文字", spec: "12 / 18", weight: "正常 / 加粗", size: 12, leading: 18, sample: "风险预警" },
+  ];
+  const responsiveSizes = [
+    { name: "小屏", size: "320", spec: "2列" },
+    { name: "平板", size: "768", spec: "6列" },
+    { name: "桌面", size: "1440", spec: "12列" },
+    { name: "宽屏", size: "1920", spec: "12列" },
+  ];
+  const shadowLevels = [
+    { name: "无阴影", use: "页面 / 表格", shadow: "none" },
+    { name: "轻微抬起", use: "hover / 拖拽", shadow: "0 1px 2px rgba(26,28,36,.08), 0 1px 3px rgba(26,28,36,.06)" },
+    { name: "抬起", use: "下拉 / 面板", shadow: "0 2px 6px rgba(26,28,36,.10), 0 4px 12px rgba(26,28,36,.06)" },
+    { name: "浮层", use: "工具栏 / 提示", shadow: "0 6px 16px rgba(26,28,36,.12), 0 12px 32px rgba(26,28,36,.08)" },
+    { name: "强浮层", use: "弹窗 / 抽屉", shadow: "0 12px 24px rgba(26,28,36,.14), 0 24px 48px rgba(26,28,36,.10)" },
+  ];
+  const renderScaleStrip = (steps: ColorStep[], heightClass = "h-7", showHex = true, minWidthClass = "min-w-[560px] sm:min-w-0") => (
+    <div className={minWidthClass}>
+      <div
+        className="grid overflow-hidden rounded-[8px] ring-1 ring-black/5"
+        style={{ gridTemplateColumns: `repeat(${steps.length}, minmax(0, 1fr))` }}
+      >
+        {steps.map((item) => (
+          <div key={`${item.step}-${item.hex}`} className={heightClass} style={{ backgroundColor: item.hex }} />
+        ))}
+      </div>
+      <div className="mt-1 grid gap-1" style={{ gridTemplateColumns: `repeat(${steps.length}, minmax(0, 1fr))` }}>
+        {steps.map((item) => (
+          <div key={`${item.step}-${item.hex}-label`} className="min-w-0">
+            <p className="truncate text-[11px] font-bold leading-[15px] text-[#696D7A]">{item.step}</p>
+            {showHex && <p className="truncate text-[10px] font-semibold leading-[14px] text-[#8A8D96]">{item.hex}</p>}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+  const renderColorScaleTile = (item: ColorScale) => (
+    <div key={`${item.name}-${item.token}`} className="min-w-0">
+      <div className="mb-2 flex items-start justify-between gap-2">
+        <div className="min-w-0">
+          <p className="truncate text-[13px] font-bold leading-[18px] text-[#1A1C24]">{item.name}</p>
+          <p className="mt-0.5 truncate text-[12px] font-semibold leading-[16px] text-[#696D7A]">{item.desc}</p>
+        </div>
+        <p className="shrink-0 truncate text-[11px] font-bold leading-[16px] text-[#8A8D96]">{item.token}</p>
+      </div>
+      <div className="h-9 rounded-[7px] ring-1 ring-black/5" style={{ backgroundColor: item.main }} />
+      <div className="mt-1">
+        {renderScaleStrip(item.steps, "h-4", false, "")}
+      </div>
+    </div>
+  );
+
+  return (
+    <figure
+      className="overflow-hidden rounded-[28px] border bg-white p-5 md:p-6"
+      style={{
+        borderColor: "#E6E7EB",
+        boxShadow: "0 1px 2px rgba(15,20,25,0.04)",
+      }}
+      aria-label="启信产业大脑组件库颜色变量色板"
+    >
+      <div>
+        <h3 className="text-[#1A1C24]" style={{ fontSize: 24, lineHeight: "32px", fontWeight: 800 }}>
+          基础变量样张
+        </h3>
+        <p className="mt-2 w-full overflow-hidden text-ellipsis whitespace-nowrap text-[#696D7A]" style={{ fontSize: 14, lineHeight: "24px", fontWeight: 500 }}>
+          从业务场景确定蓝色基调，再沉淀颜色、文字和主内容栅格，回到真实页面验证信息层级。
+        </p>
+      </div>
+
+      <div className="mt-6 space-y-5">
+        <section className="min-w-0 rounded-[22px] bg-[#FAFBFF] p-4 ring-1 ring-[#E6E7EB]">
+          <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-end sm:justify-between sm:gap-4">
+            <div className="min-w-0">
+              <h4 className="text-[17px] font-bold leading-[24px] text-[#1A1C24]">颜色系统</h4>
+              <p className="mt-1 text-[14px] font-medium leading-[20px] text-[#696D7A]">场景定主色，状态和层级再展开。</p>
+            </div>
+            <div className="flex shrink-0 flex-wrap justify-start gap-2 sm:justify-end">
+              <span className="rounded-full bg-[#EEF2FF] px-3 py-1 text-[14px] font-bold leading-[20px] text-[#1A42B8]">色相 ±15°</span>
+              <span className="rounded-full bg-[#F5F5F7] px-3 py-1 text-[14px] font-bold leading-[20px] text-[#4E525E]">明度验证</span>
+            </div>
+          </div>
+
+          <div className="mt-4 grid items-stretch gap-5 xl:grid-cols-[0.76fr_1.24fr]">
+            <div className="grid min-w-0 gap-4">
+              <div className="overflow-hidden rounded-[18px] bg-white ring-1 ring-[#E6E7EB]">
+                <div className="grid min-h-[150px] bg-[#2258F4] p-4 text-white">
+                  <p className="text-[14px] font-semibold leading-[20px] text-white/72">主色</p>
+                  <div className="self-end">
+                    <p className="text-[20px] font-bold leading-[28px]">蓝色基调</p>
+                    <p className="mt-1 text-[14px] font-semibold leading-[20px] text-white/82">#2258F4</p>
+                  </div>
+                </div>
+                <div className="p-3">
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="min-w-0">
+                      <p className="truncate text-[14px] font-bold leading-[20px] text-[#1A1C24]">主色色阶</p>
+                      <p className="mt-0.5 truncate text-[13px] font-semibold leading-[18px] text-[#696D7A]">{primaryScale.desc}</p>
+                    </div>
+                    <span className="shrink-0 rounded-full bg-[#F5F5F7] px-2 py-1 text-[12px] font-bold leading-[16px] text-[#4E525E]">{primaryScale.token}</span>
+                  </div>
+                  <div className="mt-3 overflow-x-auto pb-1">
+                    {renderScaleStrip(primaryScale.steps, "h-8")}
+                  </div>
+                </div>
+              </div>
+
+              <div className="grid gap-4">
+                <div>
+                  <p className="text-[14px] font-bold leading-[20px] text-[#1A1C24]">语义状态</p>
+                  <div className="mt-2 grid grid-cols-4 gap-2">
+                    {statusColors.map((item) => (
+                      <div key={item.name} className="min-w-0">
+                        <div className="h-6 rounded-[8px] ring-1 ring-black/5" style={{ backgroundColor: item.hex }} />
+                        <p className="mt-1 truncate text-[14px] font-semibold leading-[20px] text-[#696D7A]">{item.name}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <p className="text-[14px] font-bold leading-[20px] text-[#1A1C24]">中性色阶</p>
+                <div className="mt-2 grid grid-cols-9 overflow-hidden rounded-[10px] ring-1 ring-[#E6E7EB]">
+                  {neutralScale.map((hex, index) => (
+                    <div key={hex} className="h-6" style={{ backgroundColor: hex }} aria-label={`中性色 ${index + 1}`} />
+                  ))}
+                </div>
+                <div className="mt-2 grid grid-cols-9 gap-1">
+                  {neutralScale.map((hex, index) => (
+                    <p key={`${hex}-label`} className="truncate text-[14px] font-semibold leading-[20px] text-[#8A8D96]">{String(index + 1).padStart(2, "0")}</p>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="flex min-w-0 flex-col">
+              <div className="flex items-end justify-between gap-4">
+                <div>
+                  <h4 className="text-[17px] font-bold leading-[24px] text-[#1A1C24]">辅助色阶</h4>
+                  <p className="mt-1 text-[14px] font-medium leading-[20px] text-[#696D7A]">按 Figma 组件库的实际色阶抽取。</p>
+                </div>
+                <span className="shrink-0 rounded-full bg-white px-3 py-1 text-[14px] font-bold leading-[20px] text-[#696D7A] ring-1 ring-[#E6E7EB]">9 组色阶</span>
+              </div>
+              <div className="mt-4 overflow-hidden rounded-[16px] bg-white ring-1 ring-[#E6E7EB]">
+                <div className="grid gap-x-4 gap-y-4 p-3 sm:grid-cols-2 xl:grid-cols-3">
+                  {supportScales.map((item) => renderColorScaleTile(item))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="grid min-w-0 gap-4 xl:grid-cols-[1.18fr_0.94fr_0.88fr]">
+          <div className="min-w-0 rounded-[20px] bg-[#FAFBFF] p-4 ring-1 ring-[#E6E7EB]">
+            <h4 className="text-[17px] font-bold leading-[24px] text-[#1A1C24]">文字层级</h4>
+            <p className="mt-1 text-[14px] font-medium leading-[20px] text-[#696D7A]">按中文阅读密度设置标题和正文。</p>
+            <div className="mt-4 space-y-2">
+              {typeRows.map((row) => (
+                <div key={row.name} className="grid min-h-[48px] grid-cols-[82px_62px_78px_minmax(0,1fr)] items-center gap-3 border-b border-[#E6E7EB] py-1 last:border-b-0">
+                  <p className="text-[14px] font-bold leading-[20px] text-[#1A1C24]">{row.name}</p>
+                  <p className="text-[14px] font-semibold leading-[20px] text-[#2258F4]">{row.spec}</p>
+                  <p className="text-[14px] font-semibold leading-[20px] text-[#696D7A]">{row.weight}</p>
+                  <p
+                    className="flex min-h-[40px] items-center truncate font-bold text-[#1A1C24]"
+                    style={{ fontSize: row.size, lineHeight: `${row.leading}px` }}
+                  >
+                    {row.sample}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="flex h-full min-w-0 flex-col rounded-[20px] bg-[#FAFBFF] p-4 ring-1 ring-[#E6E7EB]">
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <h4 className="text-[17px] font-bold leading-[24px] text-[#1A1C24]">主内容栅格</h4>
+                <p className="mt-1 text-[14px] font-medium leading-[20px] text-[#696D7A]">侧栏和浮层先扣除，只约束内容区。</p>
+              </div>
+              <span className="shrink-0 rounded-full bg-white px-3 py-1 text-[14px] font-bold leading-[20px] text-[#696D7A] ring-1 ring-[#E6E7EB]">1440 样张</span>
+            </div>
+
+            <div className="mt-4 flex min-h-[198px] flex-1 overflow-hidden rounded-[14px] bg-white ring-1 ring-[#E6E7EB]">
+              <div className="grid w-full grid-cols-[72px_minmax(0,1fr)]">
+                <div className="flex items-center justify-center bg-[#F5F5F7] px-3 text-center text-[14px] font-semibold leading-[20px] text-[#8A8D96]">
+                  侧栏不计入
+                </div>
+                <div className="flex min-w-0 flex-1 flex-col p-4">
+                  <div className="mb-3 grid grid-cols-[minmax(50px,1fr)_auto_minmax(50px,1fr)] items-center gap-2 text-[14px] font-semibold leading-[20px] text-[#8A8D96]">
+                    <span className="min-w-0">32 边距</span>
+                    <span className="whitespace-nowrap text-center">12 列 / 16 沟槽</span>
+                    <span className="min-w-0 text-right">32 边距</span>
+                  </div>
+                  <div className="grid flex-1 grid-cols-12 gap-1.5">
+                    {Array.from({ length: 12 }).map((_, index) => (
+                      <div key={index} className="rounded-[7px] bg-[#DCE6FF]" />
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-4">
+              <p className="text-[14px] font-bold leading-[20px] text-[#1A1C24]">响应式布局</p>
+              <div className="mt-2 grid grid-cols-4 gap-2">
+                {responsiveSizes.map((item) => (
+                  <div key={item.size} className="rounded-[10px] bg-white px-3 py-2 text-center ring-1 ring-[#E6E7EB]">
+                    <p className="text-[14px] font-bold leading-[20px] text-[#1A1C24]">{item.size}</p>
+                    <p className="mt-0.5 text-[14px] font-semibold leading-[20px] text-[#696D7A]">{item.spec}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <p className="mt-3 text-[14px] font-medium leading-[20px] text-[#696D7A]">
+              核心验证尺寸：320、768、1440、1920。
+            </p>
+          </div>
+
+          <div className="flex h-full min-w-0 flex-col rounded-[20px] bg-[#FAFBFF] p-4 ring-1 ring-[#E6E7EB]">
+            <h4 className="text-[17px] font-bold leading-[24px] text-[#1A1C24]">投影层级</h4>
+            <p className="mt-1 text-[14px] font-medium leading-[20px] text-[#696D7A]">只表达真实浮起、遮挡和滚动边界。</p>
+            <div className="mt-4 grid flex-1 grid-cols-1 gap-3 sm:grid-cols-2 sm:grid-rows-[1fr_1fr_1fr]">
+              {shadowLevels.map((item, index) => (
+                <div key={item.name} className={`flex h-full min-h-[118px] flex-col rounded-[14px] bg-white p-2.5 ring-1 ring-[#E6E7EB] ${index === shadowLevels.length - 1 ? "sm:col-span-2" : ""}`}>
+                  <div
+                    className="min-h-[62px] flex-1 rounded-[12px] bg-[#F4F4F5] ring-1 ring-[#E6E7EB]"
+                    style={{ boxShadow: item.shadow }}
+                    aria-hidden="true"
+                  />
+                  <div className="grid min-w-0 grid-cols-[auto_minmax(0,1fr)] items-center gap-2 px-1 pt-2">
+                    <p className="text-[15px] font-bold leading-[22px] text-[#1A1C24]">{item.name}</p>
+                    <p className="truncate text-right text-[14px] font-semibold leading-[20px] text-[#696D7A]">{item.use}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      </div>
+    </figure>
+  );
+}
+
 function QixinSystemEvolutionMap({ className = "mt-7" }: { className?: string } = {}) {
   const rootNode = { x: 0.8, y: 170, width: 178, height: 40 } as const;
   const mainNode = { x: 260, width: 144, height: 40 } as const;
@@ -3741,7 +4196,11 @@ export function QixinProjectDetail({ onBack }: Props) {
               </div>
             </div>
 
-            <div className="mt-6 grid gap-5 lg:grid-cols-2">
+            <div className="mt-6">
+              <QixinColorTokenPreview />
+            </div>
+
+            <div className="mt-5 grid gap-5 lg:grid-cols-2">
               <FoundationRulesPreview />
               <KeyComponentStatesPreview />
             </div>
