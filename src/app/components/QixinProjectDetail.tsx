@@ -8,7 +8,6 @@ import {
   BarChart3,
   Boxes,
   Building2,
-  ClipboardList,
   Database,
   FileText,
   GitBranch,
@@ -24,11 +23,11 @@ import {
   Tags,
   Target,
   Users,
-  Workflow,
 } from "lucide-react";
 import { Placeholder } from "./Placeholder";
 import { Footer } from "./Footer";
 import { ScrollArea } from "./ScrollArea";
+import { hideContactDetails } from "../buildVariant";
 
 interface Props {
   onBack: () => void;
@@ -4610,34 +4609,15 @@ export function QixinProjectDetail({ onBack }: Props) {
         </div>
       </section>
 
-      <section id="qx10" className={`relative py-20 md:py-28 ${SECTION_PAD} bg-[#FAFBFF]`}>
-        <div className={READ}>
-          <Reveal>
-          <div className="text-center mb-12">
-            <h2 className="tracking-tight text-[#1A1C24] leading-[1.12]" style={{ fontSize: "clamp(28px, 3.5vw, 48px)", fontWeight: 700 }}>
-              从模块设计到平台治理
-            </h2>
-            <p className="mt-4 text-[#696D7A] max-w-[880px] mx-auto" style={T.bodyMuted}>
-              从核心模块设计到平台架构、设计系统和跨系统联动，贯穿 2021 到 2026 年的持续迭代。
-            </p>
-          </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {[
-              { icon: Workflow, title: "平台信息架构能力", desc: "把产业洞察、精准招商、企业画像等模块组织为统一可导航的平台结构。" },
-              { icon: ClipboardList, title: "多场景任务拆解能力", desc: "从招商、产业服务、企业服务等五类场景中抽象共同的用户任务链路。" },
-              { icon: Search, title: "核心业务模块设计能力", desc: "持续迭代首页、产业洞察、精准招商、企业画像、报告中心和企业监控。" },
-              { icon: Boxes, title: "组件库与规范建设能力", desc: "主导 DGG 组件库与标品规范从 0 到 1 建设，协同组内设计师推进。" },
-              { icon: Link2, title: "跨系统联动设计能力", desc: "将产业大脑的企业分组与 AI 报告的关联企业能力打通，形成数据闭环。" },
-              { icon: GitBranch, title: "长期产品演进能力", desc: "从 2021 到 2026 持续跟进迭代，在功能持续增长中保持体验不失控。" },
-            ].map((item) => <Card key={item.title} {...item} />)}
-          </div>
-          <div className="mt-16 flex flex-wrap items-center justify-between gap-4 pt-8 border-t border-[#CBCDD4]">
-            <button onClick={onBack} className="group inline-flex items-center gap-3 text-sm text-[#696D7A] hover:text-[#1A1C24] transition-colors">
-              <span className="inline-flex size-4 items-center justify-center text-[#CBCDD4] transition-colors">
-                <ArrowLeft className="size-4" />
-              </span>
-              返回首页
-            </button>
+      <div className={`relative ${SECTION_PAD} pb-16`}>
+        <Reveal className={`${READ} flex flex-wrap items-center justify-between gap-4 pt-8`} delay={0.12} y={18}>
+          <button onClick={onBack} className="group inline-flex items-center gap-3 text-sm text-[#696D7A] hover:text-[#1A1C24] transition-colors">
+            <span className="inline-flex size-4 items-center justify-center text-[#CBCDD4] transition-colors">
+              <ArrowLeft className="size-4" />
+            </span>
+            返回首页
+          </button>
+          {!hideContactDetails && (
             <a
               href="#contact"
               onClick={(e) => {
@@ -4658,10 +4638,9 @@ export function QixinProjectDetail({ onBack }: Props) {
                 <ArrowRight className="size-4" />
               </span>
             </a>
-          </div>
+          )}
         </Reveal>
-        </div>
-      </section>
+      </div>
 
       <Footer />
       </>

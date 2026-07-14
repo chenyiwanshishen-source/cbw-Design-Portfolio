@@ -25,6 +25,7 @@ import {
 } from "lucide-react";
 import { Placeholder } from "./Placeholder";
 import { Footer } from "./Footer";
+import { hideContactDetails } from "../buildVariant";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -2964,26 +2965,28 @@ export function ProjectDetail({ onBack }: Props) {
             </span>
             返回首页
           </button>
-          <a
-            href="#contact"
-            onClick={(e) => {
-              e.preventDefault();
-              onBack();
-              setTimeout(
-                () =>
-                  document
-                    .getElementById("contact")
-                    ?.scrollIntoView({ behavior: "smooth" }),
-                60
-              );
-            }}
-            className="group inline-flex items-center gap-3 pl-6 pr-2 py-2 rounded-full bg-neutral-900 text-white hover:bg-[#2258F4] transition-colors"
-          >
-            <span className="text-sm">联系我</span>
-            <span className="inline-flex size-4 items-center justify-center text-white/80 group-hover:rotate-45 transition-transform">
-              <ArrowRight className="size-4" />
-            </span>
-          </a>
+          {!hideContactDetails && (
+            <a
+              href="#contact"
+              onClick={(e) => {
+                e.preventDefault();
+                onBack();
+                setTimeout(
+                  () =>
+                    document
+                      .getElementById("contact")
+                      ?.scrollIntoView({ behavior: "smooth" }),
+                  60
+                );
+              }}
+              className="group inline-flex items-center gap-3 pl-6 pr-2 py-2 rounded-full bg-neutral-900 text-white hover:bg-[#2258F4] transition-colors"
+            >
+              <span className="text-sm">联系我</span>
+              <span className="inline-flex size-4 items-center justify-center text-white/80 group-hover:rotate-45 transition-transform">
+                <ArrowRight className="size-4" />
+              </span>
+            </a>
+          )}
         </Reveal>
       </div>
 

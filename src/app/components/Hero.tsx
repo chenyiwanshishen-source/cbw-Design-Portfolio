@@ -5,6 +5,7 @@ import { useGSAP } from "@gsap/react";
 import { Draggable } from "gsap/Draggable";
 import { ArrowDown } from "lucide-react";
 import { Marquee } from "./Marquee";
+import { hideContactDetails } from "../buildVariant";
 
 gsap.registerPlugin(useGSAP, Draggable);
 
@@ -414,23 +415,25 @@ export function Hero() {
                   </span>
                 </span>
               </a>
-              <a
-                data-magnetic-button
-                href="#contact"
-                onClick={(e) => {
-                  e.preventDefault();
-                  document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
-                }}
-                className="group relative inline-flex h-[52px] will-change-transform items-center rounded-full border border-[#CBCDD4] px-6 text-sm text-[#4E525E] transition-colors duration-300 hover:border-[#A8BEFF] hover:bg-[#F5F5F7] hover:text-[#1A1C24]"
-              >
-                <span
-                  data-magnetic-label
-                  className="inline-flex will-change-transform pointer-events-none items-center gap-2"
+              {!hideContactDetails && (
+                <a
+                  data-magnetic-button
+                  href="#contact"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+                  }}
+                  className="group relative inline-flex h-[52px] will-change-transform items-center rounded-full border border-[#CBCDD4] px-6 text-sm text-[#4E525E] transition-colors duration-300 hover:border-[#A8BEFF] hover:bg-[#F5F5F7] hover:text-[#1A1C24]"
                 >
-                  联系我
-                  <span className="inline-block group-hover:translate-x-1 transition-transform">→</span>
-                </span>
-              </a>
+                  <span
+                    data-magnetic-label
+                    className="inline-flex will-change-transform pointer-events-none items-center gap-2"
+                  >
+                    联系我
+                    <span className="inline-block group-hover:translate-x-1 transition-transform">→</span>
+                  </span>
+                </a>
+              )}
             </div>
           </motion.div>
         </div>

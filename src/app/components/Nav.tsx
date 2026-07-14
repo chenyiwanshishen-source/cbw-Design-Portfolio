@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import { Menu, X } from "lucide-react";
 import { preloadProjectDetailAssets } from "../projectPreload";
+import { hideContactDetails } from "../buildVariant";
 
 const navItems = [
   { label: "AI报告生成", href: "#/project/ai-report" },
@@ -167,14 +168,21 @@ export function Nav() {
         </nav>
 
         <div className="flex shrink-0 items-center gap-2">
-          <a
-            href="#contact"
-            onClick={goContact}
-            className="group relative inline-flex h-10 items-center gap-2 rounded-full bg-[#1A1C24] px-3 text-sm text-white transition-colors hover:bg-[#4E525E] sm:px-4"
-          >
-            <span className="size-1.5 rounded-full bg-[#2258F4] animate-pulse" />
-            已离职
-          </a>
+          {hideContactDetails ? (
+            <span className="relative inline-flex h-10 items-center gap-2 rounded-full bg-[#1A1C24] px-3 text-sm text-white sm:px-4">
+              <span className="size-1.5 rounded-full bg-[#2258F4] animate-pulse" />
+              已离职
+            </span>
+          ) : (
+            <a
+              href="#contact"
+              onClick={goContact}
+              className="group relative inline-flex h-10 items-center gap-2 rounded-full bg-[#1A1C24] px-3 text-sm text-white transition-colors hover:bg-[#4E525E] sm:px-4"
+            >
+              <span className="size-1.5 rounded-full bg-[#2258F4] animate-pulse" />
+              已离职
+            </a>
+          )}
           <button
             type="button"
             aria-label={mobileMenuOpen ? "关闭菜单" : "打开菜单"}
@@ -224,9 +232,11 @@ export function Nav() {
               </a>
             );
           })}
-          <a href="#contact" onClick={goContact} className={`${mobileNavLinkBase} ${mobileNavLinkInactive}`}>
-            联系我
-          </a>
+          {!hideContactDetails && (
+            <a href="#contact" onClick={goContact} className={`${mobileNavLinkBase} ${mobileNavLinkInactive}`}>
+              联系我
+            </a>
+          )}
         </motion.nav>
       )}
     </motion.header>

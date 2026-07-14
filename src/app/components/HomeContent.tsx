@@ -4,6 +4,7 @@ import { Skills } from "./Skills";
 import { Experience } from "./Experience";
 import { Contact } from "./Contact";
 import { Footer } from "./Footer";
+import { hideContactDetails } from "../buildVariant";
 import type { preloadProjectDetailAssets } from "../projectPreload";
 
 interface HomeContentProps {
@@ -17,7 +18,7 @@ export function HomeContent({ onProjectIntent }: HomeContentProps) {
       <Projects onProjectIntent={onProjectIntent} />
       <Skills />
       <Experience />
-      <Contact />
+      {!hideContactDetails && <Contact />}
       <Footer />
     </>
   );
