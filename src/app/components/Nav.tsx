@@ -5,8 +5,8 @@ import { preloadProjectDetailAssets } from "../projectPreload";
 import { hideContactDetails } from "../buildVariant";
 
 const navItems = [
-  { label: "AI报告生成", href: "#/project/ai-report" },
   { label: "启信产业大脑", href: "#/project/qixin-brain" },
+  { label: "AI报告生成", href: "#/project/ai-report" },
 ];
 
 const navLinkBase =

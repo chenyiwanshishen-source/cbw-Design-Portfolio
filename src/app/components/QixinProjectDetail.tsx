@@ -256,7 +256,7 @@ function ChainStageFramework() {
                       transform={
                         node.rotate ? `rotate(${node.rotate} ${node.x + node.w / 2} ${node.y + 16})` : undefined
                       }
-                    >
+                  >
                       <rect
                         x={node.x}
                         y={node.y - 1}
@@ -2554,6 +2554,262 @@ function Pill({ children }: { children: ReactNode }) {
   );
 }
 
+function HomepageTaskArchitecture() {
+  const nodeTitleStyle = {
+    fontSize: 16,
+    fontWeight: 700,
+    fontFamily: "inherit",
+  } as const;
+  const nodeBodyStyle = {
+    fontSize: 14,
+    fontWeight: 500,
+    fontFamily: "inherit",
+  } as const;
+
+  return (
+    <div className="w-full">
+      <svg
+        viewBox="0 90 1680 390"
+        className="block w-full"
+        role="img"
+        aria-labelledby="homepage-task-architecture-title homepage-task-architecture-desc"
+      >
+        <title id="homepage-task-architecture-title">首页任务中枢业务推导图</title>
+        <desc id="homepage-task-architecture-desc">
+          业务输入先汇入任务提炼，经设计转折分流为两组首页能力，再汇入任务中枢与业务价值；现状阻力从下方向转折处输入。
+        </desc>
+        <defs>
+          <marker
+            id="qixin-homepage-task-arrow"
+            viewBox="0 0 8 8"
+            refX="6.8"
+            refY="4"
+            markerWidth="7"
+            markerHeight="7"
+            orient="auto"
+          >
+            <path
+              d="M1 1L7 4L1 7"
+              fill="none"
+              stroke="#AEB3C1"
+              strokeWidth="1.15"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </marker>
+          <marker
+            id="qixin-homepage-risk-arrow"
+            viewBox="0 0 8 8"
+            refX="6.8"
+            refY="4"
+            markerWidth="7"
+            markerHeight="7"
+            orient="auto"
+          >
+            <path
+              d="M1 1L7 4L1 7"
+              fill="none"
+              stroke="#FF8DA1"
+              strokeWidth="1.15"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </marker>
+        </defs>
+
+        <g
+          aria-hidden="true"
+          fill="none"
+          stroke="#AEB3C1"
+          strokeWidth="1.25"
+          strokeDasharray="6 8"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          opacity="0.82"
+        >
+          <path d="M250 195H290V365H250" />
+          <path d="M290 280H330" markerEnd="url(#qixin-homepage-task-arrow)" />
+          <path d="M500 280H520" markerEnd="url(#qixin-homepage-task-arrow)" />
+          <path d="M690 280H770" markerEnd="url(#qixin-homepage-task-arrow)" />
+
+          <path d="M910 280H950V195H990" markerEnd="url(#qixin-homepage-task-arrow)" />
+          <path d="M950 280V365H990" markerEnd="url(#qixin-homepage-task-arrow)" />
+          <path d="M1140 195H1160" markerEnd="url(#qixin-homepage-task-arrow)" />
+          <path d="M1140 365H1160" markerEnd="url(#qixin-homepage-task-arrow)" />
+          <path d="M1310 195H1350V365H1310" />
+          <path d="M1350 280H1430" markerEnd="url(#qixin-homepage-task-arrow)" />
+          <path d="M1540 280H1570" markerEnd="url(#qixin-homepage-task-arrow)" />
+        </g>
+
+        <path
+          aria-hidden="true"
+          d="M690 420H720V315"
+          fill="none"
+          stroke="#FF8DA1"
+          strokeWidth="1.2"
+          strokeDasharray="5 8"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          opacity="0.88"
+          markerEnd="url(#qixin-homepage-risk-arrow)"
+        />
+
+        <g>
+          <rect
+            x="0"
+            y="145"
+            width="250"
+            height="100"
+            rx="12"
+            fill="#E5EBFF"
+          />
+          <text x="125" y="180" textAnchor="middle" fill="#1A42B8" style={nodeTitleStyle}>
+            业务场景
+          </text>
+          <text x="125" y="214" textAnchor="middle" fill="#4E525E" style={nodeBodyStyle}>
+            招商 · 产业 · 企业 · 金融 · 治理
+          </text>
+
+          <rect
+            x="0"
+            y="315"
+            width="250"
+            height="100"
+            rx="12"
+            fill="#E5EBFF"
+          />
+          <text x="125" y="350" textAnchor="middle" fill="#1A42B8" style={nodeTitleStyle}>
+            业务触发
+          </text>
+          <text x="125" y="384" textAnchor="middle" fill="#4E525E" style={nodeBodyStyle}>
+            目标 · 需求 · 风险 · 政策
+          </text>
+        </g>
+
+        <g>
+          <rect
+            x="330"
+            y="230"
+            width="170"
+            height="100"
+            rx="10"
+            fill="#E6F4E7"
+          />
+          <text x="415" y="262" textAnchor="middle" fill="#146B22" style={nodeTitleStyle}>
+            访谈归类
+          </text>
+          <text x="415" y="294" textAnchor="middle" fill="#4E525E" style={nodeBodyStyle}>
+            <tspan x="415" dy="0">目标 · 阻力</tspan>
+            <tspan x="415" dy="22">任务 · 噪音</tspan>
+          </text>
+
+          <rect
+            x="520"
+            y="230"
+            width="170"
+            height="100"
+            rx="10"
+            fill="#E6F4E7"
+          />
+          <text x="605" y="262" textAnchor="middle" fill="#146B22" style={nodeTitleStyle}>
+            共同任务链
+          </text>
+          <text x="605" y="294" textAnchor="middle" fill="#4E525E" style={nodeBodyStyle}>
+            <tspan x="605" dy="0">识别 → 感知 → 研判</tspan>
+            <tspan x="605" dy="22">跟进 → 沉淀</tspan>
+          </text>
+
+          <rect
+            x="330"
+            y="375"
+            width="360"
+            height="90"
+            rx="10"
+            fill="#FFF0F3"
+            stroke="#FF8DA1"
+            strokeWidth="1.2"
+            strokeDasharray="6 5"
+          />
+          <text x="510" y="404" textAnchor="middle" fill="#D82748" style={nodeTitleStyle}>
+            现状阻力
+          </text>
+          <text x="510" y="440" textAnchor="middle" fill="#9D1F38" style={nodeBodyStyle}>
+            信息分散 · 入口隐藏 · 系统切换 · 任务断裂
+          </text>
+        </g>
+
+        <g>
+          <rect
+            x="770"
+            y="230"
+            width="140"
+            height="100"
+            rx="10"
+            fill="#E5EBFF"
+          />
+          <text x="840" y="270" textAnchor="middle" fill="#1A42B8" fontFamily="inherit" fontSize="14" fontWeight="700">
+            <tspan x="840" dy="0">从“找功能”</tspan>
+            <tspan x="840" dy="24">转向“承接任务”</tspan>
+          </text>
+        </g>
+
+        <g>
+          <rect x="990" y="145" width="150" height="100" rx="10" fill="#F1F2F4" />
+          <text x="1065" y="180" textAnchor="middle" fill="#30323A" style={nodeTitleStyle}>
+            任务启动
+          </text>
+          <text x="1065" y="214" textAnchor="middle" fill="#4E525E" style={nodeBodyStyle}>
+            搜索 · 常用
+          </text>
+
+          <rect x="1160" y="145" width="150" height="100" rx="10" fill="#F1F2F4" />
+          <text x="1235" y="180" textAnchor="middle" fill="#30323A" style={nodeTitleStyle}>
+            变化感知
+          </text>
+          <text x="1235" y="214" textAnchor="middle" fill="#4E525E" style={nodeBodyStyle}>
+            快讯 · 舆情 · 预警
+          </text>
+
+          <rect x="990" y="315" width="150" height="100" rx="10" fill="#F1F2F4" />
+          <text x="1065" y="350" textAnchor="middle" fill="#30323A" style={nodeTitleStyle}>
+            业务研判
+          </text>
+          <text x="1065" y="384" textAnchor="middle" fill="#4E525E" style={nodeBodyStyle}>
+            地区 · 产业 · 企业
+          </text>
+
+          <rect x="1160" y="315" width="150" height="100" rx="10" fill="#F1F2F4" />
+          <text x="1235" y="350" textAnchor="middle" fill="#30323A" style={nodeTitleStyle}>
+            跟进输出
+          </text>
+          <text x="1235" y="384" textAnchor="middle" fill="#4E525E" style={nodeBodyStyle}>
+            任务 · 监控 · 报告
+          </text>
+        </g>
+
+        <g>
+          <rect x="1430" y="230" width="110" height="100" rx="10" fill="#F0E9FF" />
+          <text x="1485" y="265" textAnchor="middle" fill="#6623A8" fontFamily="inherit" fontSize="14" fontWeight="700">
+            任务中枢
+          </text>
+          <text x="1485" y="299" textAnchor="middle" fill="#4E525E" fontFamily="inherit" fontSize="13" fontWeight="500">
+            启动 · 承接
+          </text>
+
+          <rect x="1570" y="230" width="110" height="100" rx="10" fill="#F0E9FF" />
+          <text x="1625" y="265" textAnchor="middle" fill="#6623A8" fontFamily="inherit" fontSize="14" fontWeight="700">
+            业务价值
+          </text>
+          <text x="1625" y="296" textAnchor="middle" fill="#4E525E" fontFamily="inherit" fontSize="12.5" fontWeight="500">
+            <tspan x="1625" dy="0">提效 · 减负</tspan>
+            <tspan x="1625" dy="20">支撑决策</tspan>
+          </text>
+        </g>
+      </svg>
+    </div>
+  );
+}
+
 function Reveal({
   children,
   className = "",
@@ -3214,7 +3470,7 @@ export function QixinProjectDetail({ onBack }: Props) {
                       transform: qxResearchZoom === 1 ? undefined : `scale(${qxResearchZoom})`,
                       transformOrigin: "top left",
                     }}
-                  >
+                    >
                     <FlowLineLayer />
                     <div className="relative z-10 grid grid-cols-[max-content_max-content_max-content_max-content_max-content_max-content_max-content] items-start gap-x-6">
                       <div className="relative grid grid-cols-[max-content_max-content] items-start gap-x-6 overflow-visible">
@@ -4218,6 +4474,11 @@ export function QixinProjectDetail({ onBack }: Props) {
               用户进入系统后，不应该先在菜单里找入口，而是先看到报告、动态、业务概览和常用功能，直接进入查询、判断、跟进和输出。
             </p>
           </div>
+
+          <div className="mb-12 md:mb-14">
+            <HomepageTaskArchitecture />
+          </div>
+
           <div className="grid gap-8 lg:grid-cols-[0.94fr_1.1fr] lg:items-start xl:gap-10">
             <div className="overflow-hidden rounded-[24px] border border-[#E6E7EB] bg-[#FAFBFF]">
               <img
