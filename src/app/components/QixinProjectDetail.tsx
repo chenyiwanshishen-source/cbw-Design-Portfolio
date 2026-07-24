@@ -758,7 +758,7 @@ function QixinColorTokenPreview() {
   };
 
   const primaryScale: ColorScale = {
-    name: "蓝色基调",
+    name: "品牌识别与核心操作",
     desc: "主色完整色阶",
     token: "Gene/blue",
     main: "#2258F4",
@@ -971,14 +971,30 @@ function QixinColorTokenPreview() {
     { name: "浮层", use: "工具栏 / 提示", shadow: "0 6px 16px rgba(26,28,36,.12), 0 12px 32px rgba(26,28,36,.08)" },
     { name: "强浮层", use: "弹窗 / 抽屉", shadow: "0 12px 24px rgba(26,28,36,.14), 0 24px 48px rgba(26,28,36,.10)" },
   ];
-  const renderScaleStrip = (steps: ColorStep[], heightClass = "h-7", showHex = true, minWidthClass = "min-w-[560px] sm:min-w-0") => (
+  const renderScaleStrip = (
+    steps: ColorStep[],
+    heightClass = "h-7",
+    showHex = true,
+    minWidthClass = "min-w-[560px] sm:min-w-0",
+    highlightHex?: string,
+  ) => (
     <div className={minWidthClass}>
       <div
         className="grid overflow-hidden rounded-[8px] ring-1 ring-black/5"
         style={{ gridTemplateColumns: `repeat(${steps.length}, minmax(0, 1fr))` }}
       >
         {steps.map((item) => (
-          <div key={`${item.step}-${item.hex}`} className={heightClass} style={{ backgroundColor: item.hex }} />
+          <div
+            key={`${item.step}-${item.hex}`}
+            className={heightClass}
+            style={{
+              backgroundColor: item.hex,
+              boxShadow:
+                item.hex === highlightHex
+                  ? `inset 0 0 0 2px ${steps[1]?.hex ?? "#4E525E"}`
+                  : undefined,
+            }}
+          />
         ))}
       </div>
       <div className="mt-1 grid gap-1" style={{ gridTemplateColumns: `repeat(${steps.length}, minmax(0, 1fr))` }}>
@@ -1000,10 +1016,7 @@ function QixinColorTokenPreview() {
         </div>
         <p className="shrink-0 truncate text-[11px] font-bold leading-[16px] text-[#8A8D96]">{item.token}</p>
       </div>
-      <div className="h-9 rounded-[7px] ring-1 ring-black/5" style={{ backgroundColor: item.main }} />
-      <div className="mt-1">
-        {renderScaleStrip(item.steps, "h-4", false, "")}
-      </div>
+      {renderScaleStrip(item.steps, "h-8", false, "", item.main)}
     </div>
   );
 
@@ -1041,10 +1054,10 @@ function QixinColorTokenPreview() {
           <div className="mt-4 grid items-stretch gap-5 xl:grid-cols-[0.76fr_1.24fr]">
             <div className="grid min-w-0 gap-4">
               <div className="overflow-hidden rounded-[18px] bg-white ring-1 ring-[#E6E7EB]">
-                <div className="grid min-h-[150px] bg-[#2258F4] p-4 text-white">
+                <div className="flex min-h-[84px] items-center justify-between gap-4 bg-[#2258F4] p-4 text-white">
                   <p className="text-[14px] font-semibold leading-[20px] text-white/72">主色</p>
-                  <div className="self-end">
-                    <p className="text-[20px] font-bold leading-[28px]">蓝色基调</p>
+                  <div className="text-right">
+                    <p className="text-[14px] font-bold leading-[20px]">{primaryScale.name}</p>
                     <p className="mt-1 text-[14px] font-semibold leading-[20px] text-white/82">#2258F4</p>
                   </div>
                 </div>
