@@ -171,7 +171,7 @@ export function Nav() {
           {hideContactDetails ? (
             <span className="relative inline-flex h-10 items-center gap-2 rounded-full bg-[#1A1C24] px-3 text-sm text-white sm:px-4">
               <span className="size-1.5 rounded-full bg-[#2258F4] animate-pulse" />
-              已离职
+              目前在寻找新的机会
             </span>
           ) : (
             <a
@@ -180,7 +180,7 @@ export function Nav() {
               className="group relative inline-flex h-10 items-center gap-2 rounded-full bg-[#1A1C24] px-3 text-sm text-white transition-colors hover:bg-[#4E525E] sm:px-4"
             >
               <span className="size-1.5 rounded-full bg-[#2258F4] animate-pulse" />
-              已离职
+              目前在寻找新的机会
             </a>
           )}
           <button

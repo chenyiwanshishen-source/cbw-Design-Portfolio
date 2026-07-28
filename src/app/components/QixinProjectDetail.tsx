@@ -811,23 +811,6 @@ function QixinColorTokenPreview() {
       ],
     },
     {
-      name: "橙黄",
-      desc: "提示 / 强调",
-      token: "tangerine",
-      main: "#FD8D1E",
-      steps: [
-        { step: "01", hex: "#6E3D0D" },
-        { step: "02", hex: "#915111" },
-        { step: "03", hex: "#B56515" },
-        { step: "04", hex: "#D97919" },
-        { step: "05", hex: "#FD8D1E" },
-        { step: "06", hex: "#FF9E3D" },
-        { step: "07", hex: "#FFAD5C" },
-        { step: "08", hex: "#FFBD7A" },
-        { step: "09", hex: "#FFCC99" },
-      ],
-    },
-    {
       name: "橙色",
       desc: "热度 / 关注",
       token: "Orange",
@@ -859,23 +842,6 @@ function QixinColorTokenPreview() {
         { step: "07", hex: "#FF7070" },
         { step: "08", hex: "#FF9494" },
         { step: "09", hex: "#FFB8B8" },
-      ],
-    },
-    {
-      name: "玫红",
-      desc: "重点 / 警示",
-      token: "Rose red",
-      main: "#FE1F56",
-      steps: [
-        { step: "01", hex: "#700E27" },
-        { step: "02", hex: "#941233" },
-        { step: "03", hex: "#B8163F" },
-        { step: "04", hex: "#DB1A4B" },
-        { step: "05", hex: "#FE1F56" },
-        { step: "06", hex: "#FE4271" },
-        { step: "07", hex: "#FE668C" },
-        { step: "08", hex: "#FE89A6" },
-        { step: "09", hex: "#FEADC1" },
       ],
     },
     {
@@ -927,23 +893,6 @@ function QixinColorTokenPreview() {
         { step: "07", hex: "#64BC64" },
         { step: "08", hex: "#85D685" },
         { step: "09", hex: "#B8E5B8" },
-      ],
-    },
-    {
-      name: "草绿",
-      desc: "增长 / 通过",
-      token: "Malachite green",
-      main: "#29800D",
-      steps: [
-        { step: "01", hex: "#154206" },
-        { step: "02", hex: "#1A5208" },
-        { step: "03", hex: "#20610A" },
-        { step: "04", hex: "#24700B" },
-        { step: "05", hex: "#29800D" },
-        { step: "06", hex: "#4BA82C" },
-        { step: "07", hex: "#7FC767" },
-        { step: "08", hex: "#9FD68D" },
-        { step: "09", hex: "#C3E5B8" },
       ],
     },
   ];
@@ -1008,15 +957,15 @@ function QixinColorTokenPreview() {
     </div>
   );
   const renderColorScaleTile = (item: ColorScale) => (
-    <div key={`${item.name}-${item.token}`} className="min-w-0">
-      <div className="mb-2 flex items-start justify-between gap-2">
+    <div key={`${item.name}-${item.token}`} className="flex min-w-0 flex-col justify-center">
+      <div className="mb-3 flex items-start justify-between gap-2">
         <div className="min-w-0">
           <p className="truncate text-[13px] font-bold leading-[18px] text-[#1A1C24]">{item.name}</p>
           <p className="mt-0.5 truncate text-[12px] font-semibold leading-[16px] text-[#696D7A]">{item.desc}</p>
         </div>
         <p className="shrink-0 truncate text-[11px] font-bold leading-[16px] text-[#8A8D96]">{item.token}</p>
       </div>
-      {renderScaleStrip(item.steps, "h-8", false, "", item.main)}
+      {renderScaleStrip(item.steps, "h-11", false, "", item.main)}
     </div>
   );
 
@@ -1040,21 +989,15 @@ function QixinColorTokenPreview() {
 
       <div className="mt-6 space-y-5">
         <section className="min-w-0 rounded-[22px] bg-[#FAFBFF] p-4 ring-1 ring-[#E6E7EB]">
-          <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-end sm:justify-between sm:gap-4">
-            <div className="min-w-0">
-              <h4 className="text-[17px] font-bold leading-[24px] text-[#1A1C24]">颜色系统</h4>
-              <p className="mt-1 text-[14px] font-medium leading-[20px] text-[#696D7A]">场景定主色，状态和层级再展开。</p>
-            </div>
-            <div className="flex shrink-0 flex-wrap justify-start gap-2 sm:justify-end">
-              <span className="rounded-full bg-[#EEF2FF] px-3 py-1 text-[14px] font-bold leading-[20px] text-[#1A42B8]">色相 ±15°</span>
-              <span className="rounded-full bg-[#F5F5F7] px-3 py-1 text-[14px] font-bold leading-[20px] text-[#4E525E]">明度验证</span>
-            </div>
+          <div className="min-w-0">
+            <h4 className="text-[17px] font-bold leading-[24px] text-[#1A1C24]">颜色系统</h4>
+            <p className="mt-1 text-[14px] font-medium leading-[20px] text-[#696D7A]">场景定主色，状态和层级再展开。</p>
           </div>
 
-          <div className="mt-4 grid items-stretch gap-5 xl:grid-cols-[0.76fr_1.24fr]">
-            <div className="grid min-w-0 gap-4">
+          <div className="mt-4 grid items-stretch gap-5 xl:grid-cols-[0.72fr_1.28fr]">
+            <div className="flex min-w-0 flex-col gap-3">
               <div className="overflow-hidden rounded-[18px] bg-white ring-1 ring-[#E6E7EB]">
-                <div className="flex min-h-[84px] items-center justify-between gap-4 bg-[#2258F4] p-4 text-white">
+                <div className="flex min-h-[72px] items-center justify-between gap-4 bg-[#2258F4] p-3 text-white">
                   <p className="text-[14px] font-semibold leading-[20px] text-white/72">主色</p>
                   <div className="text-right">
                     <p className="text-[14px] font-bold leading-[20px]">{primaryScale.name}</p>
@@ -1069,8 +1012,8 @@ function QixinColorTokenPreview() {
                     </div>
                     <span className="shrink-0 rounded-full bg-[#F5F5F7] px-2 py-1 text-[12px] font-bold leading-[16px] text-[#4E525E]">{primaryScale.token}</span>
                   </div>
-                  <div className="mt-3 overflow-x-auto pb-1">
-                    {renderScaleStrip(primaryScale.steps, "h-8")}
+                  <div className="mt-2 overflow-x-auto pb-1">
+                    {renderScaleStrip(primaryScale.steps, "h-7")}
                   </div>
                 </div>
               </div>
@@ -1096,24 +1039,18 @@ function QixinColorTokenPreview() {
                     <div key={hex} className="h-6" style={{ backgroundColor: hex }} aria-label={`中性色 ${index + 1}`} />
                   ))}
                 </div>
-                <div className="mt-2 grid grid-cols-9 gap-1">
+                <div className="mt-1 grid grid-cols-9 gap-1">
                   {neutralScale.map((hex, index) => (
-                    <p key={`${hex}-label`} className="truncate text-[14px] font-semibold leading-[20px] text-[#8A8D96]">{String(index + 1).padStart(2, "0")}</p>
+                    <p key={`${hex}-label`} className="truncate text-[12px] font-semibold leading-[16px] text-[#8A8D96]">{String(index + 1).padStart(2, "0")}</p>
                   ))}
                 </div>
               </div>
             </div>
 
-            <div className="flex min-w-0 flex-col">
-              <div className="flex items-end justify-between gap-4">
-                <div>
-                  <h4 className="text-[17px] font-bold leading-[24px] text-[#1A1C24]">辅助色阶</h4>
-                  <p className="mt-1 text-[14px] font-medium leading-[20px] text-[#696D7A]">按 Figma 组件库的实际色阶抽取。</p>
-                </div>
-                <span className="shrink-0 rounded-full bg-white px-3 py-1 text-[14px] font-bold leading-[20px] text-[#696D7A] ring-1 ring-[#E6E7EB]">9 组色阶</span>
-              </div>
-              <div className="mt-4 overflow-hidden rounded-[16px] bg-white ring-1 ring-[#E6E7EB]">
-                <div className="grid gap-x-4 gap-y-4 p-3 sm:grid-cols-2 xl:grid-cols-3">
+            <div className="flex h-full min-w-0 flex-col">
+              <h4 className="text-[17px] font-bold leading-[24px] text-[#1A1C24]">辅助色阶</h4>
+              <div className="mt-4 flex flex-1 overflow-hidden rounded-[16px] bg-white ring-1 ring-[#E6E7EB]">
+                <div className="grid w-full flex-1 auto-rows-fr gap-x-5 gap-y-5 p-4 sm:grid-cols-2 xl:grid-cols-3">
                   {supportScales.map((item) => renderColorScaleTile(item))}
                 </div>
               </div>
@@ -3319,7 +3256,7 @@ export function QixinProjectDetail({ onBack }: Props) {
             <div className="mt-10 grid grid-cols-2 md:grid-cols-5 gap-x-7 gap-y-6">
               {[
                 ["项目周期", "2021 - 2026"],
-                ["项目类型", "B/G 端数据平台"],
+                ["项目类型", "B 端数据平台"],
                 ["我的角色", "产品设计师"],
                 ["参与范围", "核心模块与规范"],
                 ["当前状态", "已上线并持续迭代"],
@@ -3389,37 +3326,6 @@ export function QixinProjectDetail({ onBack }: Props) {
           }}
         />
       </div>
-
-      {/* ───── v1+v2: KPI 数据卡 ───── */}
-        <div className={`relative z-20 ${SECTION_PAD} mt-12 md:mt-16`}>
-          <div className={READ}>
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-2">
-              {[
-                { n: "40+", label: "省市级客户" },
-                { n: "全国", label: "覆盖行政区" },
-                { n: "300+", label: "产业链覆盖" },
-                { n: "1000亿", label: "企业数据" },
-                { n: "1000+", label: "产业链数据维度" },
-              ].map((k) => (
-                <div
-                  key={k.label}
-                  className="relative p-3.5 rounded-2xl border border-[#E6E7EB] bg-white overflow-hidden group hover:border-[#A8BEFF]/60 transition-all duration-300"
-                >
-                  <div className="absolute inset-x-0 top-0 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-r from-transparent via-[#618AFF]/40 to-transparent" />
-                  <div className="relative">
-                    <div className="flex items-baseline gap-1 mb-1">
-                      <span className="text-[clamp(20px,2.5vw,28px)] font-bold tracking-tight text-[#1A1C24] group-hover:text-[#2258F4] transition-colors duration-300">
-                        {k.n}
-                      </span>
-                    </div>
-                    <div className="text-[12px] text-[#696D7A]">{k.label}</div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
 
       <section id="qx02" className={`relative pt-20 pb-10 md:pt-28 md:pb-14 ${SECTION_PAD}`}>
         <div className={BUSINESS_READ}>

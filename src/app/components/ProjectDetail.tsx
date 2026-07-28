@@ -21,7 +21,10 @@ import {
   Workflow,
   ListChecks,
   PenLine,
-  Wand2,
+  Search,
+  Wrench,
+  CircleX,
+  LoaderCircle,
 } from "lucide-react";
 import { Placeholder } from "./Placeholder";
 import { Footer } from "./Footer";
@@ -218,6 +221,320 @@ function Reveal({
     >
       {children}
     </motion.div>
+  );
+}
+
+const STREAM_PROCESS_ROWS = [
+  { type: "tool", label: "正在调用工具", detail: "key_ent_monitor" },
+  { type: "search", label: "联网搜索", detail: "深圳市福田区 4月6日至12日 央企及500强重大投资项目" },
+  { type: "search", label: "联网搜索", detail: "深圳市福田区 4月6日至12日 企业投资平台上线事件" },
+  { type: "search", label: "联网搜索", detail: "深圳市福田区 4月6日至12日 新设基金与关键合作事件" },
+  { type: "search", label: "联网搜索", detail: "深圳市福田区 4月6日至12日 编号“12131”企业事件动态" },
+  { type: "search", label: "联网搜索", detail: "深圳市福田区 4月6日至12日 重点企业名单与参建机构" },
+  { type: "search", label: "联网搜索", detail: "深圳市福田区 4月6日至12日 重点企业经济及产业影响" },
+  { type: "search", label: "联网搜索", detail: "深圳市福田区 4月6日至12日 重点企业项目产出与就业带动" },
+  { type: "search", label: "联网搜索", detail: "深圳市福田区 4月6日至12日 企业新技术应用与发展趋势" },
+  { type: "tool", label: "正在调用工具", detail: "all_ent_monitor" },
+  { type: "summary", label: "正在总结", detail: "将工具原始结果集合合流，抽取重点企业事件并按四类整理" },
+  { type: "summary", label: "正在总结", detail: "对检索材料去重，整理企业、事件、时间与来源" },
+  { type: "tool", label: "正在调用工具", detail: "big_document_process" },
+  {
+    type: "error",
+    label: "工具调用失败",
+    detail: "big_document_process",
+    anchorId: "stream-tool-failure",
+  },
+  { type: "generate", label: "正在生成", detail: "章节正文与分类内容" },
+] as const;
+
+function StreamProcessEvidence() {
+  const iconMap = {
+    search: Search,
+    tool: Wrench,
+    summary: PenLine,
+    error: CircleX,
+    generate: PenLine,
+  };
+
+  return (
+    <div
+      className="relative w-[calc(100vw-48px)] max-w-[479px] justify-self-start sm:w-full"
+      data-testid="stream-process-evidence"
+    >
+      <div
+        className="relative min-h-[780px] rounded-2xl border px-3 pb-20 pt-4 sm:min-h-[860px] sm:px-4"
+        style={{
+          borderColor: "#E6E7EB",
+          background: "#F7F8FC",
+        }}
+      >
+        <div className="mb-3 flex items-center gap-2 border-b pb-3 text-[12px] font-medium" style={{ borderColor: "#E6E7EB", color: "#8D94A3" }}>
+          <span>正在进行生成</span>
+          <span>4m56s</span>
+        </div>
+
+        <div className="space-y-3">
+          {STREAM_PROCESS_ROWS.map((row, index) => {
+            const Icon = iconMap[row.type];
+            const isError = row.type === "error";
+
+            return (
+              <div
+                key={`${row.label}-${row.detail}-${index}`}
+                id={"anchorId" in row ? row.anchorId : undefined}
+                data-prompt-anchor={"anchorId" in row ? "big-document-failure" : undefined}
+                className="relative flex h-8 w-fit max-w-full items-center gap-1 rounded-full border bg-white px-2 shadow-[0_1px_2px_rgba(15,20,25,0.04)]"
+                style={{ borderColor: isError ? "#FFD2D4" : "#E6E7EB" }}
+              >
+                <span
+                  className="flex shrink-0 items-center gap-1 text-[12px] font-medium leading-none"
+                  style={{ color: isError ? "#E5484D" : "#1A1C24" }}
+                >
+                  <Icon className="size-3.5" strokeWidth={1.8} />
+                  {row.label}
+                </span>
+                <span
+                  className="min-w-0 truncate text-[12px] leading-none"
+                  style={{ color: "#696D7A" }}
+                  title={row.detail}
+                >
+                  {row.detail}
+                </span>
+                {isError && (
+                  <svg
+                    className="pointer-events-none absolute left-[calc(100%+10px)] top-1/2 z-10 hidden h-6 w-[232px] -translate-y-1/2 overflow-visible xl:block"
+                    viewBox="0 0 232 24"
+                    fill="none"
+                    aria-hidden="true"
+                  >
+                    <defs>
+                      <marker
+                        id="stream-failure-arrow"
+                        viewBox="0 0 8 8"
+                        refX="6.8"
+                        refY="4"
+                        markerWidth="7"
+                        markerHeight="7"
+                        orient="auto"
+                      >
+                        <path
+                          d="M1 1L7 4L1 7"
+                          fill="none"
+                          stroke="#FF8DA1"
+                          strokeWidth="1.15"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </marker>
+                    </defs>
+                    <path
+                      d="M0 12H220"
+                      stroke="#FF8DA1"
+                      strokeWidth="1.2"
+                      strokeDasharray="5 8"
+                      strokeLinecap="round"
+                      opacity="0.88"
+                      markerEnd="url(#stream-failure-arrow)"
+                    />
+                  </svg>
+                )}
+              </div>
+            );
+          })}
+        </div>
+
+        <div
+          className="absolute inset-x-3 bottom-3 flex h-12 items-center justify-between rounded-full border bg-white px-3 sm:inset-x-4"
+          style={{ borderColor: "#E6E7EB", color: "#8D94A3" }}
+        >
+          <span className="truncate text-[12px]">小Q正在生成中，生成已耗时24s...</span>
+          <span className="ml-3 flex size-7 shrink-0 items-center justify-center rounded-full border" style={{ borderColor: "#CBCDD4" }}>
+            <LoaderCircle className="size-3.5 animate-spin" strokeWidth={1.8} />
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+const ORIGINAL_MONITOR_PROMPT = [
+  "# Role: 重点企业监测报告章节工作流智能体",
+  "你是一个服务于企业监测报告生成工作流的专属节点智能体。你的唯一职责是：精准解析当前输入变量，并发调度检索工具，严密执行数据合流、清洗去重与事实校验，严格按阶段状态推进，最终输出结构完全固定的企业监测章节简报。",
+  "",
+  "## 1. 核心质量与记忆边界红线",
+  "- **状态与记忆优先级**：【当前用户输入】 > 【当前阶段显式状态】 > 【历史记忆】 > 【默认规则】。当历史记忆与当前事实、变量存在冲突时，必须无条件抛弃历史记忆，以当前输入为准。",
+  "- **事实绝对忠诚**：所有输出必须严格基于工具返回的真实原始数据提取，严禁臆造内容、幻觉扩写或编造事实。",
+  "- **主体聚焦**：只保留以【企业主体】为核心的实质性事件，必须剔除其分支机构、子公司或泛行业的边角信息。",
+  "- **数据量把控**：全篇有效简报总数优先目标为 20-50 条。坚决宁缺毋滥，客观无数据时以空状态表达，绝不为了凑数而硬编造。",
+  "",
+  "## 2. ReAct 阶段执行逻辑与状态门禁（强制管线）",
+  "你必须按顺序严格执行以下 6 个阶段。未完成当前阶段状态，绝对禁止进入下一阶段或直接输出：",
+  "",
+  "### Phase 1: Observe / Parse（观察与解析）",
+  "- **动作**：解析当前上下文与用户需求，提取核心变量：【分析目标】【分析类别】【分析时间】【地区范围（如有）】【章节/父节点位置（如有）】。",
+  "- **门禁**：形成明确的【阶段 1 状态：输入理解参数表】后，方可进入 Phase 2。",
+  "",
+  "### Phase 2: Parallel Retrieve（并发检索）",
+  "- **动作**：必须**并发调用** `key_ent_monitor`、`all_ent_monitor`、`deep_search` 三个本地 MCP 工具，进行第一轮全网动态抓取。",
+  "- **禁忌**：严禁按工具分别直接输出结果！严禁串行调用！",
+  "- **门禁**：形成【阶段 2 状态：三工具原始结果集合】后，进入 Phase 3。",
+  "",
+  "### Phase 3: Merge（合流汇总）",
+  "- **动作**：将三个工具返回的分散数据，无缝拼装合并为一个【统一候选池】（Unified Candidate Pool）。",
+  "- **禁忌**：这是雷打不动的必须节点，严禁跳过合并步骤直连下游。",
+  "- **门禁**：形成【阶段 3 状态：统一候选池】后，进入 Phase 4。",
+  "",
+  "### Phase 4: Process（大文本整理与初步分类）",
+  "- **动作**：将【统一候选池】全量数据传给 `big_document_process` 工具，进行内容提炼、全局去重（同一事件保留最权威的一条）、剔除分支机构、提炼出 150-200 字左右的核心简报，并分配到指定分类。",
+  "- **异常重试**：如该节点返回为空、格式损坏或抽取失败，最多重试 **2 次**。",
+  "- **门禁**：形成【阶段 4 状态：去重与初步分类集合】后，进入 Phase 5。",
+  "",
+  "### Phase 5: Verify（核验复查与异常补救）",
+  "进行输出前的极端清洗与补充：",
+  "1. **数据量补救**：若某个分类数据匮乏，允许微调关键词或时间精度发起补充检索，**上限 2 次**。",
+  "2. **URL 挂载核验**：逐一审查准备输出的简报是否附带了专属源 URL。",
+  "3. **URL 补救与丢弃（硬约束）**：若某条候选数据缺失 URL，必须调用 `deep_search` 回源重查该企业事件，**重试上限 2 次**。若 2 次仍未找到有效 URL，**必须直接丢弃该条数据**。",
+  "4. **门禁**：形成【阶段 5 状态：已完成 URL 与真实性核验的最终候选集合】后，进入 Phase 6。",
+  "",
+  "### Phase 6: Render（最终排版输出）",
+  "你必须严格分为两步输出（显式核验层 + 纯正文），绝对禁止把长链路思考过程（Thinking Process）暴露出来。",
+  "",
+  "#### 步骤 6.1：输出阶段自检清单",
+  "必须严格按照以下格式输出审查记录，以证明你没有跳步：",
+  "<Verification_Checklist>",
+  "- [ ] 变量解析是否完全以当前输入为准，未被历史记忆干扰：是/否",
+  "- [ ] 是否执行了合流汇总（Merge）步骤，没有直接暴露单工具结果：是/否",
+  "- [ ] 简报是否剔除了分支机构，仅保留企业主体，且字数控制在 150-200 字：是/否",
+  "- [ ] 每一条保留的数据是否都通过了 URL 挂载核验，没有合并 URL 也没有文末堆砌：是/否",
+  "- [ ] URL 缺失重试或大文本抽取重试是否均遵守了不超过 2 次的限制：是/否",
+  "- [ ] 是否彻底排除了总结分析、图表及参考资料列表：是/否",
+  "</Verification_Checklist>",
+  "",
+  "#### 步骤 6.2：输出正文报告",
+  "正文不得包含任何过渡语、总结段落、分析结论或数据表格。",
+  "",
+  "**【固定分类标题】（严禁改写名称与顺序）**",
+  "一、获得融资、业务拓展、新品发布类",
+  "二、榜单类",
+  "三、获奖、获得荣誉类",
+  "四、负面信息类",
+  "（注：若某分类经核验后无有效数据，必须在该分类下方输出：`当前分类无数据`）",
+  "",
+  "**【单条简报固定排版格式】**",
+  "`（数字序号） 企业名称 事件内容（纯文本，客观准确，剔除分支机构信息，150-200字） 源URL`",
+  "（注：每个大类的序号均从（1）开始；必须做到一个企业名称一条200字简报紧跟一个对应 URL）",
+  "",
+  "---",
+  "",
+  "## 3. 样例约束 (Few-shot)",
+  "",
+  "### ✅ 正确样例 (Positive)",
+  "<Verification_Checklist>",
+  "- [x] 变量解析是否完全以当前输入为准，未被历史记忆干扰：是",
+  "- [x] 是否执行了合流汇总（Merge）步骤，没有直接暴露单工具结果：是",
+  "- [x] 简报是否剔除了分支机构，仅保留企业主体，且字数控制在 150-200 字：是",
+  "- [x] 每一条保留的数据是否都通过了 URL 挂载核验，没有合并 URL 也没有文末堆砌：是",
+  "- [x] URL 缺失重试或大文本抽取重试是否均遵守了不超过 2 次的限制：是",
+  "- [x] 是否彻底排除了总结分析、图表及参考资料列表：是",
+  "</Verification_Checklist>",
+  "",
+  "一、获得融资、业务拓展、新品发布类",
+  "（1）星海科技有限公司 宣布完成数千万元B轮融资，本轮融资由知名风投机构领投，多只产业基金跟投。资金将主要用于加速公司在工业大模型一体机领域的研发进度与市场拓展。星海科技今年已累计发布多款相关核心产品，此次融资后将进一步扩大在华东地区的总部的研发团队规模，并计划在第三季度推出升级版基座模型，持续扩大在工业 AI 落地场景中的占有率，巩固行业优势。 https://news.example.com/item/1122",
+  "（2）智远物联股份有限公司 正式发布工业级传感基站V3.0，并宣布全面进军欧洲市场。该产品在低功耗运行和极端环境适应性上实现多项目前沿技术突破，首批超百万美元订单已与德国某大型制造企业正式签署。公司董事会表示，未来将持续推动核心硬件产品的全球化布局，力图在海外工业物联网基础设施领域抢占先机，提升公司在国际市场的核心竞争力。 https://news.example.com/item/3344",
+  "",
+  "二、榜单类",
+  "（1）云端数聚集团 入选“2023年度全国高成长性独角兽榜单TOP50”。该榜单由行业内权威研究机构经过长达三个月的实地调研与多维度评选得出，主要考量企业的核心技术创新力、年度营收增速以及一级市场估值水平。云端数聚凭借在云原生数据库底座领域的突破性技术进展，以及连续两年实现主营业务营收翻倍的优异表现，成功入选该榜单，成为该赛道少数跻身前五十强的新锐科技企业。 https://rank.example.com/list/2023",
+  "",
+  "三、获奖、获得荣誉类",
+  "当前分类无数据",
+  "",
+  "四、负面信息类",
+  "（1）绿野农业集团 因子公司违规排污受到行政处罚从而影响集团重大项目审批。经查明，绿野农业集团在二季度未能有效监管污染处理设施，导致部分工业废水直排进入附近水系。市环保部门在例行水质监测中发现该违规情况，对企业开具罚单并责令立即停产整改。该事件直接导致集团正在申报的市级绿色农业示范项目被无限期搁置，可能会对企业下半年的整体产能规划及相关政策补贴申请造成实质性阻碍。 https://gov.example.com/punish/9988",
+  "",
+  "---",
+  "### ❌ 错误样例 (Negative - 严禁出现此类输出)",
+  "*（错误原因分析：带有开篇总结、包含分支机构事件、正文严重不足150字、多个URL被合并、URL在文末统一堆砌、包含主观推测）*",
+  "",
+  "根据当前信息检索，本月重点监测企业整体表现活跃，以下是具体情况：",
+  "一、获得融资、业务拓展、新品发布类",
+  "（1）星海科技完成融资，智远物联发布了新基站产品，两家公司发展良好。星海科技的深圳分公司也新招了10个人。[链接1, 链接2]",
+  "三、获奖、获得荣誉类",
+  "当前暂无相关数据。说明行业正处于静默期，建议投资者持续观望。",
+  "【参考来源】",
+  "1. https://news.example.com/item/1122",
+  "2. https://news.example.com/item/3344",
+  "",
+  "---",
+  "**系统指令**：你已接收工作流上下文，请立刻丢弃任何干扰当前任务的无效记忆，启动 Phase 1 阶段，严格遵循所有门禁推进。",
+].join("\n");
+
+function OriginalPromptEvidence() {
+  const promptViewportRef = useRef<HTMLPreElement>(null);
+  const phaseFourProblemRef = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    const frame = window.requestAnimationFrame(() => {
+      const promptViewport = promptViewportRef.current;
+      const phaseFourProblem = phaseFourProblemRef.current;
+
+      if (!promptViewport || !phaseFourProblem) return;
+
+      const failureRow = document.getElementById("stream-tool-failure");
+      const promptRect = promptViewport.getBoundingClientRect();
+      const failureRect = failureRow?.getBoundingClientRect();
+      const targetRect = phaseFourProblem.getBoundingClientRect();
+      const currentTargetCenter = targetRect.top + targetRect.height / 2;
+      const desiredTargetCenter =
+        failureRect && window.matchMedia("(min-width: 1280px)").matches
+          ? failureRect.top + failureRect.height / 2
+          : promptRect.top + promptViewport.clientHeight * 0.45;
+
+      promptViewport.scrollTop = Math.max(
+        0,
+        promptViewport.scrollTop + currentTargetCenter - desiredTargetCenter,
+      );
+    });
+
+    return () => window.cancelAnimationFrame(frame);
+  }, []);
+
+  return (
+    <div className="w-full min-w-0 self-start">
+      <div
+        className="flex h-[780px] flex-col overflow-hidden rounded-2xl border bg-white sm:h-[860px]"
+        style={{ borderColor: "#E6E7EB" }}
+      >
+        <div className="flex items-center border-b px-4 py-3.5 md:px-5" style={{ borderColor: "#E6E7EB" }}>
+          <div>
+            <div className="text-[12px] font-semibold text-[#8D94A3]">原始 Prompt</div>
+            <div className="mt-1 text-[16px] font-semibold text-[#1A1C24]">重点企业监测报告章节工作流智能体</div>
+          </div>
+        </div>
+        <pre
+          ref={promptViewportRef}
+          className="min-h-0 flex-1 overflow-hidden whitespace-pre-wrap break-words px-4 py-4 font-sans text-[12px] leading-[1.75] text-[#4E525E] md:px-5"
+        >
+          {ORIGINAL_MONITOR_PROMPT.split("\n").map((line, index, lines) => {
+            const isPhaseFourProblem =
+              line.startsWith("- **异常重试**：如该节点返回为空") ||
+              line.startsWith("- **门禁**：形成【阶段 4 状态");
+            const isPhaseFourProblemAnchor = line.startsWith("- **异常重试**：如该节点返回为空");
+
+            return (
+              <span
+                key={`${index}-${line.slice(0, 24)}`}
+                ref={isPhaseFourProblemAnchor ? phaseFourProblemRef : undefined}
+                data-prompt-anchor={isPhaseFourProblemAnchor ? "phase-4-failure-rule" : undefined}
+                className={isPhaseFourProblem ? "rounded bg-[#FFF0F1] px-1 text-[#C52B32]" : undefined}
+              >
+                {line}
+                {index < lines.length - 1 ? "\n" : ""}
+              </span>
+            );
+          })}
+        </pre>
+      </div>
+    </div>
   );
 }
 
@@ -880,24 +1197,19 @@ export function ProjectDetail({ onBack }: Props) {
                       <div className="mb-3 text-[16px] font-semibold leading-[1.3] text-[#1A42B8]">行为特征</div>
                       <div className="grid gap-x-4 gap-y-3 sm:grid-cols-2">
                         {[
-                          ["模板复用频率", "低", "高", 76],
-                          ["材料整合成本", "低", "高", 86],
-                          ["生成信任门槛", "低", "高", 82],
-                          ["来源核查依赖", "低", "高", 88],
-                        ].map(([label, min, max, value]) => (
-                          <div key={label as string} className="min-w-0">
-                            <div className="mb-1.5 flex items-center justify-between gap-2">
-                              <span className="text-[14px] font-semibold leading-[1.3] text-[#4E525E]">{label as string}</span>
-                              <span className="text-[14px] font-semibold text-[#1A42B8]">{value as number}%</span>
-                            </div>
-                            <div className="relative h-1.5 rounded-full bg-[#E6E7EB]">
-                              <div className="absolute inset-y-0 left-0 rounded-full bg-[#A8BEFF]" style={{ width: `${value}%` }} />
-                              <span className="absolute top-1/2 size-3 -translate-y-1/2 rounded-full border-2 border-white bg-[#2258F4] shadow-[0_2px_6px_rgba(34,88,244,0.24)]" style={{ left: `calc(${value}% - 6px)` }} />
-                            </div>
-                            <div className="mt-1 flex justify-between text-[13px] leading-none text-[#8D94A3]">
-                              <span>{min as string}</span>
-                              <span>{max as string}</span>
-                            </div>
+                          ["模板复用频率", "高频"],
+                          ["材料整合成本", "较高"],
+                          ["生成信任门槛", "较高"],
+                          ["来源核查依赖", "强依赖"],
+                        ].map(([label, level]) => (
+                          <div
+                            key={label}
+                            className="flex min-w-0 items-center justify-between gap-3 rounded-xl border border-[#DDE5FF] bg-white/80 px-3 py-2.5"
+                          >
+                            <span className="text-[14px] font-semibold leading-[1.3] text-[#4E525E]">{label}</span>
+                            <span className="shrink-0 rounded-full bg-[#EEF2FF] px-2.5 py-1 text-[12px] font-semibold text-[#1A42B8]">
+                              {level}
+                            </span>
                           </div>
                         ))}
                       </div>
@@ -2056,62 +2368,6 @@ export function ProjectDetail({ onBack }: Props) {
             </p>
           </Reveal>
 
-          <Reveal className="mb-6 grid gap-3 md:grid-cols-3" delay={0.12} y={18}>
-            {[
-              {
-                label: "无关内容带入率",
-                before: "80%",
-                after: "20-30%",
-                note: "章节更少带入无关背景、无关结论和无关材料。",
-              },
-              {
-                label: "有效输出占比",
-                before: "20%",
-                after: "70-80%",
-                note: "生成结果更贴合章节上下文，可进入校验和微调。",
-              },
-              {
-                label: "自检链路覆盖",
-                before: "0%",
-                after: "100%",
-                note: "章节约束、工具来源和格式门禁进入生成链路。",
-              },
-            ].map((item) => (
-              <div
-                key={item.label}
-                className="rounded-[22px] border bg-white p-4"
-                style={{
-                  borderColor: LINE,
-                  boxShadow: "0 1px 2px rgba(34,88,244,0.05)",
-                }}
-              >
-                <p className="text-[16px] font-semibold leading-[1.45]" style={{ color: INK }}>
-                  {item.label}
-                </p>
-                <p className="mt-1 text-[14px] leading-[1.55]" style={{ color: INK_DIM }}>
-                  {item.note}
-                </p>
-                <div className="mt-3 grid grid-cols-[minmax(0,1fr)_28px_minmax(0,1fr)] items-center gap-2">
-                  <div className="rounded-[14px] bg-[#F5F5F7] p-3">
-                    <p className="text-[12px] font-semibold leading-[1.3]" style={{ color: INK_MUTED }}>之前</p>
-                    <p className="mt-1 text-[26px] font-semibold leading-none" style={{ color: INK_DIM }}>
-                      {item.before}
-                    </p>
-                  </div>
-                  <div className="flex size-7 items-center justify-center rounded-full bg-[#EEF2FF]" aria-hidden="true">
-                    <ArrowRight className="size-4" style={{ color: BLUE }} />
-                  </div>
-                  <div className="rounded-[14px] bg-[#EEF2FF] p-3">
-                    <p className="text-[12px] font-semibold leading-[1.3]" style={{ color: ICON_BLUE }}>之后</p>
-                    <p className="mt-1 text-[26px] font-semibold leading-none" style={{ color: BLUE }}>
-                      {item.after}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </Reveal>
-
           <Reveal className="mb-6" delay={0.18} y={24}>
             <AgentWorkflowDiagram />
           </Reveal>
@@ -2120,17 +2376,17 @@ export function ProjectDetail({ onBack }: Props) {
             {[
               {
                 title: "上下文容易漂移",
-                desc: "我发现章节生成容易脱离父节点、章节位置和报告大纲，因此将章节背景、父级约束和当前任务范围作为固定输入。",
+                desc: "章节生成容易脱离父节点、章节位置和报告大纲，因此将章节背景、父级约束和当前任务范围作为固定输入。",
                 visual: "context",
               },
               {
                 title: "写法难以复用",
-                desc: "我发现提示词写法依赖个人经验，因此将目标、输入、工具、规则和兜底拆成固定模块。",
+                desc: "提示词写法依赖个人经验，因此将目标、输入、工具、规则和兜底拆成固定模块。",
                 visual: "maintenance",
               },
               {
                 title: "结果缺少门禁",
-                desc: "我发现来源、时间和格式缺少约束，因此设置输出门禁，未通过校验不进入最终结果。",
+                desc: "来源、时间和格式缺少约束，因此设置输出门禁，未通过校验不进入最终结果。",
                 visual: "quality",
               },
             ].map((item, i) => (
@@ -2923,6 +3179,33 @@ export function ProjectDetail({ onBack }: Props) {
                     </div>
                   ))}
                 </Reveal>
+              </div>
+            </div>
+          </Reveal>
+
+          <Reveal
+            className="relative mt-6 overflow-hidden rounded-[28px] border bg-white p-4 md:p-5"
+            delay={0.18}
+            y={24}
+            style={{
+              borderColor: "#E6E7EB",
+            }}
+          >
+            <div className="relative">
+              <div className="mb-6 flex flex-col justify-between gap-4 lg:flex-row lg:items-start">
+                <div className="max-w-none">
+                  <div className="text-[24px] font-semibold leading-tight text-[#1A1C24]">
+                    人工复核驱动的流式校验闭环
+                  </div>
+                  <div className="mt-2 text-[16px] leading-[1.7]" style={{ color: "#4E525E" }}>
+                    人工从流式执行中发现异常，回查原始 Prompt 定位并修正问题，再重新执行与复核，直至输出正确。
+                  </div>
+                </div>
+              </div>
+
+              <div className="grid items-start justify-items-start gap-6 xl:grid-cols-[479px_minmax(0,1fr)]">
+                <StreamProcessEvidence />
+                <OriginalPromptEvidence />
               </div>
             </div>
           </Reveal>

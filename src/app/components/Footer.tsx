@@ -18,7 +18,7 @@ export function Footer() {
           <span>© 2026 上海</span>
           <span className="inline-flex items-center gap-2">
             <span className="size-1.5 rounded-full bg-[#2258F4] animate-pulse" />
-            正在寻找新机会
+            目前在寻找新的机会
           </span>
         </div>
       </div>
