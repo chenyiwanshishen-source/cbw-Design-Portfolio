@@ -3762,9 +3762,12 @@ export function QixinProjectDetail({ onBack }: Props) {
 
                       <div className="relative overflow-visible">
                         <div className="relative z-10">
-                          <article data-flow-anchor="hubNode" className="relative w-[252px] overflow-hidden rounded-[12px] border border-[#2258F4] bg-[#2258F4] p-4">
-                            <div className="text-[16px] font-semibold leading-[1.4] text-white">启信产业大脑</div>
-                            <p className="mt-1.5 text-[13px] font-medium leading-[1.55] text-white/80">
+                          <article
+                            data-flow-anchor="hubNode"
+                            className="relative w-[252px] rounded-[28px] border border-[#D8DBE4] bg-[#F5F5F7] p-4"
+                          >
+                            <div className="text-[16px] font-semibold leading-[1.4] text-[#4E525E]">启信产业大脑</div>
+                            <p className="mt-1.5 text-[13px] font-medium leading-[1.55] text-[#696D7A]">
                               统一承接企业筛选、评估、管理与报告输出流程。
                             </p>
 
@@ -3772,7 +3775,7 @@ export function QixinProjectDetail({ onBack }: Props) {
                               {HUB_CAPABILITIES.map((capability) => (
                                 <div
                                   key={capability}
-                                  className="rounded-[10px] border border-white/20 bg-white/10 px-3 py-2.5 text-[12px] font-semibold leading-[1.45] text-white"
+                                  className="rounded-[12px] border border-[#D8DBE4] bg-white/70 px-3 py-2.5 text-[12px] font-semibold leading-[1.45] text-[#4E525E]"
                                 >
                                   {capability}
                                 </div>
@@ -3786,7 +3789,7 @@ export function QixinProjectDetail({ onBack }: Props) {
                         <FlowNode anchor="whyNode" title="为什么选我们" desc="优势、边界与设计取舍" />
                       </div>
 
-                      <div data-flow-anchor="decisionLayer" className="relative overflow-visible rounded-[28px] border border-[#A8BEFF]/45 bg-white/35 p-4">
+                      <div data-flow-anchor="decisionLayer" className="relative overflow-visible rounded-[28px] border border-[#DDE1E9] bg-white/45 p-4">
                         <div className="relative z-10">
                           <div className="mb-5">
                             <h3 className="text-[16px] font-semibold leading-[1.4] text-[#1A1C24]">设计决策层</h3>
@@ -3797,7 +3800,7 @@ export function QixinProjectDetail({ onBack }: Props) {
                             {DESIGN_DECISIONS.map((decision) => (
                               <article
                                 key={decision.title}
-                                className="relative overflow-visible rounded-[12px] border border-[#A8BEFF] bg-[#EEF2FF] px-4 pb-4 pt-7"
+                                className="relative overflow-visible rounded-[12px] border border-[#D8DBE4] bg-[#F5F5F7] px-4 pb-4 pt-7"
                               >
                                 <NodeBadge label={decision.title} />
 
@@ -3808,7 +3811,7 @@ export function QixinProjectDetail({ onBack }: Props) {
                                     ["使用边界", decision.boundary],
                                   ].map(([label, value]) => (
                                     <div key={label} className="grid grid-cols-[64px_1fr] gap-2">
-                                      <div className="text-[12px] font-semibold leading-[1.45] text-[#1A42B8]">{label}</div>
+                                      <div className="text-[12px] font-semibold leading-[1.45] text-[#536078]">{label}</div>
                                       <p className="text-[13px] font-medium leading-[1.45] text-[#4E525E]">{value}</p>
                                     </div>
                                   ))}
