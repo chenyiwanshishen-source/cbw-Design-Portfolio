@@ -18,7 +18,7 @@ export function Marquee({ words }: MarqueeProps) {
           animation-play-state: paused;
         }
       `}</style>
-      <div className="absolute -bottom-px left-0 right-0 overflow-hidden border-y border-[#E6E7EB] py-3 bg-white/60 backdrop-blur-sm">
+      <div className="absolute -bottom-px left-0 right-0 z-20 overflow-hidden border-y border-[#E6E7EB] bg-[#FAFBFF]/95 py-3 backdrop-blur-sm">
         <div className="marquee-track flex gap-12 whitespace-nowrap">
           {/* First copy */}
           <div className="flex gap-12 shrink-0" style={{ minWidth: "100%" }}>

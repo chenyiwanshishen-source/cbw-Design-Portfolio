@@ -79,6 +79,7 @@ export function Hero() {
   const rootRef = useRef<HTMLElement | null>(null);
   const nameDragRef = useRef<HTMLSpanElement | null>(null);
   const roleDragRef = useRef<HTMLSpanElement | null>(null);
+  const characterRef = useRef<HTMLDivElement | null>(null);
 
   useGSAP(
     (_, contextSafe) => {
@@ -342,6 +343,68 @@ export function Hero() {
     { scope: rootRef }
   );
 
+  useGSAP(
+    (_, contextSafe) => {
+      const character = characterRef.current;
+      if (!character || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+      const eyes = gsap.utils.toArray<HTMLElement>("[data-character-eye]", character);
+      if (eyes.length === 0) return;
+
+      const mm = gsap.matchMedia();
+
+      mm.add("(min-width: 1024px) and (hover: hover) and (pointer: fine)", () => {
+        const moveEyesX = gsap.quickTo(eyes, "x", {
+          duration: 0.24,
+          ease: "power3.out",
+        });
+        const moveEyesY = gsap.quickTo(eyes, "y", {
+          duration: 0.24,
+          ease: "power3.out",
+        });
+
+        const resetEyes = contextSafe(() => {
+          moveEyesX(0);
+          moveEyesY(0);
+        });
+
+        const onPointerMove = contextSafe((event: PointerEvent) => {
+          const bounds = character.getBoundingClientRect();
+          const dx = event.clientX - (bounds.left + bounds.width / 2);
+          const dy = event.clientY - (bounds.top + bounds.height * 0.82);
+          const distance = Math.hypot(dx, dy);
+
+          if (distance < 1) {
+            resetEyes();
+            return;
+          }
+
+          const strength = Math.min(1, distance / Math.max(90, bounds.width * 0.65));
+          const maxX = bounds.width * 0.032;
+          const maxY = bounds.width * 0.024;
+
+          moveEyesX((dx / distance) * maxX * strength);
+          moveEyesY((dy / distance) * maxY * strength);
+        });
+
+        window.addEventListener("pointermove", onPointerMove, { passive: true });
+        window.addEventListener("blur", resetEyes);
+        document.documentElement.addEventListener("mouseleave", resetEyes);
+
+        return () => {
+          window.removeEventListener("pointermove", onPointerMove);
+          window.removeEventListener("blur", resetEyes);
+          document.documentElement.removeEventListener("mouseleave", resetEyes);
+          gsap.killTweensOf(eyes);
+          gsap.set(eyes, { clearProps: "transform" });
+        };
+      });
+
+      return () => mm.revert();
+    },
+    { scope: characterRef }
+  );
+
   return (
     <section
       ref={rootRef}
@@ -521,6 +584,54 @@ export function Hero() {
           ))}
         </motion.div>
       </div>
+
+      {/* Character peeks from behind the marquee. */}
+      <div
+        ref={characterRef}
+        aria-hidden="true"
+        className="pointer-events-none absolute bottom-[24px] left-1/2 z-10 hidden aspect-[774/567] w-[clamp(210px,13vw,300px)] -translate-x-1/2 select-none lg:block"
+      >
+        <img
+          src="./images/首页人物/face-peek.png"
+          alt=""
+          draggable={false}
+          className="absolute inset-0 size-full"
+        />
+        <img
+          src="./images/首页人物/eyes-peek.png"
+          alt=""
+          draggable={false}
+          data-character-eye
+          className="absolute left-[31.137%] top-[74.25%] w-[8.269%] will-change-transform"
+        />
+        <img
+          src="./images/首页人物/eyes-peek.png"
+          alt=""
+          draggable={false}
+          data-character-eye
+          className="absolute left-[60.078%] top-[74.25%] w-[8.269%] will-change-transform"
+        />
+      </div>
+
+      <img
+        src="./images/首页人物/hand-peek.png"
+        alt=""
+        aria-hidden="true"
+        draggable={false}
+        className="pointer-events-none absolute bottom-[34px] z-30 hidden w-[clamp(90px,5.7vw,135px)] -translate-x-1/2 select-none lg:block"
+        style={{ left: "calc(50% - clamp(120px, 6.5vw, 155px))" }}
+      />
+      <img
+        src="./images/首页人物/hand-peek.png"
+        alt=""
+        aria-hidden="true"
+        draggable={false}
+        className="pointer-events-none absolute bottom-[34px] z-30 hidden w-[clamp(90px,5.7vw,135px)] select-none lg:block"
+        style={{
+          left: "calc(50% + clamp(120px, 6.5vw, 155px))",
+          transform: "translateX(-50%) scaleX(-1)",
+        }}
+      />
 
       {/* Marquee — seamless infinite loop */}
       <Marquee words={marqueeWords} />
