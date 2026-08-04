@@ -17,9 +17,7 @@ import {
   Map,
   Network,
   Palette,
-  Search,
   Settings2,
-  Table2,
   Tags,
   Target,
   Users,
@@ -37,7 +35,15 @@ const BLUE = "#2258F4";
 const ICON_BLUE = "#1A42B8";
 const ICON_BG = "#E5EBFF";
 const ICON_BORDER = "#A8BEFF";
-const FLOW_BLUE = "#2258F4";
+const ARCH_ARROW = "#AEB3C1";
+const ARCH_NODE_RADIUS = 12;
+const ARCH_TONES = {
+  neutral: { fill: "#F5F5F7", stroke: "#D8DBE4", text: "#4E525E" },
+  blue: { fill: "#EEF2FF", stroke: "#A8BEFF", text: "#1A42B8" },
+  purple: { fill: "#F5F3FF", stroke: "#DDD6FE", text: "#6366F1" },
+  primary: { fill: "#2258F4", stroke: "#2258F4", text: "#FFFFFF" },
+} as const;
+const FLOW_BLUE = ARCH_ARROW;
 const ICON_GRAY = "#CBCDD4";
 const INK = "#0F1419";
 const INK_MUTED = "rgba(15,20,25,0.72)";
@@ -142,21 +148,21 @@ function ChainStageFramework() {
       labelY: 94,
       lineY: 91,
       nodes: userNodes,
-      tone: { fill: "#F5F5F7", stroke: "#D8DBE4", text: "#4E525E" },
+      tone: ARCH_TONES.neutral,
     },
     {
       label: "业务侧",
       labelY: 150,
       lineY: 147,
       nodes: businessNodes,
-      tone: { fill: "#EEF2FF", stroke: "#A8BEFF", text: ICON_BLUE },
+      tone: ARCH_TONES.blue,
     },
     {
       label: "数据/后端侧",
       labelY: 206,
       lineY: 203,
       nodes: backendNodes,
-      tone: { fill: "#F5F3FF", stroke: "#DDD6FE", text: "#6366F1" },
+      tone: ARCH_TONES.purple,
     },
   ];
   const keyStageBackgrounds = [3, 6];
@@ -179,7 +185,7 @@ function ChainStageFramework() {
               <feDropShadow dx="0" dy="10" stdDeviation="8" floodColor="#6366F1" floodOpacity="0.18" />
             </filter>
             <marker id="qixin-chain-arrow" viewBox="0 0 8 8" refX="6.8" refY="4" markerWidth="7" markerHeight="7" orient="auto">
-              <path d="M1 1L7 4L1 7" fill="none" stroke="#AEB3C1" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M1 1L7 4L1 7" fill="none" stroke={ARCH_ARROW} strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
             </marker>
           </defs>
           <g id="stage-grid">
@@ -262,10 +268,11 @@ function ChainStageFramework() {
                         y={node.y - 1}
                         width={node.w}
                         height="34"
-                        rx="10"
+                        rx={ARCH_NODE_RADIUS}
                         fill={lane.tone.fill}
                         filter={node.elevated ? "url(#qixin-chain-node-shadow)" : undefined}
-                        stroke="none"
+                        stroke={lane.tone.stroke}
+                        strokeWidth="1"
                       />
                       <text
                         x={node.x + node.w / 2}
@@ -283,7 +290,7 @@ function ChainStageFramework() {
             })}
           </g>
 
-          <g id="flow-arrows" fill="none" stroke="#8F96A8" strokeWidth="1.35" strokeLinecap="round" strokeLinejoin="round" opacity="0.88">
+          <g id="flow-arrows" fill="none" stroke={ARCH_ARROW} strokeWidth="1.35" strokeLinecap="round" strokeLinejoin="round" opacity="0.88">
             <path
               d={`M ${stageX + colW * 0.9} 92 C ${stageX + colW * 1.02} 102, ${stageX + colW * 1.02} 134, ${stageX + colW * 1.09} 146`}
               markerEnd="url(#qixin-chain-arrow)"
@@ -929,22 +936,32 @@ function QixinColorTokenPreview() {
   ) => (
     <div className={minWidthClass}>
       <div
-        className="grid overflow-hidden rounded-[8px] ring-1 ring-black/5"
+        className={highlightHex ? "grid overflow-visible" : "grid overflow-hidden rounded-[8px] ring-1 ring-black/5"}
         style={{ gridTemplateColumns: `repeat(${steps.length}, minmax(0, 1fr))` }}
       >
-        {steps.map((item) => (
-          <div
-            key={`${item.step}-${item.hex}`}
-            className={heightClass}
-            style={{
-              backgroundColor: item.hex,
-              boxShadow:
-                item.hex === highlightHex
-                  ? `inset 0 0 0 2px ${steps[1]?.hex ?? "#4E525E"}`
-                  : undefined,
-            }}
-          />
-        ))}
+        {steps.map((item, index) =>
+          highlightHex ? (
+            <div
+              key={`${item.step}-${item.hex}`}
+              className={`relative ${heightClass}`}
+            >
+              <div
+                className="absolute inset-y-0 left-[-5px] right-[-5px] rounded-[6px]"
+                style={{
+                  backgroundColor: item.hex,
+                  boxShadow: item.hex === highlightHex ? "0 0 0 2px #FFFFFF" : undefined,
+                  zIndex: item.hex === highlightHex ? steps.length + 1 : index + 1,
+                }}
+              />
+            </div>
+          ) : (
+            <div
+              key={`${item.step}-${item.hex}`}
+              className={heightClass}
+              style={{ backgroundColor: item.hex }}
+            />
+          ),
+        )}
       </div>
       <div className="mt-1 grid gap-1" style={{ gridTemplateColumns: `repeat(${steps.length}, minmax(0, 1fr))` }}>
         {steps.map((item) => (
@@ -1149,33 +1166,92 @@ function QixinColorTokenPreview() {
   );
 }
 
+function SystemLanguageProgression() {
+  const items = [
+    {
+      title: "早期复用成熟规范",
+      desc: "孵化阶段沿用启信宝已有颜色、组件和页面规范，帮助产业大脑快速完成早期落地。",
+      className: "left-0 top-0 w-[54%]",
+      tone: ARCH_TONES.blue,
+    },
+    {
+      title: "产品表达需要区分",
+      desc: "启信宝偏企业查询、征信与风控，产业大脑聚焦产业经济、区域治理、招商研判和产业链分析。",
+      className: "left-[34%] top-[104px] w-[66%]",
+      tone: ARCH_TONES.purple,
+    },
+    {
+      title: "共享企业数据底座",
+      desc: "公司企业数据为多条业务线提供基础，产业大脑与启信宝共享部分企业信息、关系线索和风险数据。",
+      className: "left-0 top-[208px] w-full",
+      tone: ARCH_TONES.neutral,
+    },
+  ] as const;
+
+  return (
+    <figure
+      className="overflow-x-auto"
+      aria-label="产业大脑系统语言形成路径：早期复用成熟规范，随后形成差异化产品表达，并持续建立在共享企业数据底座之上。"
+    >
+      <div className="relative h-[296px] min-w-[960px] overflow-hidden">
+        {[12.5, 25, 37.5, 50, 62.5, 75, 87.5].map((left) => (
+          <span
+            key={left}
+            aria-hidden="true"
+            className="pointer-events-none absolute bottom-3 top-3 w-px bg-[rgba(174,179,193,0.24)]"
+            style={{ left: `${left}%` }}
+          />
+        ))}
+        {items.map((item) => (
+          <div
+            key={item.title}
+            className={`absolute rounded-[12px] border px-6 py-4 ${item.className}`}
+            style={{
+              backgroundColor: item.tone.fill,
+              backgroundImage:
+                "repeating-linear-gradient(135deg, rgba(78,82,94,0.09) 0, rgba(78,82,94,0.09) 1px, transparent 1px, transparent 10px)",
+              borderColor: item.tone.stroke,
+            }}
+          >
+            <h3 className="text-[16px] font-bold leading-[22px] text-[#1A1C24]">{item.title}</h3>
+            <p className="mt-1 text-[13px] font-medium leading-[20px] text-[#696D7A]">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </figure>
+  );
+}
+
 function QixinSystemEvolutionMap({ className = "mt-7" }: { className?: string } = {}) {
-  const rootNode = { x: 0.8, y: 170, width: 178, height: 40 } as const;
-  const mainNode = { x: 260, width: 144, height: 40 } as const;
-  const branchNode = { x: 488, width: 144, height: 40 } as const;
-  const detailNode = { x: 760, width: 156, height: 40 } as const;
-  const resultNode = { x: 1100, y: 196, width: 178, height: 44 } as const;
+  const rootNode = { x: 1, y: 184, width: 190, height: 44 } as const;
+  const mainNode = { x: 250, y: 184, width: 160, height: 44 } as const;
+  const legacyNode = { x: 250, y: 28, width: 160, height: 44 } as const;
+  const branchNode = { x: 500, width: 160, height: 44 } as const;
+  const detailNode = { x: 740, width: 166, height: 44 } as const;
+  const resultNode = { x: 1091, y: 184, width: 188, height: 44 } as const;
   const rootCenterY = rootNode.y + rootNode.height / 2;
-  const qixinCenterY = 270;
-  const productCenterY = 104;
-  const auditCenterY = 272;
+  const mainCenterY = mainNode.y + mainNode.height / 2;
+  const legacyCenterY = legacyNode.y + legacyNode.height / 2;
+  const productCenterY = 100;
+  const auditCenterY = 308;
   const rootRightX = rootNode.x + rootNode.width;
   const mainRightX = mainNode.x + mainNode.width;
   const branchRightX = branchNode.x + branchNode.width;
   const resultCenterY = resultNode.y + resultNode.height / 2;
   const detailRightX = detailNode.x + detailNode.width;
-  const resultMergeX = 1056;
-  const mergeControlStartX = detailRightX + 72;
-  const mergeControlEndX = resultMergeX - 64;
+  const detailInputBusX = 700;
+  const detailOutputBusX = 1005;
+  const busExitX = detailOutputBusX + 8;
+  const bendRadius = 8;
   const productIdentityNodes = [
-    { label: "品牌色与视觉识别", y: 44 },
-    { label: "字体 / 间距 / 栅格", y: 104 },
-    { label: "页面状态规范", y: 164 },
+    { label: "品牌色与视觉识别", y: 18 },
+    { label: "字体 / 间距 / 栅格", y: 78 },
+    { label: "页面状态规范", y: 138 },
   ] as const;
   const pageAuditNodes = [
-    { label: "存量页面梳理", y: 232 },
-    { label: "共性模块整理", y: 292 },
-    { label: "组件规范更新", y: 352 },
+    { label: "存量页面梳理", y: 246 },
+    { label: "共性模块整理", y: 306 },
+    { label: "组件规范更新", y: 366 },
   ] as const;
   const nodeLabel = {
     fontSize: 14,
@@ -1184,42 +1260,58 @@ function QixinSystemEvolutionMap({ className = "mt-7" }: { className?: string } 
     fontFamily: "inherit",
   } as const;
   const branchLabel = {
-    fontSize: 14,
+    fontSize: 13,
     lineHeight: "20px",
     fontWeight: 700,
     fontFamily: "inherit",
   } as const;
   const bluePath = {
     fill: "none",
-    stroke: "#2258F4",
-    strokeWidth: 1,
+    stroke: ARCH_ARROW,
+    strokeWidth: 1.4,
     strokeLinecap: "round",
-    strokeDasharray: "7 12",
+    strokeLinejoin: "round",
     markerEnd: "url(#qixin-system-evolution-arrow-blue)",
   } as const;
-  const mergePath = {
+  const blueBusPath = {
     fill: "none",
-    stroke: "#2258F4",
-    strokeWidth: 1,
+    stroke: ARCH_ARROW,
+    strokeWidth: 1.2,
     strokeLinecap: "round",
-    strokeDasharray: "7 12",
-    opacity: 0.76,
+    strokeLinejoin: "round",
+    opacity: 0.68,
   } as const;
   const grayPath = {
     fill: "none",
-    stroke: "#AEB3C1",
-    strokeWidth: 1,
+    stroke: ARCH_ARROW,
+    strokeWidth: 1.3,
     strokeLinecap: "round",
-    strokeDasharray: "7 12",
+    strokeLinejoin: "round",
     markerEnd: "url(#qixin-system-evolution-arrow-gray)",
   } as const;
+  const roundedBranchPath = (startY: number, endY: number) => {
+    if (startY === endY) {
+      return `M ${branchRightX} ${startY} H ${detailNode.x}`;
+    }
+
+    const direction = endY > startY ? 1 : -1;
+    return `M ${branchRightX} ${startY} H ${detailInputBusX - bendRadius} Q ${detailInputBusX} ${startY} ${detailInputBusX} ${startY + direction * bendRadius} V ${endY - direction * bendRadius} Q ${detailInputBusX} ${endY} ${detailInputBusX + bendRadius} ${endY} H ${detailNode.x}`;
+  };
+  const roundedMergePath = (startY: number, endY: number) => {
+    if (startY === endY) {
+      return `M ${detailRightX} ${startY} H ${busExitX}`;
+    }
+
+    const direction = endY > startY ? 1 : -1;
+    return `M ${detailRightX} ${startY} H ${detailOutputBusX - bendRadius} Q ${detailOutputBusX} ${startY} ${detailOutputBusX} ${startY + direction * bendRadius} V ${endY - direction * bendRadius} Q ${detailOutputBusX} ${endY} ${busExitX} ${endY}`;
+  };
 
   return (
     <div className={className}>
       <div className="overflow-x-auto">
         <div className="min-w-[1120px]">
           <svg
-            viewBox="0 20 1280 390"
+            viewBox="0 0 1280 420"
             className="block w-full"
             role="img"
             aria-labelledby="qixin-system-evolution-title"
@@ -1227,27 +1319,27 @@ function QixinSystemEvolutionMap({ className = "mt-7" }: { className?: string } 
             <title id="qixin-system-evolution-title">启信产业大脑组件库建设关系图</title>
             <defs>
               <marker id="qixin-system-evolution-arrow-blue" viewBox="0 0 8 8" refX="6.9" refY="4" markerWidth="7" markerHeight="7" orient="auto">
-                <path d="M1 1L7 4L1 7" fill="none" stroke="#2258F4" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M1 1L7 4L1 7" fill="none" stroke={ARCH_ARROW} strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
               </marker>
               <marker id="qixin-system-evolution-arrow-gray" viewBox="0 0 8 8" refX="6.9" refY="4" markerWidth="7" markerHeight="7" orient="auto">
-                <path d="M1 1L7 4L1 7" fill="none" stroke="#AEB3C1" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M1 1L7 4L1 7" fill="none" stroke={ARCH_ARROW} strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
               </marker>
             </defs>
 
             <path
-              d={`M ${rootRightX} ${rootCenterY} C 224 ${rootCenterY} 215 48 ${mainNode.x} 48`}
+              d={`M ${rootRightX} ${rootCenterY} H 226 Q 234 ${rootCenterY} 234 ${rootCenterY - 8} V ${legacyCenterY + 8} Q 234 ${legacyCenterY} 242 ${legacyCenterY} H ${legacyNode.x}`}
               {...grayPath}
             />
             <path
-              d={`M ${rootRightX} ${rootCenterY} C 224 ${rootCenterY} 215 ${qixinCenterY} ${mainNode.x} ${qixinCenterY}`}
+              d={`M ${rootRightX} ${rootCenterY} H ${mainNode.x}`}
               {...bluePath}
             />
             <path
-              d={`M ${mainRightX} ${qixinCenterY} C 452 ${qixinCenterY} 440 ${productCenterY} ${branchNode.x} ${productCenterY}`}
+              d={`M ${mainRightX} ${mainCenterY} H 438 Q 446 ${mainCenterY} 446 ${mainCenterY - 8} V ${productCenterY + 8} Q 446 ${productCenterY} 454 ${productCenterY} H ${branchNode.x}`}
               {...bluePath}
             />
             <path
-              d={`M ${mainRightX} ${qixinCenterY} C 440 ${qixinCenterY} 452 ${auditCenterY} ${branchNode.x} ${auditCenterY}`}
+              d={`M ${mainRightX} ${mainCenterY} H 438 Q 446 ${mainCenterY} 446 ${mainCenterY + 8} V ${auditCenterY - 8} Q 446 ${auditCenterY} 454 ${auditCenterY} H ${branchNode.x}`}
               {...bluePath}
             />
             {productIdentityNodes.map((item) => {
@@ -1255,7 +1347,7 @@ function QixinSystemEvolutionMap({ className = "mt-7" }: { className?: string } 
               return (
                 <path
                   key={`product-line-${item.label}`}
-                  d={`M ${branchRightX} ${productCenterY} C 676 ${productCenterY} 680 ${centerY} ${detailNode.x} ${centerY}`}
+                  d={roundedBranchPath(productCenterY, centerY)}
                   {...bluePath}
                 />
               );
@@ -1265,69 +1357,273 @@ function QixinSystemEvolutionMap({ className = "mt-7" }: { className?: string } 
               return (
                 <path
                   key={`audit-line-${item.label}`}
-                  d={`M ${branchRightX} ${auditCenterY} C 676 ${auditCenterY} 680 ${centerY} ${detailNode.x} ${centerY}`}
+                  d={roundedBranchPath(auditCenterY, centerY)}
                   {...bluePath}
                 />
               );
             })}
-            {[...productIdentityNodes, ...pageAuditNodes].map((item) => {
+            {productIdentityNodes.map((item) => {
               const centerY = item.y + detailNode.height / 2;
               return (
                 <path
-                  key={`system-merge-line-${item.label}`}
-                  d={`M ${detailRightX} ${centerY} C ${mergeControlStartX} ${centerY} ${mergeControlEndX} ${resultCenterY} ${resultMergeX} ${resultCenterY}`}
-                  {...mergePath}
+                  key={`product-merge-line-${item.label}`}
+                  d={roundedMergePath(centerY, productCenterY)}
+                  {...blueBusPath}
                 />
               );
             })}
             <path
-              d={`M ${resultMergeX} ${resultCenterY} L ${resultNode.x} ${resultCenterY}`}
+              d={`M ${busExitX} ${productCenterY} H 1028 Q 1036 ${productCenterY} 1036 ${productCenterY + 8} V ${resultCenterY - 8} Q 1036 ${resultCenterY} 1044 ${resultCenterY} H ${resultNode.x}`}
+              {...bluePath}
+            />
+            {pageAuditNodes.map((item) => {
+              const centerY = item.y + detailNode.height / 2;
+              return (
+                <path
+                  key={`audit-merge-line-${item.label}`}
+                  d={roundedMergePath(centerY, auditCenterY)}
+                  {...blueBusPath}
+                />
+              );
+            })}
+            <path
+              d={`M ${busExitX} ${auditCenterY} H 1028 Q 1036 ${auditCenterY} 1036 ${auditCenterY - 8} V ${resultCenterY + 8} Q 1036 ${resultCenterY} 1044 ${resultCenterY} H ${resultNode.x}`}
               {...bluePath}
             />
 
             <g>
-              <rect x={rootNode.x} y={rootNode.y} width={rootNode.width} height={rootNode.height} rx="20" fill="#FFFFFF" stroke="#A8BEFF" strokeWidth="1.4" />
+              <rect x={rootNode.x} y={rootNode.y} width={rootNode.width} height={rootNode.height} rx={ARCH_NODE_RADIUS} fill={ARCH_TONES.neutral.fill} stroke={ARCH_TONES.neutral.stroke} strokeWidth="1.25" />
               <circle cx={rootNode.x + 20} cy={rootCenterY} r="6" fill="#2258F4" />
-              <text x={rootNode.x + 34} y={rootCenterY + 5} fill="#1A1C24" style={nodeLabel}>公司企业数据底座</text>
+              <text x={rootNode.x + 34} y={rootCenterY + 5} fill={ARCH_TONES.neutral.text} style={nodeLabel}>公司企业数据底座</text>
             </g>
 
-            <g opacity="0.82">
-              <rect x={mainNode.x} y="28" width={mainNode.width} height={mainNode.height} rx="20" fill="#FFFFFF" stroke="#CBCDD4" strokeWidth="1.25" strokeDasharray="4 5" />
-              <text x={mainNode.x + mainNode.width / 2} y="53" textAnchor="middle" fill="#4E525E" style={branchLabel}>启信宝</text>
-            </g>
-
-            <g>
-              <rect x={mainNode.x} y="250" width={mainNode.width} height={mainNode.height} rx="20" fill="#2258F4" />
-              <text x={mainNode.x + mainNode.width / 2} y="275" textAnchor="middle" fill="#FFFFFF" style={branchLabel}>启信产业大脑</text>
+            <g opacity="0.84">
+              <rect x={legacyNode.x} y={legacyNode.y} width={legacyNode.width} height={legacyNode.height} rx={ARCH_NODE_RADIUS} fill={ARCH_TONES.neutral.fill} stroke={ARCH_TONES.neutral.stroke} strokeWidth="1.25" />
+              <text x={legacyNode.x + legacyNode.width / 2} y={legacyCenterY + 5} textAnchor="middle" fill={ARCH_TONES.neutral.text} style={branchLabel}>启信宝</text>
             </g>
 
             <g>
-              <rect x={branchNode.x} y="84" width={branchNode.width} height={branchNode.height} rx="20" fill="#FFFFFF" stroke="#A8BEFF" strokeWidth="1.25" />
-              <text x={branchNode.x + branchNode.width / 2} y="109" textAnchor="middle" fill="#1A42B8" style={branchLabel}>产品识别度建立</text>
+              <rect x={mainNode.x} y={mainNode.y} width={mainNode.width} height={mainNode.height} rx={ARCH_NODE_RADIUS} fill={ARCH_TONES.primary.fill} stroke={ARCH_TONES.primary.stroke} strokeWidth="1.25" />
+              <text x={mainNode.x + mainNode.width / 2} y={mainCenterY + 5} textAnchor="middle" fill={ARCH_TONES.primary.text} style={branchLabel}>启信产业大脑</text>
             </g>
 
             <g>
-              <rect x={branchNode.x} y="252" width={branchNode.width} height={branchNode.height} rx="20" fill="#FFFFFF" stroke="#A8BEFF" strokeWidth="1.25" />
-              <text x={branchNode.x + branchNode.width / 2} y="277" textAnchor="middle" fill="#1A42B8" style={branchLabel}>已上线页面盘点</text>
+              <rect x={branchNode.x} y={productCenterY - branchNode.height / 2} width={branchNode.width} height={branchNode.height} rx={ARCH_NODE_RADIUS} fill={ARCH_TONES.blue.fill} stroke={ARCH_TONES.blue.stroke} strokeWidth="1.25" />
+              <text x={branchNode.x + branchNode.width / 2} y={productCenterY + 5} textAnchor="middle" fill={ARCH_TONES.blue.text} style={branchLabel}>产品识别度建立</text>
+            </g>
+
+            <g>
+              <rect x={branchNode.x} y={auditCenterY - branchNode.height / 2} width={branchNode.width} height={branchNode.height} rx={ARCH_NODE_RADIUS} fill={ARCH_TONES.blue.fill} stroke={ARCH_TONES.blue.stroke} strokeWidth="1.25" />
+              <text x={branchNode.x + branchNode.width / 2} y={auditCenterY + 5} textAnchor="middle" fill={ARCH_TONES.blue.text} style={branchLabel}>已上线页面盘点</text>
             </g>
             {productIdentityNodes.map((item) => (
               <g key={`product-node-${item.label}`}>
-                <rect x={detailNode.x} y={item.y} width={detailNode.width} height={detailNode.height} rx="20" fill="#FFFFFF" stroke="#A8BEFF" strokeWidth="1.15" />
-                <text x={detailNode.x + detailNode.width / 2} y={item.y + 25} textAnchor="middle" fill="#1A42B8" style={branchLabel}>{item.label}</text>
+                <rect x={detailNode.x} y={item.y} width={detailNode.width} height={detailNode.height} rx={ARCH_NODE_RADIUS} fill={ARCH_TONES.blue.fill} stroke={ARCH_TONES.blue.stroke} strokeWidth="1.15" />
+                <text x={detailNode.x + detailNode.width / 2} y={item.y + 27} textAnchor="middle" fill={ARCH_TONES.blue.text} style={branchLabel}>{item.label}</text>
               </g>
             ))}
             {pageAuditNodes.map((item) => (
               <g key={`audit-node-${item.label}`}>
-                <rect x={detailNode.x} y={item.y} width={detailNode.width} height={detailNode.height} rx="20" fill="#FFFFFF" stroke="#A8BEFF" strokeWidth="1.15" />
-                <text x={detailNode.x + detailNode.width / 2} y={item.y + 25} textAnchor="middle" fill="#1A42B8" style={branchLabel}>{item.label}</text>
+                <rect x={detailNode.x} y={item.y} width={detailNode.width} height={detailNode.height} rx={ARCH_NODE_RADIUS} fill={ARCH_TONES.blue.fill} stroke={ARCH_TONES.blue.stroke} strokeWidth="1.15" />
+                <text x={detailNode.x + detailNode.width / 2} y={item.y + 27} textAnchor="middle" fill={ARCH_TONES.blue.text} style={branchLabel}>{item.label}</text>
               </g>
             ))}
             <g>
-              <rect x={resultNode.x} y={resultNode.y} width={resultNode.width} height={resultNode.height} rx="22" fill="#EEF2FF" stroke="#A8BEFF" strokeWidth="1.25" />
-              <text x={resultNode.x + resultNode.width / 2} y={resultNode.y + 27} textAnchor="middle" fill="#1A42B8" style={branchLabel}>组件库与标品规范</text>
+              <rect x={resultNode.x} y={resultNode.y} width={resultNode.width} height={resultNode.height} rx={ARCH_NODE_RADIUS} fill={ARCH_TONES.purple.fill} stroke={ARCH_TONES.purple.stroke} strokeWidth="1.25" />
+              <text x={resultNode.x + resultNode.width / 2} y={resultCenterY + 5} textAnchor="middle" fill={ARCH_TONES.purple.text} style={branchLabel}>组件库与标品规范</text>
             </g>
           </svg>
         </div>
+      </div>
+    </div>
+  );
+}
+
+function EnterpriseDataProcessMap() {
+  const nodeWidth = 300;
+  const nodeHeight = 52;
+  const topY = 68;
+  const bottomY = 180;
+  const nodeXs = [188, 570, 952, 1334] as const;
+  const columnLines = [150, 532, 914, 1296, 1678] as const;
+  const topNodes = ["锁定目标企业", "验证关系价值", "形成可用名单", "持续监控与复用"] as const;
+  const responseNodes = ["多条件找企业", "关系线索扩展", "名单批量处理"] as const;
+  const topCenterY = topY + nodeHeight / 2;
+  const bottomCenterY = bottomY + nodeHeight / 2;
+  const labelStyle = {
+    fontSize: 14,
+    lineHeight: "20px",
+    fontWeight: 700,
+    fontFamily: "inherit",
+  } as const;
+  const nodeTextStyle = {
+    fontSize: 16,
+    lineHeight: "20px",
+    fontWeight: 700,
+    fontFamily: "inherit",
+  } as const;
+
+  return (
+    <div className="overflow-x-auto">
+      <div className="min-w-[1180px]">
+        <svg
+          viewBox="0 22 1680 248"
+          className="block w-full"
+          role="img"
+          aria-labelledby="enterprise-data-process-title enterprise-data-process-desc"
+        >
+          <title id="enterprise-data-process-title">企业数据处理的用户心智与设计响应</title>
+          <desc id="enterprise-data-process-desc">
+            用户从锁定目标企业、验证关系价值、形成可用名单，走向持续监控与复用；设计分别以多条件找企业、关系线索扩展和名单批量处理响应前三步任务。
+          </desc>
+          <defs>
+            <marker
+              id="enterprise-data-process-arrow-gray"
+              viewBox="0 0 8 8"
+              refX="6.8"
+              refY="4"
+              markerWidth="7"
+              markerHeight="7"
+              orient="auto"
+            >
+              <path d="M1 1L7 4L1 7" fill="none" stroke={ARCH_ARROW} strokeWidth="1.15" strokeLinecap="round" strokeLinejoin="round" />
+            </marker>
+            <marker
+              id="enterprise-data-process-arrow-blue"
+              viewBox="0 0 8 8"
+              refX="6.8"
+              refY="4"
+              markerWidth="7"
+              markerHeight="7"
+              orient="auto"
+            >
+              <path d="M1 1L7 4L1 7" fill="none" stroke={ARCH_ARROW} strokeWidth="1.15" strokeLinecap="round" strokeLinejoin="round" />
+            </marker>
+            <pattern
+              id="enterprise-data-process-hatch"
+              width="14"
+              height="14"
+              patternUnits="userSpaceOnUse"
+              patternTransform="rotate(45)"
+            >
+              <line x1="0" y1="0" x2="0" y2="14" stroke="#A8BEFF" strokeWidth="1" opacity="0.5" />
+            </pattern>
+          </defs>
+
+          <rect x="1296" y="42" width="382" height="210" fill="url(#enterprise-data-process-hatch)" opacity="0.42" />
+
+          {[42, 148, 252].map((y) => (
+            <line key={`lane-line-${y}`} x1="0" y1={y} x2="1680" y2={y} stroke="#E6E7EB" strokeWidth="1" />
+          ))}
+          {columnLines.map((x) => (
+            <line
+              key={`column-line-${x}`}
+              x1={x}
+              y1="42"
+              x2={x}
+              y2="252"
+              stroke="#CBCDD4"
+              strokeWidth="1"
+              strokeDasharray="6 9"
+              opacity="0.78"
+            />
+          ))}
+
+          <text x="0" y={topCenterY + 5} fill="#696D7A" style={labelStyle}>用户心智</text>
+          <text x="0" y={bottomCenterY + 5} fill="#1A42B8" style={labelStyle}>设计响应</text>
+
+          {nodeXs.slice(0, -1).map((x, index) => (
+            <path
+              key={`mind-path-${topNodes[index]}`}
+              d={`M ${x + nodeWidth} ${topCenterY} H ${nodeXs[index + 1]}`}
+              fill="none"
+              stroke={ARCH_ARROW}
+              strokeWidth="1.35"
+              strokeLinecap="round"
+              markerEnd="url(#enterprise-data-process-arrow-gray)"
+            />
+          ))}
+
+          {nodeXs.slice(0, 3).map((x, index) => (
+            <path
+              key={`mapping-path-${responseNodes[index]}`}
+              d={`M ${x + nodeWidth / 2} ${topY + nodeHeight} V ${bottomY}`}
+              fill="none"
+              stroke={ARCH_ARROW}
+              strokeWidth="1.25"
+              strokeLinecap="round"
+              markerEnd="url(#enterprise-data-process-arrow-blue)"
+            />
+          ))}
+
+          {nodeXs.slice(0, 2).map((x, index) => (
+            <path
+              key={`response-path-${responseNodes[index]}`}
+              d={`M ${x + nodeWidth} ${bottomCenterY} H ${nodeXs[index + 1]}`}
+              fill="none"
+              stroke={ARCH_ARROW}
+              strokeWidth="1.4"
+              strokeLinecap="round"
+              markerEnd="url(#enterprise-data-process-arrow-blue)"
+            />
+          ))}
+
+          {topNodes.map((label, index) => {
+            const x = nodeXs[index];
+            const isOutcome = index === topNodes.length - 1;
+            return (
+              <g key={label}>
+                <rect
+                  x={x}
+                  y={topY}
+                  width={nodeWidth}
+                  height={nodeHeight}
+                  rx={ARCH_NODE_RADIUS}
+                  fill={isOutcome ? ARCH_TONES.purple.fill : ARCH_TONES.neutral.fill}
+                  stroke={isOutcome ? ARCH_TONES.purple.stroke : ARCH_TONES.neutral.stroke}
+                  strokeWidth="1.2"
+                />
+                <text
+                  x={x + nodeWidth / 2}
+                  y={topCenterY + 5}
+                  textAnchor="middle"
+                  fill={isOutcome ? ARCH_TONES.purple.text : ARCH_TONES.neutral.text}
+                  style={nodeTextStyle}
+                >
+                  {label}
+                </text>
+              </g>
+            );
+          })}
+
+          {responseNodes.map((label, index) => {
+            const x = nodeXs[index];
+            const isEntry = index === 0;
+            return (
+              <g key={label}>
+                <rect
+                  x={x}
+                  y={bottomY}
+                  width={nodeWidth}
+                  height={nodeHeight}
+                  rx={ARCH_NODE_RADIUS}
+                  fill={isEntry ? ARCH_TONES.primary.fill : ARCH_TONES.blue.fill}
+                  stroke={isEntry ? ARCH_TONES.primary.stroke : ARCH_TONES.blue.stroke}
+                  strokeWidth="1.25"
+                />
+                <text
+                  x={x + nodeWidth / 2}
+                  y={bottomCenterY + 5}
+                  textAnchor="middle"
+                  fill={isEntry ? ARCH_TONES.primary.text : ARCH_TONES.blue.text}
+                  style={nodeTextStyle}
+                >
+                  {label}
+                </text>
+              </g>
+            );
+          })}
+        </svg>
       </div>
     </div>
   );
@@ -2541,7 +2837,7 @@ function HomepageTaskArchitecture() {
             <path
               d="M1 1L7 4L1 7"
               fill="none"
-              stroke="#AEB3C1"
+              stroke={ARCH_ARROW}
               strokeWidth="1.15"
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -2559,7 +2855,7 @@ function HomepageTaskArchitecture() {
             <path
               d="M1 1L7 4L1 7"
               fill="none"
-              stroke="#FF8DA1"
+              stroke={ARCH_ARROW}
               strokeWidth="1.15"
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -2570,7 +2866,7 @@ function HomepageTaskArchitecture() {
         <g
           aria-hidden="true"
           fill="none"
-          stroke="#AEB3C1"
+          stroke={ARCH_ARROW}
           strokeWidth="1.25"
           strokeDasharray="6 8"
           strokeLinecap="round"
@@ -2595,7 +2891,7 @@ function HomepageTaskArchitecture() {
           aria-hidden="true"
           d="M690 420H720V315"
           fill="none"
-          stroke="#FF8DA1"
+          stroke={ARCH_ARROW}
           strokeWidth="1.2"
           strokeDasharray="5 8"
           strokeLinecap="round"
@@ -2610,10 +2906,12 @@ function HomepageTaskArchitecture() {
             y="145"
             width="250"
             height="100"
-            rx="12"
-            fill="#E5EBFF"
+            rx={ARCH_NODE_RADIUS}
+            fill={ARCH_TONES.neutral.fill}
+            stroke={ARCH_TONES.neutral.stroke}
+            strokeWidth="1.2"
           />
-          <text x="125" y="180" textAnchor="middle" fill="#1A42B8" style={nodeTitleStyle}>
+          <text x="125" y="180" textAnchor="middle" fill={ARCH_TONES.neutral.text} style={nodeTitleStyle}>
             业务场景
           </text>
           <text x="125" y="214" textAnchor="middle" fill="#4E525E" style={nodeBodyStyle}>
@@ -2625,10 +2923,12 @@ function HomepageTaskArchitecture() {
             y="315"
             width="250"
             height="100"
-            rx="12"
-            fill="#E5EBFF"
+            rx={ARCH_NODE_RADIUS}
+            fill={ARCH_TONES.neutral.fill}
+            stroke={ARCH_TONES.neutral.stroke}
+            strokeWidth="1.2"
           />
-          <text x="125" y="350" textAnchor="middle" fill="#1A42B8" style={nodeTitleStyle}>
+          <text x="125" y="350" textAnchor="middle" fill={ARCH_TONES.neutral.text} style={nodeTitleStyle}>
             业务触发
           </text>
           <text x="125" y="384" textAnchor="middle" fill="#4E525E" style={nodeBodyStyle}>
@@ -2642,10 +2942,12 @@ function HomepageTaskArchitecture() {
             y="230"
             width="170"
             height="100"
-            rx="10"
-            fill="#E6F4E7"
+            rx={ARCH_NODE_RADIUS}
+            fill={ARCH_TONES.blue.fill}
+            stroke={ARCH_TONES.blue.stroke}
+            strokeWidth="1.2"
           />
-          <text x="415" y="262" textAnchor="middle" fill="#146B22" style={nodeTitleStyle}>
+          <text x="415" y="262" textAnchor="middle" fill={ARCH_TONES.blue.text} style={nodeTitleStyle}>
             访谈归类
           </text>
           <text x="415" y="294" textAnchor="middle" fill="#4E525E" style={nodeBodyStyle}>
@@ -2658,10 +2960,12 @@ function HomepageTaskArchitecture() {
             y="230"
             width="170"
             height="100"
-            rx="10"
-            fill="#E6F4E7"
+            rx={ARCH_NODE_RADIUS}
+            fill={ARCH_TONES.blue.fill}
+            stroke={ARCH_TONES.blue.stroke}
+            strokeWidth="1.2"
           />
-          <text x="605" y="262" textAnchor="middle" fill="#146B22" style={nodeTitleStyle}>
+          <text x="605" y="262" textAnchor="middle" fill={ARCH_TONES.blue.text} style={nodeTitleStyle}>
             共同任务链
           </text>
           <text x="605" y="294" textAnchor="middle" fill="#4E525E" style={nodeBodyStyle}>
@@ -2674,7 +2978,7 @@ function HomepageTaskArchitecture() {
             y="375"
             width="360"
             height="90"
-            rx="10"
+            rx={ARCH_NODE_RADIUS}
             fill="#FFF0F3"
             stroke="#FF8DA1"
             strokeWidth="1.2"
@@ -2694,42 +2998,44 @@ function HomepageTaskArchitecture() {
             y="230"
             width="140"
             height="100"
-            rx="10"
-            fill="#E5EBFF"
+            rx={ARCH_NODE_RADIUS}
+            fill={ARCH_TONES.primary.fill}
+            stroke={ARCH_TONES.primary.stroke}
+            strokeWidth="1.2"
           />
-          <text x="840" y="270" textAnchor="middle" fill="#1A42B8" fontFamily="inherit" fontSize="14" fontWeight="700">
+          <text x="840" y="270" textAnchor="middle" fill={ARCH_TONES.primary.text} fontFamily="inherit" fontSize="14" fontWeight="700">
             <tspan x="840" dy="0">从“找功能”</tspan>
             <tspan x="840" dy="24">转向“承接任务”</tspan>
           </text>
         </g>
 
         <g>
-          <rect x="990" y="145" width="150" height="100" rx="10" fill="#F1F2F4" />
-          <text x="1065" y="180" textAnchor="middle" fill="#30323A" style={nodeTitleStyle}>
+          <rect x="990" y="145" width="150" height="100" rx={ARCH_NODE_RADIUS} fill={ARCH_TONES.blue.fill} stroke={ARCH_TONES.blue.stroke} strokeWidth="1.2" />
+          <text x="1065" y="180" textAnchor="middle" fill={ARCH_TONES.blue.text} style={nodeTitleStyle}>
             任务启动
           </text>
           <text x="1065" y="214" textAnchor="middle" fill="#4E525E" style={nodeBodyStyle}>
             搜索 · 常用
           </text>
 
-          <rect x="1160" y="145" width="150" height="100" rx="10" fill="#F1F2F4" />
-          <text x="1235" y="180" textAnchor="middle" fill="#30323A" style={nodeTitleStyle}>
+          <rect x="1160" y="145" width="150" height="100" rx={ARCH_NODE_RADIUS} fill={ARCH_TONES.blue.fill} stroke={ARCH_TONES.blue.stroke} strokeWidth="1.2" />
+          <text x="1235" y="180" textAnchor="middle" fill={ARCH_TONES.blue.text} style={nodeTitleStyle}>
             变化感知
           </text>
           <text x="1235" y="214" textAnchor="middle" fill="#4E525E" style={nodeBodyStyle}>
             快讯 · 舆情 · 预警
           </text>
 
-          <rect x="990" y="315" width="150" height="100" rx="10" fill="#F1F2F4" />
-          <text x="1065" y="350" textAnchor="middle" fill="#30323A" style={nodeTitleStyle}>
+          <rect x="990" y="315" width="150" height="100" rx={ARCH_NODE_RADIUS} fill={ARCH_TONES.blue.fill} stroke={ARCH_TONES.blue.stroke} strokeWidth="1.2" />
+          <text x="1065" y="350" textAnchor="middle" fill={ARCH_TONES.blue.text} style={nodeTitleStyle}>
             业务研判
           </text>
           <text x="1065" y="384" textAnchor="middle" fill="#4E525E" style={nodeBodyStyle}>
             地区 · 产业 · 企业
           </text>
 
-          <rect x="1160" y="315" width="150" height="100" rx="10" fill="#F1F2F4" />
-          <text x="1235" y="350" textAnchor="middle" fill="#30323A" style={nodeTitleStyle}>
+          <rect x="1160" y="315" width="150" height="100" rx={ARCH_NODE_RADIUS} fill={ARCH_TONES.blue.fill} stroke={ARCH_TONES.blue.stroke} strokeWidth="1.2" />
+          <text x="1235" y="350" textAnchor="middle" fill={ARCH_TONES.blue.text} style={nodeTitleStyle}>
             跟进输出
           </text>
           <text x="1235" y="384" textAnchor="middle" fill="#4E525E" style={nodeBodyStyle}>
@@ -2738,21 +3044,20 @@ function HomepageTaskArchitecture() {
         </g>
 
         <g>
-          <rect x="1430" y="230" width="110" height="100" rx="10" fill="#F0E9FF" />
-          <text x="1485" y="265" textAnchor="middle" fill="#6623A8" fontFamily="inherit" fontSize="14" fontWeight="700">
+          <rect x="1430" y="230" width="110" height="100" rx={ARCH_NODE_RADIUS} fill={ARCH_TONES.purple.fill} stroke={ARCH_TONES.purple.stroke} strokeWidth="1.2" />
+          <text x="1485" y="265" textAnchor="middle" fill={ARCH_TONES.purple.text} fontFamily="inherit" fontSize="14" fontWeight="700">
             任务中枢
           </text>
           <text x="1485" y="299" textAnchor="middle" fill="#4E525E" fontFamily="inherit" fontSize="13" fontWeight="500">
             启动 · 承接
           </text>
 
-          <rect x="1570" y="230" width="110" height="100" rx="10" fill="#F0E9FF" />
-          <text x="1625" y="265" textAnchor="middle" fill="#6623A8" fontFamily="inherit" fontSize="14" fontWeight="700">
+          <rect x="1570" y="230" width="110" height="100" rx={ARCH_NODE_RADIUS} fill={ARCH_TONES.purple.fill} stroke={ARCH_TONES.purple.stroke} strokeWidth="1.2" />
+          <text x="1625" y="265" textAnchor="middle" fill={ARCH_TONES.purple.text} fontFamily="inherit" fontSize="14" fontWeight="700">
             业务价值
           </text>
           <text x="1625" y="296" textAnchor="middle" fill="#4E525E" fontFamily="inherit" fontSize="12.5" fontWeight="500">
             <tspan x="1625" dy="0">提效 · 减负</tspan>
-            <tspan x="1625" dy="20">支撑决策</tspan>
           </text>
         </g>
       </svg>
@@ -2953,10 +3258,10 @@ export function QixinProjectDetail({ onBack }: Props) {
   const FlowNode = ({ title, desc, anchor }: { title: string; desc: string; anchor?: string }) => (
     <div
       data-flow-anchor={anchor}
-      className="relative z-20 flex shrink-0 flex-col rounded-[16px] border border-[#E6E7EB] bg-white px-4 py-3 shadow-[0_12px_28px_rgba(34,88,244,0.06)]"
+      className="relative z-20 flex shrink-0 flex-col rounded-[12px] border border-[#D8DBE4] bg-[#F5F5F7] px-4 py-3"
       style={{ width: Math.max(150, title.length * 16 + 48) }}
     >
-      <div className="whitespace-nowrap text-[15px] font-semibold leading-[1.35] text-[#1A1C24]">{title}</div>
+      <div className="whitespace-nowrap text-[16px] font-semibold leading-[1.35] text-[#4E525E]">{title}</div>
       <p className="mt-1 text-[13px] font-medium leading-[1.45] text-[#696D7A]">{desc}</p>
     </div>
   );
@@ -3397,7 +3702,7 @@ export function QixinProjectDetail({ onBack }: Props) {
 
                         <div data-flow-anchor="scenarioLayer" className="relative z-10 rounded-[28px] border border-[#A8BEFF]/45 bg-white/45 p-4">
                           <div className="mb-5">
-                            <h3 className="text-[20px] font-semibold leading-[1.25] text-[#1A1C24]">场景输入层</h3>
+                            <h3 className="text-[16px] font-semibold leading-[1.4] text-[#1A1C24]">场景输入层</h3>
                             <p className="mt-1 text-[13px] font-medium leading-[1.5] text-[#696D7A]">先确认业务角色和使用边界。</p>
                           </div>
 
@@ -3405,7 +3710,7 @@ export function QixinProjectDetail({ onBack }: Props) {
                             {SCENARIOS.map((scenario) => (
                               <article
                                 key={scenario.id}
-                                className="relative rounded-[18px] border border-[#E6E7EB] bg-white px-4 pb-4 pt-7 shadow-[0_8px_20px_rgba(34,88,244,0.035)]"
+                                className="relative rounded-[12px] border border-[#D8DBE4] bg-[#F5F5F7] px-4 pb-4 pt-7"
                               >
                                 <NodeBadge label={scenario.name} />
                                 <div className="space-y-1.5">
@@ -3431,7 +3736,7 @@ export function QixinProjectDetail({ onBack }: Props) {
                       <div data-flow-anchor="problemLayer" className="relative overflow-visible rounded-[28px] border border-[#A8BEFF]/45 bg-white/35 p-4">
                         <div className="relative z-10">
                           <div className="mb-5">
-                            <h3 className="text-[20px] font-semibold leading-[1.25] text-[#1A1C24]">共性问题层</h3>
+                            <h3 className="text-[16px] font-semibold leading-[1.4] text-[#1A1C24]">共性问题层</h3>
                             <p className="mt-1 text-[13px] font-medium leading-[1.5] text-[#696D7A]">从五类场景里抽出共同阻塞点。</p>
                           </div>
 
@@ -3439,7 +3744,7 @@ export function QixinProjectDetail({ onBack }: Props) {
                             {COMMON_PROBLEMS.map((problem) => (
                               <article
                                 key={problem.title}
-                                className="relative rounded-[18px] border border-[#E6E7EB] bg-white px-4 pb-4 pt-7 shadow-[0_8px_20px_rgba(34,88,244,0.035)]"
+                                className="relative rounded-[12px] border border-[#D8DBE4] bg-[#F5F5F7] px-4 pb-4 pt-7"
                               >
                                 <NodeBadge label={problem.title} />
                                 <div className="space-y-1.5">
@@ -3457,9 +3762,9 @@ export function QixinProjectDetail({ onBack }: Props) {
 
                       <div className="relative overflow-visible">
                         <div className="relative z-10">
-                          <article data-flow-anchor="hubNode" className="relative w-[252px] overflow-hidden rounded-[22px] border-2 border-dashed border-[#A8BEFF] bg-white p-4 shadow-[0_8px_20px_rgba(34,88,244,0.045)]">
-                            <div className="text-[20px] font-semibold leading-[1.35] text-[#1A1C24]">启信产业大脑</div>
-                            <p className="mt-1.5 text-[13px] font-medium leading-[1.55] text-[#4E525E]">
+                          <article data-flow-anchor="hubNode" className="relative w-[252px] overflow-hidden rounded-[12px] border border-[#2258F4] bg-[#2258F4] p-4">
+                            <div className="text-[16px] font-semibold leading-[1.4] text-white">启信产业大脑</div>
+                            <p className="mt-1.5 text-[13px] font-medium leading-[1.55] text-white/80">
                               统一承接企业筛选、评估、管理与报告输出流程。
                             </p>
 
@@ -3467,7 +3772,7 @@ export function QixinProjectDetail({ onBack }: Props) {
                               {HUB_CAPABILITIES.map((capability) => (
                                 <div
                                   key={capability}
-                                  className="rounded-[10px] bg-[#EEF2FF]/75 px-3 py-2.5 text-[12px] font-semibold leading-[1.45] text-[#1A42B8]"
+                                  className="rounded-[10px] border border-white/20 bg-white/10 px-3 py-2.5 text-[12px] font-semibold leading-[1.45] text-white"
                                 >
                                   {capability}
                                 </div>
@@ -3484,7 +3789,7 @@ export function QixinProjectDetail({ onBack }: Props) {
                       <div data-flow-anchor="decisionLayer" className="relative overflow-visible rounded-[28px] border border-[#A8BEFF]/45 bg-white/35 p-4">
                         <div className="relative z-10">
                           <div className="mb-5">
-                            <h3 className="text-[20px] font-semibold leading-[1.25] text-[#1A1C24]">设计决策层</h3>
+                            <h3 className="text-[16px] font-semibold leading-[1.4] text-[#1A1C24]">设计决策层</h3>
                             <p className="mt-1 text-[13px] font-medium leading-[1.5] text-[#696D7A]">从共性问题推导设计回应。</p>
                           </div>
 
@@ -3492,7 +3797,7 @@ export function QixinProjectDetail({ onBack }: Props) {
                             {DESIGN_DECISIONS.map((decision) => (
                               <article
                                 key={decision.title}
-                                className="relative overflow-visible rounded-[18px] border border-[#E6E7EB] bg-white px-4 pb-4 pt-7 shadow-[0_8px_20px_rgba(34,88,244,0.035)]"
+                                className="relative overflow-visible rounded-[12px] border border-[#A8BEFF] bg-[#EEF2FF] px-4 pb-4 pt-7"
                               >
                                 <NodeBadge label={decision.title} />
 
@@ -4285,53 +4590,7 @@ export function QixinProjectDetail({ onBack }: Props) {
 
             <div className="space-y-6">
               <article className="min-w-0">
-                <div className="grid gap-4 md:grid-cols-3">
-                  {[
-                    {
-                      step: "01",
-                      title: "共享企业数据底座",
-                      meta: "数据 Data",
-                      desc: "公司企业数据为多条业务线提供基础，产业大脑与启信宝共享部分企业信息、关系线索和风险数据。",
-                      bg: "rgba(238,242,255,0.78)",
-                      accent: "#2258F4",
-                    },
-                    {
-                      step: "02",
-                      title: "早期复用成熟规范",
-                      meta: "启动 Launch",
-                      desc: "孵化阶段沿用启信宝已有颜色、组件和页面规范，帮助产业大脑快速完成早期落地。",
-                      bg: "rgba(229,235,255,0.72)",
-                      accent: "#4777FF",
-                    },
-                    {
-                      step: "03",
-                      title: "产品表达需要区分",
-                      meta: "差异 Identity",
-                      desc: "启信宝偏企业查询、征信与风控，产业大脑聚焦产业经济、区域治理、招商研判和产业链分析。",
-                      bg: "rgba(245,245,247,0.86)",
-                      accent: "#6366F1",
-                    },
-                  ].map((item) => (
-                    <div
-                      key={item.step}
-                      className="rounded-[22px] border border-dashed border-[#CBCDD4] bg-white p-3.5"
-                    >
-                      <div className="mb-2 flex items-center justify-between border-b border-dashed border-[#E6E7EB] pb-2">
-                        <div className="text-[12px] font-semibold leading-none text-[#1A1C24]">{item.step}</div>
-                        <div className="text-[12px] font-semibold leading-none text-[#B3B6BF]">{item.meta}</div>
-                      </div>
-                      <div className="rounded-[14px] px-3.5 py-3" style={{ background: item.bg }}>
-                        <div className="flex gap-3">
-                          <span className="mt-1 h-12 w-0.5 shrink-0 rounded-full" style={{ backgroundColor: item.accent }} />
-                          <div className="min-w-0">
-                            <div className="text-[16px] font-semibold leading-[1.45] text-[#1A1C24]">{item.title}</div>
-                            <p className="mt-1 text-[14px] font-medium leading-[1.6] text-[#4E525E]">{item.desc}</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+                <SystemLanguageProgression />
 
                 <QixinSystemEvolutionMap />
               </article>
@@ -4370,7 +4629,7 @@ export function QixinProjectDetail({ onBack }: Props) {
               </div>
             </div>
 
-            <div className="mt-6">
+            <div className="hidden" aria-hidden="true">
               <QixinColorTokenPreview />
             </div>
 
@@ -4707,28 +4966,24 @@ export function QixinProjectDetail({ onBack }: Props) {
               将找企业、看关系、处理名单三个高频动作整合为可操作流程，使分散数据可筛选、可扩展、可复用。
             </p>
           </div>
+          <div className="mb-12 md:mb-14">
+            <EnterpriseDataProcessMap />
+          </div>
           <div className="grid grid-cols-1 gap-5 min-[1280px]:mx-auto min-[1280px]:w-[1152px] min-[1280px]:grid-cols-[512px_620px] min-[1280px]:items-stretch min-[1440px]:w-[1248px] min-[1440px]:grid-cols-[560px_668px] min-[1536px]:w-[1280px] min-[1536px]:grid-cols-[576px_684px] min-[1680px]:w-[1424px] min-[1680px]:grid-cols-[640px_764px] min-[1904px]:w-[1648px] min-[1904px]:grid-cols-[768px_860px] min-[1936px]:w-[1680px] min-[1936px]:grid-cols-[784px_876px]">
-            <div className="relative overflow-hidden rounded-[28px] bg-white p-4 shadow-[0_1px_2px_rgba(15,20,25,0.04)] ring-1 ring-[#E6E7EB]">
+            <div className="relative flex h-full flex-col overflow-hidden rounded-[28px] bg-white p-4 shadow-[0_1px_2px_rgba(15,20,25,0.04)] ring-1 ring-[#E6E7EB]">
               <img
                 src="./images/optimized/qixin-search-1600.jpg"
                 alt="高级搜索筛选企业截图"
                 {...DETAIL_IMAGE_LAZY_PROPS}
                 className="block h-auto w-full rounded-2xl object-contain object-top ring-1 ring-[#E6E7EB]"
               />
-              <div className="pt-4">
-                <div className="mb-2 text-xs font-semibold tracking-[0.16em] text-[#696D7A]">
-                  01
-                </div>
-                <div className="mb-3 flex items-start gap-3">
-                  <h3 className="flex-1" style={{ fontSize: 24, lineHeight: "32px", fontWeight: 700, color: "#1A1C24" }}>多条件找企业</h3>
-                  <span
-                    className="mt-1 inline-flex size-4 shrink-0 items-center justify-center"
-                    style={{ color: ICON_GRAY }}
-                  >
-                    <Search className="size-4" />
-                  </span>
-                </div>
-                <p className="max-w-[600px]" style={{ fontSize: 16, lineHeight: "28px", color: "#4E525E" }}>
+              <div className="flex flex-1 flex-col pt-4">
+                <h3 style={{ fontSize: 24, lineHeight: "32px", fontWeight: 700, color: "#1A1C24" }}>多条件找企业</h3>
+                <p className="mt-2" style={{ fontSize: 13, lineHeight: "20px", color: "#696D7A" }}>
+                  <span className="font-semibold text-[#1A42B8]">条件收敛：</span>
+                  业务化筛选 · 状态可见 · 结果反馈
+                </p>
+                <p className="mt-5 max-w-[600px] min-[1280px]:mt-auto" style={{ fontSize: 16, lineHeight: "28px", color: "#4E525E" }}>
                   数据量大、条件多，用户难快速定位目标企业。<br />
                   通过条件分组和筛选逻辑，让用户一步锁定可跟进企业。
                 </p>
@@ -4738,18 +4993,18 @@ export function QixinProjectDetail({ onBack }: Props) {
             <div className="grid gap-5 min-[1280px]:h-full min-[1280px]:grid-rows-2">
               {[
                 {
-                  icon: Network,
-                  index: "02",
                   title: "关系线索扩展",
                   desc: "用户需要从单个企业发现上下游和关联线索。将供应商、客户和产业链关系放在同一条扩展路径中，形成连续探索流程。",
+                  principleLabel: "关系扩展：",
+                  principle: "对象出发 · 按需展开 · 路径可回溯",
                   image: "./images/optimized/qixin-supply-chain-1600.jpg",
                   alt: "供应链招商企业列表截图",
                 },
                 {
-                  icon: Table2,
-                  index: "03",
                   title: "名单批量处理",
                   desc: "外部名单来源不统一，难直接用于分析。将名单上传、指标选择和信息补全串成流程，使名单可直接用于监控和报告。",
+                  principleLabel: "名单沉淀：",
+                  principle: "映射校验 · 去重补全 · 持续复用",
                   image: "./images/optimized/qixin-batch-query-1600.jpg",
                   alt: "批量查询选择指标截图",
                 },
@@ -4763,21 +5018,12 @@ export function QixinProjectDetail({ onBack }: Props) {
                       className="block h-auto w-full rounded-2xl object-contain object-top ring-1 ring-[#E6E7EB]"
                     />
                     <div className="flex flex-col pt-3 min-[1280px]:h-[208px] min-[1280px]:pt-0 min-[1440px]:h-[230px] min-[1536px]:h-[235px] min-[1680px]:h-[258px] min-[1904px]:h-[298px] min-[1936px]:h-[303px]">
-                      <div className="mb-2 text-xs font-semibold tracking-[0.16em] text-[#696D7A]">
-                        {item.index}
-                      </div>
-                      <div className="mt-4 min-[1280px]:mb-8 min-[1280px]:mt-auto">
-                        <div className="mb-4 flex items-start gap-3">
-                          <h3 className="flex-1" style={{ fontSize: 24, lineHeight: "32px", fontWeight: 700, color: "#1A1C24" }}>{item.title}</h3>
-                          <span
-                            className="mt-1 inline-flex size-4 shrink-0 items-center justify-center"
-                            style={{ color: ICON_GRAY }}
-                          >
-                            <item.icon className="size-4" />
-                          </span>
-                        </div>
-                        <p style={{ fontSize: 16, lineHeight: "28px", color: "#4E525E" }}>{item.desc}</p>
-                      </div>
+                      <h3 style={{ fontSize: 24, lineHeight: "32px", fontWeight: 700, color: "#1A1C24" }}>{item.title}</h3>
+                      <p className="mt-2" style={{ fontSize: 13, lineHeight: "20px", color: "#696D7A" }}>
+                        <span className="font-semibold text-[#1A42B8]">{item.principleLabel}</span>
+                        {item.principle}
+                      </p>
+                      <p className="mt-5 min-[1280px]:mt-auto" style={{ fontSize: 16, lineHeight: "28px", color: "#4E525E" }}>{item.desc}</p>
                     </div>
                   </div>
                 </div>

@@ -28,6 +28,7 @@ import {
 } from "lucide-react";
 import { Placeholder } from "./Placeholder";
 import { Footer } from "./Footer";
+import { ResearchPaperCanvas } from "./ResearchPaperCanvas";
 import { hideContactDetails } from "../buildVariant";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
@@ -705,39 +706,13 @@ export function ProjectDetail({ onBack }: Props) {
     },
   ];
 
-  const journeyPath = "M 10 28 C 17 32 23 58 30 60 C 37 62 43 60 50 60 C 57 60 63 74 70 76 C 77 76 84 52 90 50";
-  const journeyNodeColumns = [
-    {
-      stage: "任务定义",
-      action: "定义报告口径",
-      risk: "目标初定，口径待收敛",
-      control: "前置口径配置",
-    },
-    {
-      stage: "材料整理",
-      action: "汇总输入材料",
-      risk: "输入混乱，控制感下降",
-      control: "结构化输入",
-    },
-    {
-      stage: "生成前确认",
-      action: "确认范围与大纲",
-      risk: "范围确认，预期变清晰",
-      control: "先确认再生成",
-    },
-    {
-      stage: "内容生成",
-      action: "分步查看正文",
-      risk: "过程不透明，担心跑偏",
-      control: "过程可干预",
-    },
-    {
-      stage: "核查交付",
-      action: "核查来源并复用",
-      risk: "来源可查，信心回升",
-      control: "来源追溯与沉淀",
-    },
+  const journeyPathSegments = [
+    "M 10 28 C 17 32 23 58 30 60",
+    "M 30 60 C 37 62 43 60 50 60",
+    "M 50 60 C 57 60 63 74 70 76",
+    "M 70 76 C 77 76 84 52 90 50",
   ];
+  const journeyPath = journeyPathSegments.join(" ");
 
   useEffect(() => {
     const timer = window.setInterval(() => {
@@ -754,36 +729,7 @@ export function ProjectDetail({ onBack }: Props) {
       tagline: "明确报告场景",
       icon: FileText,
       placeholder: "模板中心页面",
-      image: "./images/ai-report-flow/step-01-blank-canvas.png",
-      sidebar: "./images/ai-report-flow/step-01-sidebar.png",
       finalImage: "./images/ai-report-flow/step-01-final-template-center.png",
-      templateCards: [
-        {
-          src: "./images/ai-report-flow/step-01-template-region.png",
-          label: "区域监测报告",
-          className: "left-[19%] top-[17%] w-[19.5%]",
-          from: { x: -80, y: 60 },
-        },
-        {
-          src: "./images/ai-report-flow/step-01-template-opinion.png",
-          label: "地区舆情分析报告",
-          className: "left-[41.5%] top-[17%] w-[19.5%]",
-          from: { x: 0, y: 80 },
-        },
-        {
-          src: "./images/ai-report-flow/step-01-template-chain.png",
-          label: "产业链区域画像",
-          className: "left-[86.5%] top-[17%] w-[19.5%]",
-          from: { x: 90, y: 70 },
-        },
-        {
-          src: "./images/ai-report-flow/step-01-template-futian.png",
-          label: "福田监测",
-          className: "left-[64%] top-[17%] w-[19.5%]",
-          from: { x: 130, y: -36 },
-          emphasis: true,
-        },
-      ],
       callouts: [],
       decision: "先让用户选择报告类型，而不是直接输入需求。",
       why: "让报告生成从明确场景进入，降低用户不知道如何开始的问题。",
@@ -793,7 +739,6 @@ export function ProjectDetail({ onBack }: Props) {
       tagline: "先定结构",
       icon: GitBranch,
       placeholder: "章节大纲生成页面",
-      image: "./images/ai-report-flow/step-01-blank-canvas.png",
       finalImage: "./images/ai-report-flow/step-02-final-outline.png",
       compactCanvas: true,
       decision: "系统先生成章节大纲，再进入正文生成。",
@@ -1126,9 +1071,8 @@ export function ProjectDetail({ onBack }: Props) {
       {/* ===== 02. Validation scenario ===== */}
       <section
         id="s02"
-        className={`relative z-0 overflow-hidden pt-24 pb-24 md:pt-28 md:pb-32 ${SECTION_PAD}`}
+        className={`relative z-0 pt-24 pb-12 md:pt-28 md:pb-16 ${SECTION_PAD}`}
       >
-        <BlueAccentBlob side="left" />
         <div className={`relative ${READ}`}>
           <Reveal delay={0.08}>
             <div>
@@ -1141,317 +1085,16 @@ export function ProjectDetail({ onBack }: Props) {
                 </p>
               </div>
 
-              <div className="mx-auto mt-12 grid w-full max-w-[1320px] grid-cols-1 gap-6 xl:grid-cols-[minmax(0,520px)_minmax(0,1fr)] xl:items-start">
-                <article className="w-full rounded-[28px] border bg-white/92 p-5 shadow-[0_18px_50px_rgba(15,20,25,0.05)]" style={{ borderColor: LINE }}>
-                  <div className="grid gap-4">
-                    <div className="mx-auto grid w-full max-w-[472px] gap-4 sm:grid-cols-[210px_minmax(0,1fr)] sm:items-start">
-                      <div className="relative z-20 text-center">
-                        <div className="relative mx-auto h-[222px] w-[210px] overflow-visible">
-                          <div className="pointer-events-none absolute left-[-28px] top-[-18px] z-40 h-[238px] w-[280px] overflow-hidden">
-                            <img
-                              src="./images/用户画像/boy.png"
-                              alt="研究员用户画像"
-                              loading="lazy"
-                              decoding="async"
-                              className="h-[280px] w-[280px] max-w-none object-contain"
-                            />
-                          </div>
-                        </div>
-                        <div className="mt-2 text-[22px] font-semibold leading-[1.2] text-[#1A1C24]">研究员</div>
-                        <div className="mt-1 text-[13px] font-medium leading-[1.5] text-[#696D7A]">报告生产负责人</div>
-                        <div className="mx-auto mt-3 flex max-w-[210px] flex-wrap justify-center gap-2">
-                          {["模板复用", "范围确认", "来源核查"].map((tag) => (
-                            <span
-                              key={tag}
-                              className="rounded-full border px-2.5 py-1 text-[14px] font-semibold leading-none text-[#1A42B8]"
-                              style={{ borderColor: ICON_BORDER, background: ICON_BG }}
-                            >
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-
-                      <div className="relative z-0 grid gap-3 pt-1">
-                        {[
-                          ["需求", ["快速复用报告模板与历史材料", "生成前确认企业范围和章节结构", "生成后核查来源并复用结果"]],
-                          ["痛点", ["材料分散在表格、文档和历史报告里", "需求变化后固定模板难以复用", "AI 一次性生成正文，过程不透明"]],
-                          ["目标", ["缩短报告生产时间", "降低返工和核查成本", "提升报告交付信心"]],
-                        ].map(([label, items]) => (
-                          <div key={label as string}>
-                            <div className="text-[16px] font-semibold leading-[1.3] text-[#1A42B8]">{label as string}</div>
-                            <ul className="mt-2 space-y-1.5">
-                              {(items as string[]).map((item) => (
-                                <li key={item} className="grid grid-cols-[6px_minmax(0,1fr)] gap-2 text-[14px] leading-[1.55] text-[#4E525E]">
-                                  <span className="mt-[8px] size-1.5 rounded-full bg-[#A8BEFF]" />
-                                  <span>{item}</span>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="mx-auto w-full max-w-[472px] rounded-[18px] bg-[#FAFBFF]/80 px-4 py-3.5">
-                      <div className="mb-3 text-[16px] font-semibold leading-[1.3] text-[#1A42B8]">行为特征</div>
-                      <div className="grid gap-x-4 gap-y-3 sm:grid-cols-2">
-                        {[
-                          ["模板复用频率", "高频"],
-                          ["材料整合成本", "较高"],
-                          ["生成信任门槛", "较高"],
-                          ["来源核查依赖", "强依赖"],
-                        ].map(([label, level]) => (
-                          <div
-                            key={label}
-                            className="flex min-w-0 items-center justify-between gap-3 rounded-xl border border-[#DDE5FF] bg-white/80 px-3 py-2.5"
-                          >
-                            <span className="text-[14px] font-semibold leading-[1.3] text-[#4E525E]">{label}</span>
-                            <span className="shrink-0 rounded-full bg-[#EEF2FF] px-2.5 py-1 text-[12px] font-semibold text-[#1A42B8]">
-                              {level}
-                            </span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </article>
-
-                <div className="rounded-[28px] border bg-white/92 p-5 shadow-[0_18px_50px_rgba(15,20,25,0.05)]" style={{ borderColor: LINE }}>
-                    <div className="flex flex-col justify-between gap-3 md:flex-row md:items-start">
-                      <div>
-                        <div className="text-[22px] font-semibold leading-[1.25] text-[#1A1C24]">用户生成报告旅程图</div>
-                        <p className="mt-2 max-w-[760px] text-[14px] leading-[1.68] text-[#696D7A]">
-                          以 5 个报告生成阶段观察控制感变化，将失控点转化为配置、确认和追溯能力。
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="mt-5 overflow-x-auto pb-1">
-                      <div className="min-w-[720px]">
-                        <div
-                          data-journey-node-map="true"
-                          className="relative w-full pb-4 pt-1"
-                        >
-                          <div className="relative grid grid-cols-5 gap-2">
-                            {journeyNodeColumns.map((column) => (
-                              <div key={column.stage} className="min-w-0">
-                                <div className="rounded-full px-2 py-2 text-center text-[14px] font-semibold leading-none text-white shadow-[inset_0_-1px_0_rgba(26,66,184,0.22)]" style={{ background: BLUE }}>
-                                  {column.stage}
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-
-                          <div className="relative mt-3 grid grid-cols-5 gap-2">
-                            {journeyNodeColumns.map((column) => (
-                              <div key={`${column.stage}-nodes`} className="relative flex min-w-0 flex-col items-center gap-2.5">
-                                <svg
-                                  className="pointer-events-none absolute left-1/2 top-0 h-full w-8 -translate-x-1/2 overflow-visible"
-                                  viewBox="0 0 32 152"
-                                  preserveAspectRatio="none"
-                                  fill="none"
-                                  aria-hidden="true"
-                                >
-                                  <path
-                                    d="M16 8 V144"
-                                    stroke="#CBCDD4"
-                                    strokeWidth="1"
-                                    strokeDasharray="4 6"
-                                    strokeLinecap="round"
-                                    opacity="0.64"
-                                    vectorEffect="non-scaling-stroke"
-                                  />
-                                </svg>
-
-                                <div className="relative z-10 flex h-9 w-full items-center justify-center rounded-full border bg-white px-2 text-center text-[14px] font-semibold leading-[1.15] text-[#4E525E] shadow-[0_6px_16px_rgba(15,20,25,0.035)]" style={{ borderColor: LINE }}>
-                                  {column.action}
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-
-                        <div data-journey-chart="true" className="relative mt-4 h-[288px] overflow-visible bg-transparent">
-                          <div className="absolute inset-0 grid grid-cols-5">
-                            {journeyStages.map((item, index) => (
-                              <div
-                                key={`${item.stage}-grid`}
-                                className={index === 0 ? "" : "border-l"}
-                                style={{ borderColor: "rgba(168,190,255,0.26)" }}
-                              />
-                            ))}
-                          </div>
-
-                          <svg
-                            className="pointer-events-none absolute inset-0 h-full w-full overflow-visible"
-                            viewBox="0 0 100 100"
-                            preserveAspectRatio="none"
-                            fill="none"
-                            aria-hidden="true"
-                          >
-                            {journeyStages.map((item) => (
-                              <line
-                                key={`${item.stage}-risk-connector`}
-                                x1={item.x}
-                                x2={item.x}
-                                y1={item.y - 7}
-                                y2={item.y - 2.8}
-                                stroke="#A8BEFF"
-                                strokeWidth="1"
-                                strokeDasharray="3 5"
-                                strokeLinecap="round"
-                                opacity="0.72"
-                                vectorEffect="non-scaling-stroke"
-                              />
-                            ))}
-                            <path
-                              d={journeyPath}
-                              stroke="#D8DCE6"
-                              strokeWidth="2"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              opacity="0.52"
-                              vectorEffect="non-scaling-stroke"
-                            />
-                            <path
-                              d={journeyPath}
-                              stroke={BLUE}
-                              strokeWidth="1.25"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              vectorEffect="non-scaling-stroke"
-                            />
-                          </svg>
-
-                          <div className="pointer-events-none absolute inset-0 h-full">
-                            {journeyStages.flatMap((item) =>
-                              item.emotions?.map((emotion, emotionIndex) => (
-                                <img
-                                  key={`${item.stage}-emotion-${emotion.src}`}
-                                  data-journey-emotion="true"
-                                  data-journey-emotion-index={emotionIndex}
-                                  src={emotion.src}
-                                  alt=""
-                                  aria-hidden="true"
-                                  loading="lazy"
-                                  decoding="async"
-                                  className="absolute h-10 w-10 -translate-x-1/2 object-contain drop-shadow-[0_8px_14px_rgba(34,88,244,0.16)]"
-                                  style={{
-                                    left: `calc(${item.x}% + ${emotion.offsetX}px)`,
-                                    top: `calc(${item.y}% + ${16 + emotion.offsetY}px)`,
-                                    zIndex: emotion.zIndex,
-                                  }}
-                                />
-                              )) ?? [],
-                            )}
-                          </div>
-
-                          <div className="pointer-events-none absolute inset-0 h-full">
-                            {journeyStages.map((item) => (
-                              <span
-                                key={`${item.stage}-dot`}
-                                data-journey-dot="true"
-                                className="absolute size-[8px] -translate-x-1/2 -translate-y-1/2 rounded-full border-[1.5px] border-[#2258F4] bg-[#FAFBFF] shadow-[0_2px_8px_rgba(34,88,244,0.16)]"
-                                style={{ left: `${item.x}%`, top: `${item.y}%` }}
-                              />
-                            ))}
-                          </div>
-
-                          <div className="pointer-events-none absolute inset-0">
-                            {journeyStages.map((item, index) => (
-                              <div
-                                key={`${item.stage}-risk`}
-                                data-journey-risk="true"
-                                className="absolute z-10 flex h-9 -translate-x-1/2 items-center justify-center rounded-full border border-dashed bg-[#FAFBFF] px-2 text-center text-[12px] font-semibold leading-none text-[#696D7A]"
-                                style={{
-                                  borderColor: "#CBCDD4",
-                                  left: `${item.x}%`,
-                                  top: `calc(${item.y}% - 60px)`,
-                                  width: "calc((100% - 32px) / 5)",
-                                }}
-                              >
-                                {journeyNodeColumns[index].risk}
-                              </div>
-                            ))}
-                          </div>
-
-                        </div>
-
-                      </div>
-                    </div>
-                    <div className="mt-3 grid grid-cols-5 gap-2">
-                      {journeyNodeColumns.map((column) => (
-                        <div
-                          key={`${column.stage}-control`}
-                          data-journey-control="true"
-                          className="relative z-10 flex min-h-10 w-full items-center justify-center rounded-full border px-2 text-center text-[14px] font-semibold leading-[1.25] text-[#1A42B8] shadow-[0_8px_20px_rgba(34,88,244,0.10)]"
-                          style={{ borderColor: "#A8BEFF", background: "#EEF2FF" }}
-                        >
-                          {column.control}
-                        </div>
-                      ))}
-                    </div>
-                </div>
-              </div>
-
-              <aside className="mx-auto mt-6 w-full max-w-[1320px]">
-                    <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
-                      {[
-                        {
-                          no: "01",
-                          title: "生成前：范围是否正确？",
-                          body: "地区、产业、企业名单和统计口径如果没有提前确认，后续内容会整体跑偏。",
-                          bg: "#FAFBFF",
-                          border: "#E6E7EB",
-                          rotate: "-0.7deg",
-                        },
-                        {
-                          no: "02",
-                          title: "生成中：过程是否可控？",
-                          body: "用户不希望 AI 一次性输出一篇黑箱报告，而是希望能在关键节点介入确认。",
-                          bg: "#FAFBFF",
-                          border: "#E6E7EB",
-                          rotate: "0.6deg",
-                        },
-                        {
-                          no: "03",
-                          title: "生成后：结果是否可信？",
-                          body: "报告最终要交付给客户，因此企业名称、动态内容和引用来源必须可核查。",
-                          bg: "#FAFBFF",
-                          border: "#E6E7EB",
-                          rotate: "-0.4deg",
-                        },
-                        {
-                          no: "04",
-                          title: "设计转化：改为可追溯任务链路",
-                          body: "形成先配置、再确认、后生成、可追溯的任务链路。",
-                          bg: "#EEF2FF",
-                          border: "#A8BEFF",
-                          rotate: "0.7deg",
-                        },
-                      ].map((item) => (
-                        <div
-                          key={item.no}
-                          data-core-insight-note="true"
-                          className="relative min-h-[172px] rounded-[24px] border p-4 shadow-[0_16px_36px_rgba(15,20,25,0.055)]"
-                          style={{ background: item.bg, borderColor: item.border, transform: `rotate(${item.rotate})` }}
-                        >
-                          <div className="mb-8 flex items-start gap-3">
-                            <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-white/65 text-[13px] font-semibold leading-none text-[#1A42B8] shadow-[inset_0_0_0_1px_rgba(168,190,255,0.55)]">
-                              {item.no}
-                            </span>
-                          </div>
-                          <div className="text-[16px] font-semibold leading-[1.35] text-[#1A1C24]">{item.title}</div>
-                          <p className="mt-2 text-[14px] font-medium leading-[1.65] text-[#4E525E]">{item.body}</p>
-                        </div>
-                      ))}
-                    </div>
-              </aside>
             </div>
           </Reveal>
         </div>
       </section>
+
+      <ResearchPaperCanvas
+        stages={journeyStages}
+        journeyPath={journeyPath}
+        journeyPathSegments={journeyPathSegments}
+      />
 
       {/* ===== 03. Interactive flow: 模板选择 → 历史文档 ===== */}
       <section
@@ -1473,14 +1116,10 @@ export function ProjectDetail({ onBack }: Props) {
             />
 
             {(() => {
-              const p0 = stepLocalProgress(0);
               const p1 = stepLocalProgress(1);
               const p2 = stepLocalProgress(2);
               const p3 = stepLocalProgress(3);
               const p4 = stepLocalProgress(4);
-
-              const templateFinal = rangeProgress(p0, 0.62, 0.84);
-              const templateCardIn = rangeProgress(p0, 0.12, 0.42);
 
               const outlineCardsIn = rangeProgress(p1, 0.04, 0.22);
               const outlineMerge = rangeProgress(p1, 0.52, 0.74);
@@ -1561,67 +1200,12 @@ export function ProjectDetail({ onBack }: Props) {
                         pointerEvents: "none",
                       }}
                     >
-                      <div
-                        className="absolute left-[3%] right-[4%] top-[12%] bottom-[8%] rounded-[34px]"
-                        style={{
-                          background:
-                            "radial-gradient(circle at 18% 18%, rgba(34,88,244,0.16), transparent 32%), linear-gradient(135deg, #F8FAFF, #EEF3FF 52%, #FFFFFF)",
-                          boxShadow: "inset 0 0 0 1px rgba(34,88,244,0.08), 0 28px 80px rgba(34,88,244,0.08)",
-                        }}
-                      />
-                      <div
-                        className="absolute inset-0 m-auto w-[99%] overflow-visible"
-                        style={{ aspectRatio: "16 / 10" }}
-                      >
-                        <img
-                          src="./images/ai-report-flow/step-01-blank-canvas.png"
-                          alt="模板中心页面"
-                          {...DETAIL_IMAGE_LAZY_PROPS}
-                          className="relative h-full w-full rounded-[22px] border border-white/80 object-contain object-top shadow-[0_24px_70px_rgba(15,20,25,0.12)]"
-                          style={{
-                            opacity: 1 - templateFinal,
-                            filter: `blur(${lerp(0, 8, templateFinal)}px)`,
-                          }}
-                        />
-                      </div>
-                      <img
-                        src="./images/ai-report-flow/step-01-sidebar.png"
-                        alt="模板中心侧边栏"
-                        {...DETAIL_IMAGE_LAZY_PROPS}
-                        className="absolute left-[0.6%] top-[-2%] z-20 h-[104%] rounded-[15px] object-contain object-top shadow-[10px_0_24px_rgba(15,20,25,0.07)]"
-                        style={{
-                          opacity: templateCardIn * (1 - templateFinal),
-                          transform: `translate3d(${lerp(-140, 0, templateCardIn)}px, 0, 0)`,
-                        }}
-                      />
-                      {flowSteps[0].templateCards?.map((item, index) => (
-                        <img
-                          key={item.src}
-                          src={item.src}
-                          alt={item.label}
-                          {...DETAIL_IMAGE_LAZY_PROPS}
-                          className={`absolute z-20 rounded-[14px] object-contain object-top ${
-                            item.emphasis
-                              ? "shadow-[0_24px_56px_rgba(34,88,244,0.18)]"
-                              : "shadow-[0_18px_42px_rgba(15,20,25,0.14)]"
-                          } ${item.className}`}
-                          style={{
-                            opacity: templateCardIn * (1 - templateFinal),
-                            transform: `translate3d(${lerp(item.from.x, 0, templateCardIn)}px, ${lerp(item.from.y, 0, templateCardIn)}px, 0) scale(${item.emphasis ? lerp(0.96, 1.015, templateCardIn) : lerp(0.96, 1, templateCardIn)})`,
-                          }}
-                        />
-                      ))}
                       <img
                         src={flowSteps[0].finalImage}
                         alt="模板中心完整页面"
                         {...DETAIL_IMAGE_LAZY_PROPS}
                         className="absolute inset-0 z-30 m-auto w-[99%] rounded-[24px] border border-white/80 object-contain object-top shadow-[0_28px_80px_rgba(15,20,25,0.14)]"
-                        style={{
-                          aspectRatio: "16 / 10",
-                          opacity: templateFinal,
-                          transform: `translate3d(0, ${lerp(26, 0, templateFinal)}px, 0)`,
-                          filter: `blur(${lerp(10, 0, templateFinal)}px)`,
-                        }}
+                        style={{ aspectRatio: "16 / 10" }}
                       />
                     </div>
 

@@ -69,7 +69,7 @@ export function Projects({ onProjectIntent }: ProjectsProps) {
         <div className="mb-16">
           <div>
             <h2 className="tracking-tight text-[#1A1C24] text-[clamp(2rem,5.5vw,4.5rem)]">
-              项目案例
+              产品案例
             </h2>
           </div>
         </div>
