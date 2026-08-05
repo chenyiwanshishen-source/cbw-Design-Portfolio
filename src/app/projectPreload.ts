@@ -199,6 +199,9 @@ const QIXIN_DEFERRED_IMAGES = withoutEntryImages(QIXIN_IMAGES, QIXIN_ENTRY_IMAGE
 
 const imagePromises = new Map<string, Promise<void>>();
 const preloadGroups = new Map<string, Promise<void>>();
+const readyProjects = new Set<ProjectKey>();
+
+const PROJECT_READY_SESSION_PREFIX = "portfolio:project-ready:v1:";
 
 const FONT_PROGRESS_WEIGHT = 80_000;
 const MODULE_PROGRESS_WEIGHT = 140_000;
@@ -208,6 +211,38 @@ const HOME_READY_DELAY_MS = 180;
 
 function isBrowser() {
   return typeof window !== "undefined" && typeof Image !== "undefined";
+}
+
+function projectKeyFromRoute(route: string): ProjectKey | null {
+  if (route === "#/project/ai-report") return "ai-report";
+  if (route === "#/project/qixin-brain") return "qixin-brain";
+  return null;
+}
+
+function markProjectReady(project: ProjectKey) {
+  readyProjects.add(project);
+  if (!isBrowser()) return;
+
+  try {
+    window.sessionStorage.setItem(`${PROJECT_READY_SESSION_PREFIX}${project}`, "1");
+  } catch {
+    // Some privacy modes disable session storage; the in-memory readiness still works.
+  }
+}
+
+function hasSessionProjectReady(project: ProjectKey) {
+  if (!isBrowser()) return false;
+
+  try {
+    return window.sessionStorage.getItem(`${PROJECT_READY_SESSION_PREFIX}${project}`) === "1";
+  } catch {
+    return false;
+  }
+}
+
+export function isProjectRouteReady(route: string) {
+  const project = projectKeyFromRoute(route);
+  return project ? readyProjects.has(project) || hasSessionProjectReady(project) : false;
 }
 
 function resolveAssetUrl(src: string) {
@@ -414,7 +449,13 @@ export function preloadProjectDetailAssets(project: ProjectKey, priority: Priori
   const existing = preloadGroups.get(key);
   if (existing) return existing;
 
-  const promise = project === "ai-report" ? preloadAi(priority) : preloadQixin(priority);
+  const preloadPromise = project === "ai-report" ? preloadAi(priority) : preloadQixin(priority);
+  const promise =
+    priority === "high"
+      ? preloadPromise.then(() => {
+          markProjectReady(project);
+        })
+      : preloadPromise;
   preloadGroups.set(key, promise);
   return promise;
 }
@@ -436,6 +477,7 @@ async function warmProjectPreviewAssets(
     batchDelayMs: project === "qixin-brain" ? 720 : 420,
     shouldContinue: options?.shouldContinue,
   });
+  if (canContinuePreload(options)) markProjectReady(project);
 }
 
 function portfolioEntryImages(route: string) {
@@ -529,11 +571,15 @@ async function runWeightedProgressTasks(tasks: WeightedTask[], onProgress: Progr
 export async function preloadPortfolioEntryAssets(route: string, onProgress: ProgressCallback) {
   const tasks = await currentRouteWeightedTasks(route, "high");
   await runWeightedProgressTasks(tasks, onProgress);
+  const project = projectKeyFromRoute(route);
+  if (project) markProjectReady(project);
 }
 
 export async function preloadRouteAssetsWithProgress(route: string, onProgress: ProgressCallback) {
   const tasks = await currentRouteWeightedTasks(route, "high");
   await runWeightedProgressTasks(tasks, onProgress);
+  const project = projectKeyFromRoute(route);
+  if (project) markProjectReady(project);
 }
 
 export function scheduleProjectRemainderPreload(project: ProjectKey) {

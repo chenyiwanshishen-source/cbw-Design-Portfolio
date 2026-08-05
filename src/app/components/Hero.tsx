@@ -1,13 +1,16 @@
 import { useRef } from "react";
+import type { CSSProperties } from "react";
 import { motion } from "motion/react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { Draggable } from "gsap/Draggable";
 import { ArrowDown } from "lucide-react";
 import { Marquee } from "./Marquee";
 import { hideContactDetails } from "../buildVariant";
+import { scrollToHomeSection } from "../homeScroll";
 
-gsap.registerPlugin(useGSAP, Draggable);
+gsap.registerPlugin(useGSAP, Draggable, ScrollTrigger);
 
 const marqueeWords = [
   "AI 产品设计",
@@ -17,6 +20,12 @@ const marqueeWords = [
   "信息架构",
   "产业分析",
 ];
+
+const heroCharacterScale = {
+  "--hero-character-width": "clamp(190px, min(13vw, 28svh), 360px)",
+  "--hero-character-hand-width": "clamp(82px, min(5.7vw, 12.3svh), 162px)",
+  "--hero-character-hand-offset": "clamp(108px, min(6.5vw, 14svh), 186px)",
+} as CSSProperties;
 
 const capabilityCards = [
   {
@@ -69,10 +78,24 @@ const capabilityCards = [
 ];
 
 const boardCardLayouts = [
-  "lg:left-[7%] lg:top-[7%] lg:w-[21rem] xl:w-[23rem] 2xl:w-[25rem] lg:rotate-[-0.8deg]",
-  "lg:right-[8%] lg:top-[10%] lg:w-[22.5rem] xl:w-[25rem] 2xl:w-[27rem] lg:rotate-[0.7deg]",
-  "lg:left-[5%] lg:bottom-[20%] lg:w-[21rem] xl:w-[23rem] 2xl:w-[25rem] lg:rotate-[0.6deg]",
-  "lg:right-[9%] lg:bottom-[14%] lg:w-[21rem] xl:w-[23.5rem] 2xl:w-[25.5rem] lg:rotate-[-0.6deg]",
+  "lg:left-[2%] lg:top-[2%] lg:w-[21rem] xl:w-[23rem] 2xl:w-[25rem] lg:rotate-[-0.8deg]",
+  "lg:right-[2%] lg:top-[4%] lg:w-[22.5rem] xl:w-[25rem] 2xl:w-[27rem] lg:rotate-[0.7deg]",
+  "lg:left-[1%] lg:bottom-[8%] lg:w-[21rem] xl:w-[23rem] 2xl:w-[25rem] lg:rotate-[0.6deg]",
+  "lg:right-[2%] lg:bottom-[6%] lg:w-[21rem] xl:w-[23.5rem] 2xl:w-[25.5rem] lg:rotate-[-0.6deg]",
+];
+
+const collaborationCursorLayouts = [
+  "right-[12%] -bottom-5",
+  "left-[12%] -bottom-5",
+  "right-[12%] -top-1",
+  "left-[12%] -top-1",
+];
+
+const noteEntranceOffsets = [
+  { x: -260, y: -24 },
+  { x: 24, y: -220 },
+  { x: -24, y: 220 },
+  { x: 260, y: 24 },
 ];
 
 export function Hero() {
@@ -139,6 +162,7 @@ export function Hero() {
               cursor: "grab",
               activeCursor: "grabbing",
               onPress: () => {
+                gsap.killTweensOf(target);
                 target.dataset.dragging = "true";
                 gsap.set(target, { zIndex: 30 });
               },
@@ -344,6 +368,123 @@ export function Hero() {
   );
 
   useGSAP(
+    () => {
+      const root = rootRef.current;
+      if (!root) return;
+
+      const noteCards = gsap.utils.toArray<HTMLElement>("[data-note-drag]", root);
+      const cursors = gsap.utils.toArray<HTMLElement>("[data-note-cursor]", root);
+      if (noteCards.length === 0 || cursors.length === 0) return;
+
+      const media = gsap.matchMedia();
+      media.add(
+        {
+          isDesktop: "(min-width: 1024px)",
+          reduceMotion: "(prefers-reduced-motion: reduce)",
+        },
+        (context) => {
+          const { isDesktop, reduceMotion } = context.conditions as {
+            isDesktop: boolean;
+            reduceMotion: boolean;
+          };
+
+          if (!isDesktop) return;
+
+          if (reduceMotion) {
+            gsap.set(noteCards, { autoAlpha: 1, x: 0, y: 0, scale: 1 });
+            gsap.set(cursors, { autoAlpha: 0, x: 0, y: 0, scale: 1 });
+            return;
+          }
+
+          noteCards.forEach((card, index) => {
+            const offset = noteEntranceOffsets[index];
+            const cursor = cursors[index];
+            if (!offset || !cursor) return;
+
+            gsap.set(card, {
+              autoAlpha: 0,
+              x: offset.x,
+              y: offset.y,
+              scale: 0.985,
+              force3D: true,
+            });
+            gsap.set(cursor, {
+              autoAlpha: 0,
+              x: offset.x * -0.12,
+              y: offset.y * -0.12,
+              scale: 0.92,
+              transformOrigin: "0 0",
+            });
+          });
+
+          const placementTimeline = gsap.timeline({
+            delay: 0.48,
+            defaults: { ease: "power4.out" },
+          });
+
+          noteCards.forEach((card, index) => {
+            const cursor = cursors[index];
+            if (!cursor) return;
+
+            const startAt = index * 0.76;
+            placementTimeline
+              .set(card, { autoAlpha: 1 }, startAt)
+              .to(
+                cursor,
+                {
+                  autoAlpha: 1,
+                  scale: 1,
+                  duration: 0.16,
+                },
+                startAt
+              )
+              .to(
+                card,
+                {
+                  x: 0,
+                  y: 0,
+                  scale: 1,
+                  duration: 0.82,
+                  force3D: true,
+                },
+                startAt + 0.06
+              )
+              .to(
+                cursor,
+                {
+                  x: 0,
+                  y: 0,
+                  duration: 0.68,
+                  ease: "power3.out",
+                },
+                startAt + 0.06
+              )
+              .to(
+                cursor,
+                {
+                  autoAlpha: 0,
+                  duration: 0.18,
+                  ease: "power2.out",
+                },
+                startAt + 0.88
+              );
+          });
+
+          return () => {
+            placementTimeline.kill();
+            gsap.killTweensOf([...noteCards, ...cursors]);
+            gsap.set(noteCards, { autoAlpha: 1, x: 0, y: 0, scale: 1 });
+            gsap.set(cursors, { autoAlpha: 0, x: 0, y: 0, scale: 1 });
+          };
+        }
+      );
+
+      return () => media.revert();
+    },
+    { scope: rootRef }
+  );
+
+  useGSAP(
     (_, contextSafe) => {
       const character = characterRef.current;
       if (!character || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -405,15 +546,58 @@ export function Hero() {
     { scope: characterRef }
   );
 
+  useGSAP(
+    () => {
+      const root = rootRef.current;
+      if (!root) return;
+
+      const media = gsap.matchMedia();
+      media.add(
+        "(min-width: 1024px) and (prefers-reduced-motion: no-preference)",
+        () => {
+          const characterParts = gsap.utils.toArray<HTMLElement>(
+            "[data-hero-character-part]",
+            root
+          );
+          if (characterParts.length === 0) return;
+
+          const getExitDistance = () =>
+            Math.ceil((characterRef.current?.offsetHeight ?? 220) + 64);
+
+          gsap.set(characterParts, { autoAlpha: 1 });
+
+          gsap.to(characterParts, {
+            y: getExitDistance,
+            ease: "none",
+            force3D: true,
+            scrollTrigger: {
+              id: "hero-character-exit",
+              trigger: root,
+              start: "top top",
+              end: () => `+=${Math.max(240, Math.round(window.innerHeight * 0.34))}`,
+              scrub: 0.14,
+              invalidateOnRefresh: true,
+              refreshPriority: 0,
+            },
+          });
+        }
+      );
+
+      return () => media.revert();
+    },
+    { scope: rootRef }
+  );
+
   return (
     <section
       ref={rootRef}
       id="top"
-      className="relative px-6 pt-32 pb-24 sm:px-10 lg:px-16 lg:pb-28 xl:px-24 2xl:px-32"
+      style={heroCharacterScale}
+      className="relative px-6 pt-32 pb-24 sm:px-10 lg:flex lg:min-h-[100svh] lg:flex-col lg:justify-center lg:px-16 lg:py-0 xl:px-24 2xl:px-32"
     >
       <div
         data-hero-stage
-        className="relative mx-auto w-full max-w-[1600px] lg:h-[clamp(560px,42vw,720px)]"
+        className="relative mx-auto w-full max-w-[1600px] lg:h-[clamp(560px,60svh,720px)]"
       >
         <div className="relative z-20 mx-auto flex max-w-[860px] flex-col items-center text-center lg:absolute lg:left-1/2 lg:top-1/2 lg:-translate-x-1/2 lg:-translate-y-1/2">
           <motion.div
@@ -463,7 +647,7 @@ export function Hero() {
                 href="#work"
                 onClick={(e) => {
                   e.preventDefault();
-                  document.getElementById("work")?.scrollIntoView({ behavior: "smooth" });
+                  scrollToHomeSection("work");
                 }}
                 className="group relative inline-flex will-change-transform items-center gap-3 overflow-hidden rounded-full bg-[#1A1C24] py-2 pl-6 pr-2 text-white transition-shadow duration-300 hover:shadow-[0_0_40px_rgba(34,88,244,0.35)]"
               >
@@ -484,7 +668,7 @@ export function Hero() {
                   href="#contact"
                   onClick={(e) => {
                     e.preventDefault();
-                    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+                    scrollToHomeSection("contact");
                   }}
                   className="group relative inline-flex h-[52px] will-change-transform items-center rounded-full border border-[#CBCDD4] px-6 text-sm text-[#4E525E] transition-colors duration-300 hover:border-[#A8BEFF] hover:bg-[#F5F5F7] hover:text-[#1A1C24]"
                 >
@@ -515,7 +699,7 @@ export function Hero() {
             aria-hidden="true"
           >
             <path
-              d="M180 116 H570 M1030 130 H1430 M170 574 H560 M1040 590 H1460 M800 238 V482"
+              d="M80 120 H490 M1110 150 H1520 M70 556 H480 M1120 588 H1530 M800 238 V482"
               fill="none"
               stroke="#CBCDD4"
               strokeWidth="1"
@@ -523,17 +707,17 @@ export function Hero() {
               opacity="0.72"
             />
             <path
-              d="M570 116 C650 134 680 186 720 238 M1030 130 C948 154 914 196 880 238 M560 574 C632 542 684 510 732 482 M1040 590 C966 548 920 512 872 482"
+              d="M490 120 C608 136 674 184 720 238 M1110 150 C990 162 924 198 880 238 M480 556 C606 540 680 510 732 482 M1120 588 C990 554 922 514 872 482"
               fill="none"
               stroke="#A8BEFF"
               strokeWidth="1"
               opacity="0.58"
             />
             {[
-              [570, 116],
-              [1030, 130],
-              [560, 574],
-              [1040, 590],
+              [490, 120],
+              [1110, 150],
+              [480, 556],
+              [1120, 588],
             ].map(([cx, cy]) => (
               <circle key={`${cx}-${cy}`} cx={cx} cy={cy} r="5" fill="#FAFBFF" stroke="#A8BEFF" strokeWidth="1.5" />
             ))}
@@ -551,7 +735,7 @@ export function Hero() {
                   background: "#FFFFFF",
                   borderColor: card.tone.line,
                 }}
-              >
+                >
                 <span aria-hidden="true" className="hero-note-selection-frame" />
                 <span aria-hidden="true" className="hero-note-selection-handle hero-note-selection-handle-tl" />
                 <span aria-hidden="true" className="hero-note-selection-handle hero-note-selection-handle-tr" />
@@ -579,6 +763,27 @@ export function Hero() {
                     ))}
                   </ul>
                 </div>
+                <span
+                  aria-hidden="true"
+                  data-note-cursor
+                  className={`hero-note-cursor pointer-events-none absolute z-10 hidden select-none lg:inline-flex ${collaborationCursorLayouts[index]}`}
+                  style={{ color: card.tone.dot }}
+                >
+                  <svg
+                    className="hero-note-cursor-arrow"
+                    viewBox="0 0 22 26"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M2.25 1.75L19.25 10.15L11.65 12.45L8.85 21.2L2.25 1.75Z"
+                      fill="currentColor"
+                      stroke="#FAFBFF"
+                      strokeWidth="1.5"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </span>
               </div>
             </article>
           ))}
@@ -588,8 +793,9 @@ export function Hero() {
       {/* Character peeks from behind the marquee. */}
       <div
         ref={characterRef}
+        data-hero-character-part
         aria-hidden="true"
-        className="pointer-events-none absolute bottom-[24px] left-1/2 z-10 hidden aspect-[774/567] w-[clamp(210px,13vw,300px)] -translate-x-1/2 select-none lg:block"
+        className="pointer-events-none absolute bottom-[24px] left-1/2 z-10 hidden aspect-[774/567] w-[var(--hero-character-width)] -translate-x-1/2 select-none will-change-transform lg:block"
       >
         <img
           src="./images/首页人物/face-peek.png"
@@ -615,20 +821,22 @@ export function Hero() {
 
       <img
         src="./images/首页人物/hand-peek.png"
+        data-hero-character-part
         alt=""
         aria-hidden="true"
         draggable={false}
-        className="pointer-events-none absolute bottom-[34px] z-30 hidden w-[clamp(90px,5.7vw,135px)] -translate-x-1/2 select-none lg:block"
-        style={{ left: "calc(50% - clamp(120px, 6.5vw, 155px))" }}
+        className="pointer-events-none absolute bottom-[34px] z-30 hidden w-[var(--hero-character-hand-width)] -translate-x-1/2 select-none will-change-transform lg:block"
+        style={{ left: "calc(50% - var(--hero-character-hand-offset))" }}
       />
       <img
         src="./images/首页人物/hand-peek.png"
+        data-hero-character-part
         alt=""
         aria-hidden="true"
         draggable={false}
-        className="pointer-events-none absolute bottom-[34px] z-30 hidden w-[clamp(90px,5.7vw,135px)] select-none lg:block"
+        className="pointer-events-none absolute bottom-[34px] z-30 hidden w-[var(--hero-character-hand-width)] select-none will-change-transform lg:block"
         style={{
-          left: "calc(50% + clamp(120px, 6.5vw, 155px))",
+          left: "calc(50% + var(--hero-character-hand-offset))",
           transform: "translateX(-50%) scaleX(-1)",
         }}
       />

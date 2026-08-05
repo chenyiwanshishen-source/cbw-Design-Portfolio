@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import { Menu, X } from "lucide-react";
-import { preloadProjectDetailAssets } from "../projectPreload";
+import { isProjectRouteReady, preloadProjectDetailAssets } from "../projectPreload";
 import { hideContactDetails } from "../buildVariant";
+import { scrollHomeToTop, scrollToHomeSection } from "../homeScroll";
 
 const navItems = [
   { label: "启信产业大脑", href: "#/project/qixin-brain" },
@@ -66,7 +67,7 @@ export function Nav() {
     e.preventDefault();
     setMobileMenuOpen(false);
     window.location.hash = "";
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    scrollHomeToTop();
   };
 
   const goRoute = (e: React.MouseEvent, href: string) => {
@@ -77,14 +78,19 @@ export function Nav() {
       return;
     }
 
-    setPendingHref(href);
+    const projectReady = isProjectRouteReady(href);
+    setPendingHref(projectReady ? null : href);
     setMobileMenuOpen(false);
-    window.dispatchEvent(new CustomEvent(PROJECT_ROUTE_LOADING_EVENT, { detail: { href } }));
+    if (!projectReady) {
+      window.dispatchEvent(new CustomEvent(PROJECT_ROUTE_LOADING_EVENT, { detail: { href } }));
+    }
 
     if (href.startsWith("#/")) {
       window.location.hash = href.slice(1);
       window.scrollTo({ top: 0, behavior: "auto" });
     }
+
+    if (projectReady) return;
 
     void preloadForHref(href).finally(() => {
       setPendingHref((current) => (current === href ? null : current));
@@ -96,9 +102,9 @@ export function Nav() {
     setMobileMenuOpen(false);
     if (window.location.hash.startsWith("#/")) {
       window.location.hash = "";
-      setTimeout(() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" }), 80);
+      setTimeout(() => scrollToHomeSection("contact"), 80);
     } else {
-      document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+      scrollToHomeSection("contact");
     }
   };
 

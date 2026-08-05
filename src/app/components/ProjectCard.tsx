@@ -385,7 +385,7 @@ export function ProjectCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 0.7, delay: index * 0.05, ease: [0.22, 1, 0.36, 1] }}
-      className={`group relative overflow-hidden rounded-[24px] border border-[#E6E7EB] flex flex-col bg-white shadow-[0_1px_2px_rgba(26,28,36,0.04)] hover:border-[#CBCDD4] hover:shadow-lg transition-all duration-500 ${href ? "cursor-pointer" : ""}`}
+      className={`group relative z-10 h-full overflow-hidden rounded-[24px] border border-[#E6E7EB] flex flex-col bg-white shadow-[0_1px_2px_rgba(26,28,36,0.04)] hover:border-[#CBCDD4] hover:shadow-lg transition-all duration-500 ${href ? "cursor-pointer" : ""}`}
     >
       {/* Corner accent glow */}
       <div

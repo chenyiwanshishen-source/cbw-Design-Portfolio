@@ -898,7 +898,7 @@ export function ProjectDetail({ onBack }: Props) {
       {/* ===== 01. HERO / Overview — centered product hero ===== */}
       <section
         id="s01"
-        className={`relative pt-28 md:pt-32 pb-10 md:pb-14 ${SECTION_PAD} overflow-visible`}
+        className={`relative min-h-[100svh] pt-28 md:pt-32 pb-10 md:pb-14 ${SECTION_PAD} overflow-visible`}
       >
         <div
           className="pointer-events-none absolute left-1/2 top-[-220px] z-0 h-[calc(100%+520px)] w-[150vw] -translate-x-1/2"

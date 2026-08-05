@@ -1,4 +1,9 @@
+import { useRef } from "react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 import { ProjectCard } from "./ProjectCard";
+
+gsap.registerPlugin(useGSAP);
 
 type ProjectPreloadKey = "ai-report" | "qixin-brain";
 
@@ -7,6 +12,8 @@ interface ProjectsProps {
 }
 
 export function Projects({ onProjectIntent }: ProjectsProps) {
+  const sectionRef = useRef<HTMLElement | null>(null);
+
   const projects = [
     {
       number: "01",
@@ -33,6 +40,9 @@ export function Projects({ onProjectIntent }: ProjectsProps) {
       previewImageTop: "0px",
       previewMoveX: 58,
       previewMoveY: 34,
+      hoverCharacter: "./images/首页人物/1.png",
+      hoverCharacterClassName:
+        "-top-[220px] right-[7%] w-[clamp(220px,15vw,285px)]",
     },
     {
       number: "02",
@@ -58,13 +68,93 @@ export function Projects({ onProjectIntent }: ProjectsProps) {
       previewImageTop: "0px",
       previewMoveX: 54,
       previewMoveY: 34,
+      hoverCharacter: "./images/首页人物/2.png",
+      hoverCharacterClassName:
+        "-top-[225px] left-[9%] w-[clamp(165px,11vw,215px)]",
     },
   ];
 
   const projectGridColumns = projects.length > 2 ? "xl:grid-cols-3" : "xl:grid-cols-2";
 
+  useGSAP(
+    (_, contextSafe) => {
+      const section = sectionRef.current;
+      if (!section) return;
+
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const shells = gsap.utils.toArray<HTMLElement>(".project-card-shell", section);
+      const cleanups: Array<() => void> = [];
+
+      shells.forEach((shell) => {
+        const character = shell.querySelector<HTMLElement>("[data-project-hover-character]");
+        if (!character) return;
+
+        gsap.set(character, {
+          yPercent: 100,
+          y: 24,
+          scaleX: 0.98,
+          scaleY: 0.96,
+          transformOrigin: "50% 100%",
+          force3D: true,
+        });
+
+        const springCharacter = contextSafe((show: boolean) => {
+          gsap.killTweensOf(character);
+
+          if (reduceMotion) {
+            gsap.set(character, {
+              yPercent: show ? 0 : 100,
+              y: show ? 0 : 24,
+              scaleX: show ? 1 : 0.98,
+              scaleY: show ? 1 : 0.96,
+            });
+            return;
+          }
+
+          gsap.to(character, {
+            yPercent: show ? 0 : 100,
+            y: show ? 0 : 24,
+            scaleX: show ? 1 : 0.98,
+            scaleY: show ? 1 : 0.96,
+            duration: show ? 0.9 : 0.78,
+            ease: show ? "elastic.out(0.8, 0.42)" : "elastic.out(0.7, 0.44)",
+            overwrite: "auto",
+          });
+        });
+
+        const showCharacter = () => springCharacter(true);
+        const hideCharacter = () => springCharacter(false);
+        const handleFocusOut = (event: FocusEvent) => {
+          if (!shell.contains(event.relatedTarget as Node | null)) {
+            hideCharacter();
+          }
+        };
+
+        shell.addEventListener("pointerenter", showCharacter);
+        shell.addEventListener("pointerleave", hideCharacter);
+        shell.addEventListener("focusin", showCharacter);
+        shell.addEventListener("focusout", handleFocusOut);
+
+        cleanups.push(() => {
+          shell.removeEventListener("pointerenter", showCharacter);
+          shell.removeEventListener("pointerleave", hideCharacter);
+          shell.removeEventListener("focusin", showCharacter);
+          shell.removeEventListener("focusout", handleFocusOut);
+          gsap.killTweensOf(character);
+        });
+      });
+
+      return () => cleanups.forEach((cleanup) => cleanup());
+    },
+    { scope: sectionRef }
+  );
+
   return (
-    <section id="work" className="relative pt-8 pb-24 px-6 sm:px-10 md:pt-12 md:pb-32 lg:px-16 xl:px-20 2xl:px-32">
+    <section
+      ref={sectionRef}
+      id="work"
+      className="relative pt-8 pb-24 px-6 sm:px-10 md:pt-12 md:pb-32 lg:px-16 xl:px-20 2xl:px-32"
+    >
       <div className="mx-auto w-full max-w-[1600px]">
         <div className="mb-16">
           <div>
@@ -76,12 +166,25 @@ export function Projects({ onProjectIntent }: ProjectsProps) {
 
         <div className={`grid grid-cols-1 items-stretch gap-6 ${projectGridColumns}`}>
           {projects.map((p, i) => (
-            <ProjectCard
+            <div
               key={p.number}
-              {...p}
-              index={i}
-              onIntent={p.preloadKey ? () => onProjectIntent?.(p.preloadKey, "high") : undefined}
-            />
+              className="project-card-shell relative isolate h-full"
+              data-project-number={p.number}
+            >
+              <img
+                src={p.hoverCharacter}
+                alt=""
+                aria-hidden="true"
+                draggable={false}
+                data-project-hover-character
+                className={`project-card-character pointer-events-none absolute z-0 hidden max-w-none select-none xl:block ${p.hoverCharacterClassName}`}
+              />
+              <ProjectCard
+                {...p}
+                index={i}
+                onIntent={p.preloadKey ? () => onProjectIntent?.(p.preloadKey, "high") : undefined}
+              />
+            </div>
           ))}
         </div>
       </div>

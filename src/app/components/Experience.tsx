@@ -52,7 +52,7 @@ const supportingExperiences = [
     company: "鸿惠信息技术有限公司",
     logo: {
       alt: "鸿惠信息 Logo 占位",
-      placeholderColor: "#CBCDD4",
+      placeholderColor: "#F5F5F7",
     },
     role: "C 端 UI 设计师",
     period: "2017 — 2018",
@@ -172,7 +172,7 @@ export function Experience() {
                 </div>
               </div>
 
-              <p className="mt-7 max-w-[68ch] text-[18px] leading-[1.8] text-[#363A45]">
+              <p className="mt-7 text-[18px] leading-[1.8] text-[#363A45]">
                 {primaryExperience.summary}
               </p>
 
@@ -194,7 +194,7 @@ export function Experience() {
                   </div>
                 </div>
 
-                <p className="mt-5 max-w-[68ch] text-[18px] leading-[1.75] text-[#4E525E]">
+                <p className="mt-5 text-[18px] leading-[1.75] text-[#4E525E]">
                   {primaryExperience.project.summary}
                 </p>
 
@@ -209,7 +209,7 @@ export function Experience() {
             </div>
           </motion.article>
 
-          <div className="grid gap-5 sm:grid-cols-2 lg:col-span-5 lg:grid-cols-1 lg:gap-6">
+          <div className="grid gap-5 sm:grid-cols-2 lg:col-span-5 lg:grid-cols-1 lg:grid-rows-2 lg:gap-6">
             {supportingExperiences.map((experience, index) => (
               <motion.article
                 key={experience.company}

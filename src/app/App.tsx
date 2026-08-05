@@ -7,6 +7,7 @@ import {
   loadHomeContent,
   loadNav,
   loadQixinProjectDetail,
+  isProjectRouteReady,
   preloadProjectDetailAssets,
   scheduleHomeProjectPreload,
   scheduleProjectRemainderPreload,
@@ -114,6 +115,7 @@ export default function App() {
     const onProjectRouteLoading = (event: Event) => {
       const href = (event as CustomEvent<{ href?: string }>).detail?.href;
       if (!href || !isProjectDetailRoute(href)) return;
+      if (isProjectRouteReady(href)) return;
       setRouteLoaderHref(href);
     };
 
@@ -238,7 +240,8 @@ export default function App() {
     };
   }, [portfolioEntered, route]);
 
-  const detailFallback = routeLoaderHref ? null : <ProjectRouteLoader route={route} />;
+  const detailFallback =
+    routeLoaderHref || isProjectRouteReady(route) ? null : <ProjectRouteLoader route={route} />;
 
   const portfolioContent = isAiDetail ? (
     <Suspense fallback={detailFallback}>
@@ -288,7 +291,7 @@ export default function App() {
         }}
       />
 
-      {mounted && hasFinePointer && (
+      {mounted && hasFinePointer && !routeLoaderHref && (
         <Suspense fallback={null}>
           <ScopeCursor />
         </Suspense>

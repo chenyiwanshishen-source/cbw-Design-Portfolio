@@ -13,6 +13,51 @@ body {
   -ms-overflow-style: none;
 }
 
+.home-scroll-story {
+  position: relative;
+  width: 100%;
+}
+
+.home-scroll-panel {
+  position: relative;
+  width: 100%;
+}
+
+.home-scroll-panel[data-home-panel-name="intro"] {
+  overflow: clip;
+  isolation: isolate;
+}
+
+.project-card-character {
+  transform: translate3d(0, calc(100% + 24px), 0) scale(0.98, 0.96);
+  transform-origin: 50% 100%;
+  will-change: transform;
+}
+
+@media (min-width: 1024px) {
+  .home-scroll-panel {
+    display: flex;
+    min-height: 100svh;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .home-scroll-panel > [data-home-panel-content] {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-scroll-panel > [data-home-panel-content] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+}
+
 html::-webkit-scrollbar,
 body::-webkit-scrollbar,
 .native-scrollbar-hidden::-webkit-scrollbar {
@@ -197,6 +242,20 @@ main img[src*=".svg?"] {
 
 .hero-note-shell[data-dragging="true"] {
   filter: none;
+}
+
+.hero-note-cursor {
+  align-items: flex-start;
+  opacity: 0;
+  visibility: hidden;
+  filter: drop-shadow(0 4px 8px rgba(26, 28, 36, 0.18));
+  will-change: transform, opacity;
+}
+
+.hero-note-cursor-arrow {
+  width: 22px;
+  height: 26px;
+  flex: none;
 }
 
 @media (min-width: 768px) {

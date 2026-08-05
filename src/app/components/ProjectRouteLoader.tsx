@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { Draggable } from "gsap/Draggable";
@@ -8,6 +8,7 @@ import { preloadRouteAssetsWithProgress } from "../projectPreload";
 gsap.registerPlugin(useGSAP, Draggable);
 
 const MIN_ROUTE_LOADER_DURATION_MS = 5000;
+const PACED_PROGRESS_BASE_RATIO = 0.7;
 
 interface ProjectRouteLoaderProps {
   route: string;
@@ -33,12 +34,16 @@ export function ProjectRouteLoader({
   const swipeBasePathRef = useRef<SVGPathElement | null>(null);
   const onCompleteRef = useRef(onComplete);
   const exitStartedRef = useRef(false);
-  const [typedLength, setTypedLength] = useState(0);
   const [rawProgress, setRawProgress] = useState(0);
   const [pacedProgress, setPacedProgress] = useState(0);
   const routeLabel = routeLabels[route] ?? "项目详情";
   const progressReady = rawProgress >= 1 && pacedProgress >= 1;
-  const displayProgress = progressReady ? 1 : Math.min(rawProgress, pacedProgress, 0.99);
+  const displayProgress = progressReady
+    ? 1
+    : Math.min(
+        pacedProgress * (PACED_PROGRESS_BASE_RATIO + rawProgress * (1 - PACED_PROGRESS_BASE_RATIO)),
+        0.99
+      );
   const progress = progressReady ? 100 : Math.min(99, Math.floor(displayProgress * 100));
 
   useEffect(() => {
@@ -48,7 +53,6 @@ export function ProjectRouteLoader({
   useEffect(() => {
     let cancelled = false;
     exitStartedRef.current = false;
-    setTypedLength(0);
     setRawProgress(0);
     setPacedProgress(0);
 
@@ -76,14 +80,10 @@ export function ProjectRouteLoader({
     };
   }, [durationMs, route]);
 
-  const displayText = useMemo(() => {
-    const prefix = loadingCopy.slice(0, typedLength);
-    if (typedLength < loadingCopy.length) return prefix;
-    return `${prefix}${progress}%`;
-  }, [progress, typedLength]);
+  const displayText = `${loadingCopy}${progress}%`;
 
   useGSAP(
-    (_, contextSafe) => {
+    () => {
       const root = rootRef.current;
       const contentLayer = contentLayerRef.current;
       const box = boxRef.current;
@@ -91,10 +91,6 @@ export function ProjectRouteLoader({
       if (!root || !contentLayer || !box) return;
 
       const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      const typeState = { typedLength: 0 };
-      const updateTypedText = contextSafe(() => {
-        setTypedLength(Math.round(typeState.typedLength));
-      });
 
       setCurveSwipePath(swipeBasePath, curveSwipeStates.baseCover);
       gsap.set(root, { autoAlpha: 0 });
@@ -103,19 +99,7 @@ export function ProjectRouteLoader({
 
       const tl = gsap.timeline();
       tl.to(root, { autoAlpha: 1, duration: reduceMotion ? 0 : 0.22, ease: "power2.out" })
-        .to(box, { y: 0, scale: 1, duration: reduceMotion ? 0 : 0.48, ease: "expo.out" }, "<")
-        .to(
-          typeState,
-          {
-            typedLength: loadingCopy.length,
-            duration: reduceMotion ? 0 : 0.78,
-            ease: "none",
-            snap: { typedLength: 1 },
-            onUpdate: updateTypedText,
-            onComplete: updateTypedText,
-          },
-          "<0.08"
-        );
+        .to(box, { y: 0, scale: 1, duration: reduceMotion ? 0 : 0.48, ease: "expo.out" }, "<");
 
       let draggables: Draggable[] = [];
       if (!reduceMotion) {
@@ -153,8 +137,6 @@ export function ProjectRouteLoader({
         });
       }
 
-      updateTypedText();
-
       return () => {
         tl.kill();
         draggables.forEach((draggable) => draggable.kill());
@@ -169,7 +151,6 @@ export function ProjectRouteLoader({
     const box = boxRef.current;
     const swipeBasePath = swipeBasePathRef.current;
     if (
-      typedLength < loadingCopy.length ||
       progress < 100 ||
       exitStartedRef.current ||
       !root ||
@@ -217,12 +198,12 @@ export function ProjectRouteLoader({
     return () => {
       tl.kill();
     };
-  }, [progress, typedLength]);
+  }, [progress]);
 
   return (
     <div
       ref={rootRef}
-      className="fixed inset-0 z-30 min-h-screen overflow-hidden bg-transparent px-6 pt-24 text-[#1A1C24]"
+      className="fixed inset-0 z-30 min-h-screen overflow-hidden bg-transparent px-6 pt-24 text-[#1A1C24] opacity-0"
       role="status"
       aria-live="polite"
       aria-label={`${routeLabel}正在加载`}
