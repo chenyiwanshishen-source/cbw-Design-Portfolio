@@ -48,6 +48,22 @@ body {
     flex-direction: column;
     justify-content: center;
   }
+
+  .home-scroll-panel[data-home-panel-name="contact"] > [data-home-panel-content] {
+    min-height: 100svh;
+    justify-content: flex-start;
+  }
+
+  .home-scroll-panel[data-home-panel-name="contact"] > [data-home-panel-content] > #contact {
+    display: flex;
+    flex: 1 0 auto;
+    align-items: center;
+  }
+
+  .home-scroll-panel[data-home-panel-name="contact"] > [data-home-panel-content] > footer {
+    flex: 0 0 auto;
+    margin-top: auto;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

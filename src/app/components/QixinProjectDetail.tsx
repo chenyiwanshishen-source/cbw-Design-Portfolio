@@ -24,6 +24,7 @@ import {
 } from "lucide-react";
 import { Placeholder } from "./Placeholder";
 import { Footer } from "./Footer";
+import { QixinResearchCanvas } from "./QixinResearchCanvas";
 import { ScrollArea } from "./ScrollArea";
 import { hideContactDetails } from "../buildVariant";
 
@@ -43,7 +44,6 @@ const ARCH_TONES = {
   purple: { fill: "#F5F3FF", stroke: "#DDD6FE", text: "#6366F1" },
   primary: { fill: "#2258F4", stroke: "#2258F4", text: "#FFFFFF" },
 } as const;
-const FLOW_BLUE = ARCH_ARROW;
 const ICON_GRAY = "#CBCDD4";
 const INK = "#0F1419";
 const INK_MUTED = "rgba(15,20,25,0.72)";
@@ -3093,26 +3093,8 @@ export function QixinProjectDetail({ onBack }: Props) {
   const chainPointerRef = useRef({ x: -1, y: -1 });
   const chainSwitchPointRef = useRef({ x: -1, y: -1 });
   const recruitPointerRef = useRef({ x: -1, y: -1 });
-  const qxResearchScrollRef = useRef<HTMLDivElement | null>(null);
-  const qxResearchFlowRef = useRef<HTMLDivElement | null>(null);
-  const qxResearchZoomRef = useRef(1);
-  const qxResearchDragRef = useRef({
-    active: false,
-    moved: false,
-    pointerId: -1,
-    startX: 0,
-    startY: 0,
-    scrollLeft: 0,
-    scrollTop: 0,
-  });
   const [chainSlide, setChainSlide] = useState(0);
   const [recruitFront, setRecruitFront] = useState<"detail" | "relation">("detail");
-  const [qxResearchFlow, setQxResearchFlow] = useState<{
-    width: number;
-    height: number;
-    routes: Array<{ id: string; d: string; dot: { x: number; y: number } }>;
-  }>({ width: 0, height: 0, routes: [] });
-  const [qxResearchZoom, setQxResearchZoom] = useState(1);
 
   const chainSlides = [
     { src: "./images/optimized/qixin-industry-detail-1600.jpg", alt: "产业洞察详情" },
@@ -3186,353 +3168,6 @@ export function QixinProjectDetail({ onBack }: Props) {
       tint: "#EEF2FF",
     },
   ];
-
-  const COMMON_PROBLEMS = [
-    {
-      title: "定位范围难",
-      desc: "产业、区域、政策分散，缺少统一入口判断范围。",
-    },
-    {
-      title: "筛选成本高",
-      desc: "企业多、条件复杂，仍依赖多平台查询和整理。",
-    },
-    {
-      title: "判断依据散",
-      desc: "价值、风险、经营动态分散，判断依据不完整。",
-    },
-    {
-      title: "线索难沉淀",
-      desc: "结果散落在表格和记录中，后续跟进不透明。",
-    },
-    {
-      title: "输出效率低",
-      desc: "变化感知和反馈材料依赖人工整理，报告成本高。",
-    },
-  ];
-
-  const HUB_CAPABILITIES = ["定位数据", "筛选目标", "价值评估", "状态追踪", "持续管理", "输出结果"];
-
-  const DESIGN_DECISIONS = [
-    {
-      title: "统一认知入口",
-      problem: "定位范围难",
-      decision: "把产业、区域、政策和企业信息收进同一入口。",
-      advantage: "先建立判断范围，再进入企业筛选。",
-      boundary: "不替代业务专家的产业判断。",
-      modules: ["产业洞察", "产业链视图", "区域分析", "产业规划"],
-    },
-    {
-      title: "条件化筛选企业",
-      problem: "筛选成本高",
-      decision: "将行业、区域、规模、风险等条件组合筛选。",
-      advantage: "减少跨平台查询和 Excel 整理。",
-      boundary: "复杂招商意图仍需人工校准。",
-      modules: ["精准搜索", "企业筛选", "条件筛选", "关系图谱"],
-    },
-    {
-      title: "多维判断面板",
-      problem: "判断依据散",
-      decision: "集中呈现企业画像、风险、经营和融资信息。",
-      advantage: "判断依据集中且可追溯。",
-      boundary: "不能替代实地沟通和策略判断。",
-      modules: ["企业画像", "风险信息", "经营动态", "价值评估", "融资动态"],
-    },
-    {
-      title: "线索跟进闭环",
-      problem: "线索难沉淀",
-      decision: "把名单转为可分组、可标记、可跟进的线索。",
-      advantage: "避免线索停留在一次性表格里。",
-      boundary: "转化仍依赖团队跟进机制。",
-      modules: ["企业分组", "状态标记", "跟进管理", "企业监控"],
-    },
-    {
-      title: "监测与报告输出",
-      problem: "输出效率低",
-      decision: "串联动态监测、提醒和报告输出。",
-      advantage: "降低持续跟踪和汇报整理成本。",
-      boundary: "AI 报告仍需人工审核口径。",
-      modules: ["动态提醒", "企业监测", "报告中心", "AI 报告联动"],
-    },
-  ];
-
-  const FlowNode = ({ title, desc, anchor }: { title: string; desc: string; anchor?: string }) => (
-    <div
-      data-flow-anchor={anchor}
-      className="relative z-20 flex shrink-0 flex-col rounded-[12px] border border-[#D8DBE4] bg-[#F5F5F7] px-4 py-3"
-      style={{ width: Math.max(150, title.length * 16 + 48) }}
-    >
-      <div className="whitespace-nowrap text-[16px] font-semibold leading-[1.35] text-[#4E525E]">{title}</div>
-      <p className="mt-1 text-[13px] font-medium leading-[1.45] text-[#696D7A]">{desc}</p>
-    </div>
-  );
-
-  const NodeBadge = ({ label }: { label: string }) => (
-    <span className="absolute -top-2.5 right-4 z-10 rounded-full border border-[#A8BEFF] bg-[#E5EBFF] px-3.5 py-1.5 text-[12px] font-semibold leading-[1.15] text-[#1A42B8] shadow-[0_6px_14px_rgba(34,88,244,0.08)]">
-      {label}
-    </span>
-  );
-
-  const FlowToolButton = ({
-    label,
-    children,
-    onClick,
-  }: {
-    label: string;
-    children: ReactNode;
-    onClick: () => void;
-  }) => (
-    <button
-      type="button"
-      aria-label={label}
-      title={label}
-      onClick={onClick}
-      className="inline-flex size-10 items-center justify-center rounded-[10px] border border-[#E6E7EB] bg-white text-[#0F1419] shadow-[0_8px_18px_rgba(15,20,25,0.05)] transition-colors duration-200 hover:border-[#2258F4] hover:text-[#2258F4] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2258F4]/25"
-    >
-      {children}
-    </button>
-  );
-
-  const ZoomInIcon = () => (
-    <svg aria-hidden="true" className="size-[22px]" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.65" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="8.5" cy="8.5" r="4.75" />
-      <path d="M8.5 6.25v4.5M6.25 8.5h4.5M12.1 12.1 16 16" />
-    </svg>
-  );
-
-  const ZoomOutIcon = () => (
-    <svg aria-hidden="true" className="size-[22px]" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.65" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="8.5" cy="8.5" r="4.75" />
-      <path d="M6.25 8.5h4.5M12.1 12.1 16 16" />
-    </svg>
-  );
-
-  const FlowLineLayer = () => {
-    if (!qxResearchFlow.width || !qxResearchFlow.height || !qxResearchFlow.routes.length) return null;
-
-    return (
-      <>
-        <svg
-          aria-hidden="true"
-          className="pointer-events-none absolute left-0 top-0 z-0 overflow-visible"
-          width={qxResearchFlow.width}
-          height={qxResearchFlow.height}
-          viewBox={`0 0 ${qxResearchFlow.width} ${qxResearchFlow.height}`}
-          fill="none"
-        >
-          {qxResearchFlow.routes.map((route) => (
-            <path
-              key={route.id}
-              d={route.d}
-              stroke={FLOW_BLUE}
-              strokeWidth="1.25"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          ))}
-        </svg>
-        {qxResearchFlow.routes.map((route) => (
-          <span
-            key={`${route.id}-dot`}
-            aria-hidden="true"
-            className="pointer-events-none absolute z-30 size-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white"
-            style={{
-              left: route.dot.x,
-              top: route.dot.y,
-              backgroundColor: FLOW_BLUE,
-              boxShadow: `0 0 0 1px ${FLOW_BLUE}`,
-            }}
-          />
-        ))}
-      </>
-    );
-  };
-
-  const handleQxResearchDragStart = (event: ReactPointerEvent<HTMLDivElement>) => {
-    if (event.button !== 0 || event.pointerType === "mouse" || event.pointerType === "touch") return;
-    qxResearchDragRef.current = {
-      active: true,
-      moved: false,
-      pointerId: event.pointerId,
-      startX: event.clientX,
-      startY: event.clientY,
-      scrollLeft: event.currentTarget.scrollLeft,
-      scrollTop: event.currentTarget.scrollTop,
-    };
-    event.currentTarget.setPointerCapture?.(event.pointerId);
-  };
-
-  const handleQxResearchDragMove = (event: ReactPointerEvent<HTMLDivElement>) => {
-    const drag = qxResearchDragRef.current;
-    if (!drag.active || drag.pointerId !== event.pointerId) return;
-    const deltaX = event.clientX - drag.startX;
-    const deltaY = event.clientY - drag.startY;
-    if (Math.abs(deltaX) > 3 || Math.abs(deltaY) > 3) drag.moved = true;
-    event.currentTarget.scrollLeft = drag.scrollLeft - deltaX;
-    event.currentTarget.scrollTop = drag.scrollTop - deltaY;
-    event.preventDefault();
-  };
-
-  const endQxResearchDrag = (event: ReactPointerEvent<HTMLDivElement>) => {
-    const drag = qxResearchDragRef.current;
-    if (drag.pointerId === event.pointerId) {
-      event.currentTarget.releasePointerCapture?.(event.pointerId);
-      qxResearchDragRef.current.active = false;
-    }
-  };
-
-  const handleQxResearchMouseDown = (event: ReactMouseEvent<HTMLDivElement>) => {
-    if (event.button !== 0) return;
-    qxResearchDragRef.current = {
-      active: true,
-      moved: false,
-      pointerId: -1,
-      startX: event.clientX,
-      startY: event.clientY,
-      scrollLeft: event.currentTarget.scrollLeft,
-      scrollTop: event.currentTarget.scrollTop,
-    };
-    event.preventDefault();
-  };
-
-  const handleQxResearchMouseMove = (event: ReactMouseEvent<HTMLDivElement>) => {
-    const drag = qxResearchDragRef.current;
-    if (!drag.active || drag.pointerId !== -1) return;
-    const deltaX = event.clientX - drag.startX;
-    const deltaY = event.clientY - drag.startY;
-    if (Math.abs(deltaX) > 3 || Math.abs(deltaY) > 3) drag.moved = true;
-    event.currentTarget.scrollLeft = drag.scrollLeft - deltaX;
-    event.currentTarget.scrollTop = drag.scrollTop - deltaY;
-    event.preventDefault();
-  };
-
-  const endQxResearchMouseDrag = () => {
-    if (qxResearchDragRef.current.pointerId === -1) {
-      qxResearchDragRef.current.active = false;
-    }
-  };
-
-  const handleQxResearchZoomIn = () => {
-    setQxResearchZoom((zoom) => Math.min(1.16, Number((zoom + 0.08).toFixed(2))));
-  };
-
-  const getQxResearchFitZoom = () => {
-    const scrollArea = qxResearchScrollRef.current;
-    const flowWidth = qxResearchFlow.width || qxResearchFlowRef.current?.offsetWidth || 0;
-    if (!scrollArea || !flowWidth) return 0.68;
-
-    const fitZoom = (scrollArea.clientWidth - 8) / flowWidth;
-    return Math.max(0.56, Math.min(1, Number(fitZoom.toFixed(2))));
-  };
-
-  const handleQxResearchZoomOut = () => {
-    setQxResearchZoom((zoom) => {
-      const fitZoom = getQxResearchFitZoom();
-      const nextZoom = Math.max(fitZoom, Number((zoom - 0.08).toFixed(2)));
-
-      if (nextZoom <= fitZoom + 0.001) {
-        window.requestAnimationFrame(() => {
-          qxResearchScrollRef.current?.scrollTo({ left: 0, behavior: "smooth" });
-        });
-      }
-
-      return nextZoom;
-    });
-  };
-
-  useEffect(() => {
-    qxResearchZoomRef.current = qxResearchZoom;
-  }, [qxResearchZoom]);
-
-  useEffect(() => {
-    const container = qxResearchFlowRef.current;
-    if (!container) return;
-
-    const routes = [
-      { id: "who-to-scenario-layer", from: "who", to: "scenarioLayer", fromSide: "right", toSide: "left", fromY: "center", toY: "from" },
-      { id: "scenario-layer-to-usage", from: "scenarioLayer", to: "usageNode", fromSide: "right", toSide: "left", fromY: "center", toY: "center" },
-      { id: "usage-to-problem-layer", from: "usageNode", to: "problemLayer", fromSide: "right", toSide: "left", fromY: "center", toY: "from" },
-      { id: "problem-layer-to-solve", from: "problemLayer", to: "solveNode", fromSide: "right", toSide: "left", fromY: "center", toY: "center" },
-      { id: "solve-to-hub", from: "solveNode", to: "hubNode", fromSide: "right", toSide: "left", fromY: "center", toY: "center" },
-      { id: "hub-to-why", from: "hubNode", to: "whyNode", fromSide: "right", toSide: "left", fromY: "to", toY: "center" },
-      { id: "why-to-decision-layer", from: "whyNode", to: "decisionLayer", fromSide: "right", toSide: "left", fromY: "center", toY: "from" },
-    ] as const;
-
-    const makeRoundedRoute = (start: { x: number; y: number }, end: { x: number; y: number }) => {
-      const deltaX = end.x - start.x;
-      const deltaY = end.y - start.y;
-
-      if (Math.abs(deltaY) < 12) {
-        return `M ${start.x} ${start.y} H ${end.x}`;
-      }
-
-      const midX = start.x + deltaX * 0.55;
-      const directionY = deltaY > 0 ? 1 : -1;
-      const radius = Math.min(18, Math.abs(deltaY) / 2, Math.abs(midX - start.x) / 2, Math.abs(end.x - midX) / 2);
-
-      return [
-        `M ${start.x} ${start.y}`,
-        `H ${midX - radius}`,
-        `Q ${midX} ${start.y} ${midX} ${start.y + directionY * radius}`,
-        `V ${end.y - directionY * radius}`,
-        `Q ${midX} ${end.y} ${midX + radius} ${end.y}`,
-        `H ${end.x}`,
-      ].join(" ");
-    };
-
-    const updateRoutes = () => {
-      const rootRect = container.getBoundingClientRect();
-      const zoom = qxResearchZoomRef.current || 1;
-      const anchorRects = new globalThis.Map<string, DOMRect>();
-
-      container.querySelectorAll<HTMLElement>("[data-flow-anchor]").forEach((anchor) => {
-        const key = anchor.dataset.flowAnchor;
-        if (key) anchorRects.set(key, anchor.getBoundingClientRect());
-      });
-
-      const centerY = (rect: DOMRect) => (rect.top - rootRect.top + rect.height / 2) / zoom;
-      const sideX = (rect: DOMRect, side: "left" | "right") =>
-        ((side === "right" ? rect.right : rect.left) - rootRect.left) / zoom;
-      const point = (rect: DOMRect, side: "left" | "right", y: number) => ({
-        x: sideX(rect, side),
-        y,
-      });
-
-      const nextRoutes = routes.flatMap((route) => {
-        const fromRect = anchorRects.get(route.from);
-        const toRect = anchorRects.get(route.to);
-        if (!fromRect || !toRect) return [];
-
-        const fromCenter = centerY(fromRect);
-        const toCenter = centerY(toRect);
-        const startY = route.fromY === "to" ? toCenter : fromCenter;
-        const endY = route.toY === "from" ? startY : toCenter;
-        const start = point(fromRect, route.fromSide, startY);
-        const end = point(toRect, route.toSide, endY);
-
-        return [{ id: route.id, d: makeRoundedRoute(start, end), dot: end }];
-      });
-
-      setQxResearchFlow({
-        width: Math.ceil(rootRect.width / zoom),
-        height: Math.ceil(rootRect.height / zoom),
-        routes: nextRoutes,
-      });
-    };
-
-    const frame = window.requestAnimationFrame(updateRoutes);
-    const lateFrame = window.setTimeout(updateRoutes, 180);
-    const resizeObserver = new ResizeObserver(updateRoutes);
-    resizeObserver.observe(container);
-    container.querySelectorAll<HTMLElement>("[data-flow-anchor]").forEach((anchor) => resizeObserver.observe(anchor));
-    window.addEventListener("resize", updateRoutes);
-
-    return () => {
-      window.cancelAnimationFrame(frame);
-      window.clearTimeout(lateFrame);
-      resizeObserver.disconnect();
-      window.removeEventListener("resize", updateRoutes);
-    };
-  }, []);
 
   return (
     <div className="relative z-10">
@@ -3647,196 +3282,7 @@ export function QixinProjectDetail({ onBack }: Props) {
         </div>
 
         <div className={`${BUSINESS_READ} mt-10`}>
-          <Reveal>
-            <div className="relative">
-              <ScrollArea
-                ref={qxResearchScrollRef}
-                className="overflow-auto select-none cursor-grab active:cursor-grabbing"
-                style={{
-                  height: qxResearchFlow.height || undefined,
-                  overscrollBehaviorX: "contain",
-                  overscrollBehaviorY: "auto",
-                }}
-                onWheel={(event) => {
-                  if (!event.shiftKey && Math.abs(event.deltaY) > Math.abs(event.deltaX)) {
-                    window.scrollBy({ top: event.deltaY, left: 0, behavior: "auto" });
-                    event.preventDefault();
-                  }
-                }}
-                onPointerDown={handleQxResearchDragStart}
-                onPointerMove={handleQxResearchDragMove}
-                onPointerUp={endQxResearchDrag}
-                onPointerCancel={endQxResearchDrag}
-                onPointerLeave={endQxResearchDrag}
-                onMouseDown={handleQxResearchMouseDown}
-                onMouseMove={handleQxResearchMouseMove}
-                onMouseUp={endQxResearchMouseDrag}
-                onMouseLeave={endQxResearchMouseDrag}
-                onDragStart={(event) => event.preventDefault()}
-                onClickCapture={(event) => {
-                  if (qxResearchDragRef.current.moved) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                  }
-                }}
-              >
-                <div
-                  className="relative w-max"
-                  style={{
-                    width: qxResearchFlow.width ? qxResearchFlow.width * qxResearchZoom : undefined,
-                    height: qxResearchFlow.height ? qxResearchFlow.height * qxResearchZoom : undefined,
-                  }}
-                >
-                  <div
-                    ref={qxResearchFlowRef}
-                    className="relative w-max"
-                    style={{
-                      transform: qxResearchZoom === 1 ? undefined : `scale(${qxResearchZoom})`,
-                      transformOrigin: "top left",
-                    }}
-                    >
-                    <FlowLineLayer />
-                    <div className="relative z-10 grid grid-cols-[max-content_max-content_max-content_max-content_max-content_max-content_max-content] items-start gap-x-6">
-                      <div className="relative grid grid-cols-[max-content_max-content] items-start gap-x-6 overflow-visible">
-                        <FlowNode anchor="who" title="确定用户是谁" desc="谁用，谁不用" />
-
-                        <div data-flow-anchor="scenarioLayer" className="relative z-10 rounded-[28px] border border-[#A8BEFF]/45 bg-white/45 p-4">
-                          <div className="mb-5">
-                            <h3 className="text-[16px] font-semibold leading-[1.4] text-[#1A1C24]">场景输入层</h3>
-                            <p className="mt-1 text-[13px] font-medium leading-[1.5] text-[#696D7A]">先确认业务角色和使用边界。</p>
-                          </div>
-
-                          <div className="space-y-4">
-                            {SCENARIOS.map((scenario) => (
-                              <article
-                                key={scenario.id}
-                                className="relative rounded-[12px] border border-[#D8DBE4] bg-[#F5F5F7] px-4 pb-4 pt-7"
-                              >
-                                <NodeBadge label={scenario.name} />
-                                <div className="space-y-1.5">
-                                  <p className="text-[13px] font-medium leading-[1.45] text-[#4E525E]">
-                                    <span className="mr-2 font-semibold text-[#1A42B8]">角色</span>
-                                    {scenario.users}
-                                  </p>
-                                  <p className="text-[13px] font-medium leading-[1.45] text-[#4E525E]">
-                                    <span className="mr-2 font-semibold text-[#1A42B8]">目标</span>
-                                    {scenario.goal}
-                                  </p>
-                                </div>
-                              </article>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="relative z-20 pt-[328px]">
-                        <FlowNode anchor="usageNode" title="在什么场景下用" desc="用户高频使用的场景有哪些" />
-                      </div>
-
-                      <div data-flow-anchor="problemLayer" className="relative overflow-visible rounded-[28px] border border-[#A8BEFF]/45 bg-white/35 p-4">
-                        <div className="relative z-10">
-                          <div className="mb-5">
-                            <h3 className="text-[16px] font-semibold leading-[1.4] text-[#1A1C24]">共性问题层</h3>
-                            <p className="mt-1 text-[13px] font-medium leading-[1.5] text-[#696D7A]">从五类场景里抽出共同阻塞点。</p>
-                          </div>
-
-                          <div className="space-y-4">
-                            {COMMON_PROBLEMS.map((problem) => (
-                              <article
-                                key={problem.title}
-                                className="relative rounded-[12px] border border-[#D8DBE4] bg-[#F5F5F7] px-4 pb-4 pt-7"
-                              >
-                                <NodeBadge label={problem.title} />
-                                <div className="space-y-1.5">
-                                  <p className="text-[13px] font-medium leading-[1.5] text-[#4E525E]">{problem.desc}</p>
-                                </div>
-                              </article>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="relative z-20 pt-[438px]">
-                        <FlowNode anchor="solveNode" title="解决什么问题" desc="把分散问题收拢成工作流" />
-                      </div>
-
-                      <div className="relative overflow-visible">
-                        <div className="relative z-10">
-                          <article
-                            data-flow-anchor="hubNode"
-                            className="relative w-[252px] rounded-[28px] border border-[#D8DBE4] bg-[#F5F5F7] p-4"
-                          >
-                            <div className="text-[16px] font-semibold leading-[1.4] text-[#4E525E]">启信产业大脑</div>
-                            <p className="mt-1.5 text-[13px] font-medium leading-[1.55] text-[#696D7A]">
-                              统一承接企业筛选、评估、管理与报告输出流程。
-                            </p>
-
-                            <div className="mt-3 grid grid-cols-2 gap-2">
-                              {HUB_CAPABILITIES.map((capability) => (
-                                <div
-                                  key={capability}
-                                  className="rounded-[12px] border border-[#D8DBE4] bg-white/70 px-3 py-2.5 text-[12px] font-semibold leading-[1.45] text-[#4E525E]"
-                                >
-                                  {capability}
-                                </div>
-                              ))}
-                            </div>
-                          </article>
-                        </div>
-                      </div>
-
-                      <div className="relative z-20 pt-[68px]">
-                        <FlowNode anchor="whyNode" title="为什么选我们" desc="优势、边界与设计取舍" />
-                      </div>
-
-                      <div data-flow-anchor="decisionLayer" className="relative overflow-visible rounded-[28px] border border-[#DDE1E9] bg-white/45 p-4">
-                        <div className="relative z-10">
-                          <div className="mb-5">
-                            <h3 className="text-[16px] font-semibold leading-[1.4] text-[#1A1C24]">设计决策层</h3>
-                            <p className="mt-1 text-[13px] font-medium leading-[1.5] text-[#696D7A]">从共性问题推导设计回应。</p>
-                          </div>
-
-                          <div className="space-y-4">
-                            {DESIGN_DECISIONS.map((decision) => (
-                              <article
-                                key={decision.title}
-                                className="relative overflow-visible rounded-[12px] border border-[#D8DBE4] bg-[#F5F5F7] px-4 pb-4 pt-7"
-                              >
-                                <NodeBadge label={decision.title} />
-
-                                <div className="space-y-1.5">
-                                  {[
-                                    ["设计决策", decision.decision],
-                                    ["产品优势", decision.advantage],
-                                    ["使用边界", decision.boundary],
-                                  ].map(([label, value]) => (
-                                    <div key={label} className="grid grid-cols-[64px_1fr] gap-2">
-                                      <div className="text-[12px] font-semibold leading-[1.45] text-[#536078]">{label}</div>
-                                      <p className="text-[13px] font-medium leading-[1.45] text-[#4E525E]">{value}</p>
-                                    </div>
-                                  ))}
-                                </div>
-                              </article>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </ScrollArea>
-              <div className="pointer-events-none absolute bottom-0 left-0 z-40">
-                <div className="pointer-events-auto inline-flex items-center gap-2 rounded-[14px] border border-[#E6E7EB] bg-white/95 px-2 py-2 shadow-[0_10px_22px_rgba(15,20,25,0.06)]">
-                  <FlowToolButton label="放大流程图" onClick={handleQxResearchZoomIn}>
-                    <ZoomInIcon />
-                  </FlowToolButton>
-                  <FlowToolButton label="缩小流程图" onClick={handleQxResearchZoomOut}>
-                    <ZoomOutIcon />
-                  </FlowToolButton>
-                </div>
-              </div>
-            </div>
-          </Reveal>
+          <QixinResearchCanvas />
         </div>
 
         {/* ───── 5 场景卡片 ───── */}
@@ -4032,267 +3478,6 @@ export function QixinProjectDetail({ onBack }: Props) {
 
         </div>
 
-          <div className={`${BUSINESS_READ} mt-4`}>
-          <Reveal>
-            <div className="grid gap-4 lg:grid-cols-2">
-              {[
-                {
-                  n: "01",
-                  stage: "理解产业",
-                  title: "产业结构总览",
-                  problem: "数据分散，用户难以快速看清产业结构。",
-                  decision: "将产业链和重点企业整合到同一视图，建立全局认知。",
-                  imageLabel: "产业洞察详情 / 产业链图 / 强链补链延链",
-                },
-                {
-                  n: "02",
-                  stage: "识别对象",
-                  title: "目标对象筛选",
-                  problem: "企业多、条件复杂，查找效率低。",
-                  decision: "用多维筛选和关系图谱快速定位目标企业。",
-                  imageLabel: "精准招商 / 企业检索 / 关系图谱截图",
-                },
-              ].map((item) => (
-                <div
-                  key={item.n}
-                  className={`rounded-xl border border-[#E6E7EB] bg-white p-5 ${
-                        item.n === "01" || item.n === "02" ? "relative h-[500px] overflow-hidden 2xl:h-[520px]" : ""
-                  }`}
-                  style={item.n === "01" || item.n === "02" ? { background: SCREEN_CARD_BG } : undefined}
-                >
-                  <h4 className="text-[24px] font-medium leading-[28px] text-[#1A1C24]">{item.title}</h4>
-                  <p className="mt-3 text-[15px] font-normal leading-[22px] text-[#696D7A]">
-                    <span className="font-medium text-[#1A1C24]">问题：</span>
-                    {item.problem}
-                  </p>
-                  <p className="mb-4 mt-2 text-[15px] font-normal leading-[22px] text-[#696D7A]">
-                    <span className="font-medium text-[#1A1C24]">设计决策：</span>
-                    {item.decision}
-                  </p>
-                  {item.n === "01" ? (
-                    <div
-                      className="relative h-[400px] w-full overflow-visible 2xl:h-[420px]"
-                      onMouseMove={(event) => {
-                        if (
-                          chainPointerRef.current.x === event.clientX &&
-                          chainPointerRef.current.y === event.clientY
-                        ) {
-                          return;
-                        }
-                        chainPointerRef.current = { x: event.clientX, y: event.clientY };
-                        const switchDistance = Math.hypot(
-                          event.clientX - chainSwitchPointRef.current.x,
-                          event.clientY - chainSwitchPointRef.current.y
-                        );
-                        if (chainSwitchPointRef.current.x !== -1 && switchDistance < 48) {
-                          return;
-                        }
-                        const target = (event.target as HTMLElement).closest("[data-chain-index]") as HTMLElement | null;
-                        const next = Number(target?.dataset.chainIndex);
-                        if (!Number.isNaN(next) && chainSlide !== next) {
-                          chainSwitchPointRef.current = { x: event.clientX, y: event.clientY };
-                          setChainSlide(next);
-                        }
-                      }}
-                      onMouseLeave={() => {
-                        chainPointerRef.current = { x: -1, y: -1 };
-                        chainSwitchPointRef.current = { x: -1, y: -1 };
-                        setChainSlide(0);
-                      }}
-                    >
-                      {chainSlides.map((slide, index) => {
-                        const position = (index - chainSlide + chainSlides.length) % chainSlides.length;
-                        const isActive = position === 0;
-                        const isNext = position === 1;
-                        return (
-                          <div
-                            key={slide.src}
-                            data-chain-index={index}
-                            className="absolute overflow-hidden rounded-xl border border-[#E6E7EB] bg-white transition-all duration-500 ease-out"
-                            style={{
-                              top: isActive ? 0 : 16,
-                              left: isActive
-                                ? "calc(50% - clamp(290px,20.625vw,330px))"
-                                : isNext
-                                  ? "calc(100% - clamp(520px,36.875vw,590px))"
-                                  : 0,
-                              width: isActive ? "clamp(580px,41.25vw,660px)" : "clamp(520px,36.875vw,590px)",
-                              opacity: isActive ? 1 : 0.5,
-                              zIndex: isActive ? 30 : 10,
-                              boxShadow: isActive ? SCREEN_STACK_FRONT_SHADOW : SCREEN_STACK_BACK_SHADOW,
-                              cursor: isActive ? "default" : "pointer",
-                            }}
-                          >
-                            <img
-                              src={slide.src}
-                              alt={slide.alt}
-                              {...DETAIL_IMAGE_LAZY_PROPS}
-                              className="block h-auto w-full object-contain"
-                            />
-                          </div>
-                        );
-                      })}
-                    </div>
-                  ) : item.n === "02" ? (
-                    <div
-                      className="relative h-[400px] w-full overflow-visible 2xl:h-[420px]"
-                      onMouseMove={(event) => {
-                        if (
-                          recruitPointerRef.current.x === event.clientX &&
-                          recruitPointerRef.current.y === event.clientY
-                        ) {
-                          return;
-                        }
-                        recruitPointerRef.current = { x: event.clientX, y: event.clientY };
-                        const target = (event.target as HTMLElement).closest("[data-recruit-id]") as HTMLElement | null;
-                        const next = target?.dataset.recruitId as "detail" | "relation" | undefined;
-                        if (next && recruitFront !== next) setRecruitFront(next);
-                      }}
-                      onMouseLeave={() => {
-                        recruitPointerRef.current = { x: -1, y: -1 };
-                        setRecruitFront("detail");
-                      }}
-                    >
-                      {recruitSlides.map((slide) => {
-                        const isFront = recruitFront === slide.id;
-                        const isRelation = slide.id === "relation";
-                        return (
-                          <div
-                            key={slide.id}
-                            data-recruit-id={slide.id}
-                            className="absolute overflow-hidden rounded-xl border border-[#E6E7EB] bg-white transition-all duration-500 ease-out"
-                            style={{
-                              top: isFront ? 0 : 16,
-	                              left: isFront && slide.id === "detail" ? 0 : isFront ? "calc(50% - clamp(290px,20.625vw,330px))" : isRelation ? "calc(100% - clamp(520px,36.875vw,590px))" : 0,
-	                              width: isFront ? "clamp(580px,41.25vw,660px)" : "clamp(520px,36.875vw,590px)",
-                              opacity: isFront ? 1 : 0.5,
-                              zIndex: isFront ? 30 : 10,
-                              boxShadow: isFront ? SCREEN_STACK_FRONT_SHADOW : SCREEN_STACK_BACK_SHADOW,
-                              cursor: isRelation && !isFront ? "pointer" : "default",
-                            }}
-                          >
-                            <img
-                              src={slide.src}
-                              alt={slide.alt}
-                              {...DETAIL_IMAGE_LAZY_PROPS}
-                              className="block h-auto w-full object-contain"
-                            />
-                          </div>
-                        );
-                      })}
-                    </div>
-                  ) : (
-                    <div className="overflow-hidden rounded-lg border border-[#E6E7EB] bg-[#F5F5F7]">
-                      {item.image ? (
-                        <img src={item.image} alt={item.imageAlt} {...DETAIL_IMAGE_LAZY_PROPS} className="block h-[220px] w-full object-cover object-top" />
-                      ) : (
-                        <Placeholder size="md" ratio="16 / 8" label={item.imageLabel} />
-                      )}
-                    </div>
-                  )}
-                  {(item.n === "01" || item.n === "02") && (
-                    <div
-	                      className="pointer-events-none absolute -bottom-px -left-5 -right-5 z-40 h-24 md:-left-6 md:-right-6"
-                      style={{
-                        background: SCREEN_BOTTOM_FADE,
-                      }}
-                    />
-                  )}
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-4 grid gap-4 md:grid-cols-3">
-              {[
-                {
-                  n: "03",
-                  stage: "判断价值",
-                  title: "企业价值判断",
-                  problem: "信息分散，判断企业价值成本高。",
-                  decision: "整合工商、风险、经营动态形成企业画像。",
-                  image: "./images/optimized/qixin-business-info-1600.jpg",
-                  imageAlt: "企业工商信息截图",
-                  imageLabel: "企业信息截图",
-                },
-                {
-                  n: "04",
-                  stage: "沉淀任务",
-                  title: "企业跟进管理",
-                  problem: "筛选结果难持续跟进。",
-                  decision: "通过分组、状态和标签把任务沉淀为可管理列表。",
-                  image: "./images/optimized/qixin-monitor-1600.jpg",
-                  imageAlt: "企业监控截图",
-                  imageLabel: "企业分组与进度标注截图",
-                },
-                {
-                  n: "05",
-                  stage: "持续监测",
-                  title: "监测与报告输出",
-                  problem: "动态数据难输出成报告。",
-                  decision: "将监测和变化信息整合，生成可复用报告。",
-                  image: "./images/optimized/qixin-report-center-1600.jpg",
-                  imageAlt: "企业及产业报告中心截图",
-                  imageLabel: "企业监控 / 报告中心 / AI 报告联动截图",
-                },
-              ].map((item) => (
-                <div
-                  key={item.n}
-	                  className={`rounded-xl border border-[#E6E7EB] bg-white p-5 ${
-                        item.n === "03" || item.n === "04" || item.n === "05" ? "relative h-[390px] overflow-hidden 2xl:h-[410px]" : ""
-                  }`}
-                  style={item.n === "03" || item.n === "04" || item.n === "05" ? { background: SCREEN_CARD_BG } : undefined}
-                >
-                  <h4 className="text-[24px] font-medium leading-[28px] text-[#1A1C24]">{item.title}</h4>
-                  <p className="mt-3 text-[15px] font-normal leading-[22px] text-[#696D7A]">
-                    <span className="font-medium text-[#1A1C24]">问题：</span>
-                    {item.problem}
-                  </p>
-                  <p className="mt-2 text-[15px] font-normal leading-[22px] text-[#696D7A]">
-                    <span className="font-medium text-[#1A1C24]">设计决策：</span>
-                    {item.decision}
-                  </p>
-                  {(item.n === "03" || item.n === "04" || item.n === "05") && item.image ? (
-                    <>
-                      <div
-                        className="group relative mt-3 overflow-hidden rounded-[12px] border border-[#E6E7EB] shadow-[0_12px_28px_rgba(26,28,36,0.08)]"
-                        data-zoom
-                        data-zoom-src={item.image}
-                      >
-                        <img
-                          src={item.image}
-                          alt={item.imageAlt}
-                          draggable={false}
-                          {...DETAIL_IMAGE_LAZY_PROPS}
-                          className="block h-auto w-full max-w-none select-none object-contain object-top"
-                        />
-                        <div className="pointer-events-none absolute inset-0 hidden rounded-[12px] ring-1 ring-inset ring-transparent transition group-hover:ring-[#A8BEFF]/70 md:block" />
-                      </div>
-                      <div
-	                        className="pointer-events-none absolute -bottom-px -left-5 -right-5 z-30 h-20 md:-left-6 md:-right-6"
-                        style={{
-                          background: item.n === "05" ? SCREEN_REPORT_BOTTOM_FADE : SCREEN_BOTTOM_FADE,
-                        }}
-                      />
-                    </>
-                  ) : (
-                    <div className="mt-4 overflow-hidden rounded-lg border border-[#E6E7EB] bg-[#F5F5F7]">
-                      {item.image ? (
-                      <img
-                        src={item.image}
-                        alt={item.imageAlt}
-                        {...DETAIL_IMAGE_LAZY_PROPS}
-                        className="block h-[160px] w-full object-cover object-top"
-                      />
-                      ) : (
-                        <Placeholder size="sm" ratio="16 / 10" label={item.imageLabel} />
-                      )}
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-          </Reveal>
-        </div>
       </section>
 
       <section id="qx07" className={`relative py-20 md:py-28 ${SECTION_PAD} overflow-hidden`}>
@@ -4652,7 +3837,7 @@ export function QixinProjectDetail({ onBack }: Props) {
               首页工作台设计：从找功能到做任务
             </h2>
             <p className="mx-auto mt-4 max-w-[1120px] text-[#696D7A]" style={T.h2Sub}>
-              用户进入系统后，不应该先在菜单里找入口，而是先看到报告、动态、业务概览和常用功能，直接进入查询、判断、跟进和输出。
+              我提出将首页设计成承接日常工作的任务看板，把报告、动态、业务概览和常用功能融入用户的工作路径，帮助不同角色在繁杂功能中快速找到自己的任务入口，更高效地完成查询、判断、跟进和输出。
             </p>
           </div>
 
@@ -5038,8 +4223,354 @@ export function QixinProjectDetail({ onBack }: Props) {
         </div>
       </section>
 
+      <section id="qx09" className={`relative py-20 md:py-28 ${SECTION_PAD}`}>
+        <div className={BUSINESS_READ}>
+          <Reveal>
+            <div className="text-center">
+              <h2
+                className="tracking-tight text-[#1A1C24] leading-[1.12]"
+                style={{ fontSize: "clamp(28px, 3.5vw, 48px)", fontWeight: 700 }}
+              >
+                长期迭代中的其他设计工作
+              </h2>
+            </div>
+          </Reveal>
+        </div>
+
+        <div className={`${BUSINESS_READ} mt-10 md:mt-12`}>
+          <Reveal>
+            <div
+              className="relative overflow-hidden rounded-[24px] border border-[#E3E7F0] px-3 py-4 sm:px-6 sm:py-5 md:px-12 md:py-6"
+              style={{
+                backgroundColor: "oklch(0.985 0.006 255)",
+                backgroundImage:
+                  "linear-gradient(oklch(0.89 0.018 255 / 0.55) 1px, transparent 1px), linear-gradient(90deg, oklch(0.89 0.018 255 / 0.55) 1px, transparent 1px)",
+                backgroundSize: "32px 32px",
+              }}
+              aria-label="项目总结：从用户言行中理解未被直接说出的真实感受"
+            >
+              <div
+                className="relative mx-auto min-h-[160px] px-7 py-6 shadow-[0_20px_48px_rgba(36,43,61,0.10)] sm:min-h-[176px] sm:px-10 sm:py-7 md:min-h-[200px] md:px-16 md:py-8"
+                style={{
+                  backgroundColor: "oklch(0.955 0.012 85)",
+                  clipPath: "polygon(0.2% 1.2%, 99.6% 0%, 100% 98.7%, 0% 100%)",
+                }}
+              >
+                <div
+                  className="pointer-events-none absolute inset-0 opacity-45"
+                  style={{
+                    backgroundImage:
+                      "radial-gradient(circle at 18% 24%, oklch(0.74 0.018 80 / 0.28) 0 0.8px, transparent 1.2px), radial-gradient(circle at 72% 66%, oklch(0.78 0.014 80 / 0.24) 0 0.7px, transparent 1.1px), repeating-linear-gradient(8deg, transparent 0 7px, oklch(0.76 0.012 80 / 0.08) 8px 9px)",
+                    backgroundSize: "19px 17px, 23px 21px, 100% 100%",
+                  }}
+                />
+
+                <div className="relative z-10 flex min-h-[112px] max-w-[1380px] flex-col justify-center sm:min-h-[120px] md:min-h-[136px]">
+                  <p
+                    className="text-[#1A1C24]"
+                    style={{ fontSize: "clamp(20px, 1.6vw, 28px)", lineHeight: 1.08, fontWeight: 500, letterSpacing: "-0.025em" }}
+                  >
+                    做方案最难的，
+                  </p>
+                  <p
+                    className="text-[#1A1C24]"
+                    style={{ fontSize: "clamp(20px, 1.6vw, 28px)", lineHeight: 1.08, fontWeight: 500, letterSpacing: "-0.025em" }}
+                  >
+                    不是把页面设计出来。
+                  </p>
+                  <p
+                    className="mt-2 text-[#2258F4] sm:mt-3"
+                    style={{ fontSize: "clamp(20px, 1.6vw, 28px)", lineHeight: 1.12, fontWeight: 750, letterSpacing: "-0.025em" }}
+                  >
+                    而是从用户怎么说、怎么做里，理解他没有直接说出的真实感受。
+                  </p>
+                </div>
+              </div>
+
+              <svg
+                viewBox="0 0 64 104"
+                fill="none"
+                aria-hidden="true"
+                className="absolute right-[7%] top-2 z-20 h-16 w-10 rotate-[7deg] overflow-visible sm:h-20 sm:w-12 md:h-24 md:w-14"
+              >
+                <path
+                  d="M35 99C23.5 97.8 17.4 90.8 18.7 80.3L26.4 17.8C27.7 7.5 35.2 1.3 44.3 2.4C53.5 3.6 59.1 11.1 57.8 21.3L50.9 76.9C50 84.2 44.9 88.4 38.5 87.6C32.2 86.8 28.3 81.7 29.2 74.5L35.5 23.5"
+                  stroke="oklch(0.52 0.2 255)"
+                  strokeWidth="3.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  style={{ filter: "drop-shadow(0 3px 2px oklch(0.35 0.07 255 / 0.18))" }}
+                />
+              </svg>
+            </div>
+          </Reveal>
+        </div>
+
+          <div className={`${BUSINESS_READ} mt-12 md:mt-16`}>
+          <Reveal>
+            <div className="grid gap-4 lg:grid-cols-2">
+              {[
+                {
+                  n: "01",
+                  stage: "理解产业",
+                  title: "产业结构总览",
+                  problem: "数据分散，用户难以快速看清产业结构。",
+                  decision: "将产业链和重点企业整合到同一视图，建立全局认知。",
+                  imageLabel: "产业洞察详情 / 产业链图 / 强链补链延链",
+                },
+                {
+                  n: "02",
+                  stage: "识别对象",
+                  title: "目标对象筛选",
+                  problem: "企业多、条件复杂，查找效率低。",
+                  decision: "用多维筛选和关系图谱快速定位目标企业。",
+                  imageLabel: "精准招商 / 企业检索 / 关系图谱截图",
+                },
+              ].map((item) => (
+                <div
+                  key={item.n}
+                  className={`rounded-xl border border-[#E6E7EB] bg-white p-5 ${
+                        item.n === "01" || item.n === "02" ? "relative h-[500px] overflow-hidden 2xl:h-[520px]" : ""
+                  }`}
+                  style={item.n === "01" || item.n === "02" ? { background: SCREEN_CARD_BG } : undefined}
+                >
+                  <h4 className="text-[24px] font-medium leading-[28px] text-[#1A1C24]">{item.title}</h4>
+                  <p className="mt-3 text-[15px] font-normal leading-[22px] text-[#696D7A]">
+                    <span className="font-medium text-[#1A1C24]">问题：</span>
+                    {item.problem}
+                  </p>
+                  <p className="mb-4 mt-2 text-[15px] font-normal leading-[22px] text-[#696D7A]">
+                    <span className="font-medium text-[#1A1C24]">设计决策：</span>
+                    {item.decision}
+                  </p>
+                  {item.n === "01" ? (
+                    <div
+                      className="relative h-[400px] w-full overflow-visible 2xl:h-[420px]"
+                      onMouseMove={(event) => {
+                        if (
+                          chainPointerRef.current.x === event.clientX &&
+                          chainPointerRef.current.y === event.clientY
+                        ) {
+                          return;
+                        }
+                        chainPointerRef.current = { x: event.clientX, y: event.clientY };
+                        const switchDistance = Math.hypot(
+                          event.clientX - chainSwitchPointRef.current.x,
+                          event.clientY - chainSwitchPointRef.current.y
+                        );
+                        if (chainSwitchPointRef.current.x !== -1 && switchDistance < 48) {
+                          return;
+                        }
+                        const target = (event.target as HTMLElement).closest("[data-chain-index]") as HTMLElement | null;
+                        const next = Number(target?.dataset.chainIndex);
+                        if (!Number.isNaN(next) && chainSlide !== next) {
+                          chainSwitchPointRef.current = { x: event.clientX, y: event.clientY };
+                          setChainSlide(next);
+                        }
+                      }}
+                      onMouseLeave={() => {
+                        chainPointerRef.current = { x: -1, y: -1 };
+                        chainSwitchPointRef.current = { x: -1, y: -1 };
+                        setChainSlide(0);
+                      }}
+                    >
+                      {chainSlides.map((slide, index) => {
+                        const position = (index - chainSlide + chainSlides.length) % chainSlides.length;
+                        const isActive = position === 0;
+                        const isNext = position === 1;
+                        return (
+                          <div
+                            key={slide.src}
+                            data-chain-index={index}
+                            className="absolute overflow-hidden rounded-xl border border-[#E6E7EB] bg-white transition-all duration-500 ease-out"
+                            style={{
+                              top: isActive ? 0 : 16,
+                              left: isActive
+                                ? "calc(50% - clamp(290px,20.625vw,330px))"
+                                : isNext
+                                  ? "calc(100% - clamp(520px,36.875vw,590px))"
+                                  : 0,
+                              width: isActive ? "clamp(580px,41.25vw,660px)" : "clamp(520px,36.875vw,590px)",
+                              opacity: isActive ? 1 : 0.5,
+                              zIndex: isActive ? 30 : 10,
+                              boxShadow: isActive ? SCREEN_STACK_FRONT_SHADOW : SCREEN_STACK_BACK_SHADOW,
+                              cursor: isActive ? "default" : "pointer",
+                            }}
+                          >
+                            <img
+                              src={slide.src}
+                              alt={slide.alt}
+                              {...DETAIL_IMAGE_LAZY_PROPS}
+                              className="block h-auto w-full object-contain"
+                            />
+                          </div>
+                        );
+                      })}
+                    </div>
+                  ) : item.n === "02" ? (
+                    <div
+                      className="relative h-[400px] w-full overflow-visible 2xl:h-[420px]"
+                      onMouseMove={(event) => {
+                        if (
+                          recruitPointerRef.current.x === event.clientX &&
+                          recruitPointerRef.current.y === event.clientY
+                        ) {
+                          return;
+                        }
+                        recruitPointerRef.current = { x: event.clientX, y: event.clientY };
+                        const target = (event.target as HTMLElement).closest("[data-recruit-id]") as HTMLElement | null;
+                        const next = target?.dataset.recruitId as "detail" | "relation" | undefined;
+                        if (next && recruitFront !== next) setRecruitFront(next);
+                      }}
+                      onMouseLeave={() => {
+                        recruitPointerRef.current = { x: -1, y: -1 };
+                        setRecruitFront("detail");
+                      }}
+                    >
+                      {recruitSlides.map((slide) => {
+                        const isFront = recruitFront === slide.id;
+                        const isRelation = slide.id === "relation";
+                        return (
+                          <div
+                            key={slide.id}
+                            data-recruit-id={slide.id}
+                            className="absolute overflow-hidden rounded-xl border border-[#E6E7EB] bg-white transition-all duration-500 ease-out"
+                            style={{
+                              top: isFront ? 0 : 16,
+	                              left: isFront && slide.id === "detail" ? 0 : isFront ? "calc(50% - clamp(290px,20.625vw,330px))" : isRelation ? "calc(100% - clamp(520px,36.875vw,590px))" : 0,
+	                              width: isFront ? "clamp(580px,41.25vw,660px)" : "clamp(520px,36.875vw,590px)",
+                              opacity: isFront ? 1 : 0.5,
+                              zIndex: isFront ? 30 : 10,
+                              boxShadow: isFront ? SCREEN_STACK_FRONT_SHADOW : SCREEN_STACK_BACK_SHADOW,
+                              cursor: isRelation && !isFront ? "pointer" : "default",
+                            }}
+                          >
+                            <img
+                              src={slide.src}
+                              alt={slide.alt}
+                              {...DETAIL_IMAGE_LAZY_PROPS}
+                              className="block h-auto w-full object-contain"
+                            />
+                          </div>
+                        );
+                      })}
+                    </div>
+                  ) : (
+                    <div className="overflow-hidden rounded-lg border border-[#E6E7EB] bg-[#F5F5F7]">
+                      {item.image ? (
+                        <img src={item.image} alt={item.imageAlt} {...DETAIL_IMAGE_LAZY_PROPS} className="block h-[220px] w-full object-cover object-top" />
+                      ) : (
+                        <Placeholder size="md" ratio="16 / 8" label={item.imageLabel} />
+                      )}
+                    </div>
+                  )}
+                  {(item.n === "01" || item.n === "02") && (
+                    <div
+	                      className="pointer-events-none absolute -bottom-px -left-5 -right-5 z-40 h-24 md:-left-6 md:-right-6"
+                      style={{
+                        background: SCREEN_BOTTOM_FADE,
+                      }}
+                    />
+                  )}
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-4 grid gap-4 md:grid-cols-3">
+              {[
+                {
+                  n: "03",
+                  stage: "判断价值",
+                  title: "企业价值判断",
+                  problem: "信息分散，判断企业价值成本高。",
+                  decision: "整合工商、风险、经营动态形成企业画像。",
+                  image: "./images/optimized/qixin-business-info-1600.jpg",
+                  imageAlt: "企业工商信息截图",
+                  imageLabel: "企业信息截图",
+                },
+                {
+                  n: "04",
+                  stage: "沉淀任务",
+                  title: "企业跟进管理",
+                  problem: "筛选结果难持续跟进。",
+                  decision: "通过分组、状态和标签把任务沉淀为可管理列表。",
+                  image: "./images/optimized/qixin-monitor-1600.jpg",
+                  imageAlt: "企业监控截图",
+                  imageLabel: "企业分组与进度标注截图",
+                },
+                {
+                  n: "05",
+                  stage: "持续监测",
+                  title: "监测与报告输出",
+                  problem: "动态数据难输出成报告。",
+                  decision: "将监测和变化信息整合，生成可复用报告。",
+                  image: "./images/optimized/qixin-report-center-1600.jpg",
+                  imageAlt: "企业及产业报告中心截图",
+                  imageLabel: "企业监控 / 报告中心 / AI 报告联动截图",
+                },
+              ].map((item) => (
+                <div
+                  key={item.n}
+	                  className={`rounded-xl border border-[#E6E7EB] bg-white p-5 ${
+                        item.n === "03" || item.n === "04" || item.n === "05" ? "relative h-[390px] overflow-hidden 2xl:h-[410px]" : ""
+                  }`}
+                  style={item.n === "03" || item.n === "04" || item.n === "05" ? { background: SCREEN_CARD_BG } : undefined}
+                >
+                  <h4 className="text-[24px] font-medium leading-[28px] text-[#1A1C24]">{item.title}</h4>
+                  <p className="mt-3 text-[15px] font-normal leading-[22px] text-[#696D7A]">
+                    <span className="font-medium text-[#1A1C24]">问题：</span>
+                    {item.problem}
+                  </p>
+                  <p className="mt-2 text-[15px] font-normal leading-[22px] text-[#696D7A]">
+                    <span className="font-medium text-[#1A1C24]">设计决策：</span>
+                    {item.decision}
+                  </p>
+                  {(item.n === "03" || item.n === "04" || item.n === "05") && item.image ? (
+                    <>
+                      <div
+                        className="group relative mt-3 overflow-hidden rounded-[12px] border border-[#E6E7EB] shadow-[0_12px_28px_rgba(26,28,36,0.08)]"
+                        data-zoom
+                        data-zoom-src={item.image}
+                      >
+                        <img
+                          src={item.image}
+                          alt={item.imageAlt}
+                          draggable={false}
+                          {...DETAIL_IMAGE_LAZY_PROPS}
+                          className="block h-auto w-full max-w-none select-none object-contain object-top"
+                        />
+                        <div className="pointer-events-none absolute inset-0 hidden rounded-[12px] ring-1 ring-inset ring-transparent transition group-hover:ring-[#A8BEFF]/70 md:block" />
+                      </div>
+                      <div
+	                        className="pointer-events-none absolute -bottom-px -left-5 -right-5 z-30 h-20 md:-left-6 md:-right-6"
+                        style={{
+                          background: item.n === "05" ? SCREEN_REPORT_BOTTOM_FADE : SCREEN_BOTTOM_FADE,
+                        }}
+                      />
+                    </>
+                  ) : (
+                    <div className="mt-4 overflow-hidden rounded-lg border border-[#E6E7EB] bg-[#F5F5F7]">
+                      {item.image ? (
+                      <img
+                        src={item.image}
+                        alt={item.imageAlt}
+                        {...DETAIL_IMAGE_LAZY_PROPS}
+                        className="block h-[160px] w-full object-cover object-top"
+                      />
+                      ) : (
+                        <Placeholder size="sm" ratio="16 / 10" label={item.imageLabel} />
+                      )}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
       <div className={`relative ${SECTION_PAD} pb-16`}>
-        <Reveal className={`${READ} flex flex-wrap items-center justify-between gap-4 pt-8`} delay={0.12} y={18}>
+        <Reveal className={`${BUSINESS_READ} flex flex-wrap items-center justify-between gap-4 pt-8`} delay={0.12} y={18}>
           <button onClick={onBack} className="group inline-flex items-center gap-3 text-sm text-[#696D7A] hover:text-[#1A1C24] transition-colors">
             <span className="inline-flex size-4 items-center justify-center text-[#CBCDD4] transition-colors">
               <ArrowLeft className="size-4" />
