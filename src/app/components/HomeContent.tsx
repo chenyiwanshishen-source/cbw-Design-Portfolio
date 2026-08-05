@@ -16,8 +16,8 @@ export function HomeContent({ onProjectIntent }: HomeContentProps) {
     <>
       <Hero />
       <Projects onProjectIntent={onProjectIntent} />
-      <Skills />
       <Experience />
+      <Skills />
       {!hideContactDetails && <Contact />}
       <Footer />
     </>
