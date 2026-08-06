@@ -1,21 +1,20 @@
 import { useEffect, useRef, useState } from "react";
 import type { CSSProperties, MouseEvent as ReactMouseEvent, PointerEvent as ReactPointerEvent, ReactNode } from "react";
 import { motion } from "motion/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 import {
   ArrowDown,
   ArrowLeft,
   ArrowRight,
   BarChart3,
-  Boxes,
   Building2,
   Database,
   FileText,
   GitBranch,
   Layers3,
-  LayoutDashboard,
-  Link2,
   Map,
-  Network,
   Palette,
   Settings2,
   Tags,
@@ -27,6 +26,8 @@ import { Footer } from "./Footer";
 import { QixinResearchCanvas } from "./QixinResearchCanvas";
 import { ScrollArea } from "./ScrollArea";
 import { hideContactDetails } from "../buildVariant";
+
+gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 interface Props {
   onBack: () => void;
@@ -50,7 +51,6 @@ const INK_MUTED = "rgba(15,20,25,0.72)";
 const INK_DIM = "rgba(15,20,25,0.55)";
 const LINE = "rgba(15,20,25,0.10)";
 const SECTION_PAD = "px-6 sm:px-10 lg:px-16 xl:px-24 2xl:px-32";
-const HERO_PAD = "px-6 sm:px-[clamp(40px,4.5vw,128px)]";
 const READ = "max-w-[1400px] mx-auto";
 const BUSINESS_READ = "max-w-[1600px] mx-auto";
 const PROSE = "max-w-[72ch]";
@@ -76,7 +76,6 @@ const DETAIL_IMAGE_EAGER_PROPS = {
 const T = {
   h1: { fontSize: "clamp(36px, 5vw, 60px)", lineHeight: 1.12, fontWeight: 700 },
   heroTitle: { fontSize: "clamp(42px, 2.45vw, 60px)", lineHeight: 1.12, fontWeight: 700 },
-  heroSub: { fontSize: "clamp(16px, 1.6vw, 18px)", lineHeight: 1.75, color: INK_MUTED },
   h2: { fontSize: "clamp(28px, 3.2vw, 40px)", lineHeight: 1.22, fontWeight: 700 },
   h2Sub: { fontSize: "clamp(15px, 1.45vw, 17px)", lineHeight: 1.7, color: INK_MUTED },
   body: { fontSize: "clamp(15px, 1.35vw, 16px)", lineHeight: 1.78, color: INK_MUTED },
@@ -1720,34 +1719,6 @@ function SectionHeader({
   );
 }
 
-function Card({
-  icon,
-  title,
-  desc,
-  className = "",
-}: {
-  icon: any;
-  title: string;
-  desc: string;
-  className?: string;
-}) {
-  const Icon = icon;
-  return (
-    <div
-      className={`relative rounded-2xl border p-5 bg-[#FAFBFF] ${className}`}
-      style={{ borderColor: LINE }}
-    >
-      <div>
-        <div className="mb-1.5 flex items-start gap-3">
-          <div className="flex-1" style={T.cardTitle}>{title}</div>
-          <IconBadge Icon={Icon} />
-        </div>
-        <div style={T.cardDesc}>{desc}</div>
-      </div>
-    </div>
-  );
-}
-
 type ArchitectureLayerId = "base" | "component";
 
 const ARCHITECTURE_LAYERS: Record<
@@ -3089,6 +3060,247 @@ function Reveal({
     </motion.div>
   );
 }
+
+function QixinComputerMockup() {
+  const computerRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(
+    () => {
+      const lines = gsap.utils.toArray<SVGPathElement>("[data-qixin-computer-line]", computerRef.current);
+      const camera = computerRef.current?.querySelector<SVGCircleElement>("[data-qixin-computer-camera]");
+      const media = gsap.matchMedia();
+
+      media.add("(prefers-reduced-motion: no-preference)", () => {
+        gsap.fromTo(
+          lines,
+          { strokeDashoffset: 100 },
+          {
+            strokeDashoffset: 0,
+            duration: 1.15,
+            stagger: 0.16,
+            ease: "power1.inOut",
+            scrollTrigger: {
+              trigger: computerRef.current,
+              start: "top 82%",
+              once: true,
+            },
+          },
+        );
+
+        if (camera) {
+          gsap.fromTo(
+            camera,
+            { autoAlpha: 0 },
+            {
+              autoAlpha: 1,
+              duration: 0.28,
+              delay: 0.72,
+              scrollTrigger: {
+                trigger: computerRef.current,
+                start: "top 82%",
+                once: true,
+              },
+            },
+          );
+        }
+      });
+
+      media.add("(prefers-reduced-motion: reduce)", () => {
+        gsap.set(lines, { strokeDashoffset: 0 });
+        if (camera) gsap.set(camera, { autoAlpha: 1 });
+      });
+
+      return () => media.revert();
+    },
+    { scope: computerRef },
+  );
+
+  return (
+    <div
+      ref={computerRef}
+      aria-label="启信产业大脑电脑线稿"
+      className={`relative -mb-px ${SECTION_PAD}`}
+      data-qixin-computer-mockup="true"
+    >
+      <motion.h1
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7 }}
+        className="relative z-10 mx-auto max-w-[1348px] text-center tracking-tight text-[#1A1C24]"
+        style={T.heroTitle}
+      >
+        <span className="relative inline-block text-[#1A1C24]">
+          <span className="relative z-10">启信产业大脑</span>
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 360 92"
+            preserveAspectRatio="none"
+            className="pointer-events-none absolute -inset-x-[12%] -inset-y-[22%] z-0 h-[145%] w-[124%] overflow-visible"
+            fill="none"
+          >
+            <path
+              d="M 34 21 C 131 0 301 8 341 35 C 371 56 294 80 181 82 C 91 83 33 71 16 53"
+              stroke="#4777FF"
+              strokeWidth="5.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+        </span>
+        <br />
+        招商与产业分析的企业数据系统设计
+      </motion.h1>
+      <p className="mt-5 text-center text-[20px] leading-[1.6] text-[#696D7A]">
+        2021—2026 持续迭代 ·{" "}
+        <span className="relative isolate inline-block">
+          <span className="relative z-10">UI/UX 产品体验设计</span>
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 280 36"
+            preserveAspectRatio="none"
+            className="pointer-events-none absolute bottom-[1px] left-[-2%] z-0 h-[66%] w-[104%] overflow-visible"
+            fill="none"
+          >
+            <path
+              d="M 8 23 C 58 18 102 25 145 19 C 190 14 230 22 274 17"
+              stroke="#A8BEFF"
+              strokeWidth="16"
+              strokeLinecap="square"
+              strokeLinejoin="round"
+              opacity="0.72"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+        </span>
+      </p>
+
+      <div className="relative mt-2 mx-auto w-full max-w-[1600px]">
+        <svg
+          aria-hidden="true"
+          viewBox="0 0 1600 930"
+          className="block h-auto w-full overflow-visible"
+          fill="none"
+        >
+        <defs>
+          <clipPath id="qixin-computer-screen-clip">
+            <rect x="190" y="142" width="1220" height="763" rx="22" />
+          </clipPath>
+          <linearGradient
+            id="qixin-computer-line-fade"
+            x1="0"
+            y1="240"
+            x2="0"
+            y2="700"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop offset="0" stopColor="white" />
+            <stop offset="0.25" stopColor="white" />
+            <stop offset="1" stopColor="black" />
+          </linearGradient>
+          <mask id="qixin-computer-line-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="1600" height="720">
+            <rect width="1600" height="720" fill="url(#qixin-computer-line-fade)" />
+          </mask>
+          <filter id="qixin-computer-screen-shadow" x="-12%" y="-18%" width="124%" height="142%">
+            <feDropShadow dx="0" dy="18" stdDeviation="22" floodColor="#243B6B" floodOpacity="0.16" />
+          </filter>
+          <filter
+            id="qixin-computer-outline-shadow"
+            x="70"
+            y="0"
+            width="1460"
+            height="760"
+            filterUnits="userSpaceOnUse"
+          >
+            <feDropShadow dx="0" dy="12" stdDeviation="16" floodColor="#718098" floodOpacity="0.22" />
+          </filter>
+        </defs>
+        <g filter="url(#qixin-computer-outline-shadow)">
+          <path
+            d="M 158 620 V 112 Q 158 72 198 72 H 680 Q 700 72 700 92 V 101 Q 700 118 717 118 H 883 Q 900 118 900 101 V 92 Q 900 72 920 72 H 1402 Q 1442 72 1442 112 V 620 H 158 Z"
+            fill="#EEF1F6"
+            mask="url(#qixin-computer-line-mask)"
+          />
+          <path
+            d="M 126 620 V 118 Q 126 38 206 38 H 1394 Q 1474 38 1474 118 V 620 H 126 Z M 158 620 V 112 Q 158 72 198 72 H 680 Q 700 72 700 92 V 101 Q 700 118 717 118 H 883 Q 900 118 900 101 V 92 Q 900 72 920 72 H 1402 Q 1442 72 1442 112 V 620 H 158 Z"
+            fill="#F7F8FC"
+            fillRule="evenodd"
+            clipRule="evenodd"
+            mask="url(#qixin-computer-line-mask)"
+          />
+          <path
+            data-qixin-computer-line="outer"
+            d="M 126 680 V 118 Q 126 38 206 38 H 1394 Q 1474 38 1474 118 V 680"
+            pathLength="100"
+            stroke="#D8DBE4"
+            strokeWidth="1"
+            strokeDasharray="100"
+            strokeDashoffset="0"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            vectorEffect="non-scaling-stroke"
+            mask="url(#qixin-computer-line-mask)"
+          />
+          <path
+            data-qixin-computer-line="inner"
+            d="M 158 680 V 112 Q 158 72 198 72 H 680 Q 700 72 700 92 V 101 Q 700 118 717 118 H 883 Q 900 118 900 101 V 92 Q 900 72 920 72 H 1402 Q 1442 72 1442 112 V 680"
+            pathLength="100"
+            stroke="#D8DBE4"
+            strokeWidth="1"
+            strokeDasharray="100"
+            strokeDashoffset="0"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            vectorEffect="non-scaling-stroke"
+            mask="url(#qixin-computer-line-mask)"
+          />
+          <circle
+            data-qixin-computer-camera="true"
+            cx="800"
+            cy="78"
+            r="4.5"
+            fill="#FDFEFF"
+            stroke="#D8DBE4"
+            strokeWidth="1"
+            vectorEffect="non-scaling-stroke"
+          />
+        </g>
+        <g filter="url(#qixin-computer-screen-shadow)">
+          <image
+            href="./images/optimized/qixin-home-1920.jpg"
+            x="190"
+            y="142"
+            width="1220"
+            height="1086"
+            preserveAspectRatio="xMidYMin meet"
+            clipPath="url(#qixin-computer-screen-clip)"
+          />
+        </g>
+        </svg>
+
+        <img
+          src="./images/首页/login.png"
+          alt="登录页截图"
+          {...DETAIL_IMAGE_LAZY_PROPS}
+          className="absolute left-[-1%] top-[40%] z-20 w-[22%] rounded-lg border border-[#E6E7EB]"
+          style={{
+            boxShadow: "4px -4px 20px rgba(15,20,25,0.06)",
+          }}
+        />
+        <img
+          src="./images/首页/push group.png"
+          alt="推送分组截图"
+          {...DETAIL_IMAGE_LAZY_PROPS}
+          className="absolute right-[-1%] top-[52%] z-20 w-[18%] rounded-lg border border-[#E6E7EB]"
+          style={{
+            boxShadow: "-4px -4px 20px rgba(15,20,25,0.06)",
+          }}
+        />
+      </div>
+    </div>
+  );
+}
+
 export function QixinProjectDetail({ onBack }: Props) {
   const chainPointerRef = useRef({ x: -1, y: -1 });
   const chainSwitchPointRef = useRef({ x: -1, y: -1 });
@@ -3172,100 +3384,10 @@ export function QixinProjectDetail({ onBack }: Props) {
   return (
     <div className="relative z-10">
       <>
-      <section id="qx01" className={`relative pt-24 md:pt-28 overflow-hidden ${HERO_PAD}`}>
+      <section id="qx01" className="relative overflow-visible pb-12 pt-24 md:pb-20 md:pt-28">
         <AccentBlob side="right" />
-        <div className="relative w-full grid lg:grid-cols-[1.05fr_1fr] gap-12 xl:gap-16 items-start">
-          <div className="pt-6">
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7 }}
-              className="tracking-tight text-[#1A1C24]"
-              style={T.heroTitle}
-            >
-              <span className="bg-clip-text text-transparent" style={{ backgroundImage: "linear-gradient(135deg, #4777FF, #1E4DD6)" }}>
-                启信产业大脑
-              </span>
-              <br />
-              政府招商与产业分析的企业数据系统设计
-            </motion.h1>
-            <p className="mt-7" style={T.heroSub}>
-              从早期招商大脑功能迭代开始，逐步演进为覆盖产业洞察、精准招商、企业画像、报告中心、企业监控与 AI 报告联动的平台型系统。
-            </p>
-
-            <div className="mt-10 grid grid-cols-2 md:grid-cols-5 gap-x-7 gap-y-6">
-              {[
-                ["项目周期", "2021 - 2026"],
-                ["项目类型", "B 端数据平台"],
-                ["我的角色", "产品设计师"],
-                ["参与范围", "核心模块与规范"],
-                ["当前状态", "已上线并持续迭代"],
-              ].map(([label, value]) => (
-                <div key={label}>
-                  <div className="mb-2 text-[#1A1C24]/45" style={T.label}>{label}</div>
-                  <div className="text-[#1A1C24]" style={{ fontSize: 15, lineHeight: 1.55, fontWeight: 520 }}>{value}</div>
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-12 grid sm:grid-cols-2 gap-4">
-              {[
-                { icon: LayoutDashboard, title: "核心模块设计", desc: "首页、产业洞察、精准招商、企业画像、报告中心、企业监控" },
-                { icon: Boxes, title: "组件库建设", desc: "主导协同组内设计师从 0 到 1 建设 DGG 组件库与标品规范" },
-                { icon: Network, title: "自定义产业链", desc: "支持本地产业口径下的产业图谱配置与分析视图" },
-                { icon: Link2, title: "跨系统联动", desc: "企业分组通过权限体系关联到 AI 报告生成中的关联企业" },
-              ].map((item) => <Card key={item.title} {...item} />)}
-            </div>
-          </div>
-
-          <div className="mx-auto w-[92%] px-2 pt-2 relative lg:mt-[clamp(0px,calc(612px-34vw),190px)]">
-            <div
-              className="max-h-[640px] overflow-hidden rounded-t-3xl relative border-t border-l border-r border-[#E6E7EB]"
-            >
-              <img
-                src="./images/optimized/qixin-home-1920.jpg"
-                alt="启信产业大脑首页截图"
-                {...DETAIL_IMAGE_EAGER_PROPS}
-                className="block w-full rounded-none"
-              />
-              <div
-                className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-24"
-                style={{
-                  background: "linear-gradient(180deg, rgba(250,250,250,0), rgba(250,250,250,0.92))",
-                }}
-              />
-            </div>
-            <img
-              src="./images/首页/login.png"
-              alt="登录页截图"
-              {...DETAIL_IMAGE_LAZY_PROPS}
-              className="absolute -left-12 bottom-2 z-20 w-[28%] rounded-lg border border-[#E6E7EB]"
-              style={{
-                boxShadow: "4px -4px 20px rgba(15,20,25,0.06)",
-              }}
-            />
-            <img
-              src="./images/首页/push group.png"
-              alt="推送分组截图"
-              {...DETAIL_IMAGE_LAZY_PROPS}
-              className="absolute -right-12 bottom-4 z-10 w-[28%] rounded-lg border border-[#E6E7EB]"
-              style={{
-                boxShadow: "-4px -4px 20px rgba(15,20,25,0.06)",
-              }}
-            />
-          </div>
-        </div>
-
+        <QixinComputerMockup />
       </section>
-
-      <div className={`relative z-30 ${SECTION_PAD}`}>
-        <div
-          className="h-px w-full"
-          style={{
-            background: "linear-gradient(90deg, transparent 0%, #E6E7EB 35%, #E6E7EB 65%, transparent 100%)",
-          }}
-        />
-      </div>
 
       <section id="qx02" className={`relative pt-20 pb-10 md:pt-28 md:pb-14 ${SECTION_PAD}`}>
         <div className={BUSINESS_READ}>
