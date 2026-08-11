@@ -594,6 +594,7 @@ export function ProjectDetail({ onBack }: Props) {
   const [flowProgress, setFlowProgress] = useState(0);
   const [heroToggleIndex, setHeroToggleIndex] = useState(0);
   const [activeValidationIndex, setActiveValidationIndex] = useState(0);
+  const [activeInterview, setActiveInterview] = useState<number | null>(null);
   const flowSectionRef = useRef<HTMLElement | null>(null);
   const flowStageRef = useRef<HTMLDivElement | null>(null);
   const activeStepRef = useRef(0);
@@ -713,6 +714,49 @@ export function ProjectDetail({ onBack }: Props) {
     "M 70 76 C 77 76 84 52 90 50",
   ];
   const journeyPath = journeyPathSegments.join(" ");
+
+  const interviewDetailContent = [
+    {
+      round: "第一轮访谈",
+      title: "最近一次报告任务回溯",
+      goal: "通过最近一次真实任务，梳理需求来源、生产流程与交付方式。",
+      points: [
+        "报告完成时间与类型",
+        "需求由谁提出，以及最初要求和材料",
+        "从接到任务到审核交付的具体步骤",
+        "使用的工具与数据来源",
+        "最耗时、最易返工或最没把握的环节",
+      ],
+      conclusion: "报告生产是一条包含需求提出、材料整理、结构确认、内容生产和核查交付的完整链路。",
+    },
+    {
+      round: "第二轮访谈",
+      title: "竞品案例讨论与产品机会识别",
+      goal: "基于项目当时的豆包、天工版本，用具体案例帮助用户表达对 AI 生成与资料处理的期待与顾虑。",
+      points: [
+        "天工当时的生成内容可控性不足，且该版本缺少知识库能力",
+        "豆包当时对本地文件的解析效果不够稳定",
+        "天工和豆包在生成前提供范围与结构确认，这一机制值得吸收",
+        "用户还需要查看生成内容对应的材料与来源",
+      ],
+      conclusion: "结合公司 OCR 能力强化本地材料解析，吸收生成前范围与结构确认机制，并补充知识库与来源追溯能力。",
+    },
+    {
+      round: "第三轮访谈",
+      title: "MVP 原型讨论",
+      goal: "使用 MVP 原型与用户讨论主要流程和功能边界，确认方向是否贴近真实工作方式。",
+      points: [
+        "模板、范围与大纲配置是否易理解",
+        "用户是否清楚当前生成阶段",
+        "生成结果如何查看、修改与继续使用",
+        "历史报告如何保存、查找与复用",
+        "内容来源如何查看和核查",
+      ],
+      conclusion: "通过 MVP 原型讨论，产品方向未出现明显偏差；围绕历史材料复用、报告查找与来源核查的讨论，共同识别出历史文档统一管理与来源展示等产品机会。",
+    },
+  ];
+  const activeInterviewDetail =
+    activeInterview === null ? null : interviewDetailContent[activeInterview];
 
   useEffect(() => {
     const timer = window.setInterval(() => {
@@ -898,7 +942,7 @@ export function ProjectDetail({ onBack }: Props) {
       {/* ===== 01. HERO / Overview — centered product hero ===== */}
       <section
         id="s01"
-        className={`relative min-h-[100svh] pt-28 md:pt-32 pb-10 md:pb-14 ${SECTION_PAD} overflow-visible`}
+        className={`relative pt-28 md:pt-32 pb-10 md:pb-14 ${SECTION_PAD} overflow-visible`}
       >
         <div
           className="pointer-events-none absolute left-1/2 top-[-220px] z-0 h-[calc(100%+520px)] w-[150vw] -translate-x-1/2"
@@ -1065,6 +1109,576 @@ export function ProjectDetail({ onBack }: Props) {
               );
             })}
           </motion.div>
+        </div>
+      </section>
+
+      {/* ===== 02. Product scope and user goals ===== */}
+      <section
+        id="s02-product-scope"
+        className={`relative overflow-x-clip ${SECTION_PAD}`}
+      >
+        <div className={`mx-auto flex w-full max-w-[1400px] flex-col py-16 md:py-20 ${READ}`}>
+          <div className="mx-auto mb-10 max-w-[940px] text-center md:mb-12">
+            <h2 className="tracking-tight text-[#1A1C24]" style={T.h2}>
+              确定产品范围和用户目标
+            </h2>
+          </div>
+
+          <div className="relative overflow-visible rounded-[28px] border border-[#E6E7EB] bg-white">
+            <div className="relative min-h-[1940px] rounded-[27px] bg-white sm:min-h-[1760px] md:min-h-[1700px] lg:h-[900px] lg:min-h-0 lg:aspect-auto 2xl:h-[760px]">
+              <div
+                aria-hidden="true"
+                className="absolute bottom-3 left-7 right-3 top-7 rounded-[18px] border border-[#E6E7EB] sm:bottom-4 sm:left-8 sm:right-4 sm:top-8"
+              >
+                <div
+                  className="absolute inset-0 rounded-[17px]"
+                  style={{
+                    backgroundColor: "#FFFFFF",
+                    backgroundImage:
+                      "linear-gradient(rgba(107, 120, 150, 0.075) 1px, transparent 1px), linear-gradient(90deg, rgba(107, 120, 150, 0.075) 1px, transparent 1px), linear-gradient(rgba(107, 120, 150, 0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(107, 120, 150, 0.035) 1px, transparent 1px)",
+                    backgroundSize: "112px 112px, 112px 112px, 28px 28px, 28px 28px",
+                  }}
+                />
+
+                <div className="absolute inset-x-0 top-0 grid -translate-y-[calc(100%+9px)] grid-cols-17 px-1">
+                  {Array.from({ length: 17 }, (_, index) => String(index).padStart(2, "0")).map((mark) => (
+                    <span
+                      key={mark}
+                      className="relative text-center text-[8px] font-medium tabular-nums text-[#7F8AA3] sm:text-[9px]"
+                    >
+                      {mark}
+                      <span className="absolute left-1/2 top-[calc(100%+3px)] h-1.5 w-px -translate-x-1/2 bg-[#AAB2C2]" />
+                    </span>
+                  ))}
+                </div>
+
+                <div className="absolute inset-y-0 left-0 grid -translate-x-[calc(100%+9px)] grid-rows-10 py-1">
+                  {Array.from({ length: 10 }, (_, index) => String(index).padStart(2, "0")).map((mark) => (
+                    <span
+                      key={mark}
+                      className="relative flex items-center justify-end text-[8px] font-medium tabular-nums text-[#7F8AA3] sm:text-[9px]"
+                    >
+                      {mark}
+                      <span className="absolute left-[calc(100%+3px)] top-1/2 h-px w-1.5 -translate-y-1/2 bg-[#AAB2C2]" />
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <motion.div
+                aria-label="研究访谈范围"
+                aria-hidden={activeInterview !== null}
+                animate={{ opacity: activeInterview === null ? 1 : 0 }}
+                transition={{ duration: 0.16, ease: "easeOut" }}
+                className={`absolute left-[52px] top-[52px] z-10 flex flex-wrap items-center gap-x-7 gap-y-3 sm:left-16 sm:top-16 ${activeInterview === null ? "" : "pointer-events-none"}`}
+              >
+                {[
+                  {
+                    label: "1 家客户",
+                    color: "#E5EBFF",
+                    rotation: "-1.2deg",
+                    wrapperTransform: "translateY(0) rotate(-0.7deg)",
+                    clipPath: "polygon(1% 18%, 10% 10%, 24% 15%, 38% 7%, 55% 13%, 70% 5%, 86% 12%, 99% 8%, 97% 88%, 82% 94%, 65% 89%, 48% 96%, 31% 90%, 14% 95%, 2% 86%)",
+                  },
+                  {
+                    label: "4 位业务参与者",
+                    color: "#F3E7FF",
+                    rotation: "0.8deg",
+                    wrapperTransform: "translateY(9px) rotate(0.8deg)",
+                    clipPath: "polygon(2% 10%, 18% 15%, 34% 7%, 51% 12%, 67% 5%, 83% 13%, 99% 9%, 97% 91%, 80% 87%, 62% 95%, 45% 89%, 27% 96%, 10% 90%, 1% 94%)",
+                  },
+                  {
+                    label: "3 轮访谈",
+                    color: "#FFF6DB",
+                    rotation: "-0.5deg",
+                    wrapperTransform: "translateY(3px) rotate(-0.4deg)",
+                    clipPath: "polygon(1% 14%, 15% 7%, 30% 13%, 46% 6%, 63% 12%, 79% 5%, 98% 11%, 99% 88%, 84% 95%, 68% 89%, 50% 96%, 33% 90%, 17% 94%, 2% 87%)",
+                  },
+                ].map((item) => (
+                  <span
+                    key={item.label}
+                    className="relative inline-flex whitespace-nowrap px-1 text-[16px] font-medium leading-[1.5] text-[#4E525E] sm:text-[18px] lg:text-[20px]"
+                    style={{ transform: item.wrapperTransform }}
+                  >
+                    <span
+                      aria-hidden="true"
+                      className="absolute inset-x-0 bottom-0 z-0 h-[58%] origin-center"
+                      style={{
+                        backgroundColor: item.color,
+                        clipPath: item.clipPath,
+                        transform: `rotate(${item.rotation})`,
+                      }}
+                    />
+                    <span className="relative z-10">{item.label}</span>
+                  </span>
+                ))}
+              </motion.div>
+
+              <motion.div
+                aria-label="四位业务参与者"
+                aria-hidden={activeInterview !== null}
+                animate={{ opacity: activeInterview === null ? 1 : 0 }}
+                transition={{ duration: 0.16, ease: "easeOut" }}
+                className={`absolute left-[52px] right-6 top-[124px] z-10 flex flex-wrap items-start gap-3 sm:left-16 sm:right-8 sm:gap-4 lg:right-[41%] ${activeInterview === null ? "" : "pointer-events-none"}`}
+              >
+                {[
+                  { file: "01.png", rotation: "-3.2deg", offsetX: "0px", offsetY: "0px", tapeColor: "rgba(202, 216, 225, 0.72)", tapeLeft: "8%", tapeTop: "0", tapeWidth: "30%", tapeRotation: "-7deg" },
+                  { file: "02.png", rotation: "2.6deg", offsetX: "6px", offsetY: "20px", tapeColor: "rgba(213, 224, 207, 0.7)", tapeLeft: "18%", tapeTop: "0", tapeWidth: "27%", tapeRotation: "5deg" },
+                  { file: "03.png", rotation: "-2.2deg", offsetX: "-5px", offsetY: "-4px", tapeColor: "rgba(207, 220, 226, 0.68)", tapeLeft: "52%", tapeTop: "0", tapeWidth: "32%", tapeRotation: "-4deg" },
+                  { file: "04.png", rotation: "3deg", offsetX: "4px", offsetY: "26px", tapeColor: "rgba(218, 226, 210, 0.72)", tapeLeft: "62%", tapeTop: "0", tapeWidth: "28%", tapeRotation: "7deg" },
+                ].map((participant, index) => (
+                  <figure
+                    key={participant.file}
+                    className="relative flex aspect-square w-28 items-center justify-center rounded-[3px] border border-[#E6E7EB] bg-white p-1.5 shadow-[0_3px_10px_rgba(28,36,52,0.07)] sm:w-36 lg:w-40"
+                    style={{
+                      transform: `translate(${participant.offsetX}, ${participant.offsetY}) rotate(${participant.rotation})`,
+                    }}
+                  >
+                    <span
+                      aria-hidden="true"
+                      className="pointer-events-none absolute z-10 h-[15px] shadow-[0_1px_2px_rgba(55,67,74,0.08)] sm:h-[17px] lg:h-5"
+                      style={{
+                        left: participant.tapeLeft,
+                        top: participant.tapeTop,
+                        width: participant.tapeWidth,
+                        backgroundColor: participant.tapeColor,
+                        backgroundImage:
+                          "linear-gradient(90deg, rgba(255,255,255,0.2), rgba(255,255,255,0.02) 42%, rgba(72,87,94,0.05))",
+                        clipPath:
+                          "polygon(2% 12%, 13% 5%, 28% 10%, 43% 3%, 58% 9%, 73% 4%, 98% 11%, 96% 88%, 82% 94%, 67% 89%, 51% 97%, 36% 91%, 20% 96%, 3% 87%)",
+                        transform: `translateY(-50%) rotate(${participant.tapeRotation})`,
+                      }}
+                    />
+                    <img
+                      src={`./images/ai报告人物动画/${participant.file}`}
+                      alt={`业务参与者 ${index + 1}`}
+                      className="h-full w-full object-contain"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </figure>
+                ))}
+              </motion.div>
+
+              <div
+                aria-label="三轮访谈记录"
+                className="absolute left-[52px] right-6 top-[450px] z-20 flex flex-col gap-8 overflow-visible sm:left-16 sm:right-8 sm:top-[500px] md:top-[490px] lg:left-auto lg:right-[8%] lg:top-[90px] lg:w-[39%] lg:max-w-[450px] lg:gap-4"
+                onPointerLeave={() => setActiveInterview(null)}
+                onBlur={(event) => {
+                  if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
+                    setActiveInterview(null);
+                  }
+                }}
+              >
+                {[
+                  {
+                    round: "第一轮访谈",
+                    title: "还原真实任务",
+                    body: "从最近一次报告切入，确认需求由谁提出、如何完成，以及谁负责审核交付。",
+                    conclusion: "还原真实的报告生产链路。",
+                    color: "#FFFEF7",
+                    borderColor: "#DED9CE",
+                    transform: "translate(-2px, 0) rotate(-0.8deg)",
+                    tapeColor: "rgba(202, 216, 225, 0.72)",
+                    tapeLeft: "8%",
+                    tapeWidth: "40%",
+                    tapeRotation: "-5deg",
+                  },
+                  {
+                    round: "第二轮访谈",
+                    title: "验证产品方向",
+                    body: "对比当时豆包、天工在生成控制、知识库、本地文件解析与生成前确认上的体验差异。",
+                    conclusion: "结合 OCR 优势，吸收生成前确认机制，并补充知识库与来源追溯。",
+                    color: "#EEF4FF",
+                    borderColor: "#C9D8F4",
+                    transform: "translate(8px, 8px) rotate(0.8deg)",
+                    tapeColor: "rgba(214, 224, 208, 0.72)",
+                    tapeLeft: "51%",
+                    tapeWidth: "38%",
+                    tapeRotation: "4deg",
+                  },
+                  {
+                    round: "第三轮访谈",
+                    title: "MVP 原型讨论",
+                    body: "结合初步原型讨论真实使用方式，围绕历史材料复用共同推演文档管理与知识库机会。",
+                    conclusion: "将历史文档管理和来源展示纳入产品范围。",
+                    color: "#F1F8EA",
+                    borderColor: "#C7D9B8",
+                    transform: "translate(24px, 18px) rotate(-0.6deg)",
+                    tapeColor: "rgba(207, 220, 226, 0.7)",
+                    tapeLeft: "27%",
+                    tapeWidth: "46%",
+                    tapeRotation: "-3deg",
+                  },
+                ].map((interview, index) => (
+                  <div
+                    key={interview.round}
+                    className="relative overflow-visible"
+                    style={{ transform: interview.transform }}
+                  >
+                    <motion.article
+                      tabIndex={0}
+                      aria-label={`${interview.round}：${interview.title}，查看访谈详情`}
+                      className="relative cursor-pointer overflow-visible rounded-[8px] border px-5 pb-5 pt-7 outline-none focus-visible:ring-2 focus-visible:ring-[#85A3FF] focus-visible:ring-offset-2 sm:px-6 sm:pb-6 sm:pt-8 lg:px-5 lg:pb-5"
+                      style={{
+                        backgroundColor: interview.color,
+                        borderColor: interview.borderColor,
+                      }}
+                      animate={{
+                        y: activeInterview === index ? -7 : 0,
+                        scale: activeInterview === index ? 1.015 : 1,
+                        boxShadow:
+                          activeInterview === index
+                            ? "0 10px 24px rgba(28,36,52,0.11)"
+                            : "0 5px 14px rgba(28,36,52,0.065)",
+                      }}
+                      transition={{ type: "spring", stiffness: 360, damping: 26, mass: 0.65 }}
+                      onPointerEnter={() => {
+                        if (window.matchMedia("(min-width: 1024px)").matches) {
+                          setActiveInterview(index);
+                        }
+                      }}
+                      onFocus={() => {
+                        if (window.matchMedia("(min-width: 1024px)").matches) {
+                          setActiveInterview(index);
+                        }
+                      }}
+                      onClick={() => {
+                        if (
+                          window.matchMedia("(min-width: 1024px)").matches &&
+                          window.matchMedia("(hover: none)").matches
+                        ) {
+                          setActiveInterview(index);
+                        }
+                      }}
+                    >
+                      <span
+                        aria-hidden="true"
+                        className="pointer-events-none absolute top-0 z-10 h-6 shadow-[0_1px_2px_rgba(55,67,74,0.08)] sm:h-7 lg:h-8"
+                        style={{
+                          left: interview.tapeLeft,
+                          width: interview.tapeWidth,
+                          backgroundColor: interview.tapeColor,
+                          backgroundImage:
+                            "linear-gradient(90deg, rgba(255,255,255,0.22), rgba(255,255,255,0.03) 44%, rgba(72,87,94,0.05))",
+                          clipPath:
+                            "polygon(2% 12%, 14% 5%, 29% 10%, 44% 3%, 59% 9%, 74% 4%, 98% 11%, 96% 88%, 82% 94%, 67% 89%, 51% 97%, 36% 91%, 20% 96%, 3% 87%)",
+                          transform: `translateY(-30%) rotate(${interview.tapeRotation})`,
+                        }}
+                      />
+
+                      <h3 className="whitespace-nowrap text-[15px] font-semibold leading-[1.4] tracking-[-0.015em] text-[#2D3442] sm:text-[18px] lg:text-[20px]">
+                        {interview.round}：{interview.title}
+                      </h3>
+                      <p className="mt-3 text-[16px] leading-[1.7] text-[#4E525E]">
+                        {interview.body}
+                      </p>
+                      <div className="mt-4 border-t border-[rgba(78,82,94,0.14)] pt-3">
+                        <div className="text-[12px] font-semibold leading-[1.4] tracking-[0.08em] text-[#737B8C]">
+                          访谈结论
+                        </div>
+                        <p className="mt-1 text-[15px] font-medium leading-[1.65] text-[#3E4655] sm:text-[16px]">
+                          {interview.conclusion}
+                        </p>
+                      </div>
+                    </motion.article>
+                  </div>
+                ))}
+              </div>
+
+              <motion.section
+                aria-label="访谈结论总览"
+                aria-hidden={activeInterview !== null}
+                animate={{ opacity: activeInterview === null ? 1 : 0 }}
+                transition={{ duration: 0.16, ease: "easeOut" }}
+                className={`absolute left-[52px] right-6 top-[1320px] z-20 sm:left-16 sm:right-8 sm:top-[1280px] md:top-[1240px] lg:left-[4%] lg:right-auto lg:top-[500px] lg:w-[44%] lg:max-w-[500px] 2xl:top-[340px] ${activeInterview === null ? "" : "pointer-events-none"}`}
+              >
+                <h3 className="relative inline-block text-[26px] font-semibold leading-[1.3] text-[#1A1C24] sm:text-[28px] lg:text-[30px]">
+                  <span className="relative z-10">访谈结论</span>
+                  <svg
+                    aria-hidden="true"
+                    viewBox="0 0 190 70"
+                    preserveAspectRatio="none"
+                    className="pointer-events-none absolute -inset-x-[15%] -inset-y-[25%] z-0 h-[160%] w-[130%] overflow-visible"
+                    fill="none"
+                  >
+                    <path
+                      d="M 26 40 C 34 9 82 0 130 8 C 155 12 171 21 178 32"
+                      stroke="#4777FF"
+                      strokeWidth="2.4"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      vectorEffect="non-scaling-stroke"
+                    />
+                    <path
+                      d="M 164 54 C 139 68 98 71 65 66 C 54 64 48 62 44 59"
+                      stroke="#A8BEFF"
+                      strokeWidth="1.8"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      vectorEffect="non-scaling-stroke"
+                    />
+                  </svg>
+                </h3>
+
+                <div className="mt-8 space-y-6">
+                  {[
+                    {
+                      label: "服务对象",
+                      text: "承担报告内容生产与交付的专业用户，覆盖产业研究、经济分析、监测研判等报告场景。",
+                      color: "#E5EBFF",
+                      rotation: "-0.8deg",
+                      clipPath: "polygon(1% 15%, 12% 7%, 27% 13%, 43% 5%, 59% 11%, 75% 4%, 98% 10%, 97% 89%, 82% 95%, 66% 89%, 49% 96%, 32% 90%, 16% 95%, 2% 87%)",
+                    },
+                    {
+                      label: "用户目标",
+                      text: "提升报告生产效率，同时保留范围确认、过程控制与来源核查。",
+                      color: "#F3E7FF",
+                      rotation: "0.7deg",
+                      clipPath: "polygon(2% 10%, 18% 15%, 34% 7%, 51% 12%, 67% 5%, 83% 13%, 99% 9%, 97% 91%, 80% 87%, 62% 95%, 45% 89%, 27% 96%, 10% 90%, 1% 94%)",
+                    },
+                    {
+                      label: "首期产品范围",
+                      items: [
+                        "历史文档统一管理",
+                        "利用公司 OCR 技术解析本地材料",
+                        "模板及大纲确认",
+                        "基于材料生成内容",
+                        "来源展示与历史报告留存",
+                      ],
+                      color: "#FFF6DB",
+                      rotation: "-0.5deg",
+                      clipPath: "polygon(1% 14%, 15% 7%, 30% 13%, 46% 6%, 63% 12%, 79% 5%, 98% 11%, 99% 88%, 84% 95%, 68% 89%, 50% 96%, 33% 90%, 17% 94%, 2% 87%)",
+                    },
+                  ].map((item) => (
+                    <div
+                      key={item.label}
+                      className="grid gap-2 sm:grid-cols-[auto_minmax(0,1fr)] sm:items-start sm:gap-4"
+                    >
+                      <span className="relative inline-flex w-fit whitespace-nowrap px-1 text-[17px] font-semibold leading-[1.55] text-[#4E525E] sm:text-[18px]">
+                        <span
+                          aria-hidden="true"
+                          className="absolute inset-x-0 bottom-0 z-0 h-[60%]"
+                          style={{
+                            backgroundColor: item.color,
+                            clipPath: item.clipPath,
+                            transform: `rotate(${item.rotation})`,
+                          }}
+                        />
+                        <span className="relative z-10">{item.label}</span>
+                      </span>
+                      {item.items ? (
+                        <ul className="space-y-1.5 text-[17px] leading-[1.65] text-[#4E525E] sm:text-[18px]">
+                          {item.items.map((capability) => (
+                            <li key={capability} className="flex items-start gap-2.5">
+                              <span className="mt-[0.72em] size-1.5 shrink-0 rounded-full bg-[#4777FF]" />
+                              <span>{capability}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      ) : (
+                        <p className="text-[17px] leading-[1.7] text-[#4E525E] sm:text-[18px]">
+                          {item.text}
+                        </p>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </motion.section>
+
+              <motion.section
+                aria-label="我的角色与参与"
+                aria-hidden={activeInterview !== null}
+                animate={{ opacity: activeInterview === null ? 1 : 0 }}
+                transition={{ duration: 0.16, ease: "easeOut" }}
+                className={`absolute z-20 hidden 2xl:left-[40%] 2xl:top-[440px] 2xl:block 2xl:w-[280px] 2xl:max-w-[280px] ${activeInterview === null ? "" : "pointer-events-none"}`}
+                style={{
+                  filter:
+                    "drop-shadow(0 2px 4px rgba(28,36,52,0.055)) drop-shadow(0 8px 16px rgba(28,36,52,0.025))",
+                  transform: "rotate(-0.8deg)",
+                }}
+              >
+                <svg
+                  aria-hidden="true"
+                  viewBox="0 0 420 360"
+                  preserveAspectRatio="none"
+                  className="absolute inset-0 h-full w-full overflow-visible"
+                >
+                  <defs>
+                    <mask id="ai-report-role-note-torn-mask">
+                      <path
+                        d="M 0 18 L 18 5 L 36 15 L 55 3 L 74 14 L 94 4 L 114 16 L 135 3 L 156 14 L 178 5 L 200 15 L 222 3 L 244 14 L 266 4 L 288 16 L 310 3 L 332 14 L 354 5 L 376 15 L 398 4 L 420 17 V 360 H 0 Z"
+                        fill="white"
+                      />
+                    </mask>
+                  </defs>
+                  <g mask="url(#ai-report-role-note-torn-mask)">
+                    <rect width="420" height="360" fill="#EAF1FF" />
+                    <rect
+                      x="0"
+                      y="0"
+                      width="420"
+                      height="360"
+                      fill="url(#ai-report-role-note-wash)"
+                      opacity="0.28"
+                    />
+                  </g>
+                  <path
+                    d="M 0 18 L 18 5 L 36 15 L 55 3 L 74 14 L 94 4 L 114 16 L 135 3 L 156 14 L 178 5 L 200 15 L 222 3 L 244 14 L 266 4 L 288 16 L 310 3 L 332 14 L 354 5 L 376 15 L 398 4 L 420 17 V 360 H 0 Z"
+                    fill="none"
+                    stroke="#B9C9EA"
+                    strokeWidth="1.2"
+                    opacity="0.75"
+                    vectorEffect="non-scaling-stroke"
+                  />
+                  <defs>
+                    <linearGradient id="ai-report-role-note-wash" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0" stopColor="#FFFFFF" />
+                      <stop offset="0.52" stopColor="#EAF1FF" />
+                      <stop offset="1" stopColor="#DCE7FA" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+
+                <div className="relative z-10 px-5 pb-5 pt-7 sm:px-6 sm:pb-6 sm:pt-8 lg:px-5 lg:pb-5 lg:pt-7">
+                  <h3 className="text-[20px] font-semibold leading-[1.3] text-[#252B36]">
+                    我的角色
+                  </h3>
+
+                  <div className="mt-3">
+                    <span className="text-[16px] font-medium text-[#35404F]">产品设计师</span>
+                  </div>
+
+                  <div className="mt-4">
+                    <div className="text-[14px] font-semibold tracking-[0.06em] text-[#596174]">
+                      如何参与
+                    </div>
+                    <p className="mt-1.5 text-[14px] leading-[1.55] text-[#4E525E]">
+                      通过 3 轮用户访谈与竞品体验对比，梳理报告生产链路，并结合公司 OCR 能力推动 MVP 范围收敛。
+                    </p>
+                  </div>
+
+                  <div className="mt-4">
+                    <div className="text-[14px] font-semibold tracking-[0.06em] text-[#596174]">
+                      主要职责
+                    </div>
+                    <ul className="mt-1.5 space-y-1 text-[14px] leading-[1.55] text-[#4E525E]">
+                      {["用户研究与需求分析", "交互设计与 UI 设计"].map((responsibility) => (
+                        <li key={responsibility} className="flex items-start gap-2.5">
+                          <span className="mt-[0.72em] size-1.5 shrink-0 rounded-full bg-[#85A3FF]" />
+                          <span>{responsibility}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </motion.section>
+
+              <AnimatePresence mode="wait">
+                {activeInterviewDetail ? (
+                  <motion.section
+                    key={activeInterviewDetail.round}
+                    aria-label={`${activeInterviewDetail.round}详情`}
+                    className="pointer-events-none absolute left-[6%] top-[78px] z-30 hidden w-[45%] max-w-[570px] lg:block lg:min-h-[660px] xl:min-h-[690px]"
+                    style={{
+                      filter:
+                        "drop-shadow(0 2px 4px rgba(28,36,52,0.055)) drop-shadow(0 7px 14px rgba(28,36,52,0.025))",
+                    }}
+                    initial={{ opacity: 0, x: -8, y: 8, rotate: -1 }}
+                    animate={{ opacity: 1, x: 0, y: 0, rotate: -0.25 }}
+                    exit={{ opacity: 0, x: -5, y: 4, rotate: -0.7 }}
+                    transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
+                  >
+                    <svg
+                      aria-hidden="true"
+                      viewBox="0 0 600 720"
+                      preserveAspectRatio="none"
+                      className="absolute inset-0 h-full w-full overflow-visible"
+                    >
+                      <defs>
+                        <pattern
+                          id="ai-report-interview-detail-lines"
+                          width="600"
+                          height="34"
+                          patternUnits="userSpaceOnUse"
+                        >
+                          <rect width="600" height="34" fill="#FFFEF7" />
+                          <line
+                            x1="0"
+                            y1="33"
+                            x2="600"
+                            y2="33"
+                            stroke="#D7E3F1"
+                            strokeWidth="1.2"
+                            opacity="0.78"
+                          />
+                        </pattern>
+                        <mask id="ai-report-interview-detail-torn-mask">
+                          <path
+                            d="M 24 0 H 600 V 720 H 18 L 23 686 L 10 650 L 24 615 L 12 580 L 24 542 L 9 506 L 23 468 L 11 430 L 24 392 L 8 352 L 23 314 L 12 274 L 24 234 L 9 194 L 22 154 L 11 112 L 24 72 L 10 34 Z"
+                            fill="white"
+                          />
+                        </mask>
+                      </defs>
+                      <g mask="url(#ai-report-interview-detail-torn-mask)">
+                        <rect width="600" height="720" fill="url(#ai-report-interview-detail-lines)" />
+                        <line
+                          x1="82"
+                          y1="0"
+                          x2="82"
+                          y2="720"
+                          stroke="#D79A9A"
+                          strokeWidth="1.4"
+                          opacity="0.42"
+                        />
+                      </g>
+                    </svg>
+
+                    <div className="relative z-10 py-8 pl-16 pr-7 sm:py-9 sm:pl-[76px] sm:pr-9">
+                      <div className="text-[14px] font-semibold tracking-[0.08em] text-[#4777FF]">
+                        {activeInterviewDetail.round}
+                      </div>
+                      <h3 className="mt-2 text-[24px] font-semibold leading-[1.3] tracking-tight text-[#252B36] xl:text-[26px]">
+                        {activeInterviewDetail.title}
+                      </h3>
+
+                      <div className="mt-6">
+                        <div className="text-[14px] font-semibold tracking-[0.08em] text-[#737B8C]">
+                          研究目标
+                        </div>
+                        <p className="mt-2 text-[16px] leading-[1.75] text-[#4E525E] xl:text-[17px]">
+                          {activeInterviewDetail.goal}
+                        </p>
+                      </div>
+
+                      <div className="mt-6">
+                        <div className="text-[14px] font-semibold tracking-[0.08em] text-[#737B8C]">
+                          关键讨论
+                        </div>
+                        <ul className="mt-2.5 space-y-2 text-[16px] leading-[1.65] text-[#4E525E] xl:text-[17px]">
+                          {activeInterviewDetail.points.map((point) => (
+                            <li key={point} className="flex items-start gap-2.5">
+                              <span className="mt-[0.72em] size-1.5 shrink-0 rounded-full bg-[#85A3FF]" />
+                              <span>{point}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      <div className="mt-6 border-t border-[#DED9CE] pt-4">
+                        <div className="text-[14px] font-semibold tracking-[0.08em] text-[#737B8C]">
+                          访谈结论
+                        </div>
+                        <p className="mt-2 text-[16px] font-medium leading-[1.7] text-[#35404F] xl:text-[17px]">
+                          {activeInterviewDetail.conclusion}
+                        </p>
+                      </div>
+                    </div>
+                  </motion.section>
+                ) : null}
+              </AnimatePresence>
+            </div>
+          </div>
         </div>
       </section>
 

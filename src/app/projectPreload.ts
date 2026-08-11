@@ -33,7 +33,6 @@ const AI_FLOW_IMAGES = [
   "./images/ai-report-flow/step-01-final-template-center.png",
   "./images/ai-report-flow/step-02-final-outline.png",
   "./images/ai-report-flow/step-02-final-outline-02.png",
-  "./images/optimized/ai-outline-confirm-900.png",
   "./images/04/kongbaihuabu.png",
   "./images/04/liushihuaban.png",
   "./images/optimized/ai-stream-text-1400.jpg",
@@ -168,7 +167,6 @@ const AI_REMAINDER_IMAGE_STAGES = [
   [
     "./images/ai-report-flow/step-02-final-outline.png",
     "./images/ai-report-flow/step-02-final-outline-02.png",
-    "./images/optimized/ai-outline-confirm-900.png",
     "./images/04/kongbaihuabu.png",
     "./images/04/liushihuaban.png",
     "./images/optimized/ai-stream-text-1400.jpg",

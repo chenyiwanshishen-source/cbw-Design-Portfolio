@@ -640,10 +640,45 @@ export function ResearchPaperCanvas({
             onRefresh: (self) => updateProgressState(self.progress),
           });
 
-          const refreshFrame = window.requestAnimationFrame(() => ScrollTrigger.refresh());
+          let cancelled = false;
+          let refreshFrame: number | null = null;
+
+          const scheduleRefresh = () => {
+            if (cancelled || refreshFrame !== null) return;
+
+            refreshFrame = window.requestAnimationFrame(() => {
+              refreshFrame = null;
+              if (!cancelled) ScrollTrigger.refresh();
+            });
+          };
+
+          const upstreamSections = ["#s02-product-scope", "#s02"]
+            .map((selector) => document.querySelector<HTMLElement>(selector))
+            .filter((element): element is HTMLElement => element !== null);
+          const upstreamResizeObserver =
+            typeof ResizeObserver === "undefined"
+              ? null
+              : new ResizeObserver(() => scheduleRefresh());
+
+          upstreamSections.forEach((upstreamSection) =>
+            upstreamResizeObserver?.observe(upstreamSection)
+          );
+
+          const handlePageLoad = () => scheduleRefresh();
+          if (document.readyState === "complete") {
+            scheduleRefresh();
+          } else {
+            window.addEventListener("load", handlePageLoad, { once: true });
+          }
+
+          document.fonts?.ready.then(() => scheduleRefresh());
+          scheduleRefresh();
 
           return () => {
-            window.cancelAnimationFrame(refreshFrame);
+            cancelled = true;
+            upstreamResizeObserver?.disconnect();
+            window.removeEventListener("load", handlePageLoad);
+            if (refreshFrame !== null) window.cancelAnimationFrame(refreshFrame);
             pinTrigger.kill();
             stepTimeline.kill();
           };
