@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -18,7 +18,6 @@ import {
   Users,
   CheckCircle2,
   Compass,
-  Workflow,
   ListChecks,
   PenLine,
   Search,
@@ -30,6 +29,8 @@ import { Placeholder } from "./Placeholder";
 import { Footer } from "./Footer";
 import { ResearchPaperCanvas } from "./ResearchPaperCanvas";
 import { hideContactDetails } from "../buildVariant";
+import reportSummaryPaper from "../../assets/ai-report/summary-paper-grid-v1.png";
+import reportSummaryPaperMobile from "../../assets/ai-report/summary-paper-grid-mobile-v1.png";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -222,6 +223,131 @@ function Reveal({
     >
       {children}
     </motion.div>
+  );
+}
+
+function ReportProjectSummary() {
+  const shouldReduceMotion = useReducedMotion();
+
+  return (
+    <motion.section
+      aria-labelledby="ai-report-project-summary-title"
+      className="relative mx-auto mt-16 min-h-[656px] w-full max-w-[1080px] overflow-visible sm:min-h-[680px]"
+      initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
+      whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.72, ease: [0.22, 1, 0.36, 1] }}
+    >
+      <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 z-0 h-[620px] sm:h-auto sm:aspect-[1672/941]">
+        <img
+          src={reportSummaryPaperMobile}
+          alt=""
+          className="absolute inset-0 h-full w-full -translate-x-3 translate-y-5 rotate-[-2.4deg] object-fill opacity-95 sm:-translate-x-5 sm:translate-y-6"
+          style={{
+            filter:
+              "brightness(1.025) saturate(0.72) sepia(0.1) hue-rotate(175deg) drop-shadow(0 1px 2px rgba(70, 91, 128, 0.025))",
+          }}
+          loading="lazy"
+          decoding="async"
+        />
+        <img
+          src={reportSummaryPaperMobile}
+          alt=""
+          className="absolute inset-0 h-full w-full translate-x-3 translate-y-3 rotate-[1.8deg] object-fill opacity-95 sm:translate-x-5 sm:translate-y-4"
+          style={{
+            filter:
+              "brightness(1.025) saturate(0.72) sepia(0.075) drop-shadow(0 1px 2px rgba(70, 91, 128, 0.035))",
+          }}
+          loading="lazy"
+          decoding="async"
+        />
+        <img
+          src={reportSummaryPaperMobile}
+          alt=""
+          className="absolute inset-0 h-full w-full translate-y-7 rotate-[0.6deg] object-fill opacity-90 sm:translate-y-9"
+          style={{
+            filter:
+              "brightness(1.02) saturate(0.76) sepia(0.085) hue-rotate(175deg) drop-shadow(0 2px 3px rgba(70, 91, 128, 0.05))",
+          }}
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+
+      <div
+        className="relative z-10 h-[620px] w-full sm:h-auto sm:aspect-[1672/941]"
+        style={{ filter: "drop-shadow(0 2px 3px rgba(70, 91, 128, 0.08)) drop-shadow(0 5px 7px rgba(70, 91, 128, 0.045))" }}
+      >
+        <picture aria-hidden="true">
+          <source media="(min-width: 640px)" srcSet={reportSummaryPaper} />
+          <img
+            src={reportSummaryPaperMobile}
+            alt=""
+            className="absolute inset-0 h-full w-full object-fill"
+            style={{ filter: "brightness(1.018) saturate(0.82) sepia(0.04)" }}
+            loading="lazy"
+            decoding="async"
+          />
+        </picture>
+
+        <div className="relative z-10 flex h-full flex-col pb-[9%] pl-[19%] pr-[9%] pt-[8%] sm:px-[13%] sm:pb-[8%] sm:pt-[7.5%]">
+          <header className="flex items-end justify-between gap-4 pb-3 sm:pb-4">
+            <h2
+              id="ai-report-project-summary-title"
+              className="text-[26px] font-semibold leading-none text-[#1A1C24] sm:text-[32px]"
+            >
+              项目小结
+            </h2>
+            <span className="hidden text-[12px] font-medium tracking-[0.14em] text-[#2258F4] sm:block">
+              AI 报告生成 · 1.0
+            </span>
+          </header>
+
+          <div className="grid flex-1 content-start gap-4 pt-4 sm:gap-5 sm:pt-5 md:grid-cols-[0.72fr_1.28fr] md:gap-x-10">
+            <div>
+              <p className="text-[19px] font-semibold leading-[1.35] text-[#2258F4] sm:text-[25px]">
+                真实客户需求
+                <br />
+                完成 1.0 上线
+              </p>
+            </div>
+            <p className="text-[14px] leading-[1.62] text-[#414958] sm:text-[15px] sm:leading-[1.75]">
+              本项目源于真实客户需求，完成了 AI 报告生成 1.0 的设计与上线。由于项目上线后终止，未进入持续运营阶段，因此没有可持续追踪的数据指标。
+            </p>
+
+            <div className="border-t border-[#9DB2D4]/70 pt-4 md:col-span-2 md:grid md:grid-cols-[0.72fr_1.28fr] md:gap-x-10 md:pt-5">
+              <div>
+                <p className="text-[18px] font-semibold leading-[1.4] text-[#1A1C24] sm:text-[22px]">
+                  两个超出初始规划
+                  <br className="hidden sm:block" />
+                  的关键发现
+                </p>
+              </div>
+              <ol className="mt-3 space-y-3 md:mt-0 md:space-y-4">
+                <li className="grid grid-cols-[30px_minmax(0,1fr)] gap-2 sm:grid-cols-[36px_minmax(0,1fr)] sm:gap-3">
+                  <span className="text-[21px] font-semibold leading-none text-[#2258F4] sm:text-[26px]">01</span>
+                  <p className="text-[14px] leading-[1.58] text-[#414958] sm:text-[15px] sm:leading-[1.68]">
+                    <strong className="font-semibold text-[#25314A]">关联客户数据：</strong>
+                    用户管理的部分客户已存在于启信产业大脑中，希望直接关联数据，避免每次生成报告前重复上传名单。
+                  </p>
+                </li>
+                <li className="grid grid-cols-[30px_minmax(0,1fr)] gap-2 sm:grid-cols-[36px_minmax(0,1fr)] sm:gap-3">
+                  <span className="text-[21px] font-semibold leading-none text-[#2258F4] sm:text-[26px]">02</span>
+                  <p className="text-[14px] leading-[1.58] text-[#414958] sm:text-[15px] sm:leading-[1.68]">
+                    <strong className="font-semibold text-[#25314A]">提前知识库规划：</strong>
+                    用户会用扫描全能王 OCR 将纸质或图片资料转成可复用文本，因此我们决定在构建知识库功能的时候，重点把公司的 OCR 能力也纳入到产品中去。
+                  </p>
+                </li>
+              </ol>
+            </div>
+          </div>
+
+          <p className="mt-4 border-t border-[#9DB2D4]/70 pt-4 text-[14px] font-semibold leading-[1.55] text-[#2258F4] sm:mt-5 sm:text-[17px]">
+            AI 报告的价值不只是生成内容，更在于连接客户数据、资料资产与原有工作流。
+          </p>
+        </div>
+      </div>
+    </motion.section>
   );
 }
 
@@ -974,26 +1100,6 @@ export function ProjectDetail({ onBack }: Props) {
               面向企业、产业和地区监测报告，将模板选择、大纲确认、数据配置、流式生成和历史文档串成完整流程，让用户在生成前控制范围，生成中看到进度，生成后复用结果。
             </motion.p>
 
-            <motion.div
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.62, delay: 0.18 }}
-              className="mx-auto mt-9 grid max-w-[860px] grid-cols-2 gap-x-5 gap-y-5 md:grid-cols-4"
-            >
-              {[
-                { label: "项目类型", value: "AI 报告生成 · B 端 SaaS" },
-                { label: "项目阶段", value: "1.0版本上线" },
-                { label: "主要场景", value: "企业 / 产业 / 地区监测报告" },
-                { label: "我的角色", value: "产品设计师" },
-              ].map((m) => (
-                <div key={m.label} className="text-left md:text-center">
-                  <div style={{ ...T.metaLabel, fontSize: 14 }} className="mb-2">
-                    {m.label}
-                  </div>
-                  <div style={T.metaValue}>{m.value}</div>
-                </div>
-              ))}
-            </motion.div>
           </div>
 
           <motion.figure
@@ -1074,41 +1180,6 @@ export function ProjectDetail({ onBack }: Props) {
             </div>
           </motion.figure>
 
-          <motion.div
-            initial={{ opacity: 0, y: 22 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.62, delay: 0.36, ease: [0.22, 1, 0.36, 1] }}
-            className="relative z-20 mx-auto mt-7 grid max-w-[1240px] grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4"
-          >
-            {[
-              { icon: Workflow, t: "生成流程设计", d: "模板选择到大纲确认、流式生成的端到端链路" },
-              { icon: Settings2, t: "配置体验与关键页面", d: "报告配置、模板中心、历史文档等核心页面" },
-              { icon: ListChecks, t: "大纲确认与修改", d: "在生成前建立可控的结构化输入，减少生成偏差" },
-              { icon: PenLine, t: "提示词标准化探索", d: "把提示词从经验写法转为可维护结构" },
-            ].map((r) => {
-              const Icon = r.icon;
-              return (
-                <div
-                  key={r.t}
-                  className="relative rounded-2xl border p-5 shadow-[0_18px_50px_rgba(15,20,25,0.08)]"
-                  style={{
-                    borderColor: LINE,
-                    background: "rgba(255,255,255,0.94)",
-                  }}
-                >
-                  <div>
-                    <div className="mb-1.5 flex items-start gap-3">
-                      <div className="min-w-0 flex-1" style={{ fontSize: 18, fontWeight: 600, color: INK, lineHeight: 1.35 }}>{r.t}</div>
-                      <span className="mt-1 inline-flex size-4 shrink-0 items-center justify-center" style={{ color: ICON_GRAY }}>
-                        <Icon className="size-4" />
-                      </span>
-                    </div>
-                    <div style={{ fontSize: 14, lineHeight: 1.6, color: INK_MUTED }}>{r.d}</div>
-                  </div>
-                </div>
-              );
-            })}
-          </motion.div>
         </div>
       </section>
 
@@ -1122,6 +1193,116 @@ export function ProjectDetail({ onBack }: Props) {
             <h2 className="tracking-tight text-[#1A1C24]" style={T.h2}>
               确定产品范围和用户目标
             </h2>
+          </div>
+
+          {/* Keep ownership visible before the research canvas. */}
+          <div className="relative z-30 mx-auto flex w-full max-w-[980px] flex-col gap-3 pb-3 md:-mb-5 md:flex-row md:items-end md:gap-4 md:pb-0">
+            <section
+              aria-label="我的角色"
+              className="relative min-h-[146px] w-full overflow-visible md:w-[238px] md:shrink-0"
+              style={{
+                filter:
+                  "drop-shadow(0 2px 4px rgba(28,36,52,0.055)) drop-shadow(0 8px 16px rgba(28,36,52,0.025))",
+                transform: "rotate(-0.8deg)",
+              }}
+            >
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 420 280"
+                preserveAspectRatio="none"
+                className="absolute inset-0 h-full w-full overflow-visible"
+              >
+                <defs>
+                  <mask id="ai-report-role-header-note-torn-mask">
+                    <path
+                      d="M 0 18 L 18 5 L 36 15 L 55 3 L 74 14 L 94 4 L 114 16 L 135 3 L 156 14 L 178 5 L 200 15 L 222 3 L 244 14 L 266 4 L 288 16 L 310 3 L 332 14 L 354 5 L 376 15 L 398 4 L 420 17 V 280 H 0 Z"
+                      fill="white"
+                    />
+                  </mask>
+                  <linearGradient id="ai-report-role-header-note-wash" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stopColor="#FFFFFF" />
+                    <stop offset="0.52" stopColor="#EAF1FF" />
+                    <stop offset="1" stopColor="#DCE7FA" />
+                  </linearGradient>
+                </defs>
+                <g mask="url(#ai-report-role-header-note-torn-mask)">
+                  <rect width="420" height="280" fill="#EAF1FF" />
+                  <rect width="420" height="280" fill="url(#ai-report-role-header-note-wash)" opacity="0.28" />
+                </g>
+                <path
+                  d="M 0 18 L 18 5 L 36 15 L 55 3 L 74 14 L 94 4 L 114 16 L 135 3 L 156 14 L 178 5 L 200 15 L 222 3 L 244 14 L 266 4 L 288 16 L 310 3 L 332 14 L 354 5 L 376 15 L 398 4 L 420 17 V 280 H 0 Z"
+                  fill="none"
+                  stroke="#B9C9EA"
+                  strokeWidth="1.2"
+                  opacity="0.75"
+                  vectorEffect="non-scaling-stroke"
+                />
+              </svg>
+              <div className="relative z-10 px-5 pb-5 pt-7 sm:px-6 sm:pb-6 sm:pt-8 md:px-5 md:pb-5 md:pt-7">
+                <h3 className="text-[20px] font-semibold leading-[1.3] text-[#252B36]">我的角色</h3>
+                <p className="mt-3 text-[16px] font-medium text-[#35404F]">产品设计师</p>
+                <p className="mt-1 text-[14px] leading-[1.45] text-[#596174]">AI 报告核心体验设计</p>
+              </div>
+            </section>
+
+            <section
+              aria-label="我的职责"
+              className="relative min-h-[246px] w-full overflow-visible md:min-h-[224px] md:flex-1"
+              style={{
+                filter:
+                  "drop-shadow(0 2px 4px rgba(28,36,52,0.055)) drop-shadow(0 8px 16px rgba(28,36,52,0.025))",
+                transform: "rotate(0.55deg)",
+              }}
+            >
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 420 280"
+                preserveAspectRatio="none"
+                className="absolute inset-0 h-full w-full overflow-visible"
+              >
+                <defs>
+                  <mask id="ai-report-responsibilities-header-note-torn-mask">
+                    <path
+                      d="M 0 18 L 18 5 L 36 15 L 55 3 L 74 14 L 94 4 L 114 16 L 135 3 L 156 14 L 178 5 L 200 15 L 222 3 L 244 14 L 266 4 L 288 16 L 310 3 L 332 14 L 354 5 L 376 15 L 398 4 L 420 17 V 280 H 0 Z"
+                      fill="white"
+                    />
+                  </mask>
+                  <linearGradient id="ai-report-responsibilities-header-note-wash" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stopColor="#FFFFFF" />
+                    <stop offset="0.52" stopColor="#EAF1FF" />
+                    <stop offset="1" stopColor="#DCE7FA" />
+                  </linearGradient>
+                </defs>
+                <g mask="url(#ai-report-responsibilities-header-note-torn-mask)">
+                  <rect width="420" height="280" fill="#EAF1FF" />
+                  <rect width="420" height="280" fill="url(#ai-report-responsibilities-header-note-wash)" opacity="0.28" />
+                </g>
+                <path
+                  d="M 0 18 L 18 5 L 36 15 L 55 3 L 74 14 L 94 4 L 114 16 L 135 3 L 156 14 L 178 5 L 200 15 L 222 3 L 244 14 L 266 4 L 288 16 L 310 3 L 332 14 L 354 5 L 376 15 L 398 4 L 420 17 V 280 H 0 Z"
+                  fill="none"
+                  stroke="#B9C9EA"
+                  strokeWidth="1.2"
+                  opacity="0.75"
+                  vectorEffect="non-scaling-stroke"
+                />
+              </svg>
+              <div className="relative z-10 px-5 pb-5 pt-7 sm:px-6 sm:pb-6 sm:pt-8 md:px-6 md:pb-5 md:pt-7">
+                <h3 className="text-[20px] font-semibold leading-[1.3] text-[#252B36]">我的职责</h3>
+                <ul className="mt-3 grid gap-3 text-[16px] leading-[1.55] text-[#4E525E] md:grid-cols-2 md:gap-x-6 md:gap-y-3">
+                  {[
+                    "用户研究与范围收敛：参与 3 轮用户访谈，梳理报告生产链路并推动 MVP 边界确认",
+                    "核心体验与界面设计：负责模板选择、大纲确认、数据配置、流式生成与历史文档等关键流程",
+                    "AI 生成规则梳理：搭建 Prompt 基础框架，确定输入约束、监测生成阶段的行动方式",
+                    "开发协作与设计验收：跟进研发实现与还原质量，推动 1.0 版本落地上线",
+                  ].map((responsibility) => (
+                    <li key={responsibility} className="flex gap-2">
+                      <span className="mt-[0.5em] size-1.5 shrink-0 rounded-full bg-[#4777FF]" />
+                      <span>{responsibility}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </section>
           </div>
 
           <div className="relative overflow-visible rounded-[28px] border border-[#E6E7EB] bg-white">
@@ -1391,7 +1572,7 @@ export function ProjectDetail({ onBack }: Props) {
                 aria-hidden={activeInterview !== null}
                 animate={{ opacity: activeInterview === null ? 1 : 0 }}
                 transition={{ duration: 0.16, ease: "easeOut" }}
-                className={`absolute left-[52px] right-6 top-[1320px] z-20 sm:left-16 sm:right-8 sm:top-[1280px] md:top-[1240px] lg:left-[4%] lg:right-auto lg:top-[500px] lg:w-[44%] lg:max-w-[500px] 2xl:top-[340px] ${activeInterview === null ? "" : "pointer-events-none"}`}
+                className={`absolute left-[52px] right-6 top-[1320px] z-20 sm:left-16 sm:right-8 sm:top-[1280px] md:top-[1240px] lg:left-[7%] lg:right-auto lg:top-[500px] lg:w-[44%] lg:max-w-[500px] 2xl:top-[340px] ${activeInterview === null ? "" : "pointer-events-none"}`}
               >
                 <h3 className="relative inline-block text-[26px] font-semibold leading-[1.3] text-[#1A1C24] sm:text-[28px] lg:text-[30px]">
                   <span className="relative z-10">访谈结论</span>
@@ -1483,94 +1664,6 @@ export function ProjectDetail({ onBack }: Props) {
                       )}
                     </div>
                   ))}
-                </div>
-              </motion.section>
-
-              <motion.section
-                aria-label="我的角色与参与"
-                aria-hidden={activeInterview !== null}
-                animate={{ opacity: activeInterview === null ? 1 : 0 }}
-                transition={{ duration: 0.16, ease: "easeOut" }}
-                className={`absolute z-20 hidden 2xl:left-[40%] 2xl:top-[440px] 2xl:block 2xl:w-[280px] 2xl:max-w-[280px] ${activeInterview === null ? "" : "pointer-events-none"}`}
-                style={{
-                  filter:
-                    "drop-shadow(0 2px 4px rgba(28,36,52,0.055)) drop-shadow(0 8px 16px rgba(28,36,52,0.025))",
-                  transform: "rotate(-0.8deg)",
-                }}
-              >
-                <svg
-                  aria-hidden="true"
-                  viewBox="0 0 420 360"
-                  preserveAspectRatio="none"
-                  className="absolute inset-0 h-full w-full overflow-visible"
-                >
-                  <defs>
-                    <mask id="ai-report-role-note-torn-mask">
-                      <path
-                        d="M 0 18 L 18 5 L 36 15 L 55 3 L 74 14 L 94 4 L 114 16 L 135 3 L 156 14 L 178 5 L 200 15 L 222 3 L 244 14 L 266 4 L 288 16 L 310 3 L 332 14 L 354 5 L 376 15 L 398 4 L 420 17 V 360 H 0 Z"
-                        fill="white"
-                      />
-                    </mask>
-                  </defs>
-                  <g mask="url(#ai-report-role-note-torn-mask)">
-                    <rect width="420" height="360" fill="#EAF1FF" />
-                    <rect
-                      x="0"
-                      y="0"
-                      width="420"
-                      height="360"
-                      fill="url(#ai-report-role-note-wash)"
-                      opacity="0.28"
-                    />
-                  </g>
-                  <path
-                    d="M 0 18 L 18 5 L 36 15 L 55 3 L 74 14 L 94 4 L 114 16 L 135 3 L 156 14 L 178 5 L 200 15 L 222 3 L 244 14 L 266 4 L 288 16 L 310 3 L 332 14 L 354 5 L 376 15 L 398 4 L 420 17 V 360 H 0 Z"
-                    fill="none"
-                    stroke="#B9C9EA"
-                    strokeWidth="1.2"
-                    opacity="0.75"
-                    vectorEffect="non-scaling-stroke"
-                  />
-                  <defs>
-                    <linearGradient id="ai-report-role-note-wash" x1="0" y1="0" x2="1" y2="1">
-                      <stop offset="0" stopColor="#FFFFFF" />
-                      <stop offset="0.52" stopColor="#EAF1FF" />
-                      <stop offset="1" stopColor="#DCE7FA" />
-                    </linearGradient>
-                  </defs>
-                </svg>
-
-                <div className="relative z-10 px-5 pb-5 pt-7 sm:px-6 sm:pb-6 sm:pt-8 lg:px-5 lg:pb-5 lg:pt-7">
-                  <h3 className="text-[20px] font-semibold leading-[1.3] text-[#252B36]">
-                    我的角色
-                  </h3>
-
-                  <div className="mt-3">
-                    <span className="text-[16px] font-medium text-[#35404F]">产品设计师</span>
-                  </div>
-
-                  <div className="mt-4">
-                    <div className="text-[14px] font-semibold tracking-[0.06em] text-[#596174]">
-                      如何参与
-                    </div>
-                    <p className="mt-1.5 text-[14px] leading-[1.55] text-[#4E525E]">
-                      通过 3 轮用户访谈与竞品体验对比，梳理报告生产链路，并结合公司 OCR 能力推动 MVP 范围收敛。
-                    </p>
-                  </div>
-
-                  <div className="mt-4">
-                    <div className="text-[14px] font-semibold tracking-[0.06em] text-[#596174]">
-                      主要职责
-                    </div>
-                    <ul className="mt-1.5 space-y-1 text-[14px] leading-[1.55] text-[#4E525E]">
-                      {["用户研究与需求分析", "交互设计与 UI 设计"].map((responsibility) => (
-                        <li key={responsibility} className="flex items-start gap-2.5">
-                          <span className="mt-[0.72em] size-1.5 shrink-0 rounded-full bg-[#85A3FF]" />
-                          <span>{responsibility}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
                 </div>
               </motion.section>
 
@@ -3431,6 +3524,8 @@ export function ProjectDetail({ onBack }: Props) {
               </span>
             </a>
           </Reveal>
+
+          <ReportProjectSummary />
         </div>
       </section>
 

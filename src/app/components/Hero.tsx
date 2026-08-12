@@ -53,12 +53,12 @@ const capabilityCards = [
     },
   },
   {
-    label: "设计工具",
+    label: "AI 设计工作流",
     items: [
-      "Figma 作为主设计工具",
-      "AI 辅助资料整理和方案推敲",
-      "Blender 辅助三维表达",
-      "Illustrator 处理图形资产",
+      "Figma 梳理关键流程与高保真方案",
+      "AI 辅助需求拆解、资料归纳与方案推演",
+      "借助 Codex 将设计方案转化为可交互原型",
+      "关键链路、边界状态与响应式走查",
     ],
     tone: {
       fill: "#FFF7ED",
