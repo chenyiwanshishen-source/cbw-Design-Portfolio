@@ -869,8 +869,8 @@ export function ProjectDetail({ onBack }: Props) {
     },
     {
       round: "第三轮访谈",
-      title: "MVP 原型讨论",
-      goal: "使用 MVP 原型与用户讨论主要流程和功能边界，确认方向是否贴近真实工作方式。",
+      title: "低保真原型图讨论",
+      goal: "使用低保真原型图与用户讨论主要流程和功能边界，确认方向是否贴近真实工作方式。",
       points: [
         "模板、范围与大纲配置是否易理解",
         "用户是否清楚当前生成阶段",
@@ -878,7 +878,7 @@ export function ProjectDetail({ onBack }: Props) {
         "历史报告如何保存、查找与复用",
         "内容来源如何查看和核查",
       ],
-      conclusion: "通过 MVP 原型讨论，产品方向未出现明显偏差；围绕历史材料复用、报告查找与来源核查的讨论，共同识别出历史文档统一管理与来源展示等产品机会。",
+      conclusion: "通过低保真原型图讨论，产品方向未出现明显偏差；围绕历史材料复用、报告查找与来源核查的讨论，共同识别出历史文档统一管理与来源展示等产品机会。",
     },
   ];
   const activeInterviewDetail =
@@ -1480,8 +1480,8 @@ export function ProjectDetail({ onBack }: Props) {
                   },
                   {
                     round: "第三轮访谈",
-                    title: "MVP 原型讨论",
-                    body: "结合初步原型讨论真实使用方式，围绕历史材料复用共同推演文档管理与知识库机会。",
+                    title: "低保真原型图讨论",
+                    body: "结合低保真原型图讨论真实使用方式，围绕历史材料复用共同推演文档管理与知识库机会。",
                     conclusion: "将历史文档管理和来源展示纳入产品范围。",
                     color: "#F1F8EA",
                     borderColor: "#C7D9B8",
