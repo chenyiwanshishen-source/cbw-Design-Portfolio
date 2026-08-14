@@ -591,7 +591,7 @@ export function Hero() {
     <section
       ref={rootRef}
       id="top"
-      className="hero-root relative px-6 pt-32 pb-24 sm:px-10 lg:flex lg:min-h-[100svh] lg:flex-col lg:justify-center lg:py-0"
+      className="hero-root relative px-6 pt-32 pb-24 sm:px-10 lg:flex lg:h-[100svh] lg:min-h-0 lg:flex-col lg:justify-center lg:overflow-clip lg:py-0"
     >
       <div
         data-hero-stage

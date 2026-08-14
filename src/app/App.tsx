@@ -259,7 +259,7 @@ export default function App() {
   );
 
   return (
-    <div className="relative min-h-screen bg-[#FAFBFF] text-[#1A1C24] overflow-x-hidden selection:bg-[#E5EBFF] selection:text-[#1A1C24]">
+    <div className="relative min-h-screen bg-[#FAFBFF] text-[#1A1C24] overflow-x-clip selection:bg-[#E5EBFF] selection:text-[#1A1C24]">
       {/* Animated grid background — cursor spotlight */}
       <div
         ref={gridRef}
