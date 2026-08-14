@@ -73,16 +73,23 @@ const cardMotion = {
 };
 
 function SkillTags({ items }: { items: string[] }) {
+  const markers = [
+    { color: "#E5EBFF", rotation: "-1.2deg", clipPath: "polygon(1% 16%, 18% 9%, 36% 14%, 54% 6%, 74% 13%, 99% 9%, 97% 89%, 78% 95%, 57% 90%, 38% 96%, 17% 90%, 2% 87%)" },
+    { color: "#FFF6DB", rotation: "0.8deg", clipPath: "polygon(2% 10%, 22% 15%, 43% 7%, 63% 13%, 82% 6%, 98% 12%, 96% 91%, 77% 87%, 58% 95%, 36% 89%, 13% 94%, 1% 86%)" },
+    { color: "#E3F4EA", rotation: "-0.7deg", clipPath: "polygon(1% 13%, 19% 6%, 40% 12%, 59% 5%, 80% 11%, 99% 8%, 98% 88%, 79% 95%, 60% 89%, 39% 96%, 18% 90%, 2% 86%)" },
+    { color: "#F3E7FF", rotation: "1deg", clipPath: "polygon(2% 9%, 20% 14%, 41% 6%, 61% 12%, 81% 5%, 98% 10%, 96% 92%, 76% 88%, 56% 96%, 35% 90%, 12% 95%, 1% 87%)" },
+  ];
   return (
-    <div className="flex flex-wrap gap-2">
-      {items.map((item) => (
-        <span
-          key={item}
-          className="rounded-full border border-[#E6E7EB] bg-[#F5F5F7] px-3 py-1.5 text-[14px] leading-none text-[#5E626E]"
-        >
-          {item}
-        </span>
-      ))}
+    <div className="flex flex-wrap gap-x-4 gap-y-2">
+      {items.map((item, index) => {
+        const marker = markers[index % markers.length];
+        return (
+          <span key={item} className="relative inline-flex whitespace-nowrap px-1 text-[14px] font-medium leading-[1.5] text-[#4E525E]">
+            <span aria-hidden="true" className="absolute inset-x-0 bottom-0 z-0 h-[60%] origin-center" style={{ backgroundColor: marker.color, clipPath: marker.clipPath, transform: `rotate(${marker.rotation})` }} />
+            <span className="relative z-10">{item}</span>
+          </span>
+        );
+      })}
     </div>
   );
 }
@@ -135,14 +142,18 @@ function CompanyLogo({
   );
 }
 
+function PaperHoleStrip({ count }: { count: number }) {
+  return <span className="experience-paper-hole-strip" aria-hidden="true">{Array.from({ length: count }, (_, hole) => <i key={hole} />)}</span>;
+}
+
 export function Experience() {
   return (
     <section
       id="experience"
-      className="relative px-6 py-24 sm:px-10 md:py-32 lg:px-16 xl:px-24 2xl:px-32"
+      className="relative px-6 pb-12 pt-24 sm:px-10 md:pb-16 md:pt-28 lg:px-16 lg:pb-14 lg:pt-32 xl:px-24 2xl:px-32"
     >
       <div className="mx-auto w-full max-w-[1600px]">
-        <div className="mb-12 md:mb-16">
+        <div className="mb-10 md:mb-12">
           <h2 className="text-[clamp(2rem,5.5vw,4.5rem)] tracking-tight text-[#1A1C24]">
             工作经历
           </h2>
@@ -152,11 +163,12 @@ export function Experience() {
           <motion.article
             {...cardMotion}
             transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-            className="relative overflow-hidden rounded-[28px] border border-[#E6E7EB] bg-white p-6 shadow-[0_8px_30px_rgba(26,28,36,0.04)] sm:p-8 lg:col-span-7 lg:p-10"
+            className="experience-paper-sheet experience-paper-sheet-primary relative rounded-[28px] p-6 sm:p-8 lg:col-span-7 lg:p-10"
           >
-            <div className="relative flex h-full flex-col">
-              <div className="flex items-start justify-between gap-4">
-                <div className="flex min-w-0 items-start gap-3 sm:gap-4">
+            <PaperHoleStrip count={24} />
+            <div className="relative flex flex-col">
+              <div className="experience-identity-row flex items-start justify-between gap-4">
+                <div className="experience-identity-note flex min-w-0 items-start gap-3 sm:gap-4">
                   <CompanyLogo {...primaryExperience.logo} />
                   <div className="min-w-0">
                     <h3 className="text-[24px] leading-[1.25] text-[#1A1C24]">
@@ -209,7 +221,7 @@ export function Experience() {
             </div>
           </motion.article>
 
-          <div className="grid gap-5 sm:grid-cols-2 lg:col-span-5 lg:grid-cols-1 lg:grid-rows-2 lg:gap-6">
+          <div className="grid self-start gap-5 sm:grid-cols-2 lg:col-span-5 lg:grid-cols-1 lg:gap-6 lg:content-start">
             {supportingExperiences.map((experience, index) => (
               <motion.article
                 key={experience.company}
@@ -219,11 +231,12 @@ export function Experience() {
                   delay: 0.08 + index * 0.08,
                   ease: [0.22, 1, 0.36, 1],
                 }}
-                className="flex h-full flex-col rounded-[28px] border border-[#E6E7EB] bg-[#FCFCFD] p-6 shadow-[0_8px_30px_rgba(26,28,36,0.04)] sm:p-7 lg:p-8"
+                className={`experience-paper-sheet ${index === 0 ? "experience-paper-sheet-secondary" : "experience-paper-sheet-tertiary"} flex flex-col p-6 sm:p-7 lg:p-8`}
               >
-                <div className="flex items-start justify-between gap-4">
-                  <div className="flex min-w-0 items-start gap-3 sm:gap-4">
-                    <CompanyLogo {...experience.logo} />
+                <PaperHoleStrip count={index === 0 ? 16 : 15} />
+                <div className="experience-identity-row flex items-start justify-between gap-4">
+                  <div className={`experience-identity-note flex min-w-0 items-start gap-3 sm:gap-4 ${index === 1 ? "experience-identity-note-text-only" : ""}`}>
+                    {index === 0 && <CompanyLogo {...experience.logo} />}
                     <div className="min-w-0">
                       <h3 className="text-[20px] leading-snug text-[#1A1C24]">
                         {experience.company}
@@ -244,7 +257,7 @@ export function Experience() {
                   <BulletList items={experience.highlights} compact />
                 </div>
 
-                <div className="mt-auto pt-6">
+                <div className="pt-6">
                   <SkillTags items={experience.skills} />
                 </div>
               </motion.article>

@@ -29,9 +29,9 @@ export function Skills() {
     },
     {
       icon: Workflow,
-      title: "全链路设计能力",
+      title: "设计推进与落地",
       description:
-        "从需求分析到上线验收的完整掌控,跨部门协作与推动落地。",
+        "从需求梳理、方案设计到原型验证，持续关注关键流程、边界状态与实现质量，让设计真正落到产品中。",
       accent: "from-[#2258F4]/18 to-[#A8BEFF]/28",
     },
     {
@@ -59,12 +59,12 @@ export function Skills() {
   ];
 
   return (
-    <section id="skills" className="relative py-24 md:py-32 px-6 sm:px-10 lg:px-16 xl:px-24 2xl:px-32">
+    <section id="skills" className="relative px-6 pb-24 pt-12 sm:px-10 md:pb-28 md:pt-16 lg:px-16 lg:pb-32 lg:pt-14 xl:px-24 2xl:px-32">
       <div className="mx-auto w-full max-w-[1600px]">
-        <div className="mb-16">
+        <div className="mb-10 md:mb-12">
           <div>
             <h2 className="tracking-tight text-[#1A1C24] text-[clamp(2rem,5.5vw,4.5rem)]">
-              我能做什么
+              能力概况
             </h2>
           </div>
         </div>
@@ -79,11 +79,8 @@ export function Skills() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: i * 0.06 }}
-                className={`group relative overflow-hidden rounded-[24px] border border-[#E6E7EB] bg-white shadow-[0_1px_2px_rgba(26,28,36,0.04)] p-6 lg:p-7 hover:border-[#CBCDD4] hover:shadow-md hover:-translate-y-1 transition-all duration-500 flex flex-col ${s.span ?? ""}`}
+                className={`skills-sticky-note skills-note-${i} group relative p-6 lg:p-7 flex flex-col ${s.span ?? ""}`}
               >
-                <div
-                  className={`absolute -top-20 -right-20 size-60 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 bg-gradient-to-br ${s.accent}`}
-                />
                 {/* Decorative pattern for large piece */}
                 {s.size === "lg" && (
                   <div
@@ -97,16 +94,10 @@ export function Skills() {
                 )}
                 <div className="relative flex flex-col h-full">
                   <div className="flex items-center justify-between mb-5">
-                    <div
-                      className={`inline-flex items-center justify-center rounded-xl bg-[#F5F5F7] border border-[#E6E7EB] text-[#4E525E] group-hover:bg-[#2258F4] group-hover:border-[#2258F4] group-hover:text-white transition-colors ${
-                        s.size === "lg" ? "size-14" : "size-11"
-                      }`}
-                    >
-                      <Icon className={s.size === "lg" ? "size-6" : "size-5"} />
+                    <div className={`skills-sticky-stamp ${s.size === "lg" ? "skills-sticky-stamp-large" : ""}`}>
+                      <Icon className={`skills-sticky-icon ${s.size === "lg" ? "size-6" : "size-5"}`} />
+                      <Icon aria-hidden="true" className={`skills-sticky-icon skills-sticky-icon-echo ${s.size === "lg" ? "size-6" : "size-5"}`} />
                     </div>
-                    <span className="text-[10px] tracking-[0.25em] text-[#696D7A]">
-                      0{i + 1}
-                    </span>
                   </div>
                   <h3
                     className={`text-[#1A1C24] mb-3 ${

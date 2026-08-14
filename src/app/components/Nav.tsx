@@ -112,9 +112,9 @@ export function Nav() {
     setMobileMenuOpen(false);
     if (window.location.hash !== "#about") {
       window.location.hash = "#about";
-      setTimeout(() => scrollToHomeSection("contact"), 80);
+      setTimeout(() => window.dispatchEvent(new Event("portfolio:contact-rail-open")), 120);
     } else {
-      scrollToHomeSection("contact");
+      window.dispatchEvent(new Event("portfolio:contact-rail-open"));
     }
   };
 
