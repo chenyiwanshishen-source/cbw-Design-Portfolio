@@ -3,21 +3,19 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { Hero } from "./Hero";
-import { Projects } from "./Projects";
 import { Skills } from "./Skills";
 import { Experience } from "./Experience";
 import { Contact } from "./Contact";
 import { Footer } from "./Footer";
 import { hideContactDetails } from "../buildVariant";
-import type { preloadProjectDetailAssets } from "../projectPreload";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 interface HomeContentProps {
-  onProjectIntent: typeof preloadProjectDetailAssets;
+  view: "home" | "about";
 }
 
-export function HomeContent({ onProjectIntent }: HomeContentProps) {
+export function HomeContent({ view }: HomeContentProps) {
   const storyRef = useRef<HTMLDivElement | null>(null);
 
   useGSAP(
@@ -142,36 +140,34 @@ export function HomeContent({ onProjectIntent }: HomeContentProps) {
 
   return (
     <div ref={storyRef} className="home-scroll-story">
-      <div className="home-scroll-panel" data-home-panel data-home-panel-name="intro">
-        <div data-home-panel-content>
-          <Hero />
+      {view === "home" ? (
+        <div className="home-scroll-panel" data-home-panel data-home-panel-name="intro">
+          <div data-home-panel-content>
+            <Hero />
+          </div>
         </div>
-      </div>
+      ) : (
+        <>
+          <div className="home-scroll-panel" data-home-panel data-home-panel-name="experience">
+            <div data-home-panel-content>
+              <Experience />
+            </div>
+          </div>
 
-      <div className="home-scroll-panel" data-home-panel data-home-panel-name="projects">
-        <div data-home-panel-content>
-          <Projects onProjectIntent={onProjectIntent} />
-        </div>
-      </div>
+          <div className="home-scroll-panel" data-home-panel data-home-panel-name="skills">
+            <div data-home-panel-content>
+              <Skills />
+            </div>
+          </div>
 
-      <div className="home-scroll-panel" data-home-panel data-home-panel-name="experience">
-        <div data-home-panel-content>
-          <Experience />
-        </div>
-      </div>
-
-      <div className="home-scroll-panel" data-home-panel data-home-panel-name="skills">
-        <div data-home-panel-content>
-          <Skills />
-        </div>
-      </div>
-
-      <div className="home-scroll-panel" data-home-panel data-home-panel-name="contact">
-        <div data-home-panel-content>
-          {!hideContactDetails && <Contact />}
-          <Footer />
-        </div>
-      </div>
+          <div className="home-scroll-panel" data-home-panel data-home-panel-name="contact">
+            <div data-home-panel-content>
+              {!hideContactDetails && <Contact />}
+              <Footer />
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }

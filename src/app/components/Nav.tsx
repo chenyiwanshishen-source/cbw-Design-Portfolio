@@ -8,6 +8,7 @@ import { scrollHomeToTop, scrollToHomeSection } from "../homeScroll";
 const navItems = [
   { label: "启信产业大脑", href: "#/project/qixin-brain" },
   { label: "AI报告生成", href: "#/project/ai-report" },
+  { label: "关于我", href: "#about" },
 ];
 
 const navLinkBase =
@@ -73,6 +74,15 @@ export function Nav() {
   const goRoute = (e: React.MouseEvent, href: string) => {
     e.preventDefault();
     if (!href) return;
+    if (href === "#about") {
+      setPendingHref(null);
+      setMobileMenuOpen(false);
+      if (window.location.hash !== href) {
+        window.location.hash = href;
+      }
+      window.setTimeout(() => scrollToHomeSection("experience"), 80);
+      return;
+    }
     if (window.location.hash === href) {
       setMobileMenuOpen(false);
       return;
@@ -100,8 +110,8 @@ export function Nav() {
   const goContact = (e: React.MouseEvent) => {
     e.preventDefault();
     setMobileMenuOpen(false);
-    if (window.location.hash.startsWith("#/")) {
-      window.location.hash = "";
+    if (window.location.hash !== "#about") {
+      window.location.hash = "#about";
       setTimeout(() => scrollToHomeSection("contact"), 80);
     } else {
       scrollToHomeSection("contact");
@@ -122,7 +132,7 @@ export function Nav() {
       initial={{ y: -40, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6 }}
-      className="fixed top-4 left-1/2 z-40 w-[min(1120px,calc(100%-1rem))] -translate-x-1/2 sm:w-[min(1120px,calc(100%-2rem))]"
+      className="fixed top-4 left-1/2 z-40 w-[min(1240px,calc(100%-1rem))] -translate-x-1/2 sm:w-[min(1240px,calc(100%-2rem))]"
     >
       <div
         className={`relative flex items-center justify-between gap-3 rounded-full border px-3 py-2 transition-all duration-300 sm:px-5 sm:py-3 md:px-6 ${

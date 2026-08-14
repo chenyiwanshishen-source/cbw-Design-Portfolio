@@ -131,6 +131,7 @@ export default function App() {
 
   const isAiDetail = route === "#/project/ai-report";
   const isQixinDetail = route === "#/project/qixin-brain";
+  const isAbout = route === "#about";
 
   useEffect(() => {
     if (!portfolioEntered) return;
@@ -253,7 +254,7 @@ export default function App() {
     </Suspense>
   ) : (
     <Suspense fallback={null}>
-      <HomeContent onProjectIntent={preloadProjectDetailAssets} />
+      <HomeContent key={isAbout ? "about" : "home"} view={isAbout ? "about" : "home"} />
     </Suspense>
   );
 

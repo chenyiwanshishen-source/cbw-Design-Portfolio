@@ -1,5 +1,4 @@
 import { useRef } from "react";
-import type { CSSProperties } from "react";
 import { motion } from "motion/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -7,6 +6,7 @@ import { useGSAP } from "@gsap/react";
 import { Draggable } from "gsap/Draggable";
 import { ArrowDown } from "lucide-react";
 import { Marquee } from "./Marquee";
+import { HeroProjectPeekCard } from "./HeroProjectPeekCard";
 import { hideContactDetails } from "../buildVariant";
 import { scrollToHomeSection } from "../homeScroll";
 
@@ -21,16 +21,15 @@ const marqueeWords = [
   "产业分析",
 ];
 
-const heroCharacterScale = {
-  "--hero-character-width": "clamp(190px, min(13vw, 28svh), 360px)",
-  "--hero-character-hand-width": "clamp(82px, min(5.7vw, 12.3svh), 162px)",
-  "--hero-character-hand-offset": "clamp(108px, min(6.5vw, 14svh), 186px)",
-} as CSSProperties;
-
 const capabilityCards = [
   {
     label: "业务系统",
-    items: ["9 年 B/C 端 UI 产品设计", "其中 1 年 AI 产品设计实践", "复杂业务信息架构", "从方案到交互落地"],
+    items: [
+      "9年B/C端产品设计经验",
+      "长期聚焦复杂B端与数据系统",
+      "AI产品0-1落地实践",
+      "从方案到交互落地",
+    ],
     tone: {
       fill: "#EEF2FF",
       line: "#D6E0FF",
@@ -78,10 +77,10 @@ const capabilityCards = [
 ];
 
 const boardCardLayouts = [
-  "lg:left-[2%] lg:top-[2%] lg:w-[21rem] xl:w-[23rem] 2xl:w-[25rem] lg:rotate-[-0.8deg]",
-  "lg:right-[2%] lg:top-[4%] lg:w-[22.5rem] xl:w-[25rem] 2xl:w-[27rem] lg:rotate-[0.7deg]",
-  "lg:left-[1%] lg:bottom-[8%] lg:w-[21rem] xl:w-[23rem] 2xl:w-[25rem] lg:rotate-[0.6deg]",
-  "lg:right-[2%] lg:bottom-[6%] lg:w-[21rem] xl:w-[23.5rem] 2xl:w-[25.5rem] lg:rotate-[-0.6deg]",
+  "lg:left-[2%] lg:top-[2%] lg:w-[19rem] xl:w-[23rem] 2xl:w-[25rem] lg:rotate-[-0.8deg]",
+  "lg:right-[2%] lg:top-[4%] lg:w-[19.5rem] xl:w-[25rem] 2xl:w-[27rem] lg:rotate-[0.7deg]",
+  "lg:left-[1%] lg:bottom-[8%] lg:w-[19rem] xl:w-[23rem] 2xl:w-[25rem] lg:rotate-[0.6deg]",
+  "lg:right-[2%] lg:bottom-[6%] lg:w-[19rem] xl:w-[23.5rem] 2xl:w-[25.5rem] lg:rotate-[-0.6deg]",
 ];
 
 const collaborationCursorLayouts = [
@@ -592,8 +591,7 @@ export function Hero() {
     <section
       ref={rootRef}
       id="top"
-      style={heroCharacterScale}
-      className="relative px-6 pt-32 pb-24 sm:px-10 lg:flex lg:min-h-[100svh] lg:flex-col lg:justify-center lg:px-16 lg:py-0 xl:px-24 2xl:px-32"
+      className="hero-root relative px-6 pt-32 pb-24 sm:px-10 lg:flex lg:min-h-[100svh] lg:flex-col lg:justify-center lg:py-0"
     >
       <div
         data-hero-stage
@@ -619,7 +617,7 @@ export function Hero() {
                 <span aria-hidden="true" className="hero-drag-handle hero-drag-handle-tr" />
                 <span aria-hidden="true" className="hero-drag-handle hero-drag-handle-bl" />
                 <span aria-hidden="true" className="hero-drag-handle hero-drag-handle-br" />
-                <span className="block leading-[0.96] text-[clamp(3.35rem,15vw,7.6rem)] text-[#1A1C24] lg:text-[clamp(4.8rem,6.4vw,7.6rem)]">
+                <span className="hero-name-text block leading-[0.96] text-[clamp(3.35rem,15vw,7.6rem)] text-[#1A1C24] lg:text-[clamp(4.8rem,6.4vw,7.6rem)]">
                   陈俊学
                 </span>
               </span>
@@ -635,7 +633,7 @@ export function Hero() {
                 <span aria-hidden="true" className="hero-drag-handle hero-drag-handle-tr" />
                 <span aria-hidden="true" className="hero-drag-handle hero-drag-handle-bl" />
                 <span aria-hidden="true" className="hero-drag-handle hero-drag-handle-br" />
-                <span className="block leading-[1.02] text-[clamp(2.5rem,10vw,5.8rem)] text-[#2258F4] lg:text-[clamp(3.7rem,4.8vw,5.8rem)]">
+                <span className="hero-role-text block leading-[1.02] text-[clamp(2.5rem,10vw,5.8rem)] text-[#2258F4] lg:text-[clamp(3.7rem,4.8vw,5.8rem)]">
                   AI产品设计师
                 </span>
               </span>
@@ -689,7 +687,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 28, filter: "blur(12px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           transition={{ duration: 0.9, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
-          className="relative z-10 mt-14 grid w-full gap-4 sm:grid-cols-2 lg:absolute lg:inset-0 lg:mt-0 lg:block"
+          className="hero-capability-board relative z-10 mt-14 grid w-full gap-4 sm:grid-cols-2 lg:absolute lg:inset-0 lg:mt-0 lg:block"
           aria-label="能力摘要"
         >
           <svg
@@ -746,7 +744,7 @@ export function Hero() {
                   <span>{String(index + 1).padStart(2, "0")}</span>
                 </div>
                 <div className="hero-note-entry" style={{ background: card.tone.fill }}>
-                  <ul className="hero-note-text text-[clamp(0.82rem,0.92vw,0.92rem)] leading-[1.42] text-[#1A1C24]">
+                  <ul className="hero-note-text text-[clamp(0.875rem,0.92vw,0.92rem)] leading-[1.42] text-[#1A1C24]">
                     {card.items.map((item) => (
                       <li
                         key={item}
@@ -819,27 +817,8 @@ export function Hero() {
         />
       </div>
 
-      <img
-        src="./images/首页人物/hand-peek.png"
-        data-hero-character-part
-        alt=""
-        aria-hidden="true"
-        draggable={false}
-        className="pointer-events-none absolute bottom-[34px] z-30 hidden w-[var(--hero-character-hand-width)] -translate-x-1/2 select-none will-change-transform lg:block"
-        style={{ left: "calc(50% - var(--hero-character-hand-offset))" }}
-      />
-      <img
-        src="./images/首页人物/hand-peek.png"
-        data-hero-character-part
-        alt=""
-        aria-hidden="true"
-        draggable={false}
-        className="pointer-events-none absolute bottom-[34px] z-30 hidden w-[var(--hero-character-hand-width)] select-none will-change-transform lg:block"
-        style={{
-          left: "calc(50% + var(--hero-character-hand-offset))",
-          transform: "translateX(-50%) scaleX(-1)",
-        }}
-      />
+      <HeroProjectPeekCard variant="ai" />
+      <HeroProjectPeekCard variant="qixin" />
 
       {/* Marquee — seamless infinite loop */}
       <Marquee words={marqueeWords} />
