@@ -6,8 +6,8 @@ import { hideContactDetails } from "../buildVariant";
 import { scrollHomeToTop, scrollToHomeSection } from "../homeScroll";
 
 const navItems = [
-  { label: "启信产业大脑", href: "#/project/qixin-brain" },
   { label: "AI报告生成", href: "#/project/ai-report" },
+  { label: "启信产业大脑", href: "#/project/qixin-brain" },
   { label: "关于我", href: "#about" },
 ];
 

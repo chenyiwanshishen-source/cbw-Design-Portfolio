@@ -311,40 +311,19 @@ function ReportProjectSummary() {
                 完成 1.0 上线
               </p>
             </div>
-            <p className="text-[14px] leading-[1.62] text-[#414958] sm:text-[15px] sm:leading-[1.75]">
-              本项目源于真实客户需求，完成了 AI 报告生成 1.0 的设计与上线。由于项目上线后终止，未进入持续运营阶段，因此没有可持续追踪的数据指标。
+            <p className="text-[16px] leading-[1.68] text-[#414958] sm:text-[18px] sm:leading-[1.72]">
+              1.0阶段核心目标是验证"结构可控、来源可追溯的AI生成报告"是否成立。通过3轮用户访谈定义问题边界，主导Prompt框架设计，覆盖6个阶段管线和异常重试机制。上线后收到来自产业规划场景用户的正向反馈：
+              <span className="ai-report-marker-highlight">[现在可以在一个应用里面解决好几个问题]</span>
+              。项目因公司战略原因终止，但验证了AI报告的核心价值在于连接用户数据资产与报告结构，而非单纯生成文字。
             </p>
 
-            <div className="border-t border-[#9DB2D4]/70 pt-4 md:col-span-2 md:grid md:grid-cols-[0.72fr_1.28fr] md:gap-x-10 md:pt-5">
-              <div>
-                <p className="text-[18px] font-semibold leading-[1.4] text-[#1A1C24] sm:text-[22px]">
-                  两个超出初始规划
-                  <br className="hidden sm:block" />
-                  的关键发现
-                </p>
-              </div>
-              <ol className="mt-3 space-y-3 md:mt-0 md:space-y-4">
-                <li className="grid grid-cols-[30px_minmax(0,1fr)] gap-2 sm:grid-cols-[36px_minmax(0,1fr)] sm:gap-3">
-                  <span className="text-[21px] font-semibold leading-none text-[#2258F4] sm:text-[26px]">01</span>
-                  <p className="text-[14px] leading-[1.58] text-[#414958] sm:text-[15px] sm:leading-[1.68]">
-                    <strong className="font-semibold text-[#25314A]">关联客户数据：</strong>
-                    用户管理的部分客户已存在于启信产业大脑中，希望直接关联数据，避免每次生成报告前重复上传名单。
-                  </p>
-                </li>
-                <li className="grid grid-cols-[30px_minmax(0,1fr)] gap-2 sm:grid-cols-[36px_minmax(0,1fr)] sm:gap-3">
-                  <span className="text-[21px] font-semibold leading-none text-[#2258F4] sm:text-[26px]">02</span>
-                  <p className="text-[14px] leading-[1.58] text-[#414958] sm:text-[15px] sm:leading-[1.68]">
-                    <strong className="font-semibold text-[#25314A]">提前知识库规划：</strong>
-                    用户会用扫描全能王 OCR 将纸质或图片资料转成可复用文本，因此我们决定在构建知识库功能的时候，重点把公司的 OCR 能力也纳入到产品中去。
-                  </p>
-                </li>
-              </ol>
+            <div className="border-t border-[#9DB2D4]/70 pt-4 md:col-span-2 md:pt-5">
+              <p className="max-w-[800px] text-[18px] font-semibold leading-[1.5] text-[#1A1C24] sm:text-[22px]">
+                用户不只是需求的提供者，也是关键产品决策的共同缔造者。
+              </p>
             </div>
           </div>
 
-          <p className="mt-4 border-t border-[#9DB2D4]/70 pt-4 text-[14px] font-semibold leading-[1.55] text-[#2258F4] sm:mt-5 sm:text-[17px]">
-            AI 报告的价值不只是生成内容，更在于连接客户数据、资料资产与原有工作流。
-          </p>
         </div>
       </div>
     </motion.section>
@@ -853,7 +832,14 @@ export function ProjectDetail({ onBack }: Props) {
         "使用的工具与数据来源",
         "最耗时、最易返工或最没把握的环节",
       ],
-      conclusion: "报告生产是一条包含需求提出、材料整理、结构确认、内容生产和核查交付的完整链路。",
+      conclusion: (
+        <>
+          <span className="ai-report-marker-highlight">
+            用户真正的时间消耗不在“写报告”，而在“准备写报告”。
+          </span>
+          {"材料分散在多个网站、时效难判断、找完还要分类——这一步普遍要花半天以上。格式一旦变化，之前积累的所有措辞和段落结构全部失效，相当于重新来过。"}
+        </>
+      ),
     },
     {
       round: "第二轮访谈",
@@ -865,7 +851,15 @@ export function ProjectDetail({ onBack }: Props) {
         "天工和豆包在生成前提供范围与结构确认，这一机制值得吸收",
         "用户还需要查看生成内容对应的材料与来源",
       ],
-      conclusion: "结合公司 OCR 能力强化本地材料解析，吸收生成前范围与结构确认机制，并补充知识库与来源追溯能力。",
+      conclusion: (
+        <>
+          {"用户在竞品演示中对“生成前先确认范围和结构”这个机制反应最强烈——这说明"}
+          <span className="ai-report-marker-highlight">
+            用户核心焦虑不是“AI写得好不好”，而是“AI会不会跑偏”。
+          </span>
+          {"同时本地文件解析不稳定是明确的产品机会点，结合公司OCR能力有差异化空间。"}
+        </>
+      ),
     },
     {
       round: "第三轮访谈",
@@ -878,7 +872,17 @@ export function ProjectDetail({ onBack }: Props) {
         "历史报告如何保存、查找与复用",
         "内容来源如何查看和核查",
       ],
-      conclusion: "通过低保真原型图讨论，产品方向未出现明显偏差；围绕历史材料复用、报告查找与来源核查的讨论，共同识别出历史文档统一管理与来源展示等产品机会。",
+      conclusion: (
+        <>
+          {"原型方向整体成立，但讨论中暴露了两个初期规划外的需求：1. 历史报告的查找和复用需求比预期强烈，用户希望"}
+          <span className="ai-report-marker-highlight">“这次的报告下次能直接改”</span>
+          {"；2. 来源核查的诉求不只是"}
+          <span className="ai-report-marker-highlight">“能看到链接”</span>
+          {"，用户还需要知道"}
+          <span className="ai-report-marker-highlight">“这段内容是从哪条材料里来的”</span>
+          {"。这两点推动了历史文档管理模块和来源引用卡片的设计优先级。"}
+        </>
+      ),
     },
   ];
   const activeInterviewDetail =
@@ -1456,7 +1460,7 @@ export function ProjectDetail({ onBack }: Props) {
                     round: "第一轮访谈",
                     title: "还原真实任务",
                     body: "从最近一次报告切入，确认需求由谁提出、如何完成，以及谁负责审核交付。",
-                    conclusion: "还原真实的报告生产链路。",
+                    conclusion: "材料准备才是最大的时间黑洞，格式变化让所有积累归零。",
                     color: "#FFFEF7",
                     borderColor: "#DED9CE",
                     transform: "translate(-2px, 0) rotate(-0.8deg)",
@@ -1469,7 +1473,7 @@ export function ProjectDetail({ onBack }: Props) {
                     round: "第二轮访谈",
                     title: "验证产品方向",
                     body: "对比当时豆包、天工在生成控制、知识库、本地文件解析与生成前确认上的体验差异。",
-                    conclusion: "结合 OCR 优势，吸收生成前确认机制，并补充知识库与来源追溯。",
+                    conclusion: "用户焦虑的不是 AI 写不好，而是 AI 会跑偏，控制感前置是核心机会。",
                     color: "#EEF4FF",
                     borderColor: "#C9D8F4",
                     transform: "translate(8px, 8px) rotate(0.8deg)",
@@ -1482,7 +1486,7 @@ export function ProjectDetail({ onBack }: Props) {
                     round: "第三轮访谈",
                     title: "低保真原型图讨论",
                     body: "结合低保真原型图讨论真实使用方式，围绕历史材料复用共同推演文档管理与知识库机会。",
-                    conclusion: "将历史文档管理和来源展示纳入产品范围。",
+                    conclusion: "历史复用和来源溯源的优先级高于预期，成为模块立项的直接依据。",
                     color: "#F1F8EA",
                     borderColor: "#C7D9B8",
                     transform: "translate(24px, 18px) rotate(-0.6deg)",
@@ -2176,7 +2180,7 @@ export function ProjectDetail({ onBack }: Props) {
             <SectionHeader
               index="04"
               kicker="产品设计方案"
-              title="从数据、对象、章节三层控制生成边界"
+              title="访谈找到的痛点，设计是这样回应的"
               subtitle=""
             />
           </Reveal>
@@ -2193,8 +2197,12 @@ export function ProjectDetail({ onBack }: Props) {
               {
                 icon: Database,
                 title: "数据来源配置",
+                quote:
+                  "材料散在各个网站，找完还要区分时效、重新分类，光这一步就要花半天以上",
                 desc:
-                  "系统默认数据无法覆盖所有报告依据，用户还需要补充外部资料和本地知识。我将系统数据、外链知识和本地知识库做成可选输入，并保留章节引用来源。",
+                  "系统数据、外链知识和本地知识库三路合一，生成时自动追溯来源",
+                feedback:
+                  "用户认为这套方案整体符合他们的预期，资料查找和整理更集中，生成内容的来源也更容易确认。",
                 points: ["系统数据", "外链知识", "本地知识库", "来源追溯"],
                 visual: "知识库页面大图",
                 image: "./images/optimized/ai-data01-1600.jpg",
@@ -2202,8 +2210,12 @@ export function ProjectDetail({ onBack }: Props) {
               {
                 icon: Users,
                 title: "企业范围复用",
+                quote:
+                  "有没有导入企业的功能？我们可能只关注某一部分企业，能不能直接和启信产业大脑打通？",
                 desc:
-                  "企业名单已经在产业平台中沉淀，如果重新选择会增加重复成本。我打通企业监控和企业分组，让已维护的企业对象直接进入报告生成流程。",
+                  "打通企业监控与报告生成，已维护的企业对象直接进入流程，无需重复上传名单",
+                feedback:
+                  "用户认为直接复用启信产业大脑中已有的客户数据，比每次手动上传名单更符合实际工作方式，这也成为 1.0 上线后最核心的延伸需求。",
                 points: ["企业监控", "企业分组", "账户权限", "跨系统关联"],
                 visual: "跨系统联动关系图",
                 image: "./images/optimized/ai-group02-1600.jpg",
@@ -2212,8 +2224,12 @@ export function ProjectDetail({ onBack }: Props) {
               {
                 icon: GitBranch,
                 title: "章节结构匹配",
+                quote:
+                  "格式一换，之前攒的措辞和段落结构全部没法直接用，等于重新来过",
                 desc:
-                  "高频报告结构相似，但每次从头配置会影响效率和一致性。我通过相似章节匹配和内置章节复用，让报告结构更稳定，也方便用户二次调整。",
+                  "把格式与内容解耦，模板承载结构规范，章节独立可复用，两者可以分别调整",
+                feedback:
+                  "用户认为模板与章节内容可以分别调整，更符合他们复用历史报告的习惯，格式变化时也不需要从头重新整理。",
                 points: ["用户输入匹配", "编辑新增匹配", "内置章节复用"],
                 visual: "章节匹配逻辑截图",
                 image: "./images/optimized/ai-marry01-1600.jpg",
@@ -2222,45 +2238,54 @@ export function ProjectDetail({ onBack }: Props) {
               },
             ];
             const [primaryStrategy, ...secondaryStrategies] = designStrategies;
-            const PrimaryIcon = primaryStrategy.icon;
+            const secondaryStrategy = secondaryStrategies[0];
+            const tertiaryStrategy = secondaryStrategies[1];
             return (
-              <div className="space-y-6">
+              <div>
                 <div
-                  className="grid items-center gap-7 overflow-hidden rounded-[28px] border pt-5 pr-5 pl-5 md:pt-6 md:pr-6 md:pl-6 pb-0 lg:grid-cols-[0.72fr_1.28fr]"
-                  style={{
-                    borderColor: LINE,
-                    background:
-                      "linear-gradient(145deg, rgba(255,255,255,0.93), rgba(246,248,255,0.84))",
-                  }}
+                  className="grid items-start gap-8 lg:grid-cols-[minmax(300px,0.72fr)_minmax(0,1.28fr)] lg:gap-10 xl:gap-14"
                 >
-                  <div className="self-start">
-                    <div className="py-1">
-                      <span className="mb-8 inline-flex size-4 shrink-0 items-center justify-center" style={{ color: ICON_GRAY }}>
-                        <PrimaryIcon className="size-4" />
-                      </span>
-                      <h3 className="mb-3" style={{ fontSize: 24, lineHeight: 1.3, fontWeight: 700, color: INK }}>
-                        {primaryStrategy.title}
-                      </h3>
-                      <p className="mb-5" style={bodyText}>
-                        {primaryStrategy.desc}
+                  <div className="self-start pt-1 lg:pt-3">
+                    <h3 className="mb-6" style={{ fontSize: 24, lineHeight: 1.3, fontWeight: 700, color: INK }}>
+                      {primaryStrategy.title}
+                    </h3>
+
+                    <blockquote
+                      className="relative mb-8 max-w-[420px] rounded-[8px] border border-[#DED9CE] px-5 py-5 shadow-[0_8px_22px_rgba(56,67,92,0.1)]"
+                      style={{
+                        background:
+                          "repeating-linear-gradient(to bottom, #FFFEF8 0, #FFFEF8 34px, #E8E4D8 35px, #E8E4D8 36px)",
+                      }}
+                    >
+                      <span
+                        aria-hidden="true"
+                        className="absolute left-1/2 top-0 size-4 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#4A78C2] shadow-[0_2px_4px_rgba(34,61,109,0.22)]"
+                      />
+                      <div className="text-[16px] font-semibold tracking-[0.08em] text-[#737B8C]">
+                        用户原话
+                      </div>
+                      <p className="mt-3 text-[16px] font-medium leading-[1.75] text-[#35404F] xl:text-[18px]">
+                        “{primaryStrategy.quote}”
                       </p>
-                      <div className="flex flex-wrap gap-2">
-                        {primaryStrategy.points.map((point) => (
-                          <span
-                            key={point}
-                            className="rounded-full border px-3 py-1.5"
-                            style={{
-                              borderColor: ICON_BORDER,
-                              background: "rgba(229,235,255,0.6)",
-                              color: ICON_BLUE,
-                              fontSize: 13,
-                              lineHeight: 1.25,
-                              fontWeight: 500,
-                            }}
-                          >
-                            {point}
-                          </span>
-                        ))}
+                    </blockquote>
+
+                    <div className="max-w-[420px] space-y-5">
+                      <div>
+                        <div className="text-[16px] font-semibold tracking-[0.08em] text-[#737B8C]">
+                          设计回应
+                        </div>
+                        <p className="mt-2 text-[16px] leading-[1.75] text-[#696D7A]">
+                          <span className="ai-report-marker-highlight">{primaryStrategy.desc}</span>
+                        </p>
+                      </div>
+
+                      <div className="border-t pt-4" style={{ borderColor: LINE }}>
+                        <div className="text-[16px] font-semibold tracking-[0.08em] text-[#737B8C]">
+                          上线反馈
+                        </div>
+                        <p className="mt-2 text-[16px] leading-[1.75] text-[#696D7A]">
+                          {primaryStrategy.feedback}
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -2279,129 +2304,163 @@ export function ProjectDetail({ onBack }: Props) {
                       {...DETAIL_IMAGE_LAZY_PROPS}
                       className="relative z-10 block w-full rounded-2xl object-contain shadow-[0_16px_36px_rgba(15,20,25,0.11)]"
                     />
-                    <div
-                      className="pointer-events-none absolute -left-[72%] -right-6 bottom-0 z-20 h-20 md:-right-7"
-                      style={{
-                        background:
-                          "linear-gradient(180deg, rgba(248,250,255,0), rgba(248,250,255,0.92))",
-                      }}
-                    />
                   </div>
                 </div>
 
-                <div className="grid gap-6 lg:grid-cols-2">
-                  {secondaryStrategies.map((strategy) => {
-                const Icon = strategy.icon;
-                return (
+                <div className="mt-24 grid items-start gap-8 md:mt-28 lg:grid-cols-[minmax(0,1.28fr)_minmax(300px,0.72fr)] lg:gap-10 xl:mt-32 xl:gap-14">
                   <div
-                    key={strategy.title}
-                    className="grid min-h-[480px] grid-rows-[auto_1fr] gap-5 overflow-hidden rounded-[28px] border pt-5 pr-5 pl-5 md:pt-6 md:pr-6 md:pl-6 pb-0"
-                    style={{
-                      borderColor: LINE,
-                      background:
-                        "linear-gradient(145deg, rgba(255,255,255,0.93), rgba(246,248,255,0.84))",
-                    }}
+                    className="relative flex min-h-0 items-end overflow-visible rounded-2xl"
+                    style={{ aspectRatio: "16 / 10.5" }}
                   >
-                    <div>
-                      <span className="mb-8 inline-flex size-4 shrink-0 items-center justify-center" style={{ color: ICON_GRAY }}>
-                        <Icon className="size-4" />
-                      </span>
-                      <h3 className="mb-3" style={{ fontSize: 24, lineHeight: 1.3, fontWeight: 700, color: INK }}>
-                        {strategy.title}
-                      </h3>
-                      <p className="mb-5" style={bodyText}>
-                        {strategy.desc}
-                      </p>
-                      <div className="flex flex-wrap gap-2">
-                        {strategy.points.map((point) => (
-                          <span
-                            key={point}
-                            className="rounded-full border px-3 py-1.5"
-                            style={{
-                              borderColor: ICON_BORDER,
-                              background: "rgba(229,235,255,0.6)",
-                              color: ICON_BLUE,
-                              fontSize: 13,
-                              lineHeight: 1.25,
-                              fontWeight: 500,
-                            }}
-                          >
-                            {point}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div
-                      className={`relative flex min-h-0 items-end rounded-2xl ${strategy.overlayImage ? "overflow-visible" : "overflow-hidden"}`}
-                      style={{ aspectRatio: "16 / 10.5" }}
-                    >
-                      {strategy.overlayImage ? (
-                        <div className="relative h-full w-full">
-                          <img
-                            src={strategy.image}
-                            alt={`${strategy.title}主界面`}
-                            {...DETAIL_IMAGE_LAZY_PROPS}
-                            className={`absolute z-10 object-contain ${
-                              strategy.overlayRaw
-                                ? "left-[3%] top-[-2%] w-[92%] -rotate-[2deg] rounded-2xl shadow-[0_10px_28px_rgba(15,20,25,0.08)]"
-                                : "right-0 top-0 w-[88%] rotate-[1.5deg] rounded-2xl shadow-[0_6px_16px_rgba(15,20,25,0.07)]"
-                            }`}
-                          />
-                          <img
-                            src={strategy.overlayImage}
-                            alt={`${strategy.title}交互状态`}
-                            {...DETAIL_IMAGE_LAZY_PROPS}
-                            className={`absolute z-20 object-contain ${
-                              strategy.overlayRaw
-                                ? "right-[-10%] bottom-[-6%] w-[84%] rotate-[2deg] drop-shadow-[0_22px_42px_rgba(15,20,25,0.16)]"
-                                : "left-0 -bottom-4 w-[82%] -rotate-[3deg] rounded-2xl shadow-[0_20px_48px_rgba(15,20,25,0.18)]"
-                            }`}
-                          />
-                          {strategy.overlayRaw && (
-                            <div className="absolute left-[18%] top-[36%] z-30 flex rotate-[-11.5deg] flex-col items-center">
-                              <span
-                                className="rounded-lg px-3.5 py-2 text-xs font-semibold leading-none text-white"
-                                style={{
-                                  background: BLUE,
-                                }}
-                              >
-                                  用户二次匹配
-                              </span>
-                              <svg
-                                className="mt-3 size-6 rotate-[85deg] overflow-visible"
-                                viewBox="0 0 20 20"
-                                aria-hidden="true"
-                              >
-                                <path
-                                  d="M3.3 3.1C2.9 2.2 3.9 1.4 4.7 1.9L17 8.9C18 9.5 18 10.8 17 11.4L4.7 18.1C3.9 18.6 2.9 17.8 3.3 16.9L5.8 10.9C6 10.3 6 9.7 5.8 9.1L3.3 3.1Z"
-                                  fill={BLUE}
-                                />
-                              </svg>
-                            </div>
-                          )}
-                          <div
-                            className="pointer-events-none absolute -left-5 -right-5 bottom-0 z-30 h-20 md:-left-6 md:-right-6"
-                            style={{
-                              background:
-                                "linear-gradient(180deg, rgba(248,250,255,0), rgba(248,250,255,0.95))",
-                            }}
-                          />
-                        </div>
-                      ) : strategy.image ? (
+                    <div className="relative h-full w-full">
+                      <img
+                        src={secondaryStrategy.image}
+                        alt={`${secondaryStrategy.title}主界面`}
+                        {...DETAIL_IMAGE_LAZY_PROPS}
+                        className="absolute right-0 top-0 z-10 w-[88%] rotate-[1.5deg] rounded-2xl object-contain shadow-[0_6px_16px_rgba(15,20,25,0.07)]"
+                      />
+                      {secondaryStrategy.overlayImage && (
                         <img
-                          src={strategy.image}
-                          alt={strategy.visual}
+                          src={secondaryStrategy.overlayImage}
+                          alt={`${secondaryStrategy.title}交互状态`}
                           {...DETAIL_IMAGE_LAZY_PROPS}
-                          className="h-full w-full object-contain"
+                          className="absolute left-0 -bottom-4 z-20 w-[82%] -rotate-[3deg] rounded-2xl object-contain shadow-[0_20px_48px_rgba(15,20,25,0.18)]"
                         />
-                      ) : (
-                        <Placeholder size="lg" ratio="auto" label={strategy.visual} />
                       )}
                     </div>
                   </div>
-                );
-                  })}
+
+                  <div className="self-start pt-1 lg:pt-3">
+                    <h3 className="mb-6" style={{ fontSize: 24, lineHeight: 1.3, fontWeight: 700, color: INK }}>
+                      {secondaryStrategy.title}
+                    </h3>
+
+                    <blockquote
+                      className="relative mb-8 max-w-[420px] rounded-[8px] border border-[#DED9CE] px-5 py-5 shadow-[0_8px_22px_rgba(56,67,92,0.1)]"
+                      style={{
+                        background:
+                          "repeating-linear-gradient(to bottom, #FFFEF8 0, #FFFEF8 34px, #E8E4D8 35px, #E8E4D8 36px)",
+                      }}
+                    >
+                      <span
+                        aria-hidden="true"
+                        className="absolute left-1/2 top-0 size-4 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#4A78C2] shadow-[0_2px_4px_rgba(34,61,109,0.22)]"
+                      />
+                      <div className="text-[16px] font-semibold tracking-[0.08em] text-[#737B8C]">
+                        用户原话
+                      </div>
+                      <p className="mt-3 text-[16px] font-medium leading-[1.75] text-[#35404F] xl:text-[18px]">
+                        “{secondaryStrategy.quote}”
+                      </p>
+                    </blockquote>
+
+                    <div className="max-w-[420px] space-y-5">
+                      <div>
+                        <div className="text-[16px] font-semibold tracking-[0.08em] text-[#737B8C]">
+                          设计回应
+                        </div>
+                        <p className="mt-2 text-[16px] leading-[1.75] text-[#696D7A]">
+                          <span className="ai-report-marker-highlight">{secondaryStrategy.desc}</span>
+                        </p>
+                      </div>
+
+                      <div className="border-t pt-4" style={{ borderColor: LINE }}>
+                        <div className="text-[16px] font-semibold tracking-[0.08em] text-[#737B8C]">
+                          上线反馈
+                        </div>
+                        <p className="mt-2 text-[16px] leading-[1.75] text-[#696D7A]">
+                          {secondaryStrategy.feedback}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-24 grid items-start gap-8 md:mt-28 lg:grid-cols-[minmax(300px,0.72fr)_minmax(0,1.28fr)] lg:gap-10 xl:mt-32 xl:gap-14">
+                  <div className="self-start pt-1 lg:pt-3">
+                    <h3 className="mb-6" style={{ fontSize: 24, lineHeight: 1.3, fontWeight: 700, color: INK }}>
+                      {tertiaryStrategy.title}
+                    </h3>
+
+                    <blockquote
+                      className="relative mb-8 max-w-[420px] rounded-[8px] border border-[#DED9CE] px-5 py-5 shadow-[0_8px_22px_rgba(56,67,92,0.1)]"
+                      style={{
+                        background:
+                          "repeating-linear-gradient(to bottom, #FFFEF8 0, #FFFEF8 34px, #E8E4D8 35px, #E8E4D8 36px)",
+                      }}
+                    >
+                      <span
+                        aria-hidden="true"
+                        className="absolute left-1/2 top-0 size-4 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#4A78C2] shadow-[0_2px_4px_rgba(34,61,109,0.22)]"
+                      />
+                      <div className="text-[16px] font-semibold tracking-[0.08em] text-[#737B8C]">
+                        用户原话
+                      </div>
+                      <p className="mt-3 text-[16px] font-medium leading-[1.75] text-[#35404F] xl:text-[18px]">
+                        “{tertiaryStrategy.quote}”
+                      </p>
+                    </blockquote>
+
+                    <div className="max-w-[420px] space-y-5">
+                      <div>
+                        <div className="text-[16px] font-semibold tracking-[0.08em] text-[#737B8C]">
+                          设计回应
+                        </div>
+                        <p className="mt-2 text-[16px] leading-[1.75] text-[#696D7A]">
+                          <span className="ai-report-marker-highlight">{tertiaryStrategy.desc}</span>
+                        </p>
+                      </div>
+
+                      <div className="border-t pt-4" style={{ borderColor: LINE }}>
+                        <div className="text-[16px] font-semibold tracking-[0.08em] text-[#737B8C]">
+                          上线反馈
+                        </div>
+                        <p className="mt-2 text-[16px] leading-[1.75] text-[#696D7A]">
+                          {tertiaryStrategy.feedback}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div
+                    className="relative flex min-h-0 items-end overflow-visible rounded-2xl"
+                    style={{ aspectRatio: "16 / 10.5" }}
+                  >
+                    <div className="relative h-full w-full">
+                      <img
+                        src={tertiaryStrategy.image}
+                        alt={`${tertiaryStrategy.title}主界面`}
+                        {...DETAIL_IMAGE_LAZY_PROPS}
+                        className="absolute left-[3%] top-[-2%] z-10 w-[92%] -rotate-[2deg] rounded-2xl object-contain shadow-[0_10px_28px_rgba(15,20,25,0.08)]"
+                      />
+                      {tertiaryStrategy.overlayImage && (
+                        <img
+                          src={tertiaryStrategy.overlayImage}
+                          alt={`${tertiaryStrategy.title}交互状态`}
+                          {...DETAIL_IMAGE_LAZY_PROPS}
+                          className="absolute right-[-10%] bottom-[-6%] z-20 w-[84%] rotate-[2deg] object-contain drop-shadow-[0_22px_42px_rgba(15,20,25,0.16)]"
+                        />
+                      )}
+                      <div className="absolute left-[18%] top-[36%] z-30 flex rotate-[-11.5deg] flex-col items-center">
+                        <span
+                          className="rounded-lg px-3.5 py-2 text-xs font-semibold leading-none text-white"
+                          style={{ background: BLUE }}
+                        >
+                          用户二次匹配
+                        </span>
+                        <svg
+                          className="mt-3 size-6 rotate-[85deg] overflow-visible"
+                          viewBox="0 0 20 20"
+                          aria-hidden="true"
+                        >
+                          <path
+                            d="M3.3 3.1C2.9 2.2 3.9 1.4 4.7 1.9L17 8.9C18 9.5 18 10.8 17 11.4L4.7 18.1C3.9 18.6 2.9 17.8 3.3 16.9L5.8 10.9C6 10.3 6 9.7 5.8 9.1L3.3 3.1Z"
+                            fill={BLUE}
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             );
@@ -2419,11 +2478,368 @@ export function ProjectDetail({ onBack }: Props) {
             <SectionHeader
               index="04B"
               kicker="来源可信度"
-              title="设计数据溯源交互方案"
-              subtitle="判断报告生成的风险不只在内容是否完整，也在用户是否知道依据来自哪里。因此将参考来源、企业对象和模型运算结果前置展示，并让正文引用回链到具体来源。"
+              title="用户信任内容的前提是知道它从哪来"
+              subtitle=""
             />
+
+            <blockquote
+              className="relative max-w-[420px] rounded-[8px] border border-[#DED9CE] px-5 py-5 shadow-[0_8px_22px_rgba(56,67,92,0.1)]"
+              style={{
+                background:
+                  "repeating-linear-gradient(to bottom, #FFFEF8 0, #FFFEF8 34px, #E8E4D8 35px, #E8E4D8 36px)",
+              }}
+            >
+              <span
+                aria-hidden="true"
+                className="absolute left-1/2 top-0 size-4 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#4A78C2] shadow-[0_2px_4px_rgba(34,61,109,0.22)]"
+              />
+              <div className="text-[16px] font-semibold tracking-[0.08em] text-[#737B8C]">
+                用户原话
+              </div>
+              <p className="mt-3 text-[16px] font-medium leading-[1.75] text-[#35404F] xl:text-[18px]">
+                “生成的内容里面的数据是不是真的？还是只用了我给的材料？”
+              </p>
+            </blockquote>
           </Reveal>
-          <Reveal className="max-w-[1400px]" delay={0.12} y={24}>
+
+          <Reveal className="mb-16 max-w-[1400px] md:mb-20" delay={0.08} y={18}>
+            <div className="flex max-w-[420px] justify-center py-2" aria-hidden="true">
+              <svg className="h-[76px] w-[112px] overflow-visible" viewBox="0 0 112 76" fill="none">
+                <path
+                  d="M25 5 C25 31 38 44 76 57"
+                  stroke={BLUE}
+                  strokeWidth="2.4"
+                  strokeLinecap="round"
+                  opacity="0.82"
+                />
+                <path
+                  d="M65 48 L80 59 L62 65"
+                  stroke={BLUE}
+                  strokeWidth="2.4"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  opacity="0.82"
+                />
+                <path
+                  d="M30 6 C30 28 42 39 70 50"
+                  stroke="#A8BEFF"
+                  strokeWidth="1.2"
+                  strokeLinecap="round"
+                  strokeDasharray="3 6"
+                  opacity="0.58"
+                />
+              </svg>
+            </div>
+
+            {(() => {
+              const decisions = [
+                {
+                  title: "判断 01 — 如何打消用户疑虑",
+                  body:
+                    "报告末尾有免责声明，但用户访谈中仍担心「数据会是真的吗」。",
+                  conclusionLabel: "取舍",
+                  conclusion:
+                    "不再把免责声明当作信任手段，改为让依据跟具体内容就近出现。",
+                  rotation: "-0.4deg",
+                },
+                {
+                  title: "判断 02 — 如何让用户更清晰地做决策",
+                  body:
+                    "最初打算把所有来源汇总在报告末尾，但内容与来源分离，用户无法很好地对应到相关位置。",
+                  conclusionLabel: "取舍",
+                  conclusion:
+                    "放弃末尾集中方案，改为在正文中用引用编号就近绑定来源卡片，读到哪里、依据就在哪里。",
+                  rotation: "0deg",
+                },
+                {
+                  title: "判断 03 — 如何区分信息置信度",
+                  body:
+                    "企业数据、知识库、互联网与模型推算的性质不同，混在一起会让用户无法判断可信度，仍会关心「这会不会是 AI 算出来的」。",
+                  conclusionLabel: "设计依据",
+                  conclusion:
+                    "尼尔森「识别优于记忆」——用颜色编码区分四种来源类型，用户一眼识别，无需记规则。",
+                  rotation: "0deg",
+                },
+              ];
+
+              const renderDecisionPaper = (
+                decision: (typeof decisions)[number],
+                decisionIndex: number,
+                variant: "primary" | "extension",
+              ) => {
+                const decisionNumber = String(decisionIndex + 1).padStart(2, "0");
+                const maskId = `ai-report-traceability-decision-${decisionNumber}-torn-mask`;
+                const washId = `ai-report-traceability-decision-${decisionNumber}-wash`;
+                const rulePatternId = `ai-report-traceability-decision-${decisionNumber}-rules`;
+                const titleId = `ai-report-traceability-decision-${decisionNumber}-title`;
+                const isPrimary = variant === "primary";
+                const isUpperExtension = variant === "extension" && decisionIndex === 1;
+                const sharedTearTopPath =
+                  "M 0 16 L 13 7 L 31 14 L 52 3 L 70 12 L 91 5 L 116 16 L 134 6 L 159 13 L 181 2 L 204 15 L 229 7 L 252 17 L 274 4 L 297 12 L 322 3 L 346 16 L 367 6 L 391 14 L 408 5 L 420 13 V 272 Q 420 280 412 280 H 8 Q 0 280 0 272 V 16 Z";
+                const sharedTearBottomPath =
+                  "M 8 0 H 412 Q 420 0 420 8 V 275 L 408 267 L 391 276 L 367 268 L 346 278 L 322 265 L 297 274 L 274 266 L 252 279 L 229 269 L 204 277 L 181 264 L 159 275 L 134 268 L 116 278 L 91 267 L 70 274 L 52 265 L 31 276 L 13 269 L 0 278 V 8 Q 0 0 8 0 Z";
+                const paperPath = isUpperExtension ? sharedTearBottomPath : sharedTearTopPath;
+                const paperColors = isPrimary
+                  ? {
+                      fill: "#FFFEF8",
+                      washStart: "#FFFEF8",
+                      washMiddle: "#FFFEF8",
+                      washEnd: "#E8E4D8",
+                      border: "#DED9CE",
+                      divider: "#E8E4D8",
+                      washOpacity: 0.18,
+                    }
+                  : {
+                      fill: "#F8FAFF",
+                      washStart: "#FFFFFF",
+                      washMiddle: "#F8FAFF",
+                      washEnd: "#EEF4FF",
+                      border: "#B9C9EA",
+                      divider: "#DCE7FA",
+                      washOpacity: 0.22,
+                    };
+
+                return (
+                  <article
+                    key={decision.title}
+                    aria-labelledby={titleId}
+                    className={`relative h-full overflow-visible ${
+                      isPrimary
+                        ? "min-h-[300px] sm:min-h-[290px] xl:min-h-[336px]"
+                        : "min-h-[220px] sm:min-h-[238px] xl:min-h-[160px]"
+                    }`}
+                    style={{
+                      filter:
+                        "drop-shadow(0 2px 4px rgba(28,36,52,0.055)) drop-shadow(0 10px 20px rgba(28,36,52,0.035))",
+                      transform: `rotate(${decision.rotation})`,
+                    }}
+                  >
+                    <svg
+                      aria-hidden="true"
+                      viewBox="0 0 420 280"
+                      preserveAspectRatio="none"
+                      className="absolute inset-0 h-full w-full overflow-visible"
+                    >
+                      <defs>
+                        <mask id={maskId}>
+                          <path d={paperPath} fill="white" />
+                        </mask>
+                        <linearGradient id={washId} x1="0" y1="0" x2="1" y2="1">
+                          <stop offset="0" stopColor={paperColors.washStart} />
+                          <stop offset="0.52" stopColor={paperColors.washMiddle} />
+                          <stop offset="1" stopColor={paperColors.washEnd} />
+                        </linearGradient>
+                        {!isPrimary && (
+                          <pattern
+                            id={rulePatternId}
+                            width="420"
+                            height="42"
+                            patternUnits="userSpaceOnUse"
+                          >
+                            <line
+                              x1="0"
+                              y1="41.5"
+                              x2="420"
+                              y2="41.5"
+                              stroke="#DCE7FA"
+                              strokeWidth="1"
+                              opacity="0.72"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                          </pattern>
+                        )}
+                      </defs>
+                      <g mask={`url(#${maskId})`}>
+                        <rect width="420" height="280" fill={paperColors.fill} />
+                        <rect
+                          width="420"
+                          height="280"
+                          fill={`url(#${washId})`}
+                          opacity={paperColors.washOpacity}
+                        />
+                        {!isPrimary && (
+                          <rect width="420" height="280" fill={`url(#${rulePatternId})`} />
+                        )}
+                      </g>
+                      <path
+                        d={paperPath}
+                        fill="none"
+                        stroke={paperColors.border}
+                        strokeWidth="1.2"
+                        opacity="0.82"
+                        vectorEffect="non-scaling-stroke"
+                      />
+                    </svg>
+
+                    <div
+                      className={`relative z-10 h-full px-6 pb-6 pt-8 ${
+                        isPrimary
+                          ? "flex flex-col sm:px-7 sm:pb-7 sm:pt-9"
+                          : "sm:px-6 sm:pb-6 sm:pt-8 xl:grid xl:grid-cols-[minmax(0,1fr)_minmax(260px,0.92fr)] xl:items-center xl:gap-5 xl:px-6 xl:pb-5 xl:pt-7"
+                      }`}
+                    >
+                      <div>
+                        <h3
+                          id={titleId}
+                          className={`font-semibold leading-[1.45] text-[#252B36] ${
+                            isPrimary ? "text-[18px] xl:text-[19px]" : "text-[16px] xl:text-[17px]"
+                          }`}
+                        >
+                          {decision.title}
+                        </h3>
+                        <p
+                          className={`text-[#4E525E] ${
+                            isPrimary
+                              ? "mt-4 text-[15px] leading-[1.8] xl:text-[16px]"
+                              : "mt-3 text-[14px] leading-[1.72] xl:text-[15px]"
+                          }`}
+                        >
+                          {decision.body}
+                        </p>
+                      </div>
+                      <p
+                        className={`${
+                          isPrimary
+                            ? "mt-auto border-t pt-4 text-[15px] leading-[1.75] xl:text-[16px]"
+                            : "mt-4 border-t pt-3 text-[14px] leading-[1.7] xl:mt-0 xl:border-l xl:border-t-0 xl:pl-5 xl:pt-0 xl:text-[15px]"
+                        } text-[#35404F]`}
+                        style={{ borderColor: paperColors.divider }}
+                      >
+                        <span className="font-semibold text-[#252B36]">{decision.conclusionLabel}：</span>
+                        {decision.conclusion}
+                      </p>
+                    </div>
+                  </article>
+                );
+              };
+
+              return (
+                <div className="grid items-stretch gap-4 xl:grid-cols-[minmax(0,0.86fr)_128px_minmax(0,1.34fr)]">
+                  {renderDecisionPaper(decisions[0], 0, "primary")}
+
+                  <div className="relative min-h-[72px] xl:min-h-[336px]">
+                    <div className="flex h-full flex-col items-center justify-center py-1 xl:hidden">
+                      <span className="text-[13px] font-semibold tracking-[0.08em] text-[#6E7A92]">
+                        延展思考
+                      </span>
+                      <svg
+                        aria-hidden="true"
+                        className="mt-1 h-11 w-16 overflow-visible sm:hidden"
+                        viewBox="0 0 64 44"
+                        fill="none"
+                      >
+                        <defs>
+                          <marker
+                            id="ai-report-traceability-mobile-arrowhead"
+                            markerWidth="8"
+                            markerHeight="8"
+                            refX="6"
+                            refY="4"
+                            orient="auto"
+                          >
+                            <path d="M 0 0 L 8 4 L 0 8" fill="none" stroke="#6F8FE8" strokeWidth="1.5" />
+                          </marker>
+                        </defs>
+                        <path
+                          d="M32 2 C32 16 32 24 32 38"
+                          stroke="#6F8FE8"
+                          strokeWidth="1.8"
+                          strokeLinecap="round"
+                          markerEnd="url(#ai-report-traceability-mobile-arrowhead)"
+                        />
+                      </svg>
+                      <svg
+                        aria-hidden="true"
+                        className="mt-1 hidden h-12 w-full max-w-[560px] overflow-visible sm:block"
+                        viewBox="0 0 560 48"
+                        fill="none"
+                      >
+                        <defs>
+                          <marker
+                            id="ai-report-traceability-tablet-arrowhead"
+                            markerWidth="8"
+                            markerHeight="8"
+                            refX="6"
+                            refY="4"
+                            orient="auto"
+                          >
+                            <path d="M 0 0 L 8 4 L 0 8" fill="none" stroke="#6F8FE8" strokeWidth="1.5" />
+                          </marker>
+                        </defs>
+                        <path
+                          d="M280 2 C280 25 185 18 142 42"
+                          stroke="#6F8FE8"
+                          strokeWidth="1.8"
+                          strokeLinecap="round"
+                          markerEnd="url(#ai-report-traceability-tablet-arrowhead)"
+                        />
+                        <path
+                          d="M280 2 C280 25 375 18 418 42"
+                          stroke="#6F8FE8"
+                          strokeWidth="1.8"
+                          strokeLinecap="round"
+                          markerEnd="url(#ai-report-traceability-tablet-arrowhead)"
+                        />
+                      </svg>
+                    </div>
+
+                    <div className="absolute inset-0 hidden xl:block">
+                      <span className="absolute left-1/2 top-5 -translate-x-1/2 whitespace-nowrap text-[13px] font-semibold tracking-[0.08em] text-[#6E7A92]">
+                        延展思考
+                      </span>
+                      <svg
+                        aria-hidden="true"
+                        className="h-full w-full overflow-visible"
+                        viewBox="0 0 128 336"
+                        fill="none"
+                        preserveAspectRatio="none"
+                      >
+                        <defs>
+                          <marker
+                            id="ai-report-traceability-desktop-arrowhead"
+                            markerWidth="8"
+                            markerHeight="8"
+                            refX="6"
+                            refY="4"
+                            orient="auto"
+                          >
+                            <path d="M 0 0 L 8 4 L 0 8" fill="none" stroke="#6F8FE8" strokeWidth="1.5" />
+                          </marker>
+                        </defs>
+                        <path
+                          d="M4 168 C48 168 52 80 119 80"
+                          stroke="#6F8FE8"
+                          strokeWidth="1.8"
+                          strokeLinecap="round"
+                          markerEnd="url(#ai-report-traceability-desktop-arrowhead)"
+                          vectorEffect="non-scaling-stroke"
+                        />
+                        <path
+                          d="M4 168 C48 168 52 256 119 256"
+                          stroke="#6F8FE8"
+                          strokeWidth="1.8"
+                          strokeLinecap="round"
+                          markerEnd="url(#ai-report-traceability-desktop-arrowhead)"
+                          vectorEffect="non-scaling-stroke"
+                        />
+                        <circle cx="5" cy="168" r="3.5" fill="#6F8FE8" />
+                      </svg>
+                    </div>
+                  </div>
+
+                  <div
+                    className="grid gap-4 sm:grid-cols-2 xl:min-h-[336px] xl:grid-cols-1 xl:grid-rows-2 xl:gap-0"
+                    style={{ transform: "rotate(0.22deg)", transformOrigin: "center center" }}
+                  >
+                    {renderDecisionPaper(decisions[1], 1, "extension")}
+                    {renderDecisionPaper(decisions[2], 2, "extension")}
+                  </div>
+                </div>
+              );
+            })()}
+          </Reveal>
+
+          <Reveal className="max-w-[1400px]" delay={0.16} y={24}>
             <div className="relative grid gap-6 lg:grid-cols-[minmax(0,320px)_minmax(0,696px)] xl:grid-cols-[320px_696px_320px] xl:items-start xl:gap-8">
               <div className="order-2 flex w-full max-w-[320px] flex-col gap-3 lg:order-1 lg:mt-[40px]">
                 {[

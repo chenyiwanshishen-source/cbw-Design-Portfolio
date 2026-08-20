@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { motion } from "motion/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -43,7 +43,6 @@ const capabilityCards = [
       "AI 工具融入设计流程与原型搭建",
       "Prompt / Workflow 设计与验证",
       "多模态输入、生成、编辑和反馈",
-      "异常状态与效率提升设计",
     ],
     tone: {
       fill: "#F5F3FF",
@@ -57,7 +56,6 @@ const capabilityCards = [
       "Figma 梳理关键流程与高保真方案",
       "AI 辅助需求拆解、资料归纳与方案推演",
       "借助 Codex 将设计方案转化为可交互原型",
-      "关键链路、边界状态与响应式走查",
     ],
     tone: {
       fill: "#FFF7ED",
@@ -102,6 +100,7 @@ export function Hero() {
   const nameDragRef = useRef<HTMLSpanElement | null>(null);
   const roleDragRef = useRef<HTMLSpanElement | null>(null);
   const characterRef = useRef<HTMLDivElement | null>(null);
+  const [projectsRevealed, setProjectsRevealed] = useState(false);
 
   useGSAP(
     (_, contextSafe) => {
@@ -640,13 +639,12 @@ export function Hero() {
             </h1>
 
             <div className="mt-9 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
-              <a
+              <button
+                type="button"
                 data-magnetic-button
-                href="#work"
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToHomeSection("work");
-                }}
+                aria-expanded={projectsRevealed}
+                aria-controls="hero-project-ai hero-project-qixin"
+                onClick={() => setProjectsRevealed(true)}
                 className="group relative inline-flex will-change-transform items-center gap-3 overflow-hidden rounded-full bg-[#1A1C24] py-2 pl-6 pr-2 text-white transition-shadow duration-300 hover:shadow-[0_0_40px_rgba(34,88,244,0.35)]"
               >
                 <span className="absolute inset-0 -translate-x-full bg-[#2258F4] transition-transform duration-500 group-hover:translate-x-0" />
@@ -659,14 +657,15 @@ export function Hero() {
                     <ArrowDown className="size-4" />
                   </span>
                 </span>
-              </a>
+              </button>
               {!hideContactDetails && (
                 <a
                   data-magnetic-button
-                  href="#contact"
+                  href="#about"
                   onClick={(e) => {
                     e.preventDefault();
-                    scrollToHomeSection("contact");
+                    window.location.hash = "#about";
+                    window.setTimeout(() => scrollToHomeSection("experience"), 80);
                   }}
                   className="group relative inline-flex h-[52px] will-change-transform items-center rounded-full border border-[#CBCDD4] px-6 text-sm text-[#4E525E] transition-colors duration-300 hover:border-[#A8BEFF] hover:bg-[#F5F5F7] hover:text-[#1A1C24]"
                 >
@@ -674,7 +673,7 @@ export function Hero() {
                     data-magnetic-label
                     className="inline-flex will-change-transform pointer-events-none items-center gap-2"
                   >
-                    联系我
+                    关于我
                     <span className="inline-block group-hover:translate-x-1 transition-transform">→</span>
                   </span>
                 </a>
@@ -817,8 +816,8 @@ export function Hero() {
         />
       </div>
 
-      <HeroProjectPeekCard variant="ai" />
-      <HeroProjectPeekCard variant="qixin" />
+      <HeroProjectPeekCard variant="ai" revealed={projectsRevealed} />
+      <HeroProjectPeekCard variant="qixin" revealed={projectsRevealed} />
 
       {/* Marquee — seamless infinite loop */}
       <Marquee words={marqueeWords} />
