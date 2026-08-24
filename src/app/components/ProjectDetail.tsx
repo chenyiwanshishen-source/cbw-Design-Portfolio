@@ -326,53 +326,6 @@ function PromptCompilerValueReflection() {
     },
   ];
 
-  const keyMetrics = [
-    {
-      title: "全流程交付周期",
-      before: "2~3 天",
-      after: "20 分钟",
-      change: "90%",
-      direction: "down",
-      bg: "repeating-linear-gradient(to bottom, #FFFEF8 0, #FFFEF8 34px, #E8E4D8 35px, #E8E4D8 36px)",
-      borderColor: "#DED9CE",
-      pinColor: "#4A78C2",
-      rotation: "rotate-[-0.7deg]",
-    },
-    {
-      title: "纯内容生成耗时",
-      before: "6~8 小时",
-      after: "约 5 分钟",
-      change: "98%",
-      direction: "down",
-      bg: "repeating-linear-gradient(to bottom, #FFFEF8 0, #FFFEF8 34px, #E8E4D8 35px, #E8E4D8 36px)",
-      borderColor: "#DED9CE",
-      pinColor: "#A85A16",
-      rotation: "rotate-[0.6deg]",
-    },
-    {
-      title: "资料准备与清洗",
-      before: "半天以上",
-      after: "< 1 分钟",
-      change: "95%",
-      direction: "down",
-      bg: "repeating-linear-gradient(to bottom, #FFFEF8 0, #FFFEF8 34px, #E8E4D8 35px, #E8E4D8 36px)",
-      borderColor: "#DED9CE",
-      pinColor: "#2F7A44",
-      rotation: "rotate-[-0.5deg]",
-    },
-    {
-      title: "关键事实溯源率",
-      before: "人工核验",
-      after: "80%",
-      change: "42.5%",
-      direction: "up",
-      bg: "repeating-linear-gradient(to bottom, #EEF2FF 0, #EEF2FF 34px, #D8E1FF 35px, #D8E1FF 36px)",
-      borderColor: "#C8D4FF",
-      pinColor: "#2258F4",
-      rotation: "rotate-[0.7deg]",
-    },
-  ];
-
   return (
     <section
       data-prompt-value-reflection="true"
@@ -385,58 +338,8 @@ function PromptCompilerValueReflection() {
           className="tracking-tight text-neutral-900"
           style={T.h2}
         >
-          项目落地的关键指标与反思
+          项目落地的设计反思
         </h3>
-      </div>
-
-      {/* 关键数值横向对比小便签 */}
-      <div className="mb-12 grid grid-cols-1 gap-3.5 sm:grid-cols-2 lg:grid-cols-4 lg:gap-4">
-        {keyMetrics.map((metric) => (
-          <div
-            key={metric.title}
-            className={`relative flex min-h-[104px] items-center justify-between gap-2.5 rounded-[8px] border px-4 py-3.5 shadow-[0_6px_20px_rgba(56,67,92,0.07)] sm:px-4.5 sm:py-4 ${metric.rotation} transition-transform duration-200 hover:rotate-0 hover:z-20`}
-            style={{
-              background: metric.bg,
-              borderColor: metric.borderColor,
-            }}
-          >
-            {/* 便签大头针 */}
-            <span
-              aria-hidden="true"
-              className="absolute left-1/2 top-0 size-3.5 -translate-x-1/2 -translate-y-1/2 rounded-full shadow-[0_2px_4px_rgba(34,61,109,0.22)]"
-              style={{ backgroundColor: metric.pinColor }}
-            />
-
-            {/* 左侧：标题与前后对比 */}
-            <div className="min-w-0 flex flex-col justify-center">
-              <div className="whitespace-nowrap text-[16px] font-semibold tracking-tight text-[#737B8C]">
-                {metric.title}
-              </div>
-
-              <div className="mt-1.5 flex items-baseline gap-1.5 whitespace-nowrap">
-                <span className="whitespace-nowrap text-[15px] text-[#8D94A3] sm:text-[16px]">
-                  {metric.before}
-                </span>
-                <span className="shrink-0 text-[15px] font-bold text-[#2258F4] sm:text-[16px]">→</span>
-                <span className="whitespace-nowrap text-[17px] font-bold text-[#1A1C24] sm:text-[18px]">
-                  {metric.after}
-                </span>
-              </div>
-            </div>
-
-            {/* 右侧：缩放到合适尺寸的纯数字 */}
-            <div className="flex shrink-0 items-center pl-1">
-              <span
-                className="whitespace-nowrap text-[24px] font-extrabold tracking-tight leading-none sm:text-[26px] md:text-[28px]"
-                style={{
-                  color: metric.direction === "down" ? "#2F7A44" : "#2258F4",
-                }}
-              >
-                {metric.direction === "down" ? "↓" : "↑"} {metric.change}
-              </span>
-            </div>
-          </div>
-        ))}
       </div>
 
       <div className="grid gap-7 px-2 md:grid-cols-3 md:px-0">
@@ -3227,13 +3130,13 @@ export function ProjectDetail({ onBack }: Props) {
         id="s02-role"
         className={`relative pt-8 pb-12 md:pt-10 md:pb-16 ${SECTION_PAD}`}
       >
-        <div className={`mx-auto w-full max-w-[1320px] ${READ}`}>
+        <div className={`mx-auto w-full max-w-[1400px] ${READ}`}>
           <Reveal delay={0.08} y={16}>
-            <div className="mx-auto flex w-full max-w-[1100px] flex-col gap-8 lg:flex-row lg:items-stretch lg:gap-8">
+            <div className="mx-auto flex w-full max-w-[1400px] flex-col gap-8 lg:flex-row lg:items-stretch lg:gap-8">
               {/* Left: Role Note */}
               <article
                 aria-label="我的角色"
-                className="relative flex flex-col justify-between rounded-[8px] border p-7 pt-9 shadow-[0_2px_4px_rgba(28,36,52,0.06),0_10px_22px_rgba(28,36,52,0.04)] transition-transform duration-200 hover:-translate-y-1 sm:p-8 sm:pt-10 lg:w-[360px] lg:shrink-0"
+                className="relative flex flex-col justify-between rounded-[8px] border p-7 pt-9 shadow-[0_2px_4px_rgba(28,36,52,0.06),0_10px_22px_rgba(28,36,52,0.04)] transition-transform duration-200 hover:-translate-y-1 sm:p-8 sm:pt-10 lg:w-[400px] lg:shrink-0"
                 style={{
                   backgroundColor: "#FFFEF8",
                   backgroundImage:
@@ -3337,6 +3240,110 @@ export function ProjectDetail({ onBack }: Props) {
               </article>
             </div>
           </Reveal>
+
+          {/* Key Metrics: 4 Hand-drawn Paper Note Cards */}
+          <Reveal delay={0.14} y={16}>
+            <div className="mx-auto mt-8 w-full max-w-[1400px] sm:mt-10">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
+                {[
+                  {
+                    title: "全流程交付周期",
+                    before: "2~3 天",
+                    after: "20 分钟",
+                    change: "90%",
+                    direction: "down",
+                    bg: "repeating-linear-gradient(to bottom, #FFFEF8 0, #FFFEF8 34px, #E8E4D8 35px, #E8E4D8 36px)",
+                    borderColor: "#DED9CE",
+                    pinColor: "#4A78C2",
+                    rotation: "rotate-[-0.7deg]",
+                  },
+                  {
+                    title: "纯内容生成耗时",
+                    before: "6~8 小时",
+                    after: "约 5~30 分钟",
+                    change: "92%",
+                    direction: "down",
+                    bg: "repeating-linear-gradient(to bottom, #FFFEF8 0, #FFFEF8 34px, #E8E4D8 35px, #E8E4D8 36px)",
+                    borderColor: "#DED9CE",
+                    pinColor: "#A85A16",
+                    rotation: "rotate-[0.6deg]",
+                  },
+                  {
+                    title: "资料准备与清洗",
+                    before: "半天以上",
+                    after: "约 5~20 分钟",
+                    change: "92%",
+                    direction: "down",
+                    bg: "repeating-linear-gradient(to bottom, #FFFEF8 0, #FFFEF8 34px, #E8E4D8 35px, #E8E4D8 36px)",
+                    borderColor: "#DED9CE",
+                    pinColor: "#2F7A44",
+                    rotation: "rotate-[-0.5deg]",
+                  },
+                  {
+                    title: "关键事实溯源率",
+                    before: "约 50%",
+                    after: "80%",
+                    change: "30%",
+                    direction: "up",
+                    bg: "repeating-linear-gradient(to bottom, #EEF2FF 0, #EEF2FF 34px, #D8E1FF 35px, #D8E1FF 36px)",
+                    borderColor: "#C8D4FF",
+                    pinColor: "#2258F4",
+                    rotation: "rotate-[0.7deg]",
+                  },
+                ].map((metric) => (
+                  <div
+                    key={metric.title}
+                    className={`relative flex min-h-[138px] flex-col items-stretch justify-center rounded-[8px] border px-4 py-3.5 shadow-[0_6px_20px_rgba(56,67,92,0.07)] sm:px-5 sm:py-4 ${metric.rotation} transition-transform duration-200 hover:rotate-0 hover:z-20 hover:-translate-y-1`}
+                    style={{
+                      background: metric.bg,
+                      borderColor: metric.borderColor,
+                    }}
+                  >
+                    {/* 便签大头针 */}
+                    <span
+                      aria-hidden="true"
+                      className="absolute left-1/2 top-0 size-3.5 -translate-x-1/2 -translate-y-1/2 rounded-full shadow-[0_2px_4px_rgba(34,61,109,0.22)]"
+                      style={{ backgroundColor: metric.pinColor }}
+                    />
+
+                    {/* 左侧：标题与前后对比 */}
+                    <div className="min-w-0 flex flex-col justify-center">
+                      <div className="whitespace-nowrap text-[16px] font-semibold tracking-tight text-[#6C7584]">
+                        {metric.title}
+                      </div>
+
+                      <div className="mt-1.5 flex items-baseline gap-1.5 whitespace-nowrap">
+                        <span className="whitespace-nowrap text-[16px] text-[#858C9B]">
+                          {metric.before}
+                        </span>
+                        <span className="shrink-0 text-[16px] font-bold text-[#2258F4]">→</span>
+                        <span className="whitespace-nowrap text-[17px] font-bold text-[#1A1C24]">
+                          {metric.after}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* 右侧：缩放到合适尺寸的纯数字 */}
+                    <div className="mt-2 flex min-h-[26px] shrink-0 items-baseline justify-end gap-1">
+                      <span
+                        className="whitespace-nowrap text-[22px] font-extrabold leading-none tracking-tight sm:text-[24px] lg:text-[26px]"
+                        style={{
+                          color: metric.direction === "down" ? "#2F7A44" : "#2258F4",
+                        }}
+                      >
+                        {metric.direction === "down" ? "↓" : "↑"} {metric.change}
+                      </span>
+                      {"changeUnit" in metric && metric.changeUnit ? (
+                        <span className="whitespace-nowrap text-[16px] font-semibold leading-none text-[#2258F4]">
+                          {metric.changeUnit}
+                        </span>
+                      ) : null}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Reveal>
         </div>
       </section>
 
@@ -3353,7 +3360,7 @@ export function ProjectDetail({ onBack }: Props) {
           </div>
 
           <div className="relative overflow-visible rounded-[28px] border border-[#E6E7EB] bg-white">
-            <div className="relative min-h-[1940px] rounded-[27px] bg-white sm:min-h-[1760px] md:min-h-[1700px] lg:h-[900px] lg:min-h-0 lg:aspect-auto 2xl:h-[760px]">
+            <div className="relative min-h-[1940px] rounded-[27px] bg-white sm:min-h-[1760px] md:min-h-[1700px] lg:h-[960px] lg:min-h-0 lg:aspect-auto 2xl:h-[820px]">
               <div
                 aria-hidden="true"
                 className="absolute bottom-3 left-7 right-3 top-7 rounded-[18px] border border-[#E6E7EB] sm:bottom-4 sm:left-8 sm:right-4 sm:top-8"
@@ -3862,28 +3869,7 @@ export function ProjectDetail({ onBack }: Props) {
         </div>
       </section>
 
-      {/* ===== 02. Validation scenario ===== */}
-      <section
-        id="s02"
-        className={`relative z-0 pt-24 pb-12 md:pt-28 md:pb-16 ${SECTION_PAD}`}
-      >
-        <div className={`relative ${READ}`}>
-          <Reveal delay={0.08}>
-            <div>
-              <div className="mx-auto max-w-[940px] text-center">
-                <h3 className="tracking-tight text-[#1A1C24]" style={T.h2}>
-                  从报告生产链路中定位 AI 生成的设计控制点
-                </h3>
-                <p className="mx-auto mt-4 max-w-[860px]" style={T.h2Sub}>
-                  基于客户需求、内部测试和历史交付复盘，我将报告生成过程拆解为多个关键阶段，识别用户在每一步的失控点，并转化为可配置、可确认、可追溯的系统能力。
-                </p>
-              </div>
-
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
+      {/* ===== 02. Validation scenario: 研报链路与设计控制点 ===== */}
       <ResearchPaperCanvas
         stages={journeyStages}
         journeyPath={journeyPath}

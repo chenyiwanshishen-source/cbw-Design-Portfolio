@@ -115,6 +115,8 @@ type ResearchPaperCanvasProps = {
   stages: readonly JourneyStage[];
   journeyPath: string;
   journeyPathSegments: readonly string[];
+  title?: string;
+  subtitle?: string;
 };
 
 type PaperNoteProps = {
@@ -292,6 +294,8 @@ export function ResearchPaperCanvas({
   stages,
   journeyPath,
   journeyPathSegments,
+  title = "从报告生产链路中定位 AI 生成的设计控制点",
+  subtitle = "基于客户需求、内部测试和历史交付复盘，我将报告生成过程拆解为多个关键阶段，识别用户在每一步的失控点，并转化为可配置、可确认、可追溯的系统能力。",
 }: ResearchPaperCanvasProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const pinnedCanvasRef = useRef<HTMLDivElement>(null);
@@ -444,14 +448,23 @@ export function ResearchPaperCanvas({
             axis: "x" | "y"
           ) => {
             const target = CLASSIFIED_NOTE_TARGETS[index];
-            const canvasRect = researchCanvas.getBoundingClientRect();
-            const noteRect = note.getBoundingClientRect();
-            const currentOffset = Number(gsap.getProperty(note, axis)) || 0;
-            const canvasStart = axis === "x" ? canvasRect.left : canvasRect.top;
-            const canvasSize = axis === "x" ? canvasRect.width : canvasRect.height;
-            const noteStart = axis === "x" ? noteRect.left : noteRect.top;
+            if (!pinnedCanvas || !researchCanvas) return 0;
 
-            return currentOffset + canvasStart + canvasSize * target[axis] - noteStart;
+            const targetXInCanvas = researchCanvas.offsetWidth * target.x;
+            const targetYInCanvas = researchCanvas.offsetHeight * target.y;
+
+            const canvasLeft = researchCanvas.offsetLeft;
+            const canvasTop = researchCanvas.offsetTop;
+
+            const stageNotesContainer = note.parentElement;
+            const noteLeft = (stageNotesContainer?.offsetLeft ?? 0) + note.offsetLeft;
+            const noteTop = (stageNotesContainer?.offsetTop ?? 0) + note.offsetTop;
+
+            if (axis === "x") {
+              return canvasLeft + targetXInCanvas - noteLeft;
+            } else {
+              return canvasTop + targetYInCanvas - noteTop;
+            }
           };
 
           stepTimeline
@@ -619,7 +632,7 @@ export function ResearchPaperCanvas({
           const pinTrigger = ScrollTrigger.create({
             id: "research-journey-steps",
             trigger: section,
-            start: "top 10%",
+            start: "top top",
             end: () => {
               const journeyScrollRange = Math.min(
                 2800,
@@ -652,7 +665,7 @@ export function ResearchPaperCanvas({
             });
           };
 
-          const upstreamSections = ["#s02-product-scope", "#s02"]
+          const upstreamSections = ["#s03-product-scope", "#s02", "#s02-product-scope"]
             .map((selector) => document.querySelector<HTMLElement>(selector))
             .filter((element): element is HTMLElement => element !== null);
           const upstreamResizeObserver =
@@ -699,62 +712,74 @@ export function ResearchPaperCanvas({
       ref={sectionRef}
       id="s02-research-canvas"
       aria-label="研究画布原型"
-      className="relative px-6 py-16 sm:px-10 md:py-20 lg:px-16 xl:px-24 2xl:px-32"
+      className="relative z-10 isolate min-h-screen overflow-hidden py-0 px-4 sm:px-8 lg:px-12 xl:px-16"
     >
       <div
         ref={pinnedCanvasRef}
-        className="relative mx-auto w-full max-w-[1400px] pt-12 sm:pt-20 lg:pt-32"
+        className="relative z-10 mx-auto flex min-h-screen w-full max-w-[1400px] flex-col items-center justify-center py-6 sm:py-8 lg:py-10"
       >
-        <img
-          data-research-profile-character="true"
-          src="./images/ai报告人物动画webp/人物.webp"
-          alt="研究员人物头像"
-          className="pointer-events-none absolute left-0 top-0 z-20 h-auto w-44 -translate-y-[38%] select-none sm:w-56 lg:w-72"
-          style={{
-            filter:
-              "drop-shadow(0 2px 2px rgba(28, 36, 52, 0.18)) drop-shadow(0 7px 8px rgba(28, 36, 52, 0.065))",
-          }}
-        />
-
-        <div
-          data-paper-notes="true"
-          className="pointer-events-none absolute left-[46%] right-1 top-14 z-30 grid -translate-y-[38%] grid-cols-[1.18fr_repeat(3,1fr)] items-start gap-1 sm:left-[20%] sm:right-0 sm:top-8 sm:gap-3 lg:top-[55px] lg:gap-5"
-        >
-          <PaperNote
-            tone="white"
-            pin="coral"
-            title="某研究员"
-            subtitle="报告生产负责人"
-            items={["任职于某机构或公司", "负责产业、区域与企业研究报告", "对范围、来源和交付质量负责"]}
-            className="-rotate-[1.2deg]"
-          />
-          <PaperNote
-            tone="blue"
-            pin="coral"
-            title="需求"
-            items={["根据业务模板生成报告", "汇总多个数据源的信息", "核查来源并复用结果"]}
-            className="mt-2 rotate-[1.4deg] sm:mt-4 lg:mt-5"
-          />
-          <PaperNote
-            tone="blue"
-            pin="blue"
-            title="痛点"
-            items={["材料分散，来源难统一", "固定模板难应对变化", "生成过程不透明"]}
-            className="mt-0.5 -rotate-[0.8deg] sm:mt-1.5 lg:mt-2"
-          />
-          <PaperNote
-            tone="blue"
-            pin="coral"
-            title="目标"
-            items={["缩短报告生产时间", "降低返工与核查成本", "提升报告交付信心"]}
-            className="mt-2.5 rotate-[0.9deg] sm:mt-5 lg:mt-6"
-          />
+        {/* Integrated Section Title & Subtitle */}
+        <div className="mb-4 sm:mb-6 text-center max-w-[940px] px-4 shrink-0">
+          <h2 className="text-[22px] sm:text-[26px] lg:text-[28px] font-bold tracking-tight text-[#1A1C24]">
+            {title}
+          </h2>
+          <p className="mt-1.5 sm:mt-2 text-[13.5px] sm:text-[14.5px] lg:text-[15.5px] leading-[1.6] text-[#696D7A] max-w-[840px] mx-auto">
+            {subtitle}
+          </p>
         </div>
 
-        <div
-          data-research-paper-canvas="true"
-          className="relative z-10 overflow-hidden rounded-[28px] border border-[#E6E7EB] bg-white"
-        >
+        {/* Canvas & Notes Workspace (Centered Container) */}
+        <div className="relative w-full max-w-[1340px] pt-8 sm:pt-10 lg:pt-12 shrink-0">
+          <img
+            data-research-profile-character="true"
+            src="./images/ai报告人物动画webp/人物.webp"
+            alt="研究员人物头像"
+            className="pointer-events-none absolute left-0 top-0 z-20 h-auto w-36 -translate-y-[24%] select-none sm:w-48 lg:w-56"
+            style={{
+              filter:
+                "drop-shadow(0 2px 2px rgba(28, 36, 52, 0.18)) drop-shadow(0 7px 8px rgba(28, 36, 52, 0.065))",
+            }}
+          />
+
+          <div
+            data-paper-notes="true"
+            className="pointer-events-none absolute left-[40%] right-1 top-2 z-30 grid -translate-y-[22%] grid-cols-[1.18fr_repeat(3,1fr)] items-start gap-1 sm:left-[20%] sm:right-0 sm:top-1 sm:gap-2.5 lg:top-2 lg:gap-3.5"
+          >
+            <PaperNote
+              tone="white"
+              pin="coral"
+              title="某研究员"
+              subtitle="报告生产负责人"
+              items={["任职于某机构或公司", "负责产业、区域与企业研究报告", "对范围、来源和交付质量负责"]}
+              className="-rotate-[1.2deg]"
+            />
+            <PaperNote
+              tone="blue"
+              pin="coral"
+              title="需求"
+              items={["根据业务模板生成报告", "汇总多个数据源的信息", "核查来源并复用结果"]}
+              className="mt-2 rotate-[1.4deg] sm:mt-4 lg:mt-5"
+            />
+            <PaperNote
+              tone="blue"
+              pin="blue"
+              title="痛点"
+              items={["材料分散，来源难统一", "固定模板难应对变化", "生成过程不透明"]}
+              className="mt-0.5 -rotate-[0.8deg] sm:mt-1.5 lg:mt-2"
+            />
+            <PaperNote
+              tone="blue"
+              pin="coral"
+              title="目标"
+              items={["缩短报告生产时间", "降低返工与核查成本", "提升报告交付信心"]}
+              className="mt-2.5 rotate-[0.9deg] sm:mt-5 lg:mt-6"
+            />
+          </div>
+
+          <div
+            data-research-paper-canvas="true"
+            className="relative z-10 overflow-hidden rounded-[28px] border border-[#E6E7EB] bg-white"
+          >
           <div className="relative min-h-[500px] bg-white sm:min-h-[520px] lg:aspect-[16/8.5] lg:min-h-0">
             <div
               className="pointer-events-none absolute bottom-3 left-7 right-3 top-7 rounded-[18px] border border-[#E6E7EB] sm:bottom-4 sm:left-8 sm:right-4 sm:top-8"
@@ -1064,16 +1089,18 @@ export function ResearchPaperCanvas({
           </div>
         </div>
 
+        {/* 5 Stage Notes */}
         <div
           data-research-stage-notes="true"
           aria-label="五个报告研究阶段便笺"
-          className="relative z-20 mt-5 grid grid-cols-1 gap-4 px-3 sm:grid-cols-2 sm:px-8 md:-mt-10 md:grid-cols-5 md:items-start md:gap-3 md:pl-7 md:pr-3 lg:gap-4 lg:pl-8 lg:pr-4"
+          className="relative z-20 mt-4 grid grid-cols-1 gap-3 px-2 sm:grid-cols-2 sm:px-6 md:-mt-8 md:grid-cols-5 md:items-start md:gap-2.5 md:pl-6 md:pr-2 lg:gap-3 lg:pl-7 lg:pr-3"
         >
           {STAGE_NOTES.map((note) => (
             <StageNote key={note.number} {...note} />
           ))}
         </div>
       </div>
-    </section>
-  );
+    </div>
+  </section>
+);
 }
