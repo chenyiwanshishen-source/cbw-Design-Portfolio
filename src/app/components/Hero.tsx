@@ -9,6 +9,7 @@ import { Marquee } from "./Marquee";
 import { HeroProjectPeekCard } from "./HeroProjectPeekCard";
 import { hideContactDetails } from "../buildVariant";
 import { scrollToHomeSection } from "../homeScroll";
+import { isProjectRouteReady, preloadProjectDetailAssets } from "../projectPreload";
 
 gsap.registerPlugin(useGSAP, Draggable, ScrollTrigger);
 
@@ -25,8 +26,7 @@ const capabilityCards = [
   {
     label: "业务系统",
     items: [
-      "9年B/C端产品设计经验",
-      "长期聚焦复杂B端与数据系统",
+      "9年设计背景 · 7年复杂 B 端系统",
       "AI产品0-1落地实践",
       "从方案到交互落地",
     ],
@@ -42,7 +42,6 @@ const capabilityCards = [
       "AI 产品 0-1 探索",
       "AI 工具融入设计流程与原型搭建",
       "Prompt / Workflow 设计与验证",
-      "多模态输入、生成、编辑和反馈",
     ],
     tone: {
       fill: "#F5F3FF",
@@ -75,11 +74,74 @@ const capabilityCards = [
 ];
 
 const boardCardLayouts = [
-  "lg:left-[2%] lg:top-[2%] lg:w-[19rem] xl:w-[23rem] 2xl:w-[25rem] lg:rotate-[-0.8deg]",
-  "lg:right-[2%] lg:top-[4%] lg:w-[19.5rem] xl:w-[25rem] 2xl:w-[27rem] lg:rotate-[0.7deg]",
-  "lg:left-[1%] lg:bottom-[8%] lg:w-[19rem] xl:w-[23rem] 2xl:w-[25rem] lg:rotate-[0.6deg]",
-  "lg:right-[2%] lg:bottom-[6%] lg:w-[19rem] xl:w-[23.5rem] 2xl:w-[25.5rem] lg:rotate-[-0.6deg]",
+  "lg:left-[2%] lg:top-[-1%] lg:w-[19rem] xl:w-[23rem] 2xl:w-[25rem] lg:rotate-[-0.8deg]",
+  "lg:right-[2%] lg:top-[1%] lg:w-[19.5rem] xl:w-[25rem] 2xl:w-[27rem] lg:rotate-[0.7deg]",
+  "lg:left-[1%] lg:bottom-[13%] lg:w-[19rem] xl:w-[23rem] 2xl:w-[25rem] lg:rotate-[0.6deg]",
+  "lg:right-[2%] lg:bottom-[11%] lg:w-[19rem] xl:w-[23.5rem] 2xl:w-[25.5rem] lg:rotate-[-0.6deg]",
 ];
+
+function SketchCirclingLoops() {
+  return (
+    <svg
+      viewBox="0 0 360 100"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className="pointer-events-none absolute -inset-x-7 -inset-y-4 z-20 h-[calc(100%+32px)] w-[calc(100%+56px)] select-none overflow-visible"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+    >
+      {/* Hand-drawn red scribble loops around the note - 3 to 4 organic loops */}
+      <path
+        d="M 44,26 C 92,12 248,10 326,20 C 358,24 354,58 316,74 C 255,94 98,92 38,76 C 10,68 12,36 58,22 C 120,6 268,10 334,22 C 365,28 360,62 312,78 C 252,96 85,92 32,72 C 6,62 16,30 72,16 C 142,4 282,8 344,24 C 372,32 364,68 308,82 C 238,96 70,88 26,68 C 2,52 20,24 88,14 C 154,6 295,12 348,32"
+        stroke="#EA3939"
+        strokeWidth="2.4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        opacity="0.94"
+      />
+      <path
+        d="M 36,32 C 80,18 225,12 318,22 C 352,26 350,56 308,72 C 248,90 90,88 34,72 C 8,62 14,34 64,20 C 124,6 270,10 336,24 C 364,32 358,64 308,78 C 242,92 76,86 28,64"
+        stroke="#EA3939"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        opacity="0.68"
+      />
+    </svg>
+  );
+}
+
+function SketchPointingArrow() {
+  return (
+    <div
+      className="pointer-events-none absolute -bottom-9 -left-11 z-20 select-none sm:-bottom-11 sm:-left-14"
+      aria-hidden="true"
+    >
+      <svg
+        viewBox="0 0 72 64"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        className="h-12 w-14 sm:h-14 sm:w-16 overflow-visible"
+      >
+        {/* Organic curved arrow shaft pointing up towards the note */}
+        <path
+          d="M 14,58 C 24,46 40,32 54,12"
+          stroke="#EA3939"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+        />
+        {/* Arrowhead */}
+        <path
+          d="M 38,18 L 54,12 L 56,28"
+          stroke="#EA3939"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    </div>
+  );
+}
 
 const collaborationCursorLayouts = [
   "right-[12%] -bottom-5",
@@ -596,7 +658,7 @@ export function Hero() {
         data-hero-stage
         className="relative mx-auto w-full max-w-[1600px] lg:h-[clamp(560px,60svh,720px)]"
       >
-        <div className="relative z-20 mx-auto flex max-w-[860px] flex-col items-center text-center lg:absolute lg:left-1/2 lg:top-1/2 lg:-translate-x-1/2 lg:-translate-y-1/2">
+        <div className="relative z-20 mx-auto flex max-w-[860px] flex-col items-center text-center lg:absolute lg:left-1/2 lg:top-[38%] lg:-translate-x-1/2 lg:-translate-y-1/2">
           <motion.div
             initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
@@ -633,12 +695,12 @@ export function Hero() {
                 <span aria-hidden="true" className="hero-drag-handle hero-drag-handle-bl" />
                 <span aria-hidden="true" className="hero-drag-handle hero-drag-handle-br" />
                 <span className="hero-role-text block leading-[1.02] text-[clamp(2.5rem,10vw,5.8rem)] text-[#2258F4] lg:text-[clamp(3.7rem,4.8vw,5.8rem)]">
-                  AI产品设计师
+                  产品设计师
                 </span>
               </span>
             </h1>
 
-            <div className="mt-9 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
+            <div className="mt-7 sm:mt-8 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
               <button
                 type="button"
                 data-magnetic-button
@@ -679,6 +741,52 @@ export function Hero() {
                 </a>
               )}
             </div>
+
+            {/* AI 探索 Sticky Note with hand-drawn circling strokes and pointing arrow */}
+            <motion.div
+              initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              transition={{ duration: 0.8, delay: 0.22, ease: [0.22, 1, 0.36, 1] }}
+              className="relative mt-16 sm:mt-24 lg:mt-28 flex items-center justify-center rotate-[-2.8deg]"
+            >
+              <div className="relative inline-flex items-center">
+                <a
+                  href="#/project/explorations"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const href = "#/project/explorations";
+                    if (!isProjectRouteReady(href)) {
+                      window.dispatchEvent(
+                        new CustomEvent("portfolio:project-route-loading", { detail: { href } })
+                      );
+                    }
+                    window.location.hash = href.slice(1);
+                  }}
+                  onPointerEnter={() => {
+                    void preloadProjectDetailAssets("explorations", "high");
+                  }}
+                  onFocus={() => {
+                    void preloadProjectDetailAssets("explorations", "high");
+                  }}
+                  className="hero-exploration-note group relative z-10 block px-6 py-3 sm:px-7 sm:py-3.5 text-center"
+                >
+                  <div className="flex flex-col items-center gap-1">
+                    <span className="text-[26px] font-bold leading-none tracking-tight text-[#1A1C24]">
+                      AI 探索
+                    </span>
+                    <span className="text-[13px] sm:text-[14px] leading-tight text-[#52617E] whitespace-nowrap">
+                      前端代码插件 · 0-1 组件库工作流
+                    </span>
+                  </div>
+                </a>
+
+                {/* Hand-drawn red scribble loops circling around the note */}
+                <SketchCirclingLoops />
+
+                {/* Hand-drawn red curved arrow pointing towards the note */}
+                <SketchPointingArrow />
+              </div>
+            </motion.div>
           </motion.div>
         </div>
 
@@ -696,7 +804,7 @@ export function Hero() {
             aria-hidden="true"
           >
             <path
-              d="M80 120 H490 M1110 150 H1520 M70 556 H480 M1120 588 H1530 M800 238 V482"
+              d="M80 100 H490 M1110 120 H1520 M70 516 H480 M1120 540 H1530 M800 200 V440"
               fill="none"
               stroke="#CBCDD4"
               strokeWidth="1"
@@ -704,17 +812,17 @@ export function Hero() {
               opacity="0.72"
             />
             <path
-              d="M490 120 C608 136 674 184 720 238 M1110 150 C990 162 924 198 880 238 M480 556 C606 540 680 510 732 482 M1120 588 C990 554 922 514 872 482"
+              d="M490 100 C608 116 674 156 720 200 M1110 120 C990 132 924 168 880 200 M480 516 C606 500 680 470 732 442 M1120 540 C990 510 922 470 872 442"
               fill="none"
               stroke="#A8BEFF"
               strokeWidth="1"
               opacity="0.58"
             />
             {[
-              [490, 120],
-              [1110, 150],
-              [480, 556],
-              [1120, 588],
+              [490, 100],
+              [1110, 120],
+              [480, 516],
+              [1120, 540],
             ].map(([cx, cy]) => (
               <circle key={`${cx}-${cy}`} cx={cx} cy={cy} r="5" fill="#FAFBFF" stroke="#A8BEFF" strokeWidth="1.5" />
             ))}

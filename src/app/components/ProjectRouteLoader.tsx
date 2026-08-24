@@ -21,6 +21,7 @@ const loadingCopy = "页面正在加载中-";
 const routeLabels: Record<string, string> = {
   "#/project/ai-report": "AI报告生成",
   "#/project/qixin-brain": "启信产业大脑",
+  "#/project/explorations": "AI 探索",
 };
 
 export function ProjectRouteLoader({

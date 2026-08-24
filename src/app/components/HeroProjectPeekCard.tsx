@@ -1,20 +1,24 @@
 import { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import { preloadProjectDetailAssets } from "../projectPreload";
 
 type HeroProjectPeekCardProps = {
   variant: "ai" | "qixin";
   revealed: boolean;
 };
 const projectData = {
-  ai: { href: "#/project/ai-report", ariaLabel: "打开 AI 报告生成项目", title: "AI 报告生成", tags: ["AI 产品 0-1", "Prompt / Workflow", "B 端效率"], responsibilities: ["产品流程与核心页面设计", "Prompt 框架与生成体验设计"], image: "./images/首页/AI报告生成.png", handClass: "hero-project-peek-hand-ai" },
-  qixin: { href: "#/project/qixin-brain", ariaLabel: "打开启信产业大脑项目", title: "启信产业大脑", tags: ["B 端系统", "数据可视化", "产业分析"], responsibilities: ["业务流程与核心页面设计", "产业图谱与数据可视化"], image: "./images/首页/自定义产业链.png", handClass: "hero-project-peek-hand-qixin" },
+  ai: { href: "#/project/ai-report", ariaLabel: "打开 AI 报告生成项目", title: "AI 报告生成", tags: ["AI 产品 0-1", "Prompt / Workflow", "B 端效率"], responsibilities: ["产品流程与核心页面设计", "Prompt 框架与生成体验设计"], image: "./images/首页webp/AI报告生成.webp", handClass: "hero-project-peek-hand-ai" },
+  qixin: { href: "#/project/qixin-brain", ariaLabel: "打开启信产业大脑项目", title: "启信产业大脑", tags: ["B 端系统", "数据可视化", "产业分析"], responsibilities: ["业务流程与核心页面设计", "产业图谱与数据可视化"], image: "./images/首页webp/自定义产业链.webp", handClass: "hero-project-peek-hand-qixin" },
 } as const;
 
 export function HeroProjectPeekCard({ variant, revealed }: HeroProjectPeekCardProps) {
   const cardRef = useRef<HTMLAnchorElement | null>(null);
   const handRef = useRef<HTMLImageElement | null>(null);
   const project = projectData[variant];
+  const preloadProject = () => {
+    void preloadProjectDetailAssets(variant === "ai" ? "ai-report" : "qixin-brain", "high");
+  };
   useGSAP(() => {
     const card = cardRef.current; const hand = handRef.current; const top = card?.closest("#top");
     if (!card || !hand || !top) return;
@@ -37,6 +41,9 @@ export function HeroProjectPeekCard({ variant, revealed }: HeroProjectPeekCardPr
       href={project.href}
       aria-label={project.ariaLabel}
       data-revealed={revealed ? "true" : undefined}
+      onPointerEnter={preloadProject}
+      onFocus={preloadProject}
+      onTouchStart={preloadProject}
     >
       <span className="hero-project-peek-windowbar" aria-hidden="true"><span className="hero-project-peek-dots"><i /><i /><i /></span></span>
       <span className={`hero-project-peek-hand ${project.handClass}`} aria-hidden="true"><img ref={handRef} className="absolute inset-0 size-full" src="./images/首页人物/hand-peek.png" alt="" draggable={false} style={{ transform: variant === "qixin" ? "scaleX(-1)" : undefined }} /></span>

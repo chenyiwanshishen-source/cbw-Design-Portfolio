@@ -1,60 +1,49 @@
 import { motion } from "motion/react";
 import {
-  Brain,
-  Layers,
+  Sparkles,
   Workflow,
+  Layers,
   BarChart3,
-  Lightbulb,
-  Users,
+  Component,
 } from "lucide-react";
 
 export function Skills() {
   const skills = [
     {
-      icon: Brain,
-      title: "业务理解能力强",
+      icon: Sparkles,
+      title: "AI 产品 0-1 设计",
       description:
-        "长期参与复杂业务与数据产品设计，熟悉从信息结构、任务流程到页面落地的拆解方法，能把高密度业务转化为清晰可执行的产品方案。",
+        "主导 AI 报告生成从需求拆解到 1.0 上线。负责 Agent 链路交互、生成过程透明化与来源可信度设计，推动 AI 从单纯生成工具收敛为可控的业务流程。",
       span: "sm:col-span-2 lg:col-span-2 lg:row-span-2",
       size: "lg",
-      accent: "from-[#2258F4]/20 to-[#E5EBFF]/40",
-    },
-    {
-      icon: Lightbulb,
-      title: "AI 产品设计经验",
-      description:
-        "参与 AI Agent 架构下的产品设计,主导提示词框架,在生成内容场景优化信息层级与可读性。",
-      span: "lg:col-span-2",
-      accent: "from-[#1A42B8]/18 to-[#EEF2FF]/45",
     },
     {
       icon: Workflow,
-      title: "设计推进与落地",
+      title: "Prompt 工程化体系",
       description:
-        "从需求梳理、方案设计到原型验证，持续关注关键流程、边界状态与实现质量，让设计真正落到产品中。",
-      accent: "from-[#2258F4]/18 to-[#A8BEFF]/28",
-    },
-    {
-      icon: BarChart3,
-      title: "数据可视化设计",
-      description:
-        "信息架构与交互流程设计,数据可视化与复杂信息呈现,B 端产品与后台系统设计经验丰富。",
-      span: "sm:row-span-2 lg:row-span-2",
-      size: "tall",
-      accent: "from-[#1A42B8]/16 to-[#E5EBFF]/42",
+        "将个人经验 Prompt 梳理收敛为团队标准框架。搭建六阶段编译管线与异常自动重试机制，降低协作调教成本并保障模型输出稳定性。",
+      span: "sm:col-span-1 lg:col-span-2",
     },
     {
       icon: Layers,
-      title: "系统化思维",
-      description: "沉淀标准化工作流程,建立提示词框架等基础设施,提升团队协作效率。",
-      span: "lg:col-span-2",
-      accent: "from-[#2258F4]/18 to-[#EEF2FF]/45",
+      title: "复杂 B 端业务架构",
+      description:
+        "五年企业级数据智能平台主导设计。负责产业链图谱、首页工作台与多源数据流转架构，具备高密度信息与复杂业务流程落地能力。",
+      span: "sm:col-span-1 lg:col-span-2",
     },
     {
-      icon: Users,
-      title: "跨团队协作",
-      description: "协同 PM 与研发推进方案落地,保障设计还原质量。",
-      accent: "from-[#A8BEFF]/30 to-[#E5EBFF]/42",
+      icon: BarChart3,
+      title: "数据可视化与图谱",
+      description:
+        "主导产业链图谱、企业关联网络与动态监控看板设计。将海量实体与深层数据关系转化为直观可视的交互结构，支撑多维决策研判。",
+      span: "sm:col-span-1 lg:col-span-2",
+    },
+    {
+      icon: Component,
+      title: "设计系统与组件规范",
+      description:
+        "主导搭建团队 DGG 组件库与设计规范，统一色彩 Token、排版层级与高密度交互模式，沉淀标准化设计资产，保障多业务线交付一致性。",
+      span: "sm:col-span-1 lg:col-span-2",
     },
   ];
 
@@ -69,7 +58,7 @@ export function Skills() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 auto-rows-[200px] gap-4 [grid-auto-flow:dense]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 auto-rows-auto lg:auto-rows-[185px] gap-4 sm:gap-5 [grid-auto-flow:dense]">
           {skills.map((s, i) => {
             const Icon = s.icon;
             return (
@@ -79,12 +68,12 @@ export function Skills() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: i * 0.06 }}
-                className={`skills-sticky-note skills-note-${i} group relative p-6 lg:p-7 flex flex-col ${s.span ?? ""}`}
+                className={`skills-sticky-note skills-note-${i} group relative p-6 lg:p-7 flex flex-col justify-between ${s.span ?? ""}`}
               >
                 {/* Decorative pattern for large piece */}
                 {s.size === "lg" && (
                   <div
-                    className="pointer-events-none absolute inset-0 opacity-[0.08]"
+                    className="pointer-events-none absolute inset-0 opacity-[0.06]"
                     style={{
                       backgroundImage:
                         "radial-gradient(circle, rgba(34,88,244,0.16) 1px, transparent 1px)",
@@ -92,15 +81,14 @@ export function Skills() {
                     }}
                   />
                 )}
-                <div className="relative flex flex-col h-full">
-                  <div className="flex items-center justify-between mb-5">
-                    <div className={`skills-sticky-stamp ${s.size === "lg" ? "skills-sticky-stamp-large" : ""}`}>
-                      <Icon className={`skills-sticky-icon ${s.size === "lg" ? "size-6" : "size-5"}`} />
-                      <Icon aria-hidden="true" className={`skills-sticky-icon skills-sticky-icon-echo ${s.size === "lg" ? "size-6" : "size-5"}`} />
-                    </div>
+                <div className="relative flex flex-col h-full justify-start">
+                  <div className="flex items-center mb-4">
+                    <span className="inline-flex items-center justify-center text-[#2D3748] transition-transform duration-200 group-hover:scale-105">
+                      <Icon className={s.size === "lg" ? "size-7 stroke-[1.8]" : "size-6 stroke-[1.8]"} />
+                    </span>
                   </div>
                   <h3
-                    className={`text-[#1A1C24] mb-3 ${
+                    className={`text-[#1A1C24] font-bold mb-2.5 ${
                       s.size === "lg" ? "text-2xl lg:text-3xl" : "text-lg lg:text-xl"
                     }`}
                   >
@@ -108,7 +96,7 @@ export function Skills() {
                   </h3>
                   <p
                     className={`text-[#4E525E] leading-relaxed ${
-                      s.size === "lg" ? "text-base" : "text-sm"
+                      s.size === "lg" ? "text-base lg:text-[17px] lg:leading-[1.75]" : "text-sm sm:text-[15px] leading-normal"
                     }`}
                   >
                     {s.description}

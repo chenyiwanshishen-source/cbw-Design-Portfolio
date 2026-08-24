@@ -8,11 +8,11 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
 const TOP_SCALE = Array.from({ length: 17 }, (_, index) => String(index).padStart(2, "0"));
 const SIDE_SCALE = Array.from({ length: 10 }, (_, index) => String(index).padStart(2, "0"));
 const RESEARCHER_FRAMES = [
-  { file: "1.png", size: "h-[89.29%] sm:h-[90.16%] lg:h-[90.91%]" },
-  { file: "2.png", size: "h-full" },
-  { file: "3.png", size: "h-[89.29%] sm:h-[90.16%] lg:h-[90.91%]" },
-  { file: "4.png", size: "h-[89.29%] sm:h-[90.16%] lg:h-[90.91%]" },
-  { file: "5.png", size: "h-[89.29%] sm:h-[90.16%] lg:h-[90.91%]" },
+  { file: "1.webp", size: "h-[89.29%] sm:h-[90.16%] lg:h-[90.91%]" },
+  { file: "2.webp", size: "h-full" },
+  { file: "3.webp", size: "h-[89.29%] sm:h-[90.16%] lg:h-[90.91%]" },
+  { file: "4.webp", size: "h-[89.29%] sm:h-[90.16%] lg:h-[90.91%]" },
+  { file: "5.webp", size: "h-[89.29%] sm:h-[90.16%] lg:h-[90.91%]" },
 ];
 const STAGE_NOTES = [
   {
@@ -707,7 +707,7 @@ export function ResearchPaperCanvas({
       >
         <img
           data-research-profile-character="true"
-          src="./images/ai报告人物动画/人物.png"
+          src="./images/ai报告人物动画webp/人物.webp"
           alt="研究员人物头像"
           className="pointer-events-none absolute left-0 top-0 z-20 h-auto w-44 -translate-y-[38%] select-none sm:w-56 lg:w-72"
           style={{
@@ -932,8 +932,8 @@ export function ResearchPaperCanvas({
                   className="flex h-full min-h-0 min-w-0 items-end justify-center"
                 >
                   <img
-                    src={`./images/ai报告人物动画/${file}`}
-                    alt={`研究员阶段人物 ${file.replace(".png", "")}`}
+                    src={`./images/ai报告人物动画webp/${file}`}
+                    alt={`研究员阶段人物 ${file.replace(".webp", "")}`}
                     className={`block w-auto max-h-full max-w-full select-none object-contain object-bottom ${size}`}
                     loading="eager"
                     decoding="async"

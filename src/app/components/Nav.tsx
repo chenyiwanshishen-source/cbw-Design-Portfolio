@@ -8,6 +8,7 @@ import { scrollHomeToTop, scrollToHomeSection } from "../homeScroll";
 const navItems = [
   { label: "AI报告生成", href: "#/project/ai-report" },
   { label: "启信产业大脑", href: "#/project/qixin-brain" },
+  { label: "AI 探索", href: "#/project/explorations" },
   { label: "关于我", href: "#about" },
 ];
 
@@ -123,6 +124,8 @@ export function Nav() {
       return preloadProjectDetailAssets("ai-report", "high");
     } else if (href === "#/project/qixin-brain") {
       return preloadProjectDetailAssets("qixin-brain", "high");
+    } else if (href === "#/project/explorations") {
+      return preloadProjectDetailAssets("explorations", "high");
     }
     return Promise.resolve();
   };
@@ -147,7 +150,7 @@ export function Nav() {
           </span>
           <span className="min-w-0 text-sm tracking-wide text-[#4E525E] transition-colors group-hover:text-[#1A1C24]">
             <span className="sm:hidden">陈俊学</span>
-            <span className="hidden sm:inline">陈俊学 · AI产品设计师</span>
+            <span className="hidden sm:inline">陈俊学 · 产品设计师</span>
           </span>
         </a>
 

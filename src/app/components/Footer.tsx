@@ -7,7 +7,7 @@ export function Footer() {
             陈
           </span>
           <div>
-            <div className="text-sm text-[#1A1C24]">陈俊学 · AI产品设计师</div>
+            <div className="text-sm text-[#1A1C24]">陈俊学 · 产品设计师</div>
             <div className="text-xs text-[#696D7A]">
               专注 B 端复杂系统 · 数据可视化 · AI 产品设计
             </div>

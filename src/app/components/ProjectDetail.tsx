@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
+import { Fragment, useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
+import { createPortal } from "react-dom";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -6,6 +7,7 @@ import { useGSAP } from "@gsap/react";
 import {
   ArrowLeft,
   ArrowRight,
+  ChevronDown,
   Sparkles,
   Layers,
   Link2,
@@ -24,15 +26,35 @@ import {
   Wrench,
   CircleX,
   LoaderCircle,
+  Pause,
+  Play,
+  RotateCcw,
 } from "lucide-react";
 import { Placeholder } from "./Placeholder";
 import { Footer } from "./Footer";
+import { ProjectCaseNav } from "./ProjectCaseNav";
 import { ResearchPaperCanvas } from "./ResearchPaperCanvas";
 import { hideContactDetails } from "../buildVariant";
-import reportSummaryPaper from "../../assets/ai-report/summary-paper-grid-v1.png";
-import reportSummaryPaperMobile from "../../assets/ai-report/summary-paper-grid-mobile-v1.png";
+import simplePromptSource from "../../assets/ai-report/my-simple-instruction.md?raw";
+import promptCompilerSystemSource from "../../assets/ai-report/prompt-compiler-system-v2.txt?raw";
+import finalReportAgentPromptSource from "../../assets/ai-report/final-report-agent-prompt.md?raw";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
+
+const simplePromptLines = simplePromptSource
+  .replace(/\r\n?/g, "\n")
+  .trim()
+  .split("\n");
+
+const promptCompilerSystemLines = promptCompilerSystemSource
+  .replace(/\r\n?/g, "\n")
+  .trim()
+  .split("\n");
+
+const finalReportAgentPromptLines = finalReportAgentPromptSource
+  .replace(/\r\n?/g, "\n")
+  .trim()
+  .split("\n");
 
 interface Props {
   onBack: () => void;
@@ -100,7 +122,7 @@ function SectionHeader({
   const center = align === "center";
   const hasSubtitle = subtitle.trim().length > 0;
   return (
-    <div className={`${hasSubtitle ? "mb-12 md:mb-16" : "mb-4"} ${center ? "text-center flex flex-col items-center" : ""}`}>
+    <div className={`mb-12 md:mb-16 ${center ? "text-center flex flex-col items-center" : ""}`}>
       <h2
         className={`tracking-tight text-neutral-900 ${hasSubtitle ? "mb-4" : "mb-0"} ${center ? "max-w-4xl" : "max-w-4xl"}`}
         style={T.h2}
@@ -154,48 +176,2099 @@ function BlueAccentBlob({ side = "right" }: { side?: "right" | "left" }) {
   );
 }
 
-function AgentWorkflowDiagram() {
+function FourDimensionLoopOverview() {
+  return (
+    <div className="mb-10 mt-12 flex justify-center px-4 py-4 md:mt-24">
+      <div
+        data-four-dimension-summary-note="true"
+        className="relative flex h-[132px] w-[200px] rotate-[-0.35deg] items-center justify-center rounded-[6px] border px-4 py-5 text-center text-[14px] font-semibold leading-[1.6] text-[#35404F] shadow-[0_2px_3px_rgba(28,36,52,0.16),0_7px_14px_rgba(28,36,52,0.055)] sm:h-[118px] sm:w-[280px] sm:px-5 sm:text-[16px] md:h-[136px] md:w-[330px] md:px-6 md:py-6 md:text-[20px]"
+        style={{
+          background: "repeating-linear-gradient(to bottom, #EEF2FF 0, #EEF2FF 31px, #D8E1FF 32px, #D8E1FF 33px)",
+          borderColor: "#C8D4FF",
+        }}
+      >
+        <span aria-hidden="true" className="absolute left-1/2 top-0 size-4 -translate-x-1/2 -translate-y-1/2 rounded-full" style={{ backgroundColor: INK_DIM, boxShadow: "0 2px 4px rgba(78,82,94,0.22)" }} />
+        这些问题不能被孤立地当成 Prompt 问题，需要从四个方向分析。
+      </div>
+    </div>
+  );
+}
+
+function MarkerHighlight({ children }: { children: ReactNode }) {
+  return (
+    <mark
+      className="rounded-[2px] bg-transparent px-1 font-semibold text-[#35404F]"
+      style={{
+        backgroundImage: "linear-gradient(177deg, transparent 34%, rgba(105,109,122,0.24) 34%, rgba(105,109,122,0.24) 84%, transparent 84%)",
+        boxDecorationBreak: "clone",
+        WebkitBoxDecorationBreak: "clone",
+      }}
+    >
+      {children}
+    </mark>
+  );
+}
+
+function ReflectionMarker({ children }: { children: ReactNode }) {
+  return (
+    <mark className="ai-report-marker-highlight bg-transparent font-semibold text-[#252B36]">
+      {children}
+    </mark>
+  );
+}
+
+function QualityMarker({ children, tone }: { children: ReactNode; tone: "blue" | "orange" | "green" }) {
+  const markerColor = {
+    blue: "rgba(142,170,255,0.46)",
+    orange: "rgba(246,185,119,0.52)",
+    green: "rgba(144,207,160,0.50)",
+  }[tone];
+
+  return (
+    <mark
+      className="whitespace-nowrap rounded-[2px] bg-transparent px-0.5 text-inherit"
+      style={{
+        backgroundImage: `linear-gradient(176deg, transparent 36%, ${markerColor} 36%, ${markerColor} 86%, transparent 86%)`,
+        boxDecorationBreak: "clone",
+        WebkitBoxDecorationBreak: "clone",
+      }}
+    >
+      {children}
+    </mark>
+  );
+}
+
+function PromptConsoleHistoryNote() {
+  return (
+    <a
+      href="./report-agent-page.html"
+      target="_blank"
+      rel="noreferrer"
+      data-prompt-console-history-note="true"
+      aria-label="点击查看之前规划的 Prompt 控制台原型"
+      className="prompt-console-history-note group self-start px-6 pb-7 pt-9 focus-visible:outline-none md:col-start-2 md:row-start-2 sm:px-7 sm:pb-8 sm:pt-10"
+    >
+      <span className="relative z-10 flex items-start justify-between gap-5">
+        <span className="min-w-0 flex-1">
+          <span className="block text-[18px] font-medium leading-[1.45] text-[#4E5668]">
+            点击查看
+          </span>
+          <span className="mt-1 block text-[20px] font-semibold leading-[1.45] text-[#20242D]">
+            之前规划的 Prompt 控制台原型
+          </span>
+        </span>
+        <span
+          aria-hidden="true"
+          className="prompt-console-history-note-arrow mt-7 grid size-11 shrink-0 place-items-center border border-[#B9C9F5] bg-[#F8FAFF] text-[#2258F4]"
+        >
+          <svg className="size-5" viewBox="0 0 24 24" fill="none">
+            <path d="M4.2 12.1C8.2 11.9 13.1 12.3 18.5 11.9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+            <path d="M13.8 7.2C15.4 8.7 17.1 10.4 18.7 12C17.2 13.6 15.7 15.3 13.8 16.8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M4.6 12.9C8.7 12.7 12.9 12.9 17.8 12.5" stroke="currentColor" strokeWidth="0.9" strokeLinecap="round" opacity="0.28" />
+          </svg>
+        </span>
+      </span>
+      <span className="relative z-10 mt-6 block text-[16px] leading-[1.75] text-[#4E5668]">
+        之前做的 10+1 模块配置框架的设计，但是现在模型能力上来后可能不需要这么重了。
+      </span>
+    </a>
+  );
+}
+
+function PromptCompilerValueReflection() {
+  const reflections = [
+    {
+      id: "team",
+      title: "团队价值",
+      paperVariant: "experience-paper-sheet-primary",
+      gridPlacement: "md:col-start-1 md:row-start-1",
+      paragraphs: [
+        <>
+          团队成员只需输入业务诉求与关注对象，即可
+          <ReflectionMarker>按统一架构快速装配提示词</ReflectionMarker>。
+        </>,
+        <>
+          将 Prompt 从个人经验，转化为
+          <ReflectionMarker>团队可维护、可校验的标准配置资产</ReflectionMarker>，显著降低协作与迭代成本。
+        </>,
+      ],
+    },
+    {
+      id: "personal",
+      title: "个人价值",
+      paperVariant: "experience-paper-sheet-secondary",
+      gridPlacement: "md:col-start-2 md:row-start-1",
+      paragraphs: [
+        <>
+          在搭建和调试过程中，
+          <ReflectionMarker>建立了对模型能力边界的工作级认知</ReflectionMarker>。
+        </>,
+        <>
+          明确
+          <ReflectionMarker>哪些体验必须由系统做“硬约束”，哪些表达可以放手交给模型自主推理</ReflectionMarker>。
+        </>,
+      ],
+    },
+    {
+      id: "insight",
+      title: "工作洞察",
+      paperVariant: "experience-paper-sheet-tertiary",
+      gridPlacement: "md:col-start-3 md:row-start-1",
+      paragraphs: [
+        <>
+          最初曾试想过将我的提示词模板做成通用 Skill，但在实战中发现：随着模型能力提升，
+          <ReflectionMarker>需要写死的规则反而在减少</ReflectionMarker>。
+        </>,
+        <>
+          <ReflectionMarker>架构的价值不是堆砌规则，而在于建立可持续维护的秩序</ReflectionMarker>。
+        </>,
+      ],
+    },
+  ];
+
+  const keyMetrics = [
+    {
+      title: "全流程交付周期",
+      before: "2~3 天",
+      after: "20 分钟",
+      change: "90%",
+      direction: "down",
+      bg: "repeating-linear-gradient(to bottom, #FFFEF8 0, #FFFEF8 34px, #E8E4D8 35px, #E8E4D8 36px)",
+      borderColor: "#DED9CE",
+      pinColor: "#4A78C2",
+      rotation: "rotate-[-0.7deg]",
+    },
+    {
+      title: "纯内容生成耗时",
+      before: "6~8 小时",
+      after: "约 5 分钟",
+      change: "98%",
+      direction: "down",
+      bg: "repeating-linear-gradient(to bottom, #FFFEF8 0, #FFFEF8 34px, #E8E4D8 35px, #E8E4D8 36px)",
+      borderColor: "#DED9CE",
+      pinColor: "#A85A16",
+      rotation: "rotate-[0.6deg]",
+    },
+    {
+      title: "资料准备与清洗",
+      before: "半天以上",
+      after: "< 1 分钟",
+      change: "95%",
+      direction: "down",
+      bg: "repeating-linear-gradient(to bottom, #FFFEF8 0, #FFFEF8 34px, #E8E4D8 35px, #E8E4D8 36px)",
+      borderColor: "#DED9CE",
+      pinColor: "#2F7A44",
+      rotation: "rotate-[-0.5deg]",
+    },
+    {
+      title: "关键事实溯源率",
+      before: "人工核验",
+      after: "80%",
+      change: "42.5%",
+      direction: "up",
+      bg: "repeating-linear-gradient(to bottom, #EEF2FF 0, #EEF2FF 34px, #D8E1FF 35px, #D8E1FF 36px)",
+      borderColor: "#C8D4FF",
+      pinColor: "#2258F4",
+      rotation: "rotate-[0.7deg]",
+    },
+  ];
+
+  return (
+    <section
+      data-prompt-value-reflection="true"
+      aria-labelledby="prompt-value-reflection-title"
+      className="mb-20 pt-10 md:pt-16"
+    >
+      <div className="mb-8 text-left md:mb-10">
+        <h3
+          id="prompt-value-reflection-title"
+          className="tracking-tight text-neutral-900"
+          style={T.h2}
+        >
+          项目落地的关键指标与反思
+        </h3>
+      </div>
+
+      {/* 关键数值横向对比小便签 */}
+      <div className="mb-12 grid grid-cols-1 gap-3.5 sm:grid-cols-2 lg:grid-cols-4 lg:gap-4">
+        {keyMetrics.map((metric) => (
+          <div
+            key={metric.title}
+            className={`relative flex min-h-[104px] items-center justify-between gap-2.5 rounded-[8px] border px-4 py-3.5 shadow-[0_6px_20px_rgba(56,67,92,0.07)] sm:px-4.5 sm:py-4 ${metric.rotation} transition-transform duration-200 hover:rotate-0 hover:z-20`}
+            style={{
+              background: metric.bg,
+              borderColor: metric.borderColor,
+            }}
+          >
+            {/* 便签大头针 */}
+            <span
+              aria-hidden="true"
+              className="absolute left-1/2 top-0 size-3.5 -translate-x-1/2 -translate-y-1/2 rounded-full shadow-[0_2px_4px_rgba(34,61,109,0.22)]"
+              style={{ backgroundColor: metric.pinColor }}
+            />
+
+            {/* 左侧：标题与前后对比 */}
+            <div className="min-w-0 flex flex-col justify-center">
+              <div className="whitespace-nowrap text-[16px] font-semibold tracking-tight text-[#737B8C]">
+                {metric.title}
+              </div>
+
+              <div className="mt-1.5 flex items-baseline gap-1.5 whitespace-nowrap">
+                <span className="whitespace-nowrap text-[15px] text-[#8D94A3] sm:text-[16px]">
+                  {metric.before}
+                </span>
+                <span className="shrink-0 text-[15px] font-bold text-[#2258F4] sm:text-[16px]">→</span>
+                <span className="whitespace-nowrap text-[17px] font-bold text-[#1A1C24] sm:text-[18px]">
+                  {metric.after}
+                </span>
+              </div>
+            </div>
+
+            {/* 右侧：缩放到合适尺寸的纯数字 */}
+            <div className="flex shrink-0 items-center pl-1">
+              <span
+                className="whitespace-nowrap text-[24px] font-extrabold tracking-tight leading-none sm:text-[26px] md:text-[28px]"
+                style={{
+                  color: metric.direction === "down" ? "#2F7A44" : "#2258F4",
+                }}
+              >
+                {metric.direction === "down" ? "↓" : "↑"} {metric.change}
+              </span>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="grid gap-7 px-2 md:grid-cols-3 md:px-0">
+        {reflections.map((reflection, index) => (
+          <Fragment key={reflection.id}>
+            <article
+              data-prompt-value-note={reflection.id}
+              aria-labelledby={`prompt-value-note-${reflection.id}`}
+              className={`experience-paper-sheet ${reflection.paperVariant} ${reflection.gridPlacement} relative min-h-[320px] overflow-hidden pb-8 pl-16 pr-6 pt-10 sm:min-h-[300px] sm:pl-[72px] sm:pr-7 sm:pt-11`}
+            >
+              <PromptSourcePaperHoles count={index === 0 ? 14 : 13} />
+              <div className="relative z-10">
+                <div className="experience-identity-note experience-identity-note-text-only">
+                  <h4 id={`prompt-value-note-${reflection.id}`} className="text-[18px] font-semibold leading-[1.4] text-[#1A1C24]">
+                    {reflection.title}
+                  </h4>
+                </div>
+                <div className="mt-7 space-y-4 text-[16px] leading-[1.8] text-[#4E525E]">
+                  {reflection.paragraphs.map((paragraph, paragraphIndex) => (
+                    <p key={`${reflection.id}-${paragraphIndex}`}>{paragraph}</p>
+                  ))}
+                </div>
+              </div>
+            </article>
+            {reflection.id === "personal" ? <PromptConsoleHistoryNote /> : null}
+          </Fragment>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function ReportAgentExecutionChainSticker() {
+  return (
+    <figure
+      data-report-agent-execution-chain="true"
+      aria-labelledby="report-agent-execution-chain-caption"
+      className="pointer-events-none absolute left-1/2 top-[56px] z-30 w-[88%] max-w-[950px] -translate-x-1/2 -rotate-[0.7deg] sm:w-[82%] lg:w-[72%]"
+    >
+      <svg className="absolute size-0" aria-hidden="true">
+        <defs>
+          <filter id="s05-report-agent-sticker-filter" x="-25%" y="-40%" width="150%" height="190%" colorInterpolationFilters="sRGB">
+            <feMorphology in="SourceAlpha" operator="dilate" radius="8" result="expanded" />
+            <feFlood floodColor="#FFFEFB" result="stickerColor" />
+            <feComposite in="stickerColor" in2="expanded" operator="in" result="stickerEdge" />
+            <feGaussianBlur in="expanded" stdDeviation="1.8" result="softBlur" />
+            <feOffset in="softBlur" dy="2.5" result="offsetBlur" />
+            <feFlood floodColor="#687080" floodOpacity="0.14" result="shadowColor" />
+            <feComposite in="shadowColor" in2="offsetBlur" operator="in" result="stickerShadow" />
+            <feMerge>
+              <feMergeNode in="stickerShadow" />
+              <feMergeNode in="stickerEdge" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+      </svg>
+
+      <div className="relative" style={{ filter: "url(#s05-report-agent-sticker-filter)" }}>
+        <img
+          src="./images/章节提示词/line-01.svg"
+          alt="Agent 报告生成工作流，章节生成 Agent 节点高亮"
+          {...DETAIL_IMAGE_LAZY_PROPS}
+          className="block h-auto w-full"
+          draggable={false}
+        />
+      </div>
+
+      <figcaption
+        id="report-agent-execution-chain-caption"
+        className="skills-sticky-note skills-note-0 right-[5%] top-[-42px] z-20 w-fit whitespace-nowrap px-4 py-2 text-[12px] font-semibold text-[#35404F] sm:text-[14px]"
+        style={{ position: "absolute" }}
+      >
+        我的 Prompt 运行在「章节生成 Agent」环节
+      </figcaption>
+    </figure>
+  );
+}
+
+function FourDimensionDecisionNotes() {
+  const notes = [
+    {
+      title: "用户维度",
+      rotate: "rotate-[-0.35deg]",
+      needLabel: "用户诉求",
+      needDetail: "研报真实性与准确性要求极高，容不得无来源的幻觉。",
+      needPlacement: { left: "clamp(12px, 4%, 24px)", bottom: "-49px", width: "calc(100% - 30px)", rotate: "-1.7deg" },
+      points: [
+        {
+          category: "取舍",
+          title: "正文逐段绑定信源",
+          detail: "不把信任交给文末免责声明或集中来源列表，改为让来源与正文内容就近绑定。",
+        },
+        {
+          category: "规划",
+          title: "支持用户自定义写作样本",
+          detail: "本期先固化 Few-Shot 标准样本，下一阶段规划用户自定义样本库与在线编辑。",
+        },
+      ],
+    },
+    {
+      title: "产品维度",
+      rotate: "rotate-[0.3deg]",
+      needLabel: "产品阶段",
+      needDetail: "处于 1.0 MVP，研发资源有限，暂不支持可视化参数配置。",
+      needPlacement: { left: "clamp(28px, 8%, 40px)", bottom: "-56px", width: "calc(100% - 42px)", rotate: "0.9deg" },
+      points: [
+        {
+          category: "取舍",
+          title: "Prompt 拆分为四个可维护的模块",
+          detail: "MVP 不提前搭建配置后台，先拆为任务定义、工具编排、质量门禁、容错兜底 4 个模块。",
+        },
+        {
+          category: "价值",
+          title: "降低后续配置化重构成本",
+          detail: "预留配置映射边界，未来可将 4 个模块转化为后台可配置选项，部分可开放给用户进行维护。",
+        },
+      ],
+    },
+    {
+      title: "研发维度",
+      rotate: "rotate-[0.25deg]",
+      needLabel: "研发现状",
+      needDetail: "Agent 框架刚搭建，缺少成熟任务流与最佳实践。",
+      needPlacement: { left: "clamp(22px, 7%, 34px)", bottom: "-48px", width: "calc(100% - 38px)", rotate: "1.3deg" },
+      points: [
+        {
+          category: "取舍",
+          title: "Prompt 阶段管线提示词设计",
+          detail: "放弃 Agent 自由编排流程，改为与执行步骤一一对应，使各个步骤都可追溯。",
+        },
+        {
+          category: "规则",
+          title: "增加异常状态校验和兜底环节",
+          detail: "关键阶段未通过校验时进入重试或兜底，避免错误继续向下游传递。",
+        },
+      ],
+    },
+    {
+      title: "模型维度",
+      rotate: "rotate-[-0.3deg]",
+      needLabel: "模型选择",
+      needDetail: "高阶模型可能掩盖 Prompt 的结构问题，同时增加调试成本。",
+      needPlacement: { left: "clamp(14px, 5%, 28px)", bottom: "-58px", width: "calc(100% - 32px)", rotate: "-0.8deg" },
+      points: [
+        {
+          category: "取舍",
+          title: "弱模型验证规则下限",
+          detail: "不先用强模型掩盖规则漏洞，优先以低能力模型验证结构下限。",
+        },
+        {
+          category: "价值",
+          title: "降低生产模型迁移风险",
+          detail: "在目标生产模型上对比通过率、重试率、来源覆盖率和成本，为多模型迁移提供验证依据。",
+        },
+      ],
+    },
+  ];
+
+  return (
+    <section
+      data-four-dimension-decision-notes="true"
+      aria-label="四维策略展开"
+      className="mx-auto mb-24 mt-12 grid max-w-[1160px] grid-cols-1 gap-x-16 gap-y-24 sm:grid-cols-2"
+    >
+      {notes.map((note) => (
+        <article
+          key={note.title}
+          data-decision-note="true"
+          className={`relative min-h-[300px] ${note.rotate} rounded-[5px] border px-6 py-7 shadow-[0_2px_3px_rgba(28,36,52,0.16),0_7px_14px_rgba(28,36,52,0.055)] sm:min-h-[320px] sm:px-7`}
+          style={{
+            background: "repeating-linear-gradient(to bottom, #FFFEF8 0, #FFFEF8 31px, #E8E4D8 32px, #E8E4D8 33px)",
+            borderColor: "#DED9CE",
+          }}
+        >
+          <span
+            className="absolute left-1/2 top-0 size-4 -translate-x-1/2 -translate-y-1/2 rounded-full"
+            style={{
+              backgroundColor: "#4A78C2",
+              boxShadow: "0 2px 4px rgba(34,61,109,0.22)",
+            }}
+          />
+          <h3 className="text-[20px] font-semibold leading-tight text-[#35404F]">{note.title}</h3>
+          <div className="mt-5 space-y-5">
+            {note.points.map((point) => (
+              <div key={point.title} className="grid grid-cols-[42px_minmax(0,1fr)] gap-x-2">
+                <span className="mt-[2px] inline-flex h-5 items-center justify-center rounded-[2px] border bg-[#F3F1E9] px-1 text-[12px] font-semibold tracking-[0.08em] text-[#696D7A]" style={{ borderColor: "#D6D2C7" }}>
+                  {point.category}
+                </span>
+                <h4 className="text-[16px] leading-[1.55]">
+                  <MarkerHighlight>{point.title}</MarkerHighlight>
+                </h4>
+                <span aria-hidden="true" />
+                <p className="mt-1.5 text-[15px] leading-[1.7] text-[#696D7A]">{point.detail}</p>
+              </div>
+            ))}
+          </div>
+          <aside
+            data-dimension-need-note={note.title}
+            className="experience-identity-note z-20"
+            style={{
+              position: "absolute",
+              zIndex: 20,
+              left: note.needPlacement.left,
+              bottom: note.needPlacement.bottom,
+              width: note.needPlacement.width,
+              maxWidth: "none",
+              rotate: note.needPlacement.rotate,
+            }}
+          >
+            <div className="text-[16px] font-semibold leading-[1.45] text-[#1A1C24]">{note.needLabel}</div>
+            <p className="mt-2 text-[15px] leading-[1.65] text-[#4E525E]">{note.needDetail}</p>
+          </aside>
+        </article>
+      ))}
+    </section>
+  );
+}
+
+function PromptPipelineMarker({ children }: { children: ReactNode }) {
+  return (
+    <mark
+      className="rounded-[2px] bg-transparent px-0.5 font-semibold text-inherit"
+      style={{
+        backgroundImage: "linear-gradient(176deg, transparent 30%, rgba(255,211,92,0.62) 30%, rgba(255,211,92,0.62) 86%, transparent 86%)",
+        boxDecorationBreak: "clone",
+        WebkitBoxDecorationBreak: "clone",
+      }}
+    >
+      {children}
+    </mark>
+  );
+}
+
+function PromptPipelineConnector({ index }: { index: number }) {
   return (
     <div
-      className="relative overflow-hidden rounded-[28px] border bg-white p-4 md:p-5"
+      data-prompt-pipeline-connector={String(index).padStart(2, "0")}
+      data-prompt-pipeline-static-connector="true"
+      aria-hidden="true"
+      className="relative hidden h-16 min-w-0 items-center lg:flex"
     >
-      <div className="pb-4 lg:flex lg:items-start lg:justify-between lg:gap-4">
-        <div className="max-w-[730px]">
-          <div className="text-[24px] font-semibold leading-[1.3] tracking-tight text-[#1D2333]">
-            章节生成拆成一条可控执行链路
-          </div>
-          <p className="mt-2 text-[16px] leading-[1.65]" style={{ color: "#596174" }}>
-            用户指令、章节背景、工具调用和输出检查串成一条流程，先定边界，再合流校验。
-          </p>
+      <svg className="h-14 w-full overflow-visible" viewBox="0 0 200 48" preserveAspectRatio="none" fill="none">
+        <path
+          d="M6 24 C58 12 140 36 194 24"
+          stroke="#D8E4FF"
+          strokeWidth="10"
+          strokeLinecap="round"
+          vectorEffect="non-scaling-stroke"
+        />
+        <path
+          d="M6 26 C60 14 138 34 194 23"
+          stroke="#86A2EB"
+          strokeWidth="1.2"
+          strokeDasharray="3 7"
+          strokeLinecap="round"
+          opacity="0.7"
+          vectorEffect="non-scaling-stroke"
+        />
+        <path
+          d="M6 24 C58 12 140 36 194 24"
+          stroke="#2258F4"
+          strokeWidth="2.4"
+          strokeLinecap="round"
+          vectorEffect="non-scaling-stroke"
+        />
+      </svg>
+      <span
+        data-prompt-pipeline-terminal="start"
+        className="absolute left-0 top-1/2 size-2.5 -translate-y-1/2 border-2 border-[#2258F4] bg-[#FFFEF7]"
+        style={{ borderRadius: "48% 52% 45% 55% / 53% 47% 54% 46%" }}
+      />
+      <span
+        data-prompt-pipeline-terminal="end"
+        className="absolute right-0 top-1/2 size-2.5 -translate-y-1/2 border-2 border-[#2258F4] bg-[#FFFEF7]"
+        style={{ borderRadius: "53% 47% 51% 49% / 46% 54% 48% 52%" }}
+      />
+    </div>
+  );
+}
+
+function PromptSourcePaperHoles({ count = 20 }: { count?: number }) {
+  return (
+    <span className="experience-paper-hole-strip" aria-hidden="true">
+      {Array.from({ length: count }, (_, hole) => (
+        <i key={hole} />
+      ))}
+    </span>
+  );
+}
+
+function RequirementPromptSource() {
+  return (
+    <article
+      data-prompt-source-scroll="01"
+      tabIndex={0}
+      aria-label="重点企业监测报告章节智能体提示词需求全文"
+      className="absolute inset-0 overflow-y-auto overscroll-contain pb-12 pl-16 pr-7 pt-12 text-[16px] leading-[1.75] text-[#35404F] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#4777FF]"
+    >
+      <h2 className="text-[24px] font-bold leading-[1.35] tracking-[-0.02em] text-[#1A1C24]">
+        重点企业监测报告章节智能体提示词需求
+      </h2>
+
+      <section className="mt-8">
+        <h3 className="text-[20px] font-bold leading-[1.5] text-[#1A1C24]">1. 任务目标</h3>
+        <p className="mt-3 text-[16px] leading-[1.75]">你帮我生成一份关于重点企业监测报告章节智能体的提示词。</p>
+      </section>
+
+      <section className="mt-8">
+        <h3 className="text-[20px] font-bold leading-[1.5] text-[#1A1C24]">2. 数据注入与解析原则</h3>
+        <div className="mt-3 space-y-4 text-[16px] leading-[1.75]">
+          <p>优先级原则：用户输入的需求要求大于系统提示词。当两者冲突时，严格按照用户要求执行。解析上游数据中的分析目标、分析类别、分析时间</p>
+          <p>这份提示词中约束用到的工具是我们本地的 MCP 工具，名称为：key_ent_monitor、all_ent_monitor、big_document_process 以及兜底工具 deep_search。</p>
+          <p>使用原则：</p>
+          <p>并行联合检索：不设任何前置前提，必须同时、无条件调用 key_ent_monitor 查询企业相关数据、all_ent_monitor 查询地区参数数据，以及 deep_search 进行全量深度检索，保证一次性获取最广泛的初始信源。</p>
+          <p>将上述三个请求获得的所有数据统一传入 big_document_process 进行数据整理。注意：严禁在该环节输出任何逻辑总结段落、统计表格或可视化图表，仅允许生成并返回纯净的结构化事实数据。</p>
         </div>
-        <div
-          className="w-fit shrink-0 rounded-xl border px-4 py-2.5 text-[12px] leading-[1.5]"
-          style={{ borderColor: ICON_BORDER, background: ICON_BG, color: ICON_BLUE }}
+      </section>
+
+      <section className="mt-8">
+        <h3 className="text-[20px] font-bold leading-[1.5] text-[#1A1C24]">3. 数据分类与清洗</h3>
+        <p className="mt-3 text-[16px] leading-[1.75]">最终结构化数据要经过智能体的清洗，将所有的数据分三个大类：</p>
+        <div className="mt-3 space-y-1 text-[16px] leading-[1.75]">
+          <p>一、获得融资、业务拓展、新品发布类</p>
+          <p>二、榜单类</p>
+          <p>三、获奖、获得荣誉类</p>
+        </div>
+      </section>
+
+      <section className="mt-8">
+        <h3 className="text-[20px] font-bold leading-[1.5] text-[#1A1C24]">4. 输出格式规范</h3>
+        <p className="mt-3 text-[16px] leading-[1.75]">
+          三层分类（作为各部分总起）+ 并在各分类下方罗列对应企业的具体简报。 简报格式规范： 强制层级：中文序号一、分类名称，二、分类名称，三、分类名称，大类名称为总起，下方为各分类下对应的企业简报，严禁混叠或跳过层级。 独特性：数据需进行全局去重，确保每个企业简报展示的是唯一且最准确的信源。 企业简报样式为：（数字序号）+ 企业标题 + 文章的精炼内容 + 数据来源的 URL。 严格逻辑：严禁变成单章节的分析报告，要严格遵循“一、分类”、“二、分类”、“三、分类”并伴随“分类 + 企业”的输出逻辑。 严禁将任务转化为单章节分析报告模型。严禁在每一条企业简报下方、每一级分类章节末尾以及全文终点处，出现汇总性结论、统计图表（Chart）、数据表格（Table）或参考文献。保持纯净的“分类 + 简报”纯文本结构。
+        </p>
+      </section>
+    </article>
+  );
+}
+
+function PromptCompilerSystemSource() {
+  return (
+    <article
+      data-prompt-source-scroll="02"
+      tabIndex={0}
+      aria-label="全场景Prompt Compiler智能体系统提示词全文"
+      className="absolute inset-0 overflow-y-auto overscroll-contain pb-12 pl-16 pr-7 pt-12 text-[16px] leading-[1.75] text-[#35404F] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#4777FF]"
+    >
+      {promptCompilerSystemLines.map((sourceLine, index) => {
+        const line = sourceLine.trim();
+        const isDocumentTitle = index === 0;
+        const isPrimaryHeading = /^M\d{2} ·/.test(line) || line === "最终执行指令";
+        const isSecondaryHeading = line.endsWith("：") && line.length <= 28;
+
+        if (isDocumentTitle) {
+          return (
+            <h2 key={`${index}-${line}`} className="text-[24px] font-bold leading-[1.35] tracking-[-0.02em] text-[#1A1C24]">
+              {line}
+            </h2>
+          );
+        }
+
+        if (!line) {
+          return <span key={`space-${index}`} aria-hidden="true" className="block h-3" />;
+        }
+
+        if (isPrimaryHeading) {
+          return (
+            <h3 key={`${index}-${line}`} className="mt-8 text-[20px] font-bold leading-[1.5] text-[#1A1C24]">
+              {line}
+            </h3>
+          );
+        }
+
+        if (isSecondaryHeading) {
+          return (
+            <h4 key={`${index}-${line}`} className="mt-4 text-[17px] font-bold leading-[1.65] text-[#252B36]">
+              {line}
+            </h4>
+          );
+        }
+
+        return (
+          <p key={`${index}-${line.slice(0, 32)}`} className="mt-2 break-words text-[16px] leading-[1.75]">
+            {line}
+          </p>
+        );
+      })}
+    </article>
+  );
+}
+
+function renderPromptInline(value: string) {
+  const source = value.replace(/\\\|/g, "|");
+  const tokens: ReactNode[] = [];
+  const tokenPattern = /(\*\*.*?\*\*|\*.*?\*|`.*?`|\[[^\]]+\]\([^)]+\))/g;
+  let cursor = 0;
+  let match = tokenPattern.exec(source);
+
+  while (match) {
+    if (match.index > cursor) tokens.push(source.slice(cursor, match.index));
+
+    const token = match[0];
+    const key = `${match.index}-${token.slice(0, 18)}`;
+
+    if (token.startsWith("**")) {
+      tokens.push(
+        <strong key={key} className="font-bold text-[#252B36]">
+          {token.slice(2, -2)}
+        </strong>,
+      );
+    } else if (token.startsWith("*")) {
+      tokens.push(
+        <em key={key} className="text-[#566176]">
+          {token.slice(1, -1)}
+        </em>,
+      );
+    } else if (token.startsWith("`")) {
+      tokens.push(
+        <code key={key} className="rounded-sm bg-[#E9EEF9] px-1 py-0.5 font-mono text-[15px] text-[#1A42B8]">
+          {token.slice(1, -1)}
+        </code>,
+      );
+    } else {
+      const linkMatch = /^\[([^\]]+)\]\(([^)]+)\)$/.exec(token);
+      tokens.push(
+        linkMatch ? (
+          <a
+            key={key}
+            href={linkMatch[2]}
+            target="_blank"
+            rel="noreferrer"
+            className="break-all text-[#1A42B8] underline decoration-[#85A3FF] underline-offset-2"
+          >
+            {linkMatch[1]}
+          </a>
+        ) : (
+          token
+        ),
+      );
+    }
+
+    cursor = match.index + token.length;
+    match = tokenPattern.exec(source);
+  }
+
+  if (cursor < source.length) tokens.push(source.slice(cursor));
+  return tokens;
+}
+
+function FinalReportAgentPromptSource() {
+  return (
+    <article
+      data-prompt-source-scroll="03"
+      tabIndex={0}
+      aria-label="重点企业监测报告章节智能体最终提示词全文"
+      className="absolute inset-0 overflow-y-auto overscroll-contain pb-12 pl-16 pr-7 pt-12 text-[16px] leading-[1.75] text-[#35404F] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#4777FF]"
+    >
+      {finalReportAgentPromptLines.map((sourceLine, index) => {
+        const line = sourceLine.trim();
+        const headingMatch = /^(#{1,3})\s+(.+)$/.exec(line);
+        const standaloneBoldMatch = /^\*\*(.+)\*\*$/.exec(line);
+
+        if (!line) {
+          return <span key={`space-${index}`} aria-hidden="true" className="block h-3" />;
+        }
+
+        if (headingMatch?.[1] === "#") {
+          return (
+            <h2 key={`${index}-${line}`} className="text-[24px] font-bold leading-[1.35] tracking-[-0.02em] text-[#1A1C24]">
+              {headingMatch[2]}
+            </h2>
+          );
+        }
+
+        if (headingMatch?.[1] === "##") {
+          return (
+            <h3 key={`${index}-${line}`} className="mt-8 text-[20px] font-bold leading-[1.5] text-[#1A1C24]">
+              {headingMatch[2]}
+            </h3>
+          );
+        }
+
+        if (headingMatch?.[1] === "###" || standaloneBoldMatch) {
+          return (
+            <h4 key={`${index}-${line}`} className="mt-5 text-[17px] font-bold leading-[1.65] text-[#252B36]">
+              {headingMatch?.[2] ?? renderPromptInline(standaloneBoldMatch?.[1] ?? line)}
+            </h4>
+          );
+        }
+
+        return (
+          <p key={`${index}-${line.slice(0, 32)}`} className="mt-2 break-words text-[16px] leading-[1.75]">
+            {renderPromptInline(line)}
+          </p>
+        );
+      })}
+    </article>
+  );
+}
+
+function PromptSourceViewer({
+  isOpen,
+  onClose,
+  reduceMotion,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  reduceMotion: boolean;
+}) {
+  const viewerRef = useRef<HTMLDivElement | null>(null);
+  const closeButtonRef = useRef<HTMLButtonElement | null>(null);
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const previouslyFocused = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    const previousBodyOverflow = document.body.style.overflow;
+    const focusFrame = window.requestAnimationFrame(() => closeButtonRef.current?.focus());
+
+    document.body.style.overflow = "hidden";
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        onClose();
+        return;
+      }
+
+      if (event.key !== "Tab") return;
+
+      const focusableElements = viewerRef.current?.querySelectorAll<HTMLElement>(
+        'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+      );
+
+      if (!focusableElements?.length) return;
+
+      const firstElement = focusableElements[0];
+      const lastElement = focusableElements[focusableElements.length - 1];
+
+      if (event.shiftKey && document.activeElement === firstElement) {
+        event.preventDefault();
+        lastElement.focus();
+      } else if (!event.shiftKey && document.activeElement === lastElement) {
+        event.preventDefault();
+        firstElement.focus();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.cancelAnimationFrame(focusFrame);
+      document.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = previousBodyOverflow;
+      previouslyFocused?.focus();
+    };
+  }, [isOpen, onClose]);
+
+  if (typeof document === "undefined") return null;
+
+  const paperVariants = [
+    "experience-paper-sheet-primary",
+    "experience-paper-sheet-secondary",
+    "experience-paper-sheet-tertiary",
+  ];
+  const paperStageNotes = [
+    { code: "01", label: "章节提示词需求输入", noteClass: "skills-note-0" },
+    { code: "02", label: "Google Studio 提示词", noteClass: "skills-note-1" },
+    { code: "03", label: "最终输出提示词", noteClass: "skills-note-2" },
+  ];
+
+  return createPortal(
+    <AnimatePresence>
+      {isOpen ? (
+        <motion.div
+          ref={viewerRef}
+          id="prompt-source-viewer"
+          data-prompt-source-viewer="true"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Prompt原文查看器"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: reduceMotion ? 0 : 0.2, ease: [0.22, 1, 0.36, 1] }}
+          onMouseDown={(event) => {
+            const target = event.target;
+            if (!(target instanceof Element)) return;
+            if (target.closest("[data-prompt-source-card], [data-prompt-source-close]")) return;
+            onClose();
+          }}
+          className="fixed inset-0 z-[100] isolate overflow-hidden"
         >
-          <div>Plan-and-Execute 负责整体规划</div>
-          <div>ReAct 负责单章节执行</div>
+          <div aria-hidden="true" className="absolute inset-0 bg-[#EDF1FA]/95 backdrop-blur-[7px]" />
+
+          <button
+            ref={closeButtonRef}
+            type="button"
+            data-prompt-source-close="true"
+            aria-label="关闭Prompt原文查看器"
+            title="关闭"
+            onClick={onClose}
+            className="absolute right-5 top-5 z-20 grid size-12 place-items-center border border-[#AEB8CC] bg-[#FFFEF7] text-[#4E525E] shadow-[2px_3px_0_rgba(57,70,99,0.13),0_10px_28px_rgba(43,57,87,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2258F4] focus-visible:ring-offset-2 focus-visible:ring-offset-[#EDF1FA] sm:right-8 sm:top-7"
+            style={{ borderRadius: "51% 49% 47% 53% / 48% 53% 47% 52%" }}
+          >
+            <CircleX size={22} strokeWidth={1.9} />
+          </button>
+
+          <div className="relative z-10 flex h-full w-full items-center overflow-x-auto overflow-y-hidden px-5 pb-8 pt-20 sm:px-8 sm:pb-10 sm:pt-24 lg:px-12 xl:px-16">
+            <div
+              data-prompt-source-paper-row="true"
+              className="mx-auto grid w-full min-w-[1080px] max-w-[1900px] grid-cols-3 gap-[clamp(20px,2.4vw,44px)]"
+              style={{ height: "min(78vh, 820px)" }}
+            >
+              {paperVariants.map((variant, index) => (
+                <motion.div
+                  key={variant}
+                  data-prompt-source-card={String(index + 1).padStart(2, "0")}
+                  initial={reduceMotion ? false : { opacity: 0, y: 22, scale: 0.985 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={reduceMotion ? undefined : { opacity: 0, y: 12, scale: 0.99 }}
+                  transition={{
+                    duration: reduceMotion ? 0 : 0.38,
+                    delay: reduceMotion ? 0 : 0.04 + index * 0.055,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                  className="relative h-full min-w-0"
+                >
+                  <aside
+                    data-prompt-source-stage-note={paperStageNotes[index].code}
+                    aria-label={paperStageNotes[index].label}
+                    className={`skills-sticky-note ${paperStageNotes[index].noteClass} z-20 min-w-[190px] select-none px-4 pb-3 pt-3`}
+                    style={{
+                      position: "absolute",
+                      left: "clamp(22px, 7%, 42px)",
+                      top: 0,
+                      transform: "translateY(-58%)",
+                    }}
+                  >
+                    <span className="relative z-10 mr-2 font-mono text-[13px] font-bold tracking-[0.08em] text-[#2258F4]">
+                      {paperStageNotes[index].code}
+                    </span>
+                    <strong className="relative z-10 whitespace-nowrap text-[16px] font-semibold text-[#252B36]">
+                      {paperStageNotes[index].label}
+                    </strong>
+                  </aside>
+                  <div
+                    data-prompt-source-paper={String(index + 1).padStart(2, "0")}
+                    className={`experience-paper-sheet ${variant} h-full w-full overflow-hidden`}
+                  >
+                    <PromptSourcePaperHoles />
+                    {index === 0 ? <RequirementPromptSource /> : null}
+                    {index === 1 ? <PromptCompilerSystemSource /> : null}
+                    {index === 2 ? <FinalReportAgentPromptSource /> : null}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </motion.div>
+      ) : null}
+    </AnimatePresence>,
+    document.body,
+  );
+}
+
+function PromptCompilerPipelineScaffold() {
+  const pipelineRootRef = useRef<HTMLElement | null>(null);
+  const pipelineTimelineRef = useRef<gsap.core.Timeline | null>(null);
+  const pipelineSeekingRef = useRef(false);
+  const [pipelineProgress, setPipelineProgress] = useState(0);
+  const [isPipelinePlaying, setIsPipelinePlaying] = useState(false);
+  const [isPromptSourceViewerOpen, setIsPromptSourceViewerOpen] = useState(false);
+  const shouldReducePipelineMotion = useReducedMotion();
+  const topScale = Array.from({ length: 17 }, (_, index) => String(index).padStart(2, "0"));
+  const sideScale = Array.from({ length: 10 }, (_, index) => String(index).padStart(2, "0"));
+  const nodeNotes = [
+    {
+      number: "01",
+      title: "章节提示词需求输入",
+      description: "团队成员用自然语言描述需求",
+      detailLabel: "示例",
+      detail: "“帮我生成企业动态监测周报的章节Prompt”",
+      background: "#FFFEF7",
+      border: "#DED9CE",
+      line: "rgba(132, 137, 146, 0.15)",
+      pin: "#4A7BC7",
+      className: "md:mt-2 md:-rotate-[0.8deg]",
+    },
+    {
+      number: "02",
+      title: "Google Studio",
+      description: "使用我在Google AI Studio设计好的提示词框架编译器",
+      detailLabel: "示例",
+      detail: "M01宪法层 / M04四层信息包 / M06场景路由 / M07编译引擎",
+      background: "#EEF4FF",
+      border: "#C9D8F4",
+      line: "rgba(75, 111, 174, 0.16)",
+      pin: "#F05B62",
+      className: "md:-mt-1 md:rotate-[0.7deg]",
+    },
+    {
+      number: "03",
+      title: "最终输出",
+      description: "完整可部署的章节Prompt",
+      detailLabel: "标签",
+      detail: "6阶段门禁 / §10质量自检 / 信源绑定",
+      background: "#FFFEF7",
+      border: "#DED9CE",
+      line: "rgba(132, 137, 146, 0.15)",
+      pin: "#4A7BC7",
+      className: "md:mt-1 md:-rotate-[0.35deg]",
+    },
+  ];
+
+  const processSteps = [
+    {
+      number: "01",
+      title: "任务定义",
+      summary: "目标定义 / 身份与角色 / 成功标准",
+      rotate: "-rotate-[0.35deg]",
+    },
+    {
+      number: "02",
+      title: "执行编排",
+      summary: "输入定义 / 处理规则 / 工具编排",
+      rotate: "rotate-[0.28deg]",
+    },
+    {
+      number: "03",
+      title: "质量门禁",
+      summary: "约束边界 / 输出规范 / 异常处理",
+      rotate: "-rotate-[0.2deg]",
+    },
+    {
+      number: "04",
+      title: "容错兜底",
+      summary: "兜底机制 / 自检清单",
+      rotate: "rotate-[0.38deg]",
+    },
+  ];
+
+  useGSAP(
+    () => {
+      const root = pipelineRootRef.current;
+      if (!root) return;
+
+      const select = gsap.utils.selector(root);
+      const nodeOne = root.querySelector<HTMLElement>('[data-prompt-compiler-node="01"]');
+      const nodeTwo = root.querySelector<HTMLElement>('[data-prompt-compiler-node="02"]');
+      const nodeThree = root.querySelector<HTMLElement>('[data-prompt-compiler-node="03"]');
+      const animatedSvg = root.querySelector<SVGSVGElement>('[data-pipeline-animated-svg="true"]');
+      const segmentOneStrokes = select<SVGPathElement>('[data-pipeline-animated-stroke="first"]');
+      const segmentTwoStrokes = select<SVGPathElement>('[data-pipeline-animated-stroke="second"]');
+      const animatedStrokes = [...segmentOneStrokes, ...segmentTwoStrokes];
+      const startDot = select<SVGCircleElement>('[data-pipeline-animated-dot="start"]');
+      const compilerInDot = select<SVGCircleElement>('[data-pipeline-animated-dot="compiler-in"]');
+      const compilerOutDot = select<SVGCircleElement>('[data-pipeline-animated-dot="compiler-out"]');
+      const endDot = select<SVGCircleElement>('[data-pipeline-animated-dot="end"]');
+      const staticConnectors = select<HTMLElement>('[data-prompt-pipeline-static-connector="true"]');
+      const processCluster = select<HTMLElement>('[data-pipeline-process-cluster="true"]');
+      const processItems = select<HTMLElement>('[data-pipeline-process-step]');
+      const processNodes = select<HTMLElement>('[data-pipeline-process-node]');
+      const processNumbers = select<HTMLElement>('[data-pipeline-process-number]');
+      const processChecks = select<SVGSVGElement>('[data-pipeline-process-check]');
+      const processRailFill = select<HTMLElement>('[data-pipeline-process-rail-fill="true"]');
+
+      if (!nodeOne || !nodeTwo || !nodeThree || !animatedSvg) return;
+
+      const setPipelineGeometry = () => {
+        const surfaceRect = animatedSvg.getBoundingClientRect();
+        if (surfaceRect.width <= 0 || surfaceRect.height <= 0) return;
+
+        const getRenderedPathLength = (path: SVGPathElement) => {
+          const geometryLength = Math.max(1, path.getTotalLength());
+          const screenMatrix = path.getScreenCTM();
+          if (!screenMatrix) return geometryLength;
+
+          const sampleCount = 32;
+          let renderedLength = 0;
+          let previousPoint: { x: number; y: number } | null = null;
+
+          for (let sampleIndex = 0; sampleIndex <= sampleCount; sampleIndex += 1) {
+            const point = path.getPointAtLength((geometryLength * sampleIndex) / sampleCount);
+            const screenPoint = {
+              x: screenMatrix.a * point.x + screenMatrix.c * point.y + screenMatrix.e,
+              y: screenMatrix.b * point.x + screenMatrix.d * point.y + screenMatrix.f,
+            };
+            if (previousPoint) {
+              renderedLength += Math.hypot(screenPoint.x - previousPoint.x, screenPoint.y - previousPoint.y);
+            }
+            previousPoint = screenPoint;
+          }
+
+          return Math.max(1, renderedLength);
+        };
+
+        const toCanvasPoint = (x: number, y: number) => ({
+          x: ((x - surfaceRect.left) / surfaceRect.width) * 1000,
+          y: ((y - surfaceRect.top) / surfaceRect.height) * 1000,
+        });
+        const firstRect = nodeOne.getBoundingClientRect();
+        const secondRect = nodeTwo.getBoundingClientRect();
+        const thirdRect = nodeThree.getBoundingClientRect();
+        const firstCenterY = firstRect.top + firstRect.height / 2;
+        const secondCenterY = secondRect.top + secondRect.height / 2;
+        const thirdCenterY = thirdRect.top + thirdRect.height / 2;
+        const firstIsHorizontal = Math.abs(firstCenterY - secondCenterY) < Math.min(firstRect.height, secondRect.height) * 0.45;
+        const secondIsHorizontal = Math.abs(secondCenterY - thirdCenterY) < Math.min(secondRect.height, thirdRect.height) * 0.45;
+
+        const start = firstIsHorizontal
+          ? toCanvasPoint(firstRect.right, firstRect.top + firstRect.height / 2)
+          : toCanvasPoint(firstRect.left + firstRect.width / 2, firstRect.bottom);
+        const compilerIn = firstIsHorizontal
+          ? toCanvasPoint(secondRect.left, secondRect.top + secondRect.height / 2)
+          : toCanvasPoint(secondRect.left + secondRect.width / 2, secondRect.top);
+        const compilerOut = secondIsHorizontal
+          ? toCanvasPoint(secondRect.right, secondRect.top + secondRect.height / 2)
+          : toCanvasPoint(secondRect.left + secondRect.width / 2, secondRect.bottom);
+        const end = secondIsHorizontal
+          ? toCanvasPoint(thirdRect.left, thirdRect.top + thirdRect.height / 2)
+          : toCanvasPoint(thirdRect.left + thirdRect.width / 2, thirdRect.top);
+
+        const createCurve = (
+          from: { x: number; y: number },
+          to: { x: number; y: number },
+          horizontal: boolean,
+        ) => {
+          if (horizontal) {
+            const direction = Math.sign(to.x - from.x) || 1;
+            const distance = Math.max(55, Math.abs(to.x - from.x) * 0.48);
+            return `M ${from.x} ${from.y} C ${from.x + distance * direction} ${from.y - 22}, ${to.x - distance * direction} ${to.y + 22}, ${to.x} ${to.y}`;
+          }
+          const direction = Math.sign(to.y - from.y) || 1;
+          const distance = Math.max(55, Math.abs(to.y - from.y) * 0.48);
+          return `M ${from.x} ${from.y} C ${from.x - 24} ${from.y + distance * direction}, ${to.x + 24} ${to.y - distance * direction}, ${to.x} ${to.y}`;
+        };
+        const firstPath = createCurve(start, compilerIn, firstIsHorizontal);
+        const secondPath = createCurve(compilerOut, end, secondIsHorizontal);
+
+        segmentOneStrokes.forEach((path) => path.setAttribute("d", firstPath));
+        segmentTwoStrokes.forEach((path) => path.setAttribute("d", secondPath));
+        const setDotPosition = (dots: SVGCircleElement[], point: { x: number; y: number }) => {
+          dots.forEach((dot) => {
+            dot.setAttribute("cx", String(point.x));
+            dot.setAttribute("cy", String(point.y));
+          });
+        };
+        setDotPosition(startDot, start);
+        setDotPosition(compilerInDot, compilerIn);
+        setDotPosition(compilerOutDot, compilerOut);
+        setDotPosition(endDot, end);
+
+        const currentTimeline = pipelineTimelineRef.current;
+        const currentProgress = currentTimeline?.progress() ?? 0;
+        animatedStrokes.forEach((path) => {
+          const hiddenLength = Math.ceil(getRenderedPathLength(path) + 12);
+          gsap.set(path, { strokeDasharray: hiddenLength, strokeDashoffset: hiddenLength });
+        });
+        if (currentTimeline) {
+          currentTimeline.invalidate().progress(currentProgress);
+        }
+      };
+
+      setPipelineGeometry();
+      const geometryObserver = new ResizeObserver(setPipelineGeometry);
+      geometryObserver.observe(animatedSvg);
+
+      gsap.set(processCluster, { autoAlpha: 0, x: 0 });
+      gsap.set(processItems, { autoAlpha: 0, x: 18, scale: 0.985, transformOrigin: "left center" });
+      gsap.set(processRailFill, { scaleY: 0, transformOrigin: "top center" });
+      gsap.set(processNodes, { backgroundColor: "#FFFEF7", borderColor: "#B8C2D6", color: "#7C879C" });
+      gsap.set(processNumbers, { autoAlpha: 1 });
+      gsap.set(processChecks, { autoAlpha: 0, scale: 0.5, transformOrigin: "center" });
+      gsap.set([...startDot, ...compilerInDot, ...compilerOutDot, ...endDot], { autoAlpha: 0, scale: 0.5, transformOrigin: "center" });
+      gsap.set(animatedStrokes, { autoAlpha: 0 });
+
+      const timeline = gsap.timeline({
+        paused: true,
+        defaults: { ease: "power2.out" },
+        onUpdate: () => {
+          const currentTimeline = pipelineTimelineRef.current;
+          if (!currentTimeline) return;
+          setPipelineProgress(Number((currentTimeline.progress() * 100).toFixed(1)));
+        },
+        onComplete: () => {
+          setPipelineProgress(100);
+          setIsPipelinePlaying(false);
+        },
+      });
+      pipelineTimelineRef.current = timeline;
+
+      timeline
+        .addLabel("prepare", 0)
+        .to([nodeTwo, nodeThree], { autoAlpha: 0, y: -8, duration: 0.28, stagger: 0.018 }, "prepare")
+        .to(staticConnectors, { autoAlpha: 0, duration: 0.01 }, 0.01)
+        .to(startDot, { autoAlpha: 1, scale: 1, duration: 0.08 }, 0.29)
+        .addLabel("draw-to-compiler", 0.35)
+        .set(segmentOneStrokes, { autoAlpha: 1, immediateRender: false }, "draw-to-compiler")
+        .to(segmentOneStrokes, { strokeDashoffset: 0, duration: 0.6, ease: "none" }, "draw-to-compiler")
+        .to(nodeTwo, { autoAlpha: 1, y: 0, duration: 0.16 }, 0.82)
+        .to(compilerInDot, { autoAlpha: 1, scale: 1, duration: 0.1 }, 0.88)
+        .addLabel("compiler-process", 0.95)
+        .to(processCluster, { autoAlpha: 1, x: 0, duration: 0.15 }, "compiler-process")
+        .to(processItems, { autoAlpha: 1, x: 0, scale: 1, duration: 0.2, stagger: 0.055 }, 0.97);
+
+      processItems.forEach((item, index) => {
+        const processStart = 1.08 + index * 0.52;
+        const processDone = processStart + 0.34;
+        timeline
+          .to(item, { backgroundColor: "#F4F7FF", borderColor: "#91ACFF", duration: 0.12 }, processStart)
+          .to(processNodes[index], { backgroundColor: "#2258F4", borderColor: "#2258F4", color: "#FFFFFF", duration: 0.12 }, processStart)
+          .to(processRailFill, { scaleY: (index + 1) / processItems.length, duration: 0.38, ease: "none" }, processStart)
+          .to(item, { backgroundColor: "#F6FFF8", borderColor: "#BDD9C6", duration: 0.12 }, processDone)
+          .to(processNumbers[index], { autoAlpha: 0, duration: 0.08 }, processDone)
+          .to(processChecks[index], { autoAlpha: 1, scale: 1, duration: 0.12 }, processDone)
+          .to(processNodes[index], { backgroundColor: "#EAF8EF", borderColor: "#72B98A", color: "#277142", duration: 0.12 }, processDone);
+      });
+
+      timeline
+        .addLabel("process-exit", 3.35)
+        .to(processCluster, { autoAlpha: 0, x: 14, duration: 0.3, ease: "power2.in" }, "process-exit")
+        .addLabel("draw-to-output", 3.6)
+        .to(compilerOutDot, { autoAlpha: 1, scale: 1, duration: 0.08 }, 3.54)
+        .set(segmentTwoStrokes, { autoAlpha: 1, immediateRender: false }, "draw-to-output")
+        .to(segmentTwoStrokes, { strokeDashoffset: 0, duration: 0.36, ease: "none" }, "draw-to-output")
+        .to(nodeThree, { autoAlpha: 1, y: 0, duration: 0.12 }, 3.88)
+        .to(endDot, { autoAlpha: 1, scale: 1, duration: 0.06 }, 3.94)
+        .to({}, { duration: 0.01 }, 3.99);
+
+      timeline.pause(0);
+
+      return () => {
+        geometryObserver.disconnect();
+        pipelineTimelineRef.current = null;
+        timeline.kill();
+      };
+    },
+    { scope: pipelineRootRef },
+  );
+
+  const togglePipelinePlayback = () => {
+    const timeline = pipelineTimelineRef.current;
+    if (!timeline) return;
+
+    if (isPipelinePlaying) {
+      timeline.pause();
+      setIsPipelinePlaying(false);
+      return;
+    }
+
+    if (timeline.progress() >= 0.999) {
+      timeline.pause(0);
+    }
+
+    if (shouldReducePipelineMotion) {
+      timeline.progress(1).pause();
+      setPipelineProgress(100);
+      setIsPipelinePlaying(false);
+      return;
+    }
+
+    timeline.play();
+    setIsPipelinePlaying(true);
+  };
+
+  const resetPipelinePlayback = () => {
+    pipelineTimelineRef.current?.pause(0);
+    setIsPipelinePlaying(false);
+    setPipelineProgress(0);
+  };
+
+  const openPromptSourceViewer = () => {
+    pipelineTimelineRef.current?.pause();
+    setIsPipelinePlaying(false);
+    setIsPromptSourceViewerOpen(true);
+  };
+
+  const seekPipelinePlayback = (nextProgress: number) => {
+    const timeline = pipelineTimelineRef.current;
+    timeline?.pause().progress(nextProgress / 100);
+    setIsPipelinePlaying(false);
+    setPipelineProgress(nextProgress);
+  };
+
+  const seekPipelineFromPointer = (clientX: number, target: HTMLInputElement) => {
+    const trackBounds = target.getBoundingClientRect();
+    if (trackBounds.width <= 0) return;
+    const nextProgress = Math.min(100, Math.max(0, ((clientX - trackBounds.left) / trackBounds.width) * 100));
+    seekPipelinePlayback(Number(nextProgress.toFixed(1)));
+  };
+
+  return (
+    <section
+      ref={pipelineRootRef}
+      data-prompt-compiler-pipeline-scaffold="true"
+      aria-labelledby="prompt-compiler-pipeline-title"
+      className="mx-auto mb-20 max-w-[1400px]"
+    >
+      <div className="mb-10 flex justify-center px-4 text-center md:mb-12">
+        <div
+          data-prompt-compiler-title-note="true"
+          className="relative flex h-[132px] w-[200px] rotate-[0.45deg] items-center justify-center rounded-[6px] border px-4 py-5 text-[14px] font-semibold leading-[1.6] text-[#35404F] shadow-[0_2px_3px_rgba(28,36,52,0.16),0_7px_14px_rgba(28,36,52,0.055)] sm:h-[118px] sm:w-[280px] sm:px-5 sm:text-[16px] md:h-[136px] md:w-[330px] md:px-6 md:py-6 md:text-[20px]"
+          style={{
+            background: "repeating-linear-gradient(to bottom, #EEF2FF 0, #EEF2FF 31px, #D8E1FF 32px, #D8E1FF 33px)",
+            borderColor: "#C8D4FF",
+          }}
+        >
+          <span
+            aria-hidden="true"
+            className="absolute left-1/2 top-0 size-4 -translate-x-1/2 -translate-y-1/2 rounded-full"
+            style={{ backgroundColor: INK_DIM, boxShadow: "0 2px 4px rgba(78,82,94,0.22)" }}
+          />
+          <h3 id="prompt-compiler-pipeline-title">
+            <span className="block">我构建的 Prompt 编译管线：</span>
+            <span className="block">用自然语言输入，</span>
+            <span className="block">产出团队统一标准的提示词</span>
+          </h3>
         </div>
       </div>
 
-      <div className="relative overflow-hidden rounded-2xl bg-[#FAFBFF] py-6">
+      <div className="relative pt-[132px] sm:pt-[140px] lg:pt-[132px]">
+        <ReportAgentExecutionChainSticker />
+
         <div
-          className="pointer-events-none absolute inset-0 opacity-55"
-          style={{
-            backgroundImage: "radial-gradient(circle, rgba(34,88,244,0.13) 1px, transparent 1px)",
-            backgroundSize: "14px 14px",
-          }}
-        />
-        <div className="relative overflow-x-auto">
-          <img
-            src="./images/章节提示词/line-01.svg"
-            alt="Agent 报告生成工作流"
-            {...DETAIL_IMAGE_LAZY_PROPS}
-            className="mx-auto block h-auto w-[950px] max-w-none"
-            draggable={false}
-          />
+          data-prompt-compiler-player-canvas="true"
+          aria-label="Prompt 编译管线播放器画布"
+          className="relative z-10 overflow-clip rounded-[28px] border border-[#E6E7EB] bg-white"
+        >
+          <div className="relative min-h-[1040px] bg-white sm:min-h-[760px] lg:aspect-[16/8.5] lg:min-h-0">
+          <div
+            className="pointer-events-none absolute bottom-3 left-7 right-3 top-7 rounded-[18px] border border-[#E6E7EB] sm:bottom-4 sm:left-8 sm:right-4 sm:top-8"
+            aria-hidden="true"
+          >
+            <div
+              className="absolute inset-0 rounded-[17px]"
+              style={{
+                backgroundColor: "#FFFFFF",
+                backgroundImage:
+                  "linear-gradient(rgba(107, 120, 150, 0.075) 1px, transparent 1px), linear-gradient(90deg, rgba(107, 120, 150, 0.075) 1px, transparent 1px), linear-gradient(rgba(107, 120, 150, 0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(107, 120, 150, 0.035) 1px, transparent 1px)",
+                backgroundSize: "112px 112px, 112px 112px, 28px 28px, 28px 28px",
+              }}
+            />
+
+            <div className="absolute inset-x-0 top-0 grid -translate-y-[calc(100%+9px)] grid-cols-17 px-1">
+              {topScale.map((mark) => (
+                <span
+                  key={mark}
+                  className="relative text-center text-[8px] font-medium tabular-nums text-[#7F8AA3] sm:text-[9px]"
+                >
+                  {mark}
+                  <span className="absolute left-1/2 top-[calc(100%+3px)] h-1.5 w-px -translate-x-1/2 bg-[#AAB2C2]" />
+                </span>
+              ))}
+            </div>
+
+            <div className="absolute inset-y-0 left-0 grid -translate-x-[calc(100%+9px)] grid-rows-10 py-1">
+              {sideScale.map((mark) => (
+                <span
+                  key={mark}
+                  className="relative flex items-center justify-end text-[8px] font-medium tabular-nums text-[#7F8AA3] sm:text-[9px]"
+                >
+                  {mark}
+                  <span className="absolute left-[calc(100%+3px)] top-1/2 h-px w-1.5 -translate-y-1/2 bg-[#AAB2C2]" />
+                </span>
+              ))}
+          </div>
+        </div>
+      </div>
+
+          <svg
+            data-pipeline-animated-svg="true"
+            aria-hidden="true"
+            className="pointer-events-none absolute bottom-28 left-11 right-7 top-12 z-[12] overflow-visible sm:bottom-28 sm:left-14 sm:right-10 sm:top-14"
+            viewBox="0 0 1000 1000"
+            preserveAspectRatio="none"
+            fill="none"
+          >
+            <path
+              data-pipeline-animated-stroke="first"
+              d="M 250 500 C 340 478, 410 522, 500 500"
+              stroke="#D8E4FF"
+              strokeWidth="10"
+              strokeLinecap="round"
+              strokeDasharray="2000"
+              strokeDashoffset="2000"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              data-pipeline-animated-stroke="first"
+              d="M 250 500 C 340 478, 410 522, 500 500"
+              stroke="#2258F4"
+              strokeWidth="2.4"
+              strokeLinecap="round"
+              strokeDasharray="2000"
+              strokeDashoffset="2000"
+              vectorEffect="non-scaling-stroke"
+            />
+
+            <path
+              data-pipeline-animated-stroke="second"
+              d="M 500 500 C 590 478, 660 522, 750 500"
+              stroke="#D8E4FF"
+              strokeWidth="10"
+              strokeLinecap="round"
+              strokeDasharray="2000"
+              strokeDashoffset="2000"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              data-pipeline-animated-stroke="second"
+              d="M 500 500 C 590 478, 660 522, 750 500"
+              stroke="#2258F4"
+              strokeWidth="2.4"
+              strokeLinecap="round"
+              strokeDasharray="2000"
+              strokeDashoffset="2000"
+              vectorEffect="non-scaling-stroke"
+            />
+
+            <circle
+              data-pipeline-animated-dot="start"
+              cx="250"
+              cy="500"
+              r="6"
+              fill="#FFFEF7"
+              stroke="#2258F4"
+              strokeWidth="3"
+              vectorEffect="non-scaling-stroke"
+              opacity="0"
+            />
+            <circle
+              data-pipeline-animated-dot="compiler-in"
+              cx="500"
+              cy="500"
+              r="6"
+              fill="#FFFEF7"
+              stroke="#2258F4"
+              strokeWidth="3"
+              vectorEffect="non-scaling-stroke"
+              opacity="0"
+            />
+            <circle
+              data-pipeline-animated-dot="compiler-out"
+              cx="600"
+              cy="500"
+              r="6"
+              fill="#FFFEF7"
+              stroke="#2258F4"
+              strokeWidth="3"
+              vectorEffect="non-scaling-stroke"
+              opacity="0"
+            />
+            <circle
+              data-pipeline-animated-dot="end"
+              cx="750"
+              cy="500"
+              r="6"
+              fill="#FFFEF7"
+              stroke="#2258F4"
+              strokeWidth="3"
+              vectorEffect="non-scaling-stroke"
+              opacity="0"
+            />
+          </svg>
+
+          <div
+            data-pipeline-process-cluster="true"
+            aria-hidden="true"
+            className="invisible absolute left-10 right-7 top-[30%] z-30 opacity-0 sm:left-[44%] sm:right-8 sm:top-[13%] lg:left-[63%] lg:right-auto lg:top-1/2 lg:w-[calc(36%-8px)] lg:max-w-[400px] lg:-translate-y-1/2"
+          >
+            <div className="relative space-y-2.5 pl-14 lg:translate-x-2">
+              <span
+                aria-hidden="true"
+                className="absolute bottom-3 left-[21px] top-3 z-0 w-[4px] border border-[#C9D2E4] bg-[#F5F7FB]"
+                style={{ borderRadius: "54% 46% 49% 51% / 48% 53% 47% 52%" }}
+              />
+              <span
+                data-pipeline-process-rail-fill="true"
+                aria-hidden="true"
+                className="absolute bottom-3 left-[21px] top-3 z-[1] w-[4px] origin-top bg-[#2258F4]"
+                style={{ borderRadius: "52% 48% 46% 54% / 49% 55% 45% 51%" }}
+              />
+
+              {processSteps.map((step, index) => (
+                <article
+                  key={step.number}
+                  data-pipeline-process-step={step.number}
+                  className={`relative z-10 min-h-[78px] ${step.rotate} rounded-[5px] border border-[#D7DDE9] bg-[#FFFEF7] px-4 py-3 shadow-[0_4px_11px_rgba(42,55,82,0.08)]`}
+                  style={{
+                    backgroundImage: "repeating-linear-gradient(to bottom, transparent 0, transparent 25px, rgba(108,126,160,0.12) 26px, rgba(108,126,160,0.12) 27px)",
+                  }}
+                >
+                  <span
+                    data-pipeline-process-node={step.number}
+                    aria-hidden="true"
+                    className="absolute left-[-46px] top-1/2 z-20 grid size-8 -translate-y-1/2 place-items-center border-2 bg-[#FFFEF7] font-mono text-[16px] font-semibold shadow-[1px_2px_0_rgba(47,61,90,0.12)]"
+                    style={{ borderRadius: "49% 51% 45% 55% / 53% 47% 54% 46%" }}
+                  >
+                    <span data-pipeline-process-number={step.number}>{index + 1}</span>
+                    <CheckCircle2
+                      data-pipeline-process-check={step.number}
+                      className="invisible absolute opacity-0"
+                      size={20}
+                      strokeWidth={2.3}
+                    />
+                  </span>
+
+                  <div className="relative z-10 flex flex-wrap items-baseline gap-x-2">
+                    <h5 className="text-[16px] font-semibold leading-[1.4] text-[#20242D]">{step.title}</h5>
+                  </div>
+                  <p className="relative z-10 mt-1 text-[16px] leading-[1.45] text-[#4F5B70]">{step.summary}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+
+          <div
+            data-prompt-compiler-node-notes="true"
+            className="absolute bottom-28 left-11 right-7 top-12 z-10 grid grid-cols-1 items-center gap-8 sm:bottom-28 sm:left-14 sm:right-10 sm:top-14 sm:grid-cols-2 sm:gap-7 lg:grid-cols-[260px_minmax(0,1fr)_260px_minmax(0,1fr)_260px] lg:gap-0 xl:grid-cols-[290px_minmax(0,1fr)_290px_minmax(0,1fr)_290px] 2xl:grid-cols-[320px_minmax(0,1fr)_320px_minmax(0,1fr)_320px]"
+          >
+            {nodeNotes.map((note, index) => (
+              <Fragment key={`prompt-compiler-node-group-${index + 1}`}>
+                <article
+                  data-prompt-compiler-node={String(index + 1).padStart(2, "0")}
+                  aria-label={`管线节点 ${note.number}：${note.title}`}
+                  className={`relative z-10 min-h-[220px] overflow-visible rounded-[6px] border px-4 pb-4 pt-5 shadow-[0_10px_22px_rgba(28,36,52,0.075)] sm:min-h-[230px] md:min-h-[230px] lg:min-h-[224px] xl:min-h-[216px] 2xl:min-h-[210px] ${index === nodeNotes.length - 1 ? "sm:col-span-2 sm:w-[46%] sm:justify-self-center lg:col-span-1 lg:w-auto lg:justify-self-stretch" : ""} ${note.className}`}
+                  style={{
+                    backgroundColor: note.background,
+                    borderColor: note.border,
+                  }}
+                >
+                  <span
+                    aria-hidden="true"
+                    className="absolute left-1/2 top-0 z-20 size-3 -translate-x-1/2 -translate-y-1/2 rounded-full shadow-[0_1px_0_rgba(36,40,49,0.14)] sm:size-3.5"
+                    style={{ backgroundColor: note.pin }}
+                  />
+
+                  <div aria-hidden="true" className="absolute inset-0 overflow-hidden rounded-[5px]">
+                    <div className="absolute inset-x-0 top-[31%] space-y-7 sm:space-y-8">
+                      {Array.from({ length: 4 }, (_, lineIndex) => (
+                        <span
+                          key={lineIndex}
+                          className="block h-px w-full"
+                          style={{ backgroundColor: note.line }}
+                        />
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="relative z-10">
+                    <div className="flex items-baseline gap-2 pr-2">
+                      <span className="font-mono text-[16px] font-semibold tracking-[0.1em] text-[#2258F4]">
+                        {note.number}
+                      </span>
+                      <h4 className="text-[17px] font-semibold leading-[1.35] text-[#20242D]">
+                        {note.title}
+                      </h4>
+                    </div>
+
+                    <p className="mt-3 text-[16px] font-medium leading-[1.55] text-[#3E4655]">
+                      {note.number === "02" ? (
+                        <>
+                          使用我在<PromptPipelineMarker>Google AI Studio</PromptPipelineMarker>设计好的提示词框架编译器
+                        </>
+                      ) : (
+                        note.description
+                      )}
+                    </p>
+
+                    <div className="mt-3 grid grid-cols-[2.5em_minmax(0,1fr)] gap-x-2 border-t border-[#AAB2C2]/25 pt-3 text-[16px] leading-[1.5]">
+                      <span className="font-semibold text-[#737B8C]">{note.detailLabel}</span>
+                      <p className="break-words text-[#4F5B70]">{note.detail}</p>
+                    </div>
+                  </div>
+                </article>
+
+                {index < nodeNotes.length - 1 ? <PromptPipelineConnector index={index + 1} /> : null}
+              </Fragment>
+            ))}
+          </div>
+
+          <div
+            data-prompt-compiler-player-controls="true"
+            className="absolute bottom-6 left-10 right-6 z-20 flex items-center justify-center gap-2.5 sm:bottom-7 sm:left-14 sm:right-10 sm:gap-3"
+          >
+            <div
+              className="relative flex min-w-0 max-w-[920px] flex-1 -rotate-[0.18deg] items-center gap-2.5 rounded-[13px] border border-[#BFC7D8] bg-[#FFFEF7] px-3 py-3 shadow-[0_1px_0_rgba(79,91,112,0.10),0_3px_8px_rgba(34,48,78,0.055)] sm:gap-3 sm:px-4"
+              style={{ borderRadius: "13px 11px 14px 10px / 11px 14px 10px 13px" }}
+            >
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-[3px] rounded-[10px] border border-[#D7DCE7]"
+                style={{ borderRadius: "10px 8px 11px 9px / 8px 11px 9px 10px" }}
+              />
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute left-10 top-0 h-3 w-24 -translate-y-1/2 -rotate-[2.5deg] bg-[#DCE7FF]/80"
+              />
+
+              <button
+                type="button"
+                data-pipeline-play-toggle="true"
+                aria-label={isPipelinePlaying ? "暂停管线播放" : "播放管线"}
+                aria-pressed={isPipelinePlaying}
+                title={isPipelinePlaying ? "暂停" : "播放"}
+                onClick={togglePipelinePlayback}
+                className="relative z-10 grid size-10 shrink-0 place-items-center border border-[#8FA9EF] shadow-[1px_2px_0_rgba(54,74,121,0.16)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2258F4] focus-visible:ring-offset-2"
+                style={{
+                  backgroundColor: isPipelinePlaying ? "#2258F4" : "#EEF4FF",
+                  color: isPipelinePlaying ? "#F8F9FF" : "#2258F4",
+                  borderRadius: "48% 52% 46% 54% / 53% 47% 55% 45%",
+                }}
+              >
+                {isPipelinePlaying ? <Pause size={17} strokeWidth={2.2} /> : <Play size={17} strokeWidth={2.2} className="translate-x-px" />}
+              </button>
+
+              <button
+                type="button"
+                data-pipeline-reset="true"
+                aria-label="刷新并重置管线进度"
+                title="刷新"
+                onClick={resetPipelinePlayback}
+                className="relative z-10 grid size-10 shrink-0 place-items-center border border-[#C7C1B3] bg-[#F8F5EC] text-[#596174] shadow-[1px_2px_0_rgba(75,80,92,0.13)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2258F4] focus-visible:ring-offset-2"
+                style={{ borderRadius: "53% 47% 51% 49% / 46% 54% 48% 52%" }}
+              >
+                <RotateCcw size={17} strokeWidth={2.1} />
+              </button>
+
+              <div data-pipeline-progress-shell="true" className="relative z-10 h-10 min-w-0 flex-1">
+                <input
+                  type="range"
+                  min="0"
+                  max="100"
+                  step="1"
+                  value={pipelineProgress}
+                  aria-label="管线播放进度"
+                  aria-valuetext={`${Math.round(pipelineProgress)}%`}
+                  onPointerDown={(event) => {
+                    pipelineTimelineRef.current?.pause();
+                    setIsPipelinePlaying(false);
+                    pipelineSeekingRef.current = true;
+                    event.currentTarget.setPointerCapture?.(event.pointerId);
+                    seekPipelineFromPointer(event.clientX, event.currentTarget);
+                  }}
+                  onPointerMove={(event) => {
+                    if (!pipelineSeekingRef.current) return;
+                    seekPipelineFromPointer(event.clientX, event.currentTarget);
+                  }}
+                  onPointerUp={(event) => {
+                    if (!pipelineSeekingRef.current) return;
+                    seekPipelineFromPointer(event.clientX, event.currentTarget);
+                    pipelineSeekingRef.current = false;
+                    if (event.currentTarget.hasPointerCapture?.(event.pointerId)) {
+                      event.currentTarget.releasePointerCapture(event.pointerId);
+                    }
+                  }}
+                  onPointerCancel={() => {
+                    pipelineSeekingRef.current = false;
+                  }}
+                  onInput={(event) => seekPipelinePlayback(Number(event.currentTarget.value))}
+                  className="peer absolute inset-0 z-30 m-0 h-full w-full cursor-ew-resize opacity-0"
+                />
+
+                <div
+                  aria-hidden="true"
+                  className="absolute inset-x-1 top-1/2 h-[18px] -translate-y-1/2 overflow-hidden border border-[#8E98AC] bg-[#F0EEE7] shadow-[inset_1px_1px_0_rgba(83,94,116,0.14)]"
+                  style={{ borderRadius: "10px 8px 9px 11px / 8px 10px 11px 9px" }}
+                >
+                  <div
+                    data-pipeline-progress-fill="true"
+                    className="h-full bg-[#3C6CF2]"
+                    style={{
+                      width: `${pipelineProgress}%`,
+                      backgroundImage: "repeating-linear-gradient(-8deg, rgba(255,255,255,0.02) 0 7px, rgba(255,255,255,0.18) 7px 9px)",
+                    }}
+                  />
+                </div>
+
+                <span
+                  data-pipeline-progress-thumb="true"
+                  aria-hidden="true"
+                  className="pointer-events-none absolute top-1/2 z-20 grid size-[22px] -translate-x-1/2 -translate-y-1/2 place-items-center border-2 border-[#2258F4] bg-[#FFFEF7] shadow-[1px_2px_0_rgba(36,58,112,0.20)] peer-focus-visible:ring-2 peer-focus-visible:ring-[#2258F4] peer-focus-visible:ring-offset-2"
+                  style={{
+                    left: `clamp(11px, ${pipelineProgress}%, calc(100% - 11px))`,
+                    borderRadius: "47% 53% 51% 49% / 52% 46% 54% 48%",
+                  }}
+                >
+                  <span className="size-1.5 rounded-full bg-[#2258F4]" />
+                </span>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              data-prompt-source-open="true"
+              aria-haspopup="dialog"
+              aria-expanded={isPromptSourceViewerOpen}
+              aria-controls="prompt-source-viewer"
+              aria-label="查看Prompt原文"
+              title="查看Prompt原文"
+              onClick={openPromptSourceViewer}
+              className="relative grid h-16 w-16 shrink-0 rotate-[0.3deg] place-items-center overflow-hidden border border-[#85A3FF] bg-[#EEF2FF] text-[#1A42B8] shadow-[0_1px_0_rgba(79,91,112,0.10),0_4px_10px_rgba(34,88,244,0.10)] transition-colors duration-200 hover:border-[#6F91F5] hover:bg-[#E5EBFF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2258F4] focus-visible:ring-offset-2 md:flex md:w-auto md:gap-2.5 md:px-5"
+              style={{ borderRadius: "11px 14px 10px 13px / 13px 10px 14px 11px" }}
+            >
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-[3px] border border-[#C8D4FF]"
+                style={{ borderRadius: "8px 11px 7px 10px / 10px 7px 11px 8px" }}
+              />
+              <FileText className="relative z-10 size-5 shrink-0" strokeWidth={1.9} />
+              <span className="relative z-10 hidden whitespace-nowrap text-[17px] font-semibold text-[#1A42B8] md:inline">
+                查看Prompt原文
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <PromptSourceViewer
+        isOpen={isPromptSourceViewerOpen}
+        onClose={() => setIsPromptSourceViewerOpen(false)}
+        reduceMotion={Boolean(shouldReducePipelineMotion)}
+      />
+    </section>
+  );
+}
+
+type RuleIllustrationKind = "flow" | "merge" | "gate" | "module";
+
+const RULE_ILLUSTRATION_ORDER: RuleIllustrationKind[] = ["flow", "merge", "gate", "module"];
+
+function RuleIllustration({ visual }: { visual: RuleIllustrationKind }) {
+  if (visual === "flow") {
+    return (
+      <div className="relative grid w-[88%] grid-cols-[30%_12%_58%] items-center">
+        <div className="relative h-28">
+          {[
+            { text: "写章节内容", x: 2, y: 0, w: "76%" },
+            { text: "补工具结果", x: 18, y: 40, w: "66%" },
+            { text: "整理输出", x: 0, y: 82, w: "72%" },
+          ].map((chip) => (
+            <div
+              key={chip.text}
+              className="absolute rounded-xl border bg-white px-3 py-2 text-[10px] font-medium"
+              style={{
+                left: chip.x,
+                top: chip.y,
+                width: chip.w,
+                borderColor: "#E6E7EB",
+                color: "#4E525E",
+              }}
+            >
+              {chip.text}
+            </div>
+          ))}
+        </div>
+
+        <svg className="h-24 w-full overflow-visible" viewBox="0 0 80 96" fill="none" aria-hidden="true">
+          <path d="M4 26 C26 26 28 48 54 48" stroke={BLUE} strokeWidth="1.5" strokeLinecap="round" strokeDasharray="4 4" opacity="0.5" />
+          <path d="M4 48 H56" stroke={BLUE} strokeWidth="1.5" strokeLinecap="round" opacity="0.66" />
+          <path d="M4 70 C26 70 28 48 54 48" stroke={BLUE} strokeWidth="1.5" strokeLinecap="round" strokeDasharray="4 4" opacity="0.5" />
+          <path d="M54 44L62 48L54 52" fill={BLUE} opacity="0.78" />
+        </svg>
+
+        <div className="grid grid-cols-3 items-center gap-x-3 gap-y-3">
+          {["观察", "检索", "合流", "整理", "核验", "输出"].map((node, nodeIndex) => (
+            <div key={node} className="relative">
+              <div
+                className="rounded-xl border bg-white px-2 py-2 text-center text-[11px] font-semibold"
+                style={{
+                  borderColor: nodeIndex === 2 ? ICON_BORDER : "#E6E7EB",
+                  background: nodeIndex === 2 ? "#EEF2FF" : "#FFFFFF",
+                  color: nodeIndex === 2 ? ICON_BLUE : "#4E525E",
+                }}
+              >
+                {node}
+              </div>
+              {nodeIndex < 5 && nodeIndex !== 2 && (
+                <span
+                  className="pointer-events-none absolute left-[calc(100%+2px)] top-1/2 hidden h-px w-2 -translate-y-1/2 lg:block"
+                  style={{ background: ICON_BORDER }}
+                />
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  if (visual === "merge") {
+    return (
+      <div className="relative grid w-[86%] grid-cols-[28%_20%_52%] items-center">
+        <div className="space-y-2">
+          {["MCP", "deep_search", "file_tool"].map((tool) => (
+            <div
+              key={tool}
+              className="rounded-full border bg-white px-3 py-2 text-center text-[11px] font-medium shadow-[0_8px_16px_rgba(15,20,25,0.04)]"
+              style={{ borderColor: "#E6E7EB", color: "#4E525E" }}
+            >
+              {tool}
+            </div>
+          ))}
+        </div>
+
+        <svg className="h-28 w-full overflow-visible" viewBox="0 0 80 112" fill="none" aria-hidden="true">
+          <path d="M2 22 C24 22 30 56 62 56" stroke={BLUE} strokeWidth="1.5" strokeLinecap="round" opacity="0.44" />
+          <path d="M2 56 H62" stroke={BLUE} strokeWidth="1.5" strokeLinecap="round" opacity="0.68" />
+          <path d="M2 90 C24 90 30 56 62 56" stroke={BLUE} strokeWidth="1.5" strokeLinecap="round" opacity="0.44" />
+          <path d="M62 51L72 56L62 61" fill={BLUE} opacity="0.78" />
+        </svg>
+
+        <div className="translate-y-2 rounded-2xl border bg-white p-4 shadow-[0_14px_26px_rgba(15,20,25,0.06)]" style={{ borderColor: ICON_BORDER }}>
+          <div className="mb-3 text-[13px] font-semibold" style={{ color: ICON_BLUE }}>
+            统一候选池
+          </div>
+          <div className="space-y-1.5">
+            <div className="grid grid-cols-[38px_1fr] items-center gap-2 rounded-lg px-2.5 py-1.5" style={{ background: "#EEF2FF" }}>
+              <span className="text-[9px] font-semibold" style={{ color: ICON_BLUE }}>URL</span>
+              <div className="h-1.5 w-full rounded-full bg-white/90" />
+            </div>
+            <div className="grid grid-cols-[38px_1fr] items-center gap-2 rounded-lg px-2.5 py-1.5" style={{ background: "#EEF2FF" }}>
+              <span className="text-[9px] font-semibold" style={{ color: ICON_BLUE }}>时间</span>
+              <div className="h-1.5 w-[78%] rounded-full bg-white" />
+            </div>
+          </div>
+          <div className="mt-3 rounded-full px-3 py-1.5 text-center text-[10px] font-medium" style={{ background: "#FFF6DB", color: "#B45309" }}>
+            禁止按工具分别输出
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (visual === "gate") {
+    return (
+      <div className="relative grid w-[88%] grid-cols-[292px_82px] items-center justify-center gap-4">
+        <div className="relative h-28">
+          <svg className="absolute left-0 top-0 h-full w-[292px]" viewBox="0 0 292 112" fill="none" aria-hidden="true">
+            <path d="M41 56H257" stroke={BLUE} strokeWidth="1.5" strokeLinecap="round" opacity="0.42" />
+          </svg>
+          {[
+            { label: "当前输入", x: 0, y: 18, active: true },
+            { label: "阶段状态", x: 72, y: 42, active: true },
+            { label: "历史记忆", x: 144, y: 18, active: false },
+            { label: "默认规则", x: 216, y: 42, active: false },
+          ].map((step, stepIndex) => (
+            <div
+              key={step.label}
+              className="absolute flex w-[82px] flex-col items-center"
+              style={{ left: step.x, top: step.y }}
+            >
+              <div
+                className="mb-1 flex size-7 items-center justify-center rounded-full border text-[11px] font-bold"
+                style={{
+                  borderColor: step.active ? ICON_BORDER : "#E6E7EB",
+                  background: step.active ? BLUE : "#FFFFFF",
+                  color: step.active ? "#FFFFFF" : "#B3B6BF",
+                }}
+              >
+                {stepIndex + 1}
+              </div>
+              <div
+                className="rounded-full px-2 py-1 text-[10px] font-medium"
+                style={{
+                  background: step.active ? "#EEF2FF" : "#E6E7EB",
+                  color: step.active ? ICON_BLUE : "#696D7A",
+                }}
+              >
+                {step.label}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="rounded-2xl border p-3" style={{ borderColor: ICON_BORDER, background: "#EEF2FF" }}>
+          <div className="mb-2 flex items-center gap-1.5 text-[12px] font-semibold" style={{ color: ICON_BLUE }}>
+            <ShieldCheck className="size-4" style={{ color: ICON_GRAY }} />
+            <span>Gate</span>
+          </div>
+          <div className="space-y-1.5">
+            <div className="rounded-lg bg-white px-2 py-1.5 text-[10px] font-medium" style={{ color: ICON_BLUE }}>
+              已完成
+            </div>
+            <div className="rounded-lg px-2 py-1.5 text-[10px] font-medium" style={{ background: "#FFF6DB", color: "#B45309" }}>
+              不放行
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="relative grid w-[88%] grid-cols-[34%_66%] items-center gap-4">
+      <div className="relative rounded-2xl border bg-white p-3 shadow-[0_12px_24px_rgba(15,20,25,0.05)]" style={{ borderColor: "#E6E7EB" }}>
+        <div className="mb-2 flex items-center gap-1.5 text-[11px] font-semibold" style={{ color: "#1A1C24" }}>
+          <FileText className="size-3.5" style={{ color: ICON_GRAY }} />
+          Prompt 文档
+        </div>
+        <div className="space-y-2">
+          <div className="h-1.5 w-[86%] rounded-full" style={{ background: "#E6E7EB" }} />
+          <div className="h-1.5 w-[64%] rounded-full" style={{ background: "#E6E7EB" }} />
+          <div className="rounded-lg p-2" style={{ background: "#EEF2FF" }}>
+            <div className="mb-1.5 h-1.5 w-[78%] rounded-full bg-white" />
+            <div className="h-1.5 w-[52%] rounded-full bg-white" />
+          </div>
+          <div className="h-1.5 w-[72%] rounded-full" style={{ background: "#E6E7EB" }} />
+        </div>
+        <div className="absolute -right-2 top-1/2 h-px w-6" style={{ background: ICON_BORDER }} />
+        <div className="absolute -right-3 top-[calc(50%-3px)] h-0 w-0 border-y-[3px] border-y-transparent" style={{ borderLeft: `5px solid ${ICON_BORDER}` }} />
+      </div>
+
+      <div className="relative">
+        <div className="grid grid-cols-4 gap-1.5">
+          {["目标", "输入", "规则", "约束", "输出", "异常", "兜底"].map((module, moduleIndex) => (
+            <div
+              key={module}
+              className="rounded-full border px-2 py-1.5 text-center text-[10px] font-semibold"
+              style={{
+                borderColor: moduleIndex < 5 ? ICON_BORDER : moduleIndex === 5 ? "#E6E7EB" : "#FFE3E3",
+                background: moduleIndex < 5 ? "#EEF2FF" : moduleIndex === 5 ? "#FFF6DB" : "#FFE3E3",
+                color: moduleIndex < 5 ? ICON_BLUE : moduleIndex === 5 ? "#B45309" : "#B81D1D",
+              }}
+            >
+              {module}
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-4 grid grid-cols-2 gap-1.5">
+          {["任务定义", "执行编排", "质量门禁", "容错兜底"].map((group, groupIndex) => (
+            <div
+              key={group}
+              className="rounded-xl border bg-white px-2.5 py-2 text-center"
+              style={{ borderColor: groupIndex === 0 ? ICON_BORDER : "#E6E7EB" }}
+            >
+              <div className="text-[10px] font-semibold" style={{ color: groupIndex === 0 ? ICON_BLUE : "#4E525E" }}>
+                {group}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
+  );
+}
+
+function AgentWorkflowDiagram() {
+  const promptMappings = [
+    {
+      id: "01",
+      stages: [{ index: "01", title: "输入理解", detail: "角色 / 变量 / 章节 / 父节点解析" }],
+    },
+    {
+      id: "02",
+      stages: [
+        { index: "02", title: "数据获取", detail: "工具调用规则 / 并发调用" },
+        { index: "03", title: "数据合流", detail: "统一候选池" },
+        { index: "04", title: "整理分类", detail: "少量样本规则 / 去重 / 清洗 / 结构化" },
+      ],
+    },
+    {
+      id: "03",
+      stages: [{ index: "05", title: "事实校验（Gate）", detail: "信源核验 / 未过打回" }],
+    },
+    {
+      id: "04",
+      stages: [{ index: "06", title: "最终输出与自检", detail: "审查记录 / 格式化生成" }],
+    },
+  ];
+  const promptMappingRows = ["lg:row-start-1", "lg:row-start-2", "lg:row-start-3", "lg:row-start-4"];
+
+  return (
+    <section
+      data-six-stage-pipeline="true"
+      aria-labelledby="six-stage-pipeline-title"
+      className="w-full max-w-[1400px] mx-auto overflow-visible"
+    >
+      <div className="mb-8 flex flex-col items-center px-4 text-center">
+        <div
+          data-six-stage-pipeline-title-note="true"
+          className="relative flex h-[132px] w-[200px] rotate-[0.55deg] items-center justify-center rounded-[6px] border px-4 py-5 text-[14px] font-semibold leading-[1.6] text-[#35404F] shadow-[0_2px_3px_rgba(28,36,52,0.16),0_7px_14px_rgba(28,36,52,0.055)] sm:h-[118px] sm:w-[280px] sm:px-5 sm:text-[16px] md:h-[136px] md:w-[330px] md:px-6 md:py-6 md:text-[20px]"
+          style={{
+            background: "repeating-linear-gradient(to bottom, #EEF2FF 0, #EEF2FF 31px, #D8E1FF 32px, #D8E1FF 33px)",
+            borderColor: "#C8D4FF",
+          }}
+        >
+          <span
+            aria-hidden="true"
+            className="absolute left-1/2 top-0 size-4 -translate-x-1/2 -translate-y-1/2 rounded-full"
+            style={{ backgroundColor: INK_DIM, boxShadow: "0 2px 4px rgba(78,82,94,0.22)" }}
+          />
+          <h3 id="six-stage-pipeline-title">
+            将执行步骤切分为6个部分,设计pormpt模版
+          </h3>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 gap-y-4 lg:grid-cols-[minmax(280px,0.78fr)_152px_minmax(420px,1.22fr)] lg:gap-x-5 lg:gap-y-5">
+        {promptMappings.map((mapping, mappingIndex) => (
+          <Fragment key={mapping.id}>
+            <section
+              data-prompt-mapping={mapping.id}
+              aria-label={`${mapping.stages.map((stage) => stage.index).join(" 至 ")} 阶段分组`}
+              className={`relative flex h-full flex-col justify-center px-3.5 py-3 lg:col-start-1 ${promptMappingRows[mappingIndex]}`}
+            >
+              <ol className="relative z-10 space-y-4">
+                {mapping.stages.map((stage, stageIndex) => (
+                  <li
+                    key={stage.index}
+                    className={`relative grid min-h-[64px] grid-cols-[34px_minmax(0,1fr)] items-center gap-3 rounded-[5px] border px-4 py-3 shadow-[0_2px_3px_rgba(28,36,52,0.16),0_7px_14px_rgba(28,36,52,0.055)] ${[
+                      "rotate-[-0.25deg]",
+                      "rotate-[0.18deg]",
+                      "rotate-[-0.15deg]",
+                    ][stageIndex] ?? ""}`}
+                    style={{
+                      background: "repeating-linear-gradient(to bottom, #FFFEF8 0, #FFFEF8 31px, #E8E4D8 32px, #E8E4D8 33px)",
+                      borderColor: "#DED9CE",
+                      transformOrigin: "center",
+                    }}
+                  >
+                    <span className="text-[12px] font-semibold tabular-nums text-[#2258F4]">{stage.index}</span>
+                    <span className="min-w-0">
+                      <span className="block text-[14px] font-semibold leading-[1.35] text-[#35404F]">{stage.title}</span>
+                      <span className="mt-0.5 block text-[12px] leading-[1.45] text-[#696D7A]">{stage.detail}</span>
+                    </span>
+                  </li>
+                ))}
+              </ol>
+            </section>
+
+            <div className={`relative hidden min-h-[110px] items-center lg:col-start-2 lg:flex ${promptMappingRows[mappingIndex]}`} aria-hidden="true">
+              <div className="flex w-full items-center justify-center" data-pipeline-connector={mapping.id}>
+                <span className="h-0.5 w-16 rounded-full bg-[#AEB3BF]" data-pipeline-connector-line="true" />
+                <span className="-ml-1 size-2.5 rotate-45 border-r-2 border-t-2 border-[#AEB3BF]" data-pipeline-connector-head="true" />
+              </div>
+            </div>
+          </Fragment>
+        ))}
+
+        <div className="relative flex h-16 items-center justify-center lg:hidden" aria-hidden="true">
+          <div className="flex h-14 flex-col items-center justify-center">
+            <span className="h-10 w-0.5 rounded-full bg-[#AEB3BF]" />
+            <span className="-mt-1 size-2.5 rotate-[135deg] border-r-2 border-t-2 border-[#AEB3BF]" />
+          </div>
+        </div>
+
+        <article
+          data-simple-prompt-source="true"
+          aria-labelledby="simple-prompt-source-title"
+          className="relative mt-1 flex h-[600px] min-h-0 flex-col overflow-hidden sm:h-[680px] lg:col-start-3 lg:row-start-1 lg:row-span-4 lg:mt-0 lg:h-[800px] lg:w-[calc(100%+48px)] lg:max-w-none lg:self-start xl:h-[850px] xl:w-[calc(100%+100px)] 2xl:h-[900px] 2xl:w-[calc(100%+160px)]"
+          style={{
+            filter:
+              "drop-shadow(0 2px 4px rgba(28,36,52,0.055)) drop-shadow(0 7px 14px rgba(28,36,52,0.025))",
+          }}
+        >
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 600 900"
+            preserveAspectRatio="none"
+            className="absolute inset-0 h-full w-full"
+          >
+            <defs>
+              <pattern id="ai-report-simple-prompt-lines" width="600" height="34" patternUnits="userSpaceOnUse">
+                <rect width="600" height="34" fill="#FFFEF7" />
+                <line x1="0" y1="33" x2="600" y2="33" stroke="#D7E3F1" strokeWidth="1.2" opacity="0.78" />
+              </pattern>
+              <mask id="ai-report-simple-prompt-torn-mask">
+                <path
+                  d="M 30 0 H 600 V 900 H 19 L 26 874 L 9 841 L 24 815 L 13 779 L 28 748 L 10 714 L 22 681 L 7 645 L 27 618 L 15 582 L 25 547 L 8 514 L 23 476 L 12 449 L 29 411 L 11 381 L 21 342 L 6 316 L 25 278 L 13 244 L 28 214 L 10 176 L 22 143 L 7 107 L 24 74 L 12 38 Z"
+                  fill="white"
+                />
+              </mask>
+            </defs>
+            <g mask="url(#ai-report-simple-prompt-torn-mask)">
+              <rect width="600" height="900" fill="url(#ai-report-simple-prompt-lines)" />
+              <line x1="82" y1="0" x2="82" y2="900" stroke="#D79A9A" strokeWidth="1.4" opacity="0.42" />
+            </g>
+          </svg>
+
+          <header className="relative z-10 shrink-0 pb-5 pl-[14%] pr-7 pt-8 sm:pr-9 sm:pt-9">
+            <h4 id="simple-prompt-source-title" className="text-[22px] font-semibold leading-[1.3] tracking-tight text-[#252B36] sm:text-[24px]">
+              原始prompt结构模版
+            </h4>
+          </header>
+          <div
+            data-simple-prompt-scroll="true"
+            tabIndex={0}
+            aria-label="原始prompt结构模版原文，可滚动阅读"
+            className="relative z-10 min-h-0 flex-1 overflow-y-auto pb-8 pl-[14%] pr-7 sm:pr-9 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#4777FF]"
+          >
+            <pre className="whitespace-pre-wrap break-words font-sans text-[16px] leading-[1.75] text-[#3E4655]">
+              {simplePromptLines.map((line, index) => {
+                const isPrimaryHeading = line.startsWith("## ");
+                const isSecondaryHeading = line.startsWith("### ");
+
+                if (!line.trim()) {
+                  return <span key={`space-${index}`} aria-hidden="true" className="block h-3" />;
+                }
+
+                if (isPrimaryHeading) {
+                  return (
+                    <strong
+                      key={`${index}-${line}`}
+                      className={`mb-3 block text-[20px] font-bold leading-[1.5] text-[#252B36] ${index === 0 ? "" : "mt-8"}`}
+                    >
+                      {line}
+                    </strong>
+                  );
+                }
+
+                if (isSecondaryHeading) {
+                  return (
+                    <strong key={`${index}-${line}`} className="mb-2 mt-5 block text-[18px] font-bold leading-[1.55] text-[#35404F]">
+                      {line}
+                    </strong>
+                  );
+                }
+
+                return (
+                  <span key={`${index}-${line.slice(0, 28)}`} className="block min-h-[1.75em]">
+                    {line}
+                  </span>
+                );
+              })}
+            </pre>
+          </div>
+        </article>
+      </div>
+    </section>
   );
 }
 
@@ -226,131 +2299,35 @@ function Reveal({
   );
 }
 
-function ReportProjectSummary() {
-  const shouldReduceMotion = useReducedMotion();
 
-  return (
-    <motion.section
-      aria-labelledby="ai-report-project-summary-title"
-      className="relative mx-auto mt-16 min-h-[656px] w-full max-w-[1080px] overflow-visible sm:min-h-[680px]"
-      initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
-      whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.72, ease: [0.22, 1, 0.36, 1] }}
-    >
-      <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 z-0 h-[620px] sm:h-auto sm:aspect-[1672/941]">
-        <img
-          src={reportSummaryPaperMobile}
-          alt=""
-          className="absolute inset-0 h-full w-full -translate-x-3 translate-y-5 rotate-[-2.4deg] object-fill opacity-95 sm:-translate-x-5 sm:translate-y-6"
-          style={{
-            filter:
-              "brightness(1.025) saturate(0.72) sepia(0.1) hue-rotate(175deg) drop-shadow(0 1px 2px rgba(70, 91, 128, 0.025))",
-          }}
-          loading="lazy"
-          decoding="async"
-        />
-        <img
-          src={reportSummaryPaperMobile}
-          alt=""
-          className="absolute inset-0 h-full w-full translate-x-3 translate-y-3 rotate-[1.8deg] object-fill opacity-95 sm:translate-x-5 sm:translate-y-4"
-          style={{
-            filter:
-              "brightness(1.025) saturate(0.72) sepia(0.075) drop-shadow(0 1px 2px rgba(70, 91, 128, 0.035))",
-          }}
-          loading="lazy"
-          decoding="async"
-        />
-        <img
-          src={reportSummaryPaperMobile}
-          alt=""
-          className="absolute inset-0 h-full w-full translate-y-7 rotate-[0.6deg] object-fill opacity-90 sm:translate-y-9"
-          style={{
-            filter:
-              "brightness(1.02) saturate(0.76) sepia(0.085) hue-rotate(175deg) drop-shadow(0 2px 3px rgba(70, 91, 128, 0.05))",
-          }}
-          loading="lazy"
-          decoding="async"
-        />
-      </div>
 
-      <div
-        className="relative z-10 h-[620px] w-full sm:h-auto sm:aspect-[1672/941]"
-        style={{ filter: "drop-shadow(0 2px 3px rgba(70, 91, 128, 0.08)) drop-shadow(0 5px 7px rgba(70, 91, 128, 0.045))" }}
-      >
-        <picture aria-hidden="true">
-          <source media="(min-width: 640px)" srcSet={reportSummaryPaper} />
-          <img
-            src={reportSummaryPaperMobile}
-            alt=""
-            className="absolute inset-0 h-full w-full object-fill"
-            style={{ filter: "brightness(1.018) saturate(0.82) sepia(0.04)" }}
-            loading="lazy"
-            decoding="async"
-          />
-        </picture>
+const STREAM_PROCESS_CONSTRAINTS = [
+  { label: "区域：", detail: "深圳市福田区" },
+  { label: "时间：", detail: "2026年4月6日—4月12日" },
+  { label: "目标：", detail: "重点企业动态监测报告 · 重点企业章节" },
+  { label: "父节点：", detail: "产业动态监测周报 / 第3章" },
+] as const;
 
-        <div className="relative z-10 flex h-full flex-col pb-[9%] pl-[19%] pr-[9%] pt-[8%] sm:px-[13%] sm:pb-[8%] sm:pt-[7.5%]">
-          <header className="flex items-end justify-between gap-4 pb-3 sm:pb-4">
-            <h2
-              id="ai-report-project-summary-title"
-              className="text-[26px] font-semibold leading-none text-[#1A1C24] sm:text-[32px]"
-            >
-              项目小结
-            </h2>
-            <span className="hidden text-[12px] font-medium tracking-[0.14em] text-[#2258F4] sm:block">
-              AI 报告生成 · 1.0
-            </span>
-          </header>
-
-          <div className="grid flex-1 content-start gap-4 pt-4 sm:gap-5 sm:pt-5 md:grid-cols-[0.72fr_1.28fr] md:gap-x-10">
-            <div>
-              <p className="text-[19px] font-semibold leading-[1.35] text-[#2258F4] sm:text-[25px]">
-                真实客户需求
-                <br />
-                完成 1.0 上线
-              </p>
-            </div>
-            <p className="text-[16px] leading-[1.68] text-[#414958] sm:text-[18px] sm:leading-[1.72]">
-              1.0阶段核心目标是验证"结构可控、来源可追溯的AI生成报告"是否成立。通过3轮用户访谈定义问题边界，主导Prompt框架设计，覆盖6个阶段管线和异常重试机制。上线后收到来自产业规划场景用户的正向反馈：
-              <span className="ai-report-marker-highlight">[现在可以在一个应用里面解决好几个问题]</span>
-              。项目因公司战略原因终止，但验证了AI报告的核心价值在于连接用户数据资产与报告结构，而非单纯生成文字。
-            </p>
-
-            <div className="border-t border-[#9DB2D4]/70 pt-4 md:col-span-2 md:pt-5">
-              <p className="max-w-[800px] text-[18px] font-semibold leading-[1.5] text-[#1A1C24] sm:text-[22px]">
-                用户不只是需求的提供者，也是关键产品决策的共同缔造者。
-              </p>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </motion.section>
-  );
-}
+const STREAM_PROCESS_RETRIEVAL_DETAILS = [
+  { tool: "key_ent_monitor", detail: "福田区 · 央企及500强重大投资项目" },
+  { tool: "key_ent_monitor", detail: "福田区 · 企业投资平台上线事件" },
+  { tool: "all_ent_monitor", detail: "福田区 · 重点企业名单与参建机构" },
+  { tool: "联合检索", detail: "福田区 · 产业/企业数据补充" },
+] as const;
 
 const STREAM_PROCESS_ROWS = [
-  { type: "tool", label: "正在调用工具", detail: "key_ent_monitor" },
-  { type: "search", label: "联网搜索", detail: "深圳市福田区 4月6日至12日 央企及500强重大投资项目" },
-  { type: "search", label: "联网搜索", detail: "深圳市福田区 4月6日至12日 企业投资平台上线事件" },
-  { type: "search", label: "联网搜索", detail: "深圳市福田区 4月6日至12日 新设基金与关键合作事件" },
-  { type: "search", label: "联网搜索", detail: "深圳市福田区 4月6日至12日 编号“12131”企业事件动态" },
-  { type: "search", label: "联网搜索", detail: "深圳市福田区 4月6日至12日 重点企业名单与参建机构" },
-  { type: "search", label: "联网搜索", detail: "深圳市福田区 4月6日至12日 重点企业经济及产业影响" },
-  { type: "search", label: "联网搜索", detail: "深圳市福田区 4月6日至12日 重点企业项目产出与就业带动" },
-  { type: "search", label: "联网搜索", detail: "深圳市福田区 4月6日至12日 企业新技术应用与发展趋势" },
-  { type: "tool", label: "正在调用工具", detail: "all_ent_monitor" },
-  { type: "summary", label: "正在总结", detail: "将工具原始结果集合合流，抽取重点企业事件并按四类整理" },
-  { type: "summary", label: "正在总结", detail: "对检索材料去重，整理企业、事件、时间与来源" },
-  { type: "tool", label: "正在调用工具", detail: "big_document_process" },
+  { type: "merge", label: "正在合流", detail: "三工具结果汇入统一候选池" },
   {
     type: "error",
     label: "工具调用失败",
     detail: "big_document_process",
     anchorId: "stream-tool-failure",
+    highlight: true,
   },
+  { type: "retry", label: "触发重试", detail: "第 1 次 / 上限 2 次", highlight: true },
+  { type: "success", label: "重试成功", detail: "完成全局去重与简报提取", highlight: true },
   { type: "generate", label: "正在生成", detail: "章节正文与分类内容" },
+  { type: "warning", label: "事实声明", detail: "海洋经济数据不足，未对缺失数据作假设", highlight: true },
 ] as const;
 
 function StreamProcessEvidence() {
@@ -358,104 +2335,162 @@ function StreamProcessEvidence() {
     search: Search,
     tool: Wrench,
     summary: PenLine,
+    merge: Layers,
     error: CircleX,
     generate: PenLine,
+    gate: GitBranch,
+    retry: RotateCcw,
+    success: CheckCircle2,
+    warning: ShieldCheck,
   };
 
   return (
     <div
-      className="relative w-[calc(100vw-48px)] max-w-[479px] justify-self-start sm:w-full"
+      className="relative w-full max-w-[540px]"
       data-testid="stream-process-evidence"
     >
       <div
-        className="relative min-h-[780px] rounded-2xl border px-3 pb-20 pt-4 sm:min-h-[860px] sm:px-4"
-        style={{
-          borderColor: "#E6E7EB",
-          background: "#F7F8FC",
-        }}
+        className="relative rounded-2xl border bg-white p-6 shadow-[0_4px_20px_rgba(56,67,92,0.06),0_1px_2px_rgba(56,67,92,0.04)] sm:p-7"
+        style={{ borderColor: "#E6E7EB" }}
       >
-        <div className="mb-3 flex items-center gap-2 border-b pb-3 text-[12px] font-medium" style={{ borderColor: "#E6E7EB", color: "#8D94A3" }}>
-          <span>正在进行生成</span>
-          <span>4m56s</span>
+        {/* 顶部标题栏 */}
+        <div className="mb-4 flex items-center justify-between border-b pb-3.5" style={{ borderColor: "#E6E7EB" }}>
+          <div className="flex items-center gap-2 text-[16px] font-medium" style={{ color: "#8D94A3" }}>
+            <span className="font-semibold text-[#1A1C24]">正在进行生成</span>
+            <span>4m56s</span>
+          </div>
+          <div className="flex items-center gap-1.5 text-[16px] font-medium" style={{ color: "#696D7A" }}>
+            <Sparkles className="size-4" style={{ color: BLUE }} />
+            <span>实时执行流</span>
+          </div>
         </div>
 
         <div className="space-y-3">
-          {STREAM_PROCESS_ROWS.map((row, index) => {
-            const Icon = iconMap[row.type];
-            const isError = row.type === "error";
+          {/* 识别的本次硬约束 (标黄) */}
+          <details className="group" data-testid="stream-process-constraints">
+            <summary
+              className="relative flex h-11 w-full cursor-pointer list-none items-center justify-between gap-2 rounded-full px-4 shadow-[0_1px_2px_rgba(15,20,25,0.04)] transition-all [&::-webkit-details-marker]:hidden"
+              style={{ background: "#FFF6CC" }}
+            >
+              <span className="flex min-w-0 items-center gap-1.5 text-[16px] font-semibold leading-none text-[#8A5A16]">
+                <ListChecks className="size-4 shrink-0" strokeWidth={1.8} />
+                <span className="truncate">识别的本次硬约束（点击展开）</span>
+              </span>
+              <ChevronDown
+                aria-hidden="true"
+                className="size-4 shrink-0 text-[#8A5A16] transition-transform duration-200 group-open:rotate-180"
+                strokeWidth={1.8}
+              />
+            </summary>
 
-            return (
-              <div
-                key={`${row.label}-${row.detail}-${index}`}
-                id={"anchorId" in row ? row.anchorId : undefined}
-                data-prompt-anchor={"anchorId" in row ? "big-document-failure" : undefined}
-                className="relative flex h-8 w-fit max-w-full items-center gap-1 rounded-full border bg-white px-2 shadow-[0_1px_2px_rgba(15,20,25,0.04)]"
-                style={{ borderColor: isError ? "#FFD2D4" : "#E6E7EB" }}
-              >
-                <span
-                  className="flex shrink-0 items-center gap-1 text-[12px] font-medium leading-none"
-                  style={{ color: isError ? "#E5484D" : "#1A1C24" }}
+            <div
+              className="mt-2 space-y-2 rounded-2xl border border-dashed bg-white/80 p-3.5"
+              style={{ borderColor: "#D8DCE6" }}
+              data-testid="stream-process-constraint-content"
+            >
+              {STREAM_PROCESS_CONSTRAINTS.map((constraint) => (
+                <div
+                  key={constraint.label}
+                  className="flex min-w-0 items-center gap-1.5 text-[16px] leading-[1.45]"
                 >
-                  <Icon className="size-3.5" strokeWidth={1.8} />
-                  {row.label}
+                  <span className="shrink-0 font-semibold text-[#8A5A16]">{constraint.label}</span>
+                  <span className="min-w-0 truncate text-[#4E525E]" title={constraint.detail}>
+                    {constraint.detail}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </details>
+
+          {/* 已完成 4 路并发检索 (普通白底胶囊) */}
+          <details className="group" data-testid="stream-process-retrievals">
+            <summary
+              className="relative flex h-11 w-full cursor-pointer list-none items-center justify-between gap-2 rounded-full border bg-white px-4 shadow-[0_1px_2px_rgba(15,20,25,0.04)] transition-all [&::-webkit-details-marker]:hidden"
+              style={{ borderColor: "#E6E7EB" }}
+            >
+              <span className="flex min-w-0 items-center gap-1.5 text-[16px] font-semibold leading-none text-[#1A1C24]">
+                <Search className="size-4 shrink-0" style={{ color: BLUE }} strokeWidth={1.8} />
+                <span className="truncate">已完成 4 路并发检索</span>
+                <span className="hidden shrink-0 text-[16px] font-normal text-[#696D7A] sm:inline">
+                  （福田区产业/企业数据）
                 </span>
-                <span
-                  className="min-w-0 truncate text-[12px] leading-none"
-                  style={{ color: "#696D7A" }}
-                  title={row.detail}
+              </span>
+              <ChevronDown
+                aria-hidden="true"
+                className="size-4 shrink-0 text-[#696D7A] transition-transform duration-200 group-open:rotate-180"
+                strokeWidth={1.8}
+              />
+            </summary>
+
+            <div
+              className="mt-2 space-y-2 rounded-2xl border border-dashed bg-white/80 p-3.5"
+              style={{ borderColor: "#D8DCE6" }}
+              data-testid="stream-process-retrieval-content"
+            >
+              {STREAM_PROCESS_RETRIEVAL_DETAILS.map((item) => (
+                <div
+                  key={`${item.tool}-${item.detail}`}
+                  className="flex min-w-0 items-center gap-1.5 text-[16px] leading-[1.45]"
                 >
-                  {row.detail}
-                </span>
-                {isError && (
-                  <svg
-                    className="pointer-events-none absolute left-[calc(100%+10px)] top-1/2 z-10 hidden h-6 w-[232px] -translate-y-1/2 overflow-visible xl:block"
-                    viewBox="0 0 232 24"
-                    fill="none"
-                    aria-hidden="true"
+                  <span className="shrink-0 font-semibold text-[#1A1C24]">{item.tool}</span>
+                  <span className="text-[#696D7A]">·</span>
+                  <span className="min-w-0 truncate text-[#4E525E]" title={item.detail}>
+                    {item.detail}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </details>
+
+          {/* 流程条目 stages */}
+          <div className="space-y-2.5 border-t pt-2.5" style={{ borderColor: "#E6E7EB" }} data-testid="stream-process-stages">
+            {STREAM_PROCESS_ROWS.map((row, index) => {
+              const Icon = iconMap[row.type];
+              // 只有与上方重点核验对应的 2 项标黄：触发重试 和 事实声明
+              const isYellow = row.type === "retry" || row.type === "warning";
+
+              return (
+                <div
+                  key={`${row.label}-${row.detail}-${index}`}
+                  id={"anchorId" in row ? row.anchorId : undefined}
+                  data-prompt-anchor={"anchorId" in row ? "big-document-failure" : undefined}
+                  className="flex h-11 w-fit max-w-full items-center gap-1.5 rounded-full px-4 shadow-[0_1px_2px_rgba(15,20,25,0.04)]"
+                  style={{
+                    background: isYellow ? "#FFF6CC" : "#FFFFFF",
+                    border: isYellow ? "1px solid #FDE68A" : "1px solid #E6E7EB",
+                  }}
+                >
+                  <span
+                    className="flex shrink-0 items-center gap-1 text-[16px] font-semibold leading-none"
+                    style={{ color: isYellow ? "#8A5A16" : "#1A1C24" }}
                   >
-                    <defs>
-                      <marker
-                        id="stream-failure-arrow"
-                        viewBox="0 0 8 8"
-                        refX="6.8"
-                        refY="4"
-                        markerWidth="7"
-                        markerHeight="7"
-                        orient="auto"
-                      >
-                        <path
-                          d="M1 1L7 4L1 7"
-                          fill="none"
-                          stroke="#FF8DA1"
-                          strokeWidth="1.15"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </marker>
-                    </defs>
-                    <path
-                      d="M0 12H220"
-                      stroke="#FF8DA1"
-                      strokeWidth="1.2"
-                      strokeDasharray="5 8"
-                      strokeLinecap="round"
-                      opacity="0.88"
-                      markerEnd="url(#stream-failure-arrow)"
-                    />
-                  </svg>
-                )}
-              </div>
-            );
-          })}
+                    <Icon className="size-4" strokeWidth={1.8} />
+                    {row.label}
+                  </span>
+                  <span
+                    className="min-w-0 truncate text-[16px] leading-none"
+                    style={{ color: isYellow ? "#75501A" : "#696D7A" }}
+                    title={row.detail}
+                  >
+                    {row.detail}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
         </div>
 
+        {/* 底部状态条 */}
         <div
-          className="absolute inset-x-3 bottom-3 flex h-12 items-center justify-between rounded-full border bg-white px-3 sm:inset-x-4"
+          className="mt-4 flex h-12 items-center justify-between rounded-full border bg-white px-4 text-[16px]"
           style={{ borderColor: "#E6E7EB", color: "#8D94A3" }}
         >
-          <span className="truncate text-[12px]">小Q正在生成中，生成已耗时24s...</span>
-          <span className="ml-3 flex size-7 shrink-0 items-center justify-center rounded-full border" style={{ borderColor: "#CBCDD4" }}>
-            <LoaderCircle className="size-3.5 animate-spin" strokeWidth={1.8} />
+          <span className="truncate">小Q正在生成中，生成已耗时24s...</span>
+          <span
+            className="ml-3 flex size-7 shrink-0 items-center justify-center rounded-full border bg-white"
+            style={{ borderColor: "#CBCDD4", color: BLUE }}
+          >
+            <LoaderCircle className="size-4 animate-spin" strokeWidth={1.8} />
           </span>
         </div>
       </div>
@@ -672,7 +2707,7 @@ function OutlineConfirmFrame({
     >
       {showShell && (
         <img
-          src="./images/ai-report-flow/step-02-final-outline.png"
+          src="./images/ai-report-flow-webp/step-02-final-outline.webp"
           alt="章节大纲确认页面外层框架"
           {...DETAIL_IMAGE_LAZY_PROPS}
           className="absolute inset-0 h-full w-full object-contain object-top"
@@ -680,7 +2715,7 @@ function OutlineConfirmFrame({
       )}
       {showContent && <div className="absolute left-[30.9%] top-[7.4%] h-[88.5%] w-[52.1%] overflow-hidden">
         <img
-          src="./images/ai-report-flow/step-02-final-outline-02.png"
+          src="./images/ai-report-flow-webp/step-02-final-outline-02.webp"
           alt="章节大纲确认完整内容"
           {...DETAIL_IMAGE_LAZY_PROPS}
           className="block w-full max-w-none object-contain object-top"
@@ -705,8 +2740,8 @@ export function ProjectDetail({ onBack }: Props) {
   const activeStepRef = useRef(0);
 
   const heroToggleImages = [
-    "./images/ai-report-hero-toggle-01.png",
-    "./images/ai-report-hero-toggle-02.png",
+    "./images/ai-report-hero-toggle-01.webp",
+    "./images/ai-report-hero-toggle-02.webp",
   ];
   const heroToggleCaptions = [
     "学习文档风格，生成一致表达",
@@ -903,7 +2938,7 @@ export function ProjectDetail({ onBack }: Props) {
       tagline: "明确报告场景",
       icon: FileText,
       placeholder: "模板中心页面",
-      finalImage: "./images/ai-report-flow/step-01-final-template-center.png",
+      finalImage: "./images/ai-report-flow-webp/step-01-final-template-center.webp",
       callouts: [],
       decision: "先让用户选择报告类型，而不是直接输入需求。",
       why: "让报告生成从明确场景进入，降低用户不知道如何开始的问题。",
@@ -913,7 +2948,7 @@ export function ProjectDetail({ onBack }: Props) {
       tagline: "先定结构",
       icon: GitBranch,
       placeholder: "章节大纲生成页面",
-      finalImage: "./images/ai-report-flow/step-02-final-outline.png",
+      finalImage: "./images/ai-report-flow-webp/step-02-final-outline.webp",
       compactCanvas: true,
       decision: "系统先生成章节大纲，再进入正文生成。",
       why: "把控制点前置，避免用户等到全文生成后才发现结构不对。",
@@ -923,7 +2958,7 @@ export function ProjectDetail({ onBack }: Props) {
       tagline: "确认方向",
       icon: CheckCircle2,
       placeholder: "大纲确认页面",
-      image: "./images/ai-report-flow/step-02-final-outline-02.png",
+      image: "./images/ai-report-flow-webp/step-02-final-outline-02.webp",
       scrollContent: true,
       decision: "用户可配置报告标题、监测范围、产业、维度，确认后进入生成。",
       why: "把复杂配置拆成可理解的操作，让用户在生成前控制输入边界。",
@@ -1113,7 +3148,7 @@ export function ProjectDetail({ onBack }: Props) {
             className="relative z-10 mx-auto mt-9 max-w-[1060px] overflow-visible rounded-[32px]"
           >
             <img
-              src="./images/ai-report-hero-full.png"
+              src="./images/ai-report-hero-full.webp"
               alt="AI 报告生成产品完整界面"
               {...DETAIL_IMAGE_EAGER_PROPS}
               className="block h-auto w-full rounded-[32px] border border-white/80 object-contain shadow-[0_30px_90px_rgba(15,20,25,0.14)]"
@@ -1122,7 +3157,7 @@ export function ProjectDetail({ onBack }: Props) {
             {/* Decorative placeholder thumbnails around hero */}
             <div className="absolute top-[10%] -left-[18%] z-10 w-[20%] max-w-[190px]">
               <img
-                src="./images/ai-repor- left-01.png"
+                src="./images/ai-repor- left-01.webp"
                 alt="模板中心截图"
                 {...DETAIL_IMAGE_LAZY_PROPS}
                 className="w-full overflow-hidden rounded-xl shadow-[0_8px_24px_rgba(15,20,25,0.12)]"
@@ -1132,7 +3167,7 @@ export function ProjectDetail({ onBack }: Props) {
 
             <div className="absolute top-[8%] -right-[14%] z-10 w-[18%] max-w-[170px]">
               <img
-                src="./images/ai- report-right-01.png"
+                src="./images/ai- report-right-01.webp"
                 alt="监测维度配置截图"
                 {...DETAIL_IMAGE_LAZY_PROPS}
                 className="w-full overflow-hidden rounded-xl shadow-[0_8px_24px_rgba(15,20,25,0.12)]"
@@ -1187,9 +3222,127 @@ export function ProjectDetail({ onBack }: Props) {
         </div>
       </section>
 
-      {/* ===== 02. Product scope and user goals ===== */}
+      {/* ===== 02. Role & Responsibilities ===== */}
       <section
-        id="s02-product-scope"
+        id="s02-role"
+        className={`relative pt-8 pb-12 md:pt-10 md:pb-16 ${SECTION_PAD}`}
+      >
+        <div className={`mx-auto w-full max-w-[1320px] ${READ}`}>
+          <Reveal delay={0.08} y={16}>
+            <div className="mx-auto flex w-full max-w-[1100px] flex-col gap-8 lg:flex-row lg:items-stretch lg:gap-8">
+              {/* Left: Role Note */}
+              <article
+                aria-label="我的角色"
+                className="relative flex flex-col justify-between rounded-[8px] border p-7 pt-9 shadow-[0_2px_4px_rgba(28,36,52,0.06),0_10px_22px_rgba(28,36,52,0.04)] transition-transform duration-200 hover:-translate-y-1 sm:p-8 sm:pt-10 lg:w-[360px] lg:shrink-0"
+                style={{
+                  backgroundColor: "#FFFEF8",
+                  backgroundImage:
+                    "repeating-linear-gradient(to bottom, transparent 0, transparent 31px, rgba(132,137,146,0.14) 32px)",
+                  borderColor: "#DED9CE",
+                  transform: "rotate(-0.8deg)",
+                }}
+              >
+                {/* Mini Sticky Note Tab: 我的角色 */}
+                <div
+                  className="absolute -top-4 left-6 z-20 flex items-center justify-center rounded-[3px] border px-4 py-1 shadow-[0_2px_6px_rgba(44,59,91,0.12)] sm:left-8"
+                  style={{
+                    backgroundColor: "#EEF4FF",
+                    borderColor: "#C8D4FF",
+                    transform: "rotate(-1.5deg)",
+                  }}
+                >
+                  <span className="text-[16px] font-bold text-[#1A42B8]">我的角色</span>
+                </div>
+
+                <div className="relative z-10">
+                  <h3 className="text-[26px] font-bold tracking-tight text-[#1A1C24]">
+                    产品设计师
+                  </h3>
+
+                  <p className="mt-2 text-[17px] font-medium text-[#35404F]">
+                    AI 报告核心体验设计
+                  </p>
+
+                  <p className="mt-4 text-[16px] leading-[1.75] text-[#4E525E]">
+                    参与前期用户需求与业务流程梳理，负责核心交互方案与 Prompt 基础结构设计，并跟进后续开发与测试验收。
+                  </p>
+                </div>
+              </article>
+
+              {/* Right: Responsibilities Note */}
+              <article
+                aria-label="我的职责"
+                className="relative flex-1 rounded-[8px] border p-7 pt-9 shadow-[0_2px_4px_rgba(28,36,52,0.06),0_10px_22px_rgba(28,36,52,0.04)] transition-transform duration-200 hover:-translate-y-1 sm:p-8 sm:pt-10 lg:p-9 lg:pt-10"
+                style={{
+                  backgroundColor: "#FFFEF9",
+                  backgroundImage:
+                    "repeating-linear-gradient(to bottom, transparent 0, transparent 31px, rgba(132,137,146,0.14) 32px)",
+                  borderColor: "#DED9CE",
+                  transform: "rotate(0.6deg)",
+                }}
+              >
+                {/* Mini Sticky Note Tab: 我的职责 */}
+                <div
+                  className="absolute -top-4 left-6 z-20 flex items-center justify-center rounded-[3px] border px-4 py-1 shadow-[0_2px_6px_rgba(44,59,91,0.12)] sm:left-8"
+                  style={{
+                    backgroundColor: "#FFF9E8",
+                    borderColor: "#EAD7A8",
+                    transform: "rotate(1.2deg)",
+                  }}
+                >
+                  <span className="text-[16px] font-bold text-[#A85A16]">我的职责</span>
+                </div>
+
+                <div className="relative z-10">
+                  <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                    {[
+                      {
+                        title: "用户研究与范围收敛",
+                        desc: "参与 3 轮用户访谈，梳理报告生产链路并推动 MVP 边界确认",
+                        dotColor: "#2258F4",
+                      },
+                      {
+                        title: "核心体验与界面设计",
+                        desc: "负责模板选择、大纲确认、数据配置、流式生成与历史文档等关键流程",
+                        dotColor: "#6366F1",
+                      },
+                      {
+                        title: "AI 生成规则梳理",
+                        desc: "搭建 Prompt 基础框架，确定输入约束、监测生成阶段的行动方式",
+                        dotColor: "#A85A16",
+                      },
+                      {
+                        title: "开发协作与设计验收",
+                        desc: "跟进研发实现与还原质量，推动 1.0 版本落地上线",
+                        dotColor: "#2F7A44",
+                      },
+                    ].map((item) => (
+                      <div key={item.title} className="flex items-start gap-3">
+                        <span
+                          className="mt-2.5 size-2 shrink-0 rounded-full"
+                          style={{ backgroundColor: item.dotColor }}
+                        />
+                        <div>
+                          <h4 className="text-[18px] font-semibold text-[#1A1C24]">
+                            {item.title}
+                          </h4>
+                          <p className="mt-1.5 text-[16px] leading-[1.7] text-[#4E525E]">
+                            {item.desc}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </article>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ===== 03. Product scope and user goals ===== */}
+      <section
+        id="s03-product-scope"
         className={`relative overflow-x-clip ${SECTION_PAD}`}
       >
         <div className={`mx-auto flex w-full max-w-[1400px] flex-col py-16 md:py-20 ${READ}`}>
@@ -1197,116 +3350,6 @@ export function ProjectDetail({ onBack }: Props) {
             <h2 className="tracking-tight text-[#1A1C24]" style={T.h2}>
               确定产品范围和用户目标
             </h2>
-          </div>
-
-          {/* Keep ownership visible before the research canvas. */}
-          <div className="relative z-30 mx-auto flex w-full max-w-[980px] flex-col gap-3 pb-3 md:-mb-5 md:flex-row md:items-end md:gap-4 md:pb-0">
-            <section
-              aria-label="我的角色"
-              className="relative min-h-[146px] w-full overflow-visible md:w-[238px] md:shrink-0"
-              style={{
-                filter:
-                  "drop-shadow(0 2px 4px rgba(28,36,52,0.055)) drop-shadow(0 8px 16px rgba(28,36,52,0.025))",
-                transform: "rotate(-0.8deg)",
-              }}
-            >
-              <svg
-                aria-hidden="true"
-                viewBox="0 0 420 280"
-                preserveAspectRatio="none"
-                className="absolute inset-0 h-full w-full overflow-visible"
-              >
-                <defs>
-                  <mask id="ai-report-role-header-note-torn-mask">
-                    <path
-                      d="M 0 18 L 18 5 L 36 15 L 55 3 L 74 14 L 94 4 L 114 16 L 135 3 L 156 14 L 178 5 L 200 15 L 222 3 L 244 14 L 266 4 L 288 16 L 310 3 L 332 14 L 354 5 L 376 15 L 398 4 L 420 17 V 280 H 0 Z"
-                      fill="white"
-                    />
-                  </mask>
-                  <linearGradient id="ai-report-role-header-note-wash" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0" stopColor="#FFFFFF" />
-                    <stop offset="0.52" stopColor="#EAF1FF" />
-                    <stop offset="1" stopColor="#DCE7FA" />
-                  </linearGradient>
-                </defs>
-                <g mask="url(#ai-report-role-header-note-torn-mask)">
-                  <rect width="420" height="280" fill="#EAF1FF" />
-                  <rect width="420" height="280" fill="url(#ai-report-role-header-note-wash)" opacity="0.28" />
-                </g>
-                <path
-                  d="M 0 18 L 18 5 L 36 15 L 55 3 L 74 14 L 94 4 L 114 16 L 135 3 L 156 14 L 178 5 L 200 15 L 222 3 L 244 14 L 266 4 L 288 16 L 310 3 L 332 14 L 354 5 L 376 15 L 398 4 L 420 17 V 280 H 0 Z"
-                  fill="none"
-                  stroke="#B9C9EA"
-                  strokeWidth="1.2"
-                  opacity="0.75"
-                  vectorEffect="non-scaling-stroke"
-                />
-              </svg>
-              <div className="relative z-10 px-5 pb-5 pt-7 sm:px-6 sm:pb-6 sm:pt-8 md:px-5 md:pb-5 md:pt-7">
-                <h3 className="text-[20px] font-semibold leading-[1.3] text-[#252B36]">我的角色</h3>
-                <p className="mt-3 text-[16px] font-medium text-[#35404F]">产品设计师</p>
-                <p className="mt-1 text-[14px] leading-[1.45] text-[#596174]">AI 报告核心体验设计</p>
-              </div>
-            </section>
-
-            <section
-              aria-label="我的职责"
-              className="relative min-h-[246px] w-full overflow-visible md:min-h-[224px] md:flex-1"
-              style={{
-                filter:
-                  "drop-shadow(0 2px 4px rgba(28,36,52,0.055)) drop-shadow(0 8px 16px rgba(28,36,52,0.025))",
-                transform: "rotate(0.55deg)",
-              }}
-            >
-              <svg
-                aria-hidden="true"
-                viewBox="0 0 420 280"
-                preserveAspectRatio="none"
-                className="absolute inset-0 h-full w-full overflow-visible"
-              >
-                <defs>
-                  <mask id="ai-report-responsibilities-header-note-torn-mask">
-                    <path
-                      d="M 0 18 L 18 5 L 36 15 L 55 3 L 74 14 L 94 4 L 114 16 L 135 3 L 156 14 L 178 5 L 200 15 L 222 3 L 244 14 L 266 4 L 288 16 L 310 3 L 332 14 L 354 5 L 376 15 L 398 4 L 420 17 V 280 H 0 Z"
-                      fill="white"
-                    />
-                  </mask>
-                  <linearGradient id="ai-report-responsibilities-header-note-wash" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0" stopColor="#FFFFFF" />
-                    <stop offset="0.52" stopColor="#EAF1FF" />
-                    <stop offset="1" stopColor="#DCE7FA" />
-                  </linearGradient>
-                </defs>
-                <g mask="url(#ai-report-responsibilities-header-note-torn-mask)">
-                  <rect width="420" height="280" fill="#EAF1FF" />
-                  <rect width="420" height="280" fill="url(#ai-report-responsibilities-header-note-wash)" opacity="0.28" />
-                </g>
-                <path
-                  d="M 0 18 L 18 5 L 36 15 L 55 3 L 74 14 L 94 4 L 114 16 L 135 3 L 156 14 L 178 5 L 200 15 L 222 3 L 244 14 L 266 4 L 288 16 L 310 3 L 332 14 L 354 5 L 376 15 L 398 4 L 420 17 V 280 H 0 Z"
-                  fill="none"
-                  stroke="#B9C9EA"
-                  strokeWidth="1.2"
-                  opacity="0.75"
-                  vectorEffect="non-scaling-stroke"
-                />
-              </svg>
-              <div className="relative z-10 px-5 pb-5 pt-7 sm:px-6 sm:pb-6 sm:pt-8 md:px-6 md:pb-5 md:pt-7">
-                <h3 className="text-[20px] font-semibold leading-[1.3] text-[#252B36]">我的职责</h3>
-                <ul className="mt-3 grid gap-3 text-[16px] leading-[1.55] text-[#4E525E] md:grid-cols-2 md:gap-x-6 md:gap-y-3">
-                  {[
-                    "用户研究与范围收敛：参与 3 轮用户访谈，梳理报告生产链路并推动 MVP 边界确认",
-                    "核心体验与界面设计：负责模板选择、大纲确认、数据配置、流式生成与历史文档等关键流程",
-                    "AI 生成规则梳理：搭建 Prompt 基础框架，确定输入约束、监测生成阶段的行动方式",
-                    "开发协作与设计验收：跟进研发实现与还原质量，推动 1.0 版本落地上线",
-                  ].map((responsibility) => (
-                    <li key={responsibility} className="flex gap-2">
-                      <span className="mt-[0.5em] size-1.5 shrink-0 rounded-full bg-[#4777FF]" />
-                      <span>{responsibility}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </section>
           </div>
 
           <div className="relative overflow-visible rounded-[28px] border border-[#E6E7EB] bg-white">
@@ -1407,10 +3450,10 @@ export function ProjectDetail({ onBack }: Props) {
                 className={`absolute left-[52px] right-6 top-[124px] z-10 flex flex-wrap items-start gap-3 sm:left-16 sm:right-8 sm:gap-4 lg:right-[41%] ${activeInterview === null ? "" : "pointer-events-none"}`}
               >
                 {[
-                  { file: "01.png", rotation: "-3.2deg", offsetX: "0px", offsetY: "0px", tapeColor: "rgba(202, 216, 225, 0.72)", tapeLeft: "8%", tapeTop: "0", tapeWidth: "30%", tapeRotation: "-7deg" },
-                  { file: "02.png", rotation: "2.6deg", offsetX: "6px", offsetY: "20px", tapeColor: "rgba(213, 224, 207, 0.7)", tapeLeft: "18%", tapeTop: "0", tapeWidth: "27%", tapeRotation: "5deg" },
-                  { file: "03.png", rotation: "-2.2deg", offsetX: "-5px", offsetY: "-4px", tapeColor: "rgba(207, 220, 226, 0.68)", tapeLeft: "52%", tapeTop: "0", tapeWidth: "32%", tapeRotation: "-4deg" },
-                  { file: "04.png", rotation: "3deg", offsetX: "4px", offsetY: "26px", tapeColor: "rgba(218, 226, 210, 0.72)", tapeLeft: "62%", tapeTop: "0", tapeWidth: "28%", tapeRotation: "7deg" },
+                  { file: "01.webp", rotation: "-3.2deg", offsetX: "0px", offsetY: "0px", tapeColor: "rgba(202, 216, 225, 0.72)", tapeLeft: "8%", tapeTop: "0", tapeWidth: "30%", tapeRotation: "-7deg" },
+                  { file: "02.webp", rotation: "2.6deg", offsetX: "6px", offsetY: "20px", tapeColor: "rgba(213, 224, 207, 0.7)", tapeLeft: "18%", tapeTop: "0", tapeWidth: "27%", tapeRotation: "5deg" },
+                  { file: "03.webp", rotation: "-2.2deg", offsetX: "-5px", offsetY: "-4px", tapeColor: "rgba(207, 220, 226, 0.68)", tapeLeft: "52%", tapeTop: "0", tapeWidth: "32%", tapeRotation: "-4deg" },
+                  { file: "04.webp", rotation: "3deg", offsetX: "4px", offsetY: "26px", tapeColor: "rgba(218, 226, 210, 0.72)", tapeLeft: "62%", tapeTop: "0", tapeWidth: "28%", tapeRotation: "7deg" },
                 ].map((participant, index) => (
                   <figure
                     key={participant.file}
@@ -1435,7 +3478,7 @@ export function ProjectDetail({ onBack }: Props) {
                       }}
                     />
                     <img
-                      src={`./images/ai报告人物动画/${participant.file}`}
+                      src={`./images/ai报告人物动画webp/${participant.file}`}
                       alt={`业务参与者 ${index + 1}`}
                       className="h-full w-full object-contain"
                       loading="lazy"
@@ -1572,14 +3615,14 @@ export function ProjectDetail({ onBack }: Props) {
               </div>
 
               <motion.section
-                aria-label="访谈结论总览"
+                aria-label="用户诉求和问题总览"
                 aria-hidden={activeInterview !== null}
                 animate={{ opacity: activeInterview === null ? 1 : 0 }}
                 transition={{ duration: 0.16, ease: "easeOut" }}
-                className={`absolute left-[52px] right-6 top-[1320px] z-20 sm:left-16 sm:right-8 sm:top-[1280px] md:top-[1240px] lg:left-[7%] lg:right-auto lg:top-[500px] lg:w-[44%] lg:max-w-[500px] 2xl:top-[340px] ${activeInterview === null ? "" : "pointer-events-none"}`}
+                className={`absolute left-[52px] right-6 top-[1320px] z-20 sm:left-16 sm:right-8 sm:top-[1280px] md:top-[1240px] lg:left-[7%] lg:right-auto lg:top-[500px] lg:w-[50%] lg:max-w-[620px] 2xl:top-[340px] ${activeInterview === null ? "" : "pointer-events-none"}`}
               >
                 <h3 className="relative inline-block text-[26px] font-semibold leading-[1.3] text-[#1A1C24] sm:text-[28px] lg:text-[30px]">
-                  <span className="relative z-10">访谈结论</span>
+                  <span className="relative z-10">用户诉求和问题</span>
                   <svg
                     aria-hidden="true"
                     viewBox="0 0 190 70"
@@ -1606,69 +3649,109 @@ export function ProjectDetail({ onBack }: Props) {
                   </svg>
                 </h3>
 
-                <div className="mt-8 space-y-6">
+                <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2">
                   {[
                     {
-                      label: "服务对象",
-                      text: "承担报告内容生产与交付的专业用户，覆盖产业研究、经济分析、监测研判等报告场景。",
-                      color: "#E5EBFF",
-                      rotation: "-0.8deg",
-                      clipPath: "polygon(1% 15%, 12% 7%, 27% 13%, 43% 5%, 59% 11%, 75% 4%, 98% 10%, 97% 89%, 82% 95%, 66% 89%, 49% 96%, 32% 90%, 16% 95%, 2% 87%)",
-                    },
-                    {
-                      label: "用户目标",
-                      text: "提升报告生产效率，同时保留范围确认、过程控制与来源核查。",
-                      color: "#F3E7FF",
-                      rotation: "0.7deg",
-                      clipPath: "polygon(2% 10%, 18% 15%, 34% 7%, 51% 12%, 67% 5%, 83% 13%, 99% 9%, 97% 91%, 80% 87%, 62% 95%, 45% 89%, 27% 96%, 10% 90%, 1% 94%)",
-                    },
-                    {
-                      label: "首期产品范围",
-                      items: [
-                        "历史文档统一管理",
-                        "利用公司 OCR 技术解析本地材料",
-                        "模板及大纲确认",
-                        "基于材料生成内容",
-                        "来源展示与历史报告留存",
+                      title: "01｜材料准备耗时",
+                      text: "资料分散且格式繁杂（PDF／扫描件／网页），数据清洗与提取占用超 60% 准备时间。",
+                      quoteParts: [
+                        { text: "写一份报告，" },
+                        { text: "大半天都在找资料", highlighted: true },
+                        { text: "。PDF、网页、表格散得到处都是，资料整理完，" },
+                        { text: "正文还一个字没写", highlighted: true },
+                        { text: "。" },
                       ],
-                      color: "#FFF6DB",
-                      rotation: "-0.5deg",
-                      clipPath: "polygon(1% 14%, 15% 7%, 30% 13%, 46% 6%, 63% 12%, 79% 5%, 98% 11%, 99% 88%, 84% 95%, 68% 89%, 50% 96%, 33% 90%, 17% 94%, 2% 87%)",
                     },
-                  ].map((item) => (
-                    <div
-                      key={item.label}
-                      className="grid gap-2 sm:grid-cols-[auto_minmax(0,1fr)] sm:items-start sm:gap-4"
+                    {
+                      title: "02｜生成过程失控",
+                      text: "全文直接生成易跑偏，一旦结构或重点不符，后期修改成本远大于手动撰写。",
+                      quoteParts: [
+                        { text: "我" },
+                        { text: "不敢让它直接生成全文", highlighted: true },
+                        { text: "，前面范围和结构没确认好，后面很容易跑偏。生成几千字再改，" },
+                        { text: "还不如我自己重写", highlighted: true },
+                        { text: "。" },
+                      ],
+                    },
+                    {
+                      title: "03｜内容缺乏信源",
+                      text: "专业报告容错率极低，AI 幻觉与无出处数据导致严重的交付信任危机。",
+                      quoteParts: [
+                        { text: "报告要给领导看，" },
+                        { text: "里面的数据必须有出处", highlighted: true },
+                        { text: "。AI 给出的数字看着很真，但" },
+                        { text: "查不到来源，我肯定不敢交", highlighted: true },
+                        { text: "。" },
+                      ],
+                    },
+                    {
+                      title: "04｜资产无法复用",
+                      text: "过往研报与数据库碎片化沉淀，每次撰写新报告都在重复“从零造轮子”。",
+                      quoteParts: [
+                        { text: "以前写过类似报告，但" },
+                        { text: "需要时总是找不到", highlighted: true },
+                        { text: "。每次接到新任务，还是要重新找资料、搭框架，" },
+                        { text: "之前的成果很难复用", highlighted: true },
+                        { text: "。" },
+                      ],
+                    },
+                  ].map((note, index) => (
+                    <article
+                      key={note.title}
+                      tabIndex={0}
+                      aria-label={`${note.title}。${note.text}。访谈转述：${note.quoteParts.map((part) => part.text).join("")}`}
+                      className="group relative min-h-[160px] cursor-pointer rounded-[5px] border px-5 pb-4 pt-6 shadow-[0_2px_3px_rgba(28,36,52,0.16),0_7px_14px_rgba(28,36,52,0.055)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4777FF] focus-visible:ring-offset-2"
+                      style={{
+                        backgroundColor: "#FFFEF9",
+                        backgroundImage:
+                          "repeating-linear-gradient(to bottom, transparent 0, transparent 31px, rgba(132,137,146,0.18) 32px)",
+                        borderColor: "#DED9CE",
+                        transform: `rotate(${index % 2 === 0 ? "-0.6deg" : "0.6deg"})`,
+                      }}
                     >
-                      <span className="relative inline-flex w-fit whitespace-nowrap px-1 text-[17px] font-semibold leading-[1.55] text-[#4E525E] sm:text-[18px]">
-                        <span
-                          aria-hidden="true"
-                          className="absolute inset-x-0 bottom-0 z-0 h-[60%]"
-                          style={{
-                            backgroundColor: item.color,
-                            clipPath: item.clipPath,
-                            transform: `rotate(${item.rotation})`,
-                          }}
-                        />
-                        <span className="relative z-10">{item.label}</span>
-                      </span>
-                      {item.items ? (
-                        <ul className="space-y-1.5 text-[17px] leading-[1.65] text-[#4E525E] sm:text-[18px]">
-                          {item.items.map((capability) => (
-                            <li key={capability} className="flex items-start gap-2.5">
-                              <span className="mt-[0.72em] size-1.5 shrink-0 rounded-full bg-[#4777FF]" />
-                              <span>{capability}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      ) : (
-                        <p className="text-[17px] leading-[1.7] text-[#4E525E] sm:text-[18px]">
-                          {item.text}
+                      <span
+                        aria-hidden="true"
+                        className="absolute left-1/2 top-0 z-30 size-3.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#F05B62]"
+                      />
+                      <div className="relative z-10 transition-[opacity,transform] duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-1 group-hover:opacity-0 group-focus:-translate-y-1 group-focus:opacity-0 motion-reduce:transform-none motion-reduce:transition-none">
+                        <h4 className="text-[15px] font-semibold leading-[1.45] text-[#20242D] sm:text-[16px]">
+                          {note.title}
+                        </h4>
+                        <p className="mt-2 text-[14px] leading-[1.65] text-[#4F5B70] sm:text-[15px]">
+                          {note.text}
                         </p>
-                      )}
-                    </div>
+                      </div>
+                      <div
+                        className="pointer-events-none absolute inset-0 z-20 flex translate-y-1 items-center rounded-[4px] px-5 py-4 opacity-0 transition-[opacity,transform] duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-0 group-hover:opacity-100 group-focus:translate-y-0 group-focus:opacity-100 motion-reduce:transform-none motion-reduce:transition-none"
+                        style={{
+                          backgroundColor: "#FFFEF9",
+                          backgroundImage:
+                            "repeating-linear-gradient(to bottom, transparent 0, transparent 31px, rgba(132,137,146,0.18) 32px)",
+                        }}
+                      >
+                        <p className="text-[13px] font-medium leading-[1.55] text-[#3E4655] xl:text-[14px]">
+                          “{note.quoteParts.map((part, partIndex) => (
+                            part.highlighted ? (
+                              <mark
+                                key={`${note.title}-highlight-${partIndex}`}
+                                className="bg-transparent px-[1px] font-semibold text-inherit"
+                                style={{
+                                  backgroundImage:
+                                    "linear-gradient(transparent 48%, rgba(255, 220, 92, 0.72) 48%, rgba(255, 220, 92, 0.72) 91%, transparent 91%)",
+                                }}
+                              >
+                                {part.text}
+                              </mark>
+                            ) : (
+                              <span key={`${note.title}-text-${partIndex}`}>{part.text}</span>
+                            )
+                          ))}”
+                        </p>
+                      </div>
+                    </article>
                   ))}
                 </div>
+
               </motion.section>
 
               <AnimatePresence mode="wait">
@@ -2063,13 +4146,13 @@ export function ProjectDetail({ onBack }: Props) {
                         style={{ aspectRatio: "16 / 10" }}
                       >
                         <img
-                          src="./images/04/kongbaihuabu.png"
+                          src="./images/0405-webp/kongbaihuabu.webp"
                           alt="流式生成空白画布"
                           {...DETAIL_IMAGE_LAZY_PROPS}
                           className="absolute inset-0 h-full w-full object-contain object-top"
                         />
                         <img
-                          src="./images/04/liushihuaban.png"
+                          src="./images/0405-webp/liushihuaban.webp"
                           alt="流式生成报告空白面板"
                           {...DETAIL_IMAGE_EAGER_PROPS}
                           className="absolute right-0 top-0 z-20 h-full w-[60.7%] object-contain object-top"
@@ -2081,7 +4164,7 @@ export function ProjectDetail({ onBack }: Props) {
                           }}
                         />
                         <img
-                          src="./images/optimized/ai-stream-text-1400.jpg"
+                          src="./images/optimized-webp/ai-stream-text-1400.webp"
                           alt="流式生成报告正文"
                           {...DETAIL_IMAGE_EAGER_PROPS}
                           className="absolute right-0 top-[5.6%] z-30 h-[88.9%] w-[60.7%] object-contain object-top"
@@ -2118,7 +4201,7 @@ export function ProjectDetail({ onBack }: Props) {
                         style={{ aspectRatio: "16 / 10" }}
                       >
                         <img
-                          src="./images/05/lishijilupng.png"
+                          src="./images/0405-webp/lishijilupng.webp"
                           alt="历史文档页面"
                           {...DETAIL_IMAGE_LAZY_PROPS}
                           className="absolute inset-0 h-full w-full object-contain object-top"
@@ -2205,7 +4288,7 @@ export function ProjectDetail({ onBack }: Props) {
                   "用户认为这套方案整体符合他们的预期，资料查找和整理更集中，生成内容的来源也更容易确认。",
                 points: ["系统数据", "外链知识", "本地知识库", "来源追溯"],
                 visual: "知识库页面大图",
-                image: "./images/optimized/ai-data01-1600.jpg",
+                image: "./images/optimized-webp/ai-data01-1600.webp",
               },
               {
                 icon: Users,
@@ -2218,8 +4301,8 @@ export function ProjectDetail({ onBack }: Props) {
                   "用户认为直接复用启信产业大脑中已有的客户数据，比每次手动上传名单更符合实际工作方式，这也成为 1.0 上线后最核心的延伸需求。",
                 points: ["企业监控", "企业分组", "账户权限", "跨系统关联"],
                 visual: "跨系统联动关系图",
-                image: "./images/optimized/ai-group02-1600.jpg",
-                overlayImage: "./images/optimized/ai-group01-1600.jpg",
+                image: "./images/optimized-webp/ai-group02-1600.webp",
+                overlayImage: "./images/optimized-webp/ai-group01-1600.webp",
               },
               {
                 icon: GitBranch,
@@ -2232,7 +4315,7 @@ export function ProjectDetail({ onBack }: Props) {
                   "用户认为模板与章节内容可以分别调整，更符合他们复用历史报告的习惯，格式变化时也不需要从头重新整理。",
                 points: ["用户输入匹配", "编辑新增匹配", "内置章节复用"],
                 visual: "章节匹配逻辑截图",
-                image: "./images/optimized/ai-marry01-1600.jpg",
+                image: "./images/optimized-webp/ai-marry01-1600.webp",
                 overlayImage: "./images/设计方案/marry02.png",
                 overlayRaw: true,
               },
@@ -2844,15 +4927,15 @@ export function ProjectDetail({ onBack }: Props) {
               <div className="order-2 flex w-full max-w-[320px] flex-col gap-3 lg:order-1 lg:mt-[40px]">
                 {[
                   {
-                    src: "./images/首页/数据溯源/多互联网数据.png",
+                    src: "./images/首页webp/数据溯源/多互联网数据.webp",
                     alt: "互联网数据来源卡片",
                   },
                   {
-                    src: "./images/首页/数据溯源/启信产业大脑数据.png",
+                    src: "./images/首页webp/数据溯源/启信产业大脑数据.webp",
                     alt: "启信产业大脑数据来源卡片",
                   },
                   {
-                    src: "./images/首页/数据溯源/模型运算.png",
+                    src: "./images/首页webp/数据溯源/模型运算.webp",
                     alt: "模型运算来源卡片",
                   },
                 ].map((sourceImage) => (
@@ -2871,7 +4954,7 @@ export function ProjectDetail({ onBack }: Props) {
                 style={{ borderColor: LINE }}
               >
                 <img
-                  src="./images/首页/数据溯源/生成内容.png"
+                  src="./images/首页webp/数据溯源/生成内容.webp"
                   alt="带来源引用的报告生成内容"
                   {...DETAIL_IMAGE_EAGER_PROPS}
                   className="block h-auto w-[672px] max-w-full object-contain"
@@ -3069,89 +5152,90 @@ export function ProjectDetail({ onBack }: Props) {
             />
           </Reveal>
 
-          <Reveal className="mb-6 max-w-none md:whitespace-nowrap" delay={0.08}>
-            <p style={bodyText}>
-              将依赖经验的章节 Prompt，梳理成上下文注入、工具合流、质量门禁和异常兜底规则，让章节生成从个人写法变成统一流程。
-            </p>
-          </Reveal>
-
-          <Reveal className="mb-6" delay={0.18} y={24}>
-            <AgentWorkflowDiagram />
-          </Reveal>
-
-          <Reveal className="mb-6 grid gap-4 md:grid-cols-3" delay={0.2} y={20}>
+          <Reveal className="mb-8 grid gap-4 md:mb-40 md:grid-cols-3" delay={0.08} y={18}>
             {[
               {
-                title: "上下文容易漂移",
-                desc: "章节生成容易脱离父节点、章节位置和报告大纲，因此将章节背景、父级约束和当前任务范围作为固定输入。",
-                visual: "context",
+                label: "问题 01",
+                title: "上下文容易漂移（脱离大纲）",
+                symptom: <>章节生成容易脱离父节点、章节整体位置和报告大纲，<span className="ai-report-marker-highlight">生成后半段时逻辑失控</span>。</>,
+                cause: "单段 Prompt 缺乏对全局上下文的显式锚定，模型“走一步看一步”。",
+                rotation: "rotate-[-0.45deg]",
               },
               {
-                title: "写法难以复用",
-                desc: "提示词写法依赖个人经验，因此将目标、输入、工具、规则和兜底拆成固定模块。",
-                visual: "maintenance",
+                label: "问题 02",
+                title: "工具调用偷懒与跳步（时序混乱）",
+                symptom: <>模型并发调用多个检索/分析工具后，经常漏掉合流与数据清洗步骤，甚至<span className="ai-report-marker-highlight">直接跳过核验直接给出生成结果</span>。</>,
+                cause: "Prompt 过于宽松，未对 Agent 的推理步骤与工具依赖做强约束。",
+                rotation: "rotate-[0.35deg]",
               },
               {
-                title: "结果缺少门禁",
-                desc: "来源、时间和格式缺少约束，因此设置输出门禁，未通过校验不进入最终结果。",
-                visual: "quality",
+                label: "问题 03",
+                title: "缺乏自检规则",
+                symptom: <>来源链接失效、数据时间超范围、<span className="ai-report-marker-highlight">模型自行编造无出处的数据直接混入正文</span>。</>,
+                cause: "缺少前置的自检与校验环节，错误内容直接透出给用户。",
+                rotation: "rotate-[-0.25deg]",
               },
-            ].map((item, i) => (
-              <div
-                key={item.title}
-                className="overflow-hidden rounded-[28px] border bg-white p-4"
+            ].map((note) => (
+              <article
+                key={note.label}
+                className={`relative min-h-[280px] rounded-[8px] border border-[#DED9CE] px-5 py-5 shadow-[0_8px_22px_rgba(56,67,92,0.1)] ${note.rotation}`}
+                style={{
+                  background:
+                    "repeating-linear-gradient(to bottom, #FFFEF8 0, #FFFEF8 34px, #E8E4D8 35px, #E8E4D8 36px)",
+                }}
               >
-                <div
-                  className="relative flex h-52 items-center justify-center overflow-hidden rounded-xl"
-                  style={{
-                    background: "#FAFBFF",
-                  }}
-                >
-                  <div
-                    className="absolute inset-0 opacity-55"
-                    style={{
-                      backgroundImage:
-                        "radial-gradient(circle, rgba(34,88,244,0.13) 1px, transparent 1px)",
-                      backgroundSize: "14px 14px",
-                    }}
-                  />
-                  {item.visual === "context" && (
-                    <div className="relative mt-10 grid w-[90%] grid-cols-[43%_14%_43%] items-center">
-                      <div className="relative rounded-2xl border bg-white p-3 shadow-[0_14px_26px_rgba(15,20,25,0.06)]" style={{ borderColor: "#E6E7EB" }}>
-                        <div className="mb-2 text-[11px] font-semibold" style={{ color: ICON_BLUE }}>
-                          报告大纲树
-                        </div>
+                <span
+                  aria-hidden="true"
+                  className="absolute left-1/2 top-0 size-4 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#4A78C2] shadow-[0_2px_4px_rgba(34,61,109,0.22)]"
+                />
+                <div className="text-[14px] font-semibold tracking-[0.08em] text-[#737B8C]">
+                  {note.label}
+                </div>
+                <h3 className="mt-3 text-[18px] font-semibold leading-tight text-[#35404F]">
+                  {note.title}
+                </h3>
+                <div className="mt-3 space-y-3 text-[15px] leading-[1.7] text-[#696D7A]">
+                  <p><strong className="font-semibold text-[#35404F]">现象：</strong>{note.symptom}</p>
+                  <p><strong className="font-semibold text-[#35404F]">原因：</strong>{note.cause}</p>
+                </div>
+                {note.label === "问题 01" && (
+                  <div className="pointer-events-none relative z-10 mt-4 flex h-[150px] items-center justify-center overflow-visible md:absolute md:inset-x-2 md:bottom-[-108px] md:mt-0 md:h-[170px]">
+                    <svg className="absolute size-0" aria-hidden="true">
+                      <defs>
+                        <filter id="s05-context-sticker-filter" x="-25%" y="-35%" width="150%" height="180%" colorInterpolationFilters="sRGB">
+                          <feMorphology in="SourceAlpha" operator="dilate" radius="8" result="expanded" />
+                          <feFlood floodColor="#FFFEFB" result="stickerColor" />
+                          <feComposite in="stickerColor" in2="expanded" operator="in" result="stickerEdge" />
+                          <feGaussianBlur in="expanded" stdDeviation="1.8" result="softBlur" />
+                          <feOffset in="softBlur" dy="2.5" result="offsetBlur" />
+                          <feFlood floodColor="#687080" floodOpacity="0.14" result="shadowColor" />
+                          <feComposite in="shadowColor" in2="offsetBlur" operator="in" result="stickerShadow" />
+                          <feMerge>
+                            <feMergeNode in="stickerShadow" />
+                            <feMergeNode in="stickerEdge" />
+                            <feMergeNode in="SourceGraphic" />
+                          </feMerge>
+                        </filter>
+                      </defs>
+                    </svg>
+                    <div className="relative z-10 grid w-[112%] shrink-0 scale-[0.86] rotate-[-1deg] grid-cols-[43%_14%_43%] items-center" style={{ filter: "url(#s05-context-sticker-filter)" }}>
+                      <div className="relative rounded-2xl border bg-white p-3" style={{ borderColor: "#E6E7EB" }}>
+                        <div className="mb-2 text-[11px] font-semibold" style={{ color: ICON_BLUE }}>报告大纲树</div>
                         {[
                           ["第二章", "产业分析", false],
                           ["2.1", "区域概况", false],
                           ["2.2", "重点企业监测", true],
                           ["2.3", "风险研判", false],
                         ].map(([prefix, label, active]) => (
-                          <div
-                            key={`${prefix}-${label}`}
-                            className="mb-1.5 grid grid-cols-[32px_1fr] items-center gap-1.5 rounded-lg px-2 py-1.5 last:mb-0"
-                            style={{
-                              background: active ? "#EEF2FF" : "transparent",
-                              color: active ? ICON_BLUE : "#4E525E",
-                              border: "1px solid transparent",
-                            }}
-                          >
+                          <div key={`${prefix}-${label}`} className="mb-1.5 grid grid-cols-[32px_1fr] items-center gap-1.5 rounded-lg px-2 py-1.5 last:mb-0" style={{ background: active ? "#EEF2FF" : "transparent", color: active ? ICON_BLUE : "#4E525E", border: "1px solid transparent" }}>
                             <span className="whitespace-nowrap text-[10px] font-semibold">{prefix}</span>
                             <span className="truncate text-[11px] font-medium">{label}</span>
                           </div>
                         ))}
                       </div>
-
                       <div className="relative h-24">
                         <svg className="absolute inset-0 h-full w-full overflow-visible" viewBox="0 0 72 96" fill="none" aria-hidden="true">
-                          <path
-                            d="M0 66 C20 66 24 38 40 38 C56 38 48 72 72 72"
-                            stroke={BLUE}
-                            strokeWidth="1.5"
-                            strokeDasharray="5 5"
-                            strokeLinecap="round"
-                            opacity="0.42"
-                          />
+                          <path d="M0 66 C20 66 24 38 40 38 C56 38 48 72 72 72" stroke={BLUE} strokeWidth="1.5" strokeDasharray="5 5" strokeLinecap="round" opacity="0.42" />
                           <circle cx="1" cy="66" r="3" fill={BLUE} opacity="0.8" />
                           <circle cx="71" cy="72" r="3" fill={BLUE} opacity="0.28" />
                         </svg>
@@ -3160,826 +5244,346 @@ export function ProjectDetail({ onBack }: Props) {
                           <div className="rounded-full px-1.5 py-0.5" style={{ background: "#FFF6DB", color: "#B45309" }}>章节弱化</div>
                         </div>
                       </div>
-
-                      <div className="relative mt-4 rounded-2xl border bg-white p-3 shadow-[0_14px_26px_rgba(15,20,25,0.06)]" style={{ borderColor: "#E6E7EB" }}>
+                      <div className="relative mt-4 rounded-2xl border bg-white p-3" style={{ borderColor: "#E6E7EB" }}>
                         <div className="mb-2 text-[12px] font-semibold text-neutral-900">企业动态汇总</div>
                         <div className="space-y-2">
                           <div className="h-2 w-[88%] rounded-full bg-neutral-200" />
                           <div className="h-2 w-full rounded-full bg-neutral-200" />
                           <div className="h-2 w-[72%] rounded-full bg-neutral-200" />
-                          <div className="mt-3 rounded-lg px-2 py-1.5 text-[10px]" style={{ background: "#FFF6DB", color: "#B45309" }}>
-                            偏向泛化动态，脱离 2.2 章节定位
-                          </div>
+                          <div className="mt-3 rounded-lg px-2 py-1.5 text-[10px]" style={{ background: "#FFF6DB", color: "#B45309" }}>偏向泛化动态，脱离 2.2 章节定位</div>
                         </div>
                       </div>
                     </div>
-                  )}
-                  {item.visual === "maintenance" && (
-                    <div className="relative h-full w-[90%]">
+                  </div>
+                )}
+                {note.label === "问题 02" && (
+                  <div className="pointer-events-none relative z-10 mt-4 flex h-[150px] items-center justify-center overflow-visible md:absolute md:inset-x-2 md:bottom-[-108px] md:mt-0 md:h-[170px]">
+                    <div className="relative h-[188px] w-[112%] shrink-0 scale-[0.82] rotate-[0.8deg]" style={{ filter: "url(#s05-context-sticker-filter)" }}>
                       <div className="absolute right-0 top-3 flex items-center gap-1 rounded-full border bg-white/92 px-2 py-1 text-[10px] font-medium" style={{ borderColor: "#E6E7EB", color: "#B81D1D" }}>
-                        <Sparkles className="size-3.5" style={{ color: ICON_GRAY }} />
-                        效果不可复现
+                        <Sparkles className="size-3.5" style={{ color: ICON_GRAY }} />效果不可复现
                       </div>
                       <div className="absolute bottom-5 left-3 right-3 border-t border-dashed" style={{ borderColor: "rgba(34,88,244,0.32)" }} />
-                      <div className="absolute right-0 bottom-3 rounded-full px-3 py-1 text-[10px] font-medium" style={{ background: "#FFF6DB", color: "#B45309" }}>
-                        统一结构缺失
-                      </div>
+                      <div className="absolute right-0 bottom-3 rounded-full px-3 py-1 text-[10px] font-medium" style={{ background: "#FFF6DB", color: "#B45309" }}>统一结构缺失</div>
                       {[
                         { owner: "Designer A", x: 0, y: 42, modules: ["目标", "工具", "输出"] },
                         { owner: "PM B", x: 28, y: 78, modules: ["角色", "示例", "规则"] },
                         { owner: "运营 C", x: 56, y: 56, modules: ["限制", "流程", "兜底"] },
-                      ].map((doc, index) => (
-                        <div
-                          key={doc.owner}
-                          className="absolute w-[31%] rounded-2xl border bg-white p-3 shadow-[0_14px_26px_rgba(15,20,25,0.06)]"
-                          style={{
-                            left: `${doc.x}%`,
-                            top: doc.y,
-                            borderColor: "#E6E7EB",
-                          }}
-                        >
-                          <div className="mb-2 inline-flex rounded-full px-2 py-1 text-[10px] font-semibold" style={{ background: "#EEF2FF", color: ICON_BLUE }}>
-                            {doc.owner}
-                          </div>
+                      ].map((doc) => (
+                        <div key={doc.owner} className="absolute w-[31%] rounded-2xl border bg-white p-3" style={{ left: `${doc.x}%`, top: doc.y, borderColor: "#E6E7EB" }}>
+                          <div className="mb-2 inline-flex rounded-full px-2 py-1 text-[10px] font-semibold" style={{ background: "#EEF2FF", color: ICON_BLUE }}>{doc.owner}</div>
                           <div className="space-y-1.5">
-                            {doc.modules.map((module, moduleIndex) => (
-                              <div
-                                key={module}
-                                className="rounded-lg px-2 py-1.5 text-[10px] font-medium"
-                                style={{
-                                  background: moduleIndex === 1 ? "#EEF2FF" : "#FAFBFF",
-                                  color: moduleIndex === 1 ? ICON_BLUE : "#696D7A",
-                                }}
-                              >
-                                {module}
-                              </div>
-                            ))}
+                            {doc.modules.map((module, moduleIndex) => <div key={module} className="rounded-lg px-2 py-1.5 text-[10px] font-medium" style={{ background: moduleIndex === 1 ? "#EEF2FF" : "#FAFBFF", color: moduleIndex === 1 ? ICON_BLUE : "#696D7A" }}>{module}</div>)}
                           </div>
                         </div>
                       ))}
                     </div>
-                  )}
-                  {item.visual === "quality" && (
-                    <div className="relative mt-6 grid w-[92%] grid-cols-[22%_47%_25%] items-center gap-[3%]">
-                      <div className="space-y-2">
-                        {["key_info", "deep_search", "file_tool"].map((source) => (
-                          <div
-                            key={source}
-                            className="whitespace-nowrap rounded-full border bg-white px-2.5 py-1.5 text-center text-[10px] font-medium shadow-sm"
-                            style={{ borderColor: "#CBCDD4", color: "#4E525E" }}
-                          >
-                            {source}
-                          </div>
-                        ))}
+                  </div>
+                )}
+                {note.label === "问题 03" && (
+                  <div className="pointer-events-none relative z-10 mt-4 flex h-[150px] items-center justify-center overflow-visible md:absolute md:inset-x-2 md:bottom-[-108px] md:mt-0 md:h-[170px]">
+                    <div className="relative mt-2 grid w-[112%] shrink-0 scale-[0.84] rotate-[-0.7deg] grid-cols-[22%_47%_25%] items-center gap-[3%]" style={{ filter: "url(#s05-context-sticker-filter)" }}>
+                      <div className="space-y-2">{["key_info", "deep_search", "file_tool"].map((source) => <div key={source} className="whitespace-nowrap rounded-full border bg-white px-2.5 py-1.5 text-center text-[10px] font-medium" style={{ borderColor: "#CBCDD4", color: "#4E525E" }}>{source}</div>)}</div>
+                      <div className="relative rounded-2xl border bg-white p-3" style={{ borderColor: "#E6E7EB" }}>
+                        <div className="mb-2 text-[11px] font-semibold" style={{ color: ICON_BLUE }}>统一候选池</div>
+                        {[['缺 URL', '#FFE3E3'], ['时间超范围', '#FFF6DB'], ['分类未确认', '#EEF2FF']].map(([status, bg], index) => <div key={status} className="mb-2 grid grid-cols-[1fr_auto] items-center gap-2 rounded-lg px-2.5 py-2 last:mb-0" style={{ background: bg }}><div className="space-y-1"><div className="h-1.5 w-full rounded-full bg-white/80" /><div className="h-1.5 w-[70%] rounded-full bg-white/80" /></div><span className="whitespace-nowrap text-[10px] font-medium" style={{ color: index === 0 ? "#B81D1D" : index === 1 ? "#B45309" : ICON_BLUE }}>{status}</span></div>)}
                       </div>
-
-                      <div className="relative rounded-2xl border bg-white p-3 shadow-[0_14px_26px_rgba(15,20,25,0.06)]" style={{ borderColor: "#E6E7EB" }}>
-                        <div className="mb-2 text-[11px] font-semibold" style={{ color: ICON_BLUE }}>
-                          统一候选池
-                        </div>
-                        {[
-                          ["缺 URL", "#FFE3E3"],
-                          ["时间超范围", "#FFF6DB"],
-                          ["分类未确认", "#EEF2FF"],
-                        ].map(([status, bg], index) => (
-                          <div key={status} className="mb-2 grid grid-cols-[1fr_auto] items-center gap-2 rounded-lg px-2.5 py-2 last:mb-0" style={{ background: bg }}>
-                            <div className="space-y-1">
-                              <div className="h-1.5 w-full rounded-full bg-white/80" />
-                              <div className="h-1.5 w-[70%] rounded-full bg-white/80" />
-                            </div>
-                            <span className="whitespace-nowrap text-[10px] font-medium" style={{ color: index === 0 ? "#B81D1D" : index === 1 ? "#B45309" : ICON_BLUE }}>
-                              {status}
-                            </span>
-                          </div>
-                        ))}
-                      </div>
-
-                      <div className="relative rounded-2xl border p-3 shadow-[0_14px_26px_rgba(34,88,244,0.08)]" style={{ borderColor: ICON_BORDER, background: "#EEF2FF" }}>
-                        <div className="mb-2 flex items-center gap-1.5 whitespace-nowrap text-[11px] font-semibold" style={{ color: ICON_BLUE }}>
-                          <ShieldCheck className="size-3.5" style={{ color: ICON_GRAY }} />
-                          输出门禁
-                        </div>
-                        {[
-                          ["URL", false],
-                          ["时间", false],
-                          ["分类", true],
-                          ["格式", true],
-                        ].map(([label, pass]) => (
-                          <div key={String(label)} className="mb-1.5 flex items-center justify-between rounded-lg bg-white/78 px-2 py-1.5 last:mb-0">
-                            <span className="text-[10px] font-medium" style={{ color: "#4E525E" }}>{label}</span>
-                            <span className="flex size-4 items-center justify-center rounded-full text-[10px] font-semibold" style={{ background: pass ? "#E3F5E3" : "#FFE3E3", color: pass ? "#15803D" : "#B81D1D" }}>
-                              {pass ? "✓" : "!"}
-                            </span>
-                          </div>
-                        ))}
-                      </div>
-
-                      <svg className="pointer-events-none absolute inset-0 h-full w-full overflow-visible" viewBox="0 0 100 100" preserveAspectRatio="none" fill="none" aria-hidden="true">
-                        <path d="M24 50H30" stroke={BLUE} strokeWidth="0.8" strokeLinecap="round" strokeDasharray="2 2" opacity="0.44" />
-                        <path d="M70 50H75" stroke={BLUE} strokeWidth="0.8" strokeLinecap="round" opacity="0.58" />
-                      </svg>
+                      <div className="relative rounded-2xl border p-3" style={{ borderColor: ICON_BORDER, background: "#EEF2FF" }}><div className="mb-2 flex items-center gap-1.5 whitespace-nowrap text-[11px] font-semibold" style={{ color: ICON_BLUE }}><ShieldCheck className="size-3.5" style={{ color: ICON_GRAY }} />输出门禁</div>{[["URL", false], ["时间", false], ["分类", true], ["格式", true]].map(([label, pass]) => <div key={String(label)} className="mb-1.5 flex items-center justify-between rounded-lg bg-white/78 px-2 py-1.5 last:mb-0"><span className="text-[10px] font-medium" style={{ color: "#4E525E" }}>{label}</span><span className="flex size-4 items-center justify-center rounded-full text-[10px] font-semibold" style={{ background: pass ? "#E3F5E3" : "#FFE3E3", color: pass ? "#15803D" : "#B81D1D" }}>{pass ? "✓" : "!"}</span></div>)}</div>
+                      <svg className="pointer-events-none absolute inset-0 h-full w-full overflow-visible" viewBox="0 0 100 100" preserveAspectRatio="none" fill="none" aria-hidden="true"><path d="M24 50H30" stroke={BLUE} strokeWidth="0.8" strokeLinecap="round" strokeDasharray="2 2" opacity="0.44" /><path d="M70 50H75" stroke={BLUE} strokeWidth="0.8" strokeLinecap="round" opacity="0.58" /></svg>
                     </div>
-                  )}
-                </div>
-                <div className="pt-4">
-                  <div className="mb-3 flex items-center gap-2">
-                    <span
-                      className="flex size-6 items-center justify-center rounded-md text-[12px] font-semibold"
-                      style={{ background: "#E5EBFF", color: ICON_BLUE }}
-                    >
-                      {i + 1}
-                    </span>
-                    <span className="text-[12px] font-medium" style={{ color: "#696D7A" }}>
-                      {`问题${["一", "二", "三"][i]}`}
-                    </span>
                   </div>
-                  <div className="mb-2 text-[24px] font-semibold text-neutral-900">{item.title}</div>
-                  <div className="text-[16px] leading-[1.7]" style={{ color: "#4E525E" }}>
-                    {item.desc}
-                  </div>
-                </div>
-              </div>
+                )}
+              </article>
             ))}
           </Reveal>
 
-          <Reveal
-            className="relative overflow-hidden rounded-[28px] border bg-white p-4 md:p-5"
-            delay={0.16}
-            y={24}
-            style={{
-              borderColor: "#E6E7EB",
-            }}
-          >
-            <div className="relative">
-              <div className="mb-6 flex flex-col justify-between gap-4 lg:flex-row lg:items-start">
-                <div className="max-w-none">
-                  <div className="text-[24px] font-semibold leading-tight text-[#1A1C24]">
-                    沉淀的章节生成规则
-                  </div>
-                  <div className="mt-2 text-[16px] leading-[1.7]" style={{ color: "#4E525E" }}>
-                    将节点编排、工具合流、状态门禁和模块化提示词沉淀成可复用规则。
-                  </div>
-                </div>
-              </div>
+          <FourDimensionLoopOverview />
 
-              <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_360px]">
-                <div
-                  className="hidden"
-                  style={{ borderColor: "#E6E7EB" }}
-                >
-                  <div
-                    className="pointer-events-none absolute inset-0 opacity-30"
-                    style={{
-                      backgroundImage: "radial-gradient(circle, rgba(34,88,244,0.13) 1px, transparent 1px)",
-                      backgroundSize: "16px 16px",
-                    }}
-                  />
-                  <div className="relative space-y-6">
-                    {/* 安全红线 — 全局约束横条，置于三层结构最上方 */}
-                    <motion.div
-                      initial={{ opacity: 0, y: 12 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true, margin: "-80px" }}
-                      transition={{ duration: 0.45, delay: 0.08 }}
-                      className="relative rounded-2xl border px-5 py-4"
-                      style={{ borderColor: "#FFE3E3", background: "#FFFFFF" }}
-                    >
-                      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                        <div className="flex items-center gap-3 shrink-0">
-                          <span
-                            className="flex size-8 items-center justify-center rounded-xl"
-                            style={{ background: "#FFE3E3", color: "#B81D1D" }}
-                          >
-                            <ShieldCheck className="size-4" />
-                          </span>
-                          <span className="text-[14px] font-semibold" style={{ color: "#B81D1D" }}>
-                            安全红线
-                          </span>
-                          <span className="hidden sm:inline-block h-5 w-px" style={{ background: "#FFE3E3" }} />
-                          <span className="hidden sm:inline text-[12px]" style={{ color: "#B45309" }}>
-                            全局约束，所有章节生成前注入
-                          </span>
-                        </div>
-                        <div className="flex flex-wrap gap-2">
-                          {["事实有来源", "禁止空转", "当前任务优先", "禁止格式漂移"].map((rule) => (
-                            <span
-                              key={rule}
-                              className="rounded-full bg-white/82 px-3 py-1.5 text-[12px] font-medium"
-                              style={{ color: "#B81D1D" }}
-                            >
-                              {rule}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    </motion.div>
+          <FourDimensionDecisionNotes />
 
-                    {/* 第一层：输入与全局约束 */}
-                    <div className="relative rounded-3xl border bg-[#FAFBFF]/88 p-4 md:p-5" style={{ borderColor: "#E6E7EB" }}>
-                        <div className="mb-4 flex items-center justify-between gap-3">
-                          <div>
-                            <div className="text-[12px] font-medium" style={{ color: ICON_BLUE }}>
-                              第一层
-                            </div>
-                            <div className="mt-1 text-[16px] font-semibold text-[#1A1C24]">输入与全局约束</div>
-                          </div>
-                          <div className="hidden items-center gap-2 text-[11px] font-medium text-[#696D7A] md:flex">
-                            <span className="inline-block h-px w-8" style={{ background: BLUE }} />
-                            注入任务判断
-                          </div>
-                        </div>
+          <Reveal className="mb-20" delay={0.18} y={24}>
+            <AgentWorkflowDiagram />
+          </Reveal>
 
-                        <div className="relative grid gap-3 md:grid-cols-3">
-                          {[
-                            { level: "A", name: "用户指令", desc: "任务说明、关注对象、分析意图", delay: 0.12 },
-                            { level: "B", name: "章节背景", desc: "章节位置、父节点、报告大纲、监测主体", delay: 0.18 },
-                            { level: "C", name: "执行限制", desc: "时间范围、字数要求、输出格式、当前日期", delay: 0.24 },
-                          ].map((item) => (
-                            <motion.div
-                              key={item.level}
-                              initial={{ opacity: 0, y: 14 }}
-                              whileInView={{ opacity: 1, y: 0 }}
-                              viewport={{ once: true, margin: "-80px" }}
-                              transition={{ duration: 0.45, delay: item.delay }}
-                              className="relative rounded-2xl border p-4"
-                              style={{
-                                borderColor: "#E6E7EB",
-                                background: "#FFFFFF",
-                              }}
-                            >
-                              <div className="mb-2 flex items-center gap-2">
-                                <span
-                                  className="flex size-7 items-center justify-center rounded-lg text-[12px] font-bold"
-                                  style={{ background: BLUE, color: "#FFFFFF" }}
-                                >
-                                  {item.level}
-                                </span>
-                                <span className="text-[14px] font-semibold text-[#1A1C24]">{item.name}</span>
-                              </div>
-                              <div className="text-[12px] leading-[1.55]" style={{ color: "#4E525E" }}>
-                                {item.desc}
-                              </div>
-                            </motion.div>
-                          ))}
-                        </div>
-                      </div>
+          <PromptCompilerPipelineScaffold />
 
-                    {/* 第二层：执行闭环 */}
-                    <div className="relative rounded-[28px] border p-5 md:p-7" style={{ borderColor: "#E6E7EB", background: "#FAFBFF" }}>
-                      <div
-                        className="pointer-events-none absolute inset-0 rounded-[28px] overflow-hidden opacity-[0.22]"
-                        style={{
-                          backgroundImage: "radial-gradient(circle, rgba(34,88,244,0.13) 1px, transparent 1px)",
-                          backgroundSize: "16px 16px",
-                        }}
-                      />
-                      <div className="relative">
-                        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-6">
-                          <div>
-                            <div className="text-[12px] font-medium" style={{ color: ICON_BLUE }}>第二层</div>
-                            <div className="mt-1 text-[16px] font-semibold text-[#1A1C24]">执行闭环</div>
-                          </div>
-                          <div className="text-[12px] leading-[1.5] max-w-[420px]" style={{ color: "#696D7A" }}>
-                            工具调用后不直接输出，先观察，再决定输出、重试或熔断。
-                          </div>
-                        </div>
-
-                        {/* Desktop: fixed grid chain + quality-gate branches */}
-                        <div className="relative hidden lg:block">
-                          <div className="grid grid-cols-4 items-stretch gap-6">
-                            {[
-                              { icon: Compass, title: "任务判断", kw: ["识别主体", "拆解意图", "生成检索词"], delay: 0.3 },
-                              { icon: Database, title: "工具执行", kw: ["检索", "读取", "抽取"], delay: 0.38 },
-                              { icon: ListChecks, title: "结果观察", kw: ["检查数量", "字段 / 来源", "时间范围"], delay: 0.48 },
-                              { icon: ShieldCheck, title: "质量门禁", kw: ["达标输出", "重试调整", "异常熔断"], delay: 0.58 },
-                            ].map((node, i) => {
-                              const Icon = node.icon;
-                              return (
-                                <div key={node.title} className="relative">
-                                  <motion.div
-                                    initial={{ opacity: 0, y: 12 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true, margin: "-80px" }}
-                                    transition={{ duration: 0.42, delay: node.delay }}
-                                    className="relative h-full min-h-[126px] rounded-2xl border p-4"
-                                    style={{
-                                      borderColor: "#E6E7EB",
-                                      background: "#FFFFFF",
-                                    }}
-                                  >
-                                    <div className="mb-3 flex items-start gap-2">
-                                      <span className="text-[14px] font-semibold whitespace-nowrap" style={{ color: "#1A1C24" }}>
-                                        {node.title}
-                                      </span>
-                                      <Icon className="mt-0.5 size-4 shrink-0" style={{ color: ICON_GRAY }} />
-                                    </div>
-                                    <div className="flex flex-col gap-1">
-                                      {node.kw.map((k) => (
-                                        <span key={k} className="text-[12px] leading-[1.45]" style={{ color: "#4E525E" }}>
-                                          {k}
-                                        </span>
-                                      ))}
-                                    </div>
-                                  </motion.div>
-                                  {i < 3 && (
-                                    <div className="pointer-events-none absolute left-full top-[62px] z-10 flex w-6 items-center">
-                                      <span className="h-px flex-1" style={{ background: ICON_BORDER }} />
-                                      <span className="h-0 w-0 border-y-[4px] border-y-transparent" style={{ borderLeft: `6px solid ${ICON_BORDER}` }} />
-                                    </div>
-                                  )}
-                                </div>
-                              );
-                            })}
-                          </div>
-
-                        </div>
-
-                        {/* Mobile fallback */}
-                        <div className="grid gap-3 lg:hidden">
-                          {[
-                            { icon: Compass, title: "任务判断", kw: ["识别主体", "拆解意图", "生成检索词"] },
-                            { icon: Database, title: "工具执行", kw: ["检索", "读取", "抽取"] },
-                            { icon: ListChecks, title: "结果观察", kw: ["检查数量", "字段", "来源", "时间"] },
-                            { icon: ShieldCheck, title: "质量门禁", kw: ["达标输出", "重试调整", "异常熔断"] },
-                          ].map((node, index) => {
-                            const Icon = node.icon;
-                            return (
-                              <div
-                                key={node.title}
-                                className="relative rounded-2xl border p-4"
-                                style={{
-                                  borderColor: "#E6E7EB",
-                                  background: "#FFFFFF",
-                                }}
-                              >
-                                {index < 3 && (
-                                  <div className="absolute -bottom-3 left-7 h-3 w-px" style={{ background: ICON_BORDER }} />
-                                )}
-                                <div>
-                                  <div className="flex items-start gap-3">
-                                    <div className="text-[14px] font-semibold" style={{ color: "#1A1C24" }}>
-                                      {node.title}
-                                    </div>
-                                    <Icon className="mt-0.5 size-4 shrink-0" style={{ color: ICON_GRAY }} />
-                                  </div>
-                                  <div>
-                                    <div className="mt-1 flex flex-wrap gap-1.5">
-                                      {node.kw.map((k) => (
-                                        <span key={k} className="text-[11px] leading-[1.4]" style={{ color: "#4E525E" }}>
-                                          {k}
-                                        </span>
-                                      ))}
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            );
-                          })}
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="relative rounded-[28px] border bg-[#FAFBFF]/90 p-4 md:p-5" style={{ borderColor: "#E6E7EB" }}>
-                      <div className="mb-4 flex items-center justify-between gap-3">
-                        <div>
-                          <div className="text-[12px] font-medium" style={{ color: ICON_BLUE }}>
-                            第三层
-                          </div>
-                          <div className="mt-1 text-[16px] font-semibold text-[#1A1C24]">输出与自检</div>
-                        </div>
-                        <div className="hidden items-center gap-2 text-[11px] font-medium md:flex" style={{ color: ICON_BLUE }}>
-                          <span className="inline-block h-px w-8" style={{ background: ICON_BORDER }} />
-                          达标输出
-                        </div>
-                      </div>
-                      <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
-                        {[
-                          { title: "正反样例", desc: "正确结构 / 错误示范", icon: FileText, delay: 0.64 },
-                          { title: "输出格式", desc: "标题层级、字段顺序、来源绑定", icon: PenLine, delay: 0.7 },
-                          { title: "交付前自检", desc: "事实核查、红线核查、格式核查、时间核查", icon: ListChecks, delay: 0.76 },
-                          { title: "最终章节内容", desc: "结构稳定、来源可信、格式一致", icon: CheckCircle2, pass: true, delay: 0.82 },
-                        ].map((item) => {
-                          const Icon = item.icon;
-                          return (
-                            <motion.div
-                              key={item.title}
-                              initial={{ opacity: 0, y: 12 }}
-                              whileInView={{ opacity: 1, y: 0 }}
-                              viewport={{ once: true, margin: "-80px" }}
-                              transition={{ duration: 0.45, delay: item.delay }}
-                              className="relative rounded-2xl border bg-white p-4"
-                              style={{
-                                borderColor: item.pass ? ICON_BORDER : "#E6E7EB",
-                              }}
-                            >
-                              <div className="mb-1 flex items-start gap-2">
-                                <div className="flex-1 text-[18px] font-semibold text-[#1A1C24]">{item.title}</div>
-                                <Icon className="mt-1 size-4 shrink-0" style={{ color: ICON_GRAY }} />
-                              </div>
-                              <div className="mt-1 text-[14px] leading-[1.55]" style={{ color: "#4E525E" }}>
-                                {item.desc}
-                              </div>
-                            </motion.div>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <aside className="order-2 rounded-2xl border bg-white/92 p-5" style={{ borderColor: "#E6E7EB" }}>
-                  <div className="mb-5">
-                    <div>
-                      <div className="text-[18px] font-semibold text-[#1A1C24]">方法沉淀</div>
-                      <div className="mt-1 text-[14px]" style={{ color: "#696D7A" }}>
-                        从章节生成场景抽象出可复用规则
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="rounded-2xl border bg-[#FAFBFF] p-3" style={{ borderColor: "#E6E7EB" }}>
-                    <div className="mb-2 text-[14px] font-semibold text-[#1A1C24]">模块映射</div>
-                    <div className="space-y-1.5">
-                      {[
-                        ["任务定义", "目标定义 / 身份与角色 / 成功标准"],
-                        ["执行编排", "输入定义 / 处理规则 / 工具编排"],
-                        ["质量门禁", "约束边界 / 输出规范 / 异常处理"],
-                        ["容错兜底", "兜底机制 / 自检清单"],
-                      ].map(([label, mods]) => (
-                        <div key={label} className="grid grid-cols-[58px_minmax(0,1fr)] items-center gap-2 rounded-xl bg-white px-3 py-2">
-                          <span className="text-[13px] font-medium leading-tight" style={{ color: ICON_BLUE }}>
-                            {label}
-                          </span>
-                          <span className="whitespace-nowrap text-[13px] leading-none" style={{ color: "#696D7A" }}>
-                            {mods}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="mt-4 rounded-2xl p-4" style={{ background: "#EEF2FF" }}>
-                    <div className="mb-3 text-[14px] font-semibold" style={{ color: ICON_BLUE }}>
-                      执行闭环
-                    </div>
-                    <div className="mb-3 rounded-xl bg-white/70 px-3 py-2 text-[13px] leading-[1.65]" style={{ color: ICON_BLUE }}>
-                      ReAct 负责单章节执行：观察工具结果，判断是否继续检索、合流、核验，再决定输出、重试或兜底。
-                    </div>
-                    <div className="space-y-2">
-                      {[
-                        "工具结果先合流",
-                        "通过门禁后输出",
-                        "异常进入重试或兜底",
-                      ].map((rule) => (
-                        <div key={rule} className="flex items-center gap-2 text-[13px] leading-[1.5]" style={{ color: ICON_BLUE }}>
-                          <span className="size-1.5 rounded-full" style={{ background: BLUE }} />
-                          <span>{rule}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </aside>
-
-                {/* 设计决策卡片行 */}
-                <Reveal className="order-1 grid gap-4 lg:grid-cols-2" delay={0.06} y={16}>
-                  {[
-                    { n: "01", visual: "flow", title: "节点编排代替自由生成", desc: "将提示词写作转变为 观察与解析 → 并发检索 → 合流汇总 → 整理处理 → 核验复查 → 排版输出 的阶段化执行链路。" },
-                    { n: "02", visual: "merge", title: "并行取数后强制合流", desc: "多个检索工具并发调用后，必须先合并为统一候选池，禁止按工具维度分别输出原始结果。" },
-                    { n: "03", visual: "gate", title: "阶段门禁与状态驱动", desc: "每阶段形成显式状态，未完成当前阶段不得进入下一阶段；建立「当前输入 > 阶段状态 > 历史记忆 > 默认规则」的优先级体系。" },
-                    { n: "04", visual: "module", title: "提示词拆解为标准化模块", desc: "将依赖个人经验的提示词，拆解为目标定义、输入定义、处理规则、约束边界、输出规范、异常处理、兜底机制七个可复用模块。" },
-                  ].map((item) => (
-                    <div
-                      key={item.n}
-                      className="flex h-full flex-col overflow-hidden rounded-2xl border p-2.5"
-                      style={{ borderColor: "#E6E7EB" }}
-                    >
-                      <div className="relative flex h-40 items-center justify-center overflow-hidden rounded-xl bg-[#FAFBFF]">
-                        <div
-                          className="absolute inset-0 opacity-55"
-                          style={{
-                            backgroundImage:
-                              "radial-gradient(circle, rgba(34,88,244,0.13) 1px, transparent 1px)",
-                            backgroundSize: "14px 14px",
-                          }}
-                        />
-                        {item.visual === "flow" ? (
-                          <div className="relative grid w-[88%] grid-cols-[30%_12%_58%] items-center">
-                            <div className="relative h-28">
-                              {[
-                                { text: "写章节内容", x: 2, y: 0, w: "76%" },
-                                { text: "补工具结果", x: 18, y: 40, w: "66%" },
-                                { text: "整理输出", x: 0, y: 82, w: "72%" },
-                              ].map((chip) => (
-                                <div
-                                  key={chip.text}
-                                  className="absolute rounded-xl border bg-white px-3 py-2 text-[10px] font-medium"
-                                  style={{
-                                    left: chip.x,
-                                    top: chip.y,
-                                    width: chip.w,
-                                    borderColor: "#E6E7EB",
-                                    color: "#4E525E",
-                                  }}
-                                >
-                                  {chip.text}
-                                </div>
-                              ))}
-                            </div>
-
-                            <svg className="h-24 w-full overflow-visible" viewBox="0 0 80 96" fill="none" aria-hidden="true">
-                              <path d="M4 26 C26 26 28 48 54 48" stroke={BLUE} strokeWidth="1.5" strokeLinecap="round" strokeDasharray="4 4" opacity="0.5" />
-                              <path d="M4 48 H56" stroke={BLUE} strokeWidth="1.5" strokeLinecap="round" opacity="0.66" />
-                              <path d="M4 70 C26 70 28 48 54 48" stroke={BLUE} strokeWidth="1.5" strokeLinecap="round" strokeDasharray="4 4" opacity="0.5" />
-                              <path d="M54 44L62 48L54 52" fill={BLUE} opacity="0.78" />
-                            </svg>
-
-                            <div className="grid grid-cols-3 items-center gap-x-3 gap-y-3">
-                              {["观察", "检索", "合流", "整理", "核验", "输出"].map((node, nodeIndex) => (
-                                <div key={node} className="relative">
-                                  <div
-                                    className="rounded-xl border bg-white px-2 py-2 text-center text-[11px] font-semibold"
-                                    style={{
-                                      borderColor: nodeIndex === 2 ? ICON_BORDER : "#E6E7EB",
-                                      background: nodeIndex === 2 ? "#EEF2FF" : "#FFFFFF",
-                                      color: nodeIndex === 2 ? ICON_BLUE : "#4E525E",
-                                    }}
-                                  >
-                                    {node}
-                                  </div>
-                                  {nodeIndex < 5 && nodeIndex !== 2 && (
-                                    <span
-                                      className="pointer-events-none absolute left-[calc(100%+2px)] top-1/2 hidden h-px w-2 -translate-y-1/2 lg:block"
-                                      style={{ background: ICON_BORDER }}
-                                    />
-                                  )}
-                                </div>
-                              ))}
-                            </div>
-                          </div>
-                        ) : item.visual === "merge" ? (
-                          <div className="relative grid w-[86%] grid-cols-[28%_20%_52%] items-center">
-                            <div className="space-y-2">
-                              {["MCP", "deep_search", "file_tool"].map((tool) => (
-                                <div
-                                  key={tool}
-                                  className="rounded-full border bg-white px-3 py-2 text-center text-[11px] font-medium shadow-[0_8px_16px_rgba(15,20,25,0.04)]"
-                                  style={{ borderColor: "#E6E7EB", color: "#4E525E" }}
-                                >
-                                  {tool}
-                                </div>
-                              ))}
-                            </div>
-
-                            <svg className="h-28 w-full overflow-visible" viewBox="0 0 80 112" fill="none" aria-hidden="true">
-                              <path d="M2 22 C24 22 30 56 62 56" stroke={BLUE} strokeWidth="1.5" strokeLinecap="round" opacity="0.44" />
-                              <path d="M2 56 H62" stroke={BLUE} strokeWidth="1.5" strokeLinecap="round" opacity="0.68" />
-                              <path d="M2 90 C24 90 30 56 62 56" stroke={BLUE} strokeWidth="1.5" strokeLinecap="round" opacity="0.44" />
-                              <path d="M62 51L72 56L62 61" fill={BLUE} opacity="0.78" />
-                            </svg>
-
-                            <div className="translate-y-2 rounded-2xl border bg-white p-4 shadow-[0_14px_26px_rgba(15,20,25,0.06)]" style={{ borderColor: ICON_BORDER }}>
-                              <div className="mb-3 text-[13px] font-semibold" style={{ color: ICON_BLUE }}>
-                                统一候选池
-                              </div>
-                              <div className="space-y-1.5">
-                                <div className="grid grid-cols-[38px_1fr] items-center gap-2 rounded-lg px-2.5 py-1.5" style={{ background: "#EEF2FF" }}>
-                                  <span className="text-[9px] font-semibold" style={{ color: ICON_BLUE }}>URL</span>
-                                  <div className="h-1.5 w-full rounded-full bg-white/90" />
-                                </div>
-                                <div className="grid grid-cols-[38px_1fr] items-center gap-2 rounded-lg px-2.5 py-1.5" style={{ background: "#EEF2FF" }}>
-                                  <span className="text-[9px] font-semibold" style={{ color: ICON_BLUE }}>时间</span>
-                                  <div className="h-1.5 w-[78%] rounded-full bg-white" />
-                                </div>
-                              </div>
-                              <div className="mt-3 rounded-full px-3 py-1.5 text-center text-[10px] font-medium" style={{ background: "#FFF6DB", color: "#B45309" }}>
-                                禁止按工具分别输出
-                              </div>
-                            </div>
-                          </div>
-                        ) : item.visual === "gate" ? (
-                          <div className="relative grid w-[88%] grid-cols-[1fr_82px] items-center gap-5">
-                            <div className="relative h-28">
-                              <svg className="absolute inset-0 h-full w-full" viewBox="0 0 292 112" fill="none" aria-hidden="true">
-                                <path d="M28 56H260" stroke={BLUE} strokeWidth="1.5" strokeLinecap="round" opacity="0.42" />
-                              </svg>
-                              {[
-                                { label: "当前输入", x: 0, y: 18, active: true },
-                                { label: "阶段状态", x: 72, y: 42, active: true },
-                                { label: "历史记忆", x: 144, y: 18, active: false },
-                                { label: "默认规则", x: 216, y: 42, active: false },
-                              ].map((step, stepIndex) => (
-                                <div
-                                  key={step.label}
-                                  className="absolute flex w-[82px] flex-col items-center"
-                                  style={{ left: step.x, top: step.y }}
-                                >
-                                  <div
-                                    className="mb-1 flex size-7 items-center justify-center rounded-full border text-[11px] font-bold"
-                                    style={{
-                                      borderColor: step.active ? ICON_BORDER : "#E6E7EB",
-                                      background: step.active ? BLUE : "#FFFFFF",
-                                      color: step.active ? "#FFFFFF" : "#B3B6BF",
-                                    }}
-                                  >
-                                    {stepIndex + 1}
-                                  </div>
-                                  <div
-                                    className="rounded-full px-2 py-1 text-[10px] font-medium"
-                                    style={{
-                                      background: step.active ? "#EEF2FF" : "#E6E7EB",
-                                      color: step.active ? ICON_BLUE : "#696D7A",
-                                    }}
-                                  >
-                                    {step.label}
-                                  </div>
-                                </div>
-                              ))}
-                            </div>
-
-                            <div className="rounded-2xl border p-3" style={{ borderColor: ICON_BORDER, background: "#EEF2FF" }}>
-                              <div className="mb-2 flex items-center gap-1.5 text-[12px] font-semibold" style={{ color: ICON_BLUE }}>
-                                <ShieldCheck className="size-4" style={{ color: ICON_GRAY }} />
-                                <span>Gate</span>
-                              </div>
-                              <div className="space-y-1.5">
-                                <div className="rounded-lg bg-white px-2 py-1.5 text-[10px] font-medium" style={{ color: ICON_BLUE }}>
-                                  已完成
-                                </div>
-                                <div className="rounded-lg px-2 py-1.5 text-[10px] font-medium" style={{ background: "#FFF6DB", color: "#B45309" }}>
-                                  不放行
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        ) : item.visual === "module" ? (
-                          <div className="relative grid w-[88%] grid-cols-[34%_66%] items-center gap-4">
-                            <div className="relative rounded-2xl border bg-white p-3 shadow-[0_12px_24px_rgba(15,20,25,0.05)]" style={{ borderColor: "#E6E7EB" }}>
-                              <div className="mb-2 flex items-center gap-1.5 text-[11px] font-semibold" style={{ color: "#1A1C24" }}>
-                                <FileText className="size-3.5" style={{ color: ICON_GRAY }} />
-                                Prompt 文档
-                              </div>
-                              <div className="space-y-2">
-                                <div className="h-1.5 w-[86%] rounded-full" style={{ background: "#E6E7EB" }} />
-                                <div className="h-1.5 w-[64%] rounded-full" style={{ background: "#E6E7EB" }} />
-                                <div className="rounded-lg p-2" style={{ background: "#EEF2FF" }}>
-                                  <div className="mb-1.5 h-1.5 w-[78%] rounded-full bg-white" />
-                                  <div className="h-1.5 w-[52%] rounded-full bg-white" />
-                                </div>
-                                <div className="h-1.5 w-[72%] rounded-full" style={{ background: "#E6E7EB" }} />
-                              </div>
-                              <div className="absolute -right-2 top-1/2 h-px w-6" style={{ background: ICON_BORDER }} />
-                              <div className="absolute -right-3 top-[calc(50%-3px)] h-0 w-0 border-y-[3px] border-y-transparent" style={{ borderLeft: `5px solid ${ICON_BORDER}` }} />
-                            </div>
-
-                            <div className="relative">
-                              <div className="grid grid-cols-4 gap-1.5">
-                                {["目标", "输入", "规则", "约束", "输出", "异常", "兜底"].map((module, moduleIndex) => (
-                                  <div
-                                    key={module}
-                                    className="rounded-full border px-2 py-1.5 text-center text-[10px] font-semibold"
-                                    style={{
-                                      borderColor: moduleIndex < 5 ? ICON_BORDER : moduleIndex === 5 ? "#E6E7EB" : "#FFE3E3",
-                                      background: moduleIndex < 5 ? "#EEF2FF" : moduleIndex === 5 ? "#FFF6DB" : "#FFE3E3",
-                                      color: moduleIndex < 5 ? ICON_BLUE : moduleIndex === 5 ? "#B45309" : "#B81D1D",
-                                    }}
-                                  >
-                                    {module}
-                                  </div>
-                                ))}
-                              </div>
-
-                              <div className="mt-4 grid grid-cols-2 gap-1.5">
-                                {[
-                                  "任务定义",
-                                  "执行编排",
-                                  "质量门禁",
-                                  "容错兜底",
-                                ].map((group, groupIndex) => (
-                                  <div
-                                    key={group}
-                                    className="rounded-xl border bg-white px-2.5 py-2 text-center"
-                                    style={{ borderColor: groupIndex === 0 ? ICON_BORDER : "#E6E7EB" }}
-                                  >
-                                    <div className="text-[10px] font-semibold" style={{ color: groupIndex === 0 ? ICON_BLUE : "#4E525E" }}>
-                                      {group}
-                                    </div>
-                                  </div>
-                                ))}
-                              </div>
-                            </div>
-                          </div>
-                        ) : (
-                          <div className="relative flex items-center gap-2 rounded-full bg-white px-4 py-2 text-[12px] font-semibold" style={{ color: ICON_BLUE }}>
-                            <span className="flex size-6 items-center justify-center rounded-full text-[11px] text-white" style={{ background: BLUE }}>
-                              {item.n}
-                            </span>
-                            {item.visual}
-                          </div>
-                        )}
-                      </div>
-                      <div className="flex flex-1 flex-col px-2 pb-2 pt-4">
-                        <div className="text-[18px] font-semibold text-[#1A1C24]">{item.title}</div>
-                        <div className="mt-2 text-[14px] leading-[1.65]" style={{ color: "#4E525E" }}>
-                          {item.desc}
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </Reveal>
-              </div>
+          <Reveal className="mb-8 flex justify-center px-4 text-center" delay={0.16} y={18}>
+            <div
+              data-output-quality-title-note="true"
+              className="relative flex h-[132px] w-[200px] rotate-[-0.7deg] items-center justify-center rounded-[6px] border px-4 py-5 text-[14px] font-semibold leading-[1.6] text-[#35404F] shadow-[0_2px_3px_rgba(28,36,52,0.16),0_7px_14px_rgba(28,36,52,0.055)] sm:h-[118px] sm:w-[280px] sm:px-5 sm:text-[16px] md:h-[136px] md:w-[330px] md:px-6 md:py-6 md:text-[20px]"
+              style={{
+                background: "repeating-linear-gradient(to bottom, #EEF2FF 0, #EEF2FF 31px, #D8E1FF 32px, #D8E1FF 33px)",
+                borderColor: "#C8D4FF",
+              }}
+            >
+              <span
+                aria-hidden="true"
+                className="absolute left-1/2 top-0 size-4 -translate-x-1/2 -translate-y-1/2 rounded-full"
+                style={{ backgroundColor: INK_DIM, boxShadow: "0 2px 4px rgba(78,82,94,0.22)" }}
+              />
+              <h3 id="output-quality-tracking-title">模型生成输出质量监测追踪方案</h3>
             </div>
           </Reveal>
 
           <Reveal
-            className="relative mt-6 overflow-hidden rounded-[28px] border bg-white p-4 md:p-5"
+            className="relative z-20 mb-10 px-2 pt-10 md:px-0"
+            delay={0.18}
+            y={22}
+          >
+            <div
+              data-quality-monitoring-method-pair="true"
+              className="relative mx-auto grid w-full max-w-[1400px] gap-12 md:grid-cols-[minmax(0,640px)_minmax(0,640px)] md:justify-between md:gap-14"
+            >
+              <svg
+                data-quality-monitoring-method-plus="true"
+                aria-hidden="true"
+                viewBox="0 0 36 36"
+                className="pointer-events-none absolute left-1/2 top-1/2 z-20 size-8 -translate-x-1/2 -translate-y-1/2 overflow-visible sm:size-9"
+                fill="none"
+              >
+                <path d="M6.5 18.6C13.4 17.9 22.4 18.2 29.7 17.4" stroke="#4E525E" strokeWidth="2.5" strokeLinecap="round" />
+                <path d="M18.8 5.8C18.2 13.2 18.7 22.7 17.9 30.1" stroke="#4E525E" strokeWidth="2.5" strokeLinecap="round" />
+                <path d="M7.3 19.5C14.6 18.8 23.2 19.1 29.1 18.5" stroke="#4E525E" strokeWidth="0.9" strokeLinecap="round" opacity="0.34" />
+              </svg>
+
+              <article
+                data-quality-monitoring-note="prompt"
+                aria-label="提示词埋点"
+                className="quality-monitoring-note quality-monitoring-note--prompt skills-sticky-note relative z-10 flex min-h-[340px] flex-col p-6 pt-12 md:min-h-[360px] md:px-8 md:pb-8 md:pt-14"
+              >
+                <div className="absolute left-1/2 top-0 z-20 -translate-x-1/2 -translate-y-1/2">
+                  <div
+                    data-quality-monitoring-method="prompt"
+                    className="quality-monitoring-method-tag quality-monitoring-method-tag--prompt flex min-h-[50px] w-[140px] items-center justify-center px-4 text-center text-[18px] font-semibold leading-none text-[#2258F4] sm:min-h-[56px] sm:w-[184px] sm:px-5"
+                  >
+                    <span className="relative z-10 whitespace-nowrap">提示词埋点</span>
+                  </div>
+                </div>
+
+                <div className="relative z-10 flex h-full flex-col justify-between">
+                  <div className="divide-y divide-[#DED9CE]">
+                    {/* 事前监控 */}
+                    <div className="grid grid-cols-[100px_minmax(0,1fr)] items-start gap-3 pb-4 md:grid-cols-[110px_minmax(0,1fr)] md:gap-4 md:pb-5">
+                      <div>
+                        <span
+                          className="inline-flex rounded-lg px-2.5 py-1 text-[16px] font-semibold tracking-tight"
+                          style={{ background: "#EEF2FF", color: ICON_BLUE }}
+                        >
+                          事前监控
+                        </span>
+                      </div>
+                      <div>
+                        <h4 className="text-[18px] font-semibold leading-[1.55] tracking-[-0.02em]" style={{ color: INK }}>
+                          Prompt §10 · 第一部分｜<QualityMarker tone="blue">输出要包含识别的硬约束</QualityMarker>
+                        </h4>
+                        <p data-quality-monitoring-purpose="pre" className="mt-1.5 flex flex-wrap items-baseline gap-x-2.5 gap-y-1 text-[16px] leading-[1.5]">
+                          <span className="shrink-0 font-medium text-[#8D94A3]">追踪目的</span>
+                          <span className="font-semibold text-[#4E525E]">监测任务理解是否偏离</span>
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* 事中监控 */}
+                    <div className="grid grid-cols-[100px_minmax(0,1fr)] items-start gap-3 py-4 md:grid-cols-[110px_minmax(0,1fr)] md:gap-4 md:py-5">
+                      <div>
+                        <span
+                          className="inline-flex rounded-lg px-2.5 py-1 text-[16px] font-semibold tracking-tight"
+                          style={{ background: "#FFF6DB", color: "#A85A16" }}
+                        >
+                          事中监控
+                        </span>
+                      </div>
+                      <div>
+                        <h4 className="text-[18px] font-semibold leading-[1.55] tracking-[-0.02em]" style={{ color: INK }}>
+                          Prompt §6–7｜<QualityMarker tone="orange">显式阶段流转与状态记录</QualityMarker>
+                        </h4>
+                        <p data-quality-monitoring-purpose="during" className="mt-1.5 flex flex-wrap items-baseline gap-x-2.5 gap-y-1 text-[16px] leading-[1.5]">
+                          <span className="shrink-0 font-medium text-[#8D94A3]">追踪目的</span>
+                          <span className="font-semibold text-[#4E525E]">监测执行时序与合流状态</span>
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* 事后监控 */}
+                    <div className="grid grid-cols-[100px_minmax(0,1fr)] items-start gap-3 pt-4 md:grid-cols-[110px_minmax(0,1fr)] md:gap-4 md:pt-5">
+                      <div>
+                        <span
+                          className="inline-flex rounded-lg px-2.5 py-1 text-[16px] font-semibold tracking-tight"
+                          style={{ background: "#E8F5E9", color: "#2F7A44" }}
+                        >
+                          事后监控
+                        </span>
+                      </div>
+                      <div>
+                        <h4 className="text-[18px] font-semibold leading-[1.55] tracking-[-0.02em]" style={{ color: INK }}>
+                          Prompt §10 · 第三部分｜<QualityMarker tone="green">输出数据缺失与假设说明</QualityMarker>
+                        </h4>
+                        <p data-quality-monitoring-purpose="post" className="mt-1.5 flex flex-wrap items-baseline gap-x-2.5 gap-y-1 text-[16px] leading-[1.5]">
+                          <span className="shrink-0 font-medium text-[#8D94A3]">追踪目的</span>
+                          <span className="font-semibold text-[#4E525E]">监测事实完整度与防幻觉</span>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </article>
+
+              <article
+                data-quality-monitoring-note="human"
+                aria-label="输出结果人工核验"
+                className="quality-monitoring-note quality-monitoring-note--human skills-sticky-note relative z-10 flex min-h-[340px] flex-col p-6 pt-12 md:min-h-[360px] md:px-8 md:pb-8 md:pt-14"
+              >
+                <div className="absolute left-1/2 top-0 z-20 -translate-x-1/2 -translate-y-1/2">
+                  <div
+                    data-quality-monitoring-method="human"
+                    className="quality-monitoring-method-tag quality-monitoring-method-tag--human flex min-h-[50px] w-[170px] items-center justify-center px-4 text-center text-[18px] font-semibold leading-none text-[#8A5A16] sm:min-h-[56px] sm:w-[184px] sm:px-5"
+                  >
+                    <span className="relative z-10 whitespace-nowrap">输出结果人工核验</span>
+                  </div>
+                </div>
+
+                <div className="relative z-10 flex h-full flex-col justify-between">
+                  <div className="divide-y divide-[#E3D6BA]">
+                    {[
+                      {
+                        phase: "constraint",
+                        tag: "硬约束核验",
+                        summary: "正文开头确认写作范围",
+                        value: "发现任务理解偏离即刻中断",
+                        color: ICON_BLUE,
+                        badgeBg: "#EEF2FF",
+                      },
+                      {
+                        phase: "execution",
+                        tag: "执行时序复核",
+                        summary: "生成异常步骤定位",
+                        value: "依据阶段状态锁定报错位置和原因",
+                        color: "#A85A16",
+                        badgeBg: "#FFF6DB",
+                      },
+                      {
+                        phase: "evidence",
+                        tag: "事实置信度核查",
+                        summary: "依照事实声明判断模型是否产生幻觉",
+                        value: "文末主动标注数据缺失与假设",
+                        color: "#2F7A44",
+                        badgeBg: "#E8F5E9",
+                      },
+                    ].map((item, index) => (
+                      <div
+                        key={item.phase}
+                        data-quality-human-verification-row={item.phase}
+                        className={`grid grid-cols-[110px_minmax(0,1fr)] items-start gap-3 md:grid-cols-[130px_minmax(0,1fr)] md:gap-4 ${
+                          index === 0 ? "pb-4 md:pb-5" : index === 1 ? "py-4 md:py-5" : "pt-4 md:pt-5"
+                        }`}
+                      >
+                        <div>
+                          <span
+                            className="inline-flex rounded-lg px-2.5 py-1 text-[16px] font-semibold tracking-tight"
+                            style={{ background: item.badgeBg, color: item.color }}
+                          >
+                            {item.tag}
+                          </span>
+                        </div>
+                        <div>
+                          <h4 className="text-[18px] font-semibold leading-[1.55] tracking-[-0.02em]" style={{ color: INK }}>
+                            {item.summary}
+                          </h4>
+                          <p className="mt-1.5 flex flex-wrap items-baseline gap-x-2.5 gap-y-1 text-[16px] leading-[1.5]">
+                            <span className="shrink-0 font-medium text-[#8D94A3]">核验价值</span>
+                            <span className="font-semibold text-[#4E525E]">{item.value}</span>
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </article>
+            </div>
+
+          </Reveal>
+
+          <Reveal
+            className="relative z-0 mt-8 px-2 md:mx-auto md:flex md:w-full md:max-w-[1400px] md:justify-center md:px-0"
             delay={0.18}
             y={24}
-            style={{
-              borderColor: "#E6E7EB",
-            }}
           >
-            <div className="relative">
-              <div className="mb-6 flex flex-col justify-between gap-4 lg:flex-row lg:items-start">
-                <div className="max-w-none">
-                  <div className="text-[24px] font-semibold leading-tight text-[#1A1C24]">
-                    人工复核驱动的流式校验闭环
-                  </div>
-                  <div className="mt-2 text-[16px] leading-[1.7]" style={{ color: "#4E525E" }}>
-                    人工从流式执行中发现异常，回查原始 Prompt 定位并修正问题，再重新执行与复核，直至输出正确。
-                  </div>
-                </div>
+            <div
+              data-stream-verification-composite="true"
+              className="relative flex w-full max-w-[880px] flex-col items-center md:flex-row md:items-center md:justify-center"
+            >
+              <div
+                data-stream-process-sticker="true"
+                className="relative z-20 w-full max-w-[500px] rotate-[-0.6deg] transition-transform duration-200 hover:rotate-0"
+                style={{ filter: "url(#s05-context-sticker-filter)" }}
+              >
+                <StreamProcessEvidence />
               </div>
 
-              <div className="grid items-start justify-items-start gap-6 xl:grid-cols-[479px_minmax(0,1fr)]">
-                <StreamProcessEvidence />
-                <OriginalPromptEvidence />
-              </div>
+              <aside
+                data-stream-verification-notes="true"
+                aria-label="生成过程核验点"
+                className="relative z-30 mt-6 flex w-full max-w-[500px] flex-col items-center gap-4 md:-ml-4 md:mt-0 md:w-[310px] md:max-w-none md:gap-5"
+                style={{ filter: "url(#s05-context-sticker-filter)" }}
+              >
+                {[
+                  {
+                    phase: "事前核验",
+                    title: "硬约束核验",
+                    detail: "正文开头确认写作范围，若任务理解偏离即刻中断",
+                    tagBg: "#EEF2FF",
+                    tagColor: ICON_BLUE,
+                    rotate: "rotate-[1.4deg]",
+                  },
+                  {
+                    phase: "事中核验",
+                    title: "跳步核验",
+                    detail: "依据阶段状态锁定报错位置，触发自动重试或人工干预",
+                    tagBg: "#FFF6DB",
+                    tagColor: "#B45309",
+                    rotate: "rotate-[-1.2deg]",
+                  },
+                  {
+                    phase: "事后核验",
+                    title: "事实置信度核验",
+                    detail: "文末主动标注数据缺失与假设说明，严禁幻觉扩写",
+                    tagBg: "#E8F5E9",
+                    tagColor: "#2F7A44",
+                    rotate: "rotate-[1deg]",
+                  },
+                ].map((card) => (
+                  <div
+                    key={card.title}
+                    data-stream-verification-note={card.title}
+                    className={`relative w-full rounded-2xl border bg-white p-4 sm:p-5 shadow-[0_6px_22px_rgba(56,67,92,0.08),0_1px_3px_rgba(56,67,92,0.04)] ${card.rotate} transition-transform duration-200 hover:rotate-0 hover:z-40`}
+                    style={{ borderColor: "#E6E7EB" }}
+                  >
+                    <div className="flex items-center justify-between gap-2">
+                      <h5 className="text-[18px] font-bold text-[#1A1C24]">{card.title}</h5>
+                      <span
+                        className="inline-flex shrink-0 rounded-md px-2 py-0.5 text-[14px] font-semibold tracking-tight"
+                        style={{ background: card.tagBg, color: card.tagColor }}
+                      >
+                        {card.phase}
+                      </span>
+                    </div>
+                    <p className="mt-2 text-[15px] sm:text-[16px] leading-[1.55] text-[#696D7A]">{card.detail}</p>
+                  </div>
+                ))}
+              </aside>
             </div>
           </Reveal>
 
-          <Reveal className="mt-6" delay={0.2} y={18}>
-            <a
-              href="./report-agent-page.html"
-              target="_blank"
-              rel="noreferrer"
-              className="group flex flex-col gap-3 rounded-[18px] border border-[#A8BEFF] bg-[#EEF2FF] px-5 py-4 text-left transition-all duration-300 hover:border-[#85A3FF] hover:bg-[#E5EBFF] hover:shadow-[0_12px_32px_rgba(34,88,244,0.12)] sm:flex-row sm:items-center sm:justify-between md:px-6"
-            >
-              <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:gap-5">
-                <span className="text-[18px] font-semibold leading-tight text-[#1A1C24]">
-                  最终成果
-                </span>
-                <span className="text-[13px] leading-[1.6] text-[#4E525E]">
-                  报告智能体 10+1 模块配置框架
-                </span>
-              </div>
-              <span
-                className="inline-flex size-9 shrink-0 items-center justify-center rounded-full bg-white text-[#1A42B8] transition-all duration-300 group-hover:translate-x-1.5 group-hover:bg-[#2258F4] group-hover:text-white"
-                aria-hidden="true"
-              >
-                <ArrowRight className="size-4" />
-              </span>
-            </a>
+          <Reveal delay={0.16} y={22}>
+            <PromptCompilerValueReflection />
           </Reveal>
-
-          <ReportProjectSummary />
         </div>
       </section>
 
-      {/* Footer CTA */}
-      <div className={`relative ${SECTION_PAD} py-16`}>
-        <Reveal className={`${READ} flex flex-wrap items-center justify-between gap-4`} delay={0.22} y={18}>
-          <button
-            onClick={onBack}
-            className="group inline-flex items-center gap-3 text-sm text-neutral-700 hover:text-neutral-900 transition-colors"
-          >
-            <span className="inline-flex size-4 items-center justify-center transition-colors" style={{ color: ICON_GRAY }}>
-              <ArrowLeft className="size-4" />
-            </span>
-            返回首页
-          </button>
-          {!hideContactDetails && (
-            <a
-              href="#contact"
-              onClick={(e) => {
-                e.preventDefault();
-                onBack();
-                setTimeout(
-                  () =>
-                    document
-                      .getElementById("contact")
-                      ?.scrollIntoView({ behavior: "smooth" }),
-                  60
-                );
-              }}
-              className="group inline-flex items-center gap-3 pl-6 pr-2 py-2 rounded-full bg-neutral-900 text-white hover:bg-[#2258F4] transition-colors"
-            >
-              <span className="text-sm">联系我</span>
-              <span className="inline-flex size-4 items-center justify-center text-white/80 group-hover:rotate-45 transition-transform">
-                <ArrowRight className="size-4" />
-              </span>
-            </a>
-          )}
-        </Reveal>
+      {/* Footer Case Navigation */}
+      <div className={`relative ${SECTION_PAD} pb-8`}>
+        <div className={READ}>
+          <ProjectCaseNav currentCase="ai-report" />
+        </div>
       </div>
 
       <Footer />

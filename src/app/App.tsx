@@ -4,12 +4,12 @@ import { PortfolioLoader } from "./components/PortfolioLoader";
 import { ProjectRouteLoader } from "./components/ProjectRouteLoader";
 import {
   loadAiProjectDetail,
+  loadExplorationsPage,
   loadHomeContent,
   loadNav,
   loadQixinProjectDetail,
   isProjectRouteReady,
   preloadProjectDetailAssets,
-  scheduleHomeProjectPreload,
   scheduleProjectRemainderPreload,
 } from "./projectPreload";
 
@@ -18,6 +18,9 @@ const ProjectDetail = lazy(() =>
 );
 const QixinProjectDetail = lazy(() =>
   loadQixinProjectDetail().then((module) => ({ default: module.QixinProjectDetail }))
+);
+const ExplorationsPage = lazy(() =>
+  loadExplorationsPage().then((module) => ({ default: module.ExplorationsPage }))
 );
 const HomeContent = lazy(() =>
   loadHomeContent().then((module) => ({ default: module.HomeContent }))
@@ -36,7 +39,11 @@ const ViewportScrollbars = lazy(() =>
 const PROJECT_ROUTE_LOADING_EVENT = "portfolio:project-route-loading";
 
 function isProjectDetailRoute(route: string) {
-  return route === "#/project/ai-report" || route === "#/project/qixin-brain";
+  return (
+    route === "#/project/ai-report" ||
+    route === "#/project/qixin-brain" ||
+    route === "#/project/explorations"
+  );
 }
 
 export default function App() {
@@ -131,40 +138,40 @@ export default function App() {
 
   const isAiDetail = route === "#/project/ai-report";
   const isQixinDetail = route === "#/project/qixin-brain";
+  const isExplorations = route === "#/project/explorations";
   const isAbout = route === "#about";
-
-  useEffect(() => {
-    if (!portfolioEntered) return;
-    if (isAiDetail || isQixinDetail) return;
-    return scheduleHomeProjectPreload();
-  }, [portfolioEntered, isAiDetail, isQixinDetail]);
 
   useEffect(() => {
     if (isAiDetail) {
       void preloadProjectDetailAssets("ai-report", "high");
     } else if (isQixinDetail) {
       void preloadProjectDetailAssets("qixin-brain", "high");
+    } else if (isExplorations) {
+      void preloadProjectDetailAssets("explorations", "high");
     }
-  }, [isAiDetail, isQixinDetail]);
+  }, [isAiDetail, isQixinDetail, isExplorations]);
 
   useEffect(() => {
-    if (!portfolioEntered) return;
     if (isAiDetail) {
       return scheduleProjectRemainderPreload("ai-report");
     } else if (isQixinDetail) {
       return scheduleProjectRemainderPreload("qixin-brain");
+    } else if (isExplorations) {
+      return scheduleProjectRemainderPreload("explorations");
     }
-  }, [portfolioEntered, isAiDetail, isQixinDetail]);
+  }, [isAiDetail, isQixinDetail, isExplorations]);
 
   useEffect(() => {
     if (!portfolioEntered) return;
 
-    const observedImages = new Set<HTMLImageElement>();
-    let scanTimer: number | undefined;
+    const main = document.querySelector("main");
+    if (!main) return;
+
+    const imageSurfaces = new Set<HTMLElement>();
 
     const updateSurface = (surface: HTMLElement) => {
       const hasPendingImage = Array.from(surface.querySelectorAll<HTMLImageElement>("img")).some(
-        (image) => image.dataset.imageReady !== "true"
+        (image) => image.dataset.imageSettled !== "true"
       );
       if (hasPendingImage) {
         surface.dataset.imagePending = "true";
@@ -173,71 +180,92 @@ export default function App() {
       }
     };
 
-    const markImage = (image: HTMLImageElement) => {
-      if (!observedImages.has(image)) {
-        observedImages.add(image);
-        image.addEventListener("load", onImageSettled);
-        image.addEventListener("error", onImageSettled);
-      }
-
-      const isReady = image.complete && image.naturalWidth > 0;
+    const markImage = (image: HTMLImageElement, didError = false) => {
+      const isSettled = didError || image.complete;
+      const isReady = !didError && image.complete && image.naturalWidth > 0;
+      image.dataset.imageSettled = isSettled ? "true" : "false";
       image.dataset.imageReady = isReady ? "true" : "false";
 
       const surface = image.parentElement;
       if (surface) {
-        updateSurface(surface);
+        imageSurfaces.add(surface);
       }
-      return isReady;
     };
 
-    const scheduleScan = () => {
-      if (scanTimer) return;
-      scanTimer = window.setTimeout(() => {
-        scanTimer = undefined;
-        scanImages();
-      }, 220);
-    };
-
-    const scanImages = () => {
-      let hasPendingImage = false;
-      document.querySelectorAll<HTMLImageElement>("main img").forEach((image) => {
-        if (!markImage(image)) {
-          hasPendingImage = true;
+    const refreshSurfaceChain = (start: HTMLElement | null) => {
+      let surface = start;
+      while (surface && surface !== main) {
+        if (imageSurfaces.has(surface)) {
+          updateSurface(surface);
         }
-      });
-      if (hasPendingImage) {
-        scheduleScan();
+        surface = surface.parentElement;
       }
+    };
+
+    const imagesInNode = (node: Node) => {
+      if (node instanceof HTMLImageElement) {
+        return [node];
+      }
+      if (node instanceof Element || node instanceof DocumentFragment) {
+        return Array.from(node.querySelectorAll<HTMLImageElement>("img"));
+      }
+      return [];
     };
 
     const onImageSettled = (event: Event) => {
-      if (event.target instanceof HTMLImageElement) {
-        if (!markImage(event.target)) {
-          scheduleScan();
-        }
-      }
+      if (!(event.target instanceof HTMLImageElement)) return;
+      markImage(event.target, event.type === "error");
+      refreshSurfaceChain(event.target.parentElement);
     };
 
-    const main = document.querySelector("main");
-    const observer = new MutationObserver(scanImages);
-    window.addEventListener("load", onImageSettled, true);
-    window.addEventListener("error", onImageSettled, true);
-    scanImages();
-    if (main) {
-      observer.observe(main, { childList: true, subtree: true });
-    }
+    const initialImages = Array.from(main.querySelectorAll<HTMLImageElement>("img"));
+    initialImages.forEach((image) => {
+      image.addEventListener("load", onImageSettled);
+      image.addEventListener("error", onImageSettled);
+      markImage(image);
+    });
+    imageSurfaces.forEach(updateSurface);
+
+    const observer = new MutationObserver((records) => {
+      const addedImages = new Set<HTMLImageElement>();
+      const affectedElements = new Set<HTMLElement>();
+
+      records.forEach((record) => {
+        if (record.target instanceof HTMLElement) {
+          affectedElements.add(record.target);
+        }
+
+        record.addedNodes.forEach((node) => {
+          imagesInNode(node).forEach((image) => {
+            addedImages.add(image);
+            const surface = image.parentElement;
+            if (surface) {
+              imageSurfaces.add(surface);
+              affectedElements.add(surface);
+            }
+          });
+        });
+      });
+
+      addedImages.forEach((image) => {
+        image.removeEventListener("load", onImageSettled);
+        image.removeEventListener("error", onImageSettled);
+        image.addEventListener("load", onImageSettled, { once: true });
+        image.addEventListener("error", onImageSettled, { once: true });
+        markImage(image);
+      });
+
+      affectedElements.forEach((element) => refreshSurfaceChain(element));
+    });
+
+    observer.observe(main, { childList: true, subtree: true });
 
     return () => {
-      window.removeEventListener("load", onImageSettled, true);
-      window.removeEventListener("error", onImageSettled, true);
-      if (scanTimer) {
-        window.clearTimeout(scanTimer);
-      }
-      observedImages.forEach((image) => {
+      observer.disconnect();
+      initialImages.forEach((image) => {
         image.removeEventListener("load", onImageSettled);
         image.removeEventListener("error", onImageSettled);
       });
-      observer.disconnect();
     };
   }, [portfolioEntered, route]);
 
@@ -251,6 +279,10 @@ export default function App() {
   ) : isQixinDetail ? (
     <Suspense fallback={detailFallback}>
       <QixinProjectDetail onBack={goHome} />
+    </Suspense>
+  ) : isExplorations ? (
+    <Suspense fallback={detailFallback}>
+      <ExplorationsPage onBack={goHome} />
     </Suspense>
   ) : (
     <Suspense fallback={null}>

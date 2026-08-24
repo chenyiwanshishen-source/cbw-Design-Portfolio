@@ -101,7 +101,7 @@ const STRATEGY_TEXT = {
   strategy: "我把分散的产品能力，按用户任务重新组织",
   work: {
     title: "我的工作",
-    role: "产品策略与体验设计",
+    role: "UI设计与体验设计",
     responsibilities: "定义场景、重组功能、建立规范",
   },
   outcomes: [
@@ -318,7 +318,7 @@ function MobileStrategyDiagram() {
 
         <svg
           viewBox="0 0 320 190"
-          aria-label="我的工作，产品策略与体验设计"
+          aria-label="我的工作，UI设计与体验设计"
           className="absolute left-0 top-[220px] h-auto w-[310px] -rotate-[1deg] overflow-visible drop-shadow-[0_8px_12px_rgba(28,36,52,0.08)]"
         >
           <path
