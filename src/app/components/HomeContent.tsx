@@ -1,37 +1,46 @@
 import { useEffect } from "react";
 import { Hero } from "./Hero";
+import { AboutIntro } from "./AboutIntro";
 import { Skills } from "./Skills";
 import { Experience } from "./Experience";
 import { Contact } from "./Contact";
 import { hideContactDetails } from "../buildVariant";
 
 interface HomeContentProps {
-  view: "home" | "about";
+  view?: "home" | "about";
 }
 
 export function HomeContent({ view }: HomeContentProps) {
   useEffect(() => {
     const mountScrollFrame = window.requestAnimationFrame(() => {
-      window.scrollTo({ top: 0, behavior: "auto" });
+      if (view === "about" || window.location.hash === "#about") {
+        const aboutEl = document.getElementById("about-intro");
+        if (aboutEl) {
+          aboutEl.scrollIntoView({ behavior: "smooth" });
+          return;
+        }
+      }
+      if (!window.location.hash) {
+        window.scrollTo({ top: 0, behavior: "auto" });
+      }
     });
 
     return () => window.cancelAnimationFrame(mountScrollFrame);
   }, [view]);
 
   return (
-    <div className={view === "about" ? "about-scroll-flow" : undefined}>
-      {view === "home" ? (
-        <Hero />
-      ) : (
-        <>
-          <div className="about-overview-flow">
-            <Experience />
-            <Skills />
-          </div>
+    <div className="home-scroll-flow">
+      {/* 1. Hero First Screen (Projects Carousel & Interactive Stage) */}
+      <Hero />
 
-          {!hideContactDetails && <Contact />}
-        </>
-      )}
+      {/* 2. Full About Me, Work Experience & Capabilities directly below Hero */}
+      <div id="about-section" className="about-overview-flow">
+        <AboutIntro />
+        <Experience />
+        <Skills />
+      </div>
+
+      {!hideContactDetails && <Contact />}
     </div>
   );
 }

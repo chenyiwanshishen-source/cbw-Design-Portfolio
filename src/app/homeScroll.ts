@@ -8,7 +8,7 @@ function shouldUseInstantHomeScroll() {
 export function scrollHomeToTop() {
   window.scrollTo({
     top: 0,
-    behavior: shouldUseInstantHomeScroll() ? "auto" : "smooth",
+    behavior: "smooth",
   });
 }
 
@@ -16,14 +16,9 @@ export function scrollToHomeSection(id: string) {
   const section = document.getElementById(id);
   if (!section) return false;
 
-  const target =
-    window.innerWidth >= 1024
-      ? section.closest<HTMLElement>("[data-home-panel]") ?? section
-      : section;
-
-  target.scrollIntoView({
+  section.scrollIntoView({
     block: "start",
-    behavior: shouldUseInstantHomeScroll() ? "auto" : "smooth",
+    behavior: "smooth",
   });
   return true;
 }

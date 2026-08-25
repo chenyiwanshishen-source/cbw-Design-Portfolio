@@ -12,15 +12,50 @@ const navItems = [
   { label: "关于我", href: "#about" },
 ];
 
+function NavSketchCircle() {
+  return (
+    <motion.svg
+      layoutId="nav-active-sketch-circle"
+      viewBox="0 0 130 46"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className="pointer-events-none absolute -inset-x-3 -inset-y-2 z-0 h-[calc(100%+16px)] w-[calc(100%+24px)] select-none overflow-visible"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+      initial={{ opacity: 0, scale: 0.92 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.92 }}
+      transition={{ type: "spring", stiffness: 380, damping: 28 }}
+    >
+      {/* Hand-drawn blue scribble loop 1 */}
+      <path
+        d="M 18,13 C 38,6 94,5 116,10 C 128,13 126,29 112,35 C 90,41 34,40 16,34 C 4,30 5,16 22,10 C 44,4 98,5 120,11 C 130,14 127,29 110,35 C 86,41 28,40 12,32 C 3,27 8,14 28,9"
+        stroke="#2258F4"
+        strokeWidth="2.2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        opacity="0.94"
+      />
+      {/* Hand-drawn blue scribble loop 2 */}
+      <path
+        d="M 15,16 C 32,9 88,7 114,11 C 126,14 124,27 110,33 C 88,39 36,38 18,32 C 6,28 7,17 24,11 C 48,5 100,6 122,12 C 129,15 125,28 108,34"
+        stroke="#2258F4"
+        strokeWidth="1.4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        opacity="0.68"
+      />
+    </motion.svg>
+  );
+}
+
 const navLinkBase =
-  "rounded-full border px-4 py-2 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A8BEFF] focus-visible:ring-offset-2 focus-visible:ring-offset-white";
-const navLinkActive =
-  "border-[#A8BEFF] bg-[#E5EBFF] text-[#1A42B8] shadow-[0_0_0_1px_rgba(168,190,255,0.32)]";
-const navLinkInactive =
-  "border-transparent text-[#4E525E] hover:border-[#E6E7EB] hover:bg-[#F5F5F7] hover:text-[#1A1C24]";
+  "relative px-3.5 py-1.5 text-sm font-medium transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2258F4] focus-visible:ring-offset-2 rounded-full";
+const navLinkActive = "text-[#2258F4] font-semibold";
+const navLinkInactive = "text-[#4E525E] hover:text-[#1A1C24]";
 const mobileNavLinkBase =
-  "flex items-center justify-between rounded-[14px] px-4 py-3 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A8BEFF]";
-const mobileNavLinkActive = "bg-[#E5EBFF] text-[#1A42B8]";
+  "flex items-center justify-between rounded-[14px] px-4 py-3 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2258F4]";
+const mobileNavLinkActive = "bg-[#EEF2FF] text-[#2258F4] font-semibold";
 const mobileNavLinkInactive = "text-[#4E525E] hover:bg-[#F5F5F7] hover:text-[#1A1C24]";
 
 export const PROJECT_ROUTE_LOADING_EVENT = "portfolio:project-route-loading";
@@ -34,6 +69,19 @@ export function Nav() {
   useEffect(() => {
     const updateNavState = () => {
       setScrolled(window.scrollY > 24);
+      if (!window.location.hash.startsWith("#/project/")) {
+        const aboutEl = document.getElementById("about-intro");
+        if (aboutEl) {
+          const rect = aboutEl.getBoundingClientRect();
+          if (rect.top <= 260) {
+            setActiveNav("#about");
+            return;
+          } else {
+            setActiveNav("home");
+            return;
+          }
+        }
+      }
       const current = navItems.find((item) => item.href && window.location.hash === item.href);
       setActiveNav(current?.href || "home");
     };
@@ -81,7 +129,7 @@ export function Nav() {
       if (window.location.hash !== href) {
         window.location.hash = href;
       }
-      window.setTimeout(() => scrollToHomeSection("experience"), 80);
+      window.setTimeout(() => scrollToHomeSection("about-intro"), 80);
       return;
     }
     if (window.location.hash === href) {
@@ -144,9 +192,23 @@ export function Nav() {
             : "border-transparent bg-white/60 backdrop-blur-sm md:bg-transparent"
         }`}
       >
-        <a href="#" className="group flex min-w-0 items-center gap-2" onClick={goHome}>
-          <span className="inline-flex size-7 items-center justify-center rounded-full bg-[#2258F4] text-[11px] font-semibold text-white">
-            陈
+        <a href="#" className="group flex min-w-0 items-center gap-2.5" onClick={goHome}>
+          {/* Mini Sticky Note Avatar */}
+          <span className="relative inline-flex size-7 shrink-0 items-center justify-center rounded-[5px] border border-[#F0E2A0] bg-[#FFF9DF] shadow-[0_1px_2px_rgba(96,81,38,0.12),2px_3px_7px_-2px_rgba(96,81,38,0.2)] rotate-[-2.8deg] transition-transform duration-200 group-hover:rotate-[-5.5deg] group-hover:scale-105 select-none">
+            {/* Folded dog-ear corner */}
+            <span
+              className="absolute bottom-0 right-0 size-2 bg-[#EFE098] shadow-[-1px_-1px_1.5px_rgba(108,91,34,0.08)]"
+              style={{ clipPath: "polygon(100% 0, 100% 100%, 0 100%)" }}
+              aria-hidden="true"
+            />
+            {/* Top mini translucent tape strip */}
+            <span
+              className="absolute -top-1 left-1/2 h-1.5 w-3.5 -translate-x-1/2 rounded-[1px] bg-white/75 backdrop-blur-[1px] shadow-[0_0.5px_1px_rgba(0,0,0,0.08)]"
+              aria-hidden="true"
+            />
+            <span className="relative z-10 text-[12px] font-bold leading-none text-[#2D2616] font-sans">
+              陈
+            </span>
           </span>
           <span className="min-w-0 text-sm tracking-wide text-[#4E525E] transition-colors group-hover:text-[#1A1C24]">
             <span className="sm:hidden">陈俊学</span>
@@ -154,7 +216,7 @@ export function Nav() {
           </span>
         </a>
 
-        <nav className="hidden md:flex items-center gap-2">
+        <nav className="hidden md:flex items-center gap-2 lg:gap-3">
           <a
             href="#"
             onClick={goHome}
@@ -162,7 +224,8 @@ export function Nav() {
               activeNav === "home" ? navLinkActive : navLinkInactive
             }`}
           >
-            首页
+            {activeNav === "home" && <NavSketchCircle />}
+            <span className="relative z-10">首页</span>
           </a>
 
           {navItems.map((item) => {
@@ -180,7 +243,8 @@ export function Nav() {
                   isActive ? navLinkActive : navLinkInactive
                 } ${pendingHref === item.href ? "cursor-progress opacity-80" : ""}`}
               >
-                {item.label}
+                {isActive && <NavSketchCircle />}
+                <span className="relative z-10">{item.label}</span>
               </a>
             );
           })}
@@ -188,18 +252,46 @@ export function Nav() {
 
         <div className="flex shrink-0 items-center gap-2">
           {hideContactDetails ? (
-            <span className="relative inline-flex h-10 items-center gap-2 rounded-full bg-[#1A1C24] px-3 text-sm text-white sm:px-4">
-              <span className="size-1.5 rounded-full bg-[#2258F4] animate-pulse" />
-              目前在寻找新的机会
+            <span className="relative inline-flex h-9 items-center gap-2 rounded-[7px] border border-[#F0E2A0] bg-[#FFF9DF] px-3 text-xs sm:text-sm font-medium text-[#2D2616] shadow-[0_1px_2px_rgba(96,81,38,0.1),2px_3px_7px_-2px_rgba(96,81,38,0.16)] rotate-[1.4deg] select-none sm:px-3.5">
+              {/* Folded dog-ear corner */}
+              <span
+                className="absolute bottom-0 right-0 size-2 bg-[#EFE098] shadow-[-1px_-1px_1.5px_rgba(108,91,34,0.08)]"
+                style={{ clipPath: "polygon(100% 0, 100% 100%, 0 100%)" }}
+                aria-hidden="true"
+              />
+              {/* Top mini translucent tape strip */}
+              <span
+                className="absolute -top-1.5 left-3.5 h-1.5 w-4 rounded-[1px] bg-white/75 backdrop-blur-[1px] shadow-[0_0.5px_1px_rgba(0,0,0,0.06)] -rotate-3"
+                aria-hidden="true"
+              />
+              <span className="relative flex size-2 shrink-0">
+                <span className="absolute inline-flex size-full animate-ping rounded-full bg-[#2258F4] opacity-75" />
+                <span className="relative inline-flex size-2 rounded-full bg-[#2258F4]" />
+              </span>
+              <span className="relative z-10">目前在寻找新的机会</span>
             </span>
           ) : (
             <a
               href="#contact"
               onClick={goContact}
-              className="group relative inline-flex h-10 items-center gap-2 rounded-full bg-[#1A1C24] px-3 text-sm text-white transition-colors hover:bg-[#4E525E] sm:px-4"
+              className="group relative inline-flex h-9 items-center gap-2 rounded-[7px] border border-[#F0E2A0] bg-[#FFF9DF] px-3 text-xs sm:text-sm font-medium text-[#2D2616] shadow-[0_1px_2px_rgba(96,81,38,0.1),2px_3px_7px_-2px_rgba(96,81,38,0.16)] rotate-[1.4deg] transition-transform duration-200 hover:rotate-[3.2deg] hover:scale-[1.03] select-none sm:px-3.5"
             >
-              <span className="size-1.5 rounded-full bg-[#2258F4] animate-pulse" />
-              目前在寻找新的机会
+              {/* Folded dog-ear corner */}
+              <span
+                className="absolute bottom-0 right-0 size-2 bg-[#EFE098] shadow-[-1px_-1px_1.5px_rgba(108,91,34,0.08)]"
+                style={{ clipPath: "polygon(100% 0, 100% 100%, 0 100%)" }}
+                aria-hidden="true"
+              />
+              {/* Top mini translucent tape strip */}
+              <span
+                className="absolute -top-1.5 left-3.5 h-1.5 w-4 rounded-[1px] bg-white/75 backdrop-blur-[1px] shadow-[0_0.5px_1px_rgba(0,0,0,0.06)] -rotate-3"
+                aria-hidden="true"
+              />
+              <span className="relative flex size-2 shrink-0">
+                <span className="absolute inline-flex size-full animate-ping rounded-full bg-[#2258F4] opacity-75" />
+                <span className="relative inline-flex size-2 rounded-full bg-[#2258F4]" />
+              </span>
+              <span className="relative z-10">目前在寻找新的机会</span>
             </a>
           )}
           <button
@@ -230,7 +322,7 @@ export function Nav() {
               activeNav === "home" ? mobileNavLinkActive : mobileNavLinkInactive
             }`}
           >
-            首页
+            <span>首页</span>
             {activeNav === "home" && <span className="size-1.5 rounded-full bg-[#2258F4]" />}
           </a>
           {navItems.map((item) => {
@@ -246,14 +338,14 @@ export function Nav() {
                   isActive ? mobileNavLinkActive : mobileNavLinkInactive
                 } ${pendingHref === item.href ? "cursor-progress opacity-80" : ""}`}
               >
-                {item.label}
+                <span>{item.label}</span>
                 {isActive && <span className="size-1.5 rounded-full bg-[#2258F4]" />}
               </a>
             );
           })}
           {!hideContactDetails && (
             <a href="#contact" onClick={goContact} className={`${mobileNavLinkBase} ${mobileNavLinkInactive}`}>
-              联系我
+              <span>联系我</span>
             </a>
           )}
         </motion.nav>

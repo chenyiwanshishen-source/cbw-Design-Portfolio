@@ -150,7 +150,7 @@ export function Experience() {
   return (
     <section
       id="experience"
-      className="relative px-6 pb-12 pt-24 sm:px-10 md:pb-16 md:pt-28 lg:px-16 lg:pb-14 lg:pt-32 xl:px-24 2xl:px-32"
+      className="relative px-6 pb-12 pt-10 sm:px-10 md:pb-16 md:pt-12 lg:px-16 lg:pb-14 lg:pt-16 xl:px-24 2xl:px-32"
     >
       <div className="mx-auto w-full max-w-[1600px]">
         <div className="mb-10 md:mb-12">

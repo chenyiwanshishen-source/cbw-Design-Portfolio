@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -588,7 +588,7 @@ export function Hero() {
           moveEyesY((dy / distance) * maxY * strength);
         });
 
-        window.addEventListener("pointermove", onPointerMove, { passive: true });
+window.addEventListener("pointermove", onPointerMove, { passive: true });
         window.addEventListener("blur", resetEyes);
         document.documentElement.addEventListener("mouseleave", resetEyes);
 
@@ -619,27 +619,161 @@ export function Hero() {
             "[data-hero-character-part]",
             root
           );
-          if (characterParts.length === 0) return;
+          const peekHands = gsap.utils.toArray<HTMLElement>(
+            "[data-hero-peek-hand]",
+            root
+          );
+          const peekCards = gsap.utils.toArray<HTMLElement>(
+            ".hero-project-peek-card",
+            root
+          );
+
+          const cardAi = document.getElementById("hero-project-ai");
+          const cardQixin = document.getElementById("hero-project-qixin");
+          const targetSlotAi = document.querySelector<HTMLElement>("[data-about-target-ai]");
+          const targetSlotQixin = document.querySelector<HTMLElement>("[data-about-target-qixin]");
+          const aboutSection = document.getElementById("about-intro");
 
           const getExitDistance = () =>
-            Math.ceil((characterRef.current?.offsetHeight ?? 220) + 64);
+            Math.ceil((characterRef.current?.offsetHeight ?? 220) + 80);
 
-          gsap.set(characterParts, { autoAlpha: 1 });
+          const getFlightDeltas = () => {
+            if (!cardAi || !cardQixin || !targetSlotAi || !targetSlotQixin) {
+              return { dxAi: 0, dyAi: 0, dxQixin: 0, dyQixin: 0 };
+            }
+            const scrollY = window.scrollY;
+            const heroRect = root.getBoundingClientRect();
+            const heroTop = heroRect.top + scrollY;
+            const heroLeft = heroRect.left;
+            const heroWidth = root.offsetWidth;
+            const heroHeight = root.offsetHeight;
 
-          gsap.to(characterParts, {
-            y: getExitDistance,
-            ease: "none",
-            force3D: true,
+            // True un-transformed base position of Card 1 in Hero (bottom: 30px, right: 50% + 136px)
+            const cardAiBaseLeft = heroLeft + heroWidth / 2 - 136 - cardAi.offsetWidth;
+            const cardAiBaseTop = heroTop + heroHeight - 30 - cardAi.offsetHeight;
+
+            // True un-transformed base position of Card 2 in Hero (bottom: 30px, left: 50% + 136px)
+            const cardQixinBaseLeft = heroLeft + heroWidth / 2 + 136;
+            const cardQixinBaseTop = heroTop + heroHeight - 30 - cardQixin.offsetHeight;
+
+            // Target Top for Card 1: Aligns EXACTLY with top edge of the About paper sheet!
+            const paperSheet = document.querySelector<HTMLElement>(".experience-paper-sheet");
+            const slotAiRect = targetSlotAi.getBoundingClientRect();
+            const slotQixinRect = targetSlotQixin.getBoundingClientRect();
+
+            const targetTopAi = paperSheet
+              ? paperSheet.getBoundingClientRect().top + scrollY
+              : slotAiRect.top + scrollY;
+            const targetLeftAi = slotAiRect.left;
+
+            // Target for Card 2: slotQixin position
+            const targetTopQixin = slotQixinRect.top + scrollY;
+            const targetLeftQixin = slotQixinRect.left;
+
+            return {
+              dxAi: targetLeftAi - cardAiBaseLeft,
+              dyAi: targetTopAi - cardAiBaseTop,
+              dxQixin: targetLeftQixin - cardQixinBaseLeft,
+              dyQixin: targetTopQixin - cardQixinBaseTop,
+            };
+          };
+
+          gsap.set(characterParts, { autoAlpha: 1, xPercent: -50, left: "50%" });
+          gsap.set(peekHands, { autoAlpha: 1, zIndex: 2 });
+
+          const exitTimeline = gsap.timeline({
             scrollTrigger: {
               id: "hero-character-exit",
               trigger: root,
               start: "top top",
-              end: () => `+=${Math.max(240, Math.round(window.innerHeight * 0.34))}`,
-              scrub: 0.14,
+              endTrigger: aboutSection ?? undefined,
+              end: aboutSection ? "top 25%" : () => `+=${Math.max(280, Math.round(window.innerHeight * 0.4))}`,
+              scrub: 0.16,
               invalidateOnRefresh: true,
-              refreshPriority: 0,
+              refreshPriority: 1,
+              onUpdate: (self) => {
+                const isFullyExtracted = self.progress > 0.16;
+                if (root) {
+                  root.style.overflow = isFullyExtracted ? "visible" : "clip";
+                }
+                if (peekCards.length > 0) {
+                  gsap.set(peekCards, { zIndex: isFullyExtracted ? 30 : 15 });
+                }
+              },
             },
           });
+
+          // 1. Head sinks down behind marquee (0 -> 0.20)
+          exitTimeline.to(
+            characterParts,
+            {
+              y: getExitDistance,
+              xPercent: -50,
+              ease: "none",
+              force3D: true,
+              duration: 0.2,
+            },
+            0
+          );
+
+          // 2. Hands fade out very early so they only reappear when cards are almost completely back at bottom (0.05 -> 0.09)
+          if (peekHands.length > 0) {
+            exitTimeline.to(
+              peekHands,
+              {
+                autoAlpha: 0,
+                ease: "power2.in",
+                force3D: true,
+                duration: 0.04,
+              },
+              0.05
+            );
+          }
+
+          // 3. Cards pull UP out of the slot (0 -> 0.20)
+          if (peekCards.length > 0) {
+            exitTimeline.to(
+              peekCards,
+              {
+                y: -180,
+                ease: "power1.out",
+                force3D: true,
+                duration: 0.2,
+              },
+              0
+            );
+          }
+
+          // 4. Cards fly down to About slots with scroll (0.20 -> 1.0)
+          if (cardAi && targetSlotAi) {
+            exitTimeline.to(
+              cardAi,
+              {
+                x: () => getFlightDeltas().dxAi,
+                y: () => getFlightDeltas().dyAi,
+                rotate: -0.6,
+                ease: "power1.inOut",
+                force3D: true,
+                duration: 0.8,
+              },
+              0.2
+            );
+          }
+
+          if (cardQixin && targetSlotQixin) {
+            exitTimeline.to(
+              cardQixin,
+              {
+                x: () => getFlightDeltas().dxQixin,
+                y: () => getFlightDeltas().dyQixin,
+                rotate: 0.6,
+                ease: "power1.inOut",
+                force3D: true,
+                duration: 0.8,
+              },
+              0.2
+            );
+          }
         }
       );
 
@@ -706,7 +840,17 @@ export function Hero() {
                 data-magnetic-button
                 aria-expanded={projectsRevealed}
                 aria-controls="hero-project-ai hero-project-qixin"
-                onClick={() => setProjectsRevealed(true)}
+                onClick={() => {
+                  setProjectsRevealed((prev) => {
+                    const next = !prev;
+                    window.dispatchEvent(
+                      new CustomEvent("portfolio:hero-projects-reveal", {
+                        detail: { revealed: next },
+                      })
+                    );
+                    return next;
+                  });
+                }}
                 className="group relative inline-flex will-change-transform items-center gap-3 overflow-hidden rounded-full bg-[#1A1C24] py-2 pl-6 pr-2 text-white transition-shadow duration-300 hover:shadow-[0_0_40px_rgba(34,88,244,0.35)]"
               >
                 <span className="absolute inset-0 -translate-x-full bg-[#2258F4] transition-transform duration-500 group-hover:translate-x-0" />
@@ -727,7 +871,7 @@ export function Hero() {
                   onClick={(e) => {
                     e.preventDefault();
                     window.location.hash = "#about";
-                    window.setTimeout(() => scrollToHomeSection("experience"), 80);
+                    window.setTimeout(() => scrollToHomeSection("about-intro"), 80);
                   }}
                   className="group relative inline-flex h-[52px] will-change-transform items-center rounded-full border border-[#CBCDD4] px-6 text-sm text-[#4E525E] transition-colors duration-300 hover:border-[#A8BEFF] hover:bg-[#F5F5F7] hover:text-[#1A1C24]"
                 >
@@ -895,33 +1039,35 @@ export function Hero() {
         </motion.div>
       </div>
 
-      {/* Character peeks from behind the marquee. */}
-      <div
-        ref={characterRef}
-        data-hero-character-part
-        aria-hidden="true"
-        className="pointer-events-none absolute bottom-[24px] left-1/2 z-10 hidden aspect-[774/567] w-[var(--hero-character-width)] -translate-x-1/2 select-none will-change-transform lg:block"
-      >
-        <img
-          src="./images/首页人物/face-peek.png"
-          alt=""
-          draggable={false}
-          className="absolute inset-0 size-full"
-        />
-        <img
-          src="./images/首页人物/eyes-peek.png"
-          alt=""
-          draggable={false}
-          data-character-eye
-          className="absolute left-[31.137%] top-[74.25%] w-[8.269%] will-change-transform"
-        />
-        <img
-          src="./images/首页人物/eyes-peek.png"
-          alt=""
-          draggable={false}
-          data-character-eye
-          className="absolute left-[60.078%] top-[74.25%] w-[8.269%] will-change-transform"
-        />
+      {/* Character dedicated mask container: permanently clipped at bottom */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 top-0 z-10 hidden overflow-clip select-none lg:block">
+        <div
+          ref={characterRef}
+          data-hero-character-part
+          aria-hidden="true"
+          className="absolute bottom-[24px] left-1/2 aspect-[774/567] w-[var(--hero-character-width)] -translate-x-1/2 will-change-transform"
+        >
+          <img
+            src="./images/首页人物/face-peek.png"
+            alt=""
+            draggable={false}
+            className="absolute inset-0 size-full"
+          />
+          <img
+            src="./images/首页人物/eyes-peek.png"
+            alt=""
+            draggable={false}
+            data-character-eye
+            className="absolute left-[31.137%] top-[74.25%] w-[8.269%] will-change-transform"
+          />
+          <img
+            src="./images/首页人物/eyes-peek.png"
+            alt=""
+            draggable={false}
+            data-character-eye
+            className="absolute left-[60.078%] top-[74.25%] w-[8.269%] will-change-transform"
+          />
+        </div>
       </div>
 
       <HeroProjectPeekCard variant="ai" revealed={projectsRevealed} />

@@ -1,4 +1,5 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import { motion } from "motion/react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { preloadProjectDetailAssets } from "../projectPreload";
@@ -7,32 +8,142 @@ type HeroProjectPeekCardProps = {
   variant: "ai" | "qixin";
   revealed: boolean;
 };
+
 const projectData = {
-  ai: { href: "#/project/ai-report", ariaLabel: "打开 AI 报告生成项目", title: "AI 报告生成", tags: ["AI 产品 0-1", "Prompt / Workflow", "B 端效率"], responsibilities: ["产品流程与核心页面设计", "Prompt 框架与生成体验设计"], image: "./images/首页webp/AI报告生成.webp", handClass: "hero-project-peek-hand-ai" },
-  qixin: { href: "#/project/qixin-brain", ariaLabel: "打开启信产业大脑项目", title: "启信产业大脑", tags: ["B 端系统", "数据可视化", "产业分析"], responsibilities: ["业务流程与核心页面设计", "产业图谱与数据可视化"], image: "./images/首页webp/自定义产业链.webp", handClass: "hero-project-peek-hand-qixin" },
+  ai: {
+    href: "#/project/ai-report",
+    ariaLabel: "打开 AI 报告生成项目",
+    title: "AI 报告生成",
+    tags: ["AI 产品 0-1", "Prompt / Workflow", "B 端效率"],
+    responsibilities: ["产品流程与核心页面设计", "Prompt 框架与生成体验设计"],
+    image: "./images/首页webp/AI报告生成.webp",
+    handClass: "hero-project-peek-hand-ai",
+  },
+  qixin: {
+    href: "#/project/qixin-brain",
+    ariaLabel: "打开启信产业大脑项目",
+    title: "启信产业大脑",
+    tags: ["B 端系统", "数据可视化", "产业分析"],
+    responsibilities: ["业务流程与核心页面设计", "产业图谱与数据可视化"],
+    image: "./images/首页webp/自定义产业链.webp",
+    handClass: "hero-project-peek-hand-qixin",
+  },
 } as const;
 
+function CardTitleSketchCircle({ isHovered }: { isHovered: boolean }) {
+  return (
+    <svg
+      viewBox="0 0 170 54"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className="pointer-events-none absolute -inset-x-3.5 -inset-y-2 z-10 h-[calc(100%+16px)] w-[calc(100%+28px)] select-none overflow-visible"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+    >
+      {/* Outer organic loop with animated pathLength */}
+      <motion.path
+        d="M 22,14 C 48,6 116,5 146,11 C 164,15 162,34 142,41 C 112,48 40,47 18,39 C 4,34 6,18 28,12 C 54,5 126,6 152,13 C 166,16 162,34 140,42 C 108,49 32,47 14,37 C 3,31 9,15 34,9"
+        stroke="#2258F4"
+        strokeWidth="2.4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        initial={{ pathLength: 0, opacity: 0 }}
+        animate={
+          isHovered
+            ? { pathLength: 1, opacity: 0.94 }
+            : { pathLength: 0, opacity: 0 }
+        }
+        transition={{
+          pathLength: {
+            duration: 0.52,
+            ease: [0.22, 1, 0.36, 1],
+          },
+          opacity: {
+            duration: isHovered ? 0.12 : 0.22,
+          },
+        }}
+      />
+      {/* Secondary sketch loop for authentic layered hand-drawn feel */}
+      <motion.path
+        d="M 18,17 C 42,9 110,7 142,12 C 158,15 156,32 138,39 C 110,46 42,44 20,37 C 6,32 7,20 28,13 C 58,6 128,7 154,14 C 164,17 160,33 136,40"
+        stroke="#2258F4"
+        strokeWidth="1.4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        initial={{ pathLength: 0, opacity: 0 }}
+        animate={
+          isHovered
+            ? { pathLength: 1, opacity: 0.68 }
+            : { pathLength: 0, opacity: 0 }
+        }
+        transition={{
+          pathLength: {
+            duration: 0.58,
+            delay: 0.04,
+            ease: [0.22, 1, 0.36, 1],
+          },
+          opacity: {
+            duration: isHovered ? 0.12 : 0.22,
+          },
+        }}
+      />
+    </svg>
+  );
+}
+
 export function HeroProjectPeekCard({ variant, revealed }: HeroProjectPeekCardProps) {
+  const [isHovered, setIsHovered] = useState(false);
   const cardRef = useRef<HTMLAnchorElement | null>(null);
   const handRef = useRef<HTMLImageElement | null>(null);
   const project = projectData[variant];
+
   const preloadProject = () => {
     void preloadProjectDetailAssets(variant === "ai" ? "ai-report" : "qixin-brain", "high");
   };
-  useGSAP(() => {
-    const card = cardRef.current; const hand = handRef.current; const top = card?.closest("#top");
-    if (!card || !hand || !top) return;
-    const media = gsap.matchMedia();
-    media.add("(min-width: 1024px) and (prefers-reduced-motion: no-preference)", () => {
-      const moveX = gsap.quickTo(hand, "x", { duration: 0.35, ease: "power3.out" });
-      const moveY = gsap.quickTo(hand, "y", { duration: 0.35, ease: "power3.out" });
-      const onPointerMove = (event: Event) => { const p = event as PointerEvent; const b = top.getBoundingClientRect(); const nx = Math.max(-1, Math.min(1, (p.clientX - (b.left + b.width / 2)) / (b.width / 2))); const ny = Math.max(-1, Math.min(1, (p.clientY - (b.top + b.height / 2)) / (b.height / 2))); const sideProximity = variant === "ai" ? (1 - nx) / 2 : (1 + nx) / 2; const strength = 0.28 + sideProximity * 0.72; const maxX = variant === "ai" ? 6 : 7; const maxY = variant === "ai" ? 4 : 4.5; moveX(nx * maxX * strength); moveY(ny * maxY * strength); };
-      const onPointerLeave = () => { moveX(0); moveY(0); };
-      top.addEventListener("pointermove", onPointerMove); top.addEventListener("pointerleave", onPointerLeave);
-      return () => { top.removeEventListener("pointermove", onPointerMove); top.removeEventListener("pointerleave", onPointerLeave); gsap.killTweensOf(hand); };
-    });
-    return () => media.revert();
-  }, { scope: cardRef });
+
+  useGSAP(
+    () => {
+      const card = cardRef.current;
+      const hand = handRef.current;
+      const top = card?.closest("#top");
+      if (!card || !hand || !top) return;
+
+      const media = gsap.matchMedia();
+      media.add("(min-width: 1024px) and (prefers-reduced-motion: no-preference)", () => {
+        const moveX = gsap.quickTo(hand, "x", { duration: 0.35, ease: "power3.out" });
+        const moveY = gsap.quickTo(hand, "y", { duration: 0.35, ease: "power3.out" });
+
+        const onPointerMove = (event: Event) => {
+          const p = event as PointerEvent;
+          const b = top.getBoundingClientRect();
+          const nx = Math.max(-1, Math.min(1, (p.clientX - (b.left + b.width / 2)) / (b.width / 2)));
+          const ny = Math.max(-1, Math.min(1, (p.clientY - (b.top + b.height / 2)) / (b.height / 2)));
+          const sideProximity = variant === "ai" ? (1 - nx) / 2 : (1 + nx) / 2;
+          const strength = 0.28 + sideProximity * 0.72;
+          const maxX = variant === "ai" ? 6 : 7;
+          const maxY = variant === "ai" ? 4 : 4.5;
+          moveX(nx * maxX * strength);
+          moveY(ny * maxY * strength);
+        };
+
+        const onPointerLeave = () => {
+          moveX(0);
+          moveY(0);
+        };
+
+        top.addEventListener("pointermove", onPointerMove);
+        top.addEventListener("pointerleave", onPointerLeave);
+        return () => {
+          top.removeEventListener("pointermove", onPointerMove);
+          top.removeEventListener("pointerleave", onPointerLeave);
+          gsap.killTweensOf(hand);
+        };
+      });
+      return () => media.revert();
+    },
+    { scope: cardRef }
+  );
+
   return (
     <a
       ref={cardRef}
@@ -41,13 +152,67 @@ export function HeroProjectPeekCard({ variant, revealed }: HeroProjectPeekCardPr
       href={project.href}
       aria-label={project.ariaLabel}
       data-revealed={revealed ? "true" : undefined}
-      onPointerEnter={preloadProject}
-      onFocus={preloadProject}
+      onPointerEnter={() => {
+        setIsHovered(true);
+        preloadProject();
+      }}
+      onPointerLeave={() => {
+        setIsHovered(false);
+      }}
+      onFocus={() => {
+        setIsHovered(true);
+        preloadProject();
+      }}
+      onBlur={() => {
+        setIsHovered(false);
+      }}
       onTouchStart={preloadProject}
     >
-      <span className="hero-project-peek-windowbar" aria-hidden="true"><span className="hero-project-peek-dots"><i /><i /><i /></span></span>
-      <span className={`hero-project-peek-hand ${project.handClass}`} aria-hidden="true"><img ref={handRef} className="absolute inset-0 size-full" src="./images/首页人物/hand-peek.png" alt="" draggable={false} style={{ transform: variant === "qixin" ? "scaleX(-1)" : undefined }} /></span>
-      <span className="hero-project-peek-content"><strong className="hero-project-peek-title">{project.title}</strong><span className="hero-project-peek-tags">{project.tags.map((tag) => <span key={tag}>{tag}</span>)}</span><span className="hero-project-peek-responsibilities"><b>主要职责</b>{project.responsibilities.map((item) => <span key={item}>{item}</span>)}</span><span className="hero-project-peek-shot"><img src={project.image} alt="" /></span></span>
+      <span className="hero-project-peek-windowbar" aria-hidden="true">
+        <span className="hero-project-peek-dots">
+          <i />
+          <i />
+          <i />
+        </span>
+      </span>
+
+      <span
+        data-hero-peek-hand="true"
+        className={`hero-project-peek-hand ${project.handClass}`}
+        aria-hidden="true"
+      >
+        <img
+          ref={handRef}
+          className="absolute inset-0 size-full"
+          src="./images/首页人物/hand-peek.png"
+          alt=""
+          draggable={false}
+          style={{ transform: variant === "qixin" ? "scaleX(-1)" : undefined }}
+        />
+      </span>
+
+      <span className="hero-project-peek-content">
+        <span className="relative mb-4 inline-flex items-center self-start">
+          <strong className="hero-project-peek-title !mb-0 text-[#1A1C24]">
+            {project.title}
+          </strong>
+          <CardTitleSketchCircle isHovered={isHovered} />
+        </span>
+        <span className="hero-project-peek-tags">
+          {project.tags.map((tag) => (
+            <span key={tag}>{tag}</span>
+          ))}
+        </span>
+        <span className="hero-project-peek-responsibilities">
+          <b>主要职责</b>
+          {project.responsibilities.map((item) => (
+            <span key={item}>{item}</span>
+          ))}
+        </span>
+        <span className="hero-project-peek-shot">
+          <img src={project.image} alt={project.title} />
+        </span>
+      </span>
     </a>
   );
 }
