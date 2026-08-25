@@ -646,7 +646,7 @@ export function ResearchPaperCanvas({
             pinSpacing: true,
             animation: stepTimeline,
             scrub: true,
-            anticipatePin: 1,
+            anticipatePin: 0,
             invalidateOnRefresh: true,
             refreshPriority: 10,
             onUpdate: (self) => updateProgressState(self.progress),

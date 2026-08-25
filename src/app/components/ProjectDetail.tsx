@@ -6,7 +6,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import {
   ArrowLeft,
-  ArrowRight,
   ChevronDown,
   Sparkles,
   Layers,
@@ -35,16 +34,10 @@ import { Footer } from "./Footer";
 import { ProjectCaseNav } from "./ProjectCaseNav";
 import { ResearchPaperCanvas } from "./ResearchPaperCanvas";
 import { hideContactDetails } from "../buildVariant";
-import simplePromptSource from "../../assets/ai-report/my-simple-instruction.md?raw";
 import promptCompilerSystemSource from "../../assets/ai-report/prompt-compiler-system-v2.txt?raw";
 import finalReportAgentPromptSource from "../../assets/ai-report/final-report-agent-prompt.md?raw";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
-
-const simplePromptLines = simplePromptSource
-  .replace(/\r\n?/g, "\n")
-  .trim()
-  .split("\n");
 
 const promptCompilerSystemLines = promptCompilerSystemSource
   .replace(/\r\n?/g, "\n")
@@ -275,6 +268,111 @@ function PromptConsoleHistoryNote() {
   );
 }
 
+function ProjectOutcomeMetrics() {
+  const metrics = [
+    {
+      title: "全流程交付周期",
+      before: "2~3 天",
+      after: "20 分钟",
+      change: "90%",
+      direction: "down",
+      bg: "repeating-linear-gradient(to bottom, #FFFEF8 0, #FFFEF8 34px, #E8E4D8 35px, #E8E4D8 36px)",
+      borderColor: "#DED9CE",
+      pinColor: "#4A78C2",
+      rotation: "rotate-[-0.7deg]",
+    },
+    {
+      title: "纯内容生成耗时",
+      before: "6~8 小时",
+      after: "约 5~30 分钟",
+      change: "92%",
+      direction: "down",
+      bg: "repeating-linear-gradient(to bottom, #FFFEF8 0, #FFFEF8 34px, #E8E4D8 35px, #E8E4D8 36px)",
+      borderColor: "#DED9CE",
+      pinColor: "#A85A16",
+      rotation: "rotate-[0.6deg]",
+    },
+    {
+      title: "资料准备与清洗",
+      before: "半天以上",
+      after: "约 5~20 分钟",
+      change: "92%",
+      direction: "down",
+      bg: "repeating-linear-gradient(to bottom, #FFFEF8 0, #FFFEF8 34px, #E8E4D8 35px, #E8E4D8 36px)",
+      borderColor: "#DED9CE",
+      pinColor: "#2F7A44",
+      rotation: "rotate-[-0.5deg]",
+    },
+    {
+      title: "关键事实溯源率",
+      before: "约 50%",
+      after: "80%",
+      change: "30%",
+      direction: "up",
+      bg: "repeating-linear-gradient(to bottom, #EEF2FF 0, #EEF2FF 34px, #D8E1FF 35px, #D8E1FF 36px)",
+      borderColor: "#C8D4FF",
+      pinColor: "#2258F4",
+      rotation: "rotate-[0.7deg]",
+    },
+  ];
+
+  return (
+    <div
+      data-project-outcome-metrics="true"
+      aria-label="项目成果指标"
+      className="mx-auto w-full max-w-[1400px]"
+    >
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4 xl:gap-5">
+        {metrics.map((metric) => (
+          <div
+            key={metric.title}
+            className={`relative flex min-h-[118px] flex-col items-stretch justify-center rounded-[8px] border px-4 py-3.5 shadow-[0_6px_20px_rgba(56,67,92,0.07)] sm:px-5 sm:py-4 xl:px-4 2xl:px-5 ${metric.rotation} transition-transform duration-200 hover:rotate-0 hover:z-20 hover:-translate-y-1`}
+            style={{
+              background: metric.bg,
+              borderColor: metric.borderColor,
+            }}
+          >
+            <span
+              aria-hidden="true"
+              className="absolute left-1/2 top-0 size-3.5 -translate-x-1/2 -translate-y-1/2 rounded-full shadow-[0_2px_4px_rgba(34,61,109,0.22)]"
+              style={{ backgroundColor: metric.pinColor }}
+            />
+
+            <div className="min-w-0 flex flex-col justify-center">
+              <div className="whitespace-nowrap text-[16px] font-semibold tracking-tight text-[#6C7584]">
+                {metric.title}
+              </div>
+
+              <div className="mt-1.5 flex min-w-0 items-baseline gap-1 whitespace-nowrap xl:gap-0.5 2xl:gap-1.5">
+                <span className="whitespace-nowrap text-[15px] text-[#858C9B] xl:text-[13px] 2xl:text-[16px]">
+                  {metric.before}
+                </span>
+                <span className="shrink-0 text-[15px] font-bold text-[#2258F4] xl:text-[13px] 2xl:text-[16px]">→</span>
+                <span className="whitespace-nowrap text-[16px] font-bold text-[#1A1C24] xl:text-[14px] 2xl:text-[17px]">
+                  {metric.after}
+                </span>
+                <span
+                  className="ml-auto inline-flex shrink-0 items-baseline gap-0.5 whitespace-nowrap xl:ml-0 2xl:ml-auto"
+                  style={{
+                    color: metric.direction === "down" ? "#2F7A44" : "#2258F4",
+                  }}
+                >
+                  <span className="text-[14px] font-bold leading-none xl:text-[13px] 2xl:text-[16px]">
+                    {metric.direction === "down" ? "↓" : "↑"}
+                  </span>
+                  <span className="text-[24px] font-extrabold leading-none tracking-tight xl:text-[22px] 2xl:text-[26px]">
+                    {metric.change}
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function PromptCompilerValueReflection() {
   const reflections = [
     {
@@ -338,8 +436,12 @@ function PromptCompilerValueReflection() {
           className="tracking-tight text-neutral-900"
           style={T.h2}
         >
-          项目落地的设计反思
+          成果、价值与反思
         </h3>
+      </div>
+
+      <div className="mb-12 md:mb-16">
+        <ProjectOutcomeMetrics />
       </div>
 
       <div className="grid gap-7 px-2 md:grid-cols-3 md:px-0">
@@ -425,7 +527,7 @@ function FourDimensionDecisionNotes() {
       title: "用户维度",
       rotate: "rotate-[-0.35deg]",
       needLabel: "用户诉求",
-      needDetail: "研报真实性与准确性要求极高，容不得无来源的幻觉。",
+      needDetail: "研报真实性与准确性要求极高。",
       needPlacement: { left: "clamp(12px, 4%, 24px)", bottom: "-49px", width: "calc(100% - 30px)", rotate: "-1.7deg" },
       points: [
         {
@@ -463,7 +565,7 @@ function FourDimensionDecisionNotes() {
       title: "研发维度",
       rotate: "rotate-[0.25deg]",
       needLabel: "研发现状",
-      needDetail: "Agent 框架刚搭建，缺少成熟任务流与最佳实践。",
+      needDetail: "Agent 框架刚搭建，需要大家一起参与调优。",
       needPlacement: { left: "clamp(22px, 7%, 34px)", bottom: "-48px", width: "calc(100% - 38px)", rotate: "1.3deg" },
       points: [
         {
@@ -1989,192 +2091,6 @@ function RuleIllustration({ visual }: { visual: RuleIllustrationKind }) {
   );
 }
 
-function AgentWorkflowDiagram() {
-  const promptMappings = [
-    {
-      id: "01",
-      stages: [{ index: "01", title: "输入理解", detail: "角色 / 变量 / 章节 / 父节点解析" }],
-    },
-    {
-      id: "02",
-      stages: [
-        { index: "02", title: "数据获取", detail: "工具调用规则 / 并发调用" },
-        { index: "03", title: "数据合流", detail: "统一候选池" },
-        { index: "04", title: "整理分类", detail: "少量样本规则 / 去重 / 清洗 / 结构化" },
-      ],
-    },
-    {
-      id: "03",
-      stages: [{ index: "05", title: "事实校验（Gate）", detail: "信源核验 / 未过打回" }],
-    },
-    {
-      id: "04",
-      stages: [{ index: "06", title: "最终输出与自检", detail: "审查记录 / 格式化生成" }],
-    },
-  ];
-  const promptMappingRows = ["lg:row-start-1", "lg:row-start-2", "lg:row-start-3", "lg:row-start-4"];
-
-  return (
-    <section
-      data-six-stage-pipeline="true"
-      aria-labelledby="six-stage-pipeline-title"
-      className="w-full max-w-[1400px] mx-auto overflow-visible"
-    >
-      <div className="mb-8 flex flex-col items-center px-4 text-center">
-        <div
-          data-six-stage-pipeline-title-note="true"
-          className="relative flex h-[132px] w-[200px] rotate-[0.55deg] items-center justify-center rounded-[6px] border px-4 py-5 text-[14px] font-semibold leading-[1.6] text-[#35404F] shadow-[0_2px_3px_rgba(28,36,52,0.16),0_7px_14px_rgba(28,36,52,0.055)] sm:h-[118px] sm:w-[280px] sm:px-5 sm:text-[16px] md:h-[136px] md:w-[330px] md:px-6 md:py-6 md:text-[20px]"
-          style={{
-            background: "repeating-linear-gradient(to bottom, #EEF2FF 0, #EEF2FF 31px, #D8E1FF 32px, #D8E1FF 33px)",
-            borderColor: "#C8D4FF",
-          }}
-        >
-          <span
-            aria-hidden="true"
-            className="absolute left-1/2 top-0 size-4 -translate-x-1/2 -translate-y-1/2 rounded-full"
-            style={{ backgroundColor: INK_DIM, boxShadow: "0 2px 4px rgba(78,82,94,0.22)" }}
-          />
-          <h3 id="six-stage-pipeline-title">
-            将执行步骤切分为6个部分,设计pormpt模版
-          </h3>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 gap-y-4 lg:grid-cols-[minmax(280px,0.78fr)_152px_minmax(420px,1.22fr)] lg:gap-x-5 lg:gap-y-5">
-        {promptMappings.map((mapping, mappingIndex) => (
-          <Fragment key={mapping.id}>
-            <section
-              data-prompt-mapping={mapping.id}
-              aria-label={`${mapping.stages.map((stage) => stage.index).join(" 至 ")} 阶段分组`}
-              className={`relative flex h-full flex-col justify-center px-3.5 py-3 lg:col-start-1 ${promptMappingRows[mappingIndex]}`}
-            >
-              <ol className="relative z-10 space-y-4">
-                {mapping.stages.map((stage, stageIndex) => (
-                  <li
-                    key={stage.index}
-                    className={`relative grid min-h-[64px] grid-cols-[34px_minmax(0,1fr)] items-center gap-3 rounded-[5px] border px-4 py-3 shadow-[0_2px_3px_rgba(28,36,52,0.16),0_7px_14px_rgba(28,36,52,0.055)] ${[
-                      "rotate-[-0.25deg]",
-                      "rotate-[0.18deg]",
-                      "rotate-[-0.15deg]",
-                    ][stageIndex] ?? ""}`}
-                    style={{
-                      background: "repeating-linear-gradient(to bottom, #FFFEF8 0, #FFFEF8 31px, #E8E4D8 32px, #E8E4D8 33px)",
-                      borderColor: "#DED9CE",
-                      transformOrigin: "center",
-                    }}
-                  >
-                    <span className="text-[12px] font-semibold tabular-nums text-[#2258F4]">{stage.index}</span>
-                    <span className="min-w-0">
-                      <span className="block text-[14px] font-semibold leading-[1.35] text-[#35404F]">{stage.title}</span>
-                      <span className="mt-0.5 block text-[12px] leading-[1.45] text-[#696D7A]">{stage.detail}</span>
-                    </span>
-                  </li>
-                ))}
-              </ol>
-            </section>
-
-            <div className={`relative hidden min-h-[110px] items-center lg:col-start-2 lg:flex ${promptMappingRows[mappingIndex]}`} aria-hidden="true">
-              <div className="flex w-full items-center justify-center" data-pipeline-connector={mapping.id}>
-                <span className="h-0.5 w-16 rounded-full bg-[#AEB3BF]" data-pipeline-connector-line="true" />
-                <span className="-ml-1 size-2.5 rotate-45 border-r-2 border-t-2 border-[#AEB3BF]" data-pipeline-connector-head="true" />
-              </div>
-            </div>
-          </Fragment>
-        ))}
-
-        <div className="relative flex h-16 items-center justify-center lg:hidden" aria-hidden="true">
-          <div className="flex h-14 flex-col items-center justify-center">
-            <span className="h-10 w-0.5 rounded-full bg-[#AEB3BF]" />
-            <span className="-mt-1 size-2.5 rotate-[135deg] border-r-2 border-t-2 border-[#AEB3BF]" />
-          </div>
-        </div>
-
-        <article
-          data-simple-prompt-source="true"
-          aria-labelledby="simple-prompt-source-title"
-          className="relative mt-1 flex h-[600px] min-h-0 flex-col overflow-hidden sm:h-[680px] lg:col-start-3 lg:row-start-1 lg:row-span-4 lg:mt-0 lg:h-[800px] lg:w-[calc(100%+48px)] lg:max-w-none lg:self-start xl:h-[850px] xl:w-[calc(100%+100px)] 2xl:h-[900px] 2xl:w-[calc(100%+160px)]"
-          style={{
-            filter:
-              "drop-shadow(0 2px 4px rgba(28,36,52,0.055)) drop-shadow(0 7px 14px rgba(28,36,52,0.025))",
-          }}
-        >
-          <svg
-            aria-hidden="true"
-            viewBox="0 0 600 900"
-            preserveAspectRatio="none"
-            className="absolute inset-0 h-full w-full"
-          >
-            <defs>
-              <pattern id="ai-report-simple-prompt-lines" width="600" height="34" patternUnits="userSpaceOnUse">
-                <rect width="600" height="34" fill="#FFFEF7" />
-                <line x1="0" y1="33" x2="600" y2="33" stroke="#D7E3F1" strokeWidth="1.2" opacity="0.78" />
-              </pattern>
-              <mask id="ai-report-simple-prompt-torn-mask">
-                <path
-                  d="M 30 0 H 600 V 900 H 19 L 26 874 L 9 841 L 24 815 L 13 779 L 28 748 L 10 714 L 22 681 L 7 645 L 27 618 L 15 582 L 25 547 L 8 514 L 23 476 L 12 449 L 29 411 L 11 381 L 21 342 L 6 316 L 25 278 L 13 244 L 28 214 L 10 176 L 22 143 L 7 107 L 24 74 L 12 38 Z"
-                  fill="white"
-                />
-              </mask>
-            </defs>
-            <g mask="url(#ai-report-simple-prompt-torn-mask)">
-              <rect width="600" height="900" fill="url(#ai-report-simple-prompt-lines)" />
-              <line x1="82" y1="0" x2="82" y2="900" stroke="#D79A9A" strokeWidth="1.4" opacity="0.42" />
-            </g>
-          </svg>
-
-          <header className="relative z-10 shrink-0 pb-5 pl-[14%] pr-7 pt-8 sm:pr-9 sm:pt-9">
-            <h4 id="simple-prompt-source-title" className="text-[22px] font-semibold leading-[1.3] tracking-tight text-[#252B36] sm:text-[24px]">
-              原始prompt结构模版
-            </h4>
-          </header>
-          <div
-            data-simple-prompt-scroll="true"
-            tabIndex={0}
-            aria-label="原始prompt结构模版原文，可滚动阅读"
-            className="relative z-10 min-h-0 flex-1 overflow-y-auto pb-8 pl-[14%] pr-7 sm:pr-9 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#4777FF]"
-          >
-            <pre className="whitespace-pre-wrap break-words font-sans text-[16px] leading-[1.75] text-[#3E4655]">
-              {simplePromptLines.map((line, index) => {
-                const isPrimaryHeading = line.startsWith("## ");
-                const isSecondaryHeading = line.startsWith("### ");
-
-                if (!line.trim()) {
-                  return <span key={`space-${index}`} aria-hidden="true" className="block h-3" />;
-                }
-
-                if (isPrimaryHeading) {
-                  return (
-                    <strong
-                      key={`${index}-${line}`}
-                      className={`mb-3 block text-[20px] font-bold leading-[1.5] text-[#252B36] ${index === 0 ? "" : "mt-8"}`}
-                    >
-                      {line}
-                    </strong>
-                  );
-                }
-
-                if (isSecondaryHeading) {
-                  return (
-                    <strong key={`${index}-${line}`} className="mb-2 mt-5 block text-[18px] font-bold leading-[1.55] text-[#35404F]">
-                      {line}
-                    </strong>
-                  );
-                }
-
-                return (
-                  <span key={`${index}-${line.slice(0, 28)}`} className="block min-h-[1.75em]">
-                    {line}
-                  </span>
-                );
-              })}
-            </pre>
-          </div>
-        </article>
-      </div>
-    </section>
-  );
-}
-
 function Reveal({
   children,
   className = "",
@@ -2973,9 +2889,11 @@ export function ProjectDetail({ onBack }: Props) {
           start: "top top",
           end: () => `+=${Math.max(window.innerHeight * 4.8, 4200)}`,
           pin: stage,
+          pinSpacing: true,
           scrub: 0.7,
-          anticipatePin: 1,
+          anticipatePin: 0,
           invalidateOnRefresh: true,
+          refreshPriority: 0,
         },
       });
     },
@@ -3241,109 +3159,6 @@ export function ProjectDetail({ onBack }: Props) {
             </div>
           </Reveal>
 
-          {/* Key Metrics: 4 Hand-drawn Paper Note Cards */}
-          <Reveal delay={0.14} y={16}>
-            <div className="mx-auto mt-8 w-full max-w-[1400px] sm:mt-10">
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
-                {[
-                  {
-                    title: "全流程交付周期",
-                    before: "2~3 天",
-                    after: "20 分钟",
-                    change: "90%",
-                    direction: "down",
-                    bg: "repeating-linear-gradient(to bottom, #FFFEF8 0, #FFFEF8 34px, #E8E4D8 35px, #E8E4D8 36px)",
-                    borderColor: "#DED9CE",
-                    pinColor: "#4A78C2",
-                    rotation: "rotate-[-0.7deg]",
-                  },
-                  {
-                    title: "纯内容生成耗时",
-                    before: "6~8 小时",
-                    after: "约 5~30 分钟",
-                    change: "92%",
-                    direction: "down",
-                    bg: "repeating-linear-gradient(to bottom, #FFFEF8 0, #FFFEF8 34px, #E8E4D8 35px, #E8E4D8 36px)",
-                    borderColor: "#DED9CE",
-                    pinColor: "#A85A16",
-                    rotation: "rotate-[0.6deg]",
-                  },
-                  {
-                    title: "资料准备与清洗",
-                    before: "半天以上",
-                    after: "约 5~20 分钟",
-                    change: "92%",
-                    direction: "down",
-                    bg: "repeating-linear-gradient(to bottom, #FFFEF8 0, #FFFEF8 34px, #E8E4D8 35px, #E8E4D8 36px)",
-                    borderColor: "#DED9CE",
-                    pinColor: "#2F7A44",
-                    rotation: "rotate-[-0.5deg]",
-                  },
-                  {
-                    title: "关键事实溯源率",
-                    before: "约 50%",
-                    after: "80%",
-                    change: "30%",
-                    direction: "up",
-                    bg: "repeating-linear-gradient(to bottom, #EEF2FF 0, #EEF2FF 34px, #D8E1FF 35px, #D8E1FF 36px)",
-                    borderColor: "#C8D4FF",
-                    pinColor: "#2258F4",
-                    rotation: "rotate-[0.7deg]",
-                  },
-                ].map((metric) => (
-                  <div
-                    key={metric.title}
-                    className={`relative flex min-h-[138px] flex-col items-stretch justify-center rounded-[8px] border px-4 py-3.5 shadow-[0_6px_20px_rgba(56,67,92,0.07)] sm:px-5 sm:py-4 ${metric.rotation} transition-transform duration-200 hover:rotate-0 hover:z-20 hover:-translate-y-1`}
-                    style={{
-                      background: metric.bg,
-                      borderColor: metric.borderColor,
-                    }}
-                  >
-                    {/* 便签大头针 */}
-                    <span
-                      aria-hidden="true"
-                      className="absolute left-1/2 top-0 size-3.5 -translate-x-1/2 -translate-y-1/2 rounded-full shadow-[0_2px_4px_rgba(34,61,109,0.22)]"
-                      style={{ backgroundColor: metric.pinColor }}
-                    />
-
-                    {/* 左侧：标题与前后对比 */}
-                    <div className="min-w-0 flex flex-col justify-center">
-                      <div className="whitespace-nowrap text-[16px] font-semibold tracking-tight text-[#6C7584]">
-                        {metric.title}
-                      </div>
-
-                      <div className="mt-1.5 flex items-baseline gap-1.5 whitespace-nowrap">
-                        <span className="whitespace-nowrap text-[16px] text-[#858C9B]">
-                          {metric.before}
-                        </span>
-                        <span className="shrink-0 text-[16px] font-bold text-[#2258F4]">→</span>
-                        <span className="whitespace-nowrap text-[17px] font-bold text-[#1A1C24]">
-                          {metric.after}
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* 右侧：缩放到合适尺寸的纯数字 */}
-                    <div className="mt-2 flex min-h-[26px] shrink-0 items-baseline justify-end gap-1">
-                      <span
-                        className="whitespace-nowrap text-[22px] font-extrabold leading-none tracking-tight sm:text-[24px] lg:text-[26px]"
-                        style={{
-                          color: metric.direction === "down" ? "#2F7A44" : "#2258F4",
-                        }}
-                      >
-                        {metric.direction === "down" ? "↓" : "↑"} {metric.change}
-                      </span>
-                      {"changeUnit" in metric && metric.changeUnit ? (
-                        <span className="whitespace-nowrap text-[16px] font-semibold leading-none text-[#2258F4]">
-                          {metric.changeUnit}
-                        </span>
-                      ) : null}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </Reveal>
         </div>
       </section>
 
@@ -3876,367 +3691,10 @@ export function ProjectDetail({ onBack }: Props) {
         journeyPathSegments={journeyPathSegments}
       />
 
-      {/* ===== 03. Interactive flow: 模板选择 → 历史文档 ===== */}
+
+      {/* ===== 03. Product design — strategy cards with default visuals ===== */}
       <section
         id="s03"
-        ref={flowSectionRef}
-        className={`relative z-10 isolate overflow-hidden py-20 md:py-28 lg:min-h-screen lg:py-0 ${SECTION_PAD}`}
-      >
-        <div
-          ref={flowStageRef}
-          className="relative z-10 mx-auto flex min-h-screen max-w-[1320px] items-center py-20 md:py-24 lg:py-[clamp(5.5rem,8vh,7rem)]"
-        >
-          <div className="w-full">
-            <SectionHeader
-              index="03"
-              kicker="生成流程"
-              title="从模板到成文的生成链路"
-              subtitle="通过大纲确认、用户确认和流式生成，把 AI 报告从一次性写作变成可控的业务流程。"
-              align="center"
-            />
-
-            {(() => {
-              const p1 = stepLocalProgress(1);
-              const p2 = stepLocalProgress(2);
-              const p3 = stepLocalProgress(3);
-              const p4 = stepLocalProgress(4);
-
-              const outlineCardsIn = rangeProgress(p1, 0.04, 0.22);
-              const outlineMerge = rangeProgress(p1, 0.52, 0.74);
-              const outlineContentIn = rangeProgress(p1, 0.72, 0.88);
-              const outlineSharedPresence =
-                rawFlowStep < 1
-                  ? 0
-                  : rawFlowStep < 2
-                    ? 1
-                    : rawFlowStep < 2.94
-                      ? 1
-                      : 1 - rangeProgress(rawFlowStep, 2.94, 3.04);
-
-              const confirmScroll = rangeProgress(p2, 0.08, 0.92);
-              const streamPanelIn = rangeProgress(p3, 0.12, 0.36);
-              const streamTextIn = rangeProgress(p3, 0.34, 0.88);
-              const streamShine = rangeProgress(p3, 0.78, 1);
-              const historyIn = p4;
-              const currentFlowStep = flowSteps[activeStep] ?? flowSteps[0];
-
-              return (
-              <div className="grid grid-cols-1 gap-8 lg:grid-cols-[220px_minmax(0,1fr)] lg:items-start xl:gap-12">
-                <aside aria-label="生成流程进度" className="relative hidden lg:block">
-                  <div className="absolute left-4 top-4 bottom-4 z-0 w-px bg-[#DDE3F2]" />
-                  <div
-                    className="absolute left-4 top-4 z-0 w-px transition-[height] duration-300 ease-out"
-                    style={{
-                      height: `calc((100% - 32px) * ${activeStep / Math.max(flowSteps.length - 1, 1)})`,
-                      background: BLUE,
-                    }}
-                  />
-                  <div className="relative space-y-6">
-                    {flowSteps.map((item, index) => {
-                      const Icon = item.icon;
-                      const isActive = activeStep === index;
-                      const isDone = index < activeStep;
-                      return (
-                        <div
-                          key={item.label}
-                          aria-current={isActive ? "step" : undefined}
-                          className="grid grid-cols-[32px_minmax(0,1fr)] items-center gap-4"
-                        >
-                          <span
-                            className="relative z-10 inline-flex size-8 items-center justify-center rounded-full border transition-all duration-200"
-                            style={{
-                              borderColor: isActive || isDone ? ICON_BORDER : "rgba(15,20,25,0.14)",
-                              background: isActive ? ICON_BG : isDone ? "#F0F4FF" : SURFACE,
-                              color: isActive || isDone ? ICON_BLUE : INK_DIM,
-                              boxShadow: isActive ? "0 10px 24px rgba(34,88,244,0.16)" : "none",
-                            }}
-                          >
-                            <Icon className="size-3.5" />
-                          </span>
-                          <span
-                            className="transition-colors duration-200"
-                            style={{
-                              fontSize: 16,
-                              lineHeight: 1.35,
-                              fontWeight: isActive ? 700 : 600,
-                              color: isActive ? INK : INK_MUTED,
-                            }}
-                          >
-                            {item.label}
-                          </span>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </aside>
-
-                <div className="min-w-0">
-                  <div className="relative aspect-[16/10] overflow-visible">
-                    <div
-                      className="absolute inset-0 z-[70]"
-                      style={{
-                        opacity: layerPresence(0),
-                        transform: `translate3d(0, ${lerp(0, -34, rangeProgress(rawFlowStep, 0.82, 1))}px, 0)`,
-                        pointerEvents: "none",
-                      }}
-                    >
-                      <img
-                        src={flowSteps[0].finalImage}
-                        alt="模板中心完整页面"
-                        {...DETAIL_IMAGE_LAZY_PROPS}
-                        className="absolute inset-0 z-30 m-auto w-[99%] rounded-[24px] border border-white/80 object-contain object-top shadow-[0_28px_80px_rgba(15,20,25,0.14)]"
-                        style={{ aspectRatio: "16 / 10" }}
-                      />
-                    </div>
-
-                    <OutlineConfirmFrame
-                      className="z-10 w-[99%]"
-                      showContent={false}
-                      style={{
-                        opacity: outlineSharedPresence,
-                        pointerEvents: "none",
-                      }}
-                    />
-
-                    <div
-                      className="absolute inset-0 z-[70]"
-                      style={{
-                        opacity: p1 > 0 && p1 < 1 ? 1 : 0,
-                        transform: `translate3d(0, ${lerp(32, 0, rangeProgress(p1, 0.04, 0.24))}px, 0) scale(${lerp(0.985, 1, rangeProgress(p1, 0.04, 0.24))})`,
-                        pointerEvents: "none",
-                      }}
-                    >
-                      {flowConfigCards.map((card, index) => {
-                        const cardIn = rangeProgress(outlineCardsIn, index * 0.08, 0.58 + index * 0.08);
-                        const isTitleCard = card.variant === "title";
-                        const isAddCard = card.variant === "add";
-                        return (
-                          <div
-                            key={card.title}
-                            className={
-                              isAddCard
-                                ? `absolute z-[80] inline-flex items-center gap-1.5 rounded-lg border border-neutral-100 bg-white px-3 py-1.5 shadow-[0_4px_14px_rgba(15,20,25,0.06)] ${card.className}`
-                                : `absolute z-[80] rounded-xl border border-neutral-100 bg-white px-3 py-2.5 shadow-[0_6px_20px_rgba(15,20,25,0.08)] ${card.className}`
-                            }
-                            style={{
-                              opacity: cardIn * (1 - outlineMerge),
-                              transform: `translate3d(${lerp(card.fromX, card.mergeX, outlineMerge)}px, ${lerp(card.fromY, card.mergeY, outlineMerge)}px, 0) scale(${lerp(0.96, 0.2, outlineMerge)})`,
-                            }}
-                          >
-                            {isTitleCard ? (
-                              <>
-                                <div className="flex items-center justify-between gap-2">
-                                  <span className="shrink-0 text-[13px] font-medium text-[#1A1C24]">{card.title}</span>
-                                  <svg
-                                    className="size-3 shrink-0 -rotate-90 text-neutral-400"
-                                    viewBox="0 0 12 12"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    strokeWidth="1.5"
-                                  >
-                                    <path d="M3 4.5L6 7.5L9 4.5" />
-                                  </svg>
-                                </div>
-                                <div className="mt-1.5 rounded-lg border border-[#E6E7EB] bg-[#F5F5F7] px-2 py-1.5">
-                                  <span className="text-[12px] text-[#1A1C24]">{card.body}</span>
-                                </div>
-                              </>
-                            ) : isAddCard ? (
-                              <>
-                                <span className="flex size-5 shrink-0 items-center justify-center rounded-full bg-[#2258F4] text-white">
-                                  <svg className="size-2.5" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="2">
-                                    <path d="M5 1v8M1 5h8" />
-                                  </svg>
-                                </span>
-                                <span className="text-[13px] text-neutral-600">{card.title}</span>
-                              </>
-                            ) : (
-                              <>
-                                <div className="flex items-center justify-between gap-2">
-                                  <span className="shrink-0 text-[13px] font-medium text-[#1A1C24]">{card.title}</span>
-                                  <svg
-                                    className="size-3 shrink-0 -rotate-90 text-neutral-400"
-                                    viewBox="0 0 12 12"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    strokeWidth="1.5"
-                                  >
-                                    <path d="M3 4.5L6 7.5L9 4.5" />
-                                  </svg>
-                                </div>
-                                {card.primaryTags.length > 0 && (
-                                  <div className="mt-1.5 flex flex-wrap gap-1.5">
-                                    {card.primaryTags.map((tag) => (
-                                      <span
-                                        key={tag}
-                                        className="inline-flex items-center gap-1 rounded-full bg-[#E5EBFF] px-1.5 py-0.5 text-[10px] font-medium text-[#1A42B8]"
-                                      >
-                                        {tag}
-                                      </span>
-                                    ))}
-                                  </div>
-                                )}
-                                <p className={`${card.primaryTags.length > 0 ? "mt-1.5" : "mt-1"} text-[10px] leading-relaxed text-[#696D7A]`}>
-                                  {card.body}
-                                </p>
-                                {card.mutedTags.length > 0 && (
-                                  <div className="mt-1.5 flex flex-wrap gap-1">
-                                    {card.mutedTags.map((tag) => (
-                                      <span
-                                        key={tag}
-                                        className={`rounded-md border border-[#E6E7EB] bg-[#F5F5F7] px-1.5 py-0.5 text-[10px] ${
-                                          tag.startsWith("+")
-                                            ? "text-neutral-400"
-                                            : "text-neutral-700"
-                                        }`}
-                                      >
-                                        {tag}
-                                      </span>
-                                    ))}
-                                  </div>
-                                )}
-                              </>
-                            )}
-                          </div>
-                        );
-                      })}
-                    </div>
-
-                    <OutlineConfirmFrame
-                      className="z-30 w-[99%]"
-                      showShell={false}
-                      contentXTranslate={0}
-                      contentTranslate={lerp(0, -74, confirmScroll)}
-                      contentOpacity={rawFlowStep < 2 ? outlineContentIn : 1}
-                      style={{
-                        opacity: outlineSharedPresence,
-                        transform:
-                          rawFlowStep < 2
-                            ? "translate3d(0, 0, 0)"
-                            : `translate3d(0, ${lerp(0, -24, rangeProgress(rawFlowStep, 2.82, 3))}px, 0)`,
-                        filter: "blur(0px)",
-                        pointerEvents: "none",
-                      }}
-                    />
-
-                    <div
-                      className="absolute inset-0"
-                      style={{
-                        opacity: layerPresence(3),
-                        transform: `translate3d(0, ${lerp(34, -28, rangeProgress(rawFlowStep, 2.82, 4))}px, 0)`,
-                        pointerEvents: "none",
-                      }}
-                    >
-                      <div
-                        className="absolute inset-0 z-30 m-auto w-[99%] overflow-hidden rounded-[24px] border border-white/80 shadow-[0_28px_80px_rgba(15,20,25,0.14)]"
-                        style={{ aspectRatio: "16 / 10" }}
-                      >
-                        <img
-                          src="./images/0405-webp/kongbaihuabu.webp"
-                          alt="流式生成空白画布"
-                          {...DETAIL_IMAGE_LAZY_PROPS}
-                          className="absolute inset-0 h-full w-full object-contain object-top"
-                        />
-                        <img
-                          src="./images/0405-webp/liushihuaban.webp"
-                          alt="流式生成报告空白面板"
-                          {...DETAIL_IMAGE_EAGER_PROPS}
-                          className="absolute right-0 top-0 z-20 h-full w-[60.7%] object-contain object-top"
-                          style={{
-                            opacity: streamPanelIn,
-                            transform: `translate3d(${lerp(110, 0, streamPanelIn)}px, 0, 0)`,
-                            clipPath: `inset(0 0 0 ${lerp(100, 0, streamPanelIn)}%)`,
-                            filter: `blur(${lerp(5, 0, streamPanelIn)}px)`,
-                          }}
-                        />
-                        <img
-                          src="./images/optimized-webp/ai-stream-text-1400.webp"
-                          alt="流式生成报告正文"
-                          {...DETAIL_IMAGE_EAGER_PROPS}
-                          className="absolute right-0 top-[5.6%] z-30 h-[88.9%] w-[60.7%] object-contain object-top"
-                          style={{
-                            opacity: streamTextIn,
-                            clipPath: `inset(0 0 ${lerp(100, 0, streamTextIn)}% 0)`,
-                            filter: `blur(${lerp(3, 0, streamTextIn)}px)`,
-                          }}
-                        />
-                        <div
-                          className="pointer-events-none absolute right-0 top-0 z-40 h-full w-[60.7%]"
-                          style={{
-                            opacity: streamShine < 0.5 ? lerp(0, 0.75, streamShine * 2) : lerp(0.75, 0, (streamShine - 0.5) * 2),
-                            transform: `translate3d(${lerp(-75, 92, streamShine)}%, 0, 0)`,
-                            background:
-                              "linear-gradient(115deg, transparent 0%, rgba(255,255,255,0.02) 36%, rgba(255,255,255,0.58) 48%, rgba(34,88,244,0.14) 54%, transparent 68%)",
-                            mixBlendMode: "screen",
-                          }}
-                        />
-                      </div>
-                    </div>
-
-                    <div
-                      className="absolute inset-0"
-                      style={{
-                        opacity: layerPresence(4),
-                        transform: `translate3d(0, ${lerp(80, 0, historyIn)}px, 0)`,
-                        filter: `blur(${lerp(8, 0, historyIn)}px)`,
-                        pointerEvents: "none",
-                      }}
-                    >
-                      <div
-                        className="absolute inset-0 z-30 m-auto w-[99%] overflow-hidden rounded-[24px] border border-white/80 shadow-[0_28px_80px_rgba(15,20,25,0.14)]"
-                        style={{ aspectRatio: "16 / 10" }}
-                      >
-                        <img
-                          src="./images/0405-webp/lishijilupng.webp"
-                          alt="历史文档页面"
-                          {...DETAIL_IMAGE_LAZY_PROPS}
-                          className="absolute inset-0 h-full w-full object-contain object-top"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={`flow-note-${activeStep}`}
-                      className="mt-6 grid gap-4 rounded-[16px] border bg-white/92 px-4 py-3 backdrop-blur-md md:grid-cols-[0.88fr_1.12fr]"
-                      style={{
-                        borderColor: LINE,
-                        boxShadow: "0 12px 34px rgba(15,20,25,0.07)",
-                      }}
-                      initial={{ opacity: 0, y: 8, filter: "blur(4px)" }}
-                      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                      exit={{ opacity: 0, y: -6, filter: "blur(4px)" }}
-                      transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
-                    >
-                      <div className="min-w-0">
-                        <div className="text-[13px] font-semibold" style={{ color: INK }}>
-                          设计决策
-                        </div>
-                        <p className="mt-0.5 text-[13px] leading-[1.55]" style={{ color: INK_DIM }}>
-                          {currentFlowStep.decision}
-                        </p>
-                      </div>
-                      <div className="min-w-0 border-t pt-2 md:border-l md:border-t-0 md:pl-4 md:pt-0" style={{ borderColor: LINE }}>
-                        <div className="text-[13px] font-semibold" style={{ color: INK }}>
-                          为什么这样做
-                        </div>
-                        <p className="mt-0.5 text-[13px] leading-[1.55]" style={{ color: INK_DIM }}>
-                          {currentFlowStep.why}
-                        </p>
-                      </div>
-                    </motion.div>
-                  </AnimatePresence>
-                </div>
-              </div>
-            );
-            })()}
-          </div>
-        </div>
-      </section>
-
-      {/* ===== 04. Product design — strategy cards with default visuals ===== */}
-      <section
-        id="s04"
         className={`relative py-20 md:py-28 ${SECTION_PAD} overflow-hidden`}
         style={{
           background:
@@ -4247,7 +3705,7 @@ export function ProjectDetail({ onBack }: Props) {
         <div className={`relative ${READ}`}>
           <Reveal>
             <SectionHeader
-              index="04"
+              index="03"
               kicker="产品设计方案"
               title="访谈找到的痛点，设计是这样回应的"
               subtitle=""
@@ -4267,11 +3725,11 @@ export function ProjectDetail({ onBack }: Props) {
                 icon: Database,
                 title: "数据来源配置",
                 quote:
-                  "材料散在各个网站，找完还要区分时效、重新分类，光这一步就要花半天以上",
+                  "资料来源太多，找资料往往是整个报告里最花时间的部分。",
                 desc:
-                  "系统数据、外链知识和本地知识库三路合一，生成时自动追溯来源",
+                  "数据来源很多，采集完成后能不能统一管理？",
                 feedback:
-                  "用户认为这套方案整体符合他们的预期，资料查找和整理更集中，生成内容的来源也更容易确认。",
+                  "用户认为这套方案整体符合他们的预期，资料查找和整理更集中，内容的来源也更容易确认。",
                 points: ["系统数据", "外链知识", "本地知识库", "来源追溯"],
                 visual: "知识库页面大图",
                 image: "./images/optimized-webp/ai-data01-1600.webp",
@@ -4280,9 +3738,9 @@ export function ProjectDetail({ onBack }: Props) {
                 icon: Users,
                 title: "企业范围复用",
                 quote:
-                  "有没有导入企业的功能？我们可能只关注某一部分企业，能不能直接和启信产业大脑打通？",
+                  "我们现有的企业名单，能不能直接上传到系统里维护？",
                 desc:
-                  "打通企业监控与报告生成，已维护的企业对象直接进入流程，无需重复上传名单",
+                  "对用户来说，重点不是增加一个上传按钮，而是能不能沿用旧名单继续跟踪管理。",
                 feedback:
                   "用户认为直接复用启信产业大脑中已有的客户数据，比每次手动上传名单更符合实际工作方式，这也成为 1.0 上线后最核心的延伸需求。",
                 points: ["企业监控", "企业分组", "账户权限", "跨系统关联"],
@@ -4294,11 +3752,9 @@ export function ProjectDetail({ onBack }: Props) {
                 icon: GitBranch,
                 title: "章节结构匹配",
                 quote:
-                  "格式一换，之前攒的措辞和段落结构全部没法直接用，等于重新来过",
+                  "已经写好的内容，能不能只换一下数据就直接用？",
                 desc:
-                  "把格式与内容解耦，模板承载结构规范，章节独立可复用，两者可以分别调整",
-                feedback:
-                  "用户认为模板与章节内容可以分别调整，更符合他们复用历史报告的习惯，格式变化时也不需要从头重新整理。",
+                  "这里有两层判断：第一点，用户期望在生产过程中减少工作量；第二点，用户觉得 AI 生成的结果不稳定。",
                 points: ["用户输入匹配", "编辑新增匹配", "内置章节复用"],
                 visual: "章节匹配逻辑截图",
                 image: "./images/optimized-webp/ai-marry01-1600.webp",
@@ -4341,7 +3797,7 @@ export function ProjectDetail({ onBack }: Props) {
                     <div className="max-w-[420px] space-y-5">
                       <div>
                         <div className="text-[16px] font-semibold tracking-[0.08em] text-[#737B8C]">
-                          设计回应
+                          目标判断
                         </div>
                         <p className="mt-2 text-[16px] leading-[1.75] text-[#696D7A]">
                           <span className="ai-report-marker-highlight">{primaryStrategy.desc}</span>
@@ -4426,7 +3882,7 @@ export function ProjectDetail({ onBack }: Props) {
                     <div className="max-w-[420px] space-y-5">
                       <div>
                         <div className="text-[16px] font-semibold tracking-[0.08em] text-[#737B8C]">
-                          设计回应
+                          目标判断
                         </div>
                         <p className="mt-2 text-[16px] leading-[1.75] text-[#696D7A]">
                           <span className="ai-report-marker-highlight">{secondaryStrategy.desc}</span>
@@ -4473,19 +3929,10 @@ export function ProjectDetail({ onBack }: Props) {
                     <div className="max-w-[420px] space-y-5">
                       <div>
                         <div className="text-[16px] font-semibold tracking-[0.08em] text-[#737B8C]">
-                          设计回应
+                          目标判断
                         </div>
                         <p className="mt-2 text-[16px] leading-[1.75] text-[#696D7A]">
                           <span className="ai-report-marker-highlight">{tertiaryStrategy.desc}</span>
-                        </p>
-                      </div>
-
-                      <div className="border-t pt-4" style={{ borderColor: LINE }}>
-                        <div className="text-[16px] font-semibold tracking-[0.08em] text-[#737B8C]">
-                          上线反馈
-                        </div>
-                        <p className="mt-2 text-[16px] leading-[1.75] text-[#696D7A]">
-                          {tertiaryStrategy.feedback}
                         </p>
                       </div>
                     </div>
@@ -4538,14 +3985,14 @@ export function ProjectDetail({ onBack }: Props) {
         </div>
       </section>
 
-      {/* ===== 04b. Traceability — source evidence setup ===== */}
+      {/* ===== 03b. Traceability — source evidence setup ===== */}
       <section
         className={`relative pt-20 pb-12 md:pt-24 md:pb-16 xl:pt-28 xl:pb-20 ${SECTION_PAD} overflow-hidden`}
       >
         <div className={`relative ${READ}`}>
           <Reveal className="max-w-[980px]">
             <SectionHeader
-              index="04B"
+              index="03B"
               kicker="来源可信度"
               title="用户信任内容的前提是知道它从哪来"
               subtitle=""
@@ -5118,6 +4565,364 @@ export function ProjectDetail({ onBack }: Props) {
         </div>
       </section>
 
+      {/* ===== 04. Interactive flow: 模板选择 → 历史文档 ===== */}
+      <section
+        id="s04"
+        ref={flowSectionRef}
+        className={`relative z-10 isolate overflow-hidden py-20 md:py-28 lg:min-h-screen lg:py-0 ${SECTION_PAD}`}
+      >
+        <div
+          ref={flowStageRef}
+          className="relative z-10 mx-auto flex min-h-screen max-w-[1320px] items-center py-20 md:py-24 lg:py-[clamp(5.5rem,8vh,7rem)]"
+        >
+          <div className="w-full">
+            <SectionHeader
+              index="04"
+              kicker="生成流程"
+              title="从模板到成文的生成链路"
+              subtitle="通过大纲确认、用户确认和流式生成，把 AI 报告从一次性写作变成可控的业务流程。"
+              align="center"
+            />
+
+            {(() => {
+              const p1 = stepLocalProgress(1);
+              const p2 = stepLocalProgress(2);
+              const p3 = stepLocalProgress(3);
+              const p4 = stepLocalProgress(4);
+
+              const outlineCardsIn = rangeProgress(p1, 0.04, 0.22);
+              const outlineMerge = rangeProgress(p1, 0.52, 0.74);
+              const outlineContentIn = rangeProgress(p1, 0.72, 0.88);
+              const outlineSharedPresence =
+                rawFlowStep < 1
+                  ? 0
+                  : rawFlowStep < 2
+                    ? 1
+                    : rawFlowStep < 2.94
+                      ? 1
+                      : 1 - rangeProgress(rawFlowStep, 2.94, 3.04);
+
+              const confirmScroll = rangeProgress(p2, 0.08, 0.92);
+              const streamPanelIn = rangeProgress(p3, 0.12, 0.36);
+              const streamTextIn = rangeProgress(p3, 0.34, 0.88);
+              const streamShine = rangeProgress(p3, 0.78, 1);
+              const historyIn = p4;
+              const currentFlowStep = flowSteps[activeStep] ?? flowSteps[0];
+
+              return (
+              <div className="grid grid-cols-1 gap-8 lg:grid-cols-[220px_minmax(0,1fr)] lg:items-start xl:gap-12">
+                <aside aria-label="生成流程进度" className="relative hidden lg:block">
+                  <div className="absolute left-4 top-4 bottom-4 z-0 w-px bg-[#DDE3F2]" />
+                  <div
+                    className="absolute left-4 top-4 z-0 w-px transition-[height] duration-300 ease-out"
+                    style={{
+                      height: `calc((100% - 32px) * ${activeStep / Math.max(flowSteps.length - 1, 1)})`,
+                      background: BLUE,
+                    }}
+                  />
+                  <div className="relative space-y-6">
+                    {flowSteps.map((item, index) => {
+                      const Icon = item.icon;
+                      const isActive = activeStep === index;
+                      const isDone = index < activeStep;
+                      return (
+                        <div
+                          key={item.label}
+                          aria-current={isActive ? "step" : undefined}
+                          className="grid grid-cols-[32px_minmax(0,1fr)] items-center gap-4"
+                        >
+                          <span
+                            className="relative z-10 inline-flex size-8 items-center justify-center rounded-full border transition-all duration-200"
+                            style={{
+                              borderColor: isActive || isDone ? ICON_BORDER : "rgba(15,20,25,0.14)",
+                              background: isActive ? ICON_BG : isDone ? "#F0F4FF" : SURFACE,
+                              color: isActive || isDone ? ICON_BLUE : INK_DIM,
+                              boxShadow: isActive ? "0 10px 24px rgba(34,88,244,0.16)" : "none",
+                            }}
+                          >
+                            <Icon className="size-3.5" />
+                          </span>
+                          <span
+                            className="transition-colors duration-200"
+                            style={{
+                              fontSize: 16,
+                              lineHeight: 1.35,
+                              fontWeight: isActive ? 700 : 600,
+                              color: isActive ? INK : INK_MUTED,
+                            }}
+                          >
+                            {item.label}
+                          </span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </aside>
+
+                <div className="min-w-0">
+                  <div className="relative aspect-[16/10] overflow-visible">
+                    <div
+                      className="absolute inset-0 z-[70]"
+                      style={{
+                        opacity: layerPresence(0),
+                        transform: `translate3d(0, ${lerp(0, -34, rangeProgress(rawFlowStep, 0.82, 1))}px, 0)`,
+                        pointerEvents: "none",
+                      }}
+                    >
+                      <img
+                        src={flowSteps[0].finalImage}
+                        alt="模板中心完整页面"
+                        {...DETAIL_IMAGE_LAZY_PROPS}
+                        className="absolute inset-0 z-30 m-auto w-[99%] rounded-[24px] border border-white/80 object-contain object-top shadow-[0_28px_80px_rgba(15,20,25,0.14)]"
+                        style={{ aspectRatio: "16 / 10" }}
+                      />
+                    </div>
+
+                    <OutlineConfirmFrame
+                      className="z-10 w-[99%]"
+                      showContent={false}
+                      style={{
+                        opacity: outlineSharedPresence,
+                        pointerEvents: "none",
+                      }}
+                    />
+
+                    <div
+                      className="absolute inset-0 z-[70]"
+                      style={{
+                        opacity: p1 > 0 && p1 < 1 ? 1 : 0,
+                        transform: `translate3d(0, ${lerp(32, 0, rangeProgress(p1, 0.04, 0.24))}px, 0) scale(${lerp(0.985, 1, rangeProgress(p1, 0.04, 0.24))})`,
+                        pointerEvents: "none",
+                      }}
+                    >
+                      {flowConfigCards.map((card, index) => {
+                        const cardIn = rangeProgress(outlineCardsIn, index * 0.08, 0.58 + index * 0.08);
+                        const isTitleCard = card.variant === "title";
+                        const isAddCard = card.variant === "add";
+                        return (
+                          <div
+                            key={card.title}
+                            className={
+                              isAddCard
+                                ? `absolute z-[80] inline-flex items-center gap-1.5 rounded-lg border border-neutral-100 bg-white px-3 py-1.5 shadow-[0_4px_14px_rgba(15,20,25,0.06)] ${card.className}`
+                                : `absolute z-[80] rounded-xl border border-neutral-100 bg-white px-3 py-2.5 shadow-[0_6px_20px_rgba(15,20,25,0.08)] ${card.className}`
+                            }
+                            style={{
+                              opacity: cardIn * (1 - outlineMerge),
+                              transform: `translate3d(${lerp(card.fromX, card.mergeX, outlineMerge)}px, ${lerp(card.fromY, card.mergeY, outlineMerge)}px, 0) scale(${lerp(0.96, 0.2, outlineMerge)})`,
+                            }}
+                          >
+                            {isTitleCard ? (
+                              <>
+                                <div className="flex items-center justify-between gap-2">
+                                  <span className="shrink-0 text-[13px] font-medium text-[#1A1C24]">{card.title}</span>
+                                  <svg
+                                    className="size-3 shrink-0 -rotate-90 text-neutral-400"
+                                    viewBox="0 0 12 12"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="1.5"
+                                  >
+                                    <path d="M3 4.5L6 7.5L9 4.5" />
+                                  </svg>
+                                </div>
+                                <div className="mt-1.5 rounded-lg border border-[#E6E7EB] bg-[#F5F5F7] px-2 py-1.5">
+                                  <span className="text-[12px] text-[#1A1C24]">{card.body}</span>
+                                </div>
+                              </>
+                            ) : isAddCard ? (
+                              <>
+                                <span className="flex size-5 shrink-0 items-center justify-center rounded-full bg-[#2258F4] text-white">
+                                  <svg className="size-2.5" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="2">
+                                    <path d="M5 1v8M1 5h8" />
+                                  </svg>
+                                </span>
+                                <span className="text-[13px] text-neutral-600">{card.title}</span>
+                              </>
+                            ) : (
+                              <>
+                                <div className="flex items-center justify-between gap-2">
+                                  <span className="shrink-0 text-[13px] font-medium text-[#1A1C24]">{card.title}</span>
+                                  <svg
+                                    className="size-3 shrink-0 -rotate-90 text-neutral-400"
+                                    viewBox="0 0 12 12"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="1.5"
+                                  >
+                                    <path d="M3 4.5L6 7.5L9 4.5" />
+                                  </svg>
+                                </div>
+                                {card.primaryTags.length > 0 && (
+                                  <div className="mt-1.5 flex flex-wrap gap-1.5">
+                                    {card.primaryTags.map((tag) => (
+                                      <span
+                                        key={tag}
+                                        className="inline-flex items-center gap-1 rounded-full bg-[#E5EBFF] px-1.5 py-0.5 text-[10px] font-medium text-[#1A42B8]"
+                                      >
+                                        {tag}
+                                      </span>
+                                    ))}
+                                  </div>
+                                )}
+                                <p className={`${card.primaryTags.length > 0 ? "mt-1.5" : "mt-1"} text-[10px] leading-relaxed text-[#696D7A]`}>
+                                  {card.body}
+                                </p>
+                                {card.mutedTags.length > 0 && (
+                                  <div className="mt-1.5 flex flex-wrap gap-1">
+                                    {card.mutedTags.map((tag) => (
+                                      <span
+                                        key={tag}
+                                        className={`rounded-md border border-[#E6E7EB] bg-[#F5F5F7] px-1.5 py-0.5 text-[10px] ${
+                                          tag.startsWith("+")
+                                            ? "text-neutral-400"
+                                            : "text-neutral-700"
+                                        }`}
+                                      >
+                                        {tag}
+                                      </span>
+                                    ))}
+                                  </div>
+                                )}
+                              </>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+
+                    <OutlineConfirmFrame
+                      className="z-30 w-[99%]"
+                      showShell={false}
+                      contentXTranslate={0}
+                      contentTranslate={lerp(0, -74, confirmScroll)}
+                      contentOpacity={rawFlowStep < 2 ? outlineContentIn : 1}
+                      style={{
+                        opacity: outlineSharedPresence,
+                        transform:
+                          rawFlowStep < 2
+                            ? "translate3d(0, 0, 0)"
+                            : `translate3d(0, ${lerp(0, -24, rangeProgress(rawFlowStep, 2.82, 3))}px, 0)`,
+                        filter: "blur(0px)",
+                        pointerEvents: "none",
+                      }}
+                    />
+
+                    <div
+                      className="absolute inset-0"
+                      style={{
+                        opacity: layerPresence(3),
+                        transform: `translate3d(0, ${lerp(34, -28, rangeProgress(rawFlowStep, 2.82, 4))}px, 0)`,
+                        pointerEvents: "none",
+                      }}
+                    >
+                      <div
+                        className="absolute inset-0 z-30 m-auto w-[99%] overflow-hidden rounded-[24px] border border-white/80 shadow-[0_28px_80px_rgba(15,20,25,0.14)]"
+                        style={{ aspectRatio: "16 / 10" }}
+                      >
+                        <img
+                          src="./images/0405-webp/kongbaihuabu.webp"
+                          alt="流式生成空白画布"
+                          {...DETAIL_IMAGE_LAZY_PROPS}
+                          className="absolute inset-0 h-full w-full object-contain object-top"
+                        />
+                        <img
+                          src="./images/0405-webp/liushihuaban.webp"
+                          alt="流式生成报告空白面板"
+                          {...DETAIL_IMAGE_EAGER_PROPS}
+                          className="absolute right-0 top-0 z-20 h-full w-[60.7%] object-contain object-top"
+                          style={{
+                            opacity: streamPanelIn,
+                            transform: `translate3d(${lerp(110, 0, streamPanelIn)}px, 0, 0)`,
+                            clipPath: `inset(0 0 0 ${lerp(100, 0, streamPanelIn)}%)`,
+                            filter: `blur(${lerp(5, 0, streamPanelIn)}px)`,
+                          }}
+                        />
+                        <img
+                          src="./images/optimized-webp/ai-stream-text-1400.webp"
+                          alt="流式生成报告正文"
+                          {...DETAIL_IMAGE_EAGER_PROPS}
+                          className="absolute right-0 top-[5.6%] z-30 h-[88.9%] w-[60.7%] object-contain object-top"
+                          style={{
+                            opacity: streamTextIn,
+                            clipPath: `inset(0 0 ${lerp(100, 0, streamTextIn)}% 0)`,
+                            filter: `blur(${lerp(3, 0, streamTextIn)}px)`,
+                          }}
+                        />
+                        <div
+                          className="pointer-events-none absolute right-0 top-0 z-40 h-full w-[60.7%]"
+                          style={{
+                            opacity: streamShine < 0.5 ? lerp(0, 0.75, streamShine * 2) : lerp(0.75, 0, (streamShine - 0.5) * 2),
+                            transform: `translate3d(${lerp(-75, 92, streamShine)}%, 0, 0)`,
+                            background:
+                              "linear-gradient(115deg, transparent 0%, rgba(255,255,255,0.02) 36%, rgba(255,255,255,0.58) 48%, rgba(34,88,244,0.14) 54%, transparent 68%)",
+                            mixBlendMode: "screen",
+                          }}
+                        />
+                      </div>
+                    </div>
+
+                    <div
+                      className="absolute inset-0"
+                      style={{
+                        opacity: layerPresence(4),
+                        transform: `translate3d(0, ${lerp(80, 0, historyIn)}px, 0)`,
+                        filter: `blur(${lerp(8, 0, historyIn)}px)`,
+                        pointerEvents: "none",
+                      }}
+                    >
+                      <div
+                        className="absolute inset-0 z-30 m-auto w-[99%] overflow-hidden rounded-[24px] border border-white/80 shadow-[0_28px_80px_rgba(15,20,25,0.14)]"
+                        style={{ aspectRatio: "16 / 10" }}
+                      >
+                        <img
+                          src="./images/0405-webp/lishijilupng.webp"
+                          alt="历史文档页面"
+                          {...DETAIL_IMAGE_LAZY_PROPS}
+                          className="absolute inset-0 h-full w-full object-contain object-top"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={`flow-note-${activeStep}`}
+                      className="mt-6 grid gap-4 rounded-[16px] border bg-white/92 px-4 py-3 backdrop-blur-md md:grid-cols-[0.88fr_1.12fr]"
+                      style={{
+                        borderColor: LINE,
+                        boxShadow: "0 12px 34px rgba(15,20,25,0.07)",
+                      }}
+                      initial={{ opacity: 0, y: 8, filter: "blur(4px)" }}
+                      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                      exit={{ opacity: 0, y: -6, filter: "blur(4px)" }}
+                      transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
+                    >
+                      <div className="min-w-0">
+                        <div className="text-[13px] font-semibold" style={{ color: INK }}>
+                          设计决策
+                        </div>
+                        <p className="mt-0.5 text-[13px] leading-[1.55]" style={{ color: INK_DIM }}>
+                          {currentFlowStep.decision}
+                        </p>
+                      </div>
+                      <div className="min-w-0 border-t pt-2 md:border-l md:border-t-0 md:pl-4 md:pt-0" style={{ borderColor: LINE }}>
+                        <div className="text-[13px] font-semibold" style={{ color: INK }}>
+                          为什么这样做
+                        </div>
+                        <p className="mt-0.5 text-[13px] leading-[1.55]" style={{ color: INK_DIM }}>
+                          {currentFlowStep.why}
+                        </p>
+                      </div>
+                    </motion.div>
+                  </AnimatePresence>
+                </div>
+              </div>
+            );
+            })()}
+          </div>
+        </div>
+      </section>
+
       {/* ===== 05. Prompt standardization — chapter-level protocol ===== */}
       <section
         id="s05"
@@ -5133,7 +4938,7 @@ export function ProjectDetail({ onBack }: Props) {
             <SectionHeader
               index="05"
               kicker="提示词标准化梳理"
-              title="主导章节生成从经验 Prompt 梳理成可执行规则"
+              title="设计提示词框架供团队使用"
               subtitle=""
             />
           </Reveal>
@@ -5285,10 +5090,6 @@ export function ProjectDetail({ onBack }: Props) {
           <FourDimensionLoopOverview />
 
           <FourDimensionDecisionNotes />
-
-          <Reveal className="mb-20" delay={0.18} y={24}>
-            <AgentWorkflowDiagram />
-          </Reveal>
 
           <PromptCompilerPipelineScaffold />
 
