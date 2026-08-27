@@ -3692,9 +3692,367 @@ export function ProjectDetail({ onBack }: Props) {
       />
 
 
-      {/* ===== 03. Product design — strategy cards with default visuals ===== */}
+      {/* ===== 03. Interactive flow: 模板选择 → 历史文档 ===== */}
       <section
         id="s03"
+        ref={flowSectionRef}
+        className={`relative z-10 isolate overflow-hidden py-20 md:py-28 lg:min-h-screen lg:py-0 ${SECTION_PAD}`}
+      >
+        <div
+          ref={flowStageRef}
+          className="relative z-10 mx-auto flex min-h-screen max-w-[1320px] items-center py-20 md:py-24 lg:py-[clamp(5.5rem,8vh,7rem)]"
+        >
+          <div className="w-full">
+            <SectionHeader
+              index="03"
+              kicker="生成流程"
+              title="从模板到成文的生成链路"
+              subtitle="把体验地图中的失控点，落到模板选择、大纲生成、用户确认、流式生成和历史复用五个关键环节中。"
+              align="center"
+            />
+
+            {(() => {
+              const p1 = stepLocalProgress(1);
+              const p2 = stepLocalProgress(2);
+              const p3 = stepLocalProgress(3);
+              const p4 = stepLocalProgress(4);
+
+              const outlineCardsIn = rangeProgress(p1, 0.04, 0.22);
+              const outlineMerge = rangeProgress(p1, 0.52, 0.74);
+              const outlineContentIn = rangeProgress(p1, 0.72, 0.88);
+              const outlineSharedPresence =
+                rawFlowStep < 1
+                  ? 0
+                  : rawFlowStep < 2
+                    ? 1
+                    : rawFlowStep < 2.94
+                      ? 1
+                      : 1 - rangeProgress(rawFlowStep, 2.94, 3.04);
+
+              const confirmScroll = rangeProgress(p2, 0.08, 0.92);
+              const streamPanelIn = rangeProgress(p3, 0.12, 0.36);
+              const streamTextIn = rangeProgress(p3, 0.34, 0.88);
+              const streamShine = rangeProgress(p3, 0.78, 1);
+              const historyIn = p4;
+              const currentFlowStep = flowSteps[activeStep] ?? flowSteps[0];
+
+              return (
+              <div className="grid grid-cols-1 gap-8 lg:grid-cols-[220px_minmax(0,1fr)] lg:items-start xl:gap-12">
+                <aside aria-label="生成流程进度" className="relative hidden lg:block">
+                  <div className="absolute left-4 top-4 bottom-4 z-0 w-px bg-[#DDE3F2]" />
+                  <div
+                    className="absolute left-4 top-4 z-0 w-px transition-[height] duration-300 ease-out"
+                    style={{
+                      height: `calc((100% - 32px) * ${activeStep / Math.max(flowSteps.length - 1, 1)})`,
+                      background: BLUE,
+                    }}
+                  />
+                  <div className="relative space-y-6">
+                    {flowSteps.map((item, index) => {
+                      const Icon = item.icon;
+                      const isActive = activeStep === index;
+                      const isDone = index < activeStep;
+                      return (
+                        <div
+                          key={item.label}
+                          aria-current={isActive ? "step" : undefined}
+                          className="grid grid-cols-[32px_minmax(0,1fr)] items-center gap-4"
+                        >
+                          <span
+                            className="relative z-10 inline-flex size-8 items-center justify-center rounded-full border transition-all duration-200"
+                            style={{
+                              borderColor: isActive || isDone ? ICON_BORDER : "rgba(15,20,25,0.14)",
+                              background: isActive ? ICON_BG : isDone ? "#F0F4FF" : SURFACE,
+                              color: isActive || isDone ? ICON_BLUE : INK_DIM,
+                              boxShadow: isActive ? "0 10px 24px rgba(34,88,244,0.16)" : "none",
+                            }}
+                          >
+                            <Icon className="size-3.5" />
+                          </span>
+                          <span
+                            className="transition-colors duration-200"
+                            style={{
+                              fontSize: 16,
+                              lineHeight: 1.35,
+                              fontWeight: isActive ? 700 : 600,
+                              color: isActive ? INK : INK_MUTED,
+                            }}
+                          >
+                            {item.label}
+                          </span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </aside>
+
+                <div className="min-w-0">
+                  <div className="relative aspect-[16/10] overflow-visible">
+                    <div
+                      className="absolute inset-0 z-[70]"
+                      style={{
+                        opacity: layerPresence(0),
+                        transform: `translate3d(0, ${lerp(0, -34, rangeProgress(rawFlowStep, 0.82, 1))}px, 0)`,
+                        pointerEvents: "none",
+                      }}
+                    >
+                      <img
+                        src={flowSteps[0].finalImage}
+                        alt="模板中心完整页面"
+                        {...DETAIL_IMAGE_LAZY_PROPS}
+                        className="absolute inset-0 z-30 m-auto w-[99%] rounded-[24px] border border-white/80 object-contain object-top shadow-[0_28px_80px_rgba(15,20,25,0.14)]"
+                        style={{ aspectRatio: "16 / 10" }}
+                      />
+                    </div>
+
+                    <OutlineConfirmFrame
+                      className="z-10 w-[99%]"
+                      showContent={false}
+                      style={{
+                        opacity: outlineSharedPresence,
+                        pointerEvents: "none",
+                      }}
+                    />
+
+                    <div
+                      className="absolute inset-0 z-[70]"
+                      style={{
+                        opacity: p1 > 0 && p1 < 1 ? 1 : 0,
+                        transform: `translate3d(0, ${lerp(32, 0, rangeProgress(p1, 0.04, 0.24))}px, 0) scale(${lerp(0.985, 1, rangeProgress(p1, 0.04, 0.24))})`,
+                        pointerEvents: "none",
+                      }}
+                    >
+                      {flowConfigCards.map((card, index) => {
+                        const cardIn = rangeProgress(outlineCardsIn, index * 0.08, 0.58 + index * 0.08);
+                        const isTitleCard = card.variant === "title";
+                        const isAddCard = card.variant === "add";
+                        return (
+                          <div
+                            key={card.title}
+                            className={
+                              isAddCard
+                                ? `absolute z-[80] inline-flex items-center gap-1.5 rounded-lg border border-neutral-100 bg-white px-3 py-1.5 shadow-[0_4px_14px_rgba(15,20,25,0.06)] ${card.className}`
+                                : `absolute z-[80] rounded-xl border border-neutral-100 bg-white px-3 py-2.5 shadow-[0_6px_20px_rgba(15,20,25,0.08)] ${card.className}`
+                            }
+                            style={{
+                              opacity: cardIn * (1 - outlineMerge),
+                              transform: `translate3d(${lerp(card.fromX, card.mergeX, outlineMerge)}px, ${lerp(card.fromY, card.mergeY, outlineMerge)}px, 0) scale(${lerp(0.96, 0.2, outlineMerge)})`,
+                            }}
+                          >
+                            {isTitleCard ? (
+                              <>
+                                <div className="flex items-center justify-between gap-2">
+                                  <span className="shrink-0 text-[13px] font-medium text-[#1A1C24]">{card.title}</span>
+                                  <svg
+                                    className="size-3 shrink-0 -rotate-90 text-neutral-400"
+                                    viewBox="0 0 12 12"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="1.5"
+                                  >
+                                    <path d="M3 4.5L6 7.5L9 4.5" />
+                                  </svg>
+                                </div>
+                                <div className="mt-1.5 rounded-lg border border-[#E6E7EB] bg-[#F5F5F7] px-2 py-1.5">
+                                  <span className="text-[12px] text-[#1A1C24]">{card.body}</span>
+                                </div>
+                              </>
+                            ) : isAddCard ? (
+                              <>
+                                <span className="flex size-5 shrink-0 items-center justify-center rounded-full bg-[#2258F4] text-white">
+                                  <svg className="size-2.5" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="2">
+                                    <path d="M5 1v8M1 5h8" />
+                                  </svg>
+                                </span>
+                                <span className="text-[13px] text-neutral-600">{card.title}</span>
+                              </>
+                            ) : (
+                              <>
+                                <div className="flex items-center justify-between gap-2">
+                                  <span className="shrink-0 text-[13px] font-medium text-[#1A1C24]">{card.title}</span>
+                                  <svg
+                                    className="size-3 shrink-0 -rotate-90 text-neutral-400"
+                                    viewBox="0 0 12 12"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="1.5"
+                                  >
+                                    <path d="M3 4.5L6 7.5L9 4.5" />
+                                  </svg>
+                                </div>
+                                {card.primaryTags.length > 0 && (
+                                  <div className="mt-1.5 flex flex-wrap gap-1.5">
+                                    {card.primaryTags.map((tag) => (
+                                      <span
+                                        key={tag}
+                                        className="inline-flex items-center gap-1 rounded-full bg-[#E5EBFF] px-1.5 py-0.5 text-[10px] font-medium text-[#1A42B8]"
+                                      >
+                                        {tag}
+                                      </span>
+                                    ))}
+                                  </div>
+                                )}
+                                <p className={`${card.primaryTags.length > 0 ? "mt-1.5" : "mt-1"} text-[10px] leading-relaxed text-[#696D7A]`}>
+                                  {card.body}
+                                </p>
+                                {card.mutedTags.length > 0 && (
+                                  <div className="mt-1.5 flex flex-wrap gap-1">
+                                    {card.mutedTags.map((tag) => (
+                                      <span
+                                        key={tag}
+                                        className={`rounded-md border border-[#E6E7EB] bg-[#F5F5F7] px-1.5 py-0.5 text-[10px] ${
+                                          tag.startsWith("+")
+                                            ? "text-neutral-400"
+                                            : "text-neutral-700"
+                                        }`}
+                                      >
+                                        {tag}
+                                      </span>
+                                    ))}
+                                  </div>
+                                )}
+                              </>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+
+                    <OutlineConfirmFrame
+                      className="z-30 w-[99%]"
+                      showShell={false}
+                      contentXTranslate={0}
+                      contentTranslate={lerp(0, -74, confirmScroll)}
+                      contentOpacity={rawFlowStep < 2 ? outlineContentIn : 1}
+                      style={{
+                        opacity: outlineSharedPresence,
+                        transform:
+                          rawFlowStep < 2
+                            ? "translate3d(0, 0, 0)"
+                            : `translate3d(0, ${lerp(0, -24, rangeProgress(rawFlowStep, 2.82, 3))}px, 0)`,
+                        filter: "blur(0px)",
+                        pointerEvents: "none",
+                      }}
+                    />
+
+                    <div
+                      className="absolute inset-0"
+                      style={{
+                        opacity: layerPresence(3),
+                        transform: `translate3d(0, ${lerp(34, -28, rangeProgress(rawFlowStep, 2.82, 4))}px, 0)`,
+                        pointerEvents: "none",
+                      }}
+                    >
+                      <div
+                        className="absolute inset-0 z-30 m-auto w-[99%] overflow-hidden rounded-[24px] border border-white/80 shadow-[0_28px_80px_rgba(15,20,25,0.14)]"
+                        style={{ aspectRatio: "16 / 10" }}
+                      >
+                        <img
+                          src="./images/0405-webp/kongbaihuabu.webp"
+                          alt="流式生成空白画布"
+                          {...DETAIL_IMAGE_LAZY_PROPS}
+                          className="absolute inset-0 h-full w-full object-contain object-top"
+                        />
+                        <img
+                          src="./images/0405-webp/liushihuaban.webp"
+                          alt="流式生成报告空白面板"
+                          {...DETAIL_IMAGE_EAGER_PROPS}
+                          className="absolute right-0 top-0 z-20 h-full w-[60.7%] object-contain object-top"
+                          style={{
+                            opacity: streamPanelIn,
+                            transform: `translate3d(${lerp(110, 0, streamPanelIn)}px, 0, 0)`,
+                            clipPath: `inset(0 0 0 ${lerp(100, 0, streamPanelIn)}%)`,
+                            filter: `blur(${lerp(5, 0, streamPanelIn)}px)`,
+                          }}
+                        />
+                        <img
+                          src="./images/optimized-webp/ai-stream-text-1400.webp"
+                          alt="流式生成报告正文"
+                          {...DETAIL_IMAGE_EAGER_PROPS}
+                          className="absolute right-0 top-[5.6%] z-30 h-[88.9%] w-[60.7%] object-contain object-top"
+                          style={{
+                            opacity: streamTextIn,
+                            clipPath: `inset(0 0 ${lerp(100, 0, streamTextIn)}% 0)`,
+                            filter: `blur(${lerp(3, 0, streamTextIn)}px)`,
+                          }}
+                        />
+                        <div
+                          className="pointer-events-none absolute right-0 top-0 z-40 h-full w-[60.7%]"
+                          style={{
+                            opacity: streamShine < 0.5 ? lerp(0, 0.75, streamShine * 2) : lerp(0.75, 0, (streamShine - 0.5) * 2),
+                            transform: `translate3d(${lerp(-75, 92, streamShine)}%, 0, 0)`,
+                            background:
+                              "linear-gradient(115deg, transparent 0%, rgba(255,255,255,0.02) 36%, rgba(255,255,255,0.58) 48%, rgba(34,88,244,0.14) 54%, transparent 68%)",
+                            mixBlendMode: "screen",
+                          }}
+                        />
+                      </div>
+                    </div>
+
+                    <div
+                      className="absolute inset-0"
+                      style={{
+                        opacity: layerPresence(4),
+                        transform: `translate3d(0, ${lerp(80, 0, historyIn)}px, 0)`,
+                        filter: `blur(${lerp(8, 0, historyIn)}px)`,
+                        pointerEvents: "none",
+                      }}
+                    >
+                      <div
+                        className="absolute inset-0 z-30 m-auto w-[99%] overflow-hidden rounded-[24px] border border-white/80 shadow-[0_28px_80px_rgba(15,20,25,0.14)]"
+                        style={{ aspectRatio: "16 / 10" }}
+                      >
+                        <img
+                          src="./images/0405-webp/lishijilupng.webp"
+                          alt="历史文档页面"
+                          {...DETAIL_IMAGE_LAZY_PROPS}
+                          className="absolute inset-0 h-full w-full object-contain object-top"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={`flow-note-${activeStep}`}
+                      className="mt-6 grid gap-4 rounded-[16px] border bg-white/92 px-4 py-3 backdrop-blur-md md:grid-cols-[0.88fr_1.12fr]"
+                      style={{
+                        borderColor: LINE,
+                        boxShadow: "0 12px 34px rgba(15,20,25,0.07)",
+                      }}
+                      initial={{ opacity: 0, y: 8, filter: "blur(4px)" }}
+                      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                      exit={{ opacity: 0, y: -6, filter: "blur(4px)" }}
+                      transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
+                    >
+                      <div className="min-w-0">
+                        <div className="text-[13px] font-semibold" style={{ color: INK }}>
+                          设计决策
+                        </div>
+                        <p className="mt-0.5 text-[13px] leading-[1.55]" style={{ color: INK_DIM }}>
+                          {currentFlowStep.decision}
+                        </p>
+                      </div>
+                      <div className="min-w-0 border-t pt-2 md:border-l md:border-t-0 md:pl-4 md:pt-0" style={{ borderColor: LINE }}>
+                        <div className="text-[13px] font-semibold" style={{ color: INK }}>
+                          为什么这样做
+                        </div>
+                        <p className="mt-0.5 text-[13px] leading-[1.55]" style={{ color: INK_DIM }}>
+                          {currentFlowStep.why}
+                        </p>
+                      </div>
+                    </motion.div>
+                  </AnimatePresence>
+                </div>
+              </div>
+            );
+            })()}
+          </div>
+        </div>
+      </section>
+
+      {/* ===== 04. Product design — strategy cards with default visuals ===== */}
+      <section
+        id="s04"
         className={`relative py-20 md:py-28 ${SECTION_PAD} overflow-hidden`}
         style={{
           background:
@@ -3705,9 +4063,9 @@ export function ProjectDetail({ onBack }: Props) {
         <div className={`relative ${READ}`}>
           <Reveal>
             <SectionHeader
-              index="03"
+              index="04"
               kicker="产品设计方案"
-              title="访谈找到的痛点，设计是这样回应的"
+              title="完整链路背后的三个关键设计判断"
               subtitle=""
             />
           </Reveal>
@@ -3985,14 +4343,14 @@ export function ProjectDetail({ onBack }: Props) {
         </div>
       </section>
 
-      {/* ===== 03b. Traceability — source evidence setup ===== */}
+      {/* ===== 04b. Traceability — source evidence setup ===== */}
       <section
         className={`relative pt-20 pb-12 md:pt-24 md:pb-16 xl:pt-28 xl:pb-20 ${SECTION_PAD} overflow-hidden`}
       >
         <div className={`relative ${READ}`}>
           <Reveal className="max-w-[980px]">
             <SectionHeader
-              index="03B"
+              index="04B"
               kicker="来源可信度"
               title="用户信任内容的前提是知道它从哪来"
               subtitle=""
@@ -4562,364 +4920,6 @@ export function ProjectDetail({ onBack }: Props) {
               </div>
             </div>
           </Reveal>
-        </div>
-      </section>
-
-      {/* ===== 04. Interactive flow: 模板选择 → 历史文档 ===== */}
-      <section
-        id="s04"
-        ref={flowSectionRef}
-        className={`relative z-10 isolate overflow-hidden py-20 md:py-28 lg:min-h-screen lg:py-0 ${SECTION_PAD}`}
-      >
-        <div
-          ref={flowStageRef}
-          className="relative z-10 mx-auto flex min-h-screen max-w-[1320px] items-center py-20 md:py-24 lg:py-[clamp(5.5rem,8vh,7rem)]"
-        >
-          <div className="w-full">
-            <SectionHeader
-              index="04"
-              kicker="生成流程"
-              title="从模板到成文的生成链路"
-              subtitle="通过大纲确认、用户确认和流式生成，把 AI 报告从一次性写作变成可控的业务流程。"
-              align="center"
-            />
-
-            {(() => {
-              const p1 = stepLocalProgress(1);
-              const p2 = stepLocalProgress(2);
-              const p3 = stepLocalProgress(3);
-              const p4 = stepLocalProgress(4);
-
-              const outlineCardsIn = rangeProgress(p1, 0.04, 0.22);
-              const outlineMerge = rangeProgress(p1, 0.52, 0.74);
-              const outlineContentIn = rangeProgress(p1, 0.72, 0.88);
-              const outlineSharedPresence =
-                rawFlowStep < 1
-                  ? 0
-                  : rawFlowStep < 2
-                    ? 1
-                    : rawFlowStep < 2.94
-                      ? 1
-                      : 1 - rangeProgress(rawFlowStep, 2.94, 3.04);
-
-              const confirmScroll = rangeProgress(p2, 0.08, 0.92);
-              const streamPanelIn = rangeProgress(p3, 0.12, 0.36);
-              const streamTextIn = rangeProgress(p3, 0.34, 0.88);
-              const streamShine = rangeProgress(p3, 0.78, 1);
-              const historyIn = p4;
-              const currentFlowStep = flowSteps[activeStep] ?? flowSteps[0];
-
-              return (
-              <div className="grid grid-cols-1 gap-8 lg:grid-cols-[220px_minmax(0,1fr)] lg:items-start xl:gap-12">
-                <aside aria-label="生成流程进度" className="relative hidden lg:block">
-                  <div className="absolute left-4 top-4 bottom-4 z-0 w-px bg-[#DDE3F2]" />
-                  <div
-                    className="absolute left-4 top-4 z-0 w-px transition-[height] duration-300 ease-out"
-                    style={{
-                      height: `calc((100% - 32px) * ${activeStep / Math.max(flowSteps.length - 1, 1)})`,
-                      background: BLUE,
-                    }}
-                  />
-                  <div className="relative space-y-6">
-                    {flowSteps.map((item, index) => {
-                      const Icon = item.icon;
-                      const isActive = activeStep === index;
-                      const isDone = index < activeStep;
-                      return (
-                        <div
-                          key={item.label}
-                          aria-current={isActive ? "step" : undefined}
-                          className="grid grid-cols-[32px_minmax(0,1fr)] items-center gap-4"
-                        >
-                          <span
-                            className="relative z-10 inline-flex size-8 items-center justify-center rounded-full border transition-all duration-200"
-                            style={{
-                              borderColor: isActive || isDone ? ICON_BORDER : "rgba(15,20,25,0.14)",
-                              background: isActive ? ICON_BG : isDone ? "#F0F4FF" : SURFACE,
-                              color: isActive || isDone ? ICON_BLUE : INK_DIM,
-                              boxShadow: isActive ? "0 10px 24px rgba(34,88,244,0.16)" : "none",
-                            }}
-                          >
-                            <Icon className="size-3.5" />
-                          </span>
-                          <span
-                            className="transition-colors duration-200"
-                            style={{
-                              fontSize: 16,
-                              lineHeight: 1.35,
-                              fontWeight: isActive ? 700 : 600,
-                              color: isActive ? INK : INK_MUTED,
-                            }}
-                          >
-                            {item.label}
-                          </span>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </aside>
-
-                <div className="min-w-0">
-                  <div className="relative aspect-[16/10] overflow-visible">
-                    <div
-                      className="absolute inset-0 z-[70]"
-                      style={{
-                        opacity: layerPresence(0),
-                        transform: `translate3d(0, ${lerp(0, -34, rangeProgress(rawFlowStep, 0.82, 1))}px, 0)`,
-                        pointerEvents: "none",
-                      }}
-                    >
-                      <img
-                        src={flowSteps[0].finalImage}
-                        alt="模板中心完整页面"
-                        {...DETAIL_IMAGE_LAZY_PROPS}
-                        className="absolute inset-0 z-30 m-auto w-[99%] rounded-[24px] border border-white/80 object-contain object-top shadow-[0_28px_80px_rgba(15,20,25,0.14)]"
-                        style={{ aspectRatio: "16 / 10" }}
-                      />
-                    </div>
-
-                    <OutlineConfirmFrame
-                      className="z-10 w-[99%]"
-                      showContent={false}
-                      style={{
-                        opacity: outlineSharedPresence,
-                        pointerEvents: "none",
-                      }}
-                    />
-
-                    <div
-                      className="absolute inset-0 z-[70]"
-                      style={{
-                        opacity: p1 > 0 && p1 < 1 ? 1 : 0,
-                        transform: `translate3d(0, ${lerp(32, 0, rangeProgress(p1, 0.04, 0.24))}px, 0) scale(${lerp(0.985, 1, rangeProgress(p1, 0.04, 0.24))})`,
-                        pointerEvents: "none",
-                      }}
-                    >
-                      {flowConfigCards.map((card, index) => {
-                        const cardIn = rangeProgress(outlineCardsIn, index * 0.08, 0.58 + index * 0.08);
-                        const isTitleCard = card.variant === "title";
-                        const isAddCard = card.variant === "add";
-                        return (
-                          <div
-                            key={card.title}
-                            className={
-                              isAddCard
-                                ? `absolute z-[80] inline-flex items-center gap-1.5 rounded-lg border border-neutral-100 bg-white px-3 py-1.5 shadow-[0_4px_14px_rgba(15,20,25,0.06)] ${card.className}`
-                                : `absolute z-[80] rounded-xl border border-neutral-100 bg-white px-3 py-2.5 shadow-[0_6px_20px_rgba(15,20,25,0.08)] ${card.className}`
-                            }
-                            style={{
-                              opacity: cardIn * (1 - outlineMerge),
-                              transform: `translate3d(${lerp(card.fromX, card.mergeX, outlineMerge)}px, ${lerp(card.fromY, card.mergeY, outlineMerge)}px, 0) scale(${lerp(0.96, 0.2, outlineMerge)})`,
-                            }}
-                          >
-                            {isTitleCard ? (
-                              <>
-                                <div className="flex items-center justify-between gap-2">
-                                  <span className="shrink-0 text-[13px] font-medium text-[#1A1C24]">{card.title}</span>
-                                  <svg
-                                    className="size-3 shrink-0 -rotate-90 text-neutral-400"
-                                    viewBox="0 0 12 12"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    strokeWidth="1.5"
-                                  >
-                                    <path d="M3 4.5L6 7.5L9 4.5" />
-                                  </svg>
-                                </div>
-                                <div className="mt-1.5 rounded-lg border border-[#E6E7EB] bg-[#F5F5F7] px-2 py-1.5">
-                                  <span className="text-[12px] text-[#1A1C24]">{card.body}</span>
-                                </div>
-                              </>
-                            ) : isAddCard ? (
-                              <>
-                                <span className="flex size-5 shrink-0 items-center justify-center rounded-full bg-[#2258F4] text-white">
-                                  <svg className="size-2.5" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="2">
-                                    <path d="M5 1v8M1 5h8" />
-                                  </svg>
-                                </span>
-                                <span className="text-[13px] text-neutral-600">{card.title}</span>
-                              </>
-                            ) : (
-                              <>
-                                <div className="flex items-center justify-between gap-2">
-                                  <span className="shrink-0 text-[13px] font-medium text-[#1A1C24]">{card.title}</span>
-                                  <svg
-                                    className="size-3 shrink-0 -rotate-90 text-neutral-400"
-                                    viewBox="0 0 12 12"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    strokeWidth="1.5"
-                                  >
-                                    <path d="M3 4.5L6 7.5L9 4.5" />
-                                  </svg>
-                                </div>
-                                {card.primaryTags.length > 0 && (
-                                  <div className="mt-1.5 flex flex-wrap gap-1.5">
-                                    {card.primaryTags.map((tag) => (
-                                      <span
-                                        key={tag}
-                                        className="inline-flex items-center gap-1 rounded-full bg-[#E5EBFF] px-1.5 py-0.5 text-[10px] font-medium text-[#1A42B8]"
-                                      >
-                                        {tag}
-                                      </span>
-                                    ))}
-                                  </div>
-                                )}
-                                <p className={`${card.primaryTags.length > 0 ? "mt-1.5" : "mt-1"} text-[10px] leading-relaxed text-[#696D7A]`}>
-                                  {card.body}
-                                </p>
-                                {card.mutedTags.length > 0 && (
-                                  <div className="mt-1.5 flex flex-wrap gap-1">
-                                    {card.mutedTags.map((tag) => (
-                                      <span
-                                        key={tag}
-                                        className={`rounded-md border border-[#E6E7EB] bg-[#F5F5F7] px-1.5 py-0.5 text-[10px] ${
-                                          tag.startsWith("+")
-                                            ? "text-neutral-400"
-                                            : "text-neutral-700"
-                                        }`}
-                                      >
-                                        {tag}
-                                      </span>
-                                    ))}
-                                  </div>
-                                )}
-                              </>
-                            )}
-                          </div>
-                        );
-                      })}
-                    </div>
-
-                    <OutlineConfirmFrame
-                      className="z-30 w-[99%]"
-                      showShell={false}
-                      contentXTranslate={0}
-                      contentTranslate={lerp(0, -74, confirmScroll)}
-                      contentOpacity={rawFlowStep < 2 ? outlineContentIn : 1}
-                      style={{
-                        opacity: outlineSharedPresence,
-                        transform:
-                          rawFlowStep < 2
-                            ? "translate3d(0, 0, 0)"
-                            : `translate3d(0, ${lerp(0, -24, rangeProgress(rawFlowStep, 2.82, 3))}px, 0)`,
-                        filter: "blur(0px)",
-                        pointerEvents: "none",
-                      }}
-                    />
-
-                    <div
-                      className="absolute inset-0"
-                      style={{
-                        opacity: layerPresence(3),
-                        transform: `translate3d(0, ${lerp(34, -28, rangeProgress(rawFlowStep, 2.82, 4))}px, 0)`,
-                        pointerEvents: "none",
-                      }}
-                    >
-                      <div
-                        className="absolute inset-0 z-30 m-auto w-[99%] overflow-hidden rounded-[24px] border border-white/80 shadow-[0_28px_80px_rgba(15,20,25,0.14)]"
-                        style={{ aspectRatio: "16 / 10" }}
-                      >
-                        <img
-                          src="./images/0405-webp/kongbaihuabu.webp"
-                          alt="流式生成空白画布"
-                          {...DETAIL_IMAGE_LAZY_PROPS}
-                          className="absolute inset-0 h-full w-full object-contain object-top"
-                        />
-                        <img
-                          src="./images/0405-webp/liushihuaban.webp"
-                          alt="流式生成报告空白面板"
-                          {...DETAIL_IMAGE_EAGER_PROPS}
-                          className="absolute right-0 top-0 z-20 h-full w-[60.7%] object-contain object-top"
-                          style={{
-                            opacity: streamPanelIn,
-                            transform: `translate3d(${lerp(110, 0, streamPanelIn)}px, 0, 0)`,
-                            clipPath: `inset(0 0 0 ${lerp(100, 0, streamPanelIn)}%)`,
-                            filter: `blur(${lerp(5, 0, streamPanelIn)}px)`,
-                          }}
-                        />
-                        <img
-                          src="./images/optimized-webp/ai-stream-text-1400.webp"
-                          alt="流式生成报告正文"
-                          {...DETAIL_IMAGE_EAGER_PROPS}
-                          className="absolute right-0 top-[5.6%] z-30 h-[88.9%] w-[60.7%] object-contain object-top"
-                          style={{
-                            opacity: streamTextIn,
-                            clipPath: `inset(0 0 ${lerp(100, 0, streamTextIn)}% 0)`,
-                            filter: `blur(${lerp(3, 0, streamTextIn)}px)`,
-                          }}
-                        />
-                        <div
-                          className="pointer-events-none absolute right-0 top-0 z-40 h-full w-[60.7%]"
-                          style={{
-                            opacity: streamShine < 0.5 ? lerp(0, 0.75, streamShine * 2) : lerp(0.75, 0, (streamShine - 0.5) * 2),
-                            transform: `translate3d(${lerp(-75, 92, streamShine)}%, 0, 0)`,
-                            background:
-                              "linear-gradient(115deg, transparent 0%, rgba(255,255,255,0.02) 36%, rgba(255,255,255,0.58) 48%, rgba(34,88,244,0.14) 54%, transparent 68%)",
-                            mixBlendMode: "screen",
-                          }}
-                        />
-                      </div>
-                    </div>
-
-                    <div
-                      className="absolute inset-0"
-                      style={{
-                        opacity: layerPresence(4),
-                        transform: `translate3d(0, ${lerp(80, 0, historyIn)}px, 0)`,
-                        filter: `blur(${lerp(8, 0, historyIn)}px)`,
-                        pointerEvents: "none",
-                      }}
-                    >
-                      <div
-                        className="absolute inset-0 z-30 m-auto w-[99%] overflow-hidden rounded-[24px] border border-white/80 shadow-[0_28px_80px_rgba(15,20,25,0.14)]"
-                        style={{ aspectRatio: "16 / 10" }}
-                      >
-                        <img
-                          src="./images/0405-webp/lishijilupng.webp"
-                          alt="历史文档页面"
-                          {...DETAIL_IMAGE_LAZY_PROPS}
-                          className="absolute inset-0 h-full w-full object-contain object-top"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={`flow-note-${activeStep}`}
-                      className="mt-6 grid gap-4 rounded-[16px] border bg-white/92 px-4 py-3 backdrop-blur-md md:grid-cols-[0.88fr_1.12fr]"
-                      style={{
-                        borderColor: LINE,
-                        boxShadow: "0 12px 34px rgba(15,20,25,0.07)",
-                      }}
-                      initial={{ opacity: 0, y: 8, filter: "blur(4px)" }}
-                      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                      exit={{ opacity: 0, y: -6, filter: "blur(4px)" }}
-                      transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
-                    >
-                      <div className="min-w-0">
-                        <div className="text-[13px] font-semibold" style={{ color: INK }}>
-                          设计决策
-                        </div>
-                        <p className="mt-0.5 text-[13px] leading-[1.55]" style={{ color: INK_DIM }}>
-                          {currentFlowStep.decision}
-                        </p>
-                      </div>
-                      <div className="min-w-0 border-t pt-2 md:border-l md:border-t-0 md:pl-4 md:pt-0" style={{ borderColor: LINE }}>
-                        <div className="text-[13px] font-semibold" style={{ color: INK }}>
-                          为什么这样做
-                        </div>
-                        <p className="mt-0.5 text-[13px] leading-[1.55]" style={{ color: INK_DIM }}>
-                          {currentFlowStep.why}
-                        </p>
-                      </div>
-                    </motion.div>
-                  </AnimatePresence>
-                </div>
-              </div>
-            );
-            })()}
-          </div>
         </div>
       </section>
 
