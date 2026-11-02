@@ -6,8 +6,9 @@ import { useIntroOpening } from './useIntroOpening';
 import { Intro } from './Intro';
 import { CaseList } from './CaseCard';
 import { ComponentGallery } from './ComponentGallery';
-import { cases, navigation } from './content/zh';
+import { aiTools, aiToolsIntro, cases, navigation } from './content/zh';
 import './home.css';
+import '../cases/explorations.css';
 
 export function HomePage({ route }: { route: string }) {
   const [replay, setReplay] = useState(0);
@@ -31,7 +32,8 @@ export function HomePage({ route }: { route: string }) {
         <section id="work" aria-label="项目" className="flex flex-col gap-6">
           <CaseList items={cases} />
         </section>
-        {[['ai', 'AI 工作流'], ['exp', '经历'], ['about', '关于 / 页脚']].map(([id, title]) => <section id={id} key={id} aria-labelledby={`${id}-title`} className="flex flex-col gap-6 border-t border-border pt-4"><h2 id={`${id}-title`} className="text-h2 font-normal text-balance">{title}</h2><p className="text-body text-text-secondary">[待补充]</p></section>)}
+        <section id="ai" aria-labelledby="ai-title" className="flex flex-col gap-6"><h2 id="ai-title" className="text-h2 font-normal">AI 工作流</h2><p className="text-body text-text-body">{aiToolsIntro}</p><div className="home-ai-tools">{aiTools.map(tool => <a key={tool.name} href="#/project/explorations"><strong className="font-medium">{tool.name}</strong><span>{tool.summary}</span><small>{tool.status}</small></a>)}</div></section>
+        {[['exp', '经历'], ['about', '关于 / 页脚']].map(([id, title]) => <section id={id} key={id} aria-labelledby={`${id}-title`} className="flex flex-col gap-6 border-t border-border pt-4"><h2 id={`${id}-title`} className="text-h2 font-normal text-balance">{title}</h2><p className="text-body text-text-secondary">[待补充]</p></section>)}
       </div>
     </div>
     {playing && <Blueprint onFinish={finish} />}

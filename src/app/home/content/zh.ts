@@ -65,3 +65,27 @@ export const cases = [
   },
 ];
 export type CaseContent = (typeof cases)[number];
+
+export const aiTools = [
+  {
+    "name": "Figma 设计系统工作流",
+    "summary": "让 AI 按固定步骤在 Figma 里搭设计系统",
+    "status": "已开源"
+  },
+  {
+    "name": "Figma 连接器",
+    "summary": "让 AI 直接改 Figma 文件，每次写入都能撤回",
+    "status": "已开源"
+  },
+  {
+    "name": "Visual Code Canvas",
+    "summary": "AI 写完前端后，在画布上直接改样式并写回源码",
+    "status": "v0.2.1"
+  },
+  {
+    "name": "插画 Skill",
+    "summary": "让 AI 画出像真的控件的矢量插画",
+    "status": "准备开源"
+  }
+];
+export const aiToolsIntro = '我给自己做的设计工具，都用 AI 编程工具完成。';
