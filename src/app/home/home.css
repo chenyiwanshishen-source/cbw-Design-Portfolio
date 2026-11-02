@@ -130,3 +130,7 @@ body:has(.homepage) { background: var(--color-home-bg); }
   .case-dots [aria-pressed="true"] span { width: 16px; border-radius: 8px; background: var(--color-text); }
 }
 @media (prefers-reduced-motion: reduce) { .case-preview, .home-case-copy { transition: none; } .is-active .case-preview { transform: none; } }
+
+.gallery-type-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); align-items: center; gap: var(--space-8); padding-block: var(--space-8); border-top: 1px solid var(--color-border-subtle); }
+.gallery-type-sample { min-width: 0; overflow-wrap: anywhere; }
+@media (max-width: 700px) { .gallery-type-row { grid-template-columns: minmax(0, 1fr); gap: var(--space-5); } }
