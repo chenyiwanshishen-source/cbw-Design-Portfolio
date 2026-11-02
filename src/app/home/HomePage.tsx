@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { DraftingFrame } from './DraftingFrame';
 import { Ruler } from './Ruler';
 import { Blueprint } from './Blueprint';
 import { useIntroOpening } from './useIntroOpening';
@@ -22,7 +23,8 @@ export function HomePage({ route }: { route: string }) {
   useEffect(() => { if (route === '#replay') setReplay(value => value + 1); }, [route]);
   if (route === '#components') return <ComponentGallery />;
   return <div className="homepage">
-    <div className="mx-auto w-full max-w-content">
+    <div className="home-sheet mx-auto w-full max-w-content">
+      <DraftingFrame />
       <Ruler onReplay={() => setReplay(value => value + 1)} />
       <Intro />
       <div className="flex flex-col gap-24 pb-24">
