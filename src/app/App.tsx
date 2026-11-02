@@ -15,7 +15,7 @@ const YeCase = lazy(() => loadYeCase().then(module => ({ default: module.YeCase 
 const QsightCase = lazy(() => import("./cases/QsightCase").then(module => ({ default: module.QsightCase })));
 const QixinCase = lazy(() => import("./cases/QixinCase").then(module => ({ default: module.QixinCase })));
 const ExplorationsPage = lazy(() =>
-  loadExplorationsPage().then((module) => ({ default: module.ExplorationsPage }))
+  loadExplorationsPage().then((module) => ({ default: module.ExplorationsCase }))
 );
 const Nav = lazy(() => loadNav().then((module) => ({ default: module.Nav })));
 const ViewportScrollbars = lazy(() =>
@@ -57,7 +57,7 @@ export default function App() {
   useEffect(() => {
     const onProjectRouteLoading = (event: Event) => {
       const href = (event as CustomEvent<{ href?: string }>).detail?.href;
-      if (!href || href === "#/project/ye-browser" || href === "#/project/ai-report" || href === "#/project/qixin-brain" || !isProjectDetailRoute(href)) return;
+      if (!href || href === "#/project/explorations" || href === "#/project/ye-browser" || href === "#/project/ai-report" || href === "#/project/qixin-brain" || !isProjectDetailRoute(href)) return;
       if (isProjectRouteReady(href)) return;
       setRouteLoaderHref(href);
     };
@@ -209,8 +209,8 @@ export default function App() {
       <QixinCase />
     </Suspense>
   ) : isExplorations ? (
-    <Suspense fallback={detailFallback}>
-      <ExplorationsPage onBack={goHome} />
+    <Suspense fallback={null}>
+      <ExplorationsPage />
     </Suspense>
   ) : (
 <HomePage route={route} />
@@ -218,14 +218,14 @@ export default function App() {
 
   return (
     <div className="relative min-h-screen text-text">
-      {!isYeDetail && !isAiDetail && !isQixinDetail && isProjectDetailRoute(route) && (
+      {!isExplorations && !isYeDetail && !isAiDetail && !isQixinDetail && isProjectDetailRoute(route) && (
         <Suspense fallback={null}>
           <Nav />
           <ViewportScrollbars />
         </Suspense>
       )}
 
-      {!isYeDetail && !isAiDetail && !isQixinDetail && routeLoaderHref && (
+      {!isExplorations && !isYeDetail && !isAiDetail && !isQixinDetail && routeLoaderHref && (
         <ProjectRouteLoader
           key={routeLoaderHref}
           route={routeLoaderHref}
@@ -236,7 +236,7 @@ export default function App() {
       )}
 
       {/* Global back-to-top */}
-      {!isYeDetail && !isAiDetail && !isQixinDetail && isProjectDetailRoute(route) && showBackToTop && (
+      {!isExplorations && !isYeDetail && !isAiDetail && !isQixinDetail && isProjectDetailRoute(route) && showBackToTop && (
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           className="fixed bottom-5 left-1/2 z-40 group inline-flex -translate-x-1/2 items-center rounded-full bg-white p-2 text-[#1A1C24] transition-all duration-300 hover:shadow-[0_0_40px_rgba(34,88,244,0.45)] sm:bottom-8 sm:gap-3 sm:py-2 sm:pl-7 sm:pr-2"

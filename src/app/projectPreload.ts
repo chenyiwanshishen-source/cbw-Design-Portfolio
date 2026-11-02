@@ -18,7 +18,7 @@ type PreloadBatchOptions = {
 export const loadYeCase = () => import("./cases/YeCase");
 export const loadAiProjectDetail = () => import("./components/ProjectDetail");
 export const loadQixinProjectDetail = () => import("./components/QixinProjectDetail");
-export const loadExplorationsPage = () => import("./components/ExplorationsPage");
+export const loadExplorationsPage = () => import("./cases/ExplorationsCase");
 export const loadHomeContent = () => import("./components/HomeContent");
 export const loadNav = () => import("./components/Nav");
 
@@ -602,7 +602,7 @@ export async function preloadRouteAssetsWithProgress(route: string, onProgress: 
 }
 
 export function scheduleProjectRemainderPreload(project: ProjectKey) {
-  if (project === "ye-browser") return () => {};
+  if (project === "ye-browser" || project === "explorations") return () => {};
   if (!isBrowser()) return () => {};
 
   let cancelled = false;
