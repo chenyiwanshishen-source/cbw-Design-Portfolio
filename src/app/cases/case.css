@@ -5,7 +5,7 @@ body:has(.case-page) { background: var(--color-home-bg); }
 .case-page a:hover { color: var(--color-accent); }
 .case-header { display: grid; gap: var(--space-12); padding-block: var(--space-12) var(--space-16); }
 .case-header-main, .case-facts { display: flex; flex-direction: column; gap: var(--space-6); min-width: 0; }
-.case-header-main > .text-label { line-height: 1.6; }
+.case-header-main > .text-caption { line-height: var(--text-caption--line-height); }
 .case-header h1 { font-size: var(--text-home-role); font-weight: 400; line-height: 1.45; text-wrap: balance; }
 .case-facts dt { margin-bottom: var(--space-2); }
 .case-summary { display: grid; gap: var(--space-6); margin-block: var(--space-16) var(--space-24); }
@@ -15,7 +15,7 @@ body:has(.case-page) { background: var(--color-home-bg); }
 .case-chapters { min-width: 0; display: flex; flex-direction: column; gap: var(--space-24); }
 .case-section { display: flex; flex-direction: column; gap: var(--space-6); scroll-margin-top: var(--space-6); min-width: 0; }
 .case-section:focus:not(:focus-visible) { outline: none; }
-.case-subsection { display: flex; flex-direction: column; gap: var(--space-6); margin-top: var(--space-6); min-width: 0; }
+.case-subsection { display: flex; flex-direction: column; gap: var(--space-4); margin-top: var(--space-8); min-width: 0; }
 .case-paragraph { max-width: var(--container-measure); font-size: var(--text-body); line-height: var(--text-body--line-height); color: var(--color-text-body); }
 .case-toc { display: none; }
 .case-figure { min-width: 0; }
@@ -67,11 +67,19 @@ body:has(.case-page) { background: var(--color-home-bg); }
 
 /* Image-led Qsight introduction: compact information below the opening plate. */
 .case-header-compact { padding-block: var(--space-10) var(--space-24); }
-.case-header-compact h1 { font-size: var(--text-h2); line-height: var(--text-h2--line-height); }
+.case-header-compact h1 { font-size: var(--text-case-title); line-height: var(--text-h2--line-height); }
 .case-header-compact .case-header-main > .text-body-lg { font-size: var(--text-body); line-height: var(--text-body--line-height); }
 .case-header-compact .case-facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-content: start; }
 .case-header-compact .case-facts dd { font-size: var(--text-caption); line-height: var(--text-caption--line-height); }
 @media (min-width: 1024px) {
  .case-header-compact .case-header-main { grid-column: 1 / 8; }
  .case-header-compact .case-facts { grid-column: 9 / 13; }
+}
+
+/* Case typography: one role per size, without decorative chapter eyebrows. */
+.case-section > h2 { margin-bottom: 0; }
+.case-subsection h3 { font-size: var(--text-h4); line-height: var(--text-h4--line-height); font-weight: 500; }
+.case-facts dt, .case-columns dt { font-size: var(--text-caption); line-height: var(--text-caption--line-height); }
+@media (max-width: 767px) {
+ .case-header-compact h1 { font-size: var(--text-h2); }
 }

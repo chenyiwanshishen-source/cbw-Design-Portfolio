@@ -129,6 +129,7 @@
   --color-blueprint-fill: rgba(255,255,255,.08);
   --color-blueprint-bg: #101114;
   --color-blueprint-line: rgba(255, 255, 255, 0.25);
+  --text-case-title: 36px;
   --text-home-role: clamp(28px, 4vw, 56px);
   --text-home-name: clamp(56px, 7vw, 96px);
 
