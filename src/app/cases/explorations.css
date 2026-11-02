@@ -16,7 +16,7 @@
  .home-ai-tools a { gap: var(--rhythm-2); }
 }
 
-.home-side-projects { display: flex; flex-direction: column; gap: var(--rhythm-6); }
+.home-side-projects { display: flex; flex-direction: column; gap: var(--rhythm-4); }
 .home-side-project { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: var(--rhythm-6); align-items: center; color: var(--color-text); }
 .home-side-cover { aspect-ratio: 3 / 2; display: grid; place-items: center; padding: var(--rhythm-4); background: var(--color-home-placeholder); color: var(--color-text-secondary); font-size: var(--text-caption); }
 .home-side-copy { display: flex; flex-direction: column; gap: var(--rhythm-3); }
@@ -32,15 +32,14 @@
  .exploration-detail .case-pair:has(> :nth-child(6)) { grid-template-columns: minmax(0, 1fr); }
 }
 
-/* The row sticks; only its inner card scales, so document geometry stays stable. */
+/* GSAP pins the row and scales only its inner card. */
 .home-side-projects { position: relative; isolation: isolate; }
-.home-side-row { min-width: 0; }
-.home-side-project { padding: var(--rhythm-4); background: var(--color-home-bg); transform-origin: center top; border: var(--border-width) solid var(--color-border-subtle); }
+.home-side-row { position: relative; min-width: 0; }
+.home-side-project { background: var(--color-home-bg); transform-origin: center top; }
 .home-side-row:focus-within { z-index: 5; }
-@media (min-width: 768px) and (min-height: 600px) and (prefers-reduced-motion: no-preference) {
- .home-side-row { position: sticky; top: calc(var(--rhythm-5) + var(--stack-index) * var(--rhythm-3)); }
-}
 @media (max-width: 767px) {
- .home-side-project { padding: var(--rhythm-3); }
  .home-side-cover { width: 80%; }
 }
+
+/* Keep the section exit as compact as the gaps between experimental projects. */
+#ai { margin-bottom: calc(var(--rhythm-4) - var(--space-24)); }
