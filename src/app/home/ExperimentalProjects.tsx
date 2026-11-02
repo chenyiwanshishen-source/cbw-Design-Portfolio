@@ -17,6 +17,21 @@ export function ExperimentalProjects() {
       const top = () => list.getBoundingClientRect().top + window.scrollY;
       const offset = (index: number) => rows.slice(0, index).reduce((sum, row) => sum + row.offsetHeight + gap(), 0);
       const inset = () => parseFloat(getComputedStyle(list).getPropertyValue('--rhythm-5'));
+      // Tall viewports previously hit the document bottom before cards 3 and 4
+      // reached the shared pin endpoint. Supply only the missing scroll runway
+      // after the footer, without opening a gap below the project list.
+      const sheet = section.current!.closest<HTMLElement>('.home-sheet')!;
+      const originalPadding = sheet.style.paddingBottom;
+      const basePadding = parseFloat(getComputedStyle(sheet).paddingBottom) || 0;
+      let runway = 0;
+      const updateRunway = () => {
+        const endpoint = top() + offset(rows.length - 1) - inset();
+        const naturalMax = document.documentElement.scrollHeight - window.innerHeight - runway;
+        runway = Math.max(0, Math.ceil(endpoint - naturalMax));
+        sheet.style.paddingBottom = `${basePadding + runway}px`;
+      };
+      updateRunway();
+      ScrollTrigger.addEventListener('refreshInit', updateRunway);
       rows.slice(0, -1).forEach((row, index) => {
         ScrollTrigger.create({
           trigger: row,
@@ -38,6 +53,10 @@ export function ExperimentalProjects() {
           },
         });
       });
+      return () => {
+        ScrollTrigger.removeEventListener('refreshInit', updateRunway);
+        sheet.style.paddingBottom = originalPadding;
+      };
     });
     let active = true;
     document.fonts.ready.then(() => { if (active) ScrollTrigger.refresh(); });
