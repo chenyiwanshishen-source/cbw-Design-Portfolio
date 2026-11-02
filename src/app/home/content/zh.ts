@@ -12,7 +12,7 @@ export const intro = {
 
 export const navigation = [
   { id: 'work', label: '案例' },
-  { id: 'ai', label: 'AI 工作流' },
+  { id: 'ai', label: '实验项目' },
   { id: 'exp', label: '经历' },
   { id: 'about', label: '关于' },
 ];

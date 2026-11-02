@@ -17,10 +17,10 @@
 }
 
 .home-side-projects { display: flex; flex-direction: column; gap: var(--rhythm-6); }
-.home-side-project { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--rhythm-6); align-items: center; color: var(--color-text); }
+.home-side-project { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: var(--rhythm-6); align-items: center; color: var(--color-text); }
 .home-side-cover { aspect-ratio: 3 / 2; display: grid; place-items: center; padding: var(--rhythm-4); background: var(--color-home-placeholder); color: var(--color-text-secondary); font-size: var(--text-caption); }
 .home-side-copy { display: flex; flex-direction: column; gap: var(--rhythm-3); }
-.home-side-copy h3 { font-size: var(--text-h2); line-height: var(--text-h2--line-height); font-weight: 600; }
+.home-side-copy h3 { font-size: var(--text-h2); line-height: var(--text-h2--line-height); font-weight: 400; }
 .home-side-entry { font-size: var(--text-body); text-decoration: underline; text-underline-offset: var(--space-1); }
 .exploration-detail { display: flex; flex-direction: column; gap: var(--rhythm-4); padding-top: var(--rhythm-5); }
 .exploration-detail > header { display: flex; flex-direction: column; gap: var(--rhythm-3); padding-bottom: var(--rhythm-5); }
@@ -30,4 +30,17 @@
  .home-side-project { grid-template-columns: minmax(0, 1fr); gap: var(--rhythm-4); }
  .exploration-detail h1 { font-size: var(--text-h2); }
  .exploration-detail .case-pair:has(> :nth-child(6)) { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* The row sticks; only its inner card scales, so document geometry stays stable. */
+.home-side-projects { position: relative; isolation: isolate; }
+.home-side-row { min-width: 0; }
+.home-side-project { padding: var(--rhythm-4); background: var(--color-home-bg); transform-origin: center top; border: var(--border-width) solid var(--color-border-subtle); }
+.home-side-row:focus-within { z-index: 5; }
+@media (min-width: 768px) and (min-height: 600px) and (prefers-reduced-motion: no-preference) {
+ .home-side-row { position: sticky; top: calc(var(--rhythm-5) + var(--stack-index) * var(--rhythm-3)); }
+}
+@media (max-width: 767px) {
+ .home-side-project { padding: var(--rhythm-3); }
+ .home-side-cover { width: 80%; }
 }
