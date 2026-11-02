@@ -3,9 +3,9 @@ import type { CaseContent } from '../types';
 // 基于任务单事实，按用户后续批注压缩并整合叙事。原始长稿保留在任务单与 Git 历史。
 export const qsight: CaseContent = {
   "header": {
-    "label": "合合信息 · AI 报告平台 QSIGHT · 2025.04 — 2026.05",
+    "label": "合合信息 · AI 报告平台 Qsight · 2025.04 — 2026.05",
     "title": "让研究员敢把报告交给 AI 写",
-    "intro": "Qsight 是合合信息的 AI 报告平台，帮助研究员整合资料、生成报告并核查来源。我负责核心交互与 Prompt 基础框架，跟进至 1.0 上线。",
+    "intro": "Qsight 是合合信息的 AI 报告平台，帮助研究员整合资料、生成报告并核查来源。我负责核心交互与 Prompt 基础框架，一直跟到 1.0 上线。",
     "facts": [
       {
         "label": "角色",
@@ -82,7 +82,7 @@ export const qsight: CaseContent = {
           "blocks": [
             {
               "kind": "paragraph",
-              "text": "设计重点是把范围与大纲确认前置，让生成过程可见、正文来源可追溯。"
+              "text": "所以设计的重点是：在生成之前先确认范围和大纲，生成时让过程看得见，生成后每段正文都能查到来源。"
             },
             {
               "kind": "subsection",
@@ -90,7 +90,7 @@ export const qsight: CaseContent = {
               "blocks": [
                 {
                   "kind": "paragraph",
-                  "text": "我们与 1 家试点客户的 4 位业务人员做了 3 轮访谈，并结合竞品和低保真原型讨论，确定优先级。"
+                  "text": "我们与 1 家试点客户的 4 位业务人员做了 3 轮访谈，再结合竞品分析和低保真原型讨论，确定先做哪些。"
                 },
                 {
                   "kind": "columns",
@@ -101,11 +101,11 @@ export const qsight: CaseContent = {
                     },
                     {
                       "label": "怕跑偏",
-                      "text": "先确认范围和结构，减少生成后的返工。"
+                      "text": "结构或数字一旦跑偏，生成后就要大量返工。"
                     },
                     {
                       "label": "难核查",
-                      "text": "来源就近可查，历史报告可以复用。"
+                      "text": "数字找不到出处，旧报告也没法接着用。"
                     }
                   ]
                 },
@@ -191,11 +191,11 @@ export const qsight: CaseContent = {
         },
         {
           "kind": "subsection",
-          "title": "Prompt 从完整控制台，收敛为四个模块",
+          "title": "Prompt 从完整控制台，缩减为四个模块",
           "blocks": [
             {
               "kind": "paragraph",
-              "text": "1.0 没有上线原先规划的 10+1 模块控制台。配置收敛为任务定义、工具编排、质量门禁、容错兜底，保留后续扩展边界。"
+              "text": "1.0 没有上线原先规划的 10+1 模块控制台。配置缩减为任务定义、工具编排、质量门禁和容错兜底四个模块。"
             },
             {
               "kind": "figures",
@@ -413,7 +413,7 @@ export const qsight: CaseContent = {
         },
         {
           "kind": "paragraph",
-          "text": "用户反馈整体符合预期：资料查找和整理更集中，内容的来源也更容易确认。"
+          "text": "试点客户的反馈是：资料查找和整理更集中了，内容的来源也更容易确认。 【待填：一句客户原话，注明是谁、在什么场合说的】"
         }
       ]
     },
@@ -428,7 +428,7 @@ export const qsight: CaseContent = {
         },
         {
           "kind": "paragraph",
-          "text": "随着模型能力提升，需要写死的规则正在减少。我的反思是：把系统必须保证的体验与模型可以自主判断的表达分开，才能持续维护。"
+          "text": "模型越来越强，需要写死的规则越来越少。所以我把两件事分开：系统必须保证的体验（先确认、有来源、缺失要标出来）用规则守住，怎么表达交给模型判断。"
         },
         {
           "kind": "subsection",
@@ -450,6 +450,6 @@ export const qsight: CaseContent = {
     "toc": "案例目录",
     "judgment": "我的判断",
     "result": "结果",
-    "footer": "合合信息 · AI 报告平台 QSIGHT · 2025.04 — 2026.05"
+    "footer": "合合信息 · AI 报告平台 Qsight · 2025.04 — 2026.05"
   }
 };
