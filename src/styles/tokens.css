@@ -71,7 +71,7 @@
   --dur-draw: 400ms;     /* 开场：线框绘制 */
   --dur-reveal: 500ms;   /* 开场：内容淡入 */
   --stagger: 60ms;       /* 开场：区块依次延迟 */
-  --intro-max: 1200ms;   /* 开场总时长上限 */
+  --intro-max: 4200ms;   /* 开场总时长上限 */
 
   /* ---------- 焦点 ---------- */
   --focus-ring-width: 2px;
@@ -122,6 +122,7 @@
 
   --color-home-bg: #FFFFFF;
   --color-home-placeholder: #F3F4F5;
+  --color-blueprint-bg: #101114;
   --color-blueprint-line: rgba(255, 255, 255, 0.25);
   --text-home-role: clamp(28px, 4vw, 56px);
   --text-home-name: clamp(56px, 7vw, 96px);

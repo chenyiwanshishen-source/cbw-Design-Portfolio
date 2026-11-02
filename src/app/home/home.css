@@ -23,27 +23,6 @@
   .homepage a, .homepage button { transition: none; }
 }
 
-/* Measured blue drafting layer; reveal from top to bottom without blocking input. */
-.intro-block { position: relative; min-width: 0; }
-.intro-blueprint {
-  position: absolute; inset: 0; z-index: var(--z-intro); pointer-events: none;
-  color: var(--color-on-accent); background-color: var(--color-accent);
-  background-image: linear-gradient(var(--color-blueprint-line) 1px, transparent 1px), linear-gradient(90deg, var(--color-blueprint-line) 1px, transparent 1px);
-  background-size: var(--grid-page-size) var(--grid-page-size);
-  animation: blueprint-wipe var(--intro-max) var(--ease-settle) both;
-}
-.blueprint-frame {
-  position: absolute; border: var(--border-width) solid var(--color-on-accent);
-  transform-origin: left top;
-  animation: blueprint-measure var(--dur-draw) var(--ease-draw) both;
-  animation-delay: calc(var(--i) * var(--stagger));
-}
-.blueprint-caption { position: absolute; top: 0; left: 0; padding: var(--space-2); background: var(--color-accent); font: var(--text-label) var(--font-mono); }
-.blueprint-rule { position: absolute; inset: var(--space-6); border-top: var(--border-width) solid var(--color-blueprint-line); border-bottom: var(--border-width) solid var(--color-blueprint-line); }
-@keyframes blueprint-measure { from { clip-path: inset(0 100% 0 0); transform: scaleX(.92); } to { clip-path: inset(0); transform: scaleX(1); } }
-@keyframes blueprint-wipe { 0%, 48% { clip-path: inset(0); } 100% { clip-path: inset(100% 0 0 0); } }
-@media (prefers-reduced-motion: reduce) { .intro-blueprint { display: none; animation: none; } }
-
 /* Elly reference: white canvas, open typography, wide project plates. */
 body:has(.homepage) { background: var(--color-home-bg); }
 .homepage { background: var(--color-home-bg); }
@@ -69,3 +48,30 @@ body:has(.homepage) { background: var(--color-home-bg); }
   .intro-stage { padding-top: var(--space-8); }
   .home-case-visual { min-height: calc(var(--space-24) * 3); grid-row: 1; }
 }
+
+/* Whole-viewport drafting: place, measure, typeset, then hand over to the live page. */
+.intro-block { position: relative; min-width: 0; }
+.intro-blueprint {
+  position: fixed; inset: 0; z-index: var(--z-intro); pointer-events: none; overflow: hidden;
+  color: var(--color-on-accent); background: var(--color-blueprint-bg);
+  background-image: linear-gradient(var(--color-blueprint-line) 1px, transparent 1px), linear-gradient(90deg, var(--color-blueprint-line) 1px, transparent 1px);
+  background-size: var(--grid-page-size) var(--grid-page-size);
+  animation: blueprint-finish var(--intro-max) var(--ease-settle) both;
+}
+.blueprint-part { position: absolute; }
+.blueprint-frame {
+  position: absolute; inset: 0; border: var(--border-width) solid var(--color-on-accent);
+  animation: blueprint-place 400ms var(--ease-draw) both, blueprint-measure 900ms var(--ease-settle) both, blueprint-unblock 360ms var(--ease-settle) forwards;
+  animation-delay: calc(var(--i) * 45ms), 1050ms, calc(2150ms + var(--i) * 55ms);
+}
+.blueprint-caption { position: absolute; top: calc(-1 * var(--space-4)); left: 0; padding: var(--space-1); background: var(--color-blueprint-bg); font: var(--text-label) var(--font-mono); white-space: nowrap; }
+.blueprint-words { opacity: 0; animation: blueprint-letter 360ms var(--ease-settle) both; animation-delay: calc(2210ms + var(--i) * 55ms); }
+.blueprint-words, .blueprint-words * { color: transparent !important; -webkit-text-stroke: .6px var(--color-on-accent); }
+.blueprint-title, .blueprint-title * { color: var(--color-on-accent) !important; -webkit-text-stroke: 0; }
+.blueprint-image { background: linear-gradient(to top right, transparent 49.8%, var(--color-blueprint-line) 50%, transparent 50.2%); }
+@keyframes blueprint-place { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0); } }
+@keyframes blueprint-measure { 0%, 30% { width: var(--full); } 100% { width: var(--width); } }
+@keyframes blueprint-unblock { to { opacity: 0; } }
+@keyframes blueprint-letter { from { opacity: 0; } to { opacity: 1; } }
+@keyframes blueprint-finish { 0%, 82% { clip-path: inset(0); } 100% { clip-path: inset(100% 0 0 0); } }
+@media (prefers-reduced-motion: reduce) { .intro-blueprint { display: none; animation: none; } }

@@ -1,12 +1,9 @@
 import { Fragment, useEffect, useRef, useState } from 'react';
 import { intro } from './content/zh';
-import { Blueprint } from './Blueprint';
 import { IntroBlock } from './IntroBlock';
-import { useIntroOpening } from './useIntroOpening';
 
-export function Intro({ replay }: { replay: number }) {
-  const { playing, finish } = useIntroOpening(replay);
-  const blockProps = { playing, onFinish: finish };
+export function Intro() {
+  const blockProps = { playing: false, onFinish: () => {} };
   const [copied, setCopied] = useState(false);
   const copyTimer = useRef<ReturnType<typeof setTimeout>>();
   const mounted = useRef(true);
@@ -34,7 +31,7 @@ export function Intro({ replay }: { replay: number }) {
     });
   }
   return (
-    <section id="intro" aria-label="个人介绍" className={`intro-stage relative grid grid-cols-1 items-start gap-6 py-16 lg:grid-cols-12${playing ? " is-opening" : ""}`}>
+    <section id="intro" aria-label="个人介绍" className={`intro-stage relative grid grid-cols-1 items-start gap-6 py-16 lg:grid-cols-12`}>
       <div className="home-intro-text flex min-w-0 flex-col gap-8 lg:col-span-8">
         <IntroBlock label="LABEL" index={0} {...blockProps}><p className="text-lead font-medium text-text-secondary">{intro.greeting}</p></IntroBlock>
         <IntroBlock label="TITLE" index={1} {...blockProps}><div className="flex flex-col gap-4">
@@ -50,7 +47,6 @@ export function Intro({ replay }: { replay: number }) {
         <div className="home-portrait flex items-center justify-center border border-border bg-surface-sunken p-6 font-mono text-micro text-text-meta">替换为你的照片</div>
         <figcaption className="font-mono text-label text-text-meta">PLATE 01 · 人像 · 4:5</figcaption>
       </figure></IntroBlock>
-      {playing && <Blueprint onFinish={finish} />}
     </section>
   );
 }
