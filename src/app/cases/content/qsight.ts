@@ -364,6 +364,284 @@ export const qsight: CaseContent = {
           "number": ""
         }
       ]
+    },
+    {
+      "id": "qsight-03",
+      "label": "03 · 早期方案与迭代",
+      "title": "两个方案都改过一版",
+      "blocks": [
+        {
+          "kind": "subsection",
+          "title": "来源从文末集中，改成正文就近绑定",
+          "blocks": [
+            {
+              "kind": "paragraph",
+              "text": "最初打算把所有来源汇总在报告末尾，但内容和来源分开，用户对不上。报告末尾也有免责声明，访谈里用户还是会问：“数据会是真的吗？”所以改成在正文里用引用编号绑定来源卡片，读到哪里，依据就在哪里。"
+            },
+            {
+              "kind": "figures",
+              "figures": [
+                {
+                  "plate": "PLATE 04",
+                  "title": "早期方案",
+                  "instruction": "要放：来源集中在文末的版本【待补截图】",
+                  "caption": "早期：来源集中在报告末尾。"
+                },
+                {
+                  "plate": "PLATE 05",
+                  "title": "最终方案",
+                  "instruction": "要放：正文引用编号 + 来源卡片",
+                  "caption": "最终：来源就近出现在正文里。"
+                }
+              ]
+            }
+          ],
+          "number": ""
+        },
+        {
+          "kind": "subsection",
+          "title": "配置从 10+1 模块的控制台，收敛到四个模块",
+          "blocks": [
+            {
+              "kind": "paragraph",
+              "text": "我曾规划过一个完整的 Prompt 控制台，用 10+1 个模块配置生成规则。随着模型能力提升，判断不需要这么重，1.0 先拆成任务定义、工具编排、质量门禁、容错兜底四个模块，预留以后转成后台配置的边界。"
+            },
+            {
+              "kind": "figures",
+              "figures": [
+                {
+                  "plate": "PLATE 06",
+                  "title": "Prompt 控制台原型",
+                  "instruction": "要放：之前规划的控制台原型缩略图",
+                  "caption": "没有上线的控制台原型。"
+                }
+              ]
+            }
+          ],
+          "number": ""
+        },
+        {
+          "kind": "subsection",
+          "title": "低保真讨论带出了历史复用",
+          "blocks": [
+            {
+              "kind": "paragraph",
+              "text": "第三轮访谈拿低保真原型讨论时，用户主动推演起文档管理和知识库：以前写过的报告找不到，每次都从零开始。历史文档模块因此立项。"
+            }
+          ],
+          "number": ""
+        }
+      ]
+    },
+    {
+      "id": "qsight-04",
+      "label": "04 · 挑战与取舍",
+      "title": "用户说要什么，和他真正需要什么，不一定一样",
+      "blocks": [
+        {
+          "kind": "tradeoffs",
+          "items": [
+            {
+              "title": "企业范围",
+              "quote": "“我们现有的企业名单，能不能直接上传到系统里维护？”",
+              "judgment": "重点不是增加一个上传按钮，而是能不能沿用旧名单继续跟踪。除了文件导入，企业范围还能从启信产业大脑已有的分组里直接选。",
+              "result": "上线后，复用产业大脑的客户数据成了 1.0 之后最核心的延伸需求。"
+            },
+            {
+              "title": "内容复用",
+              "quote": "“已经写好的内容，能不能只换一下数据就直接用？”",
+              "judgment": "这里有两层意思：用户想减少工作量，也觉得 AI 生成的结果不稳定。所以要做的是章节结构匹配，让同类报告沿用已验证过的结构。",
+              "result": "【待填：上线后的反馈】"
+            },
+            {
+              "title": "来源可信度",
+              "quote": "“生成的内容里面的数据是不是真的？还是只用了我给的材料？”",
+              "judgment": "企业数据、知识库、互联网和模型推算的性质不同，混在一起用户无法判断可信度。把来源分成四类，用颜色和短标签区分。",
+              "result": "用户反馈内容的来源更容易确认。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "qsight-05",
+      "label": "05 · 最终方案",
+      "title": "按报告生产的顺序，每一步解决一个失控点",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "下面按用户实际操作的顺序走一遍，每一步都对应旅程图里的一个阶段。"
+        },
+        {
+          "kind": "subsection",
+          "title": "先选报告类型，而不是直接输入需求",
+          "blocks": [
+            {
+              "kind": "paragraph",
+              "text": "研究员接到的任务本来就有固定场景。从场景进入，他们不用想“该怎么开口”，系统也能拿到明确的结构。"
+            },
+            {
+              "kind": "figures",
+              "figures": [
+                {
+                  "plate": "PLATE 07",
+                  "title": "模板中心",
+                  "instruction": "要放：模板中心",
+                  "caption": "模板中心"
+                }
+              ]
+            }
+          ],
+          "number": "①"
+        },
+        {
+          "kind": "subsection",
+          "title": "逐章确认监测对象、时间范围和重点产业",
+          "blocks": [
+            {
+              "kind": "paragraph",
+              "text": "系统先生成大纲，用户逐章确认、增删章节，确认之后才开始写正文。"
+            },
+            {
+              "kind": "figures",
+              "figures": [
+                {
+                  "plate": "PLATE 08",
+                  "title": "大纲确认",
+                  "instruction": "要放：大纲确认",
+                  "caption": "大纲确认"
+                }
+              ]
+            }
+          ],
+          "number": "②"
+        },
+        {
+          "kind": "subsection",
+          "title": "数据来源集中管理，企业范围可以复用",
+          "blocks": [
+            {
+              "kind": "paragraph",
+              "text": "启信数据、知识库、本地文件和网页链接放在同一个面板里，生成之前就知道每一章会用到哪些材料。"
+            },
+            {
+              "kind": "figures",
+              "figures": [
+                {
+                  "plate": "PLATE 09",
+                  "title": "数据来源配置",
+                  "instruction": "要放：数据来源配置",
+                  "caption": "数据来源配置"
+                },
+                {
+                  "plate": "PLATE 10",
+                  "title": "企业添加方式",
+                  "instruction": "要放：企业添加方式",
+                  "caption": "企业添加方式"
+                }
+              ]
+            }
+          ],
+          "number": "③"
+        },
+        {
+          "kind": "subsection",
+          "title": "让等待和失败都看得见",
+          "blocks": [
+            {
+              "kind": "paragraph",
+              "text": "一份报告要生成几分钟。开头先复述这次的写作范围；接着显示检索了哪些数据、正在合并哪些结果；工具调用失败时显示“触发重试，第 1 次 / 上限 2 次”；数据不够时在文末写明“海洋经济数据不足，未对缺失数据作假设”，而不是让模型补一个看起来合理的数字。"
+            },
+            {
+              "kind": "figures",
+              "figures": [
+                {
+                  "plate": "PLATE 11",
+                  "title": "执行过程面板",
+                  "instruction": "要放：执行过程面板",
+                  "caption": "执行过程面板"
+                }
+              ]
+            },
+            {
+              "kind": "aside",
+              "text": "这些状态背后，是我把 Prompt 拆成与执行步骤一一对应的阶段，每个阶段都有校验和兜底。完整做法见 AI 探索 · Prompt 编译管线。"
+            }
+          ],
+          "number": "④"
+        },
+        {
+          "kind": "subsection",
+          "title": "每一段都能点回来源",
+          "blocks": [
+            {
+              "kind": "paragraph",
+              "text": "正文里的数字后面带引用编号，点击就近弹出来源卡片。四类来源用颜色区分：启信数据、知识库、互联网数据、模型运算。"
+            },
+            {
+              "kind": "figures",
+              "figures": [
+                {
+                  "plate": "PLATE 12",
+                  "title": "引用编号",
+                  "instruction": "要放：引用编号",
+                  "caption": "引用编号"
+                },
+                {
+                  "plate": "PLATE 13",
+                  "title": "来源卡片",
+                  "instruction": "要放：来源卡片",
+                  "caption": "来源卡片"
+                }
+              ]
+            },
+            {
+              "kind": "sources",
+              "items": [
+                {
+                  "key": "qixin",
+                  "text": "启信数据 · 企业库事实"
+                },
+                {
+                  "key": "kb",
+                  "text": "知识库 · 客户材料"
+                },
+                {
+                  "key": "web",
+                  "text": "互联网数据 · 公开信息"
+                },
+                {
+                  "key": "model",
+                  "text": "模型运算 · 推理与计算"
+                }
+              ]
+            }
+          ],
+          "number": "⑤"
+        },
+        {
+          "kind": "subsection",
+          "title": "写过的报告可以继续用",
+          "blocks": [
+            {
+              "kind": "paragraph",
+              "text": "历史文档按报告类型归档，可以在旧报告的基础上更新数据。"
+            },
+            {
+              "kind": "figures",
+              "figures": [
+                {
+                  "plate": "PLATE 14",
+                  "title": "历史文档",
+                  "instruction": "要放：历史文档",
+                  "caption": "历史文档"
+                }
+              ]
+            }
+          ],
+          "number": "⑥"
+        }
+      ]
     }
   ],
   "ui": {
