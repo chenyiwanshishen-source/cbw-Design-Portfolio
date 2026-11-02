@@ -16,7 +16,10 @@ export function ExperimentalProjects() {
       const gap = () => parseFloat(getComputedStyle(list).rowGap);
       const top = () => list.getBoundingClientRect().top + window.scrollY;
       const offset = (index: number) => rows.slice(0, index).reduce((sum, row) => sum + row.offsetHeight + gap(), 0);
-      const inset = () => parseFloat(getComputedStyle(list).getPropertyValue('--rhythm-5'));
+      const inset = (index = 0) => {
+        const style = getComputedStyle(list);
+        return parseFloat(style.getPropertyValue('--rhythm-5')) + index * parseFloat(style.getPropertyValue('--rhythm-3'));
+      };
       // Tall viewports previously hit the document bottom before cards 3 and 4
       // reached the shared pin endpoint. Supply only the missing scroll runway
       // after the footer, without opening a gap below the project list.
@@ -25,7 +28,7 @@ export function ExperimentalProjects() {
       const basePadding = parseFloat(getComputedStyle(sheet).paddingBottom) || 0;
       let runway = 0;
       const updateRunway = () => {
-        const endpoint = top() + offset(rows.length - 1) - inset();
+        const endpoint = top() + offset(rows.length - 1) - inset(rows.length - 1);
         const naturalMax = document.documentElement.scrollHeight - window.innerHeight - runway;
         runway = Math.max(0, Math.ceil(endpoint - naturalMax));
         sheet.style.paddingBottom = `${basePadding + runway}px`;
@@ -35,8 +38,8 @@ export function ExperimentalProjects() {
       rows.slice(0, -1).forEach((row, index) => {
         ScrollTrigger.create({
           trigger: row,
-          start: () => `top ${inset()}`,
-          end: () => top() + offset(rows.length - 1) - inset(),
+          start: () => `top ${inset(index)}`,
+          end: () => top() + offset(rows.length - 1) - inset(rows.length - 1),
           pin: true,
           pinSpacing: false,
           invalidateOnRefresh: true,
@@ -47,7 +50,7 @@ export function ExperimentalProjects() {
           scrollTrigger: {
             trigger: list,
             start: () => top() + offset(index + 1) - window.innerHeight * 0.75,
-            end: () => top() + offset(index + 1) - inset(),
+            end: () => top() + offset(index + 1) - inset(index + 1),
             scrub: true,
             invalidateOnRefresh: true,
           },
