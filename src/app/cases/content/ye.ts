@@ -306,6 +306,118 @@ export const ye: CaseContent & {
           "plain": true
         }
       ]
+    },
+    {
+      "id": "ye-06",
+      "label": "06 · 我怎么做出来的",
+      "title": "我只出想法和审批，代码交给三个 AI",
+      "blocks": [
+        {
+          "kind": "table",
+          "label": "我只出想法和审批，代码交给三个 AI",
+          "headers": [
+            "角色",
+            "负责"
+          ],
+          "rows": [
+            [
+              "我",
+              "定方向、拍板、逐字审批交给 AI 的文字"
+            ],
+            [
+              "Claude",
+              "审查方案、拆分任务、写执行单"
+            ],
+            [
+              "Codex",
+              "写代码和对应的测试"
+            ],
+            [
+              "Gemini",
+              "跑全量测试和构建、维护进度与问题记录"
+            ]
+          ]
+        },
+        {
+          "kind": "paragraph",
+          "text": "有两条规则写进了协作文件，并用测试守住：不写规则代码；交给 AI 的每一段文字都由我逐字批准。遇到问题时，我先看日志导出，确认 AI 实际拿到了什么、做了什么。"
+        },
+        {
+          "kind": "figures",
+          "figures": [
+            {
+              "plate": "PLATE 10",
+              "title": "协作流程",
+              "instruction": "要放：协作流程",
+              "caption": "协作流程"
+            }
+          ]
+        },
+        {
+          "kind": "figures",
+          "figures": [
+            {
+              "plate": "PLATE 11",
+              "title": "日志导出示例（打码）",
+              "instruction": "要放：日志导出示例（打码）",
+              "caption": "日志导出示例（打码）"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ye-07",
+      "label": "07 · 结果与反思",
+      "title": "4 位朋友内测，反馈集中在分类准确和交互友好",
+      "blocks": [
+        {
+          "kind": "metrics",
+          "items": [
+            {
+              "label": "从 0 到 1",
+              "text": "8 周"
+            },
+            {
+              "label": "代码提交",
+              "text": "802 次"
+            },
+            {
+              "label": "自动化测试",
+              "text": "约 2000 个"
+            },
+            {
+              "label": "朋友内测",
+              "text": "4 位"
+            }
+          ],
+          "note": ""
+        },
+        {
+          "kind": "paragraph",
+          "text": "演示：【待填：演示视频或动图】"
+        },
+        {
+          "kind": "subsection",
+          "title": "反思",
+          "blocks": [
+            {
+              "kind": "paragraph",
+              "text": "这 8 周里我做得最多的判断，是哪些事交给 AI、哪些事留给人：理解想法和分组交给 AI，确认和撤销留给人。"
+            }
+          ]
+        },
+        {
+          "kind": "subsection",
+          "title": "如果重来",
+          "blocks": [
+            {
+              "kind": "paragraph",
+              "text": "第一天就用\"一个 AI 加一组工具\"的结构，不先搭工作流；第一天就把\"不写规则代码\"写进协作规则，并用测试守住；第一天就做日志导出。这样前两次推翻大概都可以省掉。"
+            }
+          ]
+        }
+      ]
     }
   ],
   "ui": {
