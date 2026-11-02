@@ -9,6 +9,7 @@ function CaseCopy({ item }: { item: CaseContent }) {
       <div><dt className="inline">项目周期 · </dt><dd className="inline">{item.period}</dd></div>
       <div><dt className="inline">我的工作 · </dt><dd className="inline">{item.responsibility}</dd></div>
     </dl>
+    {!item.detailHref && <p className="text-caption text-text-meta">案例整理中</p>}
   </div>;
 }
 
@@ -22,9 +23,9 @@ export function CaseCard({ item, active, muted, onHover, onFocus }: {
 }) {
   const [slide, setSlide] = useState(0);
   const strip = useRef<HTMLDivElement>(null);
-  const href = `#/project/${item.id}`;
+  const href = item.detailHref;
   return <article className={`home-case${active ? ' is-active' : ''}${muted ? ' is-muted' : ''}`}>
-    <a href={href} className="home-case-link case-desktop" aria-label={`阅读案例：${item.name}`}
+    <a href={href} className="home-case-link case-desktop" tabIndex={0} aria-disabled={!href || undefined} aria-label={href ? `阅读案例：${item.name}` : `${item.name}，案例整理中`}
       onPointerEnter={event => { if (event.pointerType === 'mouse') onHover(true); }} onPointerLeave={() => onHover(false)}
       onFocus={() => onFocus(true)} onBlur={() => onFocus(false)}>
       <CaseCopy item={item} />
@@ -37,7 +38,7 @@ export function CaseCard({ item, active, muted, onHover, onFocus }: {
         {[0, 1, 2].map(index => <div key={index} className="case-slide"><Placeholder index={index} /></div>)}
       </div>
       <div className="case-dots" aria-label="选择预览图片">{[0, 1, 2].map(index => <button key={index} type="button" aria-label={`第 ${index + 1} 张图片`} aria-pressed={slide === index} onClick={() => { const node = strip.current; const child = node?.children[index] as HTMLElement | undefined; if (node && child) node.scrollTo({ left: index * (child.offsetWidth + 8), behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' }); }}><span /></button>)}</div>
-      <a className="home-target inline-flex items-center text-body" href={href}>阅读案例 →</a>
+      {href && <a className="home-target inline-flex items-center text-body" href={href}>阅读案例 →</a>}
     </div>
   </article>;
 }

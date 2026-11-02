@@ -20,6 +20,7 @@ export const navigation = [
 export const cases = [
   {
     id: 'ai-report',
+    detailHref: '#/project/ai-report',
     name: 'Qsight · AI 报告平台',
     summary: '帮助研究员生成报告，并追溯内容和数据的来源。',
     period: '2025.04–2026.05',
@@ -34,6 +35,7 @@ export const cases = [
   },
   {
     id: 'qixin-brain',
+    detailHref: '#/project/qixin-brain',
     name: '启信产业大脑',
     summary: '帮助招商、产业服务和区域治理人员查询企业数据、搭建本地产业链。',
     period: '2020–2026',
@@ -47,18 +49,19 @@ export const cases = [
     progress: '',
   },
   {
-    id: 'explorations',
-    name: '前端可视化编辑工具',
-    summary: '在画布中直接调整组件样式，减少修改代码与切换工具的成本。',
-    period: '2026 年起，持续开发中',
-    responsibility: '产品定义、交互设计、架构与 AI 协作开发',
-    meta: '个人项目 · VSCode 插件 · 2026',
-    title: '改一个间距，不必让 AI 重写整段代码',
-    context: '用 AI 生成前端之后，最费时间的反而是微调。改个间距或颜色，AI 会把整段组件重新输出一遍，还得在浏览器和编辑器之间来回找代码。',
-    action: '我做了一个插件，在画布里选中组件就能直接改样式。这类确定的修改交给引擎完成，每次结果都一样，也不消耗 token；AI 只负责生成新组件。产品定义和架构由我来定，代码和 AI 编程工具一起写。',
+    id: 'ye-browser',
+    detailHref: undefined,
+    name: 'ye! · 浏览器标签整理插件',
+    summary: '帮助整理浏览器标签页，减少页面堆积与查找成本。',
+    period: '持续开发中',
+    responsibility: '产品定义、交互设计、AI 协作开发',
+    meta: '个人项目 · 浏览器插件',
+    title: 'ye! · 浏览器标签整理插件',
+    context: '帮助整理浏览器标签页，减少页面堆积与查找成本。',
+    action: '产品定义、交互设计、AI 协作开发。',
     metrics: [],
-    tags: ['VSCode 插件', '样式编辑'],
-    progress: 'VSIX 已打包，本地可以安装使用；AST 写回源码还在开发中。',
+    tags: ['浏览器插件', '标签整理'],
+    progress: '持续开发中',
   },
 ];
 export type CaseContent = (typeof cases)[number];
