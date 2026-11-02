@@ -35,7 +35,7 @@ export function Intro() {
       <div className="home-intro-text flex min-w-0 flex-col gap-8 lg:col-span-8">
         <IntroBlock label="LABEL" index={0} {...blockProps}><p className="text-lead font-medium text-text-secondary">{intro.greeting}</p></IntroBlock>
         <IntroBlock label="TITLE" index={1} {...blockProps}><div className="flex flex-col gap-4">
-          <h1 className="home-name font-normal">{intro.name}<span className="home-romanized font-normal text-text-secondary">{intro.romanizedName}</span></h1>
+          <h1 className="home-name font-normal">{intro.name}</h1>
           <p className="home-role text-text">{intro.role}</p>
         </div></IntroBlock>
         <IntroBlock label="COPY" index={2} {...blockProps}><div className="flex max-w-measure flex-col gap-5 text-body-lg text-text-body">

@@ -1,7 +1,6 @@
 export const intro = {
   greeting: '你好，我是',
   name: '陈俊学',
-  romanizedName: ' · Chen Junxue',
   role: '工业设计背景的 B 端数据应用产品设计师',
   paragraphs: [
     '曾在合合信息担任产品设计师约 6 年，负责启信宝 B 端客户端和启信产业大脑的产品设计，并参与 AI 报告平台 Qsight 从 0 到 1 的设计，负责核心交互与 Prompt 基础框架。',
