@@ -40,7 +40,6 @@ body:has(.homepage) { background: var(--color-home-bg); }
   .home-intro-text > [data-intro-block="LABEL"] { grid-column: 1 / 9; grid-row: 1; }
   .home-intro-text > [data-intro-block="TITLE"] { grid-column: 1 / 9; grid-row: 2; }
   .home-intro-text > [data-intro-block="COPY"] { grid-column: 1 / 9; grid-row: 3; padding-top: var(--space-10); }
-  .home-intro-text > [data-intro-block="META"] { grid-column: 1 / 9; grid-row: 4; }
   .home-photo { grid-column: 10 / 13; grid-row: 1 / 3; padding-top: 0; }
   .intro-stage { row-gap: var(--space-6); padding-top: var(--space-16); padding-bottom: var(--space-24); }
 }
