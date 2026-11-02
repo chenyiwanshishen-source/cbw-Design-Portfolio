@@ -1,33 +1,9 @@
 import type { CaseContent } from '../types';
 
-// 文案逐字来自 CASE_TASK_QIXIN.md；未提供独立图注时复用图位名称。
-export const qixin: CaseContent & {
-  summary: { label: string; text: string }[];
-  timeline: string[];
-  ui: CaseContent['ui'] & { previous: string; previousTitle: string; timeline: string };
-} = {
+export const qixin: CaseContent = {
   "header": {
-    "label": "合合信息 · 启信产业大脑 · 2021 — 2026",
     "title": "把企业数据查询工具，做成招商人员的工作台",
-    "intro": "启信产业大脑是面向政府招商、产业分析和区域经济管理的企业数据平台。我从 2021 年起作为主要设计师持续参与，主导了首页改版和自定义产业链，并协同两位设计师从 0 到 1 建设了组件库。",
-    "facts": [
-      {
-        "label": "角色",
-        "text": "主要设计师"
-      },
-      {
-        "label": "我负责",
-        "text": "首页改版 · 自定义产业链 · 核心模块 · 组件库"
-      },
-      {
-        "label": "团队",
-        "text": "【待填：产品 / 研发 / 设计人数】"
-      },
-      {
-        "label": "状态",
-        "text": "已上线，持续迭代"
-      }
-    ]
+    "intro": "启信产业大脑是给政府招商、产业分析和区域经济管理用的企业数据平台。从 2021 年起我一直是它的主要设计师，主导了首页改版和自定义产业链，也和两位设计师一起从 0 到 1 搭了组件库。"
   },
   "hero": {
     "plate": "PLATE 01",
@@ -36,69 +12,81 @@ export const qixin: CaseContent & {
     "caption": "当前首页（脱敏）",
     "ratio": "16 / 9"
   },
-  "summary": [
-    {
-      "label": "问题",
-      "text": "功能越加越多，用户的工作路径被拆散；本地产业链每次都要内部配置，用户只能等。"
-    },
-    {
-      "label": "方案",
-      "text": "按任务重组首页和功能；把产业链配置交给用户；用组件库保持界面的一致性。"
-    },
-    {
-      "label": "结果",
-      "text": "本地产业链构建周期 1–2 周 → 2–3 天"
-    }
-  ],
   "timeline": [
     "2021 招商大脑 1.0",
     "2024 标品规范",
     "2025 平台扩展",
     "2026 自定义产业链与 AI 报告联动"
   ],
+  "opening": [
+    {
+      "kind": "metrics",
+      "items": [
+        {
+          "label": "本地产业链构建周期",
+          "text": "1–2 周 → 2–3 天"
+        }
+      ],
+      "note": ""
+    }
+  ],
   "toc": [
     {
       "id": "qixin-01",
-      "label": "01 · 挑战"
+      "label": "挑战"
     },
     {
       "id": "qixin-02",
-      "label": "02 · 定义问题"
+      "label": "定义问题"
     },
     {
       "id": "qixin-03",
-      "label": "03 · 产业链配置"
+      "label": "自定义产业链"
     },
     {
       "id": "qixin-04",
-      "label": "04 · 首页工作台"
+      "label": "首页工作台"
     },
     {
       "id": "qixin-05",
-      "label": "05 · 设计系统"
+      "label": "设计系统"
     },
     {
       "id": "qixin-06",
-      "label": "06 · 结果与反思"
+      "label": "结果与反思"
     }
   ],
   "chapters": [
     {
       "id": "qixin-01",
-      "label": "01 · 挑战",
-      "title": "功能越加越多，用户的工作路径反而被拆散了",
+      "label": "挑战",
+      "title": "功能越加越多，用户的工作反而被拆散了",
       "blocks": [
         {
           "kind": "paragraph",
-          "text": "数据与功能分散，用户很难连续完成定位范围、筛选目标、判断价值、跟进管理和输出结果。"
+          "text": "产业大脑做了几年，功能一直在加。可数据和功能分散在不同地方，用户想从定位范围一路做到输出结果，很难一口气做完。"
         }
       ]
     },
     {
       "id": "qixin-02",
-      "label": "02 · 定义问题",
-      "title": "五类用户，走的是同一条任务路径",
+      "label": "定义问题",
+      "title": "五类用户，走的是同一条路",
       "blocks": [
+        {
+          "kind": "flow",
+          "rows": [
+            {
+              "steps": [
+                "定位范围",
+                "筛选目标",
+                "判断价值",
+                "持续管理",
+                "输出结果"
+              ]
+            }
+          ]
+        },
         {
           "kind": "table",
           "label": "五类用户与核心任务",
@@ -137,16 +125,16 @@ export const qixin: CaseContent & {
         },
         {
           "kind": "paragraph",
-          "text": "五类场景共享同一条路径：定位范围 → 筛选目标 → 判断价值 → 持续管理 → 输出结果。我以招商为主场景画了体验地图。"
+          "text": "我以招商为主场景，画了一张体验地图。"
         },
         {
           "kind": "figures",
           "figures": [
             {
               "plate": "PLATE 02",
-              "title": "招商场景体验地图（五阶段：明确方向、发现企业、判断价值、沉淀名单、跟进输出）",
-              "instruction": "要放：招商场景体验地图（五阶段：明确方向、发现企业、判断价值、沉淀名单、跟进输出）",
-              "caption": "招商场景体验地图（五阶段：明确方向、发现企业、判断价值、沉淀名单、跟进输出）"
+              "title": "招商场景体验地图",
+              "instruction": "要放：招商场景体验地图",
+              "caption": "招商场景体验地图"
             }
           ]
         }
@@ -154,40 +142,55 @@ export const qixin: CaseContent & {
     },
     {
       "id": "qixin-03",
-      "label": "03 · 产业链配置",
-      "title": "把产业链配置，从内部交付改成用户自己维护",
+      "label": "自定义产业链",
+      "title": "本地产业链不用再等我们配，用户自己就能改",
       "blocks": [
         {
           "kind": "paragraph",
-          "text": "每个地区对产业链怎么划分、哪些企业算本地特色，理解都不一样。以前用户提需求后，要等我们梳理结构、开发配置，改一次再等一轮。我判断标准环节可以复用，差异只在本地口径，所以把配置能力做成产品：标准环节直接选用，没有的环节自己新建，节点关系和企业名单由用户维护。"
+          "text": "每个地区对产业链怎么划分、哪些企业算本地特色，理解都不一样。以前用户提了需求，要等我们梳理结构、开发配置，改一次再等一轮。"
+        },
+        {
+          "kind": "flow",
+          "rows": [
+            {
+              "label": "改前",
+              "steps": [
+                "用户提需求",
+                "我们梳理结构",
+                "开发配置",
+                "用户确认，不对再来一轮"
+              ]
+            },
+            {
+              "label": "改后",
+              "steps": [
+                "选用标准环节",
+                "新建本地环节",
+                "维护企业名单"
+              ],
+              "highlight": [
+                0,
+                1,
+                2
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "paragraph",
+          "text": "标准环节其实可以复用，差别只在本地的划分方式。所以我把配置做成了产品功能，节点关系和企业名单都由用户自己维护。"
         },
         {
           "kind": "figures",
           "figures": [
             {
               "plate": "PLATE 03",
-              "title": "改版前后流程对比",
-              "instruction": "要放：改版前后流程对比",
-              "caption": "改版前后流程对比"
-            }
-          ]
-        },
-        {
-          "kind": "figures",
-          "figures": [
-            {
-              "plate": "PLATE 04",
               "title": "产业链图谱编辑态",
               "instruction": "要放：产业链图谱编辑态",
               "caption": "产业链图谱编辑态"
-            }
-          ]
-        },
-        {
-          "kind": "figures",
-          "figures": [
+            },
             {
-              "plate": "PLATE 05",
+              "plate": "PLATE 04",
               "title": "企业池",
               "instruction": "要放：企业池",
               "caption": "企业池"
@@ -208,32 +211,21 @@ export const qixin: CaseContent & {
     },
     {
       "id": "qixin-04",
-      "label": "04 · 首页工作台",
+      "label": "首页工作台",
       "title": "首页从\"找功能\"改成\"接任务\"",
       "blocks": [
         {
           "kind": "paragraph",
-          "text": "用户进入系统后的第一件事，是处理今天的工作，而不是在菜单里找功能。我把首页改成任务看板，分成报告入口、动态信息、业务概览和常用功能四块，不同角色进来就能直接开始查询、判断和跟进。"
+          "text": "用户进系统后的第一件事是处理当天的工作，不是去菜单里找功能。我把首页改成任务看板，分成报告入口、动态信息、业务概览和常用功能四块，不同角色进来就能直接开始查询、判断和跟进。"
         },
         {
           "kind": "figures",
           "figures": [
             {
-              "plate": "PLATE 06",
+              "plate": "PLATE 05",
               "title": "新版首页分区标注",
               "instruction": "要放：新版首页分区标注",
               "caption": "新版首页分区标注"
-            }
-          ]
-        },
-        {
-          "kind": "figures",
-          "figures": [
-            {
-              "plate": "PLATE 07",
-              "title": "改版前首页【待补：找不到可删除】",
-              "instruction": "要放：改版前首页【待补：找不到可删除】",
-              "caption": "改版前首页【待补：找不到可删除】"
             }
           ]
         },
@@ -245,21 +237,35 @@ export const qixin: CaseContent & {
     },
     {
       "id": "qixin-05",
-      "label": "05 · 设计系统",
-      "title": "先建立自己的系统语言，再让组件库被用起来",
+      "label": "设计系统",
+      "title": "两个产品分开以后，产业大脑需要自己的设计语言",
       "blocks": [
         {
           "kind": "paragraph",
-          "text": "孵化期沿用启信宝的规范，快速上线。后来两个产品定位分开，产业大脑需要自己的识别度。我协同两位设计师，从盘点已上线页面开始，搭了五层结构：基础规范、基础组件、复合组件、业务组件、页面模板。"
+          "text": "孵化期沿用启信宝的规范，为的是快速上线。后来两个产品定位分开，产业大脑需要自己的识别度。我和两位设计师从盘点已上线的页面开始，搭了一套五层的组件库。"
         },
         {
-          "kind": "figures",
-          "figures": [
+          "kind": "layers",
+          "items": [
             {
-              "plate": "PLATE 08",
-              "title": "组件库总览",
-              "instruction": "要放：组件库总览",
-              "caption": "组件库总览"
+              "label": "页面模板",
+              "text": ""
+            },
+            {
+              "label": "业务组件",
+              "text": ""
+            },
+            {
+              "label": "复合组件",
+              "text": ""
+            },
+            {
+              "label": "基础组件",
+              "text": ""
+            },
+            {
+              "label": "基础规范",
+              "text": ""
             }
           ]
         },
@@ -267,10 +273,10 @@ export const qixin: CaseContent & {
           "kind": "figures",
           "figures": [
             {
-              "plate": "PLATE 09",
-              "title": "通用表格规范",
-              "instruction": "要放：通用表格规范",
-              "caption": "通用表格规范"
+              "plate": "PLATE 06",
+              "title": "组件库总览",
+              "instruction": "要放：组件库总览",
+              "caption": "组件库总览"
             }
           ]
         },
@@ -282,63 +288,40 @@ export const qixin: CaseContent & {
     },
     {
       "id": "qixin-06",
-      "label": "06 · 结果与反思",
-      "title": "产业大脑成了 AI 报告的企业底座",
+      "label": "结果与反思",
+      "title": "用户攒下的企业名单，现在能直接拿去写 AI 报告",
       "blocks": [
         {
-          "kind": "paragraph",
-          "text": "企业分组已经和 AI 报告平台打通：用户在产业大脑里积累的企业名单，可以直接作为 AI 报告的企业范围。"
-        },
-        {
-          "kind": "figures",
-          "figures": [
+          "kind": "flow",
+          "rows": [
             {
-              "plate": "PLATE 10",
-              "title": "跨系统联动流程（企业分组 → 权限绑定 → AI 报告关联企业 → 报告大纲 → 章节生成）",
-              "instruction": "要放：跨系统联动流程（企业分组 → 权限绑定 → AI 报告关联企业 → 报告大纲 → 章节生成）",
-              "caption": "跨系统联动流程（企业分组 → 权限绑定 → AI 报告关联企业 → 报告大纲 → 章节生成）"
-            }
-          ]
-        },
-        {
-          "kind": "subsection",
-          "title": "其他工作",
-          "blocks": [
-            {
-              "kind": "paragraph",
-              "text": "产业结构总览"
-            },
-            {
-              "kind": "paragraph",
-              "text": "目标企业筛选"
-            },
-            {
-              "kind": "paragraph",
-              "text": "企业画像"
-            },
-            {
-              "kind": "paragraph",
-              "text": "跟进管理"
-            },
-            {
-              "kind": "paragraph",
-              "text": "监测与报告输出"
-            }
-          ]
-        },
-        {
-          "kind": "subsection",
-          "title": "反思",
-          "blocks": [
-            {
-              "kind": "paragraph",
-              "text": "做了几年下来，最难的不是把页面设计出来，而是从用户怎么说、怎么做里，理解他们没有直接说出的需要。"
+              "steps": [
+                "企业分组",
+                "权限绑定",
+                "AI 报告关联企业",
+                "报告大纲",
+                "章节生成"
+              ]
             }
           ]
         },
         {
           "kind": "paragraph",
-          "text": "如果重来：【待填】"
+          "text": "企业分组已经和 AI 报告平台 Qsight 打通，上一个案例里\"企业范围直接沿用已有名单\"，名单就来自这里。我还参与了产业结构总览、目标企业筛选、企业画像、跟进管理、监测与报告输出这些模块。"
+        },
+        {
+          "kind": "statement",
+          "text": "做了几年下来，最难的不是把页面设计出来，而是从用户怎么说、怎么做里，理解他们没有直接说出的需要。"
+        },
+        {
+          "kind": "subsection",
+          "title": "如果重来",
+          "blocks": [
+            {
+              "kind": "paragraph",
+              "text": "【待填】"
+            }
+          ]
         }
       ]
     }
@@ -346,11 +329,10 @@ export const qixin: CaseContent & {
   "ui": {
     "back": "← 返回首页",
     "next": "下一个案例",
-    "nextTitle": "AI 探索 →",
+    "nextTitle": "我只说想法，AI 负责把书签分好 →",
     "previous": "← 上一个案例",
     "previousTitle": "让研究员敢把报告交给 AI 写",
     "toc": "案例目录",
-    "timeline": "时间轴",
     "judgment": "我的判断",
     "result": "结果",
     "footer": "合合信息 · 启信产业大脑 · 2021 — 2026"
