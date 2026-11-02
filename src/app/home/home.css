@@ -157,13 +157,3 @@ body:has(.homepage) { background: var(--color-home-bg); }
   .drafting-lines, .drafting-measure, .drafting-note, .drafting-pin { display: none; }
   .drafting-frame { border-inline: var(--border-width) solid var(--color-drafting-faint); inset-inline: calc(-1 * var(--space-3)); }
 }
-
-/* Local graph paper behind the portrait; the reading columns stay clear. */
-.gameboy-portrait { position: relative; isolation: isolate; }
-.gameboy-portrait::before {
-  content: ''; position: absolute; inset: var(--space-4) 0;
-  z-index: -1; pointer-events: none;
-  background-image: linear-gradient(var(--color-drafting-faint) 1px, transparent 1px), linear-gradient(90deg, var(--color-drafting-faint) 1px, transparent 1px);
-  background-size: var(--space-6) var(--space-6);
-  border: var(--border-width) solid var(--color-drafting-faint);
-}
