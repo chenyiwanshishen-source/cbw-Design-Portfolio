@@ -1,10 +1,10 @@
 import { Suspense, lazy, useEffect, useState } from "react";
+import { HomePage } from "./home/HomePage";
 import { ArrowUp } from "lucide-react";
 import { ProjectRouteLoader } from "./components/ProjectRouteLoader";
 import {
   loadAiProjectDetail,
   loadExplorationsPage,
-  loadHomeContent,
   loadNav,
   loadQixinProjectDetail,
   isProjectRouteReady,
@@ -20,9 +20,6 @@ const QixinProjectDetail = lazy(() =>
 );
 const ExplorationsPage = lazy(() =>
   loadExplorationsPage().then((module) => ({ default: module.ExplorationsPage }))
-);
-const HomeContent = lazy(() =>
-  loadHomeContent().then((module) => ({ default: module.HomeContent }))
 );
 const Nav = lazy(() => loadNav().then((module) => ({ default: module.Nav })));
 const ViewportScrollbars = lazy(() =>
@@ -81,7 +78,6 @@ export default function App() {
   const isAiDetail = route === "#/project/ai-report";
   const isQixinDetail = route === "#/project/qixin-brain";
   const isExplorations = route === "#/project/explorations";
-  const isAbout = route === "#about";
 
   useEffect(() => {
     if (isAiDetail) {
@@ -227,9 +223,7 @@ export default function App() {
       <ExplorationsPage onBack={goHome} />
     </Suspense>
   ) : (
-    <Suspense fallback={null}>
-      <HomeContent key={isAbout ? "about" : "home"} view={isAbout ? "about" : "home"} />
-    </Suspense>
+<HomePage route={route} />
   );
 
   return (

@@ -63,6 +63,7 @@
   --gutter-x: 20px;          /* 实际：max(var(--gutter-x), env(safe-area-inset-left/right)) */
   --touch-target: 44px;      /* 可点击区域最小高度 */
   --border-width: 1px;
+  --status-dot-size: 7px;
 
   /* ---------- 动效时长 ---------- */
   --dur-fast: 160ms;     /* hover、按下 */
