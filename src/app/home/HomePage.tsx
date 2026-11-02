@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { SiteHeader } from './SiteHeader';
 import { Ruler } from './Ruler';
 import { Intro } from './Intro';
 import { CaseCard } from './CaseCard';
@@ -18,7 +17,6 @@ export function HomePage({ route }: { route: string }) {
   }, [route]);
   return <div className="homepage">
     <div className="mx-auto w-full max-w-content">
-      <SiteHeader />
       <Ruler onReplay={() => setReplay(value => value + 1)} />
       <Intro replay={replay} />
       <div className="flex flex-col gap-24 pb-24">
