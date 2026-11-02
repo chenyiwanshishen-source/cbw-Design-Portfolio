@@ -134,3 +134,11 @@ body:has(.homepage) { background: var(--color-home-bg); }
 .gallery-type-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); align-items: center; gap: var(--space-8); padding-block: var(--space-8); border-top: 1px solid var(--color-border-subtle); }
 .gallery-type-sample { min-width: 0; overflow-wrap: anywhere; }
 @media (max-width: 700px) { .gallery-type-row { grid-template-columns: minmax(0, 1fr); gap: var(--space-5); } }
+
+/* Original assets remain separate; the illustration sits behind the transparent screen. */
+.gameboy-portrait { aspect-ratio: 2 / 3; background: none; border: none; max-width: 384px; margin-inline: auto; width: 100%; }
+.gameboy-float { position: relative; width: 100%; animation: gameboy-float 5s var(--ease-settle) infinite; }
+.gameboy-shell { display: block; width: 100%; height: auto; position: relative; }
+.gameboy-screen { position: absolute; left: 28%; top: 17%; width: 44%; height: 26.5%; object-fit: cover; object-position: center bottom; }
+@keyframes gameboy-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(calc(-1 * var(--space-2))); } }
+@media (prefers-reduced-motion: reduce) { .gameboy-float { animation: none; } }

@@ -1,5 +1,6 @@
 import { Fragment, useEffect, useRef, useState } from 'react';
 import { intro } from './content/zh';
+import { GameBoyPortrait } from './GameBoyPortrait';
 import { IntroBlock } from './IntroBlock';
 
 export function Intro() {
@@ -42,10 +43,7 @@ export function Intro() {
           {intro.paragraphs.map((text) => <p key={text} data-intro-paragraph>{paragraph(text)}</p>)}
         </div></IntroBlock>
       </div>
-      <IntroBlock label="PLATE" index={2} className="home-photo min-w-0 lg:col-span-4" {...blockProps}><figure className="flex min-w-0 flex-col gap-3">
-        <div className="home-portrait flex items-center justify-center border border-border bg-surface-sunken p-6 font-mono text-micro text-text-meta">替换为你的照片</div>
-        <figcaption className="font-mono text-label text-text-meta">PLATE 01 · 人像 · 4:5</figcaption>
-      </figure></IntroBlock>
+      <IntroBlock label="PLATE" index={2} className="home-photo min-w-0 lg:col-span-4" {...blockProps}><GameBoyPortrait /></IntroBlock>
     </section>
   );
 }
