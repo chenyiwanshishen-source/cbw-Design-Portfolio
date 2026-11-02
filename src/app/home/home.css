@@ -61,3 +61,29 @@
   .intro-wire { display: none; animation: none; }
   .is-opening .intro-real { animation: none; opacity: 1; transform: none; }
 }
+
+/* Elly reference: white canvas, open typography, wide project plates. */
+body:has(.homepage) { background: var(--color-home-bg); }
+.homepage { background: var(--color-home-bg); }
+.home-name { font-size: var(--text-home-name); line-height: 1.2; letter-spacing: -0.02em; }
+.home-romanized { display: block; font-size: var(--text-h2); line-height: 1.5; margin-top: var(--space-3); }
+.home-role { font-size: var(--text-home-role); line-height: 1.45; max-width: 16em; }
+.home-intro-text { gap: var(--space-10); }
+.home-portrait { background: var(--color-home-placeholder); border: none; }
+.home-photo { padding-top: var(--space-8); }
+.home-case { background: var(--color-home-placeholder); }
+.home-case-copy { justify-content: flex-end; }
+.home-case-visual { min-height: calc(var(--space-24) * 5); }
+@media (min-width: 1024px) {
+  .home-intro-text { display: contents; }
+  .home-intro-text > [data-intro-block="LABEL"] { grid-column: 1 / 9; grid-row: 1; }
+  .home-intro-text > [data-intro-block="TITLE"] { grid-column: 1 / 9; grid-row: 2; }
+  .home-intro-text > [data-intro-block="COPY"] { grid-column: 1 / 9; grid-row: 3; padding-top: var(--space-10); }
+  .home-intro-text > [data-intro-block="META"] { grid-column: 1 / 9; grid-row: 4; }
+  .home-photo { grid-column: 10 / 13; grid-row: 1 / 3; padding-top: 0; }
+  .intro-stage { row-gap: var(--space-6); padding-top: var(--space-16); padding-bottom: var(--space-24); }
+}
+@media (max-width: 767px) {
+  .intro-stage { padding-top: var(--space-8); }
+  .home-case-visual { min-height: calc(var(--space-24) * 3); grid-row: 1; }
+}

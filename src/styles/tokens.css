@@ -120,6 +120,12 @@
   --color-source-web-bg: #FBEBDD;    --color-source-web-fg: #8A4307;    /* 互联网数据 */
   --color-source-model-bg: #EEE6FA;  --color-source-model-fg: #5B33A8;  /* 模型运算 */
 
+  --color-home-bg: #FFFFFF;
+  --color-home-placeholder: #F3F4F5;
+  --color-blueprint-line: rgba(255, 255, 255, 0.25);
+  --text-home-role: clamp(28px, 4vw, 56px);
+  --text-home-name: clamp(56px, 7vw, 96px);
+
   /* ---------- 字体 ---------- */
   --font-sans: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
