@@ -145,6 +145,167 @@ export const ye: CaseContent & {
           ]
         }
       ]
+    },
+    {
+      "id": "ye-04",
+      "label": "04 · 挑战与取舍",
+      "title": "每一次推翻，都是把判断从代码手里拿回来",
+      "blocks": [
+        {
+          "kind": "subsection",
+          "title": "条件换了个地方，又长了出来",
+          "blocks": [
+            {
+              "kind": "paragraph",
+              "text": "正则删掉以后，AI 写代码时又加了一层层条件和状态锁来兜底。结果流程互相卡死，书签任务还会串成页签任务。这个分支改了约 5400 行，修补的代价已经超过重做。我放弃了它，从干净的主线重新开始，只搬回验证过的部分；同时加上了运行日志导出，之后判断问题都看真实记录。"
+            }
+          ]
+        },
+        {
+          "kind": "subsection",
+          "title": "不要转译，让 AI 直接听用户说",
+          "blocks": [
+            {
+              "kind": "paragraph",
+              "text": "之前用户的话会先被一个 AI 转译成意图，插件再按意图命中路由，交给下一个 AI 分阶段执行。每转一层都会丢一些信息，路由一旦判错，整条链都会跑偏。我改成把用户的话直接交给 AI，用哪些工具也由 AI 自己选。"
+            },
+            {
+              "kind": "figures",
+              "figures": [
+                {
+                  "plate": "PLATE 04",
+                  "title": "改前和改后的架构对比",
+                  "instruction": "要放：改前和改后的架构对比",
+                  "caption": "改前和改后的架构对比"
+                }
+              ]
+            },
+            {
+              "kind": "paragraph",
+              "text": "放手给 AI 之后，安全靠沙箱来保证：AI 可以自由读取和判断，但任何改动都要经过插件校验和用户确认。三次推翻分别在 9 月中旬、9 月 26 日和 10 月 18 日，之后一直沿用这套结构。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ye-05",
+      "label": "05 · 最终方案",
+      "title": "插件是沙箱，工具是手脚，AI 是大脑",
+      "blocks": [
+        {
+          "kind": "table",
+          "label": "插件是沙箱，工具是手脚，AI 是大脑",
+          "headers": [
+            "层",
+            "负责"
+          ],
+          "rows": [
+            [
+              "AI（大脑）",
+              "理解用户的想法，决定怎么分，选用工具"
+            ],
+            [
+              "工具（手脚）",
+              "读书签、读网页、反问用户、生成分组预览、移动页签"
+            ],
+            [
+              "插件（沙箱）",
+              "保存事实、校验参数、写入前请用户确认、撤销、保护固定页签"
+            ]
+          ]
+        },
+        {
+          "kind": "subsection",
+          "title": "用一句话开始：对话放在右侧常驻面板，整理时书签和对话在同一屏。",
+          "blocks": [
+            {
+              "kind": "figures",
+              "figures": [
+                {
+                  "plate": "PLATE 05",
+                  "title": "常驻对话面板",
+                  "instruction": "要放：常驻对话面板",
+                  "caption": "常驻对话面板"
+                }
+              ]
+            }
+          ],
+          "plain": true
+        },
+        {
+          "kind": "subsection",
+          "title": "AI 不确定时会先反问，不靠猜。",
+          "blocks": [
+            {
+              "kind": "figures",
+              "figures": [
+                {
+                  "plate": "PLATE 06",
+                  "title": "反问确认",
+                  "instruction": "要放：反问确认",
+                  "caption": "反问确认"
+                }
+              ]
+            }
+          ],
+          "plain": true
+        },
+        {
+          "kind": "subsection",
+          "title": "分组预览按窗口展示，每个页签从哪来、到哪去都看得见。",
+          "blocks": [
+            {
+              "kind": "figures",
+              "figures": [
+                {
+                  "plate": "PLATE 07",
+                  "title": "分组预览",
+                  "instruction": "要放：分组预览",
+                  "caption": "分组预览"
+                }
+              ]
+            }
+          ],
+          "plain": true
+        },
+        {
+          "kind": "subsection",
+          "title": "AI 只给方案，用户点了确认才会写入。",
+          "blocks": [
+            {
+              "kind": "figures",
+              "figures": [
+                {
+                  "plate": "PLATE 08",
+                  "title": "确认写入",
+                  "instruction": "要放：确认写入",
+                  "caption": "确认写入"
+                }
+              ]
+            }
+          ],
+          "plain": true
+        },
+        {
+          "kind": "subsection",
+          "title": "最近 5 步可以撤销，固定的页签不会被移动。",
+          "blocks": [
+            {
+              "kind": "figures",
+              "figures": [
+                {
+                  "plate": "PLATE 09",
+                  "title": "撤销与固定页签保护",
+                  "instruction": "要放：撤销与固定页签保护",
+                  "caption": "撤销与固定页签保护"
+                }
+              ]
+            }
+          ],
+          "plain": true
+        }
+      ]
     }
   ],
   "ui": {
