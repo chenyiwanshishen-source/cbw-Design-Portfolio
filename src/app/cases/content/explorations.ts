@@ -12,135 +12,148 @@ export const explorations: { header: { title: string; intro: string }; statement
     {
       "id": "explorations-01",
       "label": "Figma 连接器",
-      "title": "先让 AI 能读写 Figma，后面的整理才接得上",
+      "title": "让 AI 帮我改 Figma，改坏了也能退回",
       "blocks": [
         {
           "kind": "paragraph",
-          "text": "我想让 AI 帮我整理历史设计稿，前提是它能读到、也能改 Figma 文件。所以我做了一个本地 MCP 服务加 Figma 插件：AI 发出任务，插件在当前打开的文件里执行，再把结果传回去。整条链路只在本机运行，不需要 API Key。"
-        },
-        {
-          "kind": "flow",
-          "rows": [
-            {
-              "steps": [
-                "AI 客户端",
-                "本地 MCP 服务",
-                "Figma 插件在文件里执行",
-                "结果回传给 AI"
-              ],
-              "highlight": [
-                2
-              ]
-            }
-          ]
-        },
-        {
-          "kind": "paragraph",
-          "text": "让 AI 直接改设计稿，最怕改坏。所以每次任务开始前，插件会先给节点拍快照，出错就自动撤回这次新建的节点；面板上会显示它正在读，还是正在写。"
-        },
-        {
-          "kind": "figures",
-          "figures": [
-            {
-              "plate": "PLATE 01",
-              "title": "连接器面板",
-              "instruction": "要放：连接器面板",
-              "caption": "连接器面板"
-            }
-          ]
-        }
-      ],
-      "url": "https://github.com/chenyiwanshishen-source/figma-connector-figma-",
-      "status": "已开源（GitHub）"
-    },
-    {
-      "id": "explorations-02",
-      "label": "设计系统",
-      "title": "扫描 Qsight 的历史稿后，我发现建好的颜色变量几乎没人在用",
-      "blocks": [
-        {
-          "kind": "paragraph",
-          "text": "我用连接器让 AI 只读扫描了 Qsight 的两批历史稿，一共 19 个页面。文件里已经建了 186 个颜色变量，可页面实际用的是另一个远程库里的变量，第一批页面就用了 39 个。光是蓝色就有三个相近的值，分别用在主操作按钮、品牌标识和改动高亮的文字上。"
-        },
-        {
-          "kind": "metrics",
-          "items": [
-            {
-              "text": "19 个",
-              "label": "扫描的历史页面"
-            },
-            {
-              "text": "186 个",
-              "label": "文件里建好的颜色变量"
-            },
-            {
-              "text": "39 个",
-              "label": "第一批页面实际在用的远程变量"
-            }
-          ],
-          "note": ""
-        },
-        {
-          "kind": "paragraph",
-          "text": "AI 很容易把相近的颜色直接合并。我要求它先不合并：每个颜色按用途单独命名，再由我逐个决定留哪个、怎么合。定下来以后，才把颜色、字体、间距、圆角、描边和栅格写成 Figma 变量，再做成 React 组件库。"
-        },
-        {
-          "kind": "flow",
-          "rows": [
-            {
-              "steps": [
-                "只读扫描 19 个页面",
-                "列出每个颜色的用途",
-                "我逐个决定留哪个",
-                "写入 Figma 变量",
-                "做成代码组件"
-              ],
-              "highlight": [
-                2
-              ]
-            }
-          ]
-        },
-        {
-          "kind": "paragraph",
-          "text": "目前组件库有 9 个基础组件和 88 个单元测试，用 Storybook 展示每个组件的尺寸、变体和交互状态。"
-        },
-        {
-          "kind": "figures",
-          "figures": [
-            {
-              "plate": "PLATE 02",
-              "title": "颜色审计：相近的蓝色和各自的用途",
-              "instruction": "要放：颜色审计：相近的蓝色和各自的用途",
-              "caption": "颜色审计：相近的蓝色和各自的用途"
-            },
-            {
-              "plate": "PLATE 03",
-              "title": "Storybook 组件页",
-              "instruction": "要放：Storybook 组件页",
-              "caption": "Storybook 组件页"
-            }
-          ]
+          "text": "一个 Figma 插件。装上以后，Claude 这类 AI 助手就能读、也能改我正在打开的 Figma 文件。已开源。"
         },
         {
           "kind": "subsection",
-          "title": "从零搭一套设计系统",
+          "title": "我想让 AI 帮我理设计稿，可它打不开 Figma",
           "blocks": [
             {
               "kind": "paragraph",
-              "text": "没有历史稿可整理的时候，我用另一个 Skill 从零搭设计系统。它让 AI 在 Figma 里按固定顺序推进，只有一个主 Agent 可以写入，其他角色只读，负责给出规格和验收。"
+              "text": "我手上有一批 Qsight 的老设计稿，想让 AI 帮我查查颜色和组件用得乱不乱。可当时的 AI 读不到 Figma 文件，也改不了。所以我做了这个插件。"
             },
             {
               "kind": "flow",
               "rows": [
                 {
                   "steps": [
-                    "六方向视觉探索",
-                    "浅色和深色色板",
-                    "基础变量",
-                    "基础体系",
-                    "真实组件族",
-                    "组件库验收"
+                    "AI 说要做什么",
+                    "插件在 Figma 里照做",
+                    "把结果告诉 AI"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "subsection",
+          "title": "改之前先存一份，改坏了能退回",
+          "blocks": [
+            {
+              "kind": "paragraph",
+              "text": "让 AI 直接改设计稿，最怕它改坏。所以插件每次动手前都会先存一份，出错就自动退回。面板上能看到它这会儿是在看，还是在改。"
+            },
+            {
+              "kind": "figures",
+              "figures": [
+                {
+                  "plate": "PLATE 01",
+                  "title": "插件面板",
+                  "instruction": "要放：插件面板",
+                  "caption": "插件面板"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "subsection",
+          "title": "只在我自己的电脑上运行",
+          "blocks": [
+            {
+              "kind": "paragraph",
+              "text": "不用注册账号，也不用填密钥，文件不会传到别的地方。"
+            }
+          ]
+        }
+      ],
+      "url": "https://github.com/chenyiwanshishen-source/figma-connector-figma-",
+      "status": "已开源 · GitHub"
+    },
+    {
+      "id": "explorations-02",
+      "label": "设计系统",
+      "title": "把 Qsight 的老设计稿，理成一套能复用的组件",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "我用上面那个插件，让 AI 把 Qsight 的老设计稿过了一遍，理出颜色和基础规范，再做成前端组件。"
+        },
+        {
+          "kind": "subsection",
+          "title": "颜色建了一大堆，页面上却没在用",
+          "blocks": [
+            {
+              "kind": "paragraph",
+              "text": "AI 一共检查了 19 个页面。文件里已经建了 186 个颜色，可页面上实际用的，是另一个库里的颜色。光是蓝色就有三种差不多的，分别用在按钮、品牌和高亮文字上。"
+            },
+            {
+              "kind": "figures",
+              "figures": [
+                {
+                  "plate": "PLATE 01",
+                  "title": "三种差不多的蓝色，各自用在哪里",
+                  "instruction": "要放：三种差不多的蓝色，各自用在哪里",
+                  "caption": "三种差不多的蓝色，各自用在哪里"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "subsection",
+          "title": "差不多的颜色，我一个一个定",
+          "blocks": [
+            {
+              "kind": "paragraph",
+              "text": "AI 很容易把看着差不多的颜色直接合成一个。可它们各管各的用途，不能随手合并。所以我让 AI 先别合，把每个颜色用在哪里列出来，再由我一个一个决定留哪个。"
+            }
+          ]
+        },
+        {
+          "kind": "subsection",
+          "title": "定好的规范，做成了能直接用的组件",
+          "blocks": [
+            {
+              "kind": "paragraph",
+              "text": "颜色、字体、间距这些定下来以后，我把它们存进 Figma，再做成前端组件。现在有 9 个组件，每个组件的样式和状态都能在一个页面里查到。"
+            },
+            {
+              "kind": "figures",
+              "figures": [
+                {
+                  "plate": "PLATE 02",
+                  "title": "组件展示页",
+                  "instruction": "要放：组件展示页",
+                  "caption": "组件展示页"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "subsection",
+          "title": "从零做一套的话，我另有一个 Skill",
+          "blocks": [
+            {
+              "kind": "paragraph",
+              "text": "如果不是整理老稿，而是从零做一套设计系统，我会用另一个 Skill。它让 AI 按固定的步骤往下走，而且只让一个 AI 动手改，其他 AI 只负责检查。"
+            },
+            {
+              "kind": "flow",
+              "rows": [
+                {
+                  "steps": [
+                    "找风格方向",
+                    "定色板",
+                    "定基础规范",
+                    "做组件",
+                    "检查验收"
                   ]
                 }
               ]
@@ -149,138 +162,190 @@ export const explorations: { header: { title: string; intro: string }; statement
         }
       ],
       "url": "https://github.com/chenyiwanshishen-source/figma-design-system-workflow",
-      "status": "Figma 设计系统工作流已开源（GitHub）；组件库持续维护中。"
+      "status": "从零搭建的 Skill 已开源 · GitHub；组件库还在继续做"
     },
     {
       "id": "explorations-03",
       "label": "Visual Code Canvas",
-      "title": "AI 写完前端以后，样式微调我在画布上直接改",
+      "title": "AI 写完页面，小地方我自己动手改",
       "blocks": [
         {
           "kind": "paragraph",
-          "text": "用 AI 写前端代码很快，但改一个间距、一个颜色，还要再描述一遍、再等一轮，微调成了新的成本。Visual Code Canvas 让我在画布上选中页面元素，直接改数值，改动会写回源码。"
+          "text": "一个改页面样式的工具。在页面上点中哪里，就能直接改哪里，改完自动存回代码。"
         },
         {
-          "kind": "flow",
-          "rows": [
+          "kind": "subsection",
+          "title": "改一个间距，还得再跟 AI 说一遍",
+          "blocks": [
             {
-              "steps": [
-                "选中页面元素",
-                "找到对应源码",
-                "在面板里改数值",
-                "写回源码",
-                "页面实时更新"
+              "kind": "paragraph",
+              "text": "用 AI 写页面很快，但改一个间距、换一个颜色，还要再描述一遍、再等一轮。改的地方越小，越觉得不划算。"
+            }
+          ]
+        },
+        {
+          "kind": "subsection",
+          "title": "点中哪里，就改哪里",
+          "blocks": [
+            {
+              "kind": "flow",
+              "rows": [
+                {
+                  "steps": [
+                    "在页面上点选",
+                    "在右边改数值",
+                    "自动存回代码",
+                    "页面马上变"
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "paragraph",
+              "text": "我不用去翻代码，找这个按钮写在哪里，工具会帮我找到。"
+            },
+            {
+              "kind": "figures",
+              "figures": [
+                {
+                  "plate": "PLATE 01",
+                  "title": "画布和右侧面板（可以放动图）",
+                  "instruction": "要放：画布和右侧面板（可以放动图）",
+                  "caption": "画布和右侧面板（可以放动图）"
+                }
               ]
             }
           ]
         },
         {
-          "kind": "paragraph",
-          "text": "数值、颜色、文字这类能确定的改动，由工具直接写回，不消耗 AI token；结构调整、组件拆分这类需要理解的改动，才交给 Codex。代码始终是唯一的真实来源，画布不另存一份样式。"
+          "kind": "subsection",
+          "title": "什么交给工具，什么交给 AI",
+          "blocks": [
+            {
+              "kind": "statement",
+              "text": "简单的我自己改，复杂的再交给 AI。"
+            },
+            {
+              "kind": "paragraph",
+              "text": "改数值、换颜色、改文字，结果是确定的，工具直接改，不用再花钱问 AI。要拆组件、调结构，才交给 AI。"
+            }
+          ]
         },
         {
-          "kind": "figures",
-          "figures": [
+          "kind": "subsection",
+          "title": "第一版是 VSCode 插件",
+          "blocks": [
             {
-              "plate": "PLATE 04",
-              "title": "画布与属性面板（可用动图）",
-              "instruction": "要放：画布与属性面板（可用动图）",
-              "caption": "画布与属性面板（可用动图）"
+              "kind": "paragraph",
+              "text": "第一版是装在 VSCode 里的插件，后来改成在 Codex 自带的浏览器里用。【待填：为什么换，一两句】"
             }
           ]
         }
       ],
-      "status": "v0.2.1 已发布，支持 Next.js 和 Vite React 项目（GitHub）。第一版是一个 VSCode 插件，后来重做成了现在的样子。",
+      "status": "v0.2.1 已发布 · GitHub",
       "url": "https://github.com/chenyiwanshishen-source/visual-code-canvas"
     },
     {
       "id": "explorations-04",
       "label": "插画 Skill",
-      "title": "让 AI 画插画，先教它画出像真的控件",
+      "title": "教 AI 画插画，先要画得出\"像真的\"",
       "blocks": [
         {
           "kind": "paragraph",
-          "text": "Micro-UI 插画 Skill 是我给 AI 写的一套矢量插画规则，用来画封面、功能插画和空状态。这个作品集的封面、ye! 的空状态图和组件库的封面，都是用它画的。"
+          "text": "我给 AI 写的一套画插画的规矩。这个作品集的封面、ye! 的空状态图，都是 AI 照着它画的。"
         },
         {
-          "kind": "paragraph",
-          "text": "AI 直接画界面插画，常常用空白卡片和几条灰色横条凑出一个\"界面\"，看不出画的是什么工具。我把自己画插画时的判断写成了规则："
-        },
-        {
-          "kind": "columns",
-          "items": [
+          "kind": "subsection",
+          "title": "AI 画的界面图，经常看不出画的是什么",
+          "blocks": [
             {
-              "label": "真实控件切片",
-              "text": "主体必须是认得出的工具或控件，不靠灰色横条凑"
-            },
-            {
-              "label": "分层构图",
-              "text": "底板、中景控件、前景焦点，每一层都要服务主题"
-            },
-            {
-              "label": "最小 16 像素",
-              "text": "在实际展示尺寸下，每个色块至少 16 像素，放不下就删减"
+              "kind": "paragraph",
+              "text": "让 AI 画一个\"界面\"，它常常拿几张空白卡片、几条灰色横条凑数，看不出画的是什么工具。"
             }
           ]
         },
         {
-          "kind": "flow",
-          "rows": [
+          "kind": "subsection",
+          "title": "我把自己画图时的讲究，写成了三条规矩",
+          "blocks": [
             {
-              "steps": [
-                "画完",
-                "渲染成图",
-                "打开看图",
-                "指出具体问题",
-                "修改后再复查"
+              "kind": "columns",
+              "items": [
+                {
+                  "label": "画真东西",
+                  "text": "得是一眼认得出的控件，不拿灰色横条凑"
+                },
+                {
+                  "label": "分清前后",
+                  "text": "底板、中间的控件、最前面的重点，三层分清楚"
+                },
+                {
+                  "label": "别画太碎",
+                  "text": "按实际大小看，每块颜色至少 16 像素，放不下就少画点"
+                }
               ]
             }
-          ],
-          "note": "Skill 要求 AI 每次画完都走一遍这个检查，文件能导出不算通过。"
+          ]
         },
         {
-          "kind": "figures",
-          "figures": [
+          "kind": "subsection",
+          "title": "画完要自己检查，能导出不算数",
+          "blocks": [
             {
-              "plate": "PLATE 05",
-              "title": "作品集封面",
-              "instruction": "要放：作品集封面",
-              "caption": "作品集封面"
-            },
+              "kind": "paragraph",
+              "text": "每画完一张，AI 要按原大小和放大三倍各看一遍。原大小看能不能认出画的是什么，放大看边角和阴影有没有毛病，有问题改完再看。"
+            }
+          ]
+        },
+        {
+          "kind": "subsection",
+          "title": "用它画的图",
+          "blocks": [
             {
-              "plate": "PLATE 06",
-              "title": "作品集封面",
-              "instruction": "要放：作品集封面",
-              "caption": "作品集封面"
-            },
-            {
-              "plate": "PLATE 07",
-              "title": "组件库封面",
-              "instruction": "要放：组件库封面",
-              "caption": "组件库封面"
-            },
-            {
-              "plate": "PLATE 08",
-              "title": "ye! 书签空状态",
-              "instruction": "要放：ye! 书签空状态",
-              "caption": "ye! 书签空状态"
-            },
-            {
-              "plate": "PLATE 09",
-              "title": "ye! 页签空状态",
-              "instruction": "要放：ye! 页签空状态",
-              "caption": "ye! 页签空状态"
-            },
-            {
-              "plate": "PLATE 10",
-              "title": "ye! 搜索空状态",
-              "instruction": "要放：ye! 搜索空状态",
-              "caption": "ye! 搜索空状态"
+              "kind": "figures",
+              "figures": [
+                {
+                  "plate": "PLATE 05",
+                  "title": "作品集封面",
+                  "instruction": "要放：作品集封面",
+                  "caption": "作品集封面"
+                },
+                {
+                  "plate": "PLATE 06",
+                  "title": "作品集封面",
+                  "instruction": "要放：作品集封面",
+                  "caption": "作品集封面"
+                },
+                {
+                  "plate": "PLATE 07",
+                  "title": "组件库封面",
+                  "instruction": "要放：组件库封面",
+                  "caption": "组件库封面"
+                },
+                {
+                  "plate": "PLATE 08",
+                  "title": "ye! 书签空状态",
+                  "instruction": "要放：ye! 书签空状态",
+                  "caption": "ye! 书签空状态"
+                },
+                {
+                  "plate": "PLATE 09",
+                  "title": "ye! 页签空状态",
+                  "instruction": "要放：ye! 页签空状态",
+                  "caption": "ye! 页签空状态"
+                },
+                {
+                  "plate": "PLATE 10",
+                  "title": "ye! 搜索空状态",
+                  "instruction": "要放：ye! 搜索空状态",
+                  "caption": "ye! 搜索空状态"
+                }
+              ]
             }
           ]
         }
       ],
-      "status": "已迭代 4 个版本，准备开源。【待填：开源后的仓库链接】"
+      "status": "改到第 4 版了，准备开源【待填：开源后的仓库链接】"
     }
   ]
 };
