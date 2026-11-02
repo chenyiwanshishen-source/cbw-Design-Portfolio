@@ -34,13 +34,13 @@ export function Blueprint({ onFinish }: { onFinish: () => void }) {
     page.querySelectorAll<HTMLElement>(selectors).forEach(element => {
       if (element.closest('.intro-blueprint') || chosen.some(parent => parent.contains(element))) return;
       const rect = element.getBoundingClientRect();
-      if (rect.bottom <= 0 || rect.top >= innerHeight || !rect.width || !rect.height) return;
+      if (!rect.width || !rect.height) return;
       chosen.push(element);
       const media = element.matches('.home-portrait,.home-case-visual');
       const range = document.createRange(); range.selectNodeContents(element);
       const ink = range.getBoundingClientRect();
       const target = media ? rect.width : Math.min(rect.width, Math.max(ink.width, 12));
-      result.push({ x: rect.left, y: rect.top, width: rect.width, height: rect.height,
+      result.push({ x: rect.left + window.scrollX, y: rect.top + window.scrollY, width: rect.width, height: rect.height,
         target, full: media ? rect.width : Math.max(rect.width, root.right - rect.left), label: media ? 'IMAGE' : element.tagName === 'H1' ? 'TITLE' : element.matches('button,a') ? 'CONTROL' : 'COPY',
         ghost: media ? undefined : ghostOf(element) });
     });
@@ -62,10 +62,15 @@ export function Blueprint({ onFinish }: { onFinish: () => void }) {
       tick = requestAnimationFrame(update);
     };
     tick = requestAnimationFrame(update);
-    // Never leave a measured overlay detached from its live content.
-    window.addEventListener('scroll', onFinish, { passive: true });
+    // Document-space geometry stays aligned while the viewport scrolls.
+    const syncScroll = () => {
+      ref.current?.style.setProperty('--draft-scroll-x', `${-window.scrollX}px`);
+      ref.current?.style.setProperty('--draft-scroll-y', `${-window.scrollY}px`);
+    };
+    syncScroll();
+    window.addEventListener('scroll', syncScroll, { passive: true });
     window.addEventListener('resize', onFinish);
-    return () => { cancelAnimationFrame(tick); window.removeEventListener('scroll', onFinish); window.removeEventListener('resize', onFinish); };
+    return () => { cancelAnimationFrame(tick); window.removeEventListener('scroll', syncScroll); window.removeEventListener('resize', onFinish); };
   }, [onFinish]);
   const gaps = frames.flatMap((frame, index) => {
     const previous = frames.slice(0, index).filter(other => Math.abs(other.x - frame.x) < 4 && other.y + other.height <= frame.y).sort((a, b) => b.y - a.y)[0];
@@ -78,6 +83,7 @@ export function Blueprint({ onFinish }: { onFinish: () => void }) {
     <svg width="0" height="0" aria-hidden="true"><defs><filter id="draft-rough"><feTurbulence type="fractalNoise" baseFrequency=".045 .18" numOctaves="2" seed="7" result="grain" /><feDisplacementMap in="SourceGraphic" in2="grain" scale="1.15" xChannelSelector="R" yChannelSelector="G" /></filter></defs></svg>
     <div className="blueprint-paper" />
     <span className="blueprint-note">layout study · 1:1</span><span className="blueprint-progress">0%</span>
+    <div className="blueprint-document">
     {gaps.map((gap, index) => <span key={index} className="blueprint-gap" style={{ left: gap.x, top: gap.y, height: gap.height }} data-value={Math.round(gap.height)} />)}
     {frames.map((frame, index) => <div key={index} className="blueprint-part" style={{ left: frame.x, top: frame.y, width: frame.width, height: frame.height, '--i': Math.min(index, 12), '--full': `${frame.full}px`, '--width': `${frame.target}px` } as CSSProperties}>
       <span className="blueprint-guide" />
@@ -86,5 +92,6 @@ export function Blueprint({ onFinish }: { onFinish: () => void }) {
       <span className="blueprint-dimension" data-value={`${Math.round(frame.full)} × ${Math.round(frame.height)}`} />
       {frame.ghost && <div className={`blueprint-words ${frame.label === 'TITLE' ? 'blueprint-title' : ''}`} ref={node => { if (node && !node.firstChild) { node.setAttribute('inert', ''); node.appendChild(frame.ghost!); } }} />}
     </div>)}
+    </div>
   </div>;
 }

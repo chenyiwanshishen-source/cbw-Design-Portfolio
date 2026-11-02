@@ -67,3 +67,33 @@ dist/assets/ProjectDetail-w92Tcm0i.js       193.54 kB │ gzip:  57.16 kB
 dist/assets/index-BgUZ2KfO.js               290.52 kB │ gzip: 101.25 kB
 ✓ built in 1.93s
 ```
+
+## 滚动中断修复
+
+移除 scroll 结束回调，改为文档坐标及被动 scroll 同步平移。预先测量整页内容，滚入视口后仍有对应图纸。浏览器实际 PageDown 后 scrollY=680，过场仍存在，内容层 transform Y=-680。构建通过。
+
+```text
+
+> @figma/my-make-file@0.0.1 build
+> vite build
+
+vite v6.3.5 building for production...
+transforming...
+✓ 2035 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                               0.90 kB │ gzip:   0.50 kB
+dist/assets/index-DJrjKOpl.css              176.64 kB │ gzip:  31.86 kB
+dist/assets/HomeContent-EHCDYeSg.js           0.13 kB │ gzip:   0.14 kB
+dist/assets/index-Ba_0Gylh.js                 4.93 kB │ gzip:   2.29 kB
+dist/assets/ScrollArea-MmRH4EAa.js            5.25 kB │ gzip:   1.80 kB
+dist/assets/ProjectCaseNav-Dt3fYXOm.js        5.57 kB │ gzip:   1.82 kB
+dist/assets/Nav-D24FOKZC.js                   9.58 kB │ gzip:   3.47 kB
+dist/assets/Footer-Buwx90Ln.js               45.07 kB │ gzip:  18.78 kB
+dist/assets/ExplorationsPage-DIfggngP.js     51.28 kB │ gzip:  11.83 kB
+dist/assets/proxy-DFWnqZ9M.js               124.07 kB │ gzip:  40.48 kB
+dist/assets/QixinProjectDetail-VOGhdse-.js  150.59 kB │ gzip:  35.86 kB
+dist/assets/ProjectDetail-RX0ykljR.js       193.54 kB │ gzip:  57.16 kB
+dist/assets/index-DkmTK9cv.js               290.77 kB │ gzip: 101.30 kB
+✓ built in 1.86s
+```

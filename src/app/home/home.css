@@ -92,3 +92,5 @@ body:has(.homepage) { background: var(--color-home-bg); }
 .blueprint-gap::after { top: 50%; left: -4px; transform: translate(-100%, -50%); }
 .blueprint-note { position: absolute; top: var(--space-4); left: var(--space-6); font: italic var(--text-caption) var(--font-mono); color: var(--color-blueprint-soft); }
 .blueprint-progress { position: absolute; bottom: var(--space-6); left: var(--space-6); font: var(--text-label) var(--font-mono); color: var(--color-blueprint-bg); background: var(--color-on-accent); padding: var(--space-1); }
+
+.blueprint-document { position: absolute; inset: 0; transform: translate(var(--draft-scroll-x, 0px), var(--draft-scroll-y, 0px)); }
