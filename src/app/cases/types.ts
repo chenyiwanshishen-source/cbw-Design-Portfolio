@@ -13,7 +13,7 @@ export type CaseBlock =
  | { kind: 'sources'; items: { key: string; text: string }[] }
  | { kind: 'metrics'; items: Item[]; note: string };
 export type CaseContent = {
- header: HeaderContent; hero: FigureContent; summary: Item[];
+ header: HeaderContent; hero: FigureContent;
  toc: { id: string; label: string }[];
  chapters: { id: string; label: string; title: string; blocks: CaseBlock[] }[];
  ui: { back: string; next: string; nextTitle: string; toc: string; judgment: string; result: string; footer: string };

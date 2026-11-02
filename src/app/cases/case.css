@@ -64,3 +64,14 @@ body:has(.case-page) { background: var(--color-home-bg); }
  .case-toc a[aria-current] { border-left-color: var(--color-accent); color: var(--color-text); }
  .case-chapters { grid-column: 4 / 13; }
 }
+
+/* Image-led Qsight introduction: compact information below the opening plate. */
+.case-header-compact { padding-block: var(--space-10) var(--space-24); }
+.case-header-compact h1 { font-size: var(--text-h2); line-height: var(--text-h2--line-height); }
+.case-header-compact .case-header-main > .text-body-lg { font-size: var(--text-body); line-height: var(--text-body--line-height); }
+.case-header-compact .case-facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-content: start; }
+.case-header-compact .case-facts dd { font-size: var(--text-caption); line-height: var(--text-caption--line-height); }
+@media (min-width: 1024px) {
+ .case-header-compact .case-header-main { grid-column: 1 / 8; }
+ .case-header-compact .case-facts { grid-column: 9 / 13; }
+}
