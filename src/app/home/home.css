@@ -97,8 +97,9 @@ body:has(.homepage) { background: var(--color-home-bg); }
 .blueprint-document { position: absolute; inset: 0; transform: translate(var(--draft-scroll-x, 0px), var(--draft-scroll-y, 0px)); }
 
 /* Interactive project rows, shared by homepage and component gallery. */
-.home-case { position: relative; }
-.home-case-link { min-height: 280px; padding-block: var(--space-10); position: relative; align-items: center; display: flex; }
+.case-list { display: grid; grid-auto-rows: 1fr; }
+.home-case { position: relative; min-width: 0; display: flex; flex-direction: column; }
+.home-case-link { flex: 1; min-height: 280px; padding-block: var(--space-10); position: relative; align-items: center; display: flex; }
 .home-case-copy { width: 32%; transition: filter var(--dur-fast) var(--ease-settle); }
 .is-muted .case-desktop .home-case-copy { filter: blur(4px); }
 .is-active { z-index: 2; }
