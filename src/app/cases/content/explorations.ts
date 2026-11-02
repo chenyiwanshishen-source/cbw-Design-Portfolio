@@ -1,13 +1,12 @@
 import type { CaseBlock } from '../types';
 
 type Exploration = { id: string; label: string; title: string; blocks: CaseBlock[]; status: string; url?: string };
-export const explorations: { header: { title: string; intro: string }; statement: string; intro: string; chapters: Exploration[] } = {
+export const explorations: { header: { title: string; intro: string }; intro: string; chapters: Exploration[] } = {
   "header": {
     "title": "我给自己做的设计工具",
     "intro": "下面四个工具，都是我在工作里遇到具体问题后，用 AI 编程工具做出来的。产品定义、规则和验收标准由我来定，代码由 AI 协作完成。"
   },
-  "statement": "能确定的交给工具，需要理解的交给 AI，最后的决定留给我。",
-  "intro": "前面三个案例也是这样分工的。下面每个工具，都能看到同一个判断。",
+  "intro": "前面三个案例中，产品定义、规则和验收标准也由我决定，代码由 AI 协作完成。",
   "chapters": [
     {
       "id": "explorations-01",
@@ -20,11 +19,11 @@ export const explorations: { header: { title: string; intro: string }; statement
         },
         {
           "kind": "subsection",
-          "title": "我想让 AI 帮我理设计稿，可它打不开 Figma",
+          "title": "为什么做连接器",
           "blocks": [
             {
               "kind": "paragraph",
-              "text": "我手上有一批 Qsight 的老设计稿，想让 AI 帮我查查颜色和组件用得乱不乱。可 AI 读不到 Figma 文件，也改不了，所以我先做了这个插件。后来扫描 Qsight 的 [19 个历史页面](#/project/explorations/design-system)，用的就是它。"
+              "text": "为了让 AI 检查 Qsight 老设计稿里的颜色和组件，我先做了这个插件，解决它无法读写 Figma 文件的问题。后来扫描 Qsight 的 [19 个历史页面](#/project/explorations/design-system)，用的就是它。"
             },
             {
               "kind": "flow",
@@ -42,11 +41,11 @@ export const explorations: { header: { title: string; intro: string }; statement
         },
         {
           "kind": "subsection",
-          "title": "改之前先存一份，改坏了能退回",
+          "title": "出错时自动撤回",
           "blocks": [
             {
               "kind": "paragraph",
-              "text": "让 AI 直接改设计稿，最怕它改坏。所以插件每次动手前都会先存一份，出错就自动退回。面板上能看到它这会儿是在看，还是在改。"
+              "text": "插件每次修改前都会先保存一份，出错就自动退回，避免 AI 改坏设计稿。面板上能看到它正在读取还是修改。"
             },
             {
               "kind": "figures",
@@ -63,7 +62,7 @@ export const explorations: { header: { title: string; intro: string }; statement
         },
         {
           "kind": "subsection",
-          "title": "只在我自己的电脑上运行",
+          "title": "本地运行",
           "blocks": [
             {
               "kind": "paragraph",
@@ -86,7 +85,7 @@ export const explorations: { header: { title: string; intro: string }; statement
         },
         {
           "kind": "subsection",
-          "title": "颜色建了一大堆，页面上却没在用",
+          "title": "历史页面的用色情况",
           "blocks": [
             {
               "kind": "paragraph",
@@ -107,11 +106,11 @@ export const explorations: { header: { title: string; intro: string }; statement
         },
         {
           "kind": "subsection",
-          "title": "差不多的颜色，我一个一个定",
+          "title": "按用途整理颜色",
           "blocks": [
             {
               "kind": "paragraph",
-              "text": "AI 很容易把看着差不多的颜色直接合成一个。可它们各管各的用途，不能随手合并。所以我让 AI 先别合，把每个颜色用在哪里列出来，再由我一个一个决定留哪个。"
+              "text": "AI 很容易直接合并看着差不多的颜色，忽略它们各自的用途。我让 AI 先列出每个颜色用在哪里，暂不合并，再由我逐个决定留哪个。"
             },
             {
               "kind": "paragraph",
@@ -121,7 +120,7 @@ export const explorations: { header: { title: string; intro: string }; statement
         },
         {
           "kind": "subsection",
-          "title": "定好的规范，做成了能直接用的组件",
+          "title": "前端组件库",
           "blocks": [
             {
               "kind": "paragraph",
@@ -151,11 +150,11 @@ export const explorations: { header: { title: string; intro: string }; statement
       "blocks": [
         {
           "kind": "paragraph",
-          "text": "一个改页面样式的工具。在页面上点中哪里，就能直接改哪里，改完自动存回代码。"
+          "text": "这是一个修改页面样式的工具，可以在页面上选中元素、修改样式，再自动存回代码。"
         },
         {
           "kind": "subsection",
-          "title": "改一个间距，还得再跟 AI 说一遍",
+          "title": "修改样式的成本",
           "blocks": [
             {
               "kind": "paragraph",
@@ -165,7 +164,7 @@ export const explorations: { header: { title: string; intro: string }; statement
         },
         {
           "kind": "subsection",
-          "title": "点中哪里，就改哪里",
+          "title": "怎么用",
           "blocks": [
             {
               "kind": "flow",
@@ -199,21 +198,17 @@ export const explorations: { header: { title: string; intro: string }; statement
         },
         {
           "kind": "subsection",
-          "title": "什么交给工具，什么交给 AI",
+          "title": "工具与 AI 的分工",
           "blocks": [
             {
-              "kind": "statement",
-              "text": "简单的用工具直接改，复杂的再交给 AI。"
-            },
-            {
               "kind": "paragraph",
-              "text": "改数值、换颜色、改文字，结果是确定的，工具直接改，不用再花钱问 AI。要拆组件、调结构，才交给 AI。"
+              "text": "数值、颜色和文字可以用工具直接修改，结果确定，不用再花钱问 AI。拆组件、调结构则交给 AI。"
             }
           ]
         },
         {
           "kind": "subsection",
-          "title": "做到 v0.2.1，先放下了",
+          "title": "v0.2.1 后搁置",
           "blocks": [
             {
               "kind": "paragraph",
@@ -236,17 +231,17 @@ export const explorations: { header: { title: string; intro: string }; statement
         },
         {
           "kind": "subsection",
-          "title": "AI 画的界面图，经常看不出画的是什么",
+          "title": "界面插画的辨识问题",
           "blocks": [
             {
               "kind": "paragraph",
-              "text": "让 AI 画一个\"界面\"，它常常拿几张空白卡片、几条灰色横条凑数，看不出画的是什么工具。"
+              "text": "让 AI 画一个\"界面\"，它常常只画几张空白卡片和几条灰色横条，难以辨认具体是什么工具。"
             }
           ]
         },
         {
           "kind": "subsection",
-          "title": "我把自己画图时的讲究，写成了三条规矩",
+          "title": "三条绘图规矩",
           "blocks": [
             {
               "kind": "columns",
@@ -286,7 +281,7 @@ export const explorations: { header: { title: string; intro: string }; statement
         },
         {
           "kind": "subsection",
-          "title": "画完要自己检查，能导出不算数",
+          "title": "绘图后的检查",
           "blocks": [
             {
               "kind": "paragraph",
@@ -296,7 +291,7 @@ export const explorations: { header: { title: string; intro: string }; statement
         },
         {
           "kind": "subsection",
-          "title": "用它画的图",
+          "title": "插画作品",
           "blocks": [
             {
               "kind": "figures",

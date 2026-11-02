@@ -59,7 +59,7 @@ export const qsight: CaseContent = {
     {
       "id": "qsight-01",
       "label": "挑战",
-      "title": "研究员不敢把报告直接交给 AI 写",
+      "title": "报告核查的顾虑",
       "blocks": [
         {
           "kind": "quotes",
@@ -69,14 +69,14 @@ export const qsight: CaseContent = {
         },
         {
           "kind": "paragraph",
-          "text": "写报告的大量时间花在准备资料上。可交给 AI 以后，研究员还是担心结构跑偏、数字没有出处；生成完再返工，可能还不如自己重写。"
+          "text": "研究员担心 AI 生成的结构跑偏、数字没有出处；生成完再返工，可能还不如自己重写。"
         }
       ]
     },
     {
       "id": "qsight-02",
       "label": "定义问题",
-      "title": "三轮访谈后，我们把控制点放在生成的前、中、后",
+      "title": "三轮访谈与控制点",
       "blocks": [
         {
           "kind": "paragraph",
@@ -135,11 +135,11 @@ export const qsight: CaseContent = {
     {
       "id": "qsight-03",
       "label": "关键取舍",
-      "title": "做方案时，有三处我改了最初的想法",
+      "title": "三处方案取舍",
       "blocks": [
         {
           "kind": "subsection",
-          "title": "来源从文末挪到正文旁边",
+          "title": "正文旁的来源卡片",
           "blocks": [
             {
               "kind": "paragraph",
@@ -166,7 +166,7 @@ export const qsight: CaseContent = {
         },
         {
           "kind": "subsection",
-          "title": "企业范围直接沿用已有名单",
+          "title": "沿用已有企业名单",
           "blocks": [
             {
               "kind": "paragraph",
@@ -176,7 +176,7 @@ export const qsight: CaseContent = {
         },
         {
           "kind": "subsection",
-          "title": "Prompt 配置只上线四个模块",
+          "title": "上线的四个 Prompt 模块",
           "blocks": [
             {
               "kind": "paragraph",
@@ -221,7 +221,7 @@ export const qsight: CaseContent = {
     {
       "id": "qsight-04",
       "label": "最终方案",
-      "title": "一份报告，从选模板到交付走六步",
+      "title": "报告交付的六步",
       "blocks": [
         {
           "kind": "flow",
@@ -308,7 +308,7 @@ export const qsight: CaseContent = {
     {
       "id": "qsight-05",
       "label": "结果",
-      "title": "1.0 在试点客户上线后的变化",
+      "title": "1.0 试点结果",
       "blocks": [
         {
           "kind": "metrics",
@@ -341,15 +341,11 @@ export const qsight: CaseContent = {
     {
       "id": "qsight-06",
       "label": "反思",
-      "title": "模型越来越强，需要写死的规则越来越少",
+      "title": "规则与模型的分工",
       "blocks": [
         {
-          "kind": "statement",
-          "text": "系统必须保证的体验用规则守住，怎么表达交给模型判断。"
-        },
-        {
           "kind": "paragraph",
-          "text": "我说的\"必须保证\"，在 Qsight 里就是三件事：先确认、有来源、缺失要标出来。下一阶段计划加入自定义写作样本库和在线编辑，让报告适应不同机构的文风。"
+          "text": "模型能力增强后，需要写死的规则也少了。在 Qsight 里，我仍用规则保证生成前确认、内容有来源、缺失数据要标出，具体表达交给模型判断。下一阶段计划加入自定义写作样本库和在线编辑，让报告适应不同机构的文风。"
         },
         {
           "kind": "subsection",

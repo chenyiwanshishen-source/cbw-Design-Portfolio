@@ -54,7 +54,7 @@ export const ye: CaseContent = {
     {
       "id": "ye-01",
       "label": "起因",
-      "title": "我的书签和页签，多到自己都找不到",
+      "title": "书签和页签太多",
       "blocks": [
         {
           "kind": "paragraph",
@@ -75,7 +75,7 @@ export const ye: CaseContent = {
     {
       "id": "ye-02",
       "label": "第一次推翻",
-      "title": "第一版用规则猜我想做什么，结果变成了单词匹配",
+      "title": "第一版的意图判断",
       "blocks": [
         {
           "kind": "paragraph",
@@ -106,7 +106,7 @@ export const ye: CaseContent = {
     {
       "id": "ye-03",
       "label": "第二次推翻",
-      "title": "规则删了，条件又从别的地方长了出来",
+      "title": "条件与状态锁的冲突",
       "blocks": [
         {
           "kind": "paragraph",
@@ -132,7 +132,7 @@ export const ye: CaseContent = {
     {
       "id": "ye-04",
       "label": "第三次推翻",
-      "title": "不再替 AI 安排步骤，让它直接听我说",
+      "title": "由 AI 选择工具",
       "blocks": [
         {
           "kind": "flow",
@@ -191,7 +191,7 @@ export const ye: CaseContent = {
     {
       "id": "ye-05",
       "label": "细节",
-      "title": "标题看不出内容的书签，AI 会自己打开去读",
+      "title": "读取书签网页",
       "blocks": [
         {
           "kind": "paragraph",
@@ -230,7 +230,7 @@ export const ye: CaseContent = {
     {
       "id": "ye-06",
       "label": "给别人用",
-      "title": "从自己用到给别人用，要多想两件事",
+      "title": "试用中的两个问题",
       "blocks": [
         {
           "kind": "paragraph",
@@ -267,7 +267,7 @@ export const ye: CaseContent = {
     {
       "id": "ye-07",
       "label": "协作",
-      "title": "我提想法、做审批，代码交给三个 AI",
+      "title": "与三个 AI 协作",
       "blocks": [
         {
           "kind": "columns",
@@ -300,7 +300,7 @@ export const ye: CaseContent = {
           "blocks": [
             {
               "kind": "paragraph",
-              "text": "第一天就让 AI 直接听用户说、自己选工具，不先搭流程；第一天就把\"不写规则代码\"写进规则；第一天就做日志导出。这样前两次推翻大概都可以省掉。"
+              "text": "我会从第一天就让 AI 直接理解用户的话、自己选工具，不先搭预设流程，同时把\"不写规则代码\"写进协作文件，做好日志导出。这样前两次推翻大概都可以省掉。"
             }
           ]
         }

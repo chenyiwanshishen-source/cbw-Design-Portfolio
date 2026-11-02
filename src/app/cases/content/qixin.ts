@@ -60,18 +60,18 @@ export const qixin: CaseContent = {
     {
       "id": "qixin-01",
       "label": "挑战",
-      "title": "功能越加越多，用户的工作反而被拆散了",
+      "title": "分散的工作流程",
       "blocks": [
         {
           "kind": "paragraph",
-          "text": "产业大脑做了几年，功能一直在加。可数据和功能分散在不同地方，用户想从定位范围一路做到输出结果，很难一口气做完。"
+          "text": "产业大脑做了几年，功能一直在增加，但数据和功能分散在不同地方。用户从定位范围到输出结果，很难连续完成整项工作。"
         }
       ]
     },
     {
       "id": "qixin-02",
       "label": "定义问题",
-      "title": "五类用户，走的是同一条路",
+      "title": "五类用户的共同流程",
       "blocks": [
         {
           "kind": "flow",
@@ -143,7 +143,7 @@ export const qixin: CaseContent = {
     {
       "id": "qixin-03",
       "label": "自定义产业链",
-      "title": "本地产业链不用再等我们配，用户自己就能改",
+      "title": "用户自定义产业链",
       "blocks": [
         {
           "kind": "paragraph",
@@ -212,11 +212,11 @@ export const qixin: CaseContent = {
     {
       "id": "qixin-04",
       "label": "首页工作台",
-      "title": "首页从\"找功能\"改成\"接任务\"",
+      "title": "首页任务看板",
       "blocks": [
         {
           "kind": "paragraph",
-          "text": "用户进系统后的第一件事是处理当天的工作，不是去菜单里找功能。我把首页改成任务看板，分成报告入口、动态信息、业务概览和常用功能四块，不同角色进来就能直接开始查询、判断和跟进。"
+          "text": "用户进系统后要处理当天的工作。我把首页改成任务看板，分成报告入口、动态信息、业务概览和常用功能四块，不同角色可以直接开始查询、判断和跟进，不必先去菜单里找功能。"
         },
         {
           "kind": "figures",
@@ -238,7 +238,7 @@ export const qixin: CaseContent = {
     {
       "id": "qixin-05",
       "label": "设计系统",
-      "title": "两个产品分开以后，产业大脑需要自己的设计语言",
+      "title": "产业大脑的独立规范",
       "blocks": [
         {
           "kind": "paragraph",
@@ -289,7 +289,7 @@ export const qixin: CaseContent = {
     {
       "id": "qixin-06",
       "label": "结果与反思",
-      "title": "用户攒下的企业名单，现在能直接拿去写 AI 报告",
+      "title": "企业名单与报告联动",
       "blocks": [
         {
           "kind": "flow",
@@ -307,10 +307,10 @@ export const qixin: CaseContent = {
         },
         {
           "kind": "paragraph",
-          "text": "企业分组已经和 AI 报告平台 Qsight 打通，上一个案例里\"企业范围直接沿用已有名单\"，名单就来自这里。我还参与了产业结构总览、目标企业筛选、企业画像、跟进管理、监测与报告输出这些模块。"
+          "text": "企业分组已经和 AI 报告平台 Qsight 打通，用户维护的企业名单可以直接作为报告的企业范围。我还参与了产业结构总览、目标企业筛选、企业画像、跟进管理、监测与报告输出这些模块。"
         },
         {
-          "kind": "statement",
+          "kind": "paragraph",
           "text": "做了几年下来，最难的不是把页面设计出来，而是从用户怎么说、怎么做里，理解他们没有直接说出的需要。"
         },
         {
