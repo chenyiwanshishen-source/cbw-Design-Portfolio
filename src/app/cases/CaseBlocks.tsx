@@ -11,7 +11,7 @@ export function CaseBlocks({ blocks, labels, depth = 0 }: { depth?: number; bloc
     switch (block.kind) {
       case 'paragraph': return <p key={key} className="case-paragraph"><CaseText text={block.text} /></p>;
       case 'aside': return <p key={key} className="case-paragraph border-t border-dashed border-border-dashed pt-6"><CaseText text={block.text} /></p>;
-      case 'subsection': { const Heading = depth === 0 ? 'h3' : 'h4'; return <div key={key} className="case-subsection"><Heading className={depth === 0 ? "text-h4 font-medium" : "text-body font-medium"}>{block.title}</Heading><CaseBlocks blocks={block.blocks} labels={labels} depth={depth + 1} /></div>; }
+      case 'subsection': { const Heading = depth === 0 ? 'h3' : 'h4'; return <div key={key} className={`case-subsection${block.plain ? " case-subsection-plain" : ""}`}><Heading className={depth === 0 ? "text-h4 font-medium" : "text-body font-medium"}>{block.title}</Heading><CaseBlocks blocks={block.blocks} labels={labels} depth={depth + 1} /></div>; }
       case 'quotes': return <div key={key} className="case-quotes">{block.texts.map(text => <Quote key={text} text={text} />)}</div>;
       case 'figures': return <div key={key} className={block.figures.length > 1 ? 'case-pair' : undefined}>{block.figures.map(figure => <FigurePlaceholder key={figure.plate} {...figure} />)}</div>;
       case 'table': return <DataTable key={key} {...block} />;

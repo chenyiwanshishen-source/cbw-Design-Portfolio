@@ -3,7 +3,7 @@ import type { FigureContent } from './components/FigurePlaceholder';
 type Item = { label: string; text: string };
 export type CaseBlock =
  | { kind: 'paragraph' | 'aside'; text: string }
- | { kind: 'subsection'; title: string; number?: string; blocks: CaseBlock[] }
+ | { kind: 'subsection'; title: string; number?: string; plain?: boolean; blocks: CaseBlock[] }
  | { kind: 'quotes'; texts: string[] }
  | { kind: 'figures'; figures: FigureContent[] }
  | { kind: 'table'; headers: string[]; rows: string[][]; label: string; highlighted?: number[]; legend?: string }

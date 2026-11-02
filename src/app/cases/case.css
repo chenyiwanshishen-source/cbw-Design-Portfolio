@@ -83,3 +83,6 @@ body:has(.case-page) { background: var(--color-home-bg); }
 @media (max-width: 767px) {
  .case-header-compact h1 { font-size: var(--text-h2); }
 }
+
+.case-summary-unlabelled dd { margin-top: 0; }
+.case-subsection-plain h3 { font-weight: 400; }
