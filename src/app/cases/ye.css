@@ -1,0 +1,5 @@
+.ye-case .case-header-compact { padding-bottom: 0; }
+.ye-case .case-table th { font-family: var(--font-sans); font-size: var(--text-caption); line-height: var(--text-caption--line-height); }
+@media (min-width: 1024px) {
+ .ye-case .case-header-main { grid-column: 1 / 10; }
+}

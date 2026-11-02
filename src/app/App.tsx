@@ -3,6 +3,7 @@ import { HomePage } from "./home/HomePage";
 import { ArrowUp } from "lucide-react";
 import { ProjectRouteLoader } from "./components/ProjectRouteLoader";
 import {
+  loadYeCase,
   loadExplorationsPage,
   loadNav,
   isProjectRouteReady,
@@ -10,6 +11,7 @@ import {
   scheduleProjectRemainderPreload,
 } from "./projectPreload";
 
+const YeCase = lazy(() => loadYeCase().then(module => ({ default: module.YeCase })));
 const QsightCase = lazy(() => import("./cases/QsightCase").then(module => ({ default: module.QsightCase })));
 const QixinCase = lazy(() => import("./cases/QixinCase").then(module => ({ default: module.QixinCase })));
 const ExplorationsPage = lazy(() =>
@@ -24,6 +26,7 @@ const PROJECT_ROUTE_LOADING_EVENT = "portfolio:project-route-loading";
 
 function isProjectDetailRoute(route: string) {
   return (
+    route === "#/project/ye-browser" ||
     route === "#/project/ai-report" ||
     route === "#/project/qixin-brain" ||
     route === "#/project/explorations"
@@ -54,7 +57,7 @@ export default function App() {
   useEffect(() => {
     const onProjectRouteLoading = (event: Event) => {
       const href = (event as CustomEvent<{ href?: string }>).detail?.href;
-      if (!href || href === "#/project/ai-report" || href === "#/project/qixin-brain" || !isProjectDetailRoute(href)) return;
+      if (!href || href === "#/project/ye-browser" || href === "#/project/ai-report" || href === "#/project/qixin-brain" || !isProjectDetailRoute(href)) return;
       if (isProjectRouteReady(href)) return;
       setRouteLoaderHref(href);
     };
@@ -69,6 +72,7 @@ export default function App() {
     window.location.hash = "";
   };
 
+  const isYeDetail = route === "#/project/ye-browser";
   const isAiDetail = route === "#/project/ai-report";
   const isQixinDetail = route === "#/project/qixin-brain";
   const isExplorations = route === "#/project/explorations";
@@ -196,7 +200,7 @@ export default function App() {
   const detailFallback =
     routeLoaderHref || isProjectRouteReady(route) ? null : <ProjectRouteLoader route={route} />;
 
-  const portfolioContent = isAiDetail ? (
+  const portfolioContent = isYeDetail ? (<Suspense fallback={null}><YeCase /></Suspense>) : isAiDetail ? (
     <Suspense fallback={null}>
       <QsightCase />
     </Suspense>
@@ -214,14 +218,14 @@ export default function App() {
 
   return (
     <div className="relative min-h-screen text-text">
-      {!isAiDetail && !isQixinDetail && isProjectDetailRoute(route) && (
+      {!isYeDetail && !isAiDetail && !isQixinDetail && isProjectDetailRoute(route) && (
         <Suspense fallback={null}>
           <Nav />
           <ViewportScrollbars />
         </Suspense>
       )}
 
-      {!isAiDetail && !isQixinDetail && routeLoaderHref && (
+      {!isYeDetail && !isAiDetail && !isQixinDetail && routeLoaderHref && (
         <ProjectRouteLoader
           key={routeLoaderHref}
           route={routeLoaderHref}
@@ -232,7 +236,7 @@ export default function App() {
       )}
 
       {/* Global back-to-top */}
-      {!isAiDetail && !isQixinDetail && isProjectDetailRoute(route) && showBackToTop && (
+      {!isYeDetail && !isAiDetail && !isQixinDetail && isProjectDetailRoute(route) && showBackToTop && (
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           className="fixed bottom-5 left-1/2 z-40 group inline-flex -translate-x-1/2 items-center rounded-full bg-white p-2 text-[#1A1C24] transition-all duration-300 hover:shadow-[0_0_40px_rgba(34,88,244,0.45)] sm:bottom-8 sm:gap-3 sm:py-2 sm:pl-7 sm:pr-2"

@@ -1,4 +1,4 @@
-type ProjectKey = "ai-report" | "qixin-brain" | "explorations";
+type ProjectKey = "ye-browser" | "ai-report" | "qixin-brain" | "explorations";
 type Priority = "high" | "low";
 type ProgressCallback = (progress: number) => void;
 type WeightedTask = {
@@ -15,6 +15,7 @@ type PreloadBatchOptions = {
   shouldContinue?: () => boolean;
 };
 
+export const loadYeCase = () => import("./cases/YeCase");
 export const loadAiProjectDetail = () => import("./components/ProjectDetail");
 export const loadQixinProjectDetail = () => import("./components/QixinProjectDetail");
 export const loadExplorationsPage = () => import("./components/ExplorationsPage");
@@ -199,6 +200,7 @@ function isBrowser() {
 }
 
 function projectKeyFromRoute(route: string): ProjectKey | null {
+  if (route === "#/project/ye-browser") return "ye-browser";
   if (route === "#/project/ai-report") return "ai-report";
   if (route === "#/project/qixin-brain") return "qixin-brain";
   if (route === "#/project/explorations") return "explorations";
@@ -389,6 +391,7 @@ function delay(ms: number) {
 
 function isProjectRoute(route: string) {
   return (
+    route === "#/project/ye-browser" ||
     route === "#/project/ai-report" ||
     route === "#/project/qixin-brain" ||
     route === "#/project/explorations"
@@ -444,7 +447,7 @@ export function preloadProjectDetailAssets(project: ProjectKey, priority: Priori
   if (existing) return existing;
 
   const preloadPromise =
-    project === "ai-report"
+    project === "ye-browser" ? loadYeCase() : project === "ai-report"
       ? preloadAi(priority)
       : project === "qixin-brain"
       ? preloadQixin(priority)
@@ -460,6 +463,7 @@ export function preloadProjectDetailAssets(project: ProjectKey, priority: Priori
 }
 
 export function warmProjectDetailModule(project: ProjectKey) {
+  if (project === "ye-browser") return loadYeCase();
   if (project === "ai-report") return loadAiProjectDetail();
   if (project === "qixin-brain") return loadQixinProjectDetail();
   return loadExplorationsPage();
@@ -489,6 +493,7 @@ async function warmProjectPreviewAssets(
 }
 
 function portfolioEntryImages(route: string) {
+  if (route === "#/project/ye-browser") return [];
   if (route === "#/project/qixin-brain") return QIXIN_ENTRY_IMAGES;
   if (route === "#/project/explorations") return [];
   return AI_ENTRY_IMAGES;
@@ -523,7 +528,7 @@ async function currentRouteWeightedTasks(route: string, priority: Priority) {
   }
 
   const loadEntryModule =
-    route === "#/project/qixin-brain"
+    route === "#/project/ye-browser" ? loadYeCase : route === "#/project/qixin-brain"
       ? loadQixinProjectDetail
       : route === "#/project/explorations"
       ? loadExplorationsPage
@@ -597,6 +602,7 @@ export async function preloadRouteAssetsWithProgress(route: string, onProgress: 
 }
 
 export function scheduleProjectRemainderPreload(project: ProjectKey) {
+  if (project === "ye-browser") return () => {};
   if (!isBrowser()) return () => {};
 
   let cancelled = false;
