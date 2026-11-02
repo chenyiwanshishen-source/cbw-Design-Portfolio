@@ -34,111 +34,112 @@ export const qsight: CaseContent = {
   },
   "toc": [
     {
-      "id": "qsight-challenge",
-      "label": "01 · 挑战"
-    },
-    {
-      "id": "qsight-01",
-      "label": "02 · 定义问题"
+      "id": "qsight-overview",
+      "label": "01 · 概括"
     },
     {
       "id": "qsight-02",
-      "label": "03 · 关键设计决定"
+      "label": "02 · 设计构思"
     },
     {
       "id": "qsight-03",
-      "label": "04 · 最终方案"
+      "label": "03 · 最终方案"
     },
     {
       "id": "qsight-04",
-      "label": "05 · 结果"
+      "label": "04 · 结果"
     },
     {
       "id": "qsight-05",
-      "label": "06 · 下一步与反思"
+      "label": "05 · 下一步与反思"
     }
   ],
   "chapters": [
     {
-      "id": "qsight-challenge",
-      "label": "01 · 挑战",
-      "title": "研究员需要 AI 提效，却不敢直接交付它写的报告",
+      "id": "qsight-overview",
+      "label": "01 · 概括",
+      "title": "概括",
       "blocks": [
-        {
-          "kind": "paragraph",
-          "text": "写报告的大量时间耗在资料准备上。交给 AI 后，研究员仍担心结构跑偏、数字没有出处；生成后再返工，可能还不如自己重写。"
-        },
-        {
-          "kind": "quotes",
-          "texts": [
-            "“AI 给出的数字看着很真，但查不到来源，我肯定不敢交。”"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "qsight-01",
-      "label": "02 · 定义问题",
-      "title": "先让用户掌握方向，再让 AI 写报告",
-      "blocks": [
-        {
-          "kind": "paragraph",
-          "text": "设计重点是把范围与大纲确认前置，让生成过程可见、正文来源可追溯。"
-        },
         {
           "kind": "subsection",
-          "title": "三轮访谈，收敛出三个关键问题",
+          "title": "挑战",
           "blocks": [
             {
               "kind": "paragraph",
-              "text": "我们与 1 家试点客户的 4 位业务人员做了 3 轮访谈，并结合竞品和低保真原型讨论，确定优先级。"
+              "text": "写报告的大量时间耗在资料准备上。交给 AI 后，研究员仍担心结构跑偏、数字没有出处；生成后再返工，可能还不如自己重写。"
             },
             {
-              "kind": "columns",
-              "items": [
-                {
-                  "label": "准备慢",
-                  "text": "材料分散，格式变化就要重新整理。"
-                },
-                {
-                  "label": "怕跑偏",
-                  "text": "先确认范围和结构，减少生成后的返工。"
-                },
-                {
-                  "label": "难核查",
-                  "text": "来源就近可查，历史报告可以复用。"
-                }
-              ]
-            },
-            {
-              "kind": "figures",
-              "figures": [
-                {
-                  "plate": "PLATE 02",
-                  "title": "访谈记录",
-                  "instruction": "要放：访谈白板或便签截图，敏感信息打码（没有可删除此图）",
-                  "caption": "三轮访谈的记录快照。"
-                }
+              "kind": "quotes",
+              "texts": [
+                "“AI 给出的数字看着很真，但查不到来源，我肯定不敢交。”"
               ]
             }
           ]
         },
         {
           "kind": "subsection",
-          "title": "1.0 聚焦确认、生成和核查",
+          "title": "定义问题",
           "blocks": [
             {
               "kind": "paragraph",
-              "text": "沿报告生产旅程，把控制点放在三个阶段：生成前确认范围和大纲，生成中显示进度与异常，交付前核查每段来源。"
+              "text": "设计重点是把范围与大纲确认前置，让生成过程可见、正文来源可追溯。"
             },
             {
-              "kind": "figures",
-              "figures": [
+              "kind": "subsection",
+              "title": "三轮访谈，收敛出三个关键问题",
+              "blocks": [
                 {
-                  "plate": "PLATE 03",
-                  "title": "报告生产旅程图",
-                  "instruction": "要放：五阶段可控感曲线，材料整理阶段画出五种来源分支，1.0 覆盖阶段用蓝色标出（之后单独重画）",
-                  "caption": "报告生产旅程与可控感变化。"
+                  "kind": "paragraph",
+                  "text": "我们与 1 家试点客户的 4 位业务人员做了 3 轮访谈，并结合竞品和低保真原型讨论，确定优先级。"
+                },
+                {
+                  "kind": "columns",
+                  "items": [
+                    {
+                      "label": "准备慢",
+                      "text": "材料分散，格式变化就要重新整理。"
+                    },
+                    {
+                      "label": "怕跑偏",
+                      "text": "先确认范围和结构，减少生成后的返工。"
+                    },
+                    {
+                      "label": "难核查",
+                      "text": "来源就近可查，历史报告可以复用。"
+                    }
+                  ]
+                },
+                {
+                  "kind": "figures",
+                  "figures": [
+                    {
+                      "plate": "PLATE 02",
+                      "title": "访谈记录",
+                      "instruction": "要放：访谈白板或便签截图，敏感信息打码（没有可删除此图）",
+                      "caption": "三轮访谈的记录快照。"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "subsection",
+              "title": "1.0 聚焦确认、生成和核查",
+              "blocks": [
+                {
+                  "kind": "paragraph",
+                  "text": "沿报告生产旅程，把控制点放在三个阶段：生成前确认范围和大纲，生成中显示进度与异常，交付前核查每段来源。"
+                },
+                {
+                  "kind": "figures",
+                  "figures": [
+                    {
+                      "plate": "PLATE 03",
+                      "title": "报告生产旅程图",
+                      "instruction": "要放：五阶段可控感曲线，材料整理阶段画出五种来源分支，1.0 覆盖阶段用蓝色标出（之后单独重画）",
+                      "caption": "报告生产旅程与可控感变化。"
+                    }
+                  ]
                 }
               ]
             }
@@ -148,8 +149,8 @@ export const qsight: CaseContent = {
     },
     {
       "id": "qsight-02",
-      "label": "03 · 关键设计决定",
-      "title": "把信任放进操作过程",
+      "label": "02 · 设计构思",
+      "title": "设计构思",
       "blocks": [
         {
           "kind": "subsection",
@@ -213,7 +214,7 @@ export const qsight: CaseContent = {
     },
     {
       "id": "qsight-03",
-      "label": "04 · 最终方案",
+      "label": "03 · 最终方案",
       "title": "沿着报告生产流程，逐步建立控制感",
       "blocks": [
         {
@@ -385,7 +386,7 @@ export const qsight: CaseContent = {
     },
     {
       "id": "qsight-04",
-      "label": "05 · 结果",
+      "label": "04 · 结果",
       "title": "1.0 在试点客户上线后的变化",
       "blocks": [
         {
@@ -418,7 +419,7 @@ export const qsight: CaseContent = {
     },
     {
       "id": "qsight-05",
-      "label": "06 · 下一步与反思",
+      "label": "05 · 下一步与反思",
       "title": "留下可维护的边界，减少写死的规则",
       "blocks": [
         {

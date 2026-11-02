@@ -5,13 +5,13 @@ import { Quote } from './components/Quote';
 import { FigurePlaceholder } from './components/FigurePlaceholder';
 import { DataTable } from './components/DataTable';
 import { MetricRow } from './components/MetricRow';
-export function CaseBlocks({ blocks, labels }: { blocks: CaseBlock[]; labels: { judgment: string; result: string } }) {
+export function CaseBlocks({ blocks, labels, depth = 0 }: { depth?: number; blocks: CaseBlock[]; labels: { judgment: string; result: string } }) {
   return <>{blocks.map((block, index) => {
     const key = index;
     switch (block.kind) {
       case 'paragraph': return <p key={key} className="case-paragraph"><CaseText text={block.text} /></p>;
       case 'aside': return <p key={key} className="case-paragraph border-t border-dashed border-border-dashed pt-6"><CaseText text={block.text} /></p>;
-      case 'subsection': return <div key={key} className="case-subsection"><h3 className="text-h4 font-medium">{block.title}</h3><CaseBlocks blocks={block.blocks} labels={labels} /></div>;
+      case 'subsection': { const Heading = depth === 0 ? 'h3' : 'h4'; return <div key={key} className="case-subsection"><Heading className={depth === 0 ? "text-h4 font-medium" : "text-body font-medium"}>{block.title}</Heading><CaseBlocks blocks={block.blocks} labels={labels} depth={depth + 1} /></div>; }
       case 'quotes': return <div key={key} className="case-quotes">{block.texts.map(text => <Quote key={text} text={text} />)}</div>;
       case 'figures': return <div key={key} className={block.figures.length > 1 ? 'case-pair' : undefined}>{block.figures.map(figure => <FigurePlaceholder key={figure.plate} {...figure} />)}</div>;
       case 'table': return <DataTable key={key} {...block} />;
