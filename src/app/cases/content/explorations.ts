@@ -11,20 +11,26 @@ export const explorations: { header: { title: string; intro: string }; intro: st
     {
       "id": "explorations-01",
       "label": "Figma 连接器",
-      "title": "让 AI 帮我改 Figma，改坏了也能退回",
+      "title": "让 AI 能直接读、改 Figma 文件",
       "blocks": [
         {
           "kind": "paragraph",
-          "text": "一个 Figma 插件。装上以后，Claude 这类 AI 助手就能读、也能改我正在打开的 Figma 文件。已开源。"
+          "text": "一个在自己电脑上运行的 Figma 插件，已经开源。"
         },
         {
           "kind": "subsection",
-          "title": "为什么做连接器",
+          "title": "起因",
           "blocks": [
             {
               "kind": "paragraph",
-              "text": "为了让 AI 检查 Qsight 老设计稿里的颜色和组件，我先做了这个插件，解决它无法读写 Figma 文件的问题。后来扫描 Qsight 的 [19 个历史页面](#/project/explorations/design-system)，用的就是它。"
-            },
+              "text": "我想让 AI 帮我看看 Qsight 那批老设计稿，颜色和组件到底乱到什么程度。可当时用 Gemini 连 Figma 老是报错，我就自己做了这个插件。后面扫描那 [19 个页面](#/project/explorations/design-system)，用的就是它。"
+            }
+          ]
+        },
+        {
+          "kind": "subsection",
+          "title": "怎么做的",
+          "blocks": [
             {
               "kind": "flow",
               "rows": [
@@ -36,16 +42,10 @@ export const explorations: { header: { title: string; intro: string }; intro: st
                   ]
                 }
               ]
-            }
-          ]
-        },
-        {
-          "kind": "subsection",
-          "title": "出错时自动撤回",
-          "blocks": [
+            },
             {
               "kind": "paragraph",
-              "text": "插件每次修改前都会先保存一份，出错就自动退回，避免 AI 改坏设计稿。面板上能看到它正在读取还是修改。"
+              "text": "AI 把要做的事发给插件，插件在 Figma 里执行，再把结果传回去。\n我最担心 AI 把稿子改坏，所以插件每次动手前都会先存一份，出了错就退回去。面板上也能看到它这会儿是在读还是在写。\n整个过程只在自己电脑上跑，不用注册，也不用填密钥。"
             },
             {
               "kind": "figures",
@@ -59,16 +59,6 @@ export const explorations: { header: { title: string; intro: string }; intro: st
               ]
             }
           ]
-        },
-        {
-          "kind": "subsection",
-          "title": "本地运行",
-          "blocks": [
-            {
-              "kind": "paragraph",
-              "text": "不用注册账号，也不用填密钥，文件不会传到别的地方。"
-            }
-          ]
         }
       ],
       "url": "https://github.com/chenyiwanshishen-source/figma-connector-figma-",
@@ -77,19 +67,19 @@ export const explorations: { header: { title: string; intro: string }; intro: st
     {
       "id": "explorations-02",
       "label": "设计系统",
-      "title": "把 Qsight 的老设计稿，理成一套能复用的组件",
+      "title": "把 Qsight 的老设计稿理成一套组件",
       "blocks": [
         {
           "kind": "paragraph",
-          "text": "我用自己做的 [Figma 连接器](#/project/explorations/figma-connector)，让 AI 把 Qsight 的老设计稿过了一遍，理出颜色和基础规范，再做成前端组件。"
+          "text": "我用自己做的 [Figma 连接器](#/project/explorations/figma-connector)，让 AI 把 Qsight 的老设计稿过了一遍，先理颜色，再理基础规范，最后做成前端组件。"
         },
         {
           "kind": "subsection",
-          "title": "历史页面的用色情况",
+          "title": "先看颜色",
           "blocks": [
             {
               "kind": "paragraph",
-              "text": "AI 一共检查了 19 个页面。文件里已经建了 186 个颜色，可页面上实际用的，是另一个库里的颜色。光是蓝色就有三种差不多的，分别用在按钮、品牌和高亮文字上。"
+              "text": "AI 一共查了 19 个页面。文件里已经建了 186 个颜色，可页面上实际用的，是另一个库里的颜色。光蓝色就有三种差不多的，分别用在按钮、品牌和高亮的文字上。"
             },
             {
               "kind": "figures",
@@ -106,25 +96,25 @@ export const explorations: { header: { title: string; intro: string }; intro: st
         },
         {
           "kind": "subsection",
-          "title": "按用途整理颜色",
+          "title": "一个一个定",
           "blocks": [
             {
               "kind": "paragraph",
-              "text": "AI 很容易直接合并看着差不多的颜色，忽略它们各自的用途。我让 AI 先列出每个颜色用在哪里，暂不合并，再由我逐个决定留哪个。"
+              "text": "AI 很容易把看着差不多的颜色直接并成一个，但它们各有各的用处。所以我让它先别并，把每个颜色用在哪儿列出来，再由我一个一个定留哪个。"
             },
             {
               "kind": "paragraph",
-              "text": "最后只留下页面上真正用到的用途，整理成 58 个按用途命名的颜色：文字 19 个，图标 6 个，背景 26 个，边框 7 个。原来一个颜色同时管文字和边框的，也按用途拆开了。"
+              "text": "最后只留下页面上真用到的用途，理成 58 个按用途命名的颜色：文字 19 个，图标 6 个，背景 26 个，边框 7 个。以前一个颜色又管文字又管边框的，也按用途拆开了。"
             }
           ]
         },
         {
           "kind": "subsection",
-          "title": "前端组件库",
+          "title": "做成组件",
           "blocks": [
             {
               "kind": "paragraph",
-              "text": "颜色、字体、间距这些定下来以后，我把它们存进 Figma，再做成前端组件。现在有 9 个组件，每个组件的样式和状态都能在一个页面里查到。"
+              "text": "颜色、字体、间距这些定下来以后，我先存进 Figma，再做成前端组件。现在有 9 个组件，每个组件的样式和状态都能在一个页面里查到。"
             },
             {
               "kind": "figures",
@@ -141,24 +131,24 @@ export const explorations: { header: { title: string; intro: string }; intro: st
         }
       ],
       "url": "https://github.com/chenyiwanshishen-source/figma-design-system-workflow",
-      "status": "从零搭设计系统时，我用的是另一个自己写的 Skill，也已开源 · GitHub。组件库还在继续做。"
+      "status": "从零搭设计系统的时候，我用的是另一个自己写的 Skill，也开源了 · GitHub。组件库还在接着做。"
     },
     {
       "id": "explorations-03",
       "label": "Visual Code Canvas",
-      "title": "AI 写完页面，小地方我自己动手改",
+      "title": "页面上点哪改哪，改完存回代码",
       "blocks": [
         {
           "kind": "paragraph",
-          "text": "这是一个修改页面样式的工具，可以在页面上选中元素、修改样式，再自动存回代码。"
+          "text": "一个改页面样式的小工具，做到 v0.2.1 先放下了。"
         },
         {
           "kind": "subsection",
-          "title": "修改样式的成本",
+          "title": "起因",
           "blocks": [
             {
               "kind": "paragraph",
-              "text": "用 AI 写页面很快，但改一个间距、换一个颜色，还要再描述一遍、再等一轮。改的地方越小，越觉得不划算。"
+              "text": "用 AI 写页面很快，可改个间距、换个颜色，还得再跟它描述一遍、再等一轮。改的地方越小，越觉得不值。"
             }
           ]
         },
@@ -181,7 +171,7 @@ export const explorations: { header: { title: string; intro: string }; intro: st
             },
             {
               "kind": "paragraph",
-              "text": "我不用再去翻代码找这个按钮写在哪里，工具会直接定位到。"
+              "text": "我不用再翻代码找这个按钮写在哪儿，工具会直接帮我定位。"
             },
             {
               "kind": "figures",
@@ -198,21 +188,21 @@ export const explorations: { header: { title: string; intro: string }; intro: st
         },
         {
           "kind": "subsection",
-          "title": "工具与 AI 的分工",
+          "title": "哪些交给工具",
           "blocks": [
             {
               "kind": "paragraph",
-              "text": "数值、颜色和文字可以用工具直接修改，结果确定，不用再花钱问 AI。拆组件、调结构则交给 AI。"
+              "text": "改数值、换颜色、改文字，结果是确定的，工具直接改就行，不用再花钱问 AI。拆组件、调结构这种，才交给 AI。"
             }
           ]
         },
         {
           "kind": "subsection",
-          "title": "v0.2.1 后搁置",
+          "title": "为什么停了",
           "blocks": [
             {
               "kind": "paragraph",
-              "text": "第一版是装在 VSCode 里的插件，后来改成在 Codex 自带的浏览器里用。做到 v0.2.1 以后，这个项目先搁置了。【待填：为什么放下，一句】"
+              "text": "第一版是装在 VSCode 里的插件，后来改成在 Codex 自带的浏览器里用。做到 v0.2.1 以后先搁置了。【待填：为什么放下，一句】"
             }
           ]
         }
@@ -223,36 +213,36 @@ export const explorations: { header: { title: string; intro: string }; intro: st
     {
       "id": "explorations-04",
       "label": "插画 Skill",
-      "title": "教 AI 画插画，先要画得出\"像真的\"",
+      "title": "教 AI 画出认得出的界面插画",
       "blocks": [
         {
           "kind": "paragraph",
-          "text": "我给 AI 写的一套画插画的规矩。这个作品集的封面、ye! 的空状态图，都是 AI 照着它画的。"
+          "text": "这是我给 AI 写的一套画插画的规矩。这个作品集的封面、ye! 的空状态图，都是 AI 照着它画的。"
         },
         {
           "kind": "subsection",
-          "title": "界面插画的辨识问题",
+          "title": "起因",
           "blocks": [
             {
               "kind": "paragraph",
-              "text": "让 AI 画一个\"界面\"，它常常只画几张空白卡片和几条灰色横条，难以辨认具体是什么工具。"
+              "text": "让 AI 画个\"界面\"，它经常就摆几张空白卡片、几条灰杠，看不出到底画的是什么工具。"
             }
           ]
         },
         {
           "kind": "subsection",
-          "title": "三条绘图规矩",
+          "title": "三条规矩",
           "blocks": [
             {
               "kind": "columns",
               "items": [
                 {
                   "label": "画真东西",
-                  "text": "得是一眼认得出的控件，不拿灰色横条凑"
+                  "text": "得是一眼认得出的控件，不拿灰杠凑数"
                 },
                 {
                   "label": "分清前后",
-                  "text": "底板、中间的控件、最前面的重点，三层分清楚"
+                  "text": "底板、中间的控件、最前面的重点，分成三层"
                 },
                 {
                   "label": "别画太碎",
@@ -281,17 +271,17 @@ export const explorations: { header: { title: string; intro: string }; intro: st
         },
         {
           "kind": "subsection",
-          "title": "绘图后的检查",
+          "title": "画完要检查",
           "blocks": [
             {
               "kind": "paragraph",
-              "text": "每画完一张，AI 要按原大小和放大三倍各看一遍。原大小看能不能认出画的是什么，放大看边角和阴影有没有毛病，有问题改完再看。"
+              "text": "每画完一张，AI 得按原大小和放大三倍各看一遍：原大小看认不认得出，放大看边角和阴影有没有毛病，有问题改完再看一遍。"
             }
           ]
         },
         {
           "kind": "subsection",
-          "title": "插画作品",
+          "title": "作品",
           "blocks": [
             {
               "kind": "figures",
@@ -337,7 +327,7 @@ export const explorations: { header: { title: string; intro: string }; intro: st
           ]
         }
       ],
-      "status": "改到第 4 版了，准备开源【待填：开源后的仓库链接】"
+      "status": "已经改到第 4 版，准备开源。【待填：开源后的仓库链接】"
     }
   ]
 };

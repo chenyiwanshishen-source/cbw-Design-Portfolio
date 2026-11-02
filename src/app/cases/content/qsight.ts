@@ -3,7 +3,7 @@ import type { CaseContent } from '../types';
 export const qsight: CaseContent = {
   "header": {
     "title": "让研究员敢把报告交给 AI 写",
-    "intro": "研究员写一份区域监测报告，大半天都花在找资料上。Qsight 是合合信息的 AI 报告平台，帮他们整合资料、生成报告并核查来源。我负责核心交互和 Prompt 基础框架，一直跟到 1.0 上线。"
+    "intro": "研究员写一份区域监测报告，大半天都花在找资料上。Qsight 是合合信息做的 AI 报告平台，帮他们整理资料、生成报告、核对来源。我负责核心交互和 Prompt 的基础框架，一直跟到 1.0 上线。"
   },
   "hero": {
     "plate": "PLATE 01",
@@ -59,7 +59,7 @@ export const qsight: CaseContent = {
     {
       "id": "qsight-01",
       "label": "挑战",
-      "title": "报告核查的顾虑",
+      "title": "起因",
       "blocks": [
         {
           "kind": "quotes",
@@ -69,29 +69,29 @@ export const qsight: CaseContent = {
         },
         {
           "kind": "paragraph",
-          "text": "研究员担心 AI 生成的结构跑偏、数字没有出处；生成完再返工，可能还不如自己重写。"
+          "text": "研究员担心的就是这些：结构容易写偏，数字查不到出处，生成完还得返工，有时候还不如自己重写。"
         }
       ]
     },
     {
       "id": "qsight-02",
       "label": "定义问题",
-      "title": "三轮访谈与控制点",
+      "title": "访谈",
       "blocks": [
         {
           "kind": "paragraph",
-          "text": "我们和 1 家试点客户的 4 位业务人员做了 3 轮访谈，再结合竞品分析和低保真原型讨论，归纳出三个问题。"
+          "text": "我们找了 1 家试点客户的 4 位业务人员，前后聊了 3 轮，再对照竞品、拿低保真原型一起讨论，最后归成三个问题："
         },
         {
           "kind": "columns",
           "items": [
             {
               "label": "准备慢",
-              "text": "材料分散，格式一变就要重新整理"
+              "text": "材料东一份西一份，格式一变就得重新整理"
             },
             {
               "label": "怕跑偏",
-              "text": "结构或数字一旦跑偏，生成后就要大量返工"
+              "text": "结构或数字一旦跑偏，生成完要大改"
             },
             {
               "label": "难核查",
@@ -117,7 +117,7 @@ export const qsight: CaseContent = {
               ]
             }
           ],
-          "note": "1.0 只在高亮的三步加控制：生成前确认范围和大纲，生成中显示进度和异常，交付前核查每段来源。"
+          "note": "1.0 只在高亮的三步做控制：生成前先确认范围和大纲，生成时能看到进度和出错的地方，交付前每一段都能查来源。"
         },
         {
           "kind": "figures",
@@ -135,15 +135,15 @@ export const qsight: CaseContent = {
     {
       "id": "qsight-03",
       "label": "关键取舍",
-      "title": "三处方案取舍",
+      "title": "改过的三个地方",
       "blocks": [
         {
           "kind": "subsection",
-          "title": "正文旁的来源卡片",
+          "title": "来源的位置",
           "blocks": [
             {
               "kind": "paragraph",
-              "text": "最早来源统一放在报告末尾，用户读到一个数字，还是对不上它来自哪里。后来改成正文里的引用编号，直接连到旁边的来源卡片。"
+              "text": "最早来源都堆在报告最后，读到一个数字，还是不知道它从哪来。后来改成在正文里标引用编号，对应旁边的来源卡片。"
             },
             {
               "kind": "figures",
@@ -166,21 +166,21 @@ export const qsight: CaseContent = {
         },
         {
           "kind": "subsection",
-          "title": "沿用已有企业名单",
+          "title": "企业名单",
           "blocks": [
             {
               "kind": "paragraph",
-              "text": "研究员要跟踪的，往往是一直在关注的企业，不只是上传几个文件。所以除了文件导入，企业范围也可以直接选启信产业大脑里的企业分组。"
+              "text": "研究员要跟的，大多是一直在关注的那些企业，不只是传几个文件进来。所以企业范围除了导入文件，也能直接选启信产业大脑里建好的企业分组。"
             }
           ]
         },
         {
           "kind": "subsection",
-          "title": "上线的四个 Prompt 模块",
+          "title": "Prompt 配置",
           "blocks": [
             {
               "kind": "paragraph",
-              "text": "原先规划的是一个 10+1 个模块的 Prompt 控制台，1.0 没有上线它，只保留了四个模块。"
+              "text": "一开始规划的是一个 10+1 个模块的 Prompt 控制台，1.0 没上，只留了四个模块。"
             },
             {
               "kind": "columns",
@@ -221,7 +221,7 @@ export const qsight: CaseContent = {
     {
       "id": "qsight-04",
       "label": "最终方案",
-      "title": "报告交付的六步",
+      "title": "完整流程",
       "blocks": [
         {
           "kind": "flow",
@@ -245,7 +245,7 @@ export const qsight: CaseContent = {
               "plate": "PLATE 06",
               "title": "大纲确认",
               "instruction": "要放：大纲确认",
-              "caption": "逐章确认监测对象、时间范围和重点产业，可以增删章节。"
+              "caption": "一章一章确认监测对象、时间范围和重点产业，章节可以加也可以删。"
             }
           ]
         },
@@ -256,7 +256,7 @@ export const qsight: CaseContent = {
               "plate": "PLATE 07",
               "title": "数据来源配置",
               "instruction": "要放：数据来源配置",
-              "caption": "启信数据、知识库、本地文件和网页链接放在一处管理。"
+              "caption": "启信数据、知识库、本地文件和网页链接都放在一个地方管。"
             }
           ]
         },
@@ -267,7 +267,7 @@ export const qsight: CaseContent = {
               "plate": "PLATE 08",
               "title": "执行过程",
               "instruction": "要放：执行过程",
-              "caption": "显示检索和执行状态，失败时告诉用户重试了几次；缺失的数据会标出来，不让模型自己补数字。"
+              "caption": "能看到它正在查什么、做到哪一步，失败了会告诉你重试了几次；缺的数据会标出来，不让模型自己编数字。"
             }
           ]
         },
@@ -278,7 +278,7 @@ export const qsight: CaseContent = {
               "plate": "PLATE 09",
               "title": "来源卡片",
               "instruction": "要放：来源卡片",
-              "caption": "正文的引用编号连到旁边的来源卡片，四类来源用标签和颜色区分。"
+              "caption": "正文的引用编号对应旁边的来源卡片，四类来源用不同标签和颜色区分。"
             }
           ]
         },
@@ -308,7 +308,7 @@ export const qsight: CaseContent = {
     {
       "id": "qsight-05",
       "label": "结果",
-      "title": "1.0 试点结果",
+      "title": "1.0 上线后",
       "blocks": [
         {
           "kind": "metrics",
@@ -334,18 +334,18 @@ export const qsight: CaseContent = {
         },
         {
           "kind": "paragraph",
-          "text": "试点客户的反馈是：资料查找和整理更集中了，内容的来源也更容易确认。【待填：一句客户原话，注明是谁、在什么场合说的】"
+          "text": "试点客户的反馈是，找资料、整理资料都集中到一处了，内容的来源也更好确认。【待填：一句客户原话，注明是谁、在什么场合说的】"
         }
       ]
     },
     {
       "id": "qsight-06",
       "label": "反思",
-      "title": "规则与模型的分工",
+      "title": "回头看",
       "blocks": [
         {
           "kind": "paragraph",
-          "text": "模型能力增强后，需要写死的规则也少了。在 Qsight 里，我仍用规则保证生成前确认、内容有来源、缺失数据要标出，具体表达交给模型判断。下一阶段计划加入自定义写作样本库和在线编辑，让报告适应不同机构的文风。"
+          "text": "模型越来越强，需要写死的规则越来越少。但在 Qsight 里，有三件事我还是用规则卡住：生成前必须确认，内容必须有来源，缺的数据必须标出来。至于怎么写，交给模型。\n下一步打算加自定义写作样本库和在线编辑，让报告能贴合不同机构的文风。"
         },
         {
           "kind": "subsection",
