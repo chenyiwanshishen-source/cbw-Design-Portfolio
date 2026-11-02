@@ -144,3 +144,7 @@ Qsight 路由为 `#/project/ai-report`，使用 `src/app/cases/QsightCase.tsx`�
 按 CASE_TASK_QIXIN.md 保留六章和全部原文，复用当前 CaseLayout / CaseHeader / CaseSummary / CaseToc / CaseSection / FigurePlaceholder / DataTable / MetricRow / TodoNote 及 CaseBlocks。主图前置、紧凑介绍置于图下，字号沿用 Qsight 当前层级，不恢复蓝色章标。时间轴桌面一行四节点，手机纵向；概要保留任务指定的三栏。单项指标按一列展示；表格在窄屏独立横向滚动。图位 PLATE 01–10，未指定图注时复用图位名称，不补写事实。
 
 目录观察章节标题进入顶部 48px 阅读区，避免短章节点击后被下一章提前抢走高亮；resize 重新计算观察区域。此修正在新分支的共用组件上生效，不修改旧分支。
+
+### ye! 案例页
+
+复用案例组件与文字阶梯。头部 label / facts 可选；ye! 不传，前两页保留。概要隐藏可视标签，保留读屏语义。第五章五个设计使用普通字重标题加图位，不加编号。指标没有注释时不渲染空段落。PLATE 01–11 全部占位，05–09 名称从设计句提取，其余图注复用图位名，不补产品事实。

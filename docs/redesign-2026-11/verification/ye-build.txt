@@ -1,0 +1,33 @@
+
+> @figma/my-make-file@0.0.1 build
+> vite build
+
+vite v6.3.5 building for production...
+transforming...
+✓ 2060 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                                 0.90 kB │ gzip:   0.50 kB
+dist/assets/gameboy-frame-B36GG_uW.png      1,164.87 kB
+dist/assets/street-portrait-BzQMkzd0.png    3,626.28 kB
+dist/assets/YeCase-DSabMu2M.css                 0.25 kB │ gzip:   0.18 kB
+dist/assets/QixinCase-CXtt1ZlO.css              0.79 kB │ gzip:   0.35 kB
+dist/assets/CaseBlocks-D-Rc4Sbp.css             6.62 kB │ gzip:   1.54 kB
+dist/assets/index-BPeCXoJ5.css                182.17 kB │ gzip:  33.16 kB
+dist/assets/HomeContent-B78wQlZb.js             0.13 kB │ gzip:   0.14 kB
+dist/assets/CaseSummary-D6kNPk1I.js             0.44 kB │ gzip:   0.29 kB
+dist/assets/index-C3ifSnP3.js                   4.93 kB │ gzip:   2.29 kB
+dist/assets/ScrollArea-B4lvUEMK.js              5.25 kB │ gzip:   1.80 kB
+dist/assets/ProjectCaseNav-DOd_iO7_.js          5.57 kB │ gzip:   1.82 kB
+dist/assets/CaseBlocks-spgcgbVQ.js              6.93 kB │ gzip:   2.30 kB
+dist/assets/QixinCase-CRLvyoUM.js               8.86 kB │ gzip:   3.47 kB
+dist/assets/QsightCase-DKcvEJ3f.js              9.26 kB │ gzip:   3.90 kB
+dist/assets/Nav-CnzE4GfU.js                     9.58 kB │ gzip:   3.47 kB
+dist/assets/YeCase-D2ABXOj_.js                 10.25 kB │ gzip:   4.04 kB
+dist/assets/Footer-CUI0R2j0.js                 45.07 kB │ gzip:  18.78 kB
+dist/assets/ExplorationsPage-CkJIbpH4.js       51.28 kB │ gzip:  11.83 kB
+dist/assets/proxy-BNlxRL8H.js                 124.07 kB │ gzip:  40.48 kB
+dist/assets/QixinProjectDetail-DxmXRx8R.js    150.59 kB │ gzip:  35.86 kB
+dist/assets/ProjectDetail-IJuFpJr7.js         193.54 kB │ gzip:  57.15 kB
+dist/assets/index-iNz1EVgA.js                 297.58 kB │ gzip: 104.17 kB
+✓ built in 2.08s
