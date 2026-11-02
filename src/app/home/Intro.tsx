@@ -1,5 +1,6 @@
 import { Fragment, useEffect, useRef, useState } from 'react';
 import { intro } from './content/zh';
+import { Blueprint } from './Blueprint';
 import { IntroBlock } from './IntroBlock';
 import { useIntroOpening } from './useIntroOpening';
 
@@ -49,6 +50,7 @@ export function Intro({ replay }: { replay: number }) {
         <div className="home-portrait flex items-center justify-center border border-border bg-surface-sunken p-6 font-mono text-micro text-text-meta">替换为你的照片</div>
         <figcaption className="font-mono text-label text-text-meta">PLATE 01 · 人像 · 4:5</figcaption>
       </figure></IntroBlock>
+      {playing && <Blueprint onFinish={finish} />}
     </section>
   );
 }

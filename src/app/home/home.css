@@ -23,44 +23,26 @@
   .homepage a, .homepage button { transition: none; }
 }
 
-/* Local wrappers follow their content through wrapping and resizing; no measured overlay or scroll lock. */
+/* Measured blue drafting layer; reveal from top to bottom without blocking input. */
 .intro-block { position: relative; min-width: 0; }
-.intro-wire {
-  position: absolute;
-  inset: 0;
-  z-index: var(--z-intro);
-  pointer-events: none;
-  border: var(--border-width) dashed var(--color-accent);
-  background: var(--hatch);
-  animation: intro-wire-draw var(--dur-draw) var(--ease-draw) both,
-    intro-wire-hide var(--dur-reveal) var(--ease-settle) forwards;
-  animation-delay: calc(var(--i) * var(--stagger)), calc(var(--dur-draw) + var(--i) * var(--stagger));
+.intro-blueprint {
+  position: absolute; inset: 0; z-index: var(--z-intro); pointer-events: none;
+  color: var(--color-on-accent); background-color: var(--color-accent);
+  background-image: linear-gradient(var(--color-blueprint-line) 1px, transparent 1px), linear-gradient(90deg, var(--color-blueprint-line) 1px, transparent 1px);
+  background-size: var(--grid-page-size) var(--grid-page-size);
+  animation: blueprint-wipe var(--intro-max) var(--ease-settle) both;
 }
-.intro-wire-label {
-  position: absolute;
-  top: 0;
-  left: 0;
-  padding: var(--space-1) var(--space-2);
-  color: var(--color-on-accent);
-  background: var(--color-accent);
+.blueprint-frame {
+  position: absolute; border: var(--border-width) solid var(--color-on-accent);
+  transform-origin: left top;
+  animation: blueprint-measure var(--dur-draw) var(--ease-draw) both;
+  animation-delay: calc(var(--i) * var(--stagger));
 }
-.is-opening .intro-real {
-  animation: intro-reveal var(--dur-reveal) var(--ease-settle) both;
-  animation-delay: calc(var(--dur-draw) + var(--i) * var(--stagger));
-}
-@keyframes intro-wire-draw {
-  from { clip-path: inset(0 100% 0 0); opacity: 0.5; }
-  to { clip-path: inset(0); opacity: 1; }
-}
-@keyframes intro-wire-hide { to { opacity: 0; } }
-@keyframes intro-reveal {
-  from { opacity: 0; transform: translateY(var(--space-2)); }
-  to { opacity: 1; transform: translateY(0); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .intro-wire { display: none; animation: none; }
-  .is-opening .intro-real { animation: none; opacity: 1; transform: none; }
-}
+.blueprint-caption { position: absolute; top: 0; left: 0; padding: var(--space-2); background: var(--color-accent); font: var(--text-label) var(--font-mono); }
+.blueprint-rule { position: absolute; inset: var(--space-6); border-top: var(--border-width) solid var(--color-blueprint-line); border-bottom: var(--border-width) solid var(--color-blueprint-line); }
+@keyframes blueprint-measure { from { clip-path: inset(0 100% 0 0); transform: scaleX(.92); } to { clip-path: inset(0); transform: scaleX(1); } }
+@keyframes blueprint-wipe { 0%, 48% { clip-path: inset(0); } 100% { clip-path: inset(100% 0 0 0); } }
+@media (prefers-reduced-motion: reduce) { .intro-blueprint { display: none; animation: none; } }
 
 /* Elly reference: white canvas, open typography, wide project plates. */
 body:has(.homepage) { background: var(--color-home-bg); }
