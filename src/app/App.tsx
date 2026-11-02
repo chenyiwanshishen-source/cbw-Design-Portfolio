@@ -29,7 +29,7 @@ function isProjectDetailRoute(route: string) {
     route === "#/project/ye-browser" ||
     route === "#/project/ai-report" ||
     route === "#/project/qixin-brain" ||
-    route === "#/project/explorations"
+    route.startsWith("#/project/explorations/")
   );
 }
 
@@ -75,7 +75,7 @@ export default function App() {
   const isYeDetail = route === "#/project/ye-browser";
   const isAiDetail = route === "#/project/ai-report";
   const isQixinDetail = route === "#/project/qixin-brain";
-  const isExplorations = route === "#/project/explorations";
+  const isExplorations = route.startsWith("#/project/explorations/");
 
   useEffect(() => {
     if (isExplorations) {
@@ -210,7 +210,7 @@ export default function App() {
     </Suspense>
   ) : isExplorations ? (
     <Suspense fallback={null}>
-      <ExplorationsPage />
+      <ExplorationsPage key={route} route={route} />
     </Suspense>
   ) : (
 <HomePage route={route} />

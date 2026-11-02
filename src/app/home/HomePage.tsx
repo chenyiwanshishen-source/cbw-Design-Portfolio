@@ -1,3 +1,4 @@
+import { explorationProjects, explorations } from '../cases/content/explorations';
 import { useEffect, useState } from 'react';
 import { DraftingFrame } from './DraftingFrame';
 import { Ruler } from './Ruler';
@@ -6,7 +7,7 @@ import { useIntroOpening } from './useIntroOpening';
 import { Intro } from './Intro';
 import { CaseList } from './CaseCard';
 import { ComponentGallery } from './ComponentGallery';
-import { aiTools, aiToolsIntro, cases, navigation } from './content/zh';
+import { aiToolsIntro, cases, navigation } from './content/zh';
 import './home.css';
 import '../cases/explorations.css';
 
@@ -15,7 +16,7 @@ export function HomePage({ route }: { route: string }) {
   const { playing, finish } = useIntroOpening(replay);
   useEffect(() => {
     const frame = requestAnimationFrame(() => {
-      const id = navigation.find(item => route === `#${item.id}`)?.id;
+      const id = route === '#/project/explorations' ? 'ai' : navigation.find(item => route === `#${item.id}`)?.id;
       if (id) document.getElementById(id)?.scrollIntoView({ behavior: 'instant', block: 'start' });
       else window.scrollTo({ top: 0, behavior: 'instant' });
     });
@@ -32,7 +33,7 @@ export function HomePage({ route }: { route: string }) {
         <section id="work" aria-label="项目" className="flex flex-col gap-6">
           <CaseList items={cases} />
         </section>
-        <section id="ai" aria-labelledby="ai-title" className="flex flex-col gap-6"><h2 id="ai-title" className="text-h2 font-normal">AI 工作流</h2><p className="text-body text-text-body">{aiToolsIntro}</p><div className="home-ai-tools">{aiTools.map(tool => <a key={tool.name} href="#/project/explorations"><strong className="font-medium">{tool.name}</strong><span>{tool.summary}</span><small>{tool.status}</small></a>)}</div></section>
+        <section id="ai" aria-labelledby="ai-title" className="flex flex-col gap-6"><h2 id="ai-title" className="text-h2 font-normal">AI 工作流</h2><p className="text-body text-text-body">{aiToolsIntro}</p><div className="home-side-projects">{explorationProjects.map(project => <a key={project.slug} href={project.href} className="home-side-project"><div className="home-side-cover" aria-hidden="true">{project.cover}</div><div className="home-side-copy"><span className="text-caption text-text-secondary">{project.name}</span><h3>{explorations.chapters.find(chapter => chapter.id === project.chapter)?.title}</h3><span className="home-side-entry">查看项目 →</span></div></a>)}</div></section>
         {[['exp', '经历'], ['about', '关于 / 页脚']].map(([id, title]) => <section id={id} key={id} aria-labelledby={`${id}-title`} className="flex flex-col gap-6 border-t border-border pt-4"><h2 id={`${id}-title`} className="text-h2 font-normal text-balance">{title}</h2><p className="text-body text-text-secondary">[待补充]</p></section>)}
       </div>
     </div>

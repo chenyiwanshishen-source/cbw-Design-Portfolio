@@ -284,3 +284,10 @@ export const explorations: { header: { title: string; intro: string }; statement
     }
   ]
 };
+
+export const explorationProjects = [
+  { slug: 'figma-connector', chapter: 'explorations-01', name: 'Figma 连接器', cover: '连接器面板' },
+  { slug: 'design-system', chapter: 'explorations-02', name: '设计系统', cover: '颜色审计与组件库' },
+  { slug: 'visual-code-canvas', chapter: 'explorations-03', name: 'Visual Code Canvas', cover: '画布与属性面板' },
+  { slug: 'illustration-skill', chapter: 'explorations-04', name: '插画 Skill', cover: 'Micro-UI 插画作品' },
+].map(item => ({ ...item, href: `#/project/explorations/${item.slug}` }));
