@@ -1,3 +1,4 @@
+import { Fragment } from 'react';
 import type { CaseBlock } from './types';
 import { CaseText } from './components/TodoNote';
 import { Quote } from './components/Quote';
@@ -17,7 +18,7 @@ export function CaseBlocks({ blocks, labels }: { blocks: CaseBlock[]; labels: { 
       case 'columns': return <div key={key} className={`case-columns ${block.items.length === 3 ? 'case-columns-three' : ''}`}>{block.items.map(item => <div key={item.label}><dl><dt className="font-mono text-label text-text-meta">{item.label}</dt><dd className="text-body text-text-body"><CaseText text={item.text} /></dd></dl></div>)}</div>;
       case 'participants': return <div key={key} className="case-participants">{block.items.map(item => <div key={item.label}><span className="font-mono text-label text-text-meta">{item.label}</span><CaseText text={item.text} /></div>)}</div>;
       case 'steps': return <ol key={key} className="case-steps">{block.items.map((item, i) => <li key={item}>{item}{(i === 1 || i === 2) && <span className="block mt-3 text-caption text-text-secondary">{block.preparation}</span>}{i === 3 && <span className="block mt-3 text-caption text-text-secondary">{block.rework}</span>}</li>)}</ol>;
-      case 'tradeoffs': return <>{block.items.map(item => <div key={item.title} className="case-tradeoff"><h3 className="text-h4 font-medium">{item.title}</h3><Quote text={item.quote} /><dl className="flex flex-col gap-6">{[{ label: labels.judgment, text: item.judgment },{ label: labels.result, text: item.result }].map(part => <div key={part.label}><dt className="font-mono text-label text-text-meta">{part.label}</dt><dd className="case-paragraph"><CaseText text={part.text} /></dd></div>)}</dl></div>)}</>;
+      case 'tradeoffs': return <Fragment key={key}>{block.items.map(item => <div key={item.title} className="case-tradeoff"><h3 className="text-h4 font-medium">{item.title}</h3><Quote text={item.quote} /><dl className="flex flex-col gap-6">{[{ label: labels.judgment, text: item.judgment },{ label: labels.result, text: item.result }].map(part => <div key={part.label}><dt className="font-mono text-label text-text-meta">{part.label}</dt><dd className="case-paragraph"><CaseText text={part.text} /></dd></div>)}</dl></div>)}</Fragment>;
       case 'sources': return <div key={key} className="case-sources">{block.items.map(item => <div key={item.key} className={`case-source-${item.key}`}>{item.text}</div>)}</div>;
       case 'metrics': return <MetricRow key={key} items={block.items} note={block.note} />;
     }

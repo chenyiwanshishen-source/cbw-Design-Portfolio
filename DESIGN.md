@@ -109,3 +109,17 @@
 首屏收紧：桌面顶部 48px、底部 64px，介绍前间隔 24px；Game Boy 跨三行，避免图片高度撑开问候与姓名之间的空白。按用户反馈移除 Game Boy 周围的局部方格，保留原微浮动。
 
 案例列表使用等高网格行，由内容最多的案例决定统一高度；不裁剪文案，桌面整行链接填满对应行，手机仍保留原图片滑动交互。
+
+## 案例页
+
+Qsight 路由为 `#/project/ai-report`，使用 `src/app/cases/QsightCase.tsx`，旧 `ProjectDetail.tsx` 留存。案例内容集中在 `content/qsight.ts`，与展示组件分离。沿用白底、1200px 版心、20px 安全留白和现有字体阶梯；不加顶部导航、开场、滚动锁定或视差。
+
+- CaseLayout 负责返回链接、版心和页脚；CaseHeader 在桌面左 8 列展示标题与介绍，右第 10–12 列展示信息栏。H1 使用 text-home-role、400 字重；手机单列。
+- CaseSummary 为问题、方案、结果三栏，无卡片底色；桌面细线分栏，手机纵向。
+- 正文按 12 列排列：CaseToc 左 2 列、空 1 列、正文 9 列。目录在 lg 以上吸顶，距离安全区 24px；IntersectionObserver 更新当前章节，点击仅滚动和聚焦目标，不改路由 hash。
+- CaseSection 使用编号、判断句 H2、正文和 H3；章间 96px，块间 24px，子节间 48px。段落限宽 max-w-measure；图版和表格使用正文整宽。
+- FigurePlaceholder 默认 16:10、浅灰直角，无图片；内部占位提示 aria-hidden，正式 figcaption 保留。PLATE 01–14 连续编号。07–14 的任务单没有单独提供图注或“要放什么”，仅复用对应截图名称，不补写产品事实。
+- Quote 左侧 2px 蓝线；取舍块上方细线，按原话、我的判断、结果排列。DataTable 使用细线和独立横向滚动，重点行用 accent-soft，正文不裁切。
+- MetricRow 为 2×2 指标网格，数字 20px / 500 字重，下方必须保留统计口径；TodoNote 原样保留所有【待填】并使用 warning 橙色。
+- 四类来源用现有 source 背景与前景 token 成对展示，文本同时说明类别；不依赖颜色单独表达。
+- 页脚仅复用项目小标签；可选 DraftingFrame 未启用，保持静态、克制。首页现有规则和其他案例页不迁移。

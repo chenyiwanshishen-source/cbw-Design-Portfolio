@@ -5,6 +5,7 @@ body:has(.case-page) { background: var(--color-home-bg); }
 .case-page a:hover { color: var(--color-accent); }
 .case-header { display: grid; gap: var(--space-12); padding-block: var(--space-12) var(--space-16); }
 .case-header-main, .case-facts { display: flex; flex-direction: column; gap: var(--space-6); min-width: 0; }
+.case-header-main > .text-label { line-height: 1.6; }
 .case-header h1 { font-size: var(--text-home-role); font-weight: 400; line-height: 1.45; text-wrap: balance; }
 .case-facts dt { margin-bottom: var(--space-2); }
 .case-summary { display: grid; gap: var(--space-6); margin-block: var(--space-16) var(--space-24); }
