@@ -1,6 +1,6 @@
-.qixin-timeline { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-6); list-style: none; padding: 0; font-size: var(--text-caption); line-height: var(--text-caption--line-height); color: var(--color-text-secondary); }
-.qixin-timeline li { border-top: var(--border-width) solid var(--color-border-subtle); padding-top: var(--space-4); }
-.qixin-timeline li:not(:last-child)::after { content: '→'; display: block; margin-top: var(--space-3); color: var(--color-text-meta); }
+.qixin-timeline { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--rhythm-4); list-style: none; padding: 0; font-size: var(--text-caption); line-height: var(--text-caption--line-height); color: var(--color-text-secondary); }
+.qixin-timeline li { border-top: var(--border-width) solid var(--color-border-subtle); padding-top: var(--rhythm-3); }
+.qixin-timeline li:not(:last-child)::after { content: '→'; display: block; margin-top: var(--rhythm-2); color: var(--color-text-meta); }
 .qixin-case .case-metrics { grid-template-columns: minmax(0, 1fr); }
 @media (max-width: 767px) {
  .qixin-timeline { grid-template-columns: minmax(0, 1fr); }

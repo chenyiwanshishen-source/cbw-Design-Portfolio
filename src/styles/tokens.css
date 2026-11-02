@@ -61,6 +61,15 @@
   --space-16: 64px;
   --space-24: 96px;
 
+  /* Content rhythm: round(8 * 1.5^n / 4) * 4. */
+  --rhythm-1: 8px;
+  --rhythm-2: 12px;
+  --rhythm-3: 20px;
+  --rhythm-4: 28px;
+  --rhythm-5: 40px;
+  --rhythm-6: 60px;
+  --rhythm-7: 92px;
+
   /* ---------- 布局 ---------- */
   --gutter-x: 20px;          /* 实际：max(var(--gutter-x), env(safe-area-inset-left/right)) */
   --touch-target: 44px;      /* 可点击区域最小高度 */
@@ -93,9 +102,9 @@
   --color-surface-tint: var(--blue-50);        /* 案例展示区底色 */
 
   --color-text: var(--ink-900);                /* 标题、强调文字 */
-  --color-text-body: var(--ink-700);           /* 正文 */
-  --color-text-secondary: var(--ink-500);      /* 说明文字 */
-  --color-text-meta: var(--ink-400);           /* 等宽标签、日期（在 bg 上 ≥ 4.5:1） */
+  --color-text-body: color-mix(in srgb, var(--ink-900) 80%, transparent);           /* 正文 */
+  --color-text-secondary: color-mix(in srgb, var(--ink-900) 64%, transparent);      /* 说明文字 */
+  --color-text-meta: color-mix(in srgb, var(--ink-900) 64%, transparent);           /* 等宽标签、日期（在 bg 上 ≥ 4.5:1） */
   --color-text-display-muted: var(--ink-300);  /* 仅用于 ≥ 32px 大字里的灰色部分（≥ 3:1） */
 
   --color-border: var(--paper-400);            /* 分割线、标尺线 */
@@ -129,7 +138,7 @@
   --color-blueprint-fill: rgba(255,255,255,.08);
   --color-blueprint-bg: #101114;
   --color-blueprint-line: rgba(255, 255, 255, 0.25);
-  --text-case-title: 36px;
+  --text-case-title: 32px;
   --text-home-role: clamp(28px, 4vw, 56px);
   --text-home-name: clamp(56px, 7vw, 96px);
 
@@ -141,7 +150,7 @@
   --text-display: clamp(48px, 7.5vw, 104px);   /* 首页姓名，全站一次 */
   --text-display--line-height: 1.05;
   --text-display--letter-spacing: -0.02em;
-  --text-h2: 28px;      --text-h2--line-height: 1.3;     /* 版块标题 */
+  --text-h2: 26px;      --text-h2--line-height: 1.3;     /* 版块标题 */
   --text-h3: 26px;      --text-h3--line-height: 1.35;    /* 案例卡片标题 */
   --text-h4: 20px;      --text-h4--line-height: 1.4;     /* 卡片小标题、指标数字 */
   --text-lead: 20px;    --text-lead--line-height: 1.5;   /* 问候、身份一行 */
@@ -149,7 +158,7 @@
   --text-body: 16px;    --text-body--line-height: 1.8;   /* 正文 */
   --text-caption: 14px; --text-caption--line-height: 1.6; /* 说明、批注 */
   --text-micro: 12px;   --text-micro--line-height: 1.5;  /* 界面片段内文字、标签 */
-  --text-label: 11px;   --text-label--line-height: 1;    /* 等宽标注 */
+  --text-label: 12px;   --text-label--line-height: 1;    /* 等宽标注 */
   --text-label--letter-spacing: 0.08em;
 
   /* ---------- 布局宽度 ---------- */

@@ -27,5 +27,5 @@ export function CaseToc({ items, label }: { items: { id: string; label: string }
     section?.scrollIntoView({ behavior: 'instant', block: 'start' });
     section?.focus({ preventScroll: true });
     setActive(item.id);
-  }}>{item.label}</a>)}</nav>;
+  }}>{item.label.replace(/^\d+\s*·\s*/, '')}</a>)}</nav>;
 }
