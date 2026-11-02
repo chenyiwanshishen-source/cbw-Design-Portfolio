@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1200">
+<title>首页参考稿 · 陈俊学</title>
+<!-- 仅供视觉对照：1200 版心的静态快照，不含开场动画逻辑，案例卡片右侧为示意。实现以 DESIGN.md 和 tokens.css 为准。 -->
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#F7F6F2}
+a{color:#2258F4}a:hover{color:#163FB8}
+a:focus-visible,button:focus-visible{outline:2px solid #2258F4;outline-offset:3px}
+.page{background-color:#F7F6F2;background-image:linear-gradient(rgba(34,88,244,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(34,88,244,.05) 1px,transparent 1px);background-size:40px 40px}
+.tint{background-color:#EEF1FB;background-image:linear-gradient(rgba(34,88,244,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(34,88,244,.08) 1px,transparent 1px);background-size:24px 24px}
+.blk{position:relative}
+.wf{position:absolute;inset:-8px;border:1px dashed #2258F4;background:repeating-linear-gradient(135deg,rgba(34,88,244,.10) 0 1px,transparent 1px 9px);opacity:0;pointer-events:none;transition:opacity .35s ease}
+.wf>span{position:absolute;top:-1px;left:-1px;transform:translateY(-100%);font:500 10px/1 'JetBrains Mono',ui-monospace,monospace;letter-spacing:.08em;color:#FFFFFF;background:#2258F4;padding:3px 6px}
+.is-wire .wf{opacity:1}
+.real{transition:opacity .5s ease,transform .5s ease}
+.is-wire .real{opacity:0;transform:translateY(8px)}
+.is-built .real{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){.wf{display:none}.real{transition:none!important;opacity:1!important;transform:none!important}}
+</style>
+
+<style>body{display:flex;justify-content:center}</style>
+</head>
+<body>
+
+
+<div class="page" style="width: 1200px; min-height: 1640px; box-sizing: border-box; color: #16181D; font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif; padding-left: 0; padding-right: 0; padding-block: 0 96px;">
+<div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column;">
+
+<header style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; padding-block: 24px;">
+<a href="#top" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: #16181D;">
+<span style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border: 1px solid #2258F4; color: #2258F4; font-weight: 700; font-size: 15px;">陈</span>
+<span style="font-size: 15px; font-weight: 500;">陈俊学 · 产品设计师</span>
+</a>
+<nav aria-label="主导航" style="display: flex; flex-wrap: wrap; gap: 28px; font-size: 14px;">
+<a href="#work" style="color: #16181D; text-decoration: none;">案例</a>
+<a href="#ai" style="color: #16181D; text-decoration: none;">AI 工作流</a>
+<a href="#exp" style="color: #16181D; text-decoration: none;">经历</a>
+<a href="#about" style="color: #16181D; text-decoration: none;">关于</a>
+</nav>
+<span style="display: flex; align-items: center; gap: 8px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; color: #16181D; border: 1px solid #CFCCC2; background: #FFFFFF; padding: 6px 10px;">
+<span style="width: 7px; height: 7px; border-radius: 50%; background: #0F7A55;"></span>
+在找新机会 · 上海
+</span>
+</header>
+
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; border-top: 1px solid #CFCCC2; padding-block: 8px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; color: #6A6E76; letter-spacing: .06em;">
+<span>00 · 02 · 04 · 06 · 08 · 10 · 12 · 14 · 16</span>
+<button type="button" style="font: inherit; color: #2258F4; background: none; border: 0; padding: 4px 0; cursor: pointer;">↻ 重播开场</button>
+</div>
+
+<section id="top" class="stage is-built" style="display: flex; flex-wrap: wrap; gap: 56px; padding-block: 64px 56px; align-items: flex-start;">
+<div style="flex: 1 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 32px;">
+
+<div class="blk">
+<div class="wf"><span>LABEL</span></div>
+<p class="real" style="margin: 0; font-size: 20px; font-weight: 500; color: #4C5058;">你好，我是</p>
+</div>
+
+<div class="blk">
+<div class="wf"><span>TITLE · 1200</span></div>
+<div class="real" style="display: flex; flex-direction: column; gap: 14px; transition-delay: 60ms;">
+<h1 style="margin: 0; font-size: clamp(48px, 7.5vw, 104px); line-height: 1.05; font-weight: 700; letter-spacing: -0.02em;">陈俊学<span style="font-weight: 400; color: #7E838C;"> · Chen Junxue</span></h1>
+<p style="margin: 0; font-size: 20px; line-height: 1.5; color: #6A6E76;">工业设计背景的 B 端数据应用产品设计师</p>
+</div>
+</div>
+
+<div class="blk">
+<div class="wf"><span>COPY 01</span></div>
+<div class="real" style="display: flex; flex-direction: column; gap: 20px; max-width: 38em; font-size: 18px; line-height: 1.85; color: #3A3D44; transition-delay: 120ms;">
+<p style="margin: 0;">我之前是<span style="color: #16181D; border-bottom: 1px solid #CFCCC2;">合合信息</span>的产品设计师。2020 年加入后，我先做启信宝的 B 端客户端，后来负责启信产业大脑，一套给招商、产业服务和区域治理人员用的企业数据系统，从接手一直迭代到 2026 年。</p>
+<p style="margin: 0;">最近一年，我参与了 AI 报告平台 Qsight 从 0 到 1 的设计，负责核心交互方案和 Prompt 的基础框架，一直跟到 1.0 上线。业余时间，我在做两个自己的工具：一个给设计师用的前端可视化编辑插件，一个浏览器标签整理插件 TabPulse。</p>
+<p style="margin: 0;">毕业于<span style="border-bottom: 1px dotted #7E838C;">郑州轻工业大学</span>工业设计专业，现在住在<span style="border-bottom: 1px dotted #7E838C;">上海</span>。你可以发邮件到 <button type="button" style="display: inline; padding: 0; background: none; border: 0; border-bottom: 1px solid #CFCCC2; color: #16181D; font: inherit; cursor: pointer;">18101767127@163.com</button><span style="font-size: 14px; color: #2258F4;"> 复制</span>，也可以加微信 <span style="color: #16181D; border-bottom: 1px solid #CFCCC2;">chenbw0610</span>，或者<a href="#" style="color: #16181D; text-decoration: none; border-bottom: 1px solid #CFCCC2;">下载我的简历</a>。</p>
+</div>
+</div>
+
+<div class="blk">
+<div class="wf"><span>META</span></div>
+<p class="real" style="margin: 0; font-size: 14px; color: #6A6E76; transition-delay: 180ms;">更新于 2026 年 11 月</p>
+</div>
+
+
+</div>
+
+<div class="blk" style="flex: 0 1 300px; min-width: 0; width: 100%;">
+<div class="wf"><span>PLATE 01</span></div>
+<figure class="real" style="margin: 0; display: flex; flex-direction: column; gap: 10px; transition-delay: 120ms;">
+<div style="aspect-ratio: 4 / 5; max-width: 100%; border: 1px solid #CFCCC2; background: #EFEDE6; display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; color: #6A6E76;">[ 替换为你的照片 ]</div>
+<figcaption style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: .06em; color: #6A6E76;">PLATE 01 · 人像 · 4:5</figcaption>
+</figure>
+</div>
+</section>
+
+<section id="work" style="display: flex; flex-direction: column; gap: 24px; padding-top: 24px;">
+<div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 12px; border-top: 1px solid #CFCCC2; padding-top: 16px;">
+<h2 style="margin: 0; font-size: 28px; font-weight: 700;">精选案例</h2>
+<span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: .06em; color: #6A6E76;">CASE 01 / 03</span>
+</div>
+
+<article style="display: flex; flex-wrap: wrap; background: #FFFFFF; border: 1px solid #DDDAD1;">
+<div style="flex: 1 1 360px; min-width: 0; padding: 40px; display: flex; flex-direction: column; gap: 24px;">
+<span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: .08em; color: #2258F4;">合合信息 · AI 报告平台 Qsight · 2025.04 — 2026.05</span>
+<h3 style="margin: 0; font-size: 26px; line-height: 1.35; font-weight: 700; text-wrap: balance;">让研究员敢把报告交给 AI 写</h3>
+<div style="display: flex; flex-direction: column; gap: 12px;">
+<p style="margin: 0; font-size: 15px; line-height: 1.8; color: #2B2E35;">研究员写一份区域监测报告，大半天都花在找资料上。他们也不敢让 AI 直接写全文，因为结构容易跑偏，数字查不到出处。</p>
+<p style="margin: 0; font-size: 15px; line-height: 1.8; color: #2B2E35;">我们把大纲确认和数据范围放到生成之前，再让正文每一段都能点回它的来源。我负责交互方案和 Prompt 的基础框架，一直跟到 1.0 上线。</p>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 32px; border-top: 1px solid #DDDAD1; padding-top: 16px;">
+<div style="display: flex; flex-direction: column; gap: 4px;"><span style="font-size: 20px; font-weight: 700; font-variant-numeric: tabular-nums;">2~3 天 → 20 分钟</span><span style="font-size: 13px; color: #5A5E66;">全流程交付</span></div>
+<div style="display: flex; flex-direction: column; gap: 4px;"><span style="font-size: 20px; font-weight: 700; font-variant-numeric: tabular-nums;">约 50% → 80%</span><span style="font-size: 13px; color: #5A5E66;">关键事实可溯源</span></div>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px;">
+<span style="font-size: 12px; padding: 4px 10px; border: 1px solid #DDDAD1; color: #4C5058;">AI Agent</span>
+<span style="font-size: 12px; padding: 4px 10px; border: 1px solid #DDDAD1; color: #4C5058;">Prompt 框架</span>
+<span style="font-size: 12px; padding: 4px 10px; border: 1px solid #DDDAD1; color: #4C5058;">复杂 B 端</span>
+</div>
+<a href="#" style="align-self: flex-start; display: inline-flex; align-items: center; min-height: 44px; font-size: 15px; font-weight: 500; text-decoration: none;">阅读案例 →</a>
+</div>
+
+<div class="tint" style="flex: 1.4 1 520px; min-width: 0; padding: 32px; display: flex; flex-direction: column; gap: 16px; border-left: 1px solid #DDDAD1;">
+<div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-start;">
+
+<div style="flex: 1 1 240px; min-width: 0; background: #FFFFFF; border: 1px solid #D6DCEE; padding: 16px; display: flex; flex-direction: column; gap: 10px;">
+<div style="display: flex; justify-content: space-between; align-items: baseline; gap: 8px;">
+<span style="font-size: 13px; font-weight: 700;">正在进行生成</span>
+<span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; color: #6A6E76;">4m56s</span>
+</div>
+<div style="display: flex; gap: 8px; align-items: baseline; font-size: 12px; line-height: 1.5;"><span style="flex: 0 0 7px; height: 7px; border-radius: 50%; background: #0F7A55;"></span><span style="min-width: 0;"><b style="font-weight: 500;">已完成</b> 4 路并发检索 · 福田区产业 / 企业数据</span></div>
+<div style="display: flex; gap: 8px; align-items: baseline; font-size: 12px; line-height: 1.5;"><span style="flex: 0 0 7px; height: 7px; border-radius: 50%; background: #2258F4;"></span><span style="min-width: 0;"><b style="font-weight: 500;">正在合流</b> 三工具结果汇入统一候选池</span></div>
+<div style="display: flex; gap: 8px; align-items: baseline; font-size: 12px; line-height: 1.5;"><span style="flex: 0 0 7px; height: 7px; border-radius: 50%; background: #C0362C;"></span><span style="min-width: 0;"><b style="font-weight: 500;">调用失败</b> <span style="font-family: 'JetBrains Mono', ui-monospace, monospace;">big_document_process</span></span></div>
+<div style="display: flex; gap: 8px; align-items: baseline; font-size: 12px; line-height: 1.5;"><span style="flex: 0 0 7px; height: 7px; border-radius: 50%; background: #A15C00;"></span><span style="min-width: 0;"><b style="font-weight: 500;">触发重试</b> 第 1 次 / 上限 2 次</span><span style="flex: 0 0 18px; height: 18px; border-radius: 50%; background: #2258F4; color: #FFFFFF; font: 500 10px/18px 'JetBrains Mono', ui-monospace, monospace; text-align: center;">2</span></div>
+<div style="display: flex; gap: 8px; align-items: baseline; font-size: 12px; line-height: 1.5;"><span style="flex: 0 0 7px; height: 7px; border-radius: 50%; background: #0F7A55;"></span><span style="min-width: 0;"><b style="font-weight: 500;">重试成功</b> 完成全局去重与简报提取</span></div>
+<div style="font-size: 12px; line-height: 1.5; background: #FBF3E4; color: #6B4300; padding: 8px 10px;"><b style="font-weight: 500;">事实声明</b> 海洋经济数据不足，未对缺失数据作假设</div>
+</div>
+
+<div style="flex: 1 1 240px; min-width: 0; display: flex; flex-direction: column; gap: 12px;">
+<div style="background: #FFFFFF; border: 1px solid #D6DCEE; padding: 16px; display: flex; flex-direction: column; gap: 8px;">
+<span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; color: #6A6E76;">报告正文 · 区域监测报告</span>
+<span style="font-size: 13px; font-weight: 700;">二、区域重点产业监测</span>
+<p style="margin: 0; font-size: 12px; line-height: 1.8; color: #2B2E35;">区域主导产业集中在软件与信息技术服务、智能机器人和集成电路<span style="display: inline-block; margin-left: 2px; padding: 0 4px; background: #E6EDFE; color: #1C47C9; font: 500 10px/16px 'JetBrains Mono', ui-monospace, monospace;">1</span><span style="display: inline-block; margin-left: 4px; width: 16px; height: 16px; border-radius: 50%; background: #2258F4; color: #FFFFFF; font: 500 10px/16px 'JetBrains Mono', ui-monospace, monospace; text-align: center;">1</span>，近期新设立的产业基金主要投向集成电路<span style="display: inline-block; margin-left: 2px; padding: 0 4px; background: #FBEBDD; color: #8A4307; font: 500 10px/16px 'JetBrains Mono', ui-monospace, monospace;">2</span>。</p>
+</div>
+<div style="background: #FFFFFF; border: 1px solid #2258F4; padding: 12px 14px; display: flex; flex-direction: column; gap: 4px; box-shadow: 0 6px 20px rgba(22, 24, 29, .08);">
+<span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; color: #1C47C9;">来源 [1] · 启信数据</span>
+<span style="font-size: 12px; line-height: 1.5; color: #2B2E35;">企业库事实依据 · 深圳市福田区 · 2026.01.01–01.07</span>
+</div>
+</div>
+
+</div>
+
+<div style="display: flex; flex-wrap: wrap; gap: 8px;">
+<span style="font-size: 11px; padding: 4px 8px; background: #E6EDFE; color: #1C47C9;">启信数据 · 企业库事实依据</span>
+<span style="font-size: 11px; padding: 4px 8px; background: #DDF2EA; color: #0B5E41;">知识库 · 材料补充</span>
+<span style="font-size: 11px; padding: 4px 8px; background: #FBEBDD; color: #8A4307;">互联网数据 · 公开信息校验</span>
+<span style="font-size: 11px; padding: 4px 8px; background: #EEE6FA; color: #5B33A8;">模型运算 · 推理与计算</span>
+</div>
+
+<ol style="margin: 0; padding: 12px 0 0; list-style: none; display: flex; flex-direction: column; gap: 8px; border-top: 1px dashed #9EB3EE;">
+<li style="display: flex; gap: 10px; font-size: 13px; line-height: 1.6;"><span style="flex: 0 0 18px; height: 18px; border-radius: 50%; background: #2258F4; color: #FFFFFF; font: 500 10px/18px 'JetBrains Mono', ui-monospace, monospace; text-align: center; margin-top: 2px;">1</span><span style="min-width: 0;"><b style="font-weight: 500;">来源就近绑定：</b>正文引用编号对应来源卡片，读到哪里，依据就在哪里，不再集中放在文末。</span></li>
+<li style="display: flex; gap: 10px; font-size: 13px; line-height: 1.6;"><span style="flex: 0 0 18px; height: 18px; border-radius: 50%; background: #2258F4; color: #FFFFFF; font: 500 10px/18px 'JetBrains Mono', ui-monospace, monospace; text-align: center; margin-top: 2px;">2</span><span style="min-width: 0;"><b style="font-weight: 500;">生成过程可见：</b>工具调用失败时显示重试次数和上限，用户知道系统在做什么。</span></li>
+</ol>
+</div>
+</article>
+</section>
+
+</div>
+</div>
+
+</body>
+</html>
