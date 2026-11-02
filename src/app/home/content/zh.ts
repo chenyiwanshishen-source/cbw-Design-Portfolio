@@ -20,6 +20,10 @@ export const navigation = [
 export const cases = [
   {
     id: 'ai-report',
+    name: 'Qsight · AI 报告平台',
+    summary: '帮助研究员生成报告，并追溯内容和数据的来源。',
+    period: '2025.04–2026.05',
+    responsibility: '核心交互设计、Prompt 基础框架',
     meta: '合合信息 · AI 报告平台 Qsight · 2025.04 — 2026.05',
     title: '让研究员敢把报告交给 AI 写',
     context: '研究员写一份区域监测报告，大半天都花在找资料上。他们也不敢让 AI 直接写全文，因为结构容易跑偏，数字查不到出处。',
@@ -30,6 +34,10 @@ export const cases = [
   },
   {
     id: 'qixin-brain',
+    name: '启信产业大脑',
+    summary: '帮助招商、产业服务和区域治理人员查询企业数据、搭建本地产业链。',
+    period: '2020–2026',
+    responsibility: '产品设计、产业链图谱、首页工作台与组件库',
     meta: '合合信息 · 启信产业大脑 · 2020 — 2026',
     title: '让招商人员自己搭本地产业链',
     context: '每个地区对产业链怎么划分、哪些企业算本地特色，理解都不一样。以前用户提了需求，要等我们梳理结构、开发配置，改一次再等一轮。',
@@ -40,6 +48,10 @@ export const cases = [
   },
   {
     id: 'explorations',
+    name: '前端可视化编辑工具',
+    summary: '在画布中直接调整组件样式，减少修改代码与切换工具的成本。',
+    period: '2026 年起，持续开发中',
+    responsibility: '产品定义、交互设计、架构与 AI 协作开发',
     meta: '个人项目 · VSCode 插件 · 2026',
     title: '改一个间距，不必让 AI 重写整段代码',
     context: '用 AI 生成前端之后，最费时间的反而是微调。改个间距或颜色，AI 会把整段组件重新输出一遍，还得在浏览器和编辑器之间来回找代码。',

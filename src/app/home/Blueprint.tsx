@@ -32,7 +32,7 @@ export function Blueprint({ onFinish }: { onFinish: () => void }) {
     const chosen: Element[] = [];
     const result: Frame[] = [];
     page.querySelectorAll<HTMLElement>(selectors).forEach(element => {
-      if (element.closest('.intro-blueprint') || chosen.some(parent => parent.contains(element))) return;
+      if (element.matches('.home-case-link') || element.closest('.intro-blueprint') || chosen.some(parent => parent.contains(element))) return;
       const rect = element.getBoundingClientRect();
       if (!rect.width || !rect.height) return;
       chosen.push(element);

@@ -31,9 +31,11 @@ body:has(.homepage) { background: var(--color-home-bg); }
 .home-intro-text { gap: var(--space-10); }
 .home-portrait { background: var(--color-home-placeholder); border: none; }
 .home-photo { padding-top: var(--space-8); }
-.home-case { background: var(--color-home-placeholder); }
-.home-case-copy { justify-content: flex-end; }
-.home-case-visual { min-height: calc(var(--space-24) * 5); }
+.home-case { background: var(--color-home-bg); border-top: var(--border-width) solid var(--color-border-subtle); }
+.home-case-link { color: var(--color-text); text-decoration: none; }
+.home-case-link:hover h3 { color: var(--color-accent); }
+.home-case-copy { justify-content: center; }
+.home-case-visual { min-height: calc(var(--space-24) * 3); background: var(--color-home-placeholder); }
 @media (min-width: 1024px) {
   .home-intro-text { display: contents; }
   .home-intro-text > [data-intro-block="LABEL"] { grid-column: 1 / 9; grid-row: 1; }
