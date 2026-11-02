@@ -86,7 +86,7 @@ export const qsight: CaseContent = {
             },
             {
               "kind": "subsection",
-              "title": "三轮访谈，收敛出三个关键问题",
+              "title": "通过三轮访谈，确定三个关键问题",
               "blocks": [
                 {
                   "kind": "paragraph",
@@ -128,7 +128,7 @@ export const qsight: CaseContent = {
               "blocks": [
                 {
                   "kind": "paragraph",
-                  "text": "沿报告生产旅程，把控制点放在三个阶段：生成前确认范围和大纲，生成中显示进度与异常，交付前核查每段来源。"
+                  "text": "我们把报告生成过程分成三个需要确认或核查的阶段：生成前确认范围和大纲，生成中显示进度与异常，交付前核查每段来源。"
                 },
                 {
                   "kind": "figures",

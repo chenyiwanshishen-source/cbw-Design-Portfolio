@@ -43,7 +43,7 @@ export const qixin: CaseContent & {
     },
     {
       "label": "方案",
-      "text": "按任务重组首页和功能；把产业链配置交给用户；用组件库保证长期一致。"
+      "text": "按任务重组首页和功能；把产业链配置交给用户；用组件库保持界面的一致性。"
     },
     {
       "label": "结果",
@@ -287,7 +287,7 @@ export const qixin: CaseContent & {
       "blocks": [
         {
           "kind": "paragraph",
-          "text": "企业分组已经和 AI 报告平台打通：用户在产业大脑里沉淀的企业名单，可以直接作为 AI 报告的企业范围。"
+          "text": "企业分组已经和 AI 报告平台打通：用户在产业大脑里积累的企业名单，可以直接作为 AI 报告的企业范围。"
         },
         {
           "kind": "figures",
