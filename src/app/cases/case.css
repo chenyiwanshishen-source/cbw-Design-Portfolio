@@ -15,7 +15,7 @@ body:has(.case-page) { background: var(--color-home-bg); }
 .case-chapters { min-width: 0; display: flex; flex-direction: column; gap: var(--rhythm-7); }
 .case-section { display: flex; flex-direction: column; gap: var(--rhythm-4); scroll-margin-top: var(--rhythm-4); min-width: 0; }
 .case-section:focus:not(:focus-visible) { outline: none; }
-.case-subsection { display: flex; flex-direction: column; gap: var(--rhythm-3); margin-top: var(--rhythm-5); min-width: 0; }
+.case-subsection { display: flex; flex-direction: column; gap: var(--rhythm-3); margin-top: var(--rhythm-2); min-width: 0; }
 .case-paragraph { max-width: var(--container-measure); font-size: var(--text-body); line-height: var(--text-body--line-height); color: var(--color-text-body); }
 .case-toc { display: none; }
 .case-figure { min-width: 0; }
@@ -88,3 +88,6 @@ body:has(.case-page) { background: var(--color-home-bg); }
 .case-subsection-plain h3 { font-weight: 400; }
 .case-subsection h4 { font-weight: 600; }
 .case-toc a:hover { color: var(--color-text); }
+
+/* Parent gap plus this offset totals the 40px subsection rhythm. */
+.case-subsection > .case-subsection { margin-top: var(--rhythm-3); }
