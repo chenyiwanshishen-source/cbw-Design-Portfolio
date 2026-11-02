@@ -24,7 +24,7 @@ export const explorations: { header: { title: string; intro: string }; statement
           "blocks": [
             {
               "kind": "paragraph",
-              "text": "我手上有一批 Qsight 的老设计稿，想让 AI 帮我查查颜色和组件用得乱不乱。可当时的 AI 读不到 Figma 文件，也改不了。所以我做了这个插件。"
+              "text": "我手上有一批 Qsight 的老设计稿，想让 AI 帮我查查颜色和组件用得乱不乱。可 AI 读不到 Figma 文件，也改不了，所以我先做了这个插件。后来扫描 Qsight 的 19 个历史页面，用的就是它。"
             },
             {
               "kind": "flow",
@@ -82,7 +82,7 @@ export const explorations: { header: { title: string; intro: string }; statement
       "blocks": [
         {
           "kind": "paragraph",
-          "text": "我用上面那个插件，让 AI 把 Qsight 的老设计稿过了一遍，理出颜色和基础规范，再做成前端组件。"
+          "text": "我用自己做的 Figma 连接器，让 AI 把 Qsight 的老设计稿过了一遍，理出颜色和基础规范，再做成前端组件。"
         },
         {
           "kind": "subsection",
@@ -112,6 +112,10 @@ export const explorations: { header: { title: string; intro: string }; statement
             {
               "kind": "paragraph",
               "text": "AI 很容易把看着差不多的颜色直接合成一个。可它们各管各的用途，不能随手合并。所以我让 AI 先别合，把每个颜色用在哪里列出来，再由我一个一个决定留哪个。"
+            },
+            {
+              "kind": "paragraph",
+              "text": "最后只留下页面上真正用到的用途，整理成 58 个按用途命名的颜色：文字 19 个，图标 6 个，背景 26 个，边框 7 个。原来一个颜色同时管文字和边框的，也按用途拆开了。"
             }
           ]
         },
@@ -135,34 +139,10 @@ export const explorations: { header: { title: string; intro: string }; statement
               ]
             }
           ]
-        },
-        {
-          "kind": "subsection",
-          "title": "从零做一套的话，我另有一个 Skill",
-          "blocks": [
-            {
-              "kind": "paragraph",
-              "text": "如果不是整理老稿，而是从零做一套设计系统，我会用另一个 Skill。它让 AI 按固定的步骤往下走，而且只让一个 AI 动手改，其他 AI 只负责检查。"
-            },
-            {
-              "kind": "flow",
-              "rows": [
-                {
-                  "steps": [
-                    "找风格方向",
-                    "定色板",
-                    "定基础规范",
-                    "做组件",
-                    "检查验收"
-                  ]
-                }
-              ]
-            }
-          ]
         }
       ],
       "url": "https://github.com/chenyiwanshishen-source/figma-design-system-workflow",
-      "status": "从零搭建的 Skill 已开源 · GitHub；组件库还在继续做"
+      "status": "从零搭设计系统时，我用的是另一个自己写的 Skill，也已开源 · GitHub。组件库还在继续做。"
     },
     {
       "id": "explorations-03",
@@ -202,7 +182,7 @@ export const explorations: { header: { title: string; intro: string }; statement
             },
             {
               "kind": "paragraph",
-              "text": "我不用去翻代码，找这个按钮写在哪里，工具会帮我找到。"
+              "text": "我不用再去翻代码找这个按钮写在哪里，工具会直接定位到。"
             },
             {
               "kind": "figures",
@@ -223,7 +203,7 @@ export const explorations: { header: { title: string; intro: string }; statement
           "blocks": [
             {
               "kind": "statement",
-              "text": "简单的我自己改，复杂的再交给 AI。"
+              "text": "简单的用工具直接改，复杂的再交给 AI。"
             },
             {
               "kind": "paragraph",
@@ -233,16 +213,16 @@ export const explorations: { header: { title: string; intro: string }; statement
         },
         {
           "kind": "subsection",
-          "title": "第一版是 VSCode 插件",
+          "title": "做到 v0.2.1，先放下了",
           "blocks": [
             {
               "kind": "paragraph",
-              "text": "第一版是装在 VSCode 里的插件，后来改成在 Codex 自带的浏览器里用。【待填：为什么换，一两句】"
+              "text": "第一版是装在 VSCode 里的插件，后来改成在 Codex 自带的浏览器里用。做到 v0.2.1 以后，这个项目先搁置了。【待填：为什么放下，一句】"
             }
           ]
         }
       ],
-      "status": "v0.2.1 已发布 · GitHub",
+      "status": "v0.2.1 · 已搁置 · GitHub",
       "url": "https://github.com/chenyiwanshishen-source/visual-code-canvas"
     },
     {
@@ -284,6 +264,23 @@ export const explorations: { header: { title: string; intro: string }; statement
                   "text": "按实际大小看，每块颜色至少 16 像素，放不下就少画点"
                 }
               ]
+            },
+            {
+              "kind": "figures",
+              "figures": [
+                {
+                  "plate": "PLATE 05",
+                  "title": "没有这些规矩时，AI 画的",
+                  "instruction": "要放：没有这些规矩时，AI 画的",
+                  "caption": "没有这些规矩时，AI 画的"
+                },
+                {
+                  "plate": "PLATE 06",
+                  "title": "按规矩画的",
+                  "instruction": "要放：按规矩画的",
+                  "caption": "按规矩画的"
+                }
+              ]
             }
           ]
         },
@@ -305,37 +302,37 @@ export const explorations: { header: { title: string; intro: string }; statement
               "kind": "figures",
               "figures": [
                 {
-                  "plate": "PLATE 05",
-                  "title": "作品集封面",
-                  "instruction": "要放：作品集封面",
-                  "caption": "作品集封面"
-                },
-                {
-                  "plate": "PLATE 06",
-                  "title": "作品集封面",
-                  "instruction": "要放：作品集封面",
-                  "caption": "作品集封面"
-                },
-                {
                   "plate": "PLATE 07",
+                  "title": "作品集封面",
+                  "instruction": "要放：作品集封面",
+                  "caption": "作品集封面"
+                },
+                {
+                  "plate": "PLATE 08",
+                  "title": "作品集封面",
+                  "instruction": "要放：作品集封面",
+                  "caption": "作品集封面"
+                },
+                {
+                  "plate": "PLATE 09",
                   "title": "组件库封面",
                   "instruction": "要放：组件库封面",
                   "caption": "组件库封面"
                 },
                 {
-                  "plate": "PLATE 08",
+                  "plate": "PLATE 10",
                   "title": "ye! 书签空状态",
                   "instruction": "要放：ye! 书签空状态",
                   "caption": "ye! 书签空状态"
                 },
                 {
-                  "plate": "PLATE 09",
+                  "plate": "PLATE 11",
                   "title": "ye! 页签空状态",
                   "instruction": "要放：ye! 页签空状态",
                   "caption": "ye! 页签空状态"
                 },
                 {
-                  "plate": "PLATE 10",
+                  "plate": "PLATE 12",
                   "title": "ye! 搜索空状态",
                   "instruction": "要放：ye! 搜索空状态",
                   "caption": "ye! 搜索空状态"
@@ -353,6 +350,6 @@ export const explorations: { header: { title: string; intro: string }; statement
 export const explorationProjects = [
   { slug: 'figma-connector', chapter: 'explorations-01', name: 'Figma 连接器', cover: '连接器面板' },
   { slug: 'design-system', chapter: 'explorations-02', name: '设计系统', cover: '颜色审计与组件库' },
-  { slug: 'visual-code-canvas', chapter: 'explorations-03', name: 'Visual Code Canvas', cover: '画布与属性面板' },
   { slug: 'illustration-skill', chapter: 'explorations-04', name: '插画 Skill', cover: 'Micro-UI 插画作品' },
+  { slug: 'visual-code-canvas', chapter: 'explorations-03', name: 'Visual Code Canvas', cover: '画布与属性面板' },
 ].map(item => ({ ...item, href: `#/project/explorations/${item.slug}` }));
