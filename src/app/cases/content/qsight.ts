@@ -34,35 +34,56 @@ export const qsight: CaseContent = {
   },
   "toc": [
     {
+      "id": "qsight-challenge",
+      "label": "01 · 挑战"
+    },
+    {
       "id": "qsight-01",
-      "label": "01 · 定义问题"
+      "label": "02 · 定义问题"
     },
     {
       "id": "qsight-02",
-      "label": "02 · 关键设计决定"
+      "label": "03 · 关键设计决定"
     },
     {
       "id": "qsight-03",
-      "label": "03 · 最终方案"
+      "label": "04 · 最终方案"
     },
     {
       "id": "qsight-04",
-      "label": "04 · 结果"
+      "label": "05 · 结果"
     },
     {
       "id": "qsight-05",
-      "label": "05 · 下一步与反思"
+      "label": "06 · 下一步与反思"
     }
   ],
   "chapters": [
     {
+      "id": "qsight-challenge",
+      "label": "01 · 挑战",
+      "title": "研究员需要 AI 提效，却不敢直接交付它写的报告",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "写报告的大量时间耗在资料准备上。交给 AI 后，研究员仍担心结构跑偏、数字没有出处；生成后再返工，可能还不如自己重写。"
+        },
+        {
+          "kind": "quotes",
+          "texts": [
+            "“AI 给出的数字看着很真，但查不到来源，我肯定不敢交。”"
+          ]
+        }
+      ]
+    },
+    {
       "id": "qsight-01",
-      "label": "01 · 定义问题",
+      "label": "02 · 定义问题",
       "title": "先让用户掌握方向，再让 AI 写报告",
       "blocks": [
         {
           "kind": "paragraph",
-          "text": "研究员的时间耗在找资料上，也担心 AI 写偏、数字无据可查。设计重点是把范围与大纲确认前置，让生成过程可见、正文来源可追溯。"
+          "text": "设计重点是把范围与大纲确认前置，让生成过程可见、正文来源可追溯。"
         },
         {
           "kind": "subsection",
@@ -127,7 +148,7 @@ export const qsight: CaseContent = {
     },
     {
       "id": "qsight-02",
-      "label": "02 · 关键设计决定",
+      "label": "03 · 关键设计决定",
       "title": "把信任放进操作过程",
       "blocks": [
         {
@@ -192,7 +213,7 @@ export const qsight: CaseContent = {
     },
     {
       "id": "qsight-03",
-      "label": "03 · 最终方案",
+      "label": "04 · 最终方案",
       "title": "沿着报告生产流程，逐步建立控制感",
       "blocks": [
         {
@@ -364,7 +385,7 @@ export const qsight: CaseContent = {
     },
     {
       "id": "qsight-04",
-      "label": "04 · 结果",
+      "label": "05 · 结果",
       "title": "1.0 在试点客户上线后的变化",
       "blocks": [
         {
@@ -397,7 +418,7 @@ export const qsight: CaseContent = {
     },
     {
       "id": "qsight-05",
-      "label": "05 · 下一步与反思",
+      "label": "06 · 下一步与反思",
       "title": "留下可维护的边界，减少写死的规则",
       "blocks": [
         {
