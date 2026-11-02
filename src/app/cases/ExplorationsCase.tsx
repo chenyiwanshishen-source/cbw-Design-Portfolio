@@ -45,10 +45,10 @@ export function ExplorationsCase() {
             <div className="exploration-lead">
               {wallFlow?.kind === 'flow' ? <StoryDiagram block={wallFlow} /> : lead.figure && <FigurePlaceholder {...lead.figure} />}
               <div><h2 id={`${chapter.id}-title`}>{chapter.title}</h2>{intro && <p className="case-paragraph">{intro}</p>}
-                <p className="exploration-status"><CaseText text={chapter.status.split('GitHub')[0]} />{chapter.url && <><a href={chapter.url} target="_blank" rel="noreferrer">GitHub</a><CaseText text={chapter.status.split('GitHub')[1] ?? ''} /></>}</p>
               </div>
             </div>
             <CaseBlocks blocks={rest} labels={labels} />
+                <p className="exploration-status"><CaseText text={chapter.status.split('GitHub')[0]} />{chapter.url && <><a href={chapter.url} target="_blank" rel="noreferrer">GitHub</a><CaseText text={chapter.status.split('GitHub')[1] ?? ''} /></>}</p>
           </section>;
         })}
       </div></div>
