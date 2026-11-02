@@ -34,7 +34,7 @@ body:has(.homepage) { background: var(--color-home-bg); }
 .home-case { background: var(--color-home-bg); border-top: var(--border-width) solid var(--color-border-subtle); }
 .home-case:first-child { border-top: none; }
 .home-case-link { color: var(--color-text); text-decoration: none; }
-.home-case-link:hover h3 { color: var(--color-accent); }
+
 .home-case-copy { justify-content: center; }
 .home-case-visual { min-height: calc(var(--space-24) * 3); background: var(--color-home-placeholder); }
 @media (min-width: 1024px) {
@@ -95,3 +95,38 @@ body:has(.homepage) { background: var(--color-home-bg); }
 .blueprint-progress { position: absolute; bottom: var(--space-6); left: var(--space-6); font: var(--text-label) var(--font-mono); color: var(--color-blueprint-bg); background: var(--color-on-accent); padding: var(--space-1); }
 
 .blueprint-document { position: absolute; inset: 0; transform: translate(var(--draft-scroll-x, 0px), var(--draft-scroll-y, 0px)); }
+
+/* Interactive project rows, shared by homepage and component gallery. */
+.home-case { position: relative; }
+.home-case-link { min-height: 280px; padding-block: var(--space-10); position: relative; align-items: center; display: flex; }
+.home-case-copy { width: 32%; transition: filter var(--dur-fast) var(--ease-settle); }
+.is-muted .case-desktop .home-case-copy { filter: blur(4px); }
+.is-active { z-index: 2; }
+.case-previews { position: absolute; left: 36%; right: 0; top: 50%; height: 190px; transform: translateY(-50%); pointer-events: none; }
+.case-preview { width: 250px; height: 190px; position: absolute; opacity: 0; transform: translateY(64px) scale(.95); transition: transform 250ms var(--ease-settle), opacity var(--dur-fast); background: var(--color-home-placeholder); border: 1px solid var(--color-border-subtle); }
+.case-preview-0 { right: calc(2 * max(0px, min(225px, 50% - 125px))); }
+.case-preview-1 { right: max(0px, min(225px, 50% - 125px)); top: 8px; }
+.case-preview-2 { right: 0; top: 8px; }
+.is-active .case-preview { opacity: 1; }
+.is-active .case-preview-0 { transform: rotate(-8deg); }
+.is-active .case-preview-1 { transform: rotate(10deg); transition-delay: 35ms; }
+.is-active .case-preview-2 { transform: rotate(-7.2deg); transition-delay: 70ms; }
+.case-placeholder { display: flex; width: 100%; height: 100%; align-items: center; justify-content: center; font: var(--text-micro) var(--font-mono); color: var(--color-text-meta); }
+.case-mobile { display: none; }
+.home-case-link:focus-visible .case-preview { transition: none; }
+.gallery-swatches { display: flex; gap: var(--space-6); }
+.gallery-swatch { display: block; width: var(--space-16); height: var(--space-16); border: 1px solid var(--color-border-subtle); }
+.gallery-bg { background: var(--color-home-bg); }.gallery-text { background: var(--color-text); }.gallery-accent { background: var(--color-accent); }.gallery-placeholder { background: var(--color-home-placeholder); }
+.gallery-button { border: 1px solid var(--color-border); }.gallery-button[aria-pressed="true"] { background: var(--color-text); color: var(--color-home-bg); }
+@media (max-width: 700px), (hover: none) {
+  .case-desktop { display: none; }
+  .case-mobile { display: flex; flex-direction: column; gap: var(--space-5); padding-block: var(--space-10); }
+  .case-mobile .home-case-copy { width: 100%; }
+  .case-strip { display: flex; overflow-x: auto; gap: 8px; scroll-snap-type: x mandatory; }
+  .case-slide { flex: 0 0 calc(100% - 32px); aspect-ratio: 890 / 676; scroll-snap-align: start; background: var(--color-home-placeholder); }
+  .case-dots { display: flex; }
+  .case-dots button { min-width: var(--touch-target); min-height: var(--touch-target); display: grid; place-items: center; }
+  .case-dots span { width: 6px; height: 6px; border-radius: 50%; background: var(--color-text-meta); }
+  .case-dots [aria-pressed="true"] span { width: 16px; border-radius: 8px; background: var(--color-text); }
+}
+@media (prefers-reduced-motion: reduce) { .case-preview, .home-case-copy { transition: none; } .is-active .case-preview { transform: none; } }

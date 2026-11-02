@@ -3,7 +3,8 @@ import { Ruler } from './Ruler';
 import { Blueprint } from './Blueprint';
 import { useIntroOpening } from './useIntroOpening';
 import { Intro } from './Intro';
-import { CaseCard } from './CaseCard';
+import { CaseList } from './CaseCard';
+import { ComponentGallery } from './ComponentGallery';
 import { cases, navigation } from './content/zh';
 import './home.css';
 
@@ -18,13 +19,15 @@ export function HomePage({ route }: { route: string }) {
     });
     return () => cancelAnimationFrame(frame);
   }, [route]);
+  useEffect(() => { if (route === '#replay') setReplay(value => value + 1); }, [route]);
+  if (route === '#components') return <ComponentGallery />;
   return <div className="homepage">
     <div className="mx-auto w-full max-w-content">
       <Ruler onReplay={() => setReplay(value => value + 1)} />
       <Intro />
       <div className="flex flex-col gap-24 pb-24">
         <section id="work" aria-label="项目" className="flex flex-col gap-6">
-          {cases.map(item => <CaseCard key={item.id} item={item} />)}
+          <CaseList items={cases} />
         </section>
         {[['ai', 'AI 工作流'], ['exp', '经历'], ['about', '关于 / 页脚']].map(([id, title]) => <section id={id} key={id} aria-labelledby={`${id}-title`} className="flex flex-col gap-6 border-t border-border pt-4"><h2 id={`${id}-title`} className="text-h2 font-normal text-balance">{title}</h2><p className="text-body text-text-secondary">[待补充]</p></section>)}
       </div>
