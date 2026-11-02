@@ -1,6 +1,6 @@
 import { useLayoutEffect, useRef, useState, type CSSProperties } from 'react';
 
-type Frame = { x: number; y: number; width: number; height: number; full: number; label: string; ghost?: HTMLElement };
+type Frame = { x: number; y: number; width: number; height: number; full: number; target: number; label: string; ghost?: HTMLElement };
 const typography = ['font-family', 'font-size', 'font-weight', 'font-style', 'line-height', 'letter-spacing', 'word-spacing', 'white-space', 'text-wrap', 'text-align', 'display', 'padding', 'margin', 'vertical-align', 'gap', 'flex-direction', 'align-items'];
 
 // Copy the real typesetting, including nested romanized names and inline links.
@@ -37,23 +37,53 @@ export function Blueprint({ onFinish }: { onFinish: () => void }) {
       if (rect.bottom <= 0 || rect.top >= innerHeight || !rect.width || !rect.height) return;
       chosen.push(element);
       const media = element.matches('.home-portrait,.home-case-visual');
+      const range = document.createRange(); range.selectNodeContents(element);
+      const ink = range.getBoundingClientRect();
+      const target = media ? rect.width : Math.min(rect.width, Math.max(ink.width, 12));
       result.push({ x: rect.left, y: rect.top, width: rect.width, height: rect.height,
-        full: Math.max(rect.width, root.right - rect.left), label: media ? 'IMAGE' : element.tagName === 'H1' ? 'TITLE' : 'TYPE',
+        target, full: media ? rect.width : Math.max(rect.width, root.right - rect.left), label: media ? 'IMAGE' : element.tagName === 'H1' ? 'TITLE' : element.matches('button,a') ? 'CONTROL' : 'COPY',
         ghost: media ? undefined : ghostOf(element) });
     });
     setFrames(result);
+    let tick = 0;
+    const began = performance.now();
+    const update = () => {
+      ref.current?.querySelectorAll<HTMLElement>('.blueprint-part').forEach(part => {
+        const box = part.querySelector<HTMLElement>('.blueprint-frame');
+        const dimension = part.querySelector<HTMLElement>('.blueprint-dimension');
+        if (box && dimension) {
+          const width = box.getBoundingClientRect().width;
+          dimension.style.width = `${width}px`;
+          dimension.dataset.value = `${Math.round(width)} × ${Math.round(box.getBoundingClientRect().height)}`;
+        }
+      });
+      const progress = ref.current?.querySelector<HTMLElement>('.blueprint-progress');
+      if (progress) progress.textContent = `${Math.min(100, Math.round((performance.now() - began) / 42))}%`;
+      tick = requestAnimationFrame(update);
+    };
+    tick = requestAnimationFrame(update);
     // Never leave a measured overlay detached from its live content.
     window.addEventListener('scroll', onFinish, { passive: true });
     window.addEventListener('resize', onFinish);
-    return () => { window.removeEventListener('scroll', onFinish); window.removeEventListener('resize', onFinish); };
+    return () => { cancelAnimationFrame(tick); window.removeEventListener('scroll', onFinish); window.removeEventListener('resize', onFinish); };
   }, [onFinish]);
+  const gaps = frames.flatMap((frame, index) => {
+    const previous = frames.slice(0, index).filter(other => Math.abs(other.x - frame.x) < 4 && other.y + other.height <= frame.y).sort((a, b) => b.y - a.y)[0];
+    if (!previous || frame.y - previous.y - previous.height < 12) return [];
+    return [{ x: Math.max(10, frame.x - 16), y: previous.y + previous.height, height: frame.y - previous.y - previous.height }];
+  });
   return <div ref={ref} className="intro-blueprint" aria-hidden="true" onAnimationEnd={event => {
     if (event.target === event.currentTarget) onFinish();
   }}>
-    {frames.map((frame, index) => <div key={index} className="blueprint-part" style={{ left: frame.x, top: frame.y, width: frame.width, height: frame.height, '--i': Math.min(index, 12), '--full': `${frame.full}px`, '--width': `${frame.width}px` } as CSSProperties}>
-      <div className={`blueprint-frame ${frame.ghost ? '' : 'blueprint-image'}`}>
-        <span className="blueprint-caption">{frame.label} · {Math.round(frame.width)} × {Math.round(frame.height)}</span>
-      </div>
+    <svg width="0" height="0" aria-hidden="true"><defs><filter id="draft-rough"><feTurbulence type="fractalNoise" baseFrequency=".045 .18" numOctaves="2" seed="7" result="grain" /><feDisplacementMap in="SourceGraphic" in2="grain" scale="1.15" xChannelSelector="R" yChannelSelector="G" /></filter></defs></svg>
+    <div className="blueprint-paper" />
+    <span className="blueprint-note">layout study · 1:1</span><span className="blueprint-progress">0%</span>
+    {gaps.map((gap, index) => <span key={index} className="blueprint-gap" style={{ left: gap.x, top: gap.y, height: gap.height }} data-value={Math.round(gap.height)} />)}
+    {frames.map((frame, index) => <div key={index} className="blueprint-part" style={{ left: frame.x, top: frame.y, width: frame.width, height: frame.height, '--i': Math.min(index, 12), '--full': `${frame.full}px`, '--width': `${frame.target}px` } as CSSProperties}>
+      <span className="blueprint-guide" />
+      <div className={`blueprint-frame ${frame.ghost ? frame.label === 'CONTROL' ? 'blueprint-control' : 'blueprint-copy' : 'blueprint-image'}`} />
+      <span className="blueprint-caption">{frame.label} {String(index + 1).padStart(2, '0')}</span>
+      <span className="blueprint-dimension" data-value={`${Math.round(frame.full)} × ${Math.round(frame.height)}`} />
       {frame.ghost && <div className={`blueprint-words ${frame.label === 'TITLE' ? 'blueprint-title' : ''}`} ref={node => { if (node && !node.firstChild) { node.setAttribute('inert', ''); node.appendChild(frame.ghost!); } }} />}
     </div>)}
   </div>;

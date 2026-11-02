@@ -33,3 +33,37 @@ dist/assets/ProjectDetail-Cwf1AvOj.js       193.54 kB │ gzip:  57.16 kB
 dist/assets/index-C9fxALYy.js               288.66 kB │ gzip: 100.51 kB
 ✓ built in 1.85s
 ```
+
+## 手绘制图层次修订
+
+按用户提供截图增加斜线填充、双对角图片框、虚线控件框、低对比辅助线、白底编号标签、宽高尺寸线和同列块间距。宽高在 requestAnimationFrame 中读取动画框实时尺寸；进度为实际已播放时间。SVG 轻微噪声位移仅作用于线条。
+
+浏览器确认 11 个填充文字块、9 个间距标注，线框应用 draft-rough 滤镜；已看到黑底虚实线框与斜线填充的初始阶段。连续截帧时视口发生滚动，动画按设计结束，因此此次没有取得完整测量阶段截图，不宣称逐帧视觉验收通过。
+
+### 本次 build 原始输出
+
+```text
+
+> @figma/my-make-file@0.0.1 build
+> vite build
+
+vite v6.3.5 building for production...
+transforming...
+✓ 2035 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                               0.90 kB │ gzip:   0.51 kB
+dist/assets/index-CMoBu8nH.css              176.50 kB │ gzip:  31.82 kB
+dist/assets/HomeContent-DgMjGf5B.js           0.13 kB │ gzip:   0.14 kB
+dist/assets/index-DFFIvAkJ.js                 4.93 kB │ gzip:   2.29 kB
+dist/assets/ScrollArea-DWWsS19-.js            5.25 kB │ gzip:   1.80 kB
+dist/assets/ProjectCaseNav-xxwdHBLU.js        5.57 kB │ gzip:   1.82 kB
+dist/assets/Nav-CN-NyR-p.js                   9.58 kB │ gzip:   3.47 kB
+dist/assets/Footer-DL_2DszQ.js               45.07 kB │ gzip:  18.78 kB
+dist/assets/ExplorationsPage-DjP6Hohk.js     51.28 kB │ gzip:  11.83 kB
+dist/assets/proxy-CNZr2ZBK.js               124.07 kB │ gzip:  40.48 kB
+dist/assets/QixinProjectDetail-g8Db10Ly.js  150.59 kB │ gzip:  35.86 kB
+dist/assets/ProjectDetail-w92Tcm0i.js       193.54 kB │ gzip:  57.16 kB
+dist/assets/index-BgUZ2KfO.js               290.52 kB │ gzip: 101.25 kB
+✓ built in 1.93s
+```

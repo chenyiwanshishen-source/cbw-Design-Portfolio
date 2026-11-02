@@ -122,6 +122,9 @@
 
   --color-home-bg: #FFFFFF;
   --color-home-placeholder: #F3F4F5;
+  --color-blueprint-faint: rgba(255,255,255,.10);
+  --color-blueprint-soft: rgba(255,255,255,.48);
+  --color-blueprint-fill: rgba(255,255,255,.08);
   --color-blueprint-bg: #101114;
   --color-blueprint-line: rgba(255, 255, 255, 0.25);
   --text-home-role: clamp(28px, 4vw, 56px);
