@@ -1,6 +1,5 @@
-import { Suspense, lazy, useEffect, useRef, useState } from "react";
+import { Suspense, lazy, useEffect, useState } from "react";
 import { ArrowUp } from "lucide-react";
-import { PortfolioLoader } from "./components/PortfolioLoader";
 import { ProjectRouteLoader } from "./components/ProjectRouteLoader";
 import {
   loadAiProjectDetail,
@@ -26,12 +25,6 @@ const HomeContent = lazy(() =>
   loadHomeContent().then((module) => ({ default: module.HomeContent }))
 );
 const Nav = lazy(() => loadNav().then((module) => ({ default: module.Nav })));
-const ParticleField = lazy(() =>
-  import("./components/ParticleField").then((module) => ({ default: module.ParticleField }))
-);
-const ScopeCursor = lazy(() =>
-  import("./components/ScopeCursor").then((module) => ({ default: module.ScopeCursor }))
-);
 const ViewportScrollbars = lazy(() =>
   import("./components/ScrollArea").then((module) => ({ default: module.ViewportScrollbars }))
 );
@@ -47,57 +40,6 @@ function isProjectDetailRoute(route: string) {
 }
 
 export default function App() {
-  const [mounted, setMounted] = useState(false);
-  const [portfolioEntered, setPortfolioEntered] = useState(false);
-  const [hasFinePointer, setHasFinePointer] = useState(false);
-  useEffect(() => setMounted(true), []);
-  useEffect(() => {
-    const media = window.matchMedia("(hover: hover) and (pointer: fine) and (min-width: 768px)");
-    const updatePointer = () => setHasFinePointer(media.matches);
-    updatePointer();
-    media.addEventListener("change", updatePointer);
-    return () => media.removeEventListener("change", updatePointer);
-  }, []);
-
-  // Cursor-following grid spotlight
-  const gridRef = useRef<HTMLDivElement | null>(null);
-  useEffect(() => {
-    const el = gridRef.current;
-    if (!el) return;
-    let raf = 0;
-    let tx = window.innerWidth / 2;
-    let ty = window.innerHeight / 2;
-    let cx = tx;
-    let cy = ty;
-    const stopThreshold = 0.35;
-    el.style.setProperty("--mx", `${cx}px`);
-    el.style.setProperty("--my", `${cy}px`);
-    const tick = () => {
-      cx += (tx - cx) * 0.18;
-      cy += (ty - cy) * 0.18;
-      el.style.setProperty("--mx", `${cx}px`);
-      el.style.setProperty("--my", `${cy}px`);
-      if (Math.abs(tx - cx) > stopThreshold || Math.abs(ty - cy) > stopThreshold) {
-        raf = requestAnimationFrame(tick);
-      } else {
-        raf = 0;
-      }
-    };
-    const requestTick = () => {
-      if (!raf) raf = requestAnimationFrame(tick);
-    };
-    const onMove = (e: MouseEvent) => {
-      tx = e.clientX;
-      ty = e.clientY;
-      requestTick();
-    };
-    window.addEventListener("mousemove", onMove);
-    return () => {
-      window.removeEventListener("mousemove", onMove);
-      if (raf) cancelAnimationFrame(raf);
-    };
-  }, [mounted]);
-
   const [showBackToTop, setShowBackToTop] = useState(false);
   useEffect(() => {
     const onScroll = () => setShowBackToTop(window.scrollY > window.innerHeight);
@@ -162,7 +104,7 @@ export default function App() {
   }, [isAiDetail, isQixinDetail, isExplorations]);
 
   useEffect(() => {
-    if (!portfolioEntered) return;
+    if (!isProjectDetailRoute(route)) return;
 
     const main = document.querySelector("main");
     if (!main) return;
@@ -267,7 +209,7 @@ export default function App() {
         image.removeEventListener("error", onImageSettled);
       });
     };
-  }, [portfolioEntered, route]);
+  }, [route]);
 
   const detailFallback =
     routeLoaderHref || isProjectRouteReady(route) ? null : <ProjectRouteLoader route={route} />;
@@ -291,59 +233,15 @@ export default function App() {
   );
 
   return (
-    <div className="relative min-h-screen bg-[#FAFBFF] text-[#1A1C24] overflow-x-clip selection:bg-[#E5EBFF] selection:text-[#1A1C24]">
-      {/* Animated grid background — cursor spotlight */}
-      <div
-        ref={gridRef}
-        className="pointer-events-none fixed inset-0 z-0"
-        style={{
-          backgroundImage:
-            "linear-gradient(rgba(34,88,244,0.10) 1px, transparent 1px), linear-gradient(90deg, rgba(34,88,244,0.10) 1px, transparent 1px)",
-          backgroundSize: "40px 40px",
-          maskImage:
-            "radial-gradient(circle 220px at var(--mx, 50%) var(--my, 50%), #1A1C24 0%, rgba(26,28,36,0.55) 45%, transparent 100%)",
-          WebkitMaskImage:
-            "radial-gradient(circle 220px at var(--mx, 50%) var(--my, 50%), #1A1C24 0%, rgba(26,28,36,0.55) 45%, transparent 100%)",
-        }}
-      />
-
-      {/* Floating gradient orbs — toned down for light theme */}
-      {portfolioEntered && <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
-        <div
-          className="absolute top-1/3 -right-40 size-[600px] rounded-full blur-[160px] opacity-[0.08]"
-          style={{ background: "radial-gradient(circle, #2258F4, transparent 70%)" }}
-        />
-      </div>}
-
-      {/* Noise overlay */}
-      <div
-        className="pointer-events-none fixed inset-0 z-0 opacity-[0.02] mix-blend-overlay"
-        style={{
-          backgroundImage:
-            'url("data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22120%22 height=%22120%22><filter id=%22n%22><feTurbulence baseFrequency=%220.9%22/></filter><rect width=%22120%22 height=%22120%22 filter=%22url(%23n)%22/></svg>")',
-        }}
-      />
-
-      {mounted && hasFinePointer && !routeLoaderHref && (
+    <div className="relative min-h-screen text-text">
+      {isProjectDetailRoute(route) && (
         <Suspense fallback={null}>
-          <ScopeCursor />
-        </Suspense>
-      )}
-      {mounted && portfolioEntered && (
-        <Suspense fallback={null}>
-          <ParticleField />
+          <Nav />
           <ViewportScrollbars />
         </Suspense>
       )}
-      <PortfolioLoader route={route} onEntered={() => setPortfolioEntered(true)} />
 
-      {portfolioEntered && (
-        <Suspense fallback={null}>
-          <Nav />
-        </Suspense>
-      )}
-
-      {portfolioEntered && routeLoaderHref && (
+      {routeLoaderHref && (
         <ProjectRouteLoader
           key={routeLoaderHref}
           route={routeLoaderHref}
@@ -354,7 +252,7 @@ export default function App() {
       )}
 
       {/* Global back-to-top */}
-      {showBackToTop && (
+      {isProjectDetailRoute(route) && showBackToTop && (
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           className="fixed bottom-5 left-1/2 z-40 group inline-flex -translate-x-1/2 items-center rounded-full bg-white p-2 text-[#1A1C24] transition-all duration-300 hover:shadow-[0_0_40px_rgba(34,88,244,0.45)] sm:bottom-8 sm:gap-3 sm:py-2 sm:pl-7 sm:pr-2"
@@ -366,7 +264,7 @@ export default function App() {
         </button>
       )}
 
-      <main className="relative z-10">{portfolioEntered ? portfolioContent : null}</main>
+      <main className="relative z-10">{portfolioContent}</main>
     </div>
   );
 }

@@ -2,27 +2,6 @@
 @import './theme.css';
 @import './tokens.css';
 
-.contact-rail { position: fixed; z-index: 30; top: 38%; right: 0; display: flex; width: min(364px, 82vw); flex-direction: column; align-items: flex-end; gap: 0; pointer-events: none; }
-.contact-rail-hit { position: relative; width: var(--note-width, 340px); min-height: 58px; margin-top: var(--note-gap, 0); pointer-events: auto; }
-.contact-rail-note { --note-peek: 52px; --note-rest-x: calc(100% - var(--note-peek)); --note-open-rotate: 0deg; position: absolute; top: 0; right: 0; display: flex; width: var(--note-width, 340px); min-height: 58px; align-items: center; gap: 12px; padding: 10px 14px 10px 16px; border: 0; color: #30384b; pointer-events: auto; text-decoration: none; box-shadow: 0 2px 5px rgba(44, 59, 91, .1), 4px 7px 14px -10px rgba(44, 59, 91, .3); translate: var(--note-rest-x) 0; rotate: var(--note-open-rotate); transition: translate 520ms cubic-bezier(.22, 1, .36, 1); }
-.contact-rail:not(.is-scrolling) .contact-rail-hit.is-active .contact-rail-note { translate: 0 0; outline: none; }
-.contact-rail:not(.is-scrolling) .contact-rail-hit.is-active { z-index: 2; }
-.contact-rail.is-scrolling .contact-rail-note, .contact-rail.is-command-open .contact-rail-note { translate: var(--note-active-x) 0; }
-.contact-rail-note-0 { --note-width: 318px; --note-peek: 44px; --note-active-x: 18px; --note-open-rotate: -1.2deg; background: #edf3ff; }
-.contact-rail-note-1 { --note-width: 350px; --note-peek: 52px; --note-active-x: 34px; --note-open-rotate: 1.4deg; background: #fff9df; }
-.contact-rail-note-2 { --note-width: 332px; --note-peek: 58px; --note-active-x: 8px; --note-open-rotate: -.7deg; background: #eff9f1; }
-.contact-rail-note-3 { --note-width: 364px; --note-peek: 48px; --note-active-x: 26px; --note-open-rotate: 1.8deg; background: #f4efff; }
-.contact-rail-hit-0 { --note-width: 318px; --note-gap: 0; }
-.contact-rail-hit-1 { --note-width: 350px; --note-gap: 22px; }
-.contact-rail-hit-2 { --note-width: 332px; --note-gap: 19px; }
-.contact-rail-hit-3 { --note-width: 364px; --note-gap: 26px; }
-.contact-rail-icon { display: inline-flex; width: 28px; height: 28px; align-items: center; justify-content: center; color: #526b9f; }
-.contact-rail-icon svg { width: 17px; height: 17px; }
-.contact-rail-copy { display: flex; min-width: 0; flex-direction: column; gap: 2px; }
-.contact-rail-copy small { font-size: 14px; color: #69758b; }
-.contact-rail-copy strong { font-size: 14px; font-weight: 500; white-space: nowrap; }
-@media (prefers-reduced-motion: reduce) { .contact-rail-note { transition: none; } }
-@media (max-width: 767px) { .contact-rail { top: 34%; width: min(300px, 82vw); gap: 4px; } .contact-rail-hit, .contact-rail-note { --note-width: min(82vw, 300px); min-height: 52px; margin-top: 0; } .contact-rail-note { --note-peek: 36px; rotate: 0deg; } .contact-rail:not(.is-scrolling) .contact-rail-hit.is-active .contact-rail-note { translate: 0 0; } .contact-rail.is-scrolling .contact-rail-note, .contact-rail.is-command-open .contact-rail-note { translate: 0 0; } }
 
 .skills-sticky-note {
   position: relative;
