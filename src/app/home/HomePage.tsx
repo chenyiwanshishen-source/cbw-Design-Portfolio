@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { SiteHeader } from './SiteHeader';
 import { Ruler } from './Ruler';
 import { Intro } from './Intro';
@@ -7,6 +7,7 @@ import { cases, navigation } from './content/zh';
 import './home.css';
 
 export function HomePage({ route }: { route: string }) {
+  const [replay, setReplay] = useState(0);
   useEffect(() => {
     const frame = requestAnimationFrame(() => {
       const id = navigation.find(item => route === `#${item.id}`)?.id;
@@ -18,8 +19,8 @@ export function HomePage({ route }: { route: string }) {
   return <div className="homepage">
     <div className="mx-auto w-full max-w-content">
       <SiteHeader />
-      <Ruler />
-      <Intro />
+      <Ruler onReplay={() => setReplay(value => value + 1)} />
+      <Intro replay={replay} />
       <div className="flex flex-col gap-24 pb-24">
         <section id="work" aria-labelledby="work-title" className="flex flex-col gap-6">
           <div className="flex flex-wrap items-baseline justify-between gap-3 border-t border-border pt-4"><h2 id="work-title" className="text-h2 font-bold text-balance">精选案例</h2><span className="font-mono text-label text-text-meta">CASE 01 / 03</span></div>

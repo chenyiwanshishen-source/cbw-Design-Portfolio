@@ -1,7 +1,11 @@
 import { Fragment, useEffect, useRef, useState } from 'react';
 import { intro } from './content/zh';
+import { IntroBlock } from './IntroBlock';
+import { useIntroOpening } from './useIntroOpening';
 
-export function Intro() {
+export function Intro({ replay }: { replay: number }) {
+  const { playing, finish } = useIntroOpening(replay);
+  const blockProps = { playing, onFinish: finish };
   const [copied, setCopied] = useState(false);
   const copyTimer = useRef<ReturnType<typeof setTimeout>>();
   const mounted = useRef(true);
@@ -29,22 +33,22 @@ export function Intro() {
     });
   }
   return (
-    <section id="intro" aria-label="个人介绍" className="relative grid grid-cols-1 items-start gap-6 py-16 lg:grid-cols-12">
+    <section id="intro" aria-label="个人介绍" className={`intro-stage relative grid grid-cols-1 items-start gap-6 py-16 lg:grid-cols-12${playing ? " is-opening" : ""}`}>
       <div className="flex min-w-0 flex-col gap-8 lg:col-span-8">
-        <div data-intro-block="LABEL"><p className="text-lead font-medium text-text-secondary">{intro.greeting}</p></div>
-        <div data-intro-block="TITLE" className="flex flex-col gap-4">
+        <IntroBlock label="LABEL" index={0} {...blockProps}><p className="text-lead font-medium text-text-secondary">{intro.greeting}</p></IntroBlock>
+        <IntroBlock label="TITLE" index={1} {...blockProps}><div className="flex flex-col gap-4">
           <h1 className="text-display font-bold text-balance">{intro.name}<span className="font-normal text-text-display-muted">{intro.romanizedName}</span></h1>
           <p className="text-lead text-text-meta">{intro.role}</p>
-        </div>
-        <div data-intro-block="COPY" className="flex max-w-measure flex-col gap-5 text-body-lg text-text-body">
+        </div></IntroBlock>
+        <IntroBlock label="COPY" index={2} {...blockProps}><div className="flex max-w-measure flex-col gap-5 text-body-lg text-text-body">
           {intro.paragraphs.map((text) => <p key={text} data-intro-paragraph>{paragraph(text)}</p>)}
-        </div>
-        <div data-intro-block="META"><p className="text-caption text-text-meta">{intro.updated}</p></div>
+        </div></IntroBlock>
+        <IntroBlock label="META" index={3} {...blockProps}><p className="text-caption text-text-meta">{intro.updated}</p></IntroBlock>
       </div>
-      <figure data-intro-block="PLATE" className="flex min-w-0 flex-col gap-3 lg:col-span-4">
+      <IntroBlock label="PLATE" index={2} className="min-w-0 lg:col-span-4" {...blockProps}><figure className="flex min-w-0 flex-col gap-3">
         <div className="home-portrait flex items-center justify-center border border-border bg-surface-sunken p-6 font-mono text-micro text-text-meta">替换为你的照片</div>
         <figcaption className="font-mono text-label text-text-meta">PLATE 01 · 人像 · 4:5</figcaption>
-      </figure>
+      </figure></IntroBlock>
     </section>
   );
 }

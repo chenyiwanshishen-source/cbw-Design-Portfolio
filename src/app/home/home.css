@@ -9,6 +9,7 @@
 }
 .homepage button { cursor: pointer; }
 .home-inline {
+  font: inherit;
   color: var(--color-text);
   border-bottom: var(--border-width) solid var(--color-border);
 }
@@ -20,4 +21,43 @@
 .homepage ::selection { background: var(--color-accent-soft); color: var(--color-text); }
 @media (prefers-reduced-motion: reduce) {
   .homepage a, .homepage button { transition: none; }
+}
+
+/* Local wrappers follow their content through wrapping and resizing; no measured overlay or scroll lock. */
+.intro-block { position: relative; min-width: 0; }
+.intro-wire {
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-intro);
+  pointer-events: none;
+  border: var(--border-width) dashed var(--color-accent);
+  background: var(--hatch);
+  animation: intro-wire-draw var(--dur-draw) var(--ease-draw) both,
+    intro-wire-hide var(--dur-reveal) var(--ease-settle) forwards;
+  animation-delay: calc(var(--i) * var(--stagger)), calc(var(--dur-draw) + var(--i) * var(--stagger));
+}
+.intro-wire-label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: var(--space-1) var(--space-2);
+  color: var(--color-on-accent);
+  background: var(--color-accent);
+}
+.is-opening .intro-real {
+  animation: intro-reveal var(--dur-reveal) var(--ease-settle) both;
+  animation-delay: calc(var(--dur-draw) + var(--i) * var(--stagger));
+}
+@keyframes intro-wire-draw {
+  from { clip-path: inset(0 100% 0 0); opacity: 0.5; }
+  to { clip-path: inset(0); opacity: 1; }
+}
+@keyframes intro-wire-hide { to { opacity: 0; } }
+@keyframes intro-reveal {
+  from { opacity: 0; transform: translateY(var(--space-2)); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .intro-wire { display: none; animation: none; }
+  .is-opening .intro-real { animation: none; opacity: 1; transform: none; }
 }

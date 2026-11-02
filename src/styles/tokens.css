@@ -82,7 +82,8 @@
   --z-intro: 50;
 }
 
-@theme {
+/* Keep semantic variables available to standalone CSS, including intro easing. */
+@theme static {
   /* ---------- 颜色 · 语义 token（组件只用这一层） ---------- */
   --color-bg: var(--paper-100);                /* 页面底色 */
   --color-surface: var(--paper-50);            /* 卡片、界面片段 */
