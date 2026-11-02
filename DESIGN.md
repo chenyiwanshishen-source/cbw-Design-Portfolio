@@ -138,3 +138,9 @@ Qsight 路由为 `#/project/ai-report`，使用 `src/app/cases/QsightCase.tsx`�
 按后续要求将“挑战”独立放在“定义问题”之前：一段困难说明、一条已有访谈原话，不增加装饰章标。目录同步为六章；定义问题保留设计方向与访谈发现，避免重复困难描述。
 
 后续目录调整：挑战与定义问题作为“概括”内的两个小节，原“关键设计决定”更名为“设计构思”。目录恢复五项；正文不新增章标。嵌套研究小节使用 H4 / 16px，保留语义层级。
+
+### 启信产业大脑案例页
+
+按 CASE_TASK_QIXIN.md 保留六章和全部原文，复用当前 CaseLayout / CaseHeader / CaseSummary / CaseToc / CaseSection / FigurePlaceholder / DataTable / MetricRow / TodoNote 及 CaseBlocks。主图前置、紧凑介绍置于图下，字号沿用 Qsight 当前层级，不恢复蓝色章标。时间轴桌面一行四节点，手机纵向；概要保留任务指定的三栏。单项指标按一列展示；表格在窄屏独立横向滚动。图位 PLATE 01–10，未指定图注时复用图位名称，不补写事实。
+
+目录观察章节标题进入顶部 48px 阅读区，避免短章节点击后被下一章提前抢走高亮；resize 重新计算观察区域。此修正在新分支的共用组件上生效，不修改旧分支。

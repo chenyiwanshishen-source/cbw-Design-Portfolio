@@ -6,3 +6,5 @@
  .qixin-timeline { grid-template-columns: minmax(0, 1fr); }
  .qixin-timeline li:not(:last-child)::after { content: '↓'; }
 }
+
+.qixin-case .case-table th { font-family: var(--font-sans); font-size: var(--text-caption); line-height: var(--text-caption--line-height); }

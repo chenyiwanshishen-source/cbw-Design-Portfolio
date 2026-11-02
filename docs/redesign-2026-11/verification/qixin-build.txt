@@ -1,0 +1,30 @@
+
+> @figma/my-make-file@0.0.1 build
+> vite build
+
+vite v6.3.5 building for production...
+transforming...
+✓ 2057 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                                 0.90 kB │ gzip:   0.50 kB
+dist/assets/gameboy-frame-B36GG_uW.png      1,164.87 kB
+dist/assets/street-portrait-BzQMkzd0.png    3,626.28 kB
+dist/assets/QixinCase-CXtt1ZlO.css              0.79 kB │ gzip:   0.35 kB
+dist/assets/CaseBlocks-Ds8SkvYH.css             6.54 kB │ gzip:   1.51 kB
+dist/assets/index-BPeCXoJ5.css                182.17 kB │ gzip:  33.16 kB
+dist/assets/HomeContent-z0oPUabA.js             0.13 kB │ gzip:   0.14 kB
+dist/assets/index-CxWcgTyx.js                   4.93 kB │ gzip:   2.29 kB
+dist/assets/ScrollArea-UloalwLU.js              5.25 kB │ gzip:   1.80 kB
+dist/assets/ProjectCaseNav-B5Pgx2jX.js          5.57 kB │ gzip:   1.82 kB
+dist/assets/CaseBlocks-DUKmK_wf.js              6.84 kB │ gzip:   2.24 kB
+dist/assets/QixinCase-D5FOoMcW.js               9.10 kB │ gzip:   3.54 kB
+dist/assets/QsightCase-XkqLaKKW.js              9.26 kB │ gzip:   3.90 kB
+dist/assets/Nav-BjbqBB9V.js                     9.58 kB │ gzip:   3.47 kB
+dist/assets/Footer-DKd8ayrW.js                 45.07 kB │ gzip:  18.78 kB
+dist/assets/ExplorationsPage-Chf6ZJTY.js       51.28 kB │ gzip:  11.83 kB
+dist/assets/proxy-IWLjudiZ.js                 124.07 kB │ gzip:  40.48 kB
+dist/assets/QixinProjectDetail-DLC3TNDF.js    150.59 kB │ gzip:  35.86 kB
+dist/assets/ProjectDetail-C-C44ZuL.js         193.54 kB │ gzip:  57.15 kB
+dist/assets/index-BYkZ-Phe.js                 296.66 kB │ gzip: 103.77 kB
+✓ built in 1.83s
