@@ -205,6 +205,142 @@ export const qixin: CaseContent & {
           "note": "【待填：统计方式】"
         }
       ]
+    },
+    {
+      "id": "qixin-04",
+      "label": "04 · 首页工作台",
+      "title": "首页从\"找功能\"改成\"接任务\"",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "用户进入系统后的第一件事，是处理今天的工作，而不是在菜单里找功能。我把首页改成任务看板：报告入口、动态信息、业务概览、常用功能，让不同角色进来就能开始查询、判断和跟进。"
+        },
+        {
+          "kind": "figures",
+          "figures": [
+            {
+              "plate": "PLATE 06",
+              "title": "新版首页分区标注",
+              "instruction": "要放：新版首页分区标注",
+              "caption": "新版首页分区标注"
+            }
+          ]
+        },
+        {
+          "kind": "figures",
+          "figures": [
+            {
+              "plate": "PLATE 07",
+              "title": "改版前首页【待补：找不到可删除】",
+              "instruction": "要放：改版前首页【待补：找不到可删除】",
+              "caption": "改版前首页【待补：找不到可删除】"
+            }
+          ]
+        },
+        {
+          "kind": "paragraph",
+          "text": "结果：【待填：上线后的使用情况或反馈】"
+        }
+      ]
+    },
+    {
+      "id": "qixin-05",
+      "label": "05 · 设计系统",
+      "title": "先建立自己的系统语言，再让组件库被用起来",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "孵化期沿用启信宝的规范，快速上线。后来两个产品定位分开，产业大脑需要自己的识别度。我协同两位设计师，从盘点已上线页面开始，搭了五层结构：基础规范、基础组件、复合组件、业务组件、页面模板。"
+        },
+        {
+          "kind": "figures",
+          "figures": [
+            {
+              "plate": "PLATE 08",
+              "title": "组件库总览",
+              "instruction": "要放：组件库总览",
+              "caption": "组件库总览"
+            }
+          ]
+        },
+        {
+          "kind": "figures",
+          "figures": [
+            {
+              "plate": "PLATE 09",
+              "title": "通用表格规范",
+              "instruction": "要放：通用表格规范",
+              "caption": "通用表格规范"
+            }
+          ]
+        },
+        {
+          "kind": "paragraph",
+          "text": "结果：【待填：覆盖几条业务线或多少页面】"
+        }
+      ]
+    },
+    {
+      "id": "qixin-06",
+      "label": "06 · 结果与反思",
+      "title": "产业大脑成了 AI 报告的企业底座",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "企业分组已经和 AI 报告平台打通：用户在产业大脑里沉淀的企业名单，可以直接作为 AI 报告的企业范围。"
+        },
+        {
+          "kind": "figures",
+          "figures": [
+            {
+              "plate": "PLATE 10",
+              "title": "跨系统联动流程（企业分组 → 权限绑定 → AI 报告关联企业 → 报告大纲 → 章节生成）",
+              "instruction": "要放：跨系统联动流程（企业分组 → 权限绑定 → AI 报告关联企业 → 报告大纲 → 章节生成）",
+              "caption": "跨系统联动流程（企业分组 → 权限绑定 → AI 报告关联企业 → 报告大纲 → 章节生成）"
+            }
+          ]
+        },
+        {
+          "kind": "subsection",
+          "title": "其他工作",
+          "blocks": [
+            {
+              "kind": "paragraph",
+              "text": "产业结构总览"
+            },
+            {
+              "kind": "paragraph",
+              "text": "目标企业筛选"
+            },
+            {
+              "kind": "paragraph",
+              "text": "企业画像"
+            },
+            {
+              "kind": "paragraph",
+              "text": "跟进管理"
+            },
+            {
+              "kind": "paragraph",
+              "text": "监测与报告输出"
+            }
+          ]
+        },
+        {
+          "kind": "subsection",
+          "title": "反思",
+          "blocks": [
+            {
+              "kind": "paragraph",
+              "text": "做了几年下来，最难的不是把页面设计出来，而是从用户怎么说、怎么做里，理解他们没有直接说出的需要。"
+            }
+          ]
+        },
+        {
+          "kind": "paragraph",
+          "text": "如果重来：【待填】"
+        }
+      ]
     }
   ],
   "ui": {
