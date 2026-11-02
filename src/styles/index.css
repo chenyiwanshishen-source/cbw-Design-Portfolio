@@ -1,5 +1,6 @@
 @import './tailwind.css';
 @import './theme.css';
+@import './tokens.css';
 
 .contact-rail { position: fixed; z-index: 30; top: 38%; right: 0; display: flex; width: min(364px, 82vw); flex-direction: column; align-items: flex-end; gap: 0; pointer-events: none; }
 .contact-rail-hit { position: relative; width: var(--note-width, 340px); min-height: 58px; margin-top: var(--note-gap, 0); pointer-events: auto; }
@@ -220,18 +221,6 @@
 @media (max-width: 640px) { .experience-identity-row { flex-direction: column; align-items: stretch; } .experience-identity-row > .shrink-0 { align-self: flex-end; } .experience-identity-note { max-width: 100%; } }
 @media (prefers-reduced-motion: reduce) { .prompt-console-history-note, .prompt-console-history-note-arrow { transition: none; } .prompt-console-history-note:hover, .prompt-console-history-note:focus-visible { translate: 0 0; rotate: -.7deg; } .prompt-console-history-note:hover .prompt-console-history-note-arrow { translate: 0 0; } }
 
-/* 全局中文字体 */
-html {
-  font-family: "PingFang SC", "Source Han Sans SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-body {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
 .hero-root {
   --hero-safe-gutter: clamp(20px, 3vw, 64px);
   --hero-character-width: 248px;
@@ -435,8 +424,6 @@ body {
   }
 }
 
-html::-webkit-scrollbar,
-body::-webkit-scrollbar,
 .native-scrollbar-hidden::-webkit-scrollbar {
   width: 0;
   height: 0;
