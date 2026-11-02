@@ -1,8 +1,8 @@
+import { CaseOpening } from './components/CaseOpening';
 import { useEffect } from 'react';
 import { ye } from './content/ye';
 import { CaseLayout } from './components/CaseLayout';
 import { CaseHeader } from './components/CaseHeader';
-import { CaseSummary } from './components/CaseSummary';
 import { CaseToc } from './components/CaseToc';
 import { CaseSection } from './components/CaseSection';
 import { FigurePlaceholder } from './components/FigurePlaceholder';
@@ -15,7 +15,7 @@ export function YeCase() {
     <div className="ye-case">
       <FigurePlaceholder {...ye.hero} />
       <CaseHeader content={ye.header} compact />
-      <CaseSummary items={ye.summary} hideLabels />
+      <CaseOpening content={ye} />
       <div className="case-body"><CaseToc items={ye.toc} label={ye.ui.toc} /><div className="case-chapters">{ye.chapters.map(chapter => <CaseSection key={chapter.id} id={chapter.id} label={chapter.label} title={chapter.title}><CaseBlocks blocks={chapter.blocks} labels={ye.ui} /></CaseSection>)}</div></div>
       <nav className="case-switch"><a href="#/project/qixin-brain"><span className="text-caption text-text-meta">{ye.ui.previous}</span><span className="text-h4 font-normal">{ye.ui.previousTitle}</span></a><a href="#/project/explorations"><span className="text-caption text-text-meta">{ye.ui.next}</span><span className="text-h4 font-normal">{ye.ui.nextTitle}</span></a></nav>
     </div>
