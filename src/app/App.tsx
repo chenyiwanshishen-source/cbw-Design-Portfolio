@@ -5,16 +5,13 @@ import { ProjectRouteLoader } from "./components/ProjectRouteLoader";
 import {
   loadExplorationsPage,
   loadNav,
-  loadQixinProjectDetail,
   isProjectRouteReady,
   preloadProjectDetailAssets,
   scheduleProjectRemainderPreload,
 } from "./projectPreload";
 
 const QsightCase = lazy(() => import("./cases/QsightCase").then(module => ({ default: module.QsightCase })));
-const QixinProjectDetail = lazy(() =>
-  loadQixinProjectDetail().then((module) => ({ default: module.QixinProjectDetail }))
-);
+const QixinCase = lazy(() => import("./cases/QixinCase").then(module => ({ default: module.QixinCase })));
 const ExplorationsPage = lazy(() =>
   loadExplorationsPage().then((module) => ({ default: module.ExplorationsPage }))
 );
@@ -57,7 +54,7 @@ export default function App() {
   useEffect(() => {
     const onProjectRouteLoading = (event: Event) => {
       const href = (event as CustomEvent<{ href?: string }>).detail?.href;
-      if (!href || href === "#/project/ai-report" || !isProjectDetailRoute(href)) return;
+      if (!href || href === "#/project/ai-report" || href === "#/project/qixin-brain" || !isProjectDetailRoute(href)) return;
       if (isProjectRouteReady(href)) return;
       setRouteLoaderHref(href);
     };
@@ -77,17 +74,13 @@ export default function App() {
   const isExplorations = route === "#/project/explorations";
 
   useEffect(() => {
-    if (isQixinDetail) {
-      void preloadProjectDetailAssets("qixin-brain", "high");
-    } else if (isExplorations) {
+    if (isExplorations) {
       void preloadProjectDetailAssets("explorations", "high");
     }
   }, [isAiDetail, isQixinDetail, isExplorations]);
 
   useEffect(() => {
-    if (isQixinDetail) {
-      return scheduleProjectRemainderPreload("qixin-brain");
-    } else if (isExplorations) {
+    if (isExplorations) {
       return scheduleProjectRemainderPreload("explorations");
     }
   }, [isAiDetail, isQixinDetail, isExplorations]);
@@ -208,8 +201,8 @@ export default function App() {
       <QsightCase />
     </Suspense>
   ) : isQixinDetail ? (
-    <Suspense fallback={detailFallback}>
-      <QixinProjectDetail onBack={goHome} />
+    <Suspense fallback={null}>
+      <QixinCase />
     </Suspense>
   ) : isExplorations ? (
     <Suspense fallback={detailFallback}>
@@ -221,14 +214,14 @@ export default function App() {
 
   return (
     <div className="relative min-h-screen text-text">
-      {!isAiDetail && isProjectDetailRoute(route) && (
+      {!isAiDetail && !isQixinDetail && isProjectDetailRoute(route) && (
         <Suspense fallback={null}>
           <Nav />
           <ViewportScrollbars />
         </Suspense>
       )}
 
-      {!isAiDetail && routeLoaderHref && (
+      {!isAiDetail && !isQixinDetail && routeLoaderHref && (
         <ProjectRouteLoader
           key={routeLoaderHref}
           route={routeLoaderHref}
@@ -239,7 +232,7 @@ export default function App() {
       )}
 
       {/* Global back-to-top */}
-      {!isAiDetail && isProjectDetailRoute(route) && showBackToTop && (
+      {!isAiDetail && !isQixinDetail && isProjectDetailRoute(route) && showBackToTop && (
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           className="fixed bottom-5 left-1/2 z-40 group inline-flex -translate-x-1/2 items-center rounded-full bg-white p-2 text-[#1A1C24] transition-all duration-300 hover:shadow-[0_0_40px_rgba(34,88,244,0.45)] sm:bottom-8 sm:gap-3 sm:py-2 sm:pl-7 sm:pr-2"
