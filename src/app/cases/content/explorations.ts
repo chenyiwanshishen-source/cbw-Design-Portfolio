@@ -11,92 +11,12 @@ export const explorations: { header: { title: string; intro: string }; statement
   "chapters": [
     {
       "id": "explorations-01",
-      "label": "设计系统",
-      "title": "从历史设计稿里整理出设计系统，再做成能复用的代码组件",
-      "blocks": [
-        {
-          "kind": "subsection",
-          "title": "方法：Figma 设计系统工作流",
-          "blocks": [
-            {
-              "kind": "paragraph",
-              "text": "我把搭设计系统的步骤写成了一个 Skill，让 AI 在 Figma 里按固定顺序推进。只有一个主 Agent 可以写入 Figma，其他角色只读，负责给出规格和验收。"
-            },
-            {
-              "kind": "flow",
-              "rows": [
-                {
-                  "steps": [
-                    "六方向视觉探索",
-                    "浅色和深色色板",
-                    "基础变量",
-                    "基础体系",
-                    "真实组件族",
-                    "组件库验收"
-                  ]
-                }
-              ],
-              "note": "色板阶段固定为每个模式 16 个色系 × 9 级，浅色和深色合计 288 个值。"
-            }
-          ]
-        },
-        {
-          "kind": "subsection",
-          "title": "实践：历史设计稿 → 前端组件库",
-          "blocks": [
-            {
-              "kind": "paragraph",
-              "text": "我先审计了一批历史 Figma 页面，整理出完整色板，再写入颜色、字体、间距、圆角、描边和栅格这些基础变量。之后把它们做成 React 组件库，用 Storybook 展示每个组件的尺寸、变体和交互状态。"
-            },
-            {
-              "kind": "metrics",
-              "items": [
-                {
-                  "text": "6 类",
-                  "label": "基础变量"
-                },
-                {
-                  "text": "9 个",
-                  "label": "基础组件"
-                },
-                {
-                  "text": "88 个",
-                  "label": "单元测试"
-                }
-              ],
-              "note": ""
-            },
-            {
-              "kind": "figures",
-              "figures": [
-                {
-                  "plate": "PLATE 01",
-                  "title": "Figma 基础变量",
-                  "instruction": "要放：Figma 基础变量",
-                  "caption": "Figma 基础变量"
-                },
-                {
-                  "plate": "PLATE 02",
-                  "title": "Storybook 组件页",
-                  "instruction": "要放：Storybook 组件页",
-                  "caption": "Storybook 组件页"
-                }
-              ]
-            }
-          ]
-        }
-      ],
-      "status": "Figma 工作流已开源（GitHub）；组件库持续维护中。",
-      "url": "https://github.com/chenyiwanshishen-source/figma-design-system-workflow"
-    },
-    {
-      "id": "explorations-02",
       "label": "Figma 连接器",
-      "title": "让 AI 直接改 Figma 文件，但每次写入都能撤回",
+      "title": "先让 AI 能读写 Figma，后面的整理才接得上",
       "blocks": [
         {
           "kind": "paragraph",
-          "text": "这是一个本地 MCP 服务加 Figma 插件。支持 MCP 的 AI 客户端可以通过它读取和修改当前打开的 Figma 文件，整条链路只在本机运行，不需要 API Key。"
+          "text": "我想让 AI 帮我整理历史设计稿，前提是它能读到、也能改 Figma 文件。所以我做了一个本地 MCP 服务加 Figma 插件：AI 发出任务，插件在当前打开的文件里执行，再把结果传回去。整条链路只在本机运行，不需要 API Key。"
         },
         {
           "kind": "flow",
@@ -116,13 +36,13 @@ export const explorations: { header: { title: string; intro: string }; statement
         },
         {
           "kind": "paragraph",
-          "text": "每次任务开始前，插件会先给节点拍快照，出错就自动撤回这次新建的节点。写入时优先调用设计系统里的组件、变量和样式，不硬写数值。插件面板会显示当前是在等待、读取还是写入。"
+          "text": "让 AI 直接改设计稿，最怕改坏。所以每次任务开始前，插件会先给节点拍快照，出错就自动撤回这次新建的节点；面板上会显示它正在读，还是正在写。"
         },
         {
           "kind": "figures",
           "figures": [
             {
-              "plate": "PLATE 03",
+              "plate": "PLATE 01",
               "title": "连接器面板",
               "instruction": "要放：连接器面板",
               "caption": "连接器面板"
@@ -130,8 +50,106 @@ export const explorations: { header: { title: string; intro: string }; statement
           ]
         }
       ],
-      "status": "已开源（GitHub）",
-      "url": "https://github.com/chenyiwanshishen-source/figma-connector-figma-"
+      "url": "https://github.com/chenyiwanshishen-source/figma-connector-figma-",
+      "status": "已开源（GitHub）"
+    },
+    {
+      "id": "explorations-02",
+      "label": "设计系统",
+      "title": "扫描 Qsight 的历史稿后，我发现建好的颜色变量几乎没人在用",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "我用连接器让 AI 只读扫描了 Qsight 的两批历史稿，一共 19 个页面。文件里已经建了 186 个颜色变量，可页面实际用的是另一个远程库里的变量，第一批页面就用了 39 个。光是蓝色就有三个相近的值，分别用在主操作按钮、品牌标识和改动高亮的文字上。"
+        },
+        {
+          "kind": "metrics",
+          "items": [
+            {
+              "text": "19 个",
+              "label": "扫描的历史页面"
+            },
+            {
+              "text": "186 个",
+              "label": "文件里建好的颜色变量"
+            },
+            {
+              "text": "39 个",
+              "label": "第一批页面实际在用的远程变量"
+            }
+          ],
+          "note": ""
+        },
+        {
+          "kind": "paragraph",
+          "text": "AI 很容易把相近的颜色直接合并。我要求它先不合并：每个颜色按用途单独命名，再由我逐个决定留哪个、怎么合。定下来以后，才把颜色、字体、间距、圆角、描边和栅格写成 Figma 变量，再做成 React 组件库。"
+        },
+        {
+          "kind": "flow",
+          "rows": [
+            {
+              "steps": [
+                "只读扫描 19 个页面",
+                "列出每个颜色的用途",
+                "我逐个决定留哪个",
+                "写入 Figma 变量",
+                "做成代码组件"
+              ],
+              "highlight": [
+                2
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "paragraph",
+          "text": "目前组件库有 9 个基础组件和 88 个单元测试，用 Storybook 展示每个组件的尺寸、变体和交互状态。"
+        },
+        {
+          "kind": "figures",
+          "figures": [
+            {
+              "plate": "PLATE 02",
+              "title": "颜色审计：相近的蓝色和各自的用途",
+              "instruction": "要放：颜色审计：相近的蓝色和各自的用途",
+              "caption": "颜色审计：相近的蓝色和各自的用途"
+            },
+            {
+              "plate": "PLATE 03",
+              "title": "Storybook 组件页",
+              "instruction": "要放：Storybook 组件页",
+              "caption": "Storybook 组件页"
+            }
+          ]
+        },
+        {
+          "kind": "subsection",
+          "title": "从零搭一套设计系统",
+          "blocks": [
+            {
+              "kind": "paragraph",
+              "text": "没有历史稿可整理的时候，我用另一个 Skill 从零搭设计系统。它让 AI 在 Figma 里按固定顺序推进，只有一个主 Agent 可以写入，其他角色只读，负责给出规格和验收。"
+            },
+            {
+              "kind": "flow",
+              "rows": [
+                {
+                  "steps": [
+                    "六方向视觉探索",
+                    "浅色和深色色板",
+                    "基础变量",
+                    "基础体系",
+                    "真实组件族",
+                    "组件库验收"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "url": "https://github.com/chenyiwanshishen-source/figma-design-system-workflow",
+      "status": "Figma 设计系统工作流已开源（GitHub）；组件库持续维护中。"
     },
     {
       "id": "explorations-03",
