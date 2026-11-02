@@ -73,7 +73,7 @@ export function ExperimentalProjects() {
         <a href={project.href} className="home-side-project">
           <div className="home-side-cover" aria-hidden="true">{project.cover}</div>
           <div className="home-side-copy">
-            <span className="text-caption text-text-secondary">{project.name}</span>
+            <span className="text-caption text-text-secondary">{project.name}{project.status && ` · ${project.status}`}</span>
             <h3>{explorations.chapters.find(chapter => chapter.id === project.chapter)?.title}</h3>
             <span className="home-side-entry">查看项目 →</span>
           </div>

@@ -24,7 +24,7 @@ export const explorations: { header: { title: string; intro: string }; statement
           "blocks": [
             {
               "kind": "paragraph",
-              "text": "我手上有一批 Qsight 的老设计稿，想让 AI 帮我查查颜色和组件用得乱不乱。可 AI 读不到 Figma 文件，也改不了，所以我先做了这个插件。后来扫描 Qsight 的 19 个历史页面，用的就是它。"
+              "text": "我手上有一批 Qsight 的老设计稿，想让 AI 帮我查查颜色和组件用得乱不乱。可 AI 读不到 Figma 文件，也改不了，所以我先做了这个插件。后来扫描 Qsight 的 [19 个历史页面](#/project/explorations/design-system)，用的就是它。"
             },
             {
               "kind": "flow",
@@ -82,7 +82,7 @@ export const explorations: { header: { title: string; intro: string }; statement
       "blocks": [
         {
           "kind": "paragraph",
-          "text": "我用自己做的 Figma 连接器，让 AI 把 Qsight 的老设计稿过了一遍，理出颜色和基础规范，再做成前端组件。"
+          "text": "我用自己做的 [Figma 连接器](#/project/explorations/figma-connector)，让 AI 把 Qsight 的老设计稿过了一遍，理出颜色和基础规范，再做成前端组件。"
         },
         {
           "kind": "subsection",
@@ -351,5 +351,5 @@ export const explorationProjects = [
   { slug: 'figma-connector', chapter: 'explorations-01', name: 'Figma 连接器', cover: '连接器面板' },
   { slug: 'design-system', chapter: 'explorations-02', name: '设计系统', cover: '颜色审计与组件库' },
   { slug: 'illustration-skill', chapter: 'explorations-04', name: '插画 Skill', cover: 'Micro-UI 插画作品' },
-  { slug: 'visual-code-canvas', chapter: 'explorations-03', name: 'Visual Code Canvas', cover: '画布与属性面板' },
+  { slug: 'visual-code-canvas', chapter: 'explorations-03', name: 'Visual Code Canvas', status: '已搁置', cover: '画布与属性面板' },
 ].map(item => ({ ...item, href: `#/project/explorations/${item.slug}` }));
