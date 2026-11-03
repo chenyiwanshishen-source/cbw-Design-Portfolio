@@ -11,9 +11,9 @@ export function CaseBlocks({ blocks, labels, depth = 0 }: { depth?: number; bloc
     const key = index;
     switch (block.kind) {
       case 'flow': case 'layers': case 'chat': case 'statement': return <StoryDiagram key={key} block={block} />;
-      case 'paragraph': return <p key={key} className="case-paragraph"><CaseText text={block.text} /></p>;
+      case 'paragraph': return <div key={key} className="case-prose">{block.text.split(/\n+/).map((text, i) => <p key={i} className="case-paragraph"><CaseText text={text} /></p>)}</div>;
       case 'aside': return <p key={key} className="case-paragraph border-t border-dashed border-border-dashed pt-6"><CaseText text={block.text} /></p>;
-      case 'subsection': { const Heading = depth === 0 ? 'h3' : 'h4'; return <div key={key} className={`case-subsection${block.plain ? " case-subsection-plain" : ""}`}><Heading className={depth === 0 ? "text-h4 font-medium" : "text-body font-medium"}>{block.title}</Heading><CaseBlocks blocks={block.blocks} labels={labels} depth={depth + 1} /></div>; }
+      case 'subsection': { const Heading = depth === 0 ? 'h3' : 'h4'; return <div key={key} className={`case-subsection${block.plain ? " case-subsection-plain" : ""}`}><Heading className={depth === 0 ? "text-h4 font-medium" : "text-body font-medium"}><CaseText text={block.title} /></Heading><CaseBlocks blocks={block.blocks} labels={labels} depth={depth + 1} /></div>; }
       case 'quotes': return <div key={key} className="case-quotes">{block.texts.map(text => <Quote key={text} text={text} />)}</div>;
       case 'figures': return <div key={key} className={block.figures.length > 1 ? 'case-pair' : undefined}>{block.figures.map(figure => <FigurePlaceholder key={figure.plate} {...figure} />)}</div>;
       case 'table': return <DataTable key={key} {...block} />;

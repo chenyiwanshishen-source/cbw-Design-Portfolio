@@ -1,5 +1,5 @@
 body:has(.case-page) { background: var(--color-home-bg); }
-.case-page { background: var(--color-home-bg); padding-inline: max(var(--gutter-x), env(safe-area-inset-left)) max(var(--gutter-x), env(safe-area-inset-right)); overflow-wrap: anywhere; }
+.case-page { background: var(--color-home-bg); padding-inline: max(var(--gutter-x), env(safe-area-inset-left)) max(var(--gutter-x), env(safe-area-inset-right)); overflow-wrap: normal; word-break: normal; line-break: strict; }
 .case-sheet { padding-bottom: var(--rhythm-6); }
 .case-back { display: inline-flex; align-items: center; min-height: var(--touch-target); margin-block: var(--rhythm-4); color: var(--color-text-secondary); }
 .case-page a:hover { color: var(--color-accent); }
@@ -94,3 +94,15 @@ body:has(.case-page) { background: var(--color-home-bg); }
 
 /* Let introductions use the full row when there is no facts column. */
 .case-header:not(:has(.case-facts)) .case-header-main { grid-column: 1 / -1; }
+
+/* Reading rhythm: paragraphs follow authored breaks; words stay together. */
+.reading-word { white-space: nowrap; }
+.case-prose { display: flex; flex-direction: column; gap: var(--rhythm-3); min-width: 0; }
+.case-paragraph, .case-header-main > p { text-wrap: pretty; }
+.case-page :is(h1, h2, h3, h4) { text-wrap: balance; }
+.case-quotes:has(> :only-child) { grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 1024px) {
+ .case-header:not(:has(.case-facts)) .case-header-main { grid-column: 1 / 10; }
+ .exploration-detail > .case-prose,
+ .exploration-detail > .case-subsection > .case-prose { width: calc((100% - 11 * var(--rhythm-4)) / 12 * 9 + 8 * var(--rhythm-4)); }
+}

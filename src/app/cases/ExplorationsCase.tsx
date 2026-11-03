@@ -12,7 +12,7 @@ export function ExplorationsCase({ route }: { route: string }) {
   useEffect(() => { window.scrollTo({ top: 0, behavior: 'instant' }); }, [route]);
   return <CaseLayout backLabel="← 返回首页" footer={<a href="#ai" className="text-caption text-text-secondary">返回探索项目</a>}>
     {chapter ? <div className="exploration-detail">
-      <header><h1>{project?.name}</h1><p className="text-caption text-text-secondary">{chapter.title}</p></header>
+      <header><h1><CaseText text={project?.name ?? ""} /></h1><p className="text-caption text-text-secondary">{chapter.title}</p></header>
       <CaseBlocks blocks={chapter.blocks} labels={labels} />
       <p className="exploration-status"><CaseText text={chapter.status.split('GitHub')[0]} />{chapter.url && <><a href={chapter.url} target="_blank" rel="noreferrer">GitHub</a><CaseText text={chapter.status.split('GitHub')[1] ?? ''} /></>}</p>
       <nav className="case-switch"><a href="#ai">← 返回首页探索项目</a></nav>
