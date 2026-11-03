@@ -107,9 +107,13 @@ export const qsight: CaseContent = {
           "figures": [
             {
               "plate": "PLATE 02",
-              "title": "访谈记录",
+              "title": "第一版 MVP",
+              "src": "images/qsight/mvp-key-screens.png",
+              "alt": "第一版 MVP 的报告条件、大纲确认、数据来源和生成结果四个页面",
+              "width": 1568,
+              "height": 1242,
               "instruction": "要放：访谈记录",
-              "caption": "三轮访谈分别讨论报告制作与审核、生成前的确认方式，以及历史材料复用和来源核查。"
+              "caption": "第一版 MVP：报告条件、大纲确认、数据来源与生成结果。展示稿已作视觉整理，点击查看原图。"
             }
           ]
         },
