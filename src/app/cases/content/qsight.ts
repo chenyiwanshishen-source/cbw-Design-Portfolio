@@ -3,7 +3,7 @@ import type { CaseContent } from '../types';
 export const qsight: CaseContent = {
   "header": {
     "title": "Qsight · AI 报告平台",
-    "intro": "Qsight 是合合信息的 AI 报告平台，帮助研究员整理资料、生成报告和核对来源。写一份区域监测报告时，研究员往往要花大半天找资料。我负责核心交互设计和 Prompt 基础框架，并跟进到 1.0 上线。"
+    "intro": "Qsight 是合合信息的 AI 报告平台，帮助研究员整理资料、生成报告和核对来源。我参与需求与业务流程梳理，负责核心交互设计和 Prompt 基础框架，并跟进研发实现与测试验收，直到 1.0 上线。"
   },
   "hero": {
     "plate": "PLATE 01",
@@ -26,7 +26,7 @@ export const qsight: CaseContent = {
           "text": "约 50% → 80%"
         }
       ],
-      "note": ""
+      "note": "试点阶段记录，统计样本、时间范围与核对方式待补充，详见结果章节。"
     }
   ],
   "toc": [
@@ -80,7 +80,7 @@ export const qsight: CaseContent = {
       "blocks": [
         {
           "kind": "paragraph",
-          "text": "我们与 1 家试点客户的 4 位业务人员进行了 3 轮访谈，结合竞品分析和低保真原型讨论，归纳出三个问题："
+          "text": "我们与 1 家试点客户的 4 位业务人员进行了 3 轮访谈：先还原最近一次报告的制作和审核过程，再结合竞品讨论生成前的控制方式，最后用低保真原型确认历史材料复用与来源核查的需求。问题集中在三个方面："
         },
         {
           "kind": "columns",
@@ -143,7 +143,7 @@ export const qsight: CaseContent = {
           "blocks": [
             {
               "kind": "paragraph",
-              "text": "早期方案把来源集中放在报告末尾，研究员阅读时难以判断某个数字对应哪条来源。后来我们在正文中加入引用编号，与旁边的来源卡片对应。"
+              "text": "早期方案把来源集中放在报告末尾。访谈中，研究员仍担心数字是否可信，读到具体内容时也难以找到对应依据。\n我们改为在正文中标注引用编号，与旁边的来源卡片对应，让核查发生在阅读的位置。"
             },
             {
               "kind": "figures",
@@ -180,7 +180,7 @@ export const qsight: CaseContent = {
           "blocks": [
             {
               "kind": "paragraph",
-              "text": "最初规划的 Prompt 控制台包含 10+1 个模块，但没有在 1.0 上线。这个版本只保留了四个模块。"
+              "text": "最初规划的 Prompt 控制台包含 10+1 个模块。1.0 研发资源有限，我们没有先做可视化配置后台，先将 Prompt 拆成四个模块，供团队维护。"
             },
             {
               "kind": "columns",
@@ -202,6 +202,10 @@ export const qsight: CaseContent = {
                   "text": ""
                 }
               ]
+            },
+            {
+              "kind": "paragraph",
+              "text": "当时 Agent 框架刚搭建，我把 Prompt 与执行步骤逐一对应，并为关键阶段设置校验、重试和兜底，避免错误继续传到后续章节。"
             },
             {
               "kind": "figures",

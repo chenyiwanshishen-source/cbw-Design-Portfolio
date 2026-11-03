@@ -23,37 +23,37 @@ export const ye: CaseContent = {
   "toc": [
     {
       "id": "ye-01",
-      "label": "起因"
-    },
-    {
-      "id": "ye-02",
-      "label": "第一次推翻"
-    },
-    {
-      "id": "ye-03",
-      "label": "第二次推翻"
-    },
-    {
-      "id": "ye-04",
-      "label": "第三次推翻"
+      "label": "使用需求"
     },
     {
       "id": "ye-05",
-      "label": "细节"
+      "label": "整理与确认"
+    },
+    {
+      "id": "ye-02",
+      "label": "意图理解"
+    },
+    {
+      "id": "ye-03",
+      "label": "排查与回退"
+    },
+    {
+      "id": "ye-04",
+      "label": "工具调用"
     },
     {
       "id": "ye-06",
-      "label": "给别人用"
+      "label": "试用与进展"
     },
     {
       "id": "ye-07",
-      "label": "协作"
+      "label": "开发协作"
     }
   ],
   "chapters": [
     {
       "id": "ye-01",
-      "label": "起因",
+      "label": "使用需求",
       "title": "自己的整理需求",
       "blocks": [
         {
@@ -73,8 +73,61 @@ export const ye: CaseContent = {
       ]
     },
     {
+      "id": "ye-05",
+      "label": "整理与确认",
+      "title": "整理方案与用户确认",
+      "blocks": [
+        {
+          "kind": "flow",
+          "rows": [
+            {
+              "steps": [
+                "描述整理需求",
+                "AI 查找并生成方案",
+                "查看分组预览",
+                "确认后执行",
+                "需要时撤销"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "paragraph",
+          "text": "不少书签使用了我自定义的标题，AI 仅凭标题容易误判，例如把 Blender 和 C4D 的内容都归到 C4D。为此，我加入后台读取网页的工具，让 AI 在标题信息不足时读取正文，再判断分类。"
+        },
+        {
+          "kind": "figures",
+          "figures": [
+            {
+              "plate": "PLATE 02",
+              "title": "分组预览",
+              "instruction": "要放：分组预览",
+              "caption": "分组预览"
+            }
+          ]
+        },
+        {
+          "kind": "columns",
+          "items": [
+            {
+              "label": "先看预览",
+              "text": "方案按窗口摆出来，每个页签从哪来、到哪去都看得到"
+            },
+            {
+              "label": "点了确认才改",
+              "text": "整理方案需要我确认后，才会修改书签或页签"
+            },
+            {
+              "label": "能撤回",
+              "text": "支持撤销最近 5 步操作，并保护固定页签不被移动"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "ye-02",
-      "label": "第一次推翻",
+      "label": "意图理解",
       "title": "放弃固定分类规则",
       "blocks": [
         {
@@ -105,7 +158,7 @@ export const ye: CaseContent = {
     },
     {
       "id": "ye-03",
-      "label": "第二次推翻",
+      "label": "排查与回退",
       "title": "回退版本并补齐日志",
       "blocks": [
         {
@@ -120,7 +173,7 @@ export const ye: CaseContent = {
           "kind": "figures",
           "figures": [
             {
-              "plate": "PLATE 02",
+              "plate": "PLATE 03",
               "title": "运行日志导出示例（打码）",
               "instruction": "要放：运行日志导出示例（打码）",
               "caption": "运行日志导出示例（打码）"
@@ -131,7 +184,7 @@ export const ye: CaseContent = {
     },
     {
       "id": "ye-04",
-      "label": "第三次推翻",
+      "label": "工具调用",
       "title": "由单个 AI 调用工具",
       "blocks": [
         {
@@ -189,47 +242,8 @@ export const ye: CaseContent = {
       ]
     },
     {
-      "id": "ye-05",
-      "label": "细节",
-      "title": "分类依据与操作确认",
-      "blocks": [
-        {
-          "kind": "paragraph",
-          "text": "不少书签使用了我自定义的标题，AI 仅凭标题容易误判，例如把 Blender 和 C4D 的内容都归到 C4D。为此，我加入后台读取网页的工具，让 AI 在标题信息不足时读取正文，再判断分类。"
-        },
-        {
-          "kind": "figures",
-          "figures": [
-            {
-              "plate": "PLATE 03",
-              "title": "分组预览",
-              "instruction": "要放：分组预览",
-              "caption": "分组预览"
-            }
-          ]
-        },
-        {
-          "kind": "columns",
-          "items": [
-            {
-              "label": "先看预览",
-              "text": "方案按窗口摆出来，每个页签从哪来、到哪去都看得到"
-            },
-            {
-              "label": "点了确认才改",
-              "text": "整理方案需要我确认后，才会修改书签或页签"
-            },
-            {
-              "label": "能撤回",
-              "text": "支持撤销最近 5 步操作，并保护固定页签不被移动"
-            }
-          ]
-        }
-      ]
-    },
-    {
       "id": "ye-06",
-      "label": "给别人用",
+      "label": "试用与进展",
       "title": "模型适配与朋友试用",
       "blocks": [
         {
@@ -260,13 +274,13 @@ export const ye: CaseContent = {
               "text": "4 位"
             }
           ],
-          "note": ""
+          "note": "开发与试用记录。提交数和测试数量用于说明开发规模，不作为体验效果指标。"
         }
       ]
     },
     {
       "id": "ye-07",
-      "label": "协作",
+      "label": "开发协作",
       "title": "与 AI 的开发分工",
       "blocks": [
         {
