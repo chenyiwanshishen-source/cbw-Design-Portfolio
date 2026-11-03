@@ -39,7 +39,7 @@ export function Intro() {
           <h1 className="home-name font-normal">{intro.name}</h1>
           <p className="home-role text-text">{intro.role}</p>
         </div></IntroBlock>
-        <IntroBlock label="COPY" index={2} {...blockProps}><div className="flex flex-col gap-5 text-body-lg text-text-body">
+        <IntroBlock label="COPY" index={2} {...blockProps}><div className="flex max-w-measure flex-col gap-5 text-body-lg text-text-body">
           {intro.paragraphs.map((text) => <p key={text} data-intro-paragraph>{paragraph(text)}</p>)}
         </div></IntroBlock>
       </div>
