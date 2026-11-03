@@ -315,26 +315,56 @@ export const qsight: CaseContent = {
       "title": "1.0 上线后",
       "blocks": [
         {
-          "kind": "metrics",
-          "items": [
+          "kind": "subsection",
+          "title": "整体交付耗时",
+          "blocks": [
             {
-              "label": "全流程交付",
-              "text": "2~3 天 → 约 20 分钟"
-            },
-            {
-              "label": "关键事实可溯源",
-              "text": "约 50% → 80%"
-            },
-            {
-              "label": "资料准备与清洗",
-              "text": "半天以上 → 约 5~20 分钟"
-            },
-            {
-              "label": "纯内容生成",
-              "text": "6~8 小时 → 约 5~30 分钟"
+              "kind": "metrics",
+              "items": [
+                {
+                  "label": "全流程交付",
+                  "text": "2~3 天 → 约 20 分钟"
+                }
+              ],
+              "note": "【待填：报告类型、样本数量、统计时间，以及整体交付的起止环节】"
             }
-          ],
-          "note": "【待填：统计了多少份报告、什么时间段、溯源率如何核对；全流程和两个分项的时间要对得上】"
+          ]
+        },
+        {
+          "kind": "subsection",
+          "title": "分阶段耗时",
+          "blocks": [
+            {
+              "kind": "metrics",
+              "items": [
+                {
+                  "label": "资料准备与清洗",
+                  "text": "半天以上 → 约 5~20 分钟"
+                },
+                {
+                  "label": "纯内容生成",
+                  "text": "6~8 小时 → 约 5~30 分钟"
+                }
+              ],
+              "note": "【待填：各阶段的样本与计时范围，以及与整体交付耗时的对应关系】"
+            }
+          ]
+        },
+        {
+          "kind": "subsection",
+          "title": "关键事实溯源",
+          "blocks": [
+            {
+              "kind": "metrics",
+              "items": [
+                {
+                  "label": "关键事实可溯源",
+                  "text": "约 50% → 80%"
+                }
+              ],
+              "note": "【待填：关键事实的定义、核对方式、样本数量与统计时间】"
+            }
+          ]
         },
         {
           "kind": "paragraph",
