@@ -3,7 +3,7 @@ import type { CaseContent } from './content/zh';
 
 function CaseCopy({ item }: { item: CaseContent }) {
   return <div className="home-case-copy flex min-w-0 flex-col gap-4">
-    <h3 className="text-h3 font-normal text-balance">{item.name}</h3>
+    <h3 className="text-h3 font-normal">{item.name}</h3>
     <p className="text-body text-text-body">{item.summary}</p>
     <dl className="flex flex-col gap-3 text-caption text-text-secondary">
       <div><dt className="inline">项目周期 · </dt><dd className="inline">{item.period}</dd></div>

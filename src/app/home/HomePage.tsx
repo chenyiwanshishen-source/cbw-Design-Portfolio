@@ -34,7 +34,7 @@ export function HomePage({ route }: { route: string }) {
           <CaseList items={cases} />
         </section>
         <ExperimentalProjects />
-        {[['exp', '经历'], ['about', '关于 / 页脚']].map(([id, title]) => <section id={id} key={id} aria-labelledby={`${id}-title`} className="flex flex-col gap-6 border-t border-border pt-4"><h2 id={`${id}-title`} className="text-h2 font-normal text-balance">{title}</h2><p className="text-body text-text-secondary">[待补充]</p></section>)}
+        {[['exp', '经历'], ['about', '关于 / 页脚']].map(([id, title]) => <section id={id} key={id} aria-labelledby={`${id}-title`} className="flex flex-col gap-6 border-t border-border pt-4"><h2 id={`${id}-title`} className="text-h2 font-normal">{title}</h2><p className="text-body text-text-secondary">[待补充]</p></section>)}
       </div>
     </div>
     {playing && <Blueprint onFinish={finish} />}

@@ -6,7 +6,7 @@ body:has(.case-page) { background: var(--color-home-bg); }
 .case-header { display: grid; gap: var(--rhythm-6); padding-block: var(--rhythm-6) var(--rhythm-6); }
 .case-header-main, .case-facts { display: flex; flex-direction: column; gap: var(--rhythm-4); min-width: 0; }
 .case-header-main > .text-caption { line-height: var(--text-caption--line-height); }
-.case-header h1 { font-size: var(--text-home-role); font-weight: 400; line-height: 1.45; text-wrap: balance; }
+.case-header h1 { font-size: var(--text-home-role); font-weight: 400; line-height: 1.45; text-wrap: wrap; }
 .case-facts dt { margin-bottom: var(--rhythm-1); }
 .case-summary { display: grid; gap: var(--rhythm-4); margin-block: var(--rhythm-6) var(--rhythm-7); }
 .case-summary > div { padding-top: var(--rhythm-4); border-top: var(--border-width) solid var(--color-border-subtle); }
@@ -16,7 +16,7 @@ body:has(.case-page) { background: var(--color-home-bg); }
 .case-section { display: flex; flex-direction: column; gap: var(--rhythm-4); scroll-margin-top: var(--rhythm-4); min-width: 0; }
 .case-section:focus:not(:focus-visible) { outline: none; }
 .case-subsection { display: flex; flex-direction: column; gap: var(--rhythm-3); margin-top: var(--rhythm-2); min-width: 0; }
-.case-paragraph { max-width: var(--container-measure); font-size: var(--text-body); line-height: var(--text-body--line-height); color: var(--color-text-body); }
+.case-paragraph { font-size: var(--text-body); line-height: var(--text-body--line-height); color: var(--color-text-body); }
 .case-toc { display: none; }
 .case-figure { min-width: 0; }
 .case-figure-box { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--rhythm-3); padding: var(--rhythm-4); background: var(--color-home-placeholder); text-align: center; }
@@ -91,3 +91,6 @@ body:has(.case-page) { background: var(--color-home-bg); }
 
 /* Parent gap plus this offset totals the 40px subsection rhythm. */
 .case-subsection > .case-subsection { margin-top: var(--rhythm-3); }
+
+/* Let introductions use the full row when there is no facts column. */
+.case-header:not(:has(.case-facts)) .case-header-main { grid-column: 1 / -1; }

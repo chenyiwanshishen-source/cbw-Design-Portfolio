@@ -27,7 +27,7 @@
 body:has(.homepage) { background: var(--color-home-bg); }
 .homepage { background: var(--color-home-bg); }
 .home-name { font-size: var(--text-home-name); line-height: 1.2; letter-spacing: -0.02em; }
-.home-role { font-size: var(--text-home-role); line-height: 1.45; max-width: 16em; text-wrap: balance; }
+.home-role { font-size: var(--text-home-role); line-height: 1.45; text-wrap: wrap; }
 .home-intro-text { gap: var(--space-6); }
 .home-portrait { background: var(--color-home-placeholder); border: none; }
 .home-photo { padding-top: var(--space-8); }
