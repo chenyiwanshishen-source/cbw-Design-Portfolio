@@ -67,7 +67,7 @@ export const explorations: { header: { title: string; intro: string }; intro: st
     {
       "id": "explorations-02",
       "label": "设计系统",
-      "title": "把 Qsight 的老设计稿理成一套组件",
+      "title": "整理 Qsight 的设计规范与组件",
       "blocks": [
         {
           "kind": "paragraph",
@@ -96,15 +96,15 @@ export const explorations: { header: { title: string; intro: string }; intro: st
         },
         {
           "kind": "subsection",
-          "title": "一个一个定",
+          "title": "按用途确认颜色",
           "blocks": [
             {
               "kind": "paragraph",
-              "text": "AI 很容易把看着差不多的颜色直接并成一个，但它们各有各的用处。所以我让它先别并，把每个颜色用在哪儿列出来，再由我一个一个定留哪个。"
+              "text": "AI 容易合并看起来相近、实际用途不同的颜色。我让它先列出每个颜色的使用位置，再逐项确认哪些保留、哪些合并。"
             },
             {
               "kind": "paragraph",
-              "text": "最后只留下页面上真用到的用途，理成 58 个按用途命名的颜色：文字 19 个，图标 6 个，背景 26 个，边框 7 个。以前一个颜色又管文字又管边框的，也按用途拆开了。"
+              "text": "最终按页面实际使用的用途，整理出 58 个颜色并按用途命名：文字 19 个，图标 6 个，背景 26 个，边框 7 个。原来同时用于文字和边框的颜色，也按用途拆开。"
             }
           ]
         },
@@ -136,11 +136,11 @@ export const explorations: { header: { title: string; intro: string }; intro: st
     {
       "id": "explorations-03",
       "label": "Visual Code Canvas",
-      "title": "页面上点哪改哪，改完存回代码",
+      "title": "在页面上修改样式并写回源码",
       "blocks": [
         {
           "kind": "paragraph",
-          "text": "一个改页面样式的小工具，做到 v0.2.1 先放下了。"
+          "text": "这是一个用于修改页面样式的工具，开发到 v0.2.1 后暂时搁置。"
         },
         {
           "kind": "subsection",
@@ -188,17 +188,17 @@ export const explorations: { header: { title: string; intro: string }; intro: st
         },
         {
           "kind": "subsection",
-          "title": "哪些交给工具",
+          "title": "工具与 AI 的分工",
           "blocks": [
             {
               "kind": "paragraph",
-              "text": "改数值、换颜色、改文字，结果是确定的，工具直接改就行，不用再花钱问 AI。拆组件、调结构这种，才交给 AI。"
+              "text": "修改数值、颜色和文字由工具直接执行，不需要为这些确定的操作调用 AI；拆分组件、调整结构则交给 AI。"
             }
           ]
         },
         {
           "kind": "subsection",
-          "title": "为什么停了",
+          "title": "当前进展",
           "blocks": [
             {
               "kind": "paragraph",
@@ -213,11 +213,11 @@ export const explorations: { header: { title: string; intro: string }; intro: st
     {
       "id": "explorations-04",
       "label": "插画 Skill",
-      "title": "教 AI 画出认得出的界面插画",
+      "title": "用可辨认的控件绘制界面插画",
       "blocks": [
         {
           "kind": "paragraph",
-          "text": "这是我给 AI 写的一套画插画的规矩。这个作品集的封面、ye! 的空状态图，都是 AI 照着它画的。"
+          "text": "这是我编写的一套插画绘制规则，用来指导 AI。这个作品集的封面和 ye! 的空状态图都使用了这套规则。"
         },
         {
           "kind": "subsection",
@@ -231,14 +231,14 @@ export const explorations: { header: { title: string; intro: string }; intro: st
         },
         {
           "kind": "subsection",
-          "title": "三条规矩",
+          "title": "控件、层次与尺寸",
           "blocks": [
             {
               "kind": "columns",
               "items": [
                 {
                   "label": "画真东西",
-                  "text": "得是一眼认得出的控件，不拿灰杠凑数"
+                  "text": "使用可辨认的控件，避免用灰色线条代替内容"
                 },
                 {
                   "label": "分清前后",

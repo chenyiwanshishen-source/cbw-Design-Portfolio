@@ -138,3 +138,124 @@
 - Humanizer-zh 已安装到 `/Users/chenbaiwan/.codex/skills/humanizer-zh`，安装文件与本次阅读的源文件一致；下一轮可使用 `$humanizer-zh`。
 
 Humanizer-zh 读取版本：`f4518a8eab97b8bfebc66a89d34320a89bef6930`。
+
+---
+
+# 2026-11-03 参考案例后的文案复核
+
+本轮基于当前源码，用 humanizer-zh 修订首页、三个案例和四个实验项目的文案。参考 Cyberdart 的设计决策叙述，以及 Elly Hsieh 对研究依据、取舍和完成状态的说明；不引入参考案例的经历或成果。
+
+只调整文案，保留页面结构、数字、时间、链接、引语与待填内容。当前源码已只保留 ye! 的一处 statement，无须删除。
+
+## 修改对照
+
+| 文件 | 改前 | 改后 | Humanizer-zh 检查点 |
+| --- | --- | --- | --- |
+| src/app/home/content/zh.ts | 我也用 AI 编程工具构建可使用的产品，自己负责产品定义、交互设计和开发验证。 | 我也用 AI 编程工具开发产品，自己负责产品定义、交互设计和开发验证。 | #12 |
+| src/app/home/content/zh.ts | 一开始做给自己用：说一句话，让 AI 帮我理好书签和页签。 | 从自己的整理需求出发，用自然语言查找和整理书签、页签。 | #16 |
+| src/app/home/content/zh.ts | 让 AI 画出像真的控件的矢量插画 | 让 AI 用可辨认的界面控件绘制矢量插画 | #10 |
+| src/app/cases/content/qsight.ts | "title": "起因" | "title": "报告生成中的信任问题" | #20 |
+| src/app/cases/content/qsight.ts | "title": "访谈" | "title": "访谈发现" | #20 |
+| src/app/cases/content/qsight.ts | "title": "改过的三个地方" | "title": "关键设计取舍" | #20 |
+| src/app/cases/content/qsight.ts | "title": "完整流程" | "title": "报告生成与核查流程" | #20 |
+| src/app/cases/content/qsight.ts | "title": "回头看" | "title": "规则边界与后续计划" | #20 |
+| src/app/cases/content/qsight.ts | 研究员担心的就是这些：结构容易写偏，数字查不到出处，生成完还得返工，有时候还不如自己重写。 | 除了数字缺少出处，研究员还担心报告结构偏离需求。生成后仍要返工，有时还不如自己重写。 | #24 |
+| src/app/cases/content/qsight.ts | 我们找了 1 家试点客户的 4 位业务人员，前后聊了 3 轮，再对照竞品、拿低保真原型一起讨论，最后归成三个问题： | 我们与 1 家试点客户的 4 位业务人员进行了 3 轮访谈，结合竞品分析和低保真原型讨论，归纳出三个问题： | #11 |
+| src/app/cases/content/qsight.ts | 最早来源都堆在报告最后，读到一个数字，还是不知道它从哪来。后来改成在正文里标引用编号，对应旁边的来源卡片。 | 早期方案把来源集中放在报告末尾，研究员阅读时难以判断某个数字对应哪条来源。后来我们在正文中加入引用编号，与旁边的来源卡片对应。 | #11 |
+| src/app/cases/content/qsight.ts | 研究员要跟的，大多是一直在关注的那些企业，不只是传几个文件进来。所以企业范围除了导入文件，也能直接选启信产业大脑里建好的企业分组。 | 研究员往往需要持续跟踪同一批企业。因此，除了导入文件，我们也支持直接选择启信产业大脑中已有的企业分组，作为报告的企业范围。 | #1 |
+| src/app/cases/content/qsight.ts | 一开始规划的是一个 10+1 个模块的 Prompt 控制台，1.0 没上，只留了四个模块。 | 最初规划的 Prompt 控制台包含 10+1 个模块，但没有在 1.0 上线。这个版本只保留了四个模块。 | #11 |
+| src/app/cases/content/qsight.ts | 一章一章确认监测对象、时间范围和重点产业，章节可以加也可以删。 | 逐章确认监测对象、时间范围和重点产业，并按需增删章节。 | #27 |
+| src/app/cases/content/qsight.ts | 启信数据、知识库、本地文件和网页链接都放在一个地方管。 | 在同一处配置启信数据、知识库、本地文件和网页链接。 | #10 |
+| src/app/cases/content/qsight.ts | 但在 Qsight 里，有三件事我还是用规则卡住： | 在 Qsight 里，我仍用规则约束三件事： | #12 |
+| src/app/cases/content/qixin.ts | 我从 2021 年开始一直是它的主要设计师，首页改版和自定义产业链是我主导的，组件库是我和两位设计师一起从零搭起来的。 | 从 2021 年起，我担任主要设计师，主导首页改版和自定义产业链设计，并与两位设计师从零搭建组件库。 | #7 |
+| src/app/cases/content/qixin.ts | "title": "起因" | "title": "分散的任务流程" | #20 |
+| src/app/cases/content/qixin.ts | "title": "五类用户" | "title": "用户场景与核心任务" | #20 |
+| src/app/cases/content/qixin.ts | "title": "首页" | "title": "首页工作台" | #20 |
+| src/app/cases/content/qixin.ts | "title": "和 Qsight 打通" | "title": "报告联动与项目反思" | #20 |
+| src/app/cases/content/qixin.ts | 产业大脑做了好几年，功能一直在加，数据和功能却散在各处。用户想从圈定范围一路做到出结果，很难一口气做完。 | 产业大脑在多年迭代中不断增加功能，但数据和操作入口分散。用户从圈定范围到输出结果，很难在系统中连续完成任务。 | #10 |
+| src/app/cases/content/qixin.ts | 五类用户场景不同，走的其实是同一条路。我拿招商当主场景，画了一张体验地图。 | 这五类用户的业务场景不同，但都需要定位范围、筛选目标、判断价值、持续管理和输出结果。我以招商为主要场景，绘制了体验地图。 | #10 |
+| src/app/cases/content/qixin.ts | 每个地区怎么划产业链、哪些企业算本地特色，说法都不一样。以前用户提个需求，得等我们梳理结构、开发配置，改一次再等一轮。 | 各地对产业链的划分和本地特色企业的认定不同。过去用户提出需求后，需要等我们梳理结构、完成开发配置；后续调整也要重复这个过程。 | #11 |
+| src/app/cases/content/qixin.ts | 我的判断是，标准环节其实能复用，不一样的只是本地怎么划。所以我把配置做成了产品功能：标准环节直接选，没有的自己建，节点关系和企业名单都由用户自己维护。 | 标准环节可以复用，差异主要在本地的划分方式。因此，我把原本需要开发介入的配置做成了可编辑的图谱：用户可以选用标准环节、新建本地环节，并维护节点关系和企业名单。 | #10 |
+| src/app/cases/content/qixin.ts | 用户一进系统，要做的是当天的工作，不是去菜单里找功能。所以我把首页改成了任务看板，分成报告入口、动态信息、业务概览和常用功能四块，不同角色进来就能直接开始查、判断、跟进。 | 为了让用户进入系统后直接处理当天的工作，我把首页改成任务看板，分为报告入口、动态信息、业务概览和常用功能四块，支持不同角色开展查询、判断和跟进。 | #1 |
+| src/app/cases/content/qixin.ts | 孵化期为了快点上线，直接用的启信宝的规范。后来两个产品定位分开了，产业大脑得有自己的样子。我和两位设计师先把已上线的页面盘了一遍，再搭了一套五层的组件库。 | 孵化期为了尽快上线，产业大脑沿用了启信宝的设计规范。随着两个产品的定位分开，我们需要建立独立的规范。我和两位设计师先梳理已上线页面，再搭建了五层组件库。 | #10 |
+| src/app/cases/content/ye.ts | 这个插件一开始其实是做给我自己用的。前后做了 8 周，推翻了三次，现在有 4 位朋友在用。 | 这个插件最初是为了解决我自己的书签和页签整理问题。前后开发了 8 周，经历三次架构调整，现在有 4 位朋友在用。 | #9 |
+| src/app/cases/content/ye.ts | "title": "起因" | "title": "自己的整理需求" | #20 |
+| src/app/cases/content/ye.ts | "title": "第一次推翻" | "title": "放弃固定分类规则" | #20 |
+| src/app/cases/content/ye.ts | "title": "第二次推翻" | "title": "回退版本并补齐日志" | #20 |
+| src/app/cases/content/ye.ts | "title": "第三次推翻" | "title": "由单个 AI 调用工具" | #20 |
+| src/app/cases/content/ye.ts | "title": "读网页" | "title": "分类依据与操作确认" | #20 |
+| src/app/cases/content/ye.ts | "title": "给别人用" | "title": "模型适配与朋友试用" | #20 |
+| src/app/cases/content/ye.ts | "title": "怎么做出来的" | "title": "与 AI 的开发分工" | #20 |
+| src/app/cases/content/ye.ts | 修问题也一样，不能只让我自己的测试过了就算，得对所有人都成立。 | 修复问题时，我要求检查其他用户的使用情况，不能只以自己的测试通过为准。 | #11 |
+| src/app/cases/content/ye.ts | 代码交给了三个 AI。我负责定方向、拍板，交给 AI 的提示词每一句都要我批。Claude 帮我审方案、拆任务，Codex 写代码和测试，Gemini 跑全量测试和构建，顺便记进度。 | 开发中，我负责产品方向和最终决策，交给 AI 的提示词也由我逐句审核。三个 AI 分工协作：Claude 审查方案、拆分任务，Codex 编写代码和测试，Gemini 运行全量测试和构建，并记录进度。 | #7 |
+| src/app/cases/content/explorations.ts | 把 Qsight 的老设计稿理成一套组件 | 整理 Qsight 的设计规范与组件 | #20 |
+| src/app/cases/content/explorations.ts | 页面上点哪改哪，改完存回代码 | 在页面上修改样式并写回源码 | #20 |
+| src/app/cases/content/explorations.ts | 教 AI 画出认得出的界面插画 | 用可辨认的控件绘制界面插画 | #20 |
+| src/app/cases/content/explorations.ts | "title": "一个一个定" | "title": "按用途确认颜色" | #20 |
+| src/app/cases/content/explorations.ts | "title": "哪些交给工具" | "title": "工具与 AI 的分工" | #20 |
+| src/app/cases/content/explorations.ts | "title": "为什么停了" | "title": "当前进展" | #20 |
+| src/app/cases/content/explorations.ts | "title": "三条规矩" | "title": "控件、层次与尺寸" | #20 |
+| src/app/cases/content/explorations.ts | 一个改页面样式的小工具，做到 v0.2.1 先放下了。 | 这是一个用于修改页面样式的工具，开发到 v0.2.1 后暂时搁置。 | #11 |
+| src/app/cases/content/explorations.ts | AI 很容易把看着差不多的颜色直接并成一个，但它们各有各的用处。所以我让它先别并，把每个颜色用在哪儿列出来，再由我一个一个定留哪个。 | AI 容易合并看起来相近、实际用途不同的颜色。我让它先列出每个颜色的使用位置，再逐项确认哪些保留、哪些合并。 | #7 |
+| src/app/cases/content/explorations.ts | 最后只留下页面上真用到的用途，理成 58 个按用途命名的颜色：文字 19 个，图标 6 个，背景 26 个，边框 7 个。以前一个颜色又管文字又管边框的，也按用途拆开了。 | 最终按页面实际使用的用途，整理出 58 个颜色并按用途命名：文字 19 个，图标 6 个，背景 26 个，边框 7 个。原来同时用于文字和边框的颜色，也按用途拆开。 | #10 |
+| src/app/cases/content/explorations.ts | 改数值、换颜色、改文字，结果是确定的，工具直接改就行，不用再花钱问 AI。拆组件、调结构这种，才交给 AI。 | 修改数值、颜色和文字由工具直接执行，不需要为这些确定的操作调用 AI；拆分组件、调整结构则交给 AI。 | #10 |
+| src/app/cases/content/explorations.ts | 这是我给 AI 写的一套画插画的规矩。这个作品集的封面、ye! 的空状态图，都是 AI 照着它画的。 | 这是我编写的一套插画绘制规则，用来指导 AI。这个作品集的封面和 ye! 的空状态图都使用了这套规则。 | #10 |
+| src/app/cases/content/explorations.ts | 得是一眼认得出的控件，不拿灰杠凑数 | 使用可辨认的控件，避免用灰色线条代替内容 | #16 |
+
+## 章节标题对照
+
+| 文件 | 原标题 | 现标题 |
+| --- | --- | --- |
+| src/app/cases/content/qsight.ts | 起因 | 报告生成中的信任问题 |
+| src/app/cases/content/qsight.ts | 访谈 | 访谈发现 |
+| src/app/cases/content/qsight.ts | 改过的三个地方 | 关键设计取舍 |
+| src/app/cases/content/qsight.ts | 完整流程 | 报告生成与核查流程 |
+| src/app/cases/content/qsight.ts | 1.0 上线后 | 1.0 上线后 |
+| src/app/cases/content/qsight.ts | 回头看 | 规则边界与后续计划 |
+| src/app/cases/content/qixin.ts | 起因 | 分散的任务流程 |
+| src/app/cases/content/qixin.ts | 五类用户 | 用户场景与核心任务 |
+| src/app/cases/content/qixin.ts | 自定义产业链 | 自定义产业链 |
+| src/app/cases/content/qixin.ts | 首页 | 首页工作台 |
+| src/app/cases/content/qixin.ts | 组件库 | 组件库 |
+| src/app/cases/content/qixin.ts | 和 Qsight 打通 | 报告联动与项目反思 |
+| src/app/cases/content/ye.ts | 起因 | 自己的整理需求 |
+| src/app/cases/content/ye.ts | 第一次推翻 | 放弃固定分类规则 |
+| src/app/cases/content/ye.ts | 第二次推翻 | 回退版本并补齐日志 |
+| src/app/cases/content/ye.ts | 第三次推翻 | 由单个 AI 调用工具 |
+| src/app/cases/content/ye.ts | 读网页 | 分类依据与操作确认 |
+| src/app/cases/content/ye.ts | 给别人用 | 模型适配与朋友试用 |
+| src/app/cases/content/ye.ts | 怎么做出来的 | 与 AI 的开发分工 |
+| src/app/cases/content/explorations.ts | 让 AI 能直接读、改 Figma 文件 | 让 AI 能直接读、改 Figma 文件 |
+| src/app/cases/content/explorations.ts（子节） | 起因 | 起因 |
+| src/app/cases/content/explorations.ts（子节） | 怎么做的 | 怎么做的 |
+| src/app/cases/content/explorations.ts | 把 Qsight 的老设计稿理成一套组件 | 整理 Qsight 的设计规范与组件 |
+| src/app/cases/content/explorations.ts（子节） | 先看颜色 | 先看颜色 |
+| src/app/cases/content/explorations.ts（子节） | 一个一个定 | 按用途确认颜色 |
+| src/app/cases/content/explorations.ts（子节） | 做成组件 | 做成组件 |
+| src/app/cases/content/explorations.ts | 页面上点哪改哪，改完存回代码 | 在页面上修改样式并写回源码 |
+| src/app/cases/content/explorations.ts（子节） | 起因 | 起因 |
+| src/app/cases/content/explorations.ts（子节） | 怎么用 | 怎么用 |
+| src/app/cases/content/explorations.ts（子节） | 哪些交给工具 | 工具与 AI 的分工 |
+| src/app/cases/content/explorations.ts（子节） | 为什么停了 | 当前进展 |
+| src/app/cases/content/explorations.ts | 教 AI 画出认得出的界面插画 | 用可辨认的控件绘制界面插画 |
+| src/app/cases/content/explorations.ts（子节） | 起因 | 起因 |
+| src/app/cases/content/explorations.ts（子节） | 三条规矩 | 控件、层次与尺寸 |
+| src/app/cases/content/explorations.ts（子节） | 画完要检查 | 画完要检查 |
+| src/app/cases/content/explorations.ts（子节） | 作品 | 作品 |
+
+## 保留与待确认
+
+- 用户访谈原话、ye! 聊天原话、沙箱比喻及启信反思原话均保留。
+- 三项问题和插画三项规则分别有独立含义，不为改变数量而合并。
+- Qsight 的统计口径、启信结果、Visual Code Canvas 搁置原因及其他待填项仍需本人补充。
+- 实验项目文件中未展示的总介绍声称前三个案例的代码都由 AI 协作完成；这可能混淆公司项目与个人工具，暂不改写或扩散到页面。
+- 开源、源码写回、自动撤回等能力沿用原稿，本轮没有审计对应工具的实际能力。
+- “经历”和“关于 / 页脚”目前仍为 [待补充]，没有补写经历。
+
+## 验证
+
+- `npm run build` 通过。
+- 本地逐页通读首页、三个案例、四个实验项目的实际渲染文本。
+- 八个页面在 375 / 768 / 1440 宽度下均未检测到页面横向溢出。
+- 文案修改前后数字、链接、ID、待填项及引用块一致；只保留 ye! 的一处 statement。
+- 未重新验收动画、键盘交互与工具能力。

@@ -59,7 +59,7 @@ export const qsight: CaseContent = {
     {
       "id": "qsight-01",
       "label": "挑战",
-      "title": "起因",
+      "title": "报告生成中的信任问题",
       "blocks": [
         {
           "kind": "quotes",
@@ -69,18 +69,18 @@ export const qsight: CaseContent = {
         },
         {
           "kind": "paragraph",
-          "text": "研究员担心的就是这些：结构容易写偏，数字查不到出处，生成完还得返工，有时候还不如自己重写。"
+          "text": "除了数字缺少出处，研究员还担心报告结构偏离需求。生成后仍要返工，有时还不如自己重写。"
         }
       ]
     },
     {
       "id": "qsight-02",
       "label": "定义问题",
-      "title": "访谈",
+      "title": "访谈发现",
       "blocks": [
         {
           "kind": "paragraph",
-          "text": "我们找了 1 家试点客户的 4 位业务人员，前后聊了 3 轮，再对照竞品、拿低保真原型一起讨论，最后归成三个问题："
+          "text": "我们与 1 家试点客户的 4 位业务人员进行了 3 轮访谈，结合竞品分析和低保真原型讨论，归纳出三个问题："
         },
         {
           "kind": "columns",
@@ -135,7 +135,7 @@ export const qsight: CaseContent = {
     {
       "id": "qsight-03",
       "label": "关键取舍",
-      "title": "改过的三个地方",
+      "title": "关键设计取舍",
       "blocks": [
         {
           "kind": "subsection",
@@ -143,7 +143,7 @@ export const qsight: CaseContent = {
           "blocks": [
             {
               "kind": "paragraph",
-              "text": "最早来源都堆在报告最后，读到一个数字，还是不知道它从哪来。后来改成在正文里标引用编号，对应旁边的来源卡片。"
+              "text": "早期方案把来源集中放在报告末尾，研究员阅读时难以判断某个数字对应哪条来源。后来我们在正文中加入引用编号，与旁边的来源卡片对应。"
             },
             {
               "kind": "figures",
@@ -170,7 +170,7 @@ export const qsight: CaseContent = {
           "blocks": [
             {
               "kind": "paragraph",
-              "text": "研究员要跟的，大多是一直在关注的那些企业，不只是传几个文件进来。所以企业范围除了导入文件，也能直接选启信产业大脑里建好的企业分组。"
+              "text": "研究员往往需要持续跟踪同一批企业。因此，除了导入文件，我们也支持直接选择启信产业大脑中已有的企业分组，作为报告的企业范围。"
             }
           ]
         },
@@ -180,7 +180,7 @@ export const qsight: CaseContent = {
           "blocks": [
             {
               "kind": "paragraph",
-              "text": "一开始规划的是一个 10+1 个模块的 Prompt 控制台，1.0 没上，只留了四个模块。"
+              "text": "最初规划的 Prompt 控制台包含 10+1 个模块，但没有在 1.0 上线。这个版本只保留了四个模块。"
             },
             {
               "kind": "columns",
@@ -221,7 +221,7 @@ export const qsight: CaseContent = {
     {
       "id": "qsight-04",
       "label": "最终方案",
-      "title": "完整流程",
+      "title": "报告生成与核查流程",
       "blocks": [
         {
           "kind": "flow",
@@ -245,7 +245,7 @@ export const qsight: CaseContent = {
               "plate": "PLATE 06",
               "title": "大纲确认",
               "instruction": "要放：大纲确认",
-              "caption": "一章一章确认监测对象、时间范围和重点产业，章节可以加也可以删。"
+              "caption": "逐章确认监测对象、时间范围和重点产业，并按需增删章节。"
             }
           ]
         },
@@ -256,7 +256,7 @@ export const qsight: CaseContent = {
               "plate": "PLATE 07",
               "title": "数据来源配置",
               "instruction": "要放：数据来源配置",
-              "caption": "启信数据、知识库、本地文件和网页链接都放在一个地方管。"
+              "caption": "在同一处配置启信数据、知识库、本地文件和网页链接。"
             }
           ]
         },
@@ -341,11 +341,11 @@ export const qsight: CaseContent = {
     {
       "id": "qsight-06",
       "label": "反思",
-      "title": "回头看",
+      "title": "规则边界与后续计划",
       "blocks": [
         {
           "kind": "paragraph",
-          "text": "模型越来越强，需要写死的规则越来越少。但在 Qsight 里，有三件事我还是用规则卡住：生成前必须确认，内容必须有来源，缺的数据必须标出来。至于怎么写，交给模型。\n下一步打算加自定义写作样本库和在线编辑，让报告能贴合不同机构的文风。"
+          "text": "模型越来越强，需要写死的规则越来越少。在 Qsight 里，我仍用规则约束三件事：生成前必须确认，内容必须有来源，缺的数据必须标出来。至于怎么写，交给模型。\n下一步打算加自定义写作样本库和在线编辑，让报告能贴合不同机构的文风。"
         },
         {
           "kind": "subsection",

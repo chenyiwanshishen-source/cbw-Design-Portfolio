@@ -3,7 +3,7 @@ import type { CaseContent } from '../types';
 export const ye: CaseContent = {
   "header": {
     "title": "我只说想法，AI 负责把书签分好",
-    "intro": "这个插件一开始其实是做给我自己用的。前后做了 8 周，推翻了三次，现在有 4 位朋友在用。"
+    "intro": "这个插件最初是为了解决我自己的书签和页签整理问题。前后开发了 8 周，经历三次架构调整，现在有 4 位朋友在用。"
   },
   "hero": {
     "plate": "PLATE 01",
@@ -54,7 +54,7 @@ export const ye: CaseContent = {
     {
       "id": "ye-01",
       "label": "起因",
-      "title": "起因",
+      "title": "自己的整理需求",
       "blocks": [
         {
           "kind": "paragraph",
@@ -75,7 +75,7 @@ export const ye: CaseContent = {
     {
       "id": "ye-02",
       "label": "第一次推翻",
-      "title": "第一次推翻",
+      "title": "放弃固定分类规则",
       "blocks": [
         {
           "kind": "paragraph",
@@ -106,7 +106,7 @@ export const ye: CaseContent = {
     {
       "id": "ye-03",
       "label": "第二次推翻",
-      "title": "第二次推翻",
+      "title": "回退版本并补齐日志",
       "blocks": [
         {
           "kind": "paragraph",
@@ -132,7 +132,7 @@ export const ye: CaseContent = {
     {
       "id": "ye-04",
       "label": "第三次推翻",
-      "title": "第三次推翻",
+      "title": "由单个 AI 调用工具",
       "blocks": [
         {
           "kind": "flow",
@@ -191,7 +191,7 @@ export const ye: CaseContent = {
     {
       "id": "ye-05",
       "label": "细节",
-      "title": "读网页",
+      "title": "分类依据与操作确认",
       "blocks": [
         {
           "kind": "paragraph",
@@ -230,7 +230,7 @@ export const ye: CaseContent = {
     {
       "id": "ye-06",
       "label": "给别人用",
-      "title": "给别人用",
+      "title": "模型适配与朋友试用",
       "blocks": [
         {
           "kind": "paragraph",
@@ -238,7 +238,7 @@ export const ye: CaseContent = {
         },
         {
           "kind": "paragraph",
-          "text": "修问题也一样，不能只让我自己的测试过了就算，得对所有人都成立。4 位朋友试下来，说得最多的两点是：分类准确，交互友好。"
+          "text": "修复问题时，我要求检查其他用户的使用情况，不能只以自己的测试通过为准。4 位朋友试下来，说得最多的两点是：分类准确，交互友好。"
         },
         {
           "kind": "metrics",
@@ -267,11 +267,11 @@ export const ye: CaseContent = {
     {
       "id": "ye-07",
       "label": "协作",
-      "title": "怎么做出来的",
+      "title": "与 AI 的开发分工",
       "blocks": [
         {
           "kind": "paragraph",
-          "text": "代码交给了三个 AI。我负责定方向、拍板，交给 AI 的提示词每一句都要我批。Claude 帮我审方案、拆任务，Codex 写代码和测试，Gemini 跑全量测试和构建，顺便记进度。"
+          "text": "开发中，我负责产品方向和最终决策，交给 AI 的提示词也由我逐句审核。三个 AI 分工协作：Claude 审查方案、拆分任务，Codex 编写代码和测试，Gemini 运行全量测试和构建，并记录进度。"
         },
         {
           "kind": "paragraph",
