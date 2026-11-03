@@ -3,7 +3,17 @@ import type { CaseContent } from '../types';
 export const qsight: CaseContent = {
   "header": {
     "title": "Qsight · AI 报告平台",
-    "intro": "Qsight 是合合信息的 AI 报告平台，帮助研究员整理资料、生成报告和核对来源。我参与需求与业务流程梳理，负责核心交互设计和 Prompt 基础框架，并跟进研发实现与测试验收，直到 1.0 上线。"
+    "intro": "Qsight 是合合信息面向研究员的 AI 报告平台。研究员需要整理分散的材料，也担心生成的报告偏离需求、数字缺少依据。我负责核心交互设计和 Prompt 基础框架，参与需求与业务流程梳理，并跟进研发实现和测试验收，直到 1.0 上线。",
+    "facts": [
+      {
+        "label": "项目周期",
+        "text": "2025.04–2026.05"
+      },
+      {
+        "label": "交付阶段",
+        "text": "从需求梳理到 1.0 上线"
+      }
+    ]
   },
   "hero": {
     "plate": "PLATE 01",
@@ -13,53 +23,38 @@ export const qsight: CaseContent = {
     "ratio": "16 / 9"
   },
   "timeline": [],
-  "opening": [
-    {
-      "kind": "metrics",
-      "items": [
-        {
-          "label": "全流程交付",
-          "text": "2~3 天 → 约 20 分钟"
-        },
-        {
-          "label": "关键事实可溯源",
-          "text": "约 50% → 80%"
-        }
-      ],
-      "note": "试点阶段记录，统计样本、时间范围与核对方式待补充，详见结果章节。"
-    }
-  ],
+  "opening": [],
   "toc": [
     {
       "id": "qsight-01",
-      "label": "挑战"
+      "label": "问题与范围"
     },
     {
       "id": "qsight-02",
-      "label": "定义问题"
+      "label": "生成前确认"
     },
     {
       "id": "qsight-03",
-      "label": "关键取舍"
+      "label": "来源核查"
     },
     {
       "id": "qsight-04",
-      "label": "最终方案"
+      "label": "1.0 的取舍"
     },
     {
       "id": "qsight-05",
-      "label": "结果"
+      "label": "上线反馈"
     },
     {
       "id": "qsight-06",
-      "label": "反思"
+      "label": "后续计划"
     }
   ],
   "chapters": [
     {
       "id": "qsight-01",
-      "label": "挑战",
-      "title": "报告生成中的信任问题",
+      "label": "问题与范围",
+      "title": "研究员需要确认报告能否交付",
       "blocks": [
         {
           "kind": "quotes",
@@ -69,55 +64,11 @@ export const qsight: CaseContent = {
         },
         {
           "kind": "paragraph",
-          "text": "除了数字缺少出处，研究员还担心报告结构偏离需求。生成后仍要返工，有时还不如自己重写。"
-        }
-      ]
-    },
-    {
-      "id": "qsight-02",
-      "label": "定义问题",
-      "title": "访谈发现",
-      "blocks": [
+          "text": "我们与 1 家试点客户的 4 位业务人员进行了 3 轮访谈。先还原最近一次报告的制作和审核过程，再结合竞品讨论生成前需要确认的内容，最后用低保真原型确认历史材料复用和来源核查的需求。"
+        },
         {
           "kind": "paragraph",
-          "text": "我们与 1 家试点客户的 4 位业务人员进行了 3 轮访谈：先还原最近一次报告的制作和审核过程，再结合竞品讨论生成前的控制方式，最后用低保真原型确认历史材料复用与来源核查的需求。问题集中在三个方面："
-        },
-        {
-          "kind": "columns",
-          "items": [
-            {
-              "label": "准备慢",
-              "text": "材料分散，格式不统一，需要反复整理"
-            },
-            {
-              "label": "怕跑偏",
-              "text": "报告结构偏离需求或数字出错，生成后仍需大幅修改"
-            },
-            {
-              "label": "难核查",
-              "text": "数字缺少出处，已有报告也难以复用"
-            }
-          ]
-        },
-        {
-          "kind": "flow",
-          "rows": [
-            {
-              "steps": [
-                "任务定义",
-                "材料整理",
-                "生成前确认",
-                "内容生成",
-                "核查交付"
-              ],
-              "highlight": [
-                2,
-                3,
-                4
-              ]
-            }
-          ],
-          "note": "1.0 的设计集中在图中高亮的三个环节：生成前确认范围和大纲，生成时显示进度与异常，交付前逐段核查来源。"
+          "text": "材料分散、格式不统一，拖慢了准备工作。生成之后，报告结构和数字仍需检查；一旦偏离需求，研究员就要大幅修改，甚至重写。已有报告中的材料也难以复用。"
         },
         {
           "kind": "figures",
@@ -126,107 +77,14 @@ export const qsight: CaseContent = {
               "plate": "PLATE 02",
               "title": "访谈记录",
               "instruction": "要放：访谈记录",
-              "caption": "访谈记录"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "qsight-03",
-      "label": "关键取舍",
-      "title": "关键设计取舍",
-      "blocks": [
-        {
-          "kind": "subsection",
-          "title": "正文中的来源引用",
-          "blocks": [
-            {
-              "kind": "paragraph",
-              "text": "早期方案把来源集中放在报告末尾。访谈中，研究员仍担心数字是否可信，读到具体内容时也难以找到对应依据。\n我们改为在正文中标注引用编号，与旁边的来源卡片对应，让核查发生在阅读的位置。"
-            },
-            {
-              "kind": "figures",
-              "figures": [
-                {
-                  "plate": "PLATE 03",
-                  "title": "早期：来源在文末",
-                  "instruction": "要放：早期：来源在文末",
-                  "caption": "早期：来源在文末"
-                },
-                {
-                  "plate": "PLATE 04",
-                  "title": "最终：来源在正文旁",
-                  "instruction": "要放：最终：来源在正文旁",
-                  "caption": "最终：来源在正文旁"
-                }
-              ]
+              "caption": "三轮访谈分别讨论报告制作与审核、生成前的确认方式，以及历史材料复用和来源核查。"
             }
           ]
         },
         {
-          "kind": "subsection",
-          "title": "复用已有企业分组",
-          "blocks": [
-            {
-              "kind": "paragraph",
-              "text": "研究员往往需要持续跟踪同一批企业。因此，除了导入文件，我们也支持直接选择启信产业大脑中已有的企业分组，作为报告的企业范围。"
-            }
-          ]
+          "kind": "paragraph",
+          "text": "1.0 的交互设计重点放在三个环节：生成前确认范围和大纲，生成时显示进度与异常，交付前核对来源。"
         },
-        {
-          "kind": "subsection",
-          "title": "Prompt 配置",
-          "blocks": [
-            {
-              "kind": "paragraph",
-              "text": "最初规划的 Prompt 控制台包含 10+1 个模块。1.0 研发资源有限，我们没有先做可视化配置后台，先将 Prompt 拆成四个模块，供团队维护。"
-            },
-            {
-              "kind": "columns",
-              "items": [
-                {
-                  "label": "任务定义",
-                  "text": ""
-                },
-                {
-                  "label": "工具编排",
-                  "text": ""
-                },
-                {
-                  "label": "质量门禁",
-                  "text": ""
-                },
-                {
-                  "label": "容错兜底",
-                  "text": ""
-                }
-              ]
-            },
-            {
-              "kind": "paragraph",
-              "text": "当时 Agent 框架刚搭建，我把 Prompt 与执行步骤逐一对应，并为关键阶段设置校验、重试和兜底，避免错误继续传到后续章节。"
-            },
-            {
-              "kind": "figures",
-              "figures": [
-                {
-                  "plate": "PLATE 05",
-                  "title": "没有上线的控制台原型",
-                  "instruction": "要放：没有上线的控制台原型",
-                  "caption": "没有上线的控制台原型"
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "qsight-04",
-      "label": "最终方案",
-      "title": "报告生成与核查流程",
-      "blocks": [
         {
           "kind": "flow",
           "rows": [
@@ -241,15 +99,89 @@ export const qsight: CaseContent = {
               ]
             }
           ]
+        }
+      ]
+    },
+    {
+      "id": "qsight-02",
+      "label": "生成前确认",
+      "title": "先确认大纲与企业范围",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "研究员担心报告结构偏离需求。我把大纲确认放在生成之前，让用户逐章确认监测对象、时间范围和重点产业，再按需增删章节。"
         },
         {
           "kind": "figures",
           "figures": [
             {
-              "plate": "PLATE 06",
+              "plate": "PLATE 03",
               "title": "大纲确认",
               "instruction": "要放：大纲确认",
-              "caption": "逐章确认监测对象、时间范围和重点产业，并按需增删章节。"
+              "caption": "生成前确认大纲：监测对象、时间范围和重点产业可以逐章检查，章节可以增删。"
+            }
+          ]
+        },
+        {
+          "kind": "subsection",
+          "title": "沿用已有的企业范围",
+          "blocks": [
+            {
+              "kind": "paragraph",
+              "text": "研究员往往需要持续跟踪同一批企业。除了导入文件，我们也支持选择启信产业大脑中已有的企业分组，作为报告的企业范围。"
+            }
+          ]
+        },
+        {
+          "kind": "subsection",
+          "title": "集中配置资料来源",
+          "blocks": [
+            {
+              "kind": "paragraph",
+              "text": "报告用到的材料来自不同地方。我把启信数据、知识库、本地文件和网页链接放在同一处配置，供研究员准备本次报告的资料。"
+            },
+            {
+              "kind": "figures",
+              "figures": [
+                {
+                  "plate": "PLATE 04",
+                  "title": "数据来源配置",
+                  "instruction": "要放：数据来源配置",
+                  "caption": "数据来源配置：在同一处选择企业数据和知识库，补充本地文件与网页链接。"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "qsight-03",
+      "label": "来源核查",
+      "title": "把来源放到正文旁边",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "早期方案把来源集中放在报告末尾。访谈中，研究员仍担心数字是否可信，读到具体内容时也难以找到对应依据。"
+        },
+        {
+          "kind": "paragraph",
+          "text": "我们改为在正文中标注引用编号，与旁边的来源卡片对应，方便研究员边读边核对。"
+        },
+        {
+          "kind": "figures",
+          "figures": [
+            {
+              "plate": "PLATE 05",
+              "title": "早期：来源在文末",
+              "instruction": "要放：早期：来源在文末",
+              "caption": "早期：来源在文末"
+            },
+            {
+              "plate": "PLATE 06",
+              "title": "最终：来源在正文旁",
+              "instruction": "要放：最终：来源在正文旁",
+              "caption": "最终：来源在正文旁"
             }
           ]
         },
@@ -258,31 +190,9 @@ export const qsight: CaseContent = {
           "figures": [
             {
               "plate": "PLATE 07",
-              "title": "数据来源配置",
-              "instruction": "要放：数据来源配置",
-              "caption": "在同一处配置启信数据、知识库、本地文件和网页链接。"
-            }
-          ]
-        },
-        {
-          "kind": "figures",
-          "figures": [
-            {
-              "plate": "PLATE 08",
-              "title": "执行过程",
-              "instruction": "要放：执行过程",
-              "caption": "显示当前检索内容、执行进度和失败后的重试次数。缺失数据单独标注，要求模型不补写没有依据的数字。"
-            }
-          ]
-        },
-        {
-          "kind": "figures",
-          "figures": [
-            {
-              "plate": "PLATE 09",
               "title": "来源卡片",
               "instruction": "要放：来源卡片",
-              "caption": "正文的引用编号对应旁边的来源卡片，四类来源用不同标签和颜色区分。"
+              "caption": "正文中的引用编号对应来源卡片；标签和颜色区分企业数据、客户材料、公开信息，以及模型推理与计算。"
             }
           ]
         },
@@ -310,10 +220,67 @@ export const qsight: CaseContent = {
       ]
     },
     {
-      "id": "qsight-05",
-      "label": "结果",
-      "title": "1.0 上线后",
+      "id": "qsight-04",
+      "label": "1.0 的取舍",
+      "title": "1.0 的范围与落地",
       "blocks": [
+        {
+          "kind": "subsection",
+          "title": "显示执行进度和异常",
+          "blocks": [
+            {
+              "kind": "paragraph",
+              "text": "生成需要经过检索和内容处理等步骤。我在界面中呈现当前检索内容、执行进度和失败后的重试次数；缺失数据单独标注，并在 Prompt 中要求模型不补写没有依据的数字。"
+            },
+            {
+              "kind": "figures",
+              "figures": [
+                {
+                  "plate": "PLATE 08",
+                  "title": "执行过程",
+                  "instruction": "要放：执行过程",
+                  "caption": "执行过程中展示检索内容、进度和重试次数，缺失数据单独提示。"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "subsection",
+          "title": "暂不做可视化 Prompt 后台",
+          "blocks": [
+            {
+              "kind": "paragraph",
+              "text": "最初规划的 Prompt 控制台包含 10+1 个模块。1.0 研发资源有限，我们暂不做可视化配置后台，先将 Prompt 拆成任务定义、工具编排、质量门禁和容错兜底四个模块，供团队维护。"
+            },
+            {
+              "kind": "paragraph",
+              "text": "当时 Agent 框架刚搭建。我把 Prompt 与执行步骤逐一对应，并为关键阶段设置校验、重试和兜底，目的是避免错误继续传到后续章节。"
+            },
+            {
+              "kind": "figures",
+              "figures": [
+                {
+                  "plate": "PLATE 09",
+                  "title": "没有上线的控制台原型",
+                  "instruction": "要放：没有上线的控制台原型",
+                  "caption": "未上线的 Prompt 控制台原型。1.0 先采用分模块维护的方式。"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "qsight-05",
+      "label": "上线反馈",
+      "title": "上线后的反馈与记录",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "1.0 已上线。试点阶段记录了整体交付、分阶段耗时和关键事实溯源情况，统计样本与口径仍待补充。"
+        },
         {
           "kind": "subsection",
           "title": "整体交付耗时",
@@ -368,28 +335,22 @@ export const qsight: CaseContent = {
         },
         {
           "kind": "paragraph",
-          "text": "试点客户反馈，资料检索与整理可以在同一处完成，报告内容的来源也更容易核对。【待填：一句客户原话，注明是谁、在什么场合说的】"
+          "text": "试点客户反馈，资料检索与整理可以在同一处完成，报告内容的来源也更容易核对。【待填：补充这条上线反馈的记录与场合】"
         }
       ]
     },
     {
       "id": "qsight-06",
-      "label": "反思",
-      "title": "规则边界与后续计划",
+      "label": "后续计划",
+      "title": "保留的规则与后续计划",
       "blocks": [
         {
           "kind": "paragraph",
-          "text": "随着模型能力提升，我认为需要固定下来的规则可以减少。Qsight 仍保留三项要求：生成前确认，内容标明来源，缺失数据明确提示。具体的写作表达由模型处理。\n下一步打算加自定义写作样本库和在线编辑，让报告能贴合不同机构的文风。"
+          "text": "随着模型能力提升，我认为需要固定下来的规则可以减少。目前 Qsight 仍保留生成前确认、内容标明来源和缺失数据提示这三项要求，具体的写作表达交给模型处理。"
         },
         {
-          "kind": "subsection",
-          "title": "如果重来",
-          "blocks": [
-            {
-              "kind": "paragraph",
-              "text": "【待填：如果重来，我会改什么。一两句。】"
-            }
-          ]
+          "kind": "paragraph",
+          "text": "后续计划加入自定义写作样本库和在线编辑，让报告更贴合不同机构的文风。"
         }
       ]
     }
