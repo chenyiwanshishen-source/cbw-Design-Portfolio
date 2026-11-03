@@ -2,7 +2,7 @@ import type { CaseContent } from '../types';
 
 export const qsight: CaseContent = {
   "header": {
-    "title": "让研究员敢把报告交给 AI 写",
+    "title": "Qsight · AI 报告平台",
     "intro": "研究员写一份区域监测报告，大半天都花在找资料上。Qsight 是合合信息做的 AI 报告平台，帮他们整理资料、生成报告、核对来源。我负责核心交互和 Prompt 的基础框架，一直跟到 1.0 上线。"
   },
   "hero": {
@@ -363,7 +363,7 @@ export const qsight: CaseContent = {
   "ui": {
     "back": "← 返回首页",
     "next": "下一个案例",
-    "nextTitle": "让招商人员自己搭本地产业链 →",
+    "nextTitle": "启信产业大脑 →",
     "toc": "案例目录",
     "judgment": "我的判断",
     "result": "结果",

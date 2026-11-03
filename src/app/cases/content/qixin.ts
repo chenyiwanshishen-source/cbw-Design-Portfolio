@@ -2,7 +2,7 @@ import type { CaseContent } from '../types';
 
 export const qixin: CaseContent = {
   "header": {
-    "title": "把企业数据查询工具，做成招商人员的工作台",
+    "title": "启信产业大脑",
     "intro": "启信产业大脑是给政府招商、产业分析和区域经济管理用的企业数据平台。从 2021 年起，我担任主要设计师，主导首页改版和自定义产业链设计，并与两位设计师从零搭建组件库。"
   },
   "hero": {
@@ -329,9 +329,9 @@ export const qixin: CaseContent = {
   "ui": {
     "back": "← 返回首页",
     "next": "下一个案例",
-    "nextTitle": "我只说想法，AI 负责把书签分好 →",
+    "nextTitle": "ye! · 浏览器整理 agent →",
     "previous": "← 上一个案例",
-    "previousTitle": "让研究员敢把报告交给 AI 写",
+    "previousTitle": "Qsight · AI 报告平台",
     "toc": "案例目录",
     "judgment": "我的判断",
     "result": "结果",

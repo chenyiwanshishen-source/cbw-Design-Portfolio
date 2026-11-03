@@ -2,7 +2,7 @@ import type { CaseContent } from '../types';
 
 export const ye: CaseContent = {
   "header": {
-    "title": "我只说想法，AI 负责把书签分好",
+    "title": "ye! · 浏览器整理 agent",
     "intro": "这个插件最初是为了解决我自己的书签和页签整理问题。前后开发了 8 周，经历三次架构调整，现在有 4 位朋友在用。"
   },
   "hero": {
@@ -295,7 +295,7 @@ export const ye: CaseContent = {
     "next": "下一个案例",
     "nextTitle": "AI 探索 →",
     "previous": "← 上一个案例",
-    "previousTitle": "把企业数据查询工具，做成招商人员的工作台",
+    "previousTitle": "启信产业大脑",
     "toc": "案例目录",
     "judgment": "我的判断",
     "result": "结果",
