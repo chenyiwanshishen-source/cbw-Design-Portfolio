@@ -12,8 +12,8 @@
 .case-layers dt { color: var(--color-text); }
 .case-chat ul { display: flex; flex-direction: column; align-items: flex-end; gap: var(--rhythm-2); list-style: none; padding: 0; }
 .case-chat li { border: var(--border-width) solid var(--color-border-subtle); padding: var(--rhythm-2) var(--rhythm-3); max-width: 100%; }
-.case-statement { font-size: var(--text-h2); line-height: var(--text-h2--line-height); font-weight: 400; color: var(--color-text); padding-block: var(--space-16); }
-.case-opening { display: flex; flex-direction: column; gap: var(--rhythm-5); padding-block: var(--rhythm-5) var(--rhythm-7); }
+.case-statement { font-size: var(--text-h2); line-height: var(--text-h2--line-height); font-weight: 400; color: var(--color-text); padding-block: var(--rhythm-3); }
+.case-opening { display: flex; flex-direction: column; gap: var(--rhythm-4); padding-block: var(--rhythm-4) var(--rhythm-6); }
 .case-page:has(.case-opening) .case-header-compact { padding-bottom: 0; }
 .case-opening .case-metrics { grid-template-columns: repeat(auto-fit, minmax(0, 1fr)); }
 .case-opening .case-opening-timeline { grid-template-columns: repeat(auto-fit, minmax(0, 1fr)); }

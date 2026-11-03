@@ -4,7 +4,7 @@ body:has(.case-page) { background: var(--color-home-bg); }
 .case-back { display: inline-flex; align-items: center; min-height: var(--touch-target); margin-block: var(--rhythm-4); color: var(--color-text-secondary); }
 .case-page a:hover { color: var(--color-accent); }
 .case-header { display: grid; gap: var(--rhythm-6); padding-block: var(--rhythm-6) var(--rhythm-6); }
-.case-header-main, .case-facts { display: flex; flex-direction: column; gap: var(--rhythm-4); min-width: 0; }
+.case-header-main, .case-facts { display: flex; flex-direction: column; gap: var(--rhythm-3); min-width: 0; }
 .case-header-main > .text-caption { line-height: var(--text-caption--line-height); }
 .case-header h1 { font-size: var(--text-home-role); font-weight: 400; line-height: 1.45; text-wrap: wrap; }
 .case-facts dt { margin-bottom: var(--rhythm-1); }
@@ -12,10 +12,10 @@ body:has(.case-page) { background: var(--color-home-bg); }
 .case-summary > div { padding-top: var(--rhythm-4); border-top: var(--border-width) solid var(--color-border-subtle); }
 .case-summary dd { margin-top: var(--rhythm-3); }
 .case-body { display: grid; gap: var(--rhythm-4); }
-.case-chapters { min-width: 0; display: flex; flex-direction: column; gap: var(--rhythm-7); }
-.case-section { display: flex; flex-direction: column; gap: var(--rhythm-4); scroll-margin-top: var(--rhythm-4); min-width: 0; }
+.case-chapters { min-width: 0; display: flex; flex-direction: column; gap: var(--rhythm-6); }
+.case-section { display: flex; flex-direction: column; gap: var(--rhythm-3); scroll-margin-top: var(--rhythm-4); min-width: 0; }
 .case-section:focus:not(:focus-visible) { outline: none; }
-.case-subsection { display: flex; flex-direction: column; gap: var(--rhythm-3); margin-top: var(--rhythm-2); min-width: 0; }
+.case-subsection { display: flex; flex-direction: column; gap: var(--rhythm-3); margin-top: var(--rhythm-3); min-width: 0; }
 .case-paragraph { font-size: var(--text-body); line-height: var(--text-body--line-height); color: var(--color-text-body); }
 .case-toc { display: none; }
 .case-figure { min-width: 0; }
@@ -66,7 +66,7 @@ body:has(.case-page) { background: var(--color-home-bg); }
 }
 
 /* Image-led Qsight introduction: compact information below the opening plate. */
-.case-header-compact { padding-block: var(--rhythm-5) var(--rhythm-7); }
+.case-header-compact { padding-block: var(--rhythm-4) var(--rhythm-6); }
 .case-header-compact h1 { font-weight: 600; font-size: var(--text-case-title); line-height: var(--text-h2--line-height); }
 .case-header-compact .case-header-main > .text-body-lg { font-size: var(--text-body); line-height: var(--text-body--line-height); }
 .case-header-compact .case-facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-content: start; }
@@ -89,7 +89,7 @@ body:has(.case-page) { background: var(--color-home-bg); }
 .case-subsection h4 { font-weight: 600; }
 .case-toc a:hover { color: var(--color-text); }
 
-/* Parent gap plus this offset totals the 40px subsection rhythm. */
+/* Parent 20px gap plus 20px offset totals the 40px subsection rhythm. */
 .case-subsection > .case-subsection { margin-top: var(--rhythm-3); }
 
 /* Let introductions use the full row when there is no facts column. */

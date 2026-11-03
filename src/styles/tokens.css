@@ -139,8 +139,12 @@
   --color-blueprint-bg: #101114;
   --color-blueprint-line: rgba(255, 255, 255, 0.25);
   --text-case-title: 32px;
-  --text-home-role: clamp(28px, 4vw, 56px);
-  --text-home-name: clamp(56px, 7vw, 96px);
+  --text-home-role: 40px;
+  --text-home-bio: 20px;
+  --text-home-bio--line-height: 1.6;
+  --text-home-name-mobile: 48px;
+  --text-home-name-tablet: 62px;
+  --text-home-name: 96px;
 
   /* ---------- 字体 ---------- */
   --font-sans: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
@@ -155,7 +159,7 @@
   --text-h4: 20px;      --text-h4--line-height: 1.4;     /* 卡片小标题、指标数字 */
   --text-lead: 20px;    --text-lead--line-height: 1.5;   /* 问候、身份一行 */
   --text-body-lg: 18px; --text-body-lg--line-height: 1.85; /* 首页介绍段落 */
-  --text-body: 16px;    --text-body--line-height: 1.8;   /* 正文 */
+  --text-body: 16px;    --text-body--line-height: 1.75;   /* 正文 */
   --text-caption: 14px; --text-caption--line-height: 1.6; /* 说明、批注 */
   --text-micro: 12px;   --text-micro--line-height: 1.5;  /* 界面片段内文字、标签 */
   --text-label: 12px;   --text-label--line-height: 1;    /* 等宽标注 */
