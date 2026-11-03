@@ -23,7 +23,7 @@ export const explorations: { header: { title: string; intro: string }; intro: st
           "blocks": [
             {
               "kind": "paragraph",
-              "text": "我想让 AI 帮我看看 Qsight 那批老设计稿，颜色和组件到底乱到什么程度。可当时用 Gemini 连 Figma 老是报错，我就自己做了这个插件。后面扫描那 [19 个页面](#/project/explorations/design-system)，用的就是它。"
+              "text": "我想检查 Qsight 旧设计稿中的颜色和组件使用情况，但当时用 Gemini 连接 Figma 经常报错，于是自己开发了这个插件。后续对 [19 个页面](#/project/explorations/design-system)的检查，也是通过它完成的。"
             }
           ]
         },
@@ -45,7 +45,7 @@ export const explorations: { header: { title: string; intro: string }; intro: st
             },
             {
               "kind": "paragraph",
-              "text": "AI 把要做的事发给插件，插件在 Figma 里执行，再把结果传回去。\n我最担心 AI 把稿子改坏，所以插件每次动手前都会先存一份，出了错就退回去。面板上也能看到它这会儿是在读还是在写。\n整个过程只在自己电脑上跑，不用注册，也不用填密钥。"
+              "text": "插件接收 AI 的操作请求，在 Figma 中执行，再返回结果。\n为了避免改坏设计稿，插件会在每次修改前保存一份，出错时撤回。面板显示当前正在读取还是写入，便于查看执行状态。\n插件在本地运行，无需注册或填写密钥。"
             },
             {
               "kind": "figures",
@@ -71,7 +71,7 @@ export const explorations: { header: { title: string; intro: string }; intro: st
       "blocks": [
         {
           "kind": "paragraph",
-          "text": "我用自己做的 [Figma 连接器](#/project/explorations/figma-connector)，让 AI 把 Qsight 的老设计稿过了一遍，先理颜色，再理基础规范，最后做成前端组件。"
+          "text": "我通过自己开发的 [Figma 连接器](#/project/explorations/figma-connector)，让 AI 检查 Qsight 的旧设计稿，先整理颜色，再统一基础规范，最后实现前端组件。"
         },
         {
           "kind": "subsection",
@@ -79,7 +79,7 @@ export const explorations: { header: { title: string; intro: string }; intro: st
           "blocks": [
             {
               "kind": "paragraph",
-              "text": "AI 一共查了 19 个页面。文件里已经建了 186 个颜色，可页面上实际用的，是另一个库里的颜色。光蓝色就有三种差不多的，分别用在按钮、品牌和高亮的文字上。"
+              "text": "AI 检查了 19 个页面。文件中已有 186 个颜色，但页面实际引用的是另一个库中的颜色。其中三种相近的蓝色，分别用于按钮、品牌和高亮文字。"
             },
             {
               "kind": "figures",
@@ -114,7 +114,7 @@ export const explorations: { header: { title: string; intro: string }; intro: st
           "blocks": [
             {
               "kind": "paragraph",
-              "text": "颜色、字体、间距这些定下来以后，我先存进 Figma，再做成前端组件。现在有 9 个组件，每个组件的样式和状态都能在一个页面里查到。"
+              "text": "确定颜色、字体和间距后，我先将规范整理到 Figma，再实现前端组件。目前有 9 个组件，样式和状态可以在同一个展示页查看。"
             },
             {
               "kind": "figures",
@@ -131,7 +131,7 @@ export const explorations: { header: { title: string; intro: string }; intro: st
         }
       ],
       "url": "https://github.com/chenyiwanshishen-source/figma-design-system-workflow",
-      "status": "从零搭设计系统的时候，我用的是另一个自己写的 Skill，也开源了 · GitHub。组件库还在接着做。"
+      "status": "另有一套用于从零搭建设计系统的 Skill，已开源 · GitHub。组件库仍在开发中。"
     },
     {
       "id": "explorations-03",
@@ -148,7 +148,7 @@ export const explorations: { header: { title: string; intro: string }; intro: st
           "blocks": [
             {
               "kind": "paragraph",
-              "text": "用 AI 写页面很快，可改个间距、换个颜色，还得再跟它描述一遍、再等一轮。改的地方越小，越觉得不值。"
+              "text": "用 AI 生成页面后，即使只调整间距或颜色，也需要重新描述需求并等待修改。我希望这些小范围调整能直接在页面上完成。"
             }
           ]
         },
@@ -171,7 +171,7 @@ export const explorations: { header: { title: string; intro: string }; intro: st
             },
             {
               "kind": "paragraph",
-              "text": "我不用再翻代码找这个按钮写在哪儿，工具会直接帮我定位。"
+              "text": "工具根据页面上选中的元素定位源码，不必手动查找对应代码。"
             },
             {
               "kind": "figures",
@@ -202,7 +202,7 @@ export const explorations: { header: { title: string; intro: string }; intro: st
           "blocks": [
             {
               "kind": "paragraph",
-              "text": "第一版是装在 VSCode 里的插件，后来改成在 Codex 自带的浏览器里用。做到 v0.2.1 以后先搁置了。【待填：为什么放下，一句】"
+              "text": "第一版是 VSCode 插件，后来改为在 Codex 内置浏览器中使用。开发到 v0.2.1 后暂时搁置。【待填：为什么放下，一句】"
             }
           ]
         }
@@ -225,7 +225,7 @@ export const explorations: { header: { title: string; intro: string }; intro: st
           "blocks": [
             {
               "kind": "paragraph",
-              "text": "让 AI 画个\"界面\"，它经常就摆几张空白卡片、几条灰杠，看不出到底画的是什么工具。"
+              "text": "AI 绘制界面插画时，经常用空白卡片和灰色线条代替内容，难以辨认画的是什么工具。"
             }
           ]
         },
@@ -237,16 +237,16 @@ export const explorations: { header: { title: string; intro: string }; intro: st
               "kind": "columns",
               "items": [
                 {
-                  "label": "画真东西",
+                  "label": "控件可辨认",
                   "text": "使用可辨认的控件，避免用灰色线条代替内容"
                 },
                 {
-                  "label": "分清前后",
+                  "label": "区分层次",
                   "text": "底板、中间的控件、最前面的重点，分成三层"
                 },
                 {
-                  "label": "别画太碎",
-                  "text": "按实际大小看，每块颜色至少 16 像素，放不下就少画点"
+                  "label": "控制细节",
+                  "text": "按实际展示尺寸检查，每块颜色至少 16 像素，空间不足时减少细节"
                 }
               ]
             },
@@ -255,15 +255,15 @@ export const explorations: { header: { title: string; intro: string }; intro: st
               "figures": [
                 {
                   "plate": "PLATE 05",
-                  "title": "没有这些规矩时，AI 画的",
-                  "instruction": "要放：没有这些规矩时，AI 画的",
-                  "caption": "没有这些规矩时，AI 画的"
+                  "title": "未使用绘制规则的插画",
+                  "instruction": "要放：未使用绘制规则的插画",
+                  "caption": "未使用绘制规则的插画"
                 },
                 {
                   "plate": "PLATE 06",
-                  "title": "按规矩画的",
-                  "instruction": "要放：按规矩画的",
-                  "caption": "按规矩画的"
+                  "title": "使用绘制规则后的插画",
+                  "instruction": "要放：使用绘制规则后的插画",
+                  "caption": "使用绘制规则后的插画"
                 }
               ]
             }
@@ -275,7 +275,7 @@ export const explorations: { header: { title: string; intro: string }; intro: st
           "blocks": [
             {
               "kind": "paragraph",
-              "text": "每画完一张，AI 得按原大小和放大三倍各看一遍：原大小看认不认得出，放大看边角和阴影有没有毛病，有问题改完再看一遍。"
+              "text": "每张插画都按原始尺寸和三倍尺寸检查：原始尺寸下确认控件能否辨认，放大后检查边角和阴影。发现问题后修改，再重新检查。"
             }
           ]
         },

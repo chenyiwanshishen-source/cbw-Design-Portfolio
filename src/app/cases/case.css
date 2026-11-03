@@ -106,3 +106,9 @@ body:has(.case-page) { background: var(--color-home-bg); }
  .exploration-detail > .case-prose,
  .exploration-detail > .case-subsection > .case-prose { width: calc((100% - 11 * var(--rhythm-4)) / 12 * 9 + 8 * var(--rhythm-4)); }
 }
+
+/* Narrow screens use natural wrapping; phrase protection is for desktop reading. */
+@media (max-width: 767px) {
+ .reading-word { white-space: normal; }
+ .case-page :is(h1, h2, h3, h4) { text-wrap: wrap; }
+}

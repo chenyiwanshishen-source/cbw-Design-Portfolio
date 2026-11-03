@@ -9,7 +9,7 @@ export function CaseText({ text }: { text: string }) {
     if (part.startsWith('【待填')) return <TodoNote key={i} text={part} />;
     const link = part.match(/^\[([^\]]+)\]\((#\/project\/[a-z0-9/-]+)\)$/);
     return link
-      ? <a key={i} href={link[2]} className="underline underline-offset-4">{link[1]}</a>
+      ? <a key={i} href={link[2]} className="underline underline-offset-4"><ReadingText text={link[1]} /></a>
       : <ReadingText key={i} text={part} />;
   })}</>;
 }

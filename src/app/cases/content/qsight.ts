@@ -3,7 +3,7 @@ import type { CaseContent } from '../types';
 export const qsight: CaseContent = {
   "header": {
     "title": "Qsight · AI 报告平台",
-    "intro": "研究员写一份区域监测报告，大半天都花在找资料上。Qsight 是合合信息做的 AI 报告平台，帮他们整理资料、生成报告、核对来源。我负责核心交互和 Prompt 的基础框架，一直跟到 1.0 上线。"
+    "intro": "Qsight 是合合信息的 AI 报告平台，帮助研究员整理资料、生成报告和核对来源。写一份区域监测报告时，研究员往往要花大半天找资料。我负责核心交互设计和 Prompt 基础框架，并跟进到 1.0 上线。"
   },
   "hero": {
     "plate": "PLATE 01",
@@ -87,15 +87,15 @@ export const qsight: CaseContent = {
           "items": [
             {
               "label": "准备慢",
-              "text": "材料东一份西一份，格式一变就得重新整理"
+              "text": "材料分散，格式不统一，需要反复整理"
             },
             {
               "label": "怕跑偏",
-              "text": "结构或数字一旦跑偏，生成完要大改"
+              "text": "报告结构偏离需求或数字出错，生成后仍需大幅修改"
             },
             {
               "label": "难核查",
-              "text": "数字找不到出处，旧报告也没法接着用"
+              "text": "数字缺少出处，已有报告也难以复用"
             }
           ]
         },
@@ -117,7 +117,7 @@ export const qsight: CaseContent = {
               ]
             }
           ],
-          "note": "1.0 只在高亮的三步做控制：生成前先确认范围和大纲，生成时能看到进度和出错的地方，交付前每一段都能查来源。"
+          "note": "1.0 的设计集中在图中高亮的三个环节：生成前确认范围和大纲，生成时显示进度与异常，交付前逐段核查来源。"
         },
         {
           "kind": "figures",
@@ -139,7 +139,7 @@ export const qsight: CaseContent = {
       "blocks": [
         {
           "kind": "subsection",
-          "title": "来源的位置",
+          "title": "正文中的来源引用",
           "blocks": [
             {
               "kind": "paragraph",
@@ -166,7 +166,7 @@ export const qsight: CaseContent = {
         },
         {
           "kind": "subsection",
-          "title": "企业名单",
+          "title": "复用已有企业分组",
           "blocks": [
             {
               "kind": "paragraph",
@@ -267,7 +267,7 @@ export const qsight: CaseContent = {
               "plate": "PLATE 08",
               "title": "执行过程",
               "instruction": "要放：执行过程",
-              "caption": "能看到它正在查什么、做到哪一步，失败了会告诉你重试了几次；缺的数据会标出来，不让模型自己编数字。"
+              "caption": "显示当前检索内容、执行进度和失败后的重试次数。缺失数据单独标注，要求模型不补写没有依据的数字。"
             }
           ]
         },
@@ -334,7 +334,7 @@ export const qsight: CaseContent = {
         },
         {
           "kind": "paragraph",
-          "text": "试点客户的反馈是，找资料、整理资料都集中到一处了，内容的来源也更好确认。【待填：一句客户原话，注明是谁、在什么场合说的】"
+          "text": "试点客户反馈，资料检索与整理可以在同一处完成，报告内容的来源也更容易核对。【待填：一句客户原话，注明是谁、在什么场合说的】"
         }
       ]
     },
@@ -345,7 +345,7 @@ export const qsight: CaseContent = {
       "blocks": [
         {
           "kind": "paragraph",
-          "text": "模型越来越强，需要写死的规则越来越少。在 Qsight 里，我仍用规则约束三件事：生成前必须确认，内容必须有来源，缺的数据必须标出来。至于怎么写，交给模型。\n下一步打算加自定义写作样本库和在线编辑，让报告能贴合不同机构的文风。"
+          "text": "随着模型能力提升，我认为需要固定下来的规则可以减少。Qsight 仍保留三项要求：生成前确认，内容标明来源，缺失数据明确提示。具体的写作表达由模型处理。\n下一步打算加自定义写作样本库和在线编辑，让报告能贴合不同机构的文风。"
         },
         {
           "kind": "subsection",
