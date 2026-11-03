@@ -5,12 +5,12 @@ import { CaseLayout } from './components/CaseLayout';
 import { CaseHeader } from './components/CaseHeader';
 import { CaseToc } from './components/CaseToc';
 import { CaseSection } from './components/CaseSection';
-import { FigurePlaceholder } from './components/FigurePlaceholder';
+import { QsightMvpDemo } from './components/QsightMvpDemo';
 import { CaseBlocks } from './CaseBlocks';
 export function QsightCase() {
   useEffect(() => { window.scrollTo({ top: 0, behavior: 'instant' }); }, []);
   return <CaseLayout backLabel={qsight.ui.back} footer={<span className="text-caption text-text-meta">{qsight.ui.footer}</span>}>
-    <FigurePlaceholder {...qsight.hero} />
+    <QsightMvpDemo />
     <CaseHeader content={qsight.header} compact />
       <CaseOpening content={qsight} />
     <div className="case-body"><CaseToc items={qsight.toc} label={qsight.ui.toc} /><div className="case-chapters">{qsight.chapters.map(chapter => <CaseSection key={chapter.id} id={chapter.id} label={chapter.label} title={chapter.title}><CaseBlocks blocks={chapter.blocks} labels={qsight.ui} /></CaseSection>)}</div></div>
