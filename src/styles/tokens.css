@@ -214,6 +214,3 @@ body {
     --stagger: 0ms;
   }
 }
-
-/* Qsight MVP：来源面板的轻微弹性入场 */
-:root { --ease-demo-spring: cubic-bezier(.2, 1.2, .3, 1); }
