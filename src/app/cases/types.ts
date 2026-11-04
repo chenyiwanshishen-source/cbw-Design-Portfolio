@@ -18,7 +18,7 @@ export type CaseBlock =
  | { kind: 'paragraph' | 'aside'; text: string; highlight?: string }
  | { kind: 'subsection'; title: string; number?: string; plain?: boolean; prominent?: boolean; blocks: CaseBlock[] }
  | { kind: 'quotes'; texts: string[] }
- | { kind: 'figures'; figures: FigureContent[] }
+ | { kind: 'figures'; figures: FigureContent[]; arrow?: boolean }
  | { kind: 'table'; headers: string[]; rows: string[][]; label: string; highlighted?: number[]; legend?: string }
  | { kind: 'columns' | 'participants'; items: Item[] }
  | { kind: 'steps'; items: string[]; preparation: string; rework: string }

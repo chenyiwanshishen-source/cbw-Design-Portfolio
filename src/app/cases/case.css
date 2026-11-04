@@ -398,3 +398,7 @@ body:has(.case-page) { background: var(--color-home-bg); }
 .template-preview-screen[data-device="mobile"],
 .outline-devices-mobile img,
 .case-figure-framed img[src$="-mobile.webp"] { border-radius: var(--radius-case-mobile-screen); }
+
+.case-pair:has(> .case-pair-arrow) { position: relative; }
+.case-pair-arrow { position: absolute; z-index: 1; left: 40%; top: 60%; width: 22%; height: 28%; color: var(--ink-900); pointer-events: none; }
+@media (max-width: 767px) { .case-pair-arrow { display: none; } }

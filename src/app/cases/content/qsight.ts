@@ -208,6 +208,7 @@ export const qsight: CaseContent = {
             },
             {
               "kind": "figures",
+              "arrow": true,
               "figures": [{
                 "plate": "PLATE 04 MOBILE",
                 "title": "移动端报告正文",
