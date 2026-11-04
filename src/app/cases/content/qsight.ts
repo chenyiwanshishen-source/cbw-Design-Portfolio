@@ -317,7 +317,7 @@ export const qsight: CaseContent = {
     {
       "id": "qsight-04",
       "label": "提示词优化",
-      "title": "1.0 的范围与落地",
+      "title": "生成过程和 Prompt",
       "blocks": [
         {
           "kind": "subsection",
@@ -342,26 +342,122 @@ export const qsight: CaseContent = {
         },
         {
           "kind": "subsection",
-          "title": "暂不做可视化 Prompt 后台",
+          "title": "Prompt 放在流程的哪一步",
           "blocks": [
             {
               "kind": "paragraph",
-              "text": "最初规划的 Prompt 控制台包含 10+1 个模块。1.0 研发资源有限，我们暂不做可视化配置后台，先将 Prompt 拆成任务定义、工具编排、质量门禁和容错兜底四个模块，供团队维护。"
-            },
-            {
-              "kind": "paragraph",
-              "text": "当时 Agent 框架刚搭建。我把 Prompt 与执行步骤逐一对应，并为关键阶段设置校验、重试和兜底，目的是避免错误继续传到后续章节。"
+              "text": "报告是由 Agent 一章一章生成的。我写的 Prompt 跑在\"章节生成\"这一步。"
             },
             {
               "kind": "figures",
               "figures": [
                 {
                   "plate": "PLATE 09",
+                  "title": "Agent 报告生成工作流",
+                  "instruction": "要放：Agent 报告生成工作流，章节生成节点高亮",
+                  "caption": "我的 Prompt 运行在\"章节生成\"这一步。"
+                }
+              ]
+            },
+            {
+              "kind": "paragraph",
+              "text": "最初规划的 Prompt 控制台有 10+1 个模块。1.0 研发资源有限，我们不做可视化配置后台，先把 Prompt 拆成四个模块，由团队自己维护。"
+            },
+            {
+              "kind": "layers",
+              "items": [
+                {
+                  "label": "任务定义",
+                  "text": "目标、身份、成功标准"
+                },
+                {
+                  "label": "工具编排",
+                  "text": "要什么输入，按什么顺序调用哪些工具"
+                },
+                {
+                  "label": "质量门禁",
+                  "text": "约束边界、输出格式、异常怎么处理"
+                },
+                {
+                  "label": "容错兜底",
+                  "text": "兜底办法和交付前的自检清单"
+                }
+              ]
+            },
+            {
+              "kind": "paragraph",
+              "text": "当时 Agent 框架刚搭起来。我让 Prompt 和执行步骤一一对应，关键步骤没通过校验就重试或走兜底，避免错误传到后面的章节。"
+            },
+            {
+              "kind": "paragraph",
+              "text": "验证规则时，我先用能力较低的模型跑，因为强模型容易把规则里的漏洞盖住。换到生产用的模型后，再对比通过率、重试率、来源覆盖率和成本。【待填：这个对比是否已经做过，结果如何】"
+            },
+            {
+              "kind": "figures",
+              "figures": [
+                {
+                  "plate": "PLATE 10",
                   "title": "没有上线的控制台原型",
                   "instruction": "要放：没有上线的控制台原型",
                   "caption": "未上线的 Prompt 控制台原型。1.0 先采用分模块维护的方式。"
                 }
               ]
+            }
+          ]
+        },
+        {
+          "kind": "subsection",
+          "title": "一个章节的 Prompt 里写了什么",
+          "blocks": [
+            {
+              "kind": "paragraph",
+              "text": "以\"重点企业监测\"这一章为例。它只要纯文本的\"分类 + 简报 + 来源链接\"，不要总结，不要图表，也不要表格。【待填：为什么这样要求，是业务方提的，还是测试后发现的】"
+            },
+            {
+              "kind": "columns",
+              "items": [
+                {
+                  "label": "正例",
+                  "text": "分成融资和新品、榜单、获奖三类，每家企业一条简报，后面跟来源链接。"
+                },
+                {
+                  "label": "反例",
+                  "text": "分类开头写了一句\"本月呈现上升趋势\"，后面还附了一张融资金额表。两处都算违规。"
+                }
+              ]
+            },
+            {
+              "kind": "paragraph",
+              "text": "Prompt 最前面还有一条规则：用户的明确要求永远大于系统提示词，两者冲突时听用户的。交付前，模型要先过一遍自检清单，一共 6 项，比如：是否已全局去重，每条信息只留一个来源；是否排除了任何形式的总结、图表和表格。"
+            }
+          ]
+        },
+        {
+          "kind": "subsection",
+          "title": "用编译器写各章的 Prompt",
+          "blocks": [
+            {
+              "kind": "paragraph",
+              "text": "不同章节各有一份 Prompt。靠个人经验手写，写法容易分散，也不好维护。"
+            },
+            {
+              "kind": "flow",
+              "rows": [
+                {
+                  "steps": [
+                    "团队成员用大白话说需求",
+                    "Google AI Studio 里的提示词编译器",
+                    "完整可部署的章节 Prompt"
+                  ],
+                  "highlight": [
+                    1
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "paragraph",
+              "text": "我在 Google AI Studio 里搭了一个提示词编译器。团队成员输入业务诉求，它按统一的结构生成章节 Prompt。【待填：现在谁在用，已经生成过几个章节的 Prompt】"
             }
           ]
         }
