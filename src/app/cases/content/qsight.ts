@@ -218,6 +218,16 @@ export const qsight: CaseContent = {
                 "height": 1688,
                 "framed": true,
                 "caption": ""
+              }, {
+                "plate": "PLATE 04 SHARE",
+                "title": "移动端报告分享",
+                "instruction": "",
+                "src": "images/qsight/report-share-mobile.webp",
+                "alt": "移动端报告分享弹窗，可复制链接或通过微信、信息和邮件分享",
+                "width": 780,
+                "height": 1688,
+                "framed": true,
+                "caption": ""
               }]
             }
           ]
