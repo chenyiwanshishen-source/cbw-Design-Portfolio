@@ -252,27 +252,14 @@ export const qsight: CaseContent = {
     {
       "id": "qsight-04",
       "label": "提示词优化",
-      "title": "生成过程和 Prompt",
+      "title": "主导提示词设计",
       "blocks": [
         {
-          "kind": "subsection",
-          "title": "显示执行进度和异常",
-          "blocks": [
-            {
-              "kind": "paragraph",
-              "text": "生成需要经过检索和内容处理等步骤。我在界面中呈现当前检索内容、执行进度和失败后的重试次数；缺失数据单独标注，并在 Prompt 中要求模型不补写没有依据的数字。"
-            },
-            {
-              "kind": "figures",
-              "figures": [
-                {
-                  "plate": "PLATE 08",
-                  "title": "执行过程",
-                  "instruction": "要放：执行过程",
-                  "caption": "执行过程中展示检索内容、进度和重试次数，缺失数据单独提示。"
-                }
-              ]
-            }
+          "kind": "problem-cards",
+          "items": [
+            { "label": "内容偏离大纲", "text": "生成到后面的章节时，内容容易偏离章节要求和整份报告的大纲。" },
+            { "label": "跳过整理和核查", "text": "检索资料后，模型有时跳过汇总、清洗和核查，直接生成正文。" },
+            { "label": "错误数据混进正文", "text": "失效链接、超出时间范围的数据，甚至没有出处的数字，都可能混进报告。" }
           ]
         },
         {

@@ -13,6 +13,7 @@ export type CaseBlock =
  | { kind: 'trial-feedback'; groups: { title: string; items: { product: string; text: string }[] }[] }
  | { kind: 'research-topics'; texts: string[] }
  | { kind: 'goal-notes'; texts: string[] }
+ | { kind: 'problem-cards'; items: Item[] }
  | { kind: 'flow'; rows: { label?: string; steps: string[]; highlight?: number[] }[]; note?: string }
  | { kind: 'layers'; items: { label: string; text?: string }[] }
  | { kind: 'chat'; texts: string[]; note?: string }
