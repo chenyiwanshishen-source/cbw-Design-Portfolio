@@ -442,21 +442,22 @@ body:has(.case-page) { background: var(--color-home-bg); }
 @media (max-width: 639px) { .case-prompt-problems { grid-template-columns: minmax(0, 1fr); } }
 
 .prompt-structure { margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--rhythm-3); }
-.prompt-before, .prompt-after { display: flex; flex-direction: column; align-items: center; padding: var(--rhythm-4); border-radius: var(--space-6); min-width: 0; }
+.prompt-before, .prompt-after { display: flex; flex-direction: column; align-items: center; padding: var(--rhythm-3); border-radius: var(--space-6); min-width: 0; }
 .prompt-before { background: var(--color-case-plate); }
 .prompt-after { background: var(--color-accent-soft); }
-.prompt-comparison-label { margin: 0 0 var(--rhythm-4); }
-.prompt-before svg { display: block; width: 100%; flex: 1; min-height: 0; }
+.prompt-comparison-label { margin: 0 0 var(--rhythm-3); font-size: var(--text-caption); line-height: var(--text-caption--line-height); }
+.prompt-before svg { display: block; width: 72%; flex: 1; min-height: 0; }
 .prompt-before path { stroke: var(--color-text); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 .prompt-before > p:last-child { margin: var(--rhythm-3) 0 0; }
-.prompt-structure-stages { display: grid; gap: var(--rhythm-4); width: 100%; margin: 0; padding: 0; list-style: none; }
-.prompt-structure-stages li { display: flex; position: relative; align-items: center; gap: var(--rhythm-2); padding: var(--rhythm-3); background: var(--color-surface); border-radius: var(--space-16); }
-.prompt-structure-stages li:not(:last-child)::after { content: ""; position: absolute; left: 50%; top: 100%; height: var(--rhythm-4); width: var(--border-width); background: var(--color-accent); opacity: .5; }
-.prompt-structure-icon { flex: 0 0 var(--rhythm-4); height: var(--rhythm-4); background: var(--color-accent); mask: center / contain no-repeat; }
+.prompt-structure-stages { display: grid; gap: var(--rhythm-3); width: 88%; margin: 0; padding: 0; list-style: none; }
+.prompt-structure-stages li { display: flex; position: relative; align-items: center; gap: var(--rhythm-2); padding: var(--rhythm-1) var(--rhythm-3); background: var(--color-surface); border-radius: var(--space-16); }
+.prompt-structure-stages li:not(:last-child)::after { content: ""; position: absolute; left: 50%; top: 100%; height: var(--rhythm-3); width: var(--border-width); background: var(--color-accent); opacity: .5; }
+.prompt-structure-icon { flex: 0 0 var(--rhythm-3); height: var(--rhythm-3); background: var(--color-accent); mask: center / contain no-repeat; }
 .prompt-icon-target { mask-image: url("/images/icons/phosphor/target.svg"); }
 .prompt-icon-wrench { mask-image: url("/images/icons/phosphor/wrench.svg"); }
 .prompt-icon-shield-check { mask-image: url("/images/icons/phosphor/shield-check.svg"); }
 .prompt-icon-arrows-clockwise { mask-image: url("/images/icons/phosphor/arrows-clockwise.svg"); }
 .prompt-structure-stages h4, .prompt-structure-stages p { margin: 0; }
-.prompt-structure-stages p { margin-top: var(--rhythm-1); }
-@media (max-width: 639px) { .prompt-structure { grid-template-columns: minmax(0, 1fr); } .prompt-before svg { width: 65%; flex: none; } }
+.prompt-structure-stages h4 { font-size: var(--text-caption); line-height: var(--text-caption--line-height); }
+.prompt-structure-stages p { margin-top: var(--space-1); font-size: var(--text-label); line-height: var(--text-caption--line-height); }
+@media (max-width: 639px) { .prompt-structure { grid-template-columns: minmax(0, 1fr); } .prompt-before svg { width: 48%; flex: none; } .prompt-structure-stages { width: 100%; } }
