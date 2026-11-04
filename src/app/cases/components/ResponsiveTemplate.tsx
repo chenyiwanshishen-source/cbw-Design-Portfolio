@@ -6,7 +6,7 @@ gsap.registerPlugin(useGSAP);
 type Device = 'desktop' | 'mobile';
 const devices: Device[] = ['desktop', 'mobile'];
 
-export function ResponsiveTemplate({ title = '模板中心', desktopSrc = 'images/qsight/template-center-desktop.webp', mobileSrc = 'images/qsight/template-center-mobile.webp' }: { title?: string; desktopSrc?: string; mobileSrc?: string }) {
+export function ResponsiveTemplate({ title = '模板中心', desktopSrc = 'images/qsight/template-center-desktop.webp', mobileSrc = 'images/qsight/template-center-mobile.webp', mobileAlign = 'top' }: { title?: string; desktopSrc?: string; mobileSrc?: string; mobileAlign?: 'top' | 'bottom' }) {
   const [mode, setMode] = useState<Device>('desktop');
   const root = useRef<HTMLElement>(null);
   const previous = useRef<Device>('desktop');
@@ -46,7 +46,7 @@ export function ResponsiveTemplate({ title = '模板中心', desktopSrc = 'image
     return () => mm.revert();
   }, { scope: root, dependencies: [mode], revertOnUpdate: true });
 
-  return <figure ref={root} className="template-preview" aria-label={`${title}桌面与移动端展示`}>
+  return <figure ref={root} className="template-preview" data-mobile-align={mobileAlign} aria-label={`${title}桌面与移动端展示`}>
     <div className="template-preview-stage">
       {devices.map(device => <div className="template-preview-screen" data-device={device} aria-hidden={mode !== device} key={device}>
         <div className="template-preview-media">

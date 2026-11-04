@@ -433,3 +433,5 @@ body:has(.case-page) { background: var(--color-home-bg); }
  .source-evidence-deck { inset: var(--space-3) var(--space-3) var(--space-3) 56%; }
  .source-evidence-arrow { display: none; }
 }
+
+.template-preview[data-mobile-align="bottom"] .template-preview-screen[data-device="mobile"] { top: auto; bottom: 0; }

@@ -6,7 +6,7 @@ export type CaseBlock =
  | { kind: 'report-edit-carousel' }
  | { kind: 'outline-devices' }
  | { kind: 'mvp-comparison' }
- | { kind: 'responsive-template'; title?: string; desktopSrc?: string; mobileSrc?: string }
+ | { kind: 'responsive-template'; title?: string; desktopSrc?: string; mobileSrc?: string; mobileAlign?: 'top' | 'bottom' }
  | { kind: 'user-flow' }
  | { kind: 'test-feedback-bubbles' }
  | { kind: 'research-quadrants' }

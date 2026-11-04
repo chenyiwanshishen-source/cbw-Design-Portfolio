@@ -230,7 +230,8 @@ export const qsight: CaseContent = {
               "kind": "responsive-template",
               "title": "报告生成历史",
               "desktopSrc": "images/qsight/report-history.webp",
-              "mobileSrc": "images/qsight/report-history-mobile.webp"
+              "mobileSrc": "images/qsight/report-history-mobile.webp",
+              "mobileAlign": "bottom"
             }
           ]
         }
