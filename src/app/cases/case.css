@@ -394,3 +394,7 @@ body:has(.case-page) { background: var(--color-home-bg); }
  .case-pair:has(img[src$="report-share-mobile.webp"]) { height: auto; grid-template-rows: none; }
  .case-pair:has(img[src$="report-share-mobile.webp"]) > figure { height: 520px; }
 }
+
+.template-preview-screen[data-device="mobile"],
+.outline-devices-mobile img,
+.case-figure-framed img[src$="-mobile.webp"] { border-radius: var(--radius-case-mobile-screen); }
