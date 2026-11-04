@@ -1048,20 +1048,20 @@ window.addEventListener("pointermove", onPointerMove, { passive: true });
           className="absolute bottom-[24px] left-1/2 aspect-[774/567] w-[var(--hero-character-width)] -translate-x-1/2 will-change-transform"
         >
           <img
-            src="./images/首页人物/face-peek.png"
+            src="./images/首页人物/face-peek.webp"
             alt=""
             draggable={false}
             className="absolute inset-0 size-full"
           />
           <img
-            src="./images/首页人物/eyes-peek.png"
+            src="./images/首页人物/eyes-peek.webp"
             alt=""
             draggable={false}
             data-character-eye
             className="absolute left-[31.137%] top-[74.25%] w-[8.269%] will-change-transform"
           />
           <img
-            src="./images/首页人物/eyes-peek.png"
+            src="./images/首页人物/eyes-peek.webp"
             alt=""
             draggable={false}
             data-character-eye

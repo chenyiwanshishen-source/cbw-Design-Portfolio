@@ -4116,7 +4116,7 @@ export function ProjectDetail({ onBack }: Props) {
                 points: ["用户输入匹配", "编辑新增匹配", "内置章节复用"],
                 visual: "章节匹配逻辑截图",
                 image: "./images/optimized-webp/ai-marry01-1600.webp",
-                overlayImage: "./images/设计方案/marry02.png",
+                overlayImage: "./images/设计方案/marry02.webp",
                 overlayRaw: true,
               },
             ];

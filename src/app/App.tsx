@@ -1,3 +1,4 @@
+import { QuestionBankPage } from './cases/components/QuestionBank';
 import { Suspense, lazy, useEffect, useState } from "react";
 import { HomePage } from "./home/HomePage";
 import { ArrowUp } from "lucide-react";
@@ -200,7 +201,7 @@ export default function App() {
   const detailFallback =
     routeLoaderHref || isProjectRouteReady(route) ? null : <ProjectRouteLoader route={route} />;
 
-  const portfolioContent = isYeDetail ? (<Suspense fallback={null}><YeCase /></Suspense>) : isAiDetail ? (
+  const portfolioContent = route === "#/project/ai-report/questions" ? <QuestionBankPage /> : isYeDetail ? (<Suspense fallback={null}><YeCase /></Suspense>) : isAiDetail ? (
     <Suspense fallback={null}>
       <QsightCase />
     </Suspense>

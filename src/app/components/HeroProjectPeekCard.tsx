@@ -184,7 +184,7 @@ export function HeroProjectPeekCard({ variant, revealed }: HeroProjectPeekCardPr
         <img
           ref={handRef}
           className="absolute inset-0 size-full"
-          src="./images/首页人物/hand-peek.png"
+          src="./images/首页人物/hand-peek.webp"
           alt=""
           draggable={false}
           style={{ transform: variant === "qixin" ? "scaleX(-1)" : undefined }}

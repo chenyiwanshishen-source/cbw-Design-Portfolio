@@ -121,6 +121,12 @@
   /* 状态色：只用于界面片段里的状态，不做装饰 */
   --color-success: #0F7A55;
   --color-warning: #A15C00;
+  --color-research-note: #FFF3D1;
+  --color-research-note-blue: #EEF4FF;
+  --color-question-bank: #F9DF58;
+  --color-question-paper: #FFF8E7;
+  --color-question-paper-back: #FFFDF5;
+  --color-question-paper-label: #B8A269;
   --color-warning-soft: #FBF3E4;
   --color-warning-text: #6B4300;
   --color-danger: #C0362C;
@@ -133,12 +139,16 @@
 
   --color-home-bg: #FFFFFF;
   --color-home-placeholder: #F3F4F5;
+  --color-case-plate: color-mix(in srgb, var(--color-home-placeholder) 40%, var(--color-home-bg));
+  --color-prototype-plate: rgb(246 246 247);
   --color-blueprint-faint: rgba(255,255,255,.10);
   --color-blueprint-soft: rgba(255,255,255,.48);
   --color-blueprint-fill: rgba(255,255,255,.08);
   --color-blueprint-bg: #101114;
   --color-blueprint-line: rgba(255, 255, 255, 0.25);
   --text-case-title: 32px;
+  --text-case-subheading: 18px;
+  --text-case-subheading--line-height: 1.5;
   --text-home-role: 40px;
   --text-home-bio: 20px;
   --text-home-bio--line-height: 1.6;

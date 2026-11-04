@@ -3,7 +3,7 @@ import { motion } from "motion/react";
 const primaryExperience = {
   company: "上海合合信息科技股份有限公司",
   logo: {
-    src: "./images/company-logos/hehe-information.png",
+    src: "./images/company-logos/hehe-information.webp",
     alt: "合合信息 Logo",
   },
   productName: "启信宝 / 启信产业大脑",
@@ -35,7 +35,7 @@ const supportingExperiences = [
   {
     company: "上海驻云信息科技有限公司",
     logo: {
-      src: "./images/company-logos/shanghai-zhuyun.png",
+      src: "./images/company-logos/shanghai-zhuyun.webp",
       alt: "上海驻云 Logo",
     },
     role: "B 端 UI 设计师",

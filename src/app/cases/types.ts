@@ -2,12 +2,21 @@ import type { HeaderContent } from './components/CaseHeader';
 import type { FigureContent } from './components/FigurePlaceholder';
 type Item = { label: string; text: string };
 export type CaseBlock =
+ | { kind: 'outline-devices' }
+ | { kind: 'mvp-comparison' }
+ | { kind: 'responsive-template' }
+ | { kind: 'user-flow' }
+ | { kind: 'test-feedback-bubbles' }
+ | { kind: 'research-quadrants' }
+ | { kind: 'trial-feedback'; groups: { title: string; items: { product: string; text: string }[] }[] }
+ | { kind: 'research-topics'; texts: string[] }
+ | { kind: 'goal-notes'; texts: string[] }
  | { kind: 'flow'; rows: { label?: string; steps: string[]; highlight?: number[] }[]; note?: string }
  | { kind: 'layers'; items: { label: string; text?: string }[] }
  | { kind: 'chat'; texts: string[]; note?: string }
  | { kind: 'statement'; text: string }
- | { kind: 'paragraph' | 'aside'; text: string }
- | { kind: 'subsection'; title: string; number?: string; plain?: boolean; blocks: CaseBlock[] }
+ | { kind: 'paragraph' | 'aside'; text: string; highlight?: string }
+ | { kind: 'subsection'; title: string; number?: string; plain?: boolean; prominent?: boolean; blocks: CaseBlock[] }
  | { kind: 'quotes'; texts: string[] }
  | { kind: 'figures'; figures: FigureContent[] }
  | { kind: 'table'; headers: string[]; rows: string[][]; label: string; highlighted?: number[]; legend?: string }

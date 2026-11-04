@@ -1,5 +1,5 @@
-import frame from '../../assets/home/gameboy-frame.png';
-import portrait from '../../assets/home/street-portrait.png';
+import frame from '../../assets/home/gameboy-frame.webp';
+import portrait from '../../assets/home/street-portrait.webp';
 
 export function GameBoyPortrait() {
   return <figure className="home-portrait gameboy-portrait" aria-label="Game Boy 屏幕中的街景人物插画">

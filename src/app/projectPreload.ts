@@ -39,7 +39,7 @@ const AI_FLOW_IMAGES = [
   "./images/optimized-webp/ai-group02-1600.webp",
   "./images/optimized-webp/ai-group01-1600.webp",
   "./images/optimized-webp/ai-marry01-1600.webp",
-  "./images/设计方案/marry02.png",
+  "./images/设计方案/marry02.webp",
   "./images/首页webp/数据溯源/多互联网数据.webp",
   "./images/首页webp/数据溯源/启信产业大脑数据.webp",
   "./images/首页webp/数据溯源/模型运算.webp",
@@ -165,7 +165,7 @@ const AI_REMAINDER_IMAGE_STAGES = [
     "./images/optimized-webp/ai-group02-1600.webp",
     "./images/optimized-webp/ai-group01-1600.webp",
     "./images/optimized-webp/ai-marry01-1600.webp",
-    "./images/设计方案/marry02.png",
+    "./images/设计方案/marry02.webp",
   ],
   [
     "./images/首页webp/数据溯源/生成内容.webp",
