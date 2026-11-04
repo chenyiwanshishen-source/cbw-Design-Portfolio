@@ -14,17 +14,14 @@ export function ReportEditCarousel() {
   const previous = useRef(0);
   const direction = useRef(1);
   const [active, setActive] = useState(0);
-  const [paused, setPaused] = useState(false);
-  const [hovered, setHovered] = useState(false);
-  const [focused, setFocused] = useState(false);
   useEffect(() => {
     const media = window.matchMedia('(prefers-reduced-motion: reduce)');
-    if (paused || hovered || focused || media.matches) return;
+    if (media.matches) return;
     const timer = window.setInterval(() => { direction.current = 1; setActive(index => (index + 1) % slides.length); }, 4200);
     const stop = () => { if (media.matches) window.clearInterval(timer); };
     media.addEventListener('change', stop);
     return () => { window.clearInterval(timer); media.removeEventListener('change', stop); };
-  }, [paused, hovered, focused, active]);
+  }, [active]);
   useGSAP(() => {
     const el = root.current;
     if (!el) return;
@@ -61,7 +58,7 @@ export function ReportEditCarousel() {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     gsap.fromTo(button, { scale: .84 }, { scale: 1, duration: .55, ease: 'elastic.out(1, 0.5)', overwrite: true });
   });
-  return <figure ref={root} className="report-edit-carousel" aria-label="报告编辑操作展示" aria-roledescription="轮播" onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)} onFocusCapture={() => setFocused(true)} onBlurCapture={event => { if (!event.currentTarget.contains(event.relatedTarget as Node)) setFocused(false); }} onKeyDown={event => {
+  return <figure ref={root} className="report-edit-carousel" aria-label="报告编辑操作展示" aria-roledescription="轮播" onKeyDown={event => {
     if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
       event.preventDefault(); select((active + (event.key === 'ArrowRight' ? 1 : -1) + slides.length) % slides.length, event.key === 'ArrowRight' ? 1 : -1);
     }
@@ -77,9 +74,6 @@ export function ReportEditCarousel() {
     <div className="report-edit-pagination" role="group" aria-label="选择报告编辑图片">
       {slides.map((slide, index) => <button type="button" key={slide.file} className="report-edit-dot" aria-label={`查看第 ${index + 1} 张报告编辑图`} aria-pressed={active === index} onClick={event => { press(event.currentTarget); select(index); }}><span /></button>)}
     </div>
-    <button type="button" className="report-edit-play" aria-label={paused ? '播放报告编辑轮播' : '暂停报告编辑轮播'} onClick={() => setPaused(value => !value)}>
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">{paused ? <path d="m5 3 8 5-8 5Z" /> : <path d="M4 3h3v10H4zM9 3h3v10H9z" />}</svg>
-    </button>
-    <span className="sr-only" aria-live={paused || hovered || focused ? 'polite' : 'off'}>第 {active + 1} 张，共 {slides.length} 张：{slides[active].alt}</span>
+    <span className="sr-only" aria-live="off">第 {active + 1} 张，共 {slides.length} 张：{slides[active].alt}</span>
   </figure>;
 }

@@ -102,7 +102,8 @@
   --color-surface-sunken: var(--paper-200);    /* 图片占位、凹陷区 */
   --color-surface-tint: var(--blue-50);        /* 案例展示区底色 */
 
-  --color-text: color-mix(in srgb, var(--ink-900) 84%, transparent);                /* 标题、强调文字 */
+  --color-text: color-mix(in srgb, var(--ink-900) 84%, transparent);
+  --color-case-carousel-control: color-mix(in srgb, var(--color-text) 10%, transparent);                /* 标题、强调文字 */
   --color-text-body: color-mix(in srgb, var(--ink-900) 80%, transparent);           /* 正文 */
   --color-text-secondary: color-mix(in srgb, var(--ink-900) 64%, transparent);      /* 说明文字 */
   --color-text-meta: color-mix(in srgb, var(--ink-900) 64%, transparent);           /* 等宽标签、日期（在 bg 上 ≥ 4.5:1） */

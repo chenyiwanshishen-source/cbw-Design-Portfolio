@@ -408,16 +408,15 @@ body:has(.case-page) { background: var(--color-home-bg); }
 .report-edit-slide { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; visibility: hidden; opacity: 0; }
 .report-edit-slide:first-child { visibility: visible; opacity: 1; }
 .report-edit-slide img { display: block; width: 100%; height: auto; max-height: 100%; object-fit: contain; border-radius: var(--space-4); outline: var(--border-width) solid var(--color-border-subtle); box-shadow: var(--shadow-float); }
-.report-edit-arrow { position: absolute; top: calc(50% - 18px); display: grid; place-items: center; width: 36px; height: 36px; padding: 0; border: 0; border-radius: 50%; background: var(--color-border-subtle); color: var(--color-home-bg); cursor: pointer; }
+.report-edit-arrow { position: absolute; top: calc(50% - 18px); display: grid; place-items: center; width: 36px; height: 36px; padding: 0; border: 0; border-radius: 50%; background: var(--color-case-carousel-control); color: var(--color-home-bg); cursor: pointer; }
 .report-edit-arrow.is-previous { left: var(--space-3); }
 .report-edit-arrow.is-next { right: var(--space-3); }
-.report-edit-pagination { position: absolute; bottom: var(--space-3); left: 50%; transform: translateX(-50%); display: flex; border-radius: var(--space-6); background: var(--color-border-subtle); padding-inline: var(--space-2); }
+.report-edit-pagination { position: absolute; bottom: var(--space-3); left: 50%; transform: translateX(-50%); display: flex; border-radius: var(--space-6); background: var(--color-case-carousel-control); padding-inline: var(--space-2); }
 .report-edit-dot { width: 28px; height: 24px; border: 0; padding: 0; display: grid; place-items: center; background: transparent; cursor: pointer; }
 .report-edit-dot span { display: block; width: var(--space-2); height: var(--space-2); border-radius: 50%; background: var(--color-home-bg); opacity: .5; }
 .report-edit-dot[aria-pressed="true"] span { opacity: 1; }
 @media (max-width: 767px) { .report-edit-carousel { height: auto; aspect-ratio: 1440 / 1100; } .report-edit-stage { inset: var(--space-3) var(--space-10) var(--space-10); } .report-edit-arrow.is-previous { left: var(--space-1); } .report-edit-arrow.is-next { right: var(--space-1); } }
 
-.report-edit-play { position: absolute; right: var(--space-3); bottom: var(--space-2); width: 36px; height: 28px; padding: 0; border: 0; border-radius: var(--space-6); background: var(--color-border-subtle); color: var(--color-home-bg); display: grid; place-items: center; cursor: pointer; }
 
 .source-evidence { position: relative; display: grid; grid-template-columns: 56% 38%; column-gap: 6%; min-width: 0; margin: 0; padding: var(--rhythm-6) var(--rhythm-4) var(--rhythm-4); background: var(--color-case-plate); border-radius: var(--space-6); overflow: hidden; }
 .source-evidence-report { min-width: 0; align-self: center; border-radius: var(--space-4); overflow: hidden; outline: var(--border-width) solid var(--color-border-subtle); box-shadow: var(--shadow-float); }
