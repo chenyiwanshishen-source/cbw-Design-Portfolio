@@ -255,6 +255,10 @@ export const qsight: CaseContent = {
       "title": "主导提示词设计",
       "blocks": [
         {
+          "kind": "paragraph",
+          "text": "测试时，我们发现生成的报告存在以下三个问题，因此开始调整提示词，明确生成要求、工具调用和数据核查规则。"
+        },
+        {
           "kind": "problem-cards",
           "items": [
             { "label": "生成内容严重跑偏", "text": "报告生成后，发现内容已明显偏离大纲和章节要求。" },
