@@ -8,7 +8,6 @@ const cards = [
   { file: 'news-group', title: '多条新闻', width: 748, height: 786 },
   { file: 'enterprise', title: '企业数据', width: 748, height: 728 },
   { file: 'knowledge', title: '知识库', width: 748, height: 224 },
-  { file: 'calculation', title: '模型计算', width: 748, height: 336 },
 ];
 export function SourceEvidence() {
   const root = useRef<HTMLElement>(null);
@@ -19,7 +18,7 @@ export function SourceEvidence() {
     const update = () => {
       const board = el.getBoundingClientRect();
       const report = el.querySelector('.source-evidence-report')!.getBoundingClientRect();
-      const card = el.querySelectorAll('.source-evidence-card')[4].getBoundingClientRect();
+      const card = el.querySelectorAll('.source-evidence-card')[2].getBoundingClientRect();
       const sx = report.right - board.left - 100;
       const sy = report.top - board.top + report.height * .63;
       const tx = card.left - board.left + 12;

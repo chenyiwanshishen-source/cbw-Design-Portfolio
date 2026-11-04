@@ -421,7 +421,7 @@ body:has(.case-page) { background: var(--color-home-bg); }
 /* The source composition shares the existing plate height; only the outer plate clips. */
 #qsight-03 { container-type: inline-size; }
 .source-evidence { position: relative; height: calc((100cqw - 2 * var(--rhythm-4)) * .625 + 2 * var(--rhythm-4)); min-width: 0; margin: 0; background: var(--color-case-plate); border-radius: var(--space-6); overflow: hidden; }
-.source-evidence-report { position: absolute; left: 0; top: var(--rhythm-6); width: 60%; }
+.source-evidence-report { position: absolute; left: calc(-1 * var(--rhythm-3)); top: var(--rhythm-6); width: 60%; }
 .source-evidence-report img { display: block; width: 180%; max-width: none; height: auto; margin-left: -70%; }
 .source-evidence-deck { position: absolute; inset: var(--rhythm-4) var(--rhythm-4) var(--rhythm-4) 56%; min-width: 0; }
 .source-evidence-card { position: absolute; width: 64%; padding: 0; background: transparent; transform-origin: center; }
