@@ -269,23 +269,13 @@ export const qsight: CaseContent = {
         },
         {
           "kind": "subsection",
-          "title": "Prompt 放在流程的哪一步",
+          "title": "设计方案",
           "blocks": [
             {
               "kind": "paragraph",
-              "text": "报告是由 Agent 一章一章生成的。我写的 Prompt 跑在\"章节生成\"这一步。"
+              "text": "了解大模型的基础知识和工作原理后，我将生成过程拆成四个阶段，分别明确任务、工具、质量要求和异常处理。"
             },
-            {
-              "kind": "figures",
-              "figures": [
-                {
-                  "plate": "PLATE 09",
-                  "title": "Agent 报告生成工作流",
-                  "instruction": "要放：Agent 报告生成工作流，章节生成节点高亮",
-                  "caption": "我的 Prompt 运行在\"章节生成\"这一步。"
-                }
-              ]
-            },
+            { "kind": "prompt-structure" },
             {
               "kind": "paragraph",
               "text": "最初规划的 Prompt 控制台有 10+1 个模块。1.0 研发资源有限，我们不做可视化配置后台，先把 Prompt 拆成四个模块，由团队自己维护。"

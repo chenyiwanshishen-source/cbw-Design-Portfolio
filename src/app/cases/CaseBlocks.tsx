@@ -1,3 +1,4 @@
+import { PromptStructure } from './components/PromptStructure';
 import { SourceEvidence } from './components/SourceEvidence';
 import { ReportEditCarousel } from './components/ReportEditCarousel';
 import { ResponsiveTemplate } from './components/ResponsiveTemplate';
@@ -19,6 +20,7 @@ export function CaseBlocks({ blocks, labels, depth = 0 }: { depth?: number; bloc
     const key = index;
     switch (block.kind) {
       case 'problem-cards': return <div key={key} className="case-prompt-problems">{block.items.map(item => <article key={item.label}><h3 className="text-h4 font-medium">{item.label}</h3><p className="text-body text-text-body">{item.text}</p></article>)}</div>;
+      case 'prompt-structure': return <PromptStructure key={key} />;
       case 'source-evidence': return <SourceEvidence key={key} />;
       case 'report-edit-carousel': return <ReportEditCarousel key={key} />;
       case 'outline-devices': return <OutlineDevices key={key} />;

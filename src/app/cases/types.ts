@@ -3,6 +3,7 @@ import type { FigureContent } from './components/FigurePlaceholder';
 type Item = { label: string; text: string };
 export type CaseBlock =
  | { kind: 'source-evidence' }
+ | { kind: 'prompt-structure' }
  | { kind: 'report-edit-carousel' }
  | { kind: 'outline-devices' }
  | { kind: 'mvp-comparison' }
