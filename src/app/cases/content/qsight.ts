@@ -256,7 +256,8 @@ export const qsight: CaseContent = {
       "blocks": [
         {
           "kind": "paragraph",
-          "text": "测试时，我们发现生成的报告存在以下三个问题，因此开始调整提示词，明确生成要求、工具调用和数据核查规则。"
+          "text": "测试时，我们发现生成的报告存在以下三个问题。",
+          "highlight": "由我主导提示词设计，明确生成要求、工具调用和数据核查规则。"
         },
         {
           "kind": "problem-cards",
