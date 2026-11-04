@@ -49,9 +49,9 @@ export function ResponsiveTemplate() {
   return <figure ref={root} className="template-preview" aria-label="模板中心桌面与移动端展示">
     <div className="template-preview-stage">
       {devices.map(device => <div className="template-preview-screen" data-device={device} aria-hidden={mode !== device} key={device}>
-        <a href={`${import.meta.env.BASE_URL}images/qsight/template-center-${device}.webp`} target="_blank" rel="noreferrer" tabIndex={mode === device ? 0 : -1} aria-label={`查看模板中心${device === 'mobile' ? '移动端' : '桌面端'}原图`}>
+        <div className="template-preview-media">
           <img src={`${import.meta.env.BASE_URL}images/qsight/template-center-${device}.webp`} alt={`Qsight 模板中心${device === 'mobile' ? '移动端双列卡片' : '桌面端模板选择'}`} width={device === 'mobile' ? 390 : 1440} height={device === 'mobile' ? 844 : 900} />
-        </a>
+        </div>
       </div>)}
     </div>
     <div className="template-preview-switch" role="group" aria-label="切换展示设备">

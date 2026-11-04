@@ -1,3 +1,5 @@
+import { SourceEvidence } from './components/SourceEvidence';
+import { ReportEditCarousel } from './components/ReportEditCarousel';
 import { ResponsiveTemplate } from './components/ResponsiveTemplate';
 import { OutlineDevices } from './components/OutlineDevices';
 import { TestFeedbackBubbles } from './components/TestFeedbackBubbles';
@@ -16,8 +18,10 @@ export function CaseBlocks({ blocks, labels, depth = 0 }: { depth?: number; bloc
   return <>{blocks.map((block, index) => {
     const key = index;
     switch (block.kind) {
+      case 'source-evidence': return <SourceEvidence key={key} />;
+      case 'report-edit-carousel': return <ReportEditCarousel key={key} />;
       case 'outline-devices': return <OutlineDevices key={key} />;
-      case 'trial-feedback': return <figure key={key} className="case-trial-feedback"><div className="case-trial-panels">{block.groups.map((group, i) => <section key={group.title} className={`case-trial-panel case-trial-panel-${i}`}><h4>{group.title}</h4><ul>{group.items.map(item => <li key={item.product + item.text}><span className="case-trial-product">{item.product.split('、').map(product => <span className="case-trial-brand" key={product}>{product === '豆包' || product === '天工' || product === 'Jenni' ? <img src={`${import.meta.env.BASE_URL}images/qsight/brands/${product === '豆包' ? 'doubao.png' : product === '天工' ? 'tiangong.ico' : 'jenni.svg'}`} alt="" /> : null}{product}</span>)}</span><span>{item.text}</span></li>)}</ul></section>)}</div></figure>;
+      case 'trial-feedback': return <figure key={key} className="case-trial-feedback"><div className="case-trial-panels">{block.groups.map((group, i) => <section key={group.title} className={`case-trial-panel case-trial-panel-${i}`}><h4>{group.title}</h4><ul>{group.items.map(item => <li key={item.product + item.text}><span className="case-trial-product">{item.product.split('、').map(product => <span className="case-trial-brand" key={product}>{product === '豆包' || product === '天工' || product === 'Jenni' ? <img src={`${import.meta.env.BASE_URL}images/qsight/brands/${product === '豆包' ? 'doubao.webp' : product === '天工' ? 'tiangong.webp' : 'jenni.svg'}`} alt="" /> : null}{product}</span>)}</span><span>{item.text}</span></li>)}</ul></section>)}</div></figure>;
       case 'test-feedback-bubbles': return <TestFeedbackBubbles key={key} />;
       case 'responsive-template': return <ResponsiveTemplate key={key} />;
       case 'mvp-comparison': return <MvpComparison key={key} />;

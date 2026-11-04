@@ -190,22 +190,7 @@ export const qsight: CaseContent = {
               "kind": "paragraph",
               "text": "报告生成后，电脑端支持选中段落继续修改；移动端以阅读为主，保留复制、下载和分享，方便用户查看和交付报告。"
             },
-            {
-              "kind": "figures",
-              "figures": [
-                {
-                  "plate": "PLATE 04",
-                  "title": "电脑端报告编辑",
-                  "instruction": "",
-                  "src": "images/qsight/report-sources-web.webp",
-                  "alt": "电脑端报告正文，选中段落后可继续修改内容",
-                  "width": 2880,
-                  "height": 1800,
-                  "framed": true,
-                  "caption": ""
-                }
-              ]
-            },
+            { "kind": "report-edit-carousel" },
             {
               "kind": "figures",
               "arrow": true,
@@ -270,55 +255,7 @@ export const qsight: CaseContent = {
           "kind": "paragraph",
           "text": "用户想知道报告里的数字从哪来。我们在正文旁放上来源卡片，用引用编号对应具体内容，并标明数据来自企业库、参考材料，还是模型计算，方便用户核对。"
         },
-        {
-          "kind": "figures",
-          "figures": [
-            {
-              "plate": "PLATE 05",
-              "title": "早期：来源在文末",
-              "instruction": "要放：早期：来源在文末",
-              "caption": "早期：来源在文末"
-            },
-            {
-              "plate": "PLATE 06",
-              "title": "最终：来源在正文旁",
-              "instruction": "要放：最终：来源在正文旁",
-              "caption": "最终：来源在正文旁"
-            }
-          ]
-        },
-        {
-          "kind": "figures",
-          "figures": [
-            {
-              "plate": "PLATE 07",
-              "title": "来源卡片",
-              "instruction": "要放：来源卡片",
-              "caption": "正文中的引用编号对应来源卡片；标签和颜色区分企业数据、客户材料、公开信息，以及模型推理与计算。"
-            }
-          ]
-        },
-        {
-          "kind": "sources",
-          "items": [
-            {
-              "key": "qixin",
-              "text": "启信数据 · 企业库事实"
-            },
-            {
-              "key": "kb",
-              "text": "知识库 · 客户材料"
-            },
-            {
-              "key": "web",
-              "text": "互联网数据 · 公开信息"
-            },
-            {
-              "key": "model",
-              "text": "模型运算 · 推理与计算"
-            }
-          ]
-        }
+        { "kind": "source-evidence" }
       ]
     },
     {
