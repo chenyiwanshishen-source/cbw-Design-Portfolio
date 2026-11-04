@@ -12,7 +12,8 @@ export function PromptStructure() {
       </svg>
       <span className="text-caption text-text-meta">混在一起的生成要求</span>
     </div>
-    <svg className="prompt-structure-arrow" viewBox="0 0 80 40" fill="none" aria-hidden="true"><path d="M4 22C28 15 44 17 72 20M60 9L74 20 61 31" /></svg>
+    <div className="prompt-structure-gate text-body font-medium">提示词分阶段梳理</div>
+    <svg className="prompt-structure-connectors" viewBox="0 0 400 36" preserveAspectRatio="none" fill="none" aria-hidden="true">{Array.from({ length: 17 }, (_, i) => <path key={i} d={`M${40 + i * 20} 0v36`} />)}</svg>
     <ol className="prompt-structure-stages">{stages.map(([title, text], i) => <li key={title}><span className="prompt-structure-number text-caption">0{i + 1}</span><div><h4 className="text-h4 font-medium">{title}</h4><p className="text-caption text-text-body">{text}</p></div></li>)}</ol>
   </figure>;
 }
