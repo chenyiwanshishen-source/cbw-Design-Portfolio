@@ -79,8 +79,8 @@ body:has(.case-page) { background: var(--color-home-bg); }
 /* Case typography: one role per size, without decorative chapter eyebrows. */
 .case-section > h2 { margin-bottom: 0; font-weight: 600; }
 .case-section > h2 + * { margin-top: calc(var(--rhythm-4) - var(--rhythm-3)); }
-#qsight-02-title { font-size: var(--text-h4); line-height: var(--text-h4--line-height); }
-#qsight-02-title + .case-prose { margin-top: 0; }
+#qsight-02-title, #qsight-03-title { font-size: var(--text-h4); line-height: var(--text-h4--line-height); }
+#qsight-02-title + .case-prose, #qsight-03-title + .case-prose { margin-top: 0; }
 .case-subsection h3 { font-size: var(--text-h4); line-height: var(--text-h4--line-height); font-weight: 600; }
 .case-facts dt, .case-columns dt { font-size: var(--text-caption); line-height: var(--text-caption--line-height); }
 @media (max-width: 767px) {
