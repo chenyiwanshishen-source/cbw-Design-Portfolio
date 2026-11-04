@@ -4,15 +4,15 @@ const stages = [
   ['质量检查', '约束内容、格式和数据依据'],
   ['异常处理', '设置重试、兜底和交付自检'],
 ];
+const threads = [
+  'M25 188C65 15 236 82 185 218S21 101 116 83 250 243 125 252 53 20 190 105 160 235 103 166C161 90 245 122 290 82S354 44 420 44',
+  'M30 136C127 276 231 46 121 65S38 272 193 225 181 17 82 124 252 231 183 147C235 89 271 132 319 132H420',
+  'M47 220C5 101 203 39 207 175S70 265 75 122 242 111 151 230 31 108 151 88C235 62 245 220 320 220H420',
+  'M30 161C166 21 224 222 123 248S32 77 160 94 202 270 82 200 134 31 213 157C250 218 277 308 333 308H420',
+];
 export function PromptStructure() {
-  return <figure className="prompt-structure" aria-label="从混杂的生成要求，梳理为任务定义、工具编排、质量检查、异常处理四个阶段">
-    <div className="prompt-structure-tangle">
-      <svg viewBox="0 0 280 240" fill="none" aria-hidden="true">
-        <path d="M25 152C64 8 236 24 224 126S44 238 52 117 263 58 203 176 13 130 103 58 253 171 124 198 65 15 187 70 167 231 73 161 142 17 217 94 77 220 64 104 237 127 154 177 37 63 137 56 238 216 107 168 145 35 213 132" />
-      </svg>
-      <span className="text-caption text-text-meta">混在一起的生成要求</span>
-    </div>
-    <svg className="prompt-structure-arrow" viewBox="0 0 80 40" fill="none" aria-hidden="true"><path d="M4 22C28 15 44 17 72 20M60 9L74 20 61 31" /></svg>
-    <ol className="prompt-structure-stages">{stages.map(([title, text], i) => <li key={title}><span className="prompt-structure-number text-caption">0{i + 1}</span><div><h4 className="text-h4 font-medium">{title}</h4><p className="text-caption text-text-body">{text}</p></div></li>)}</ol>
+  return <figure className="prompt-structure" aria-label="把混杂的生成要求梳理为四个提示词模块">
+    <div className="prompt-structure-threads"><svg viewBox="0 0 420 352" preserveAspectRatio="none" fill="none" aria-hidden="true">{threads.map((d, i) => <path key={i} className={`prompt-thread prompt-thread-${i}`} d={d} />)}</svg></div>
+    <ol className="prompt-structure-stages">{stages.map(([title, text], i) => <li key={title} className={`prompt-thread-${i}`}><span className="prompt-structure-number text-caption">0{i + 1}</span><div><h4 className="text-h4 font-medium">{title}</h4><p className="text-caption text-text-body">{text}</p></div></li>)}</ol>
   </figure>;
 }

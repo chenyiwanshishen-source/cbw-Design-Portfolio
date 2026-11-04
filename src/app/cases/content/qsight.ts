@@ -273,7 +273,7 @@ export const qsight: CaseContent = {
           "blocks": [
             {
               "kind": "paragraph",
-              "text": "了解大模型的基础知识和工作原理后，我将生成过程拆成四个阶段，分别明确任务、工具、质量要求和异常处理。"
+              "text": "我将提示词中的要求分成任务定义、工具编排、质量检查和异常处理，明确每部分负责什么，方便逐项检查和调整。"
             },
             { "kind": "prompt-structure" },
             {
