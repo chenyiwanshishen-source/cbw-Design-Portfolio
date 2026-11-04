@@ -450,9 +450,13 @@ body:has(.case-page) { background: var(--color-home-bg); }
 .prompt-before path { stroke: var(--color-text); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 .prompt-before > p:last-child { margin: var(--rhythm-3) 0 0; }
 .prompt-structure-stages { display: grid; gap: var(--rhythm-4); width: 100%; margin: 0; padding: 0; list-style: none; }
-.prompt-structure-stages li { display: flex; position: relative; align-items: flex-start; gap: var(--rhythm-2); }
-.prompt-structure-stages li:not(:last-child)::after { content: ""; position: absolute; left: calc(var(--rhythm-4) / 2); top: var(--rhythm-4); bottom: calc(-1 * var(--rhythm-4)); width: var(--border-width); background: var(--color-accent); opacity: .35; }
-.prompt-structure-number { flex: 0 0 var(--rhythm-4); height: var(--rhythm-4); display: flex; align-items: center; justify-content: center; border-radius: 50%; background: var(--color-surface); color: var(--color-accent-text); }
+.prompt-structure-stages li { display: flex; position: relative; align-items: center; gap: var(--rhythm-2); padding: var(--rhythm-3); background: var(--color-surface); border-radius: var(--space-16); }
+.prompt-structure-stages li:not(:last-child)::after { content: ""; position: absolute; left: 50%; top: 100%; height: var(--rhythm-4); width: var(--border-width); background: var(--color-accent); opacity: .5; }
+.prompt-structure-icon { flex: 0 0 var(--rhythm-4); height: var(--rhythm-4); background: var(--color-accent); mask: center / contain no-repeat; }
+.prompt-icon-target { mask-image: url("/images/icons/phosphor/target.svg"); }
+.prompt-icon-wrench { mask-image: url("/images/icons/phosphor/wrench.svg"); }
+.prompt-icon-shield-check { mask-image: url("/images/icons/phosphor/shield-check.svg"); }
+.prompt-icon-arrows-clockwise { mask-image: url("/images/icons/phosphor/arrows-clockwise.svg"); }
 .prompt-structure-stages h4, .prompt-structure-stages p { margin: 0; }
 .prompt-structure-stages p { margin-top: var(--rhythm-1); }
 @media (max-width: 639px) { .prompt-structure { grid-template-columns: minmax(0, 1fr); } .prompt-before svg { width: 65%; flex: none; } }
