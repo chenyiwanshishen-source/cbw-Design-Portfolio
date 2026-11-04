@@ -23,7 +23,7 @@ export function CaseBlocks({ blocks, labels, depth = 0 }: { depth?: number; bloc
       case 'outline-devices': return <OutlineDevices key={key} />;
       case 'trial-feedback': return <figure key={key} className="case-trial-feedback"><div className="case-trial-panels">{block.groups.map((group, i) => <section key={group.title} className={`case-trial-panel case-trial-panel-${i}`}><h4>{group.title}</h4><ul>{group.items.map(item => <li key={item.product + item.text}><span className="case-trial-product">{item.product.split('、').map(product => <span className="case-trial-brand" key={product}>{product === '豆包' || product === '天工' || product === 'Jenni' ? <img src={`${import.meta.env.BASE_URL}images/qsight/brands/${product === '豆包' ? 'doubao.webp' : product === '天工' ? 'tiangong.webp' : 'jenni.svg'}`} alt="" /> : null}{product}</span>)}</span><span>{item.text}</span></li>)}</ul></section>)}</div></figure>;
       case 'test-feedback-bubbles': return <TestFeedbackBubbles key={key} />;
-      case 'responsive-template': return <ResponsiveTemplate key={key} />;
+      case 'responsive-template': return <ResponsiveTemplate key={key} title={block.title} desktopSrc={block.desktopSrc} mobileSrc={block.mobileSrc} />;
       case 'mvp-comparison': return <MvpComparison key={key} />;
       case 'user-flow': return <UserFlow key={key} />;
       case 'research-topics': return <ul key={key} className="case-research-topics" aria-label="第一轮访谈的八个主题">{block.texts.map(text => <li key={text}><button type="button" className="research-topic-entry" aria-label={text}><span className="research-topic-paper"><span>{text}</span><span className="research-topic-paper-lines" aria-hidden="true" /></span></button></li>)}</ul>;

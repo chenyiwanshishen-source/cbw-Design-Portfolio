@@ -227,20 +227,10 @@ export const qsight: CaseContent = {
               "text": "为方便用户查找和复用旧报告，我们按主题整理生成历史。用户既能回看历史报告，也能沿用同一模板，切换数据维度生成新报告。"
             },
             {
-              "kind": "figures",
-              "figures": [
-                {
-                  "plate": "REPORT HISTORY",
-                  "title": "报告生成历史",
-                  "instruction": "",
-                  "src": "images/qsight/report-history.webp",
-                  "alt": "报告生成历史页面，按主题查看历史会话和报告文档",
-                  "width": 2880,
-                  "height": 1800,
-                  "framed": true,
-                  "caption": ""
-                }
-              ]
+              "kind": "responsive-template",
+              "title": "报告生成历史",
+              "desktopSrc": "images/qsight/report-history.webp",
+              "mobileSrc": "images/qsight/report-history-mobile.webp"
             }
           ]
         }

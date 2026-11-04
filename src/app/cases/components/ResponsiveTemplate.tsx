@@ -6,7 +6,7 @@ gsap.registerPlugin(useGSAP);
 type Device = 'desktop' | 'mobile';
 const devices: Device[] = ['desktop', 'mobile'];
 
-export function ResponsiveTemplate() {
+export function ResponsiveTemplate({ title = '模板中心', desktopSrc = 'images/qsight/template-center-desktop.webp', mobileSrc = 'images/qsight/template-center-mobile.webp' }: { title?: string; desktopSrc?: string; mobileSrc?: string }) {
   const [mode, setMode] = useState<Device>('desktop');
   const root = useRef<HTMLElement>(null);
   const previous = useRef<Device>('desktop');
@@ -46,11 +46,11 @@ export function ResponsiveTemplate() {
     return () => mm.revert();
   }, { scope: root, dependencies: [mode], revertOnUpdate: true });
 
-  return <figure ref={root} className="template-preview" aria-label="模板中心桌面与移动端展示">
+  return <figure ref={root} className="template-preview" aria-label={`${title}桌面与移动端展示`}>
     <div className="template-preview-stage">
       {devices.map(device => <div className="template-preview-screen" data-device={device} aria-hidden={mode !== device} key={device}>
         <div className="template-preview-media">
-          <img src={`${import.meta.env.BASE_URL}images/qsight/template-center-${device}.webp`} alt={`Qsight 模板中心${device === 'mobile' ? '移动端双列卡片' : '桌面端模板选择'}`} width={device === 'mobile' ? 390 : 1440} height={device === 'mobile' ? 844 : 900} />
+          <img src={`${import.meta.env.BASE_URL}${device === 'mobile' ? mobileSrc : desktopSrc}`} alt={`Qsight ${title}${device === 'mobile' ? '移动端' : '桌面端'}`} width={device === 'mobile' ? 390 : 1440} height={device === 'mobile' ? 844 : 900} />
         </div>
       </div>)}
     </div>
