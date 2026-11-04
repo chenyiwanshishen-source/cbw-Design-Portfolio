@@ -50,7 +50,7 @@ export function SourceEvidence() {
   return <figure className="source-evidence" ref={root} aria-label="正文引用与不同类型来源卡片的对应展示">
     <div className="source-evidence-report"><img src={`${base}source-report.webp`} alt="报告正文中的引用编号与模型运算来源卡片" width={2880} height={1800} loading="lazy" /></div>
     <div className="source-evidence-deck" role="group" aria-label="来源卡片示例">
-      {cards.map((card, i) => <div className="source-evidence-card" key={card.file} style={{ top: `${[0, 12, 32, 62, 77][i]}%`, left: i % 2 ? '36%' : '0', zIndex: i + 1 }}>
+      {cards.map((card, i) => <div className="source-evidence-card" key={card.file} style={{ top: `${[0, 25, 48, 84][i]}%`, left: i % 2 ? '42%' : '0', zIndex: i + 1 }}>
         <img src={`${base}source-${card.file}.webp`} alt={`${card.title}卡片，显示该类依据的具体信息`} width={card.width} height={card.height} loading="lazy" />
       </div>)}
     </div>

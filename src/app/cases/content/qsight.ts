@@ -249,11 +249,11 @@ export const qsight: CaseContent = {
     {
       "id": "qsight-03",
       "label": "来源核查",
-      "title": "在正文旁查看来源",
+      "title": "正文直接标注来源",
       "blocks": [
         {
           "kind": "paragraph",
-          "text": "用户想知道报告里的数字从哪来。我们在正文旁放上来源卡片，用引用编号对应具体内容，并标明数据来自企业库、参考材料，还是模型计算，方便用户核对。"
+          "text": "用户最关心数据从哪来。我们直接在相关数据后标注来源，用颜色区分类型，点击标记就能查看具体出处。"
         },
         { "kind": "source-evidence" }
       ]
