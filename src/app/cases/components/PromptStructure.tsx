@@ -6,6 +6,6 @@ const stages = [
 ];
 export function PromptStructure() {
   return <figure className="prompt-structure" aria-label="提示词的四个模块">
-    <ol className="prompt-structure-stages">{stages.map(([title, text], i) => <li key={title}><span className="prompt-structure-number text-caption">0{i + 1}</span><h4 className="text-h4 font-medium">{title}</h4><p className="text-body text-text-body">{text}</p></li>)}</ol>
+    <ol className="prompt-structure-stages">{stages.map(([title, text], i) => <li key={title}><div className="prompt-paper-heading"><span className="prompt-structure-number text-caption">0{i + 1}</span><h4 className="text-h4 font-medium">{title}</h4></div><p className="text-caption text-text-body">{text}</p></li>)}</ol>
   </figure>;
 }
