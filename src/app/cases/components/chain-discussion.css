@@ -35,3 +35,11 @@
 .chain-discussion-compact .case-research-tags { margin-top: var(--rhythm-3); gap: var(--rhythm-3) var(--rhythm-2); }
 .chain-common-problem { padding: var(--space-5) var(--space-8) 0; }
 .chain-common-problem h4 { margin: 0; }
+
+.chain-discussion-compact .case-research-tags { display: flex; flex-wrap: wrap; align-items: center; gap: var(--rhythm-3) var(--rhythm-2); padding-inline: 0; }
+.chain-discussion-compact .case-research-tags li { max-width: 100%; box-sizing: border-box; margin-left: 0; }
+.chain-discussion-compact .case-research-tags li:nth-child(4n + 1) { margin-right: var(--space-6); transform: rotate(-3deg); }
+.chain-discussion-compact .case-research-tags li:nth-child(4n + 2) { margin-left: var(--space-8); transform: rotate(3deg); }
+.chain-discussion-compact .case-research-tags li:nth-child(4n + 3) { margin-left: var(--space-3); margin-right: var(--space-4); transform: rotate(-1.5deg); }
+.chain-discussion-compact .case-research-tags li:nth-child(4n) { margin-left: var(--space-6); transform: rotate(2deg); }
+@media (max-width: 639px) { .chain-discussion-compact .case-research-tags li:nth-child(n) { margin-inline: 0; transform: rotate(-1deg); } .chain-discussion-compact .case-research-tags li:nth-child(even) { transform: rotate(1deg); } }
