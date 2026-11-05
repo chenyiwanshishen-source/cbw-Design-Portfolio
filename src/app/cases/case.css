@@ -503,3 +503,30 @@ body:has(.case-page) { background: var(--color-home-bg); }
  .prompt-result-validation { grid-template-columns: minmax(0, 1fr) auto; }
  .prompt-result-validation > .prompt-result-track { grid-column: 1 / -1; }
 }
+
+/* Soft white surfaces, inset highlights and a raised chart insert. */
+.prompt-result {
+  background: linear-gradient(145deg, var(--color-surface), var(--color-case-plate));
+  border: var(--border-width) solid var(--color-drafting-faint);
+  box-shadow: inset 0 var(--border-width) 0 var(--color-surface), var(--shadow-float);
+}
+.prompt-result-icon {
+  width: var(--space-8); height: var(--space-8); border-radius: var(--space-3);
+  background: linear-gradient(145deg, var(--color-surface), var(--result-tint));
+  box-shadow: inset 0 0 0 var(--border-width) var(--color-surface);
+}
+.prompt-result-chart {
+  padding: var(--space-3); border-radius: var(--space-3);
+  background: var(--color-surface);
+  border: var(--border-width) solid var(--color-drafting-faint);
+  box-shadow: var(--shadow-float);
+}
+.prompt-result-chart .prompt-result-track { background: var(--color-case-plate); }
+.prompt-result .prompt-result-after {
+  background: linear-gradient(to bottom, color-mix(in srgb, var(--result-ink) 65%, var(--color-surface)), var(--result-ink));
+}
+.prompt-result-validation {
+  background: linear-gradient(145deg, var(--color-surface), var(--color-case-plate));
+  border: var(--border-width) solid var(--color-drafting-faint);
+  box-shadow: inset 0 var(--border-width) 0 var(--color-surface);
+}
