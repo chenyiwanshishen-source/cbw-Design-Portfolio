@@ -1,10 +1,8 @@
 .qixin-timeline { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--rhythm-4); list-style: none; padding: 0; font-size: var(--text-caption); line-height: var(--text-caption--line-height); color: var(--color-text-secondary); }
 .qixin-timeline li { border-top: var(--border-width) solid var(--color-border-subtle); padding-top: var(--rhythm-3); }
-.qixin-timeline li:not(:last-child)::after { content: '→'; display: block; margin-top: var(--rhythm-2); color: var(--color-text-meta); }
 .qixin-case .case-metrics { grid-template-columns: minmax(0, 1fr); }
 @media (max-width: 767px) {
  .qixin-timeline { grid-template-columns: minmax(0, 1fr); }
- .qixin-timeline li:not(:last-child)::after { content: '↓'; }
 }
 
 .qixin-case .case-table th { font-family: var(--font-sans); font-size: var(--text-caption); line-height: var(--text-caption--line-height); }
@@ -29,8 +27,6 @@
 #qixin-01 .case-trial-panel-1 ul { gap: var(--rhythm-6); }
 #qixin-01 .case-trial-panel-1 li,
 #qixin-01 .case-trial-panel-1 li:nth-child(even) { position: relative; align-self: center; transform: none; }
-#qixin-01 .case-trial-panel-1 li:not(:last-child)::after { content: '↓'; position: absolute; top: calc(100% + var(--rhythm-2)); left: 50%; transform: translateX(-50%); height: calc(var(--rhythm-6) - var(--rhythm-2) * 2); display: grid; place-items: center; color: var(--color-text-meta); font-size: var(--text-h4); font-weight: 400; }
-#qixin-01 .case-trial-panel-1 li:not(:last-child)::after { content: ''; width: var(--border-width); background: var(--color-border); }
-#qixin-01 .case-trial-panel-1 li:not(:last-child)::before { content: ''; position: absolute; top: calc(100% + var(--rhythm-6) - var(--rhythm-2) - var(--space-1)); left: 50%; width: var(--space-2); height: var(--space-2); border-right: var(--border-width) solid var(--color-border); border-bottom: var(--border-width) solid var(--color-border); transform: translateX(-50%) rotate(45deg); }
 
 #qixin-01 .case-trial-panel li { font-weight: 600; }
+#qixin-01 .case-trial-panel-1 li:not(:last-child)::after { content: ''; position: absolute; top: calc(100% + var(--rhythm-2)); left: 50%; transform: translateX(-50%); width: var(--space-6); height: calc(var(--rhythm-6) - var(--rhythm-2) * 2); background: var(--color-text-secondary); mask: url('/images/icons/hugeicons/ArrowDown01Icon.svg') center / 100% 100% no-repeat; }
