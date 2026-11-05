@@ -24,3 +24,8 @@
 .chain-discussion-content { width: 100%; }
 .chain-discussion-row li { aspect-ratio: auto; min-height: var(--space-24); padding: var(--space-4); border-radius: var(--space-3); background: var(--discussion-bg); color: var(--color-text-body); box-shadow: none; }
 @media (max-width: 767px) { .chain-discussion-row h4 { width: 60%; } .chain-discussion-tone-1 h4 { margin-left: 15%; } .chain-discussion-tone-2 h4 { margin-left: 30%; } }
+
+.chain-discussion-tone-0 { --discussion-bg: var(--color-chain-user-bg); --discussion-fg: var(--color-chain-user-fg); --discussion-border: var(--color-chain-user-border); }
+.chain-discussion-tone-1 { --discussion-bg: var(--color-chain-business-bg); --discussion-fg: var(--color-chain-business-fg); --discussion-border: var(--color-chain-business-border); }
+.chain-discussion-tone-2 { --discussion-bg: var(--color-chain-backend-bg); --discussion-fg: var(--color-chain-backend-fg); --discussion-border: var(--color-chain-backend-border); }
+.chain-discussion-row h4, .chain-discussion-row li { background: var(--discussion-bg); color: var(--discussion-fg); border: var(--border-width) solid var(--discussion-border); }

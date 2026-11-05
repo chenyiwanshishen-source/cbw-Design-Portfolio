@@ -17,6 +17,15 @@
    ========================================================================== */
 
 :root {
+  --color-chain-user-bg: #F5F5F7;
+  --color-chain-user-fg: #4E525E;
+  --color-chain-user-border: #D8DBE4;
+  --color-chain-business-bg: #EEF2FF;
+  --color-chain-business-fg: #1A42B8;
+  --color-chain-business-border: #A8BEFF;
+  --color-chain-backend-bg: #F5F3FF;
+  --color-chain-backend-fg: #6366F1;
+  --color-chain-backend-border: #DDD6FE;
   --color-drafting-line: rgba(100, 111, 126, .24);
   --color-drafting-faint: rgba(100, 111, 126, .10);
   /* ---------- 基础色板（只在本文件内部引用） ---------- */
