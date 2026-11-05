@@ -152,7 +152,7 @@ export const qixin: CaseContent = {
         },
         {
           "kind": "subsection",
-          "title": "问题研讨发现的问题",
+          "title": "梳理问题",
           "blocks": [
             {
               "kind": "chain-discussion"
