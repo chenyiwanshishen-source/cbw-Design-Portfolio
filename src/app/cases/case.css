@@ -775,8 +775,8 @@ button.generator-notes { display: block; width: calc(100% - 8px); height: 140px;
 .workbench-feedback-rate strong span { font-size: var(--text-h4); margin-left: var(--space-1); }
 .workbench-feedback-rate-chart { position: relative; display: flex; justify-content: center; flex: 1; width: 100%; min-height: 192px; padding-block: var(--space-4); }
 .workbench-feedback-track { position: relative; width: var(--space-3); min-height: 160px; border-radius: var(--space-3); overflow: hidden; background: var(--color-border-subtle); }
-.workbench-feedback-fill { position: absolute; inset: 10% 0 0; border-radius: var(--space-3); background: var(--color-success); }
-.workbench-feedback-stripe { position: absolute; inset: 4% 0 90%; background: repeating-linear-gradient(135deg, var(--color-success) 0 2px, transparent 2px 5px); }
+.workbench-feedback-fill { position: absolute; inset: 10% 0 0; border-radius: var(--space-3); background: var(--color-accent); }
+.workbench-feedback-stripe { position: absolute; inset: 4% 0 90%; background: repeating-linear-gradient(135deg, var(--color-accent) 0 2px, transparent 2px 5px); }
 .workbench-feedback-threshold { position: absolute; top: calc(var(--space-4) + 10%); left: calc(50% + var(--space-5)); font-size: var(--text-caption); color: var(--color-text-secondary); }
 @media (max-width: 1099px) { .workbench-feedback-section { grid-template-columns: 1fr; } .workbench-feedback-rate { flex-direction: row; align-items: center; } .workbench-feedback-rate-chart { width: 40%; max-width: 240px; } }
 @media (min-width: 640px) and (max-width: 899px) { .workbench-feedback { grid-template-columns: repeat(2,minmax(0,1fr)); } }
