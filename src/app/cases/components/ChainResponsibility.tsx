@@ -17,9 +17,9 @@ const charts = [
 export function ChainResponsibility() {
   const [position, setPosition] = useState(50);
   return <figure className="chain-responsibility">
-    <div className="chain-comparison-captions">{charts.map(chart => <div key={chart.title}><h4>{chart.title}</h4><p>{chart.text}</p></div>)}</div>
     <div className="chain-comparison-stage">
       {charts.map((chart, index) => <div className="chain-comparison-layer" key={chart.title} style={index === 0 ? { clipPath: `inset(0 ${100 - position}% 0 0)` } : undefined}>
+        <div className="chain-comparison-caption"><h4>{chart.title}</h4><p>{chart.text}</p></div>
         <div className="chain-columns" role="img" aria-label={`${chart.title}：${chart.text}。用户、系统、内部的相对复杂度示意。`}>
           {chart.rows.map(row => <div className="chain-column" key={row.key}>
             <div className="chain-column-track"><div className={`chain-column-bar chain-column-${row.key}`} style={{ height: `${row.value / 94 * 100}%` }} /></div>
