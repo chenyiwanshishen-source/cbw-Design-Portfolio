@@ -744,3 +744,10 @@ button.generator-notes { display: block; width: calc(100% - 8px); height: 140px;
 .workbench-functions-stack { width: 68%; margin-inline: auto; display: flex; flex-direction: column; gap: var(--space-4); }
 .workbench-functions-stack img { display: block; width: 100%; height: auto; border-radius: var(--space-4); }
 @media (max-width: 639px) { .workbench-functions-plate { padding-top: var(--space-6); aspect-ratio: 1; } .workbench-functions-stack { width: 82%; } }
+
+.workbench-details { margin: 0; display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: var(--rhythm-4); }
+.workbench-details > div { min-width: 0; display: flex; align-items: center; justify-content: center; padding: var(--rhythm-5); border-radius: var(--space-6); overflow: hidden; background: var(--color-case-plate); }
+.workbench-details > div:first-child { background: radial-gradient(ellipse at 0 0, color-mix(in srgb, var(--color-chain-backend-fg) 14%, transparent), transparent 75%), var(--color-case-plate); }
+.workbench-details img { display: block; width: 100%; height: auto; }
+.workbench-details > div:first-child img { width: 85%; }
+@media (max-width: 639px) { .workbench-details { grid-template-columns: 1fr; } .workbench-details > div { padding: var(--space-6); } }

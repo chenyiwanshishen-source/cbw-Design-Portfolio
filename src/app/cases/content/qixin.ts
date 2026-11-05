@@ -269,6 +269,7 @@ export const qixin: CaseContent = {
         },
         { "kind": "workbench-panels" },
         { "kind": "workbench-functions" },
+        { "kind": "workbench-details" },
         {
           "kind": "paragraph",
           "text": "结果：【待填：上线后的使用情况或反馈】"
