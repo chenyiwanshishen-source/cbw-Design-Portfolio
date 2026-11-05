@@ -1,26 +1,33 @@
 import './chain-responsibility.css';
-const roles = [{ key: 'system', label: '系统' }, { key: 'user', label: '用户' }, { key: 'internal', label: '内部' }];
+
 const charts = [
-  { title: '改版前', text: '配置复杂度集中在内部', weights: [22, 30, 94] },
-  { title: '改版后', text: '口径由用户判断，配置由系统承接', weights: [78, 42, 28] },
+  { title: '改版前', text: '配置复杂度集中在内部', rows: [
+    { role: '用户', key: 'user', task: '提需求 / 等交付', value: 30 },
+    { role: '系统', key: 'system', task: '展示结果', value: 22 },
+    { role: '内部', key: 'internal', task: '需求理解 / 结构拆解 / 数据配置 / 关系配置 / 企业范围配置', value: 94 },
+  ] },
+  { title: '改版后', text: '口径判断回到用户，配置动作由系统承接', rows: [
+    { role: '用户', key: 'user', task: '本地口径判断 / 企业校准', value: 42 },
+    { role: '系统', key: 'system', task: '标准复用 / 环节新增 / 图谱编辑 / 名单维护', value: 78 },
+    { role: '内部', key: 'internal', task: '必要支持 / 异常处理', value: 28 },
+  ] },
 ];
+
 export function ChainResponsibility() {
   return <figure className="chain-responsibility">
-    <div className="chain-responsibility-charts">{charts.map(chart => {
-      const total = chart.weights.reduce((a, b) => a + b, 0);
-      return <section key={chart.title}><h4>{chart.title}</h4><p>{chart.text}</p>
-        <svg viewBox="0 0 360 250" role="img" aria-label={`${chart.title}复杂度分配示意，系统、用户、内部的相对权重为${chart.weights.join('、')}`}>
-          {roles.map((role, index) => {
-            const percent = chart.weights[index] / total * 100;
-            const radius = Math.sqrt(percent / 100) * 118;
-            const positions = [[112, 84], [105, 168], [224, 130]];
-            const [cx, cy] = positions[index];
-            return <g key={role.key}><circle cx={cx} cy={cy} r={radius} className={`chain-responsibility-${role.key}`} fillOpacity=".28" /><text x={cx} y={cy} textAnchor="middle" dominantBaseline="central" className="chain-bubble-value">{Math.round(percent)}%</text><text x={cx} y={cy + 26} textAnchor="middle" className="chain-bubble-label">{role.label}</text></g>;
-          })}
-        </svg>
-      </section>;
-    })}</div>
-    <div className="chain-responsibility-legend">{roles.map(role => <span key={role.key}><i className={`chain-responsibility-${role.key}`} />{role.label}</span>)}</div>
-    <figcaption>沿用旧版相对权重展示复杂度分配，不代表实测工作量或耗时占比。</figcaption>
+    <div className="chain-responsibility-heading">
+      <h4>把复杂配置拆给更合适的角色</h4>
+      <p>不是减少复杂性，而是把本地口径判断交给用户，把重复配置动作交给系统承接。</p>
+    </div>
+    <div className="chain-responsibility-charts">{charts.map(chart => <section key={chart.title}>
+      <h4>{chart.title}<span> — {chart.text}</span></h4>
+      <div className="chain-responsibility-rows">{chart.rows.map(row => <div className="chain-responsibility-row" key={row.key}>
+        <span>{row.role}</span>
+        <div className="chain-responsibility-track">
+          <i className={`chain-responsibility-bar chain-responsibility-${row.key}`} style={{ width: `${row.value / 94 * 58}%` }} />
+          <span className="chain-responsibility-task" style={{ marginLeft: `calc(${row.value / 94 * 58}% + var(--space-3))` }}>{row.task}</span>
+        </div>
+      </div>)}</div>
+    </section>)}</div>
   </figure>;
 }
