@@ -1,12 +1,12 @@
 import './chain-responsibility.css';
 
 const charts = [
-  { title: '改版前', text: '配置复杂度集中在内部', rows: [
+  { title: '改版前', text: '用户提需求，内部人员负责配置', rows: [
     { role: '用户', key: 'user', value: 30 },
     { role: '系统', key: 'system', value: 22 },
     { role: '内部', key: 'internal', value: 94 },
   ] },
-  { title: '改版后', text: '口径判断回到用户，配置动作由系统承接', rows: [
+  { title: '改版后', text: '用户按本地口径，在系统里自己配置', rows: [
     { role: '用户', key: 'user', value: 42 },
     { role: '系统', key: 'system', value: 78 },
     { role: '内部', key: 'internal', value: 28 },
