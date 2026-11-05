@@ -239,9 +239,12 @@ export const qixin: CaseContent = {
           "highlightPhrases": ["查看对应的企业内容和实时舆情"]
         },
         {
-          "kind": "figures",
-          "figures": [
-            { "plate": "CHAIN COMPANY", "title": "企业管理", "instruction": "", "caption": "", "src": "images/qixin/chain-company-management.webp", "alt": "产业链企业管理，查看企业资讯，并按发布时间、舆情倾向和分类筛选动态", "width": 1440, "height": 900, "framed": true }
+          "kind": "report-edit-carousel",
+          "imageFolder": "qixin",
+          "label": "企业管理",
+          "slides": [
+            { "file": "chain-company-management.webp", "alt": "查看产业链企业资讯，按发布时间、舆情倾向和分类筛选动态" },
+            { "file": "chain-company-details.webp", "alt": "查看企业详情，包括基本信息、融资信息和舆情动态" }
           ]
         },
         {
