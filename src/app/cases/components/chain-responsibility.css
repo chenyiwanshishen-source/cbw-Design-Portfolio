@@ -10,11 +10,7 @@
 .chain-responsibility-system { background: var(--color-question-bank); }
 .chain-responsibility-user { background: var(--color-accent); }
 .chain-responsibility-internal { background: var(--color-chain-backend-fg); }
-.chain-responsibility-task { position: relative; padding-block: var(--space-2); font-size: var(--text-caption); line-height: var(--text-caption--line-height); }
 @media (max-width: 639px) {
   .chain-responsibility { padding: var(--space-4); }
   .chain-responsibility h4 span { display: block; }
-  .chain-responsibility-track { display: block; padding-top: var(--space-8); }
-  .chain-responsibility-bar { top: var(--space-2); }
-  .chain-responsibility-task { display: block; margin-left: 0 !important; }
 }
