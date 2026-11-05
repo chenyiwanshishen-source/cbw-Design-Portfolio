@@ -39,10 +39,6 @@ export const qixin: CaseContent = {
           "text": "本地产业链构建周期从 1–2 周缩短到 2–3 天"
         }
       ]
-    },
-    {
-      "kind": "aside",
-      "text": "项目记录，统计方式待补充。【待填：这个数是谁统计的、取了多少样本】"
     }
   ],
   "toc": [
@@ -83,7 +79,7 @@ export const qixin: CaseContent = {
       "blocks": [
         {
           "kind": "paragraph",
-          "text": "启信产业大脑围绕企业与产业完成查询、研判、管理和输出。下图是整个产品的结构，深色部分是这次重点讲解、由我主导的案例。"
+          "text": "启信产业大脑围绕企业与产业完成查询、研判、管理和输出。"
         },
         {
           "kind": "product-map"
