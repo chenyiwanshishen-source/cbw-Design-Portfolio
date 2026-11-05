@@ -30,3 +30,7 @@
   .product-map-scenarios .product-map-sticky { position: relative; min-height: var(--space-16); }
   .product-map-scenarios .product-map-sticky::before { content: ''; position: absolute; left: calc(var(--space-5) * -1); width: var(--space-5); border-top: var(--border-width) solid var(--color-border); }
 }
+
+/* Task chain follows the same rounded paper treatment as the scenario notes. */
+.product-map-tasks .product-map-cell { display: flex; align-items: center; justify-content: center; min-height: var(--space-24); background: linear-gradient(165deg, var(--color-research-note-blue), var(--color-surface-tint)); border-radius: var(--space-3); }
+.product-map-tasks > .product-map-owned { margin-top: var(--space-3); }
