@@ -8,3 +8,8 @@
 }
 
 .qixin-case .case-table th { font-family: var(--font-sans); font-size: var(--text-caption); line-height: var(--text-caption--line-height); }
+
+/* Problem copy uses the 20px title/copy and paragraph rhythm. */
+#qixin-01 { gap: var(--rhythm-3); }
+#qixin-01 > h2 + .case-prose { margin-top: 0; }
+#qixin-01 .case-paragraph { margin: 0; }
