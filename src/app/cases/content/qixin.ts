@@ -152,6 +152,10 @@ export const qixin: CaseContent = {
           "title": "功能服务地图",
           "blocks": [
             {
+              "kind": "paragraph",
+              "text": "发现这些问题后，我先画了一张简单的服务地图，把用户、业务和开发之间的交接梳理出来，再顺着流程一步步推演解决方案。"
+            },
+            {
               "kind": "chain-stage-framework"
             }
           ]
@@ -175,7 +179,7 @@ export const qixin: CaseContent = {
           "blocks": [
             {
               "kind": "paragraph",
-              "text": "我们和两位用户了解了产业链配置与企业名单维护中的困难。"
+              "text": "我和两位用户了解了产业链配置与企业名单维护中的困难。"
             },
             {
               "kind": "chain-user-research"
