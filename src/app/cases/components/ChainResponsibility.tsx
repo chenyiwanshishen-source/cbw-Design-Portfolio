@@ -8,13 +8,13 @@ export function ChainResponsibility() {
   return <figure className="chain-responsibility">
     <div className="chain-responsibility-charts">{charts.map(chart => {
       const total = chart.weights.reduce((a, b) => a + b, 0);
-      const first = Math.round(chart.weights[0] / total * 200);
-      const second = first + Math.round(chart.weights[1] / total * 200);
+      const first = chart.weights[0];
+      const second = first + chart.weights[1];
       return <section key={chart.title}><h4>{chart.title}</h4><p>{chart.text}</p>
         <svg viewBox="0 0 358 178" role="img" aria-label={`${chart.title}复杂度分配示意，系统、用户、内部的相对权重为${chart.weights.join('、')}`}>
           {Array.from({ length: 200 }, (_, index) => {
             const rank = (index * 73) % 200;
-            const role = rank < first ? 'system' : rank < second ? 'user' : 'internal';
+            const role = rank >= total ? 'empty' : rank < first ? 'system' : rank < second ? 'user' : 'internal';
             return <rect key={index} x={index % 20 * 18} y={Math.floor(index / 20) * 18} width="14" height="14" rx="3" className={`chain-responsibility-${role}`} />;
           })}
         </svg>
