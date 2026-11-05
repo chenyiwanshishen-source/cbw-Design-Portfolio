@@ -250,7 +250,7 @@ export const qixin: CaseContent = {
             { "file": "chain-company-details.webp", "alt": "查看企业详情，包括基本信息、融资信息和舆情动态" }
           ]
         },
-        { "kind": "heading", "text": "设计结果" },
+        { "kind": "heading", "text": "设计结果", "prominent": true },
         {
           "kind": "paragraph",
           "text": "对于需要自定义产业链的用户，这一版是成功的。用户能自己调整和维护产业链，更有掌控感；研究产业政策、了解产业舆情也更方便了。"
