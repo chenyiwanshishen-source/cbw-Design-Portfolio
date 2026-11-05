@@ -1,26 +1,25 @@
 import './chain-responsibility.css';
-const roles = [{ key: 'system', label: '系统' }, { key: 'user', label: '用户' }, { key: 'internal', label: '内部' }];
-const charts = [
-  { title: '改版前', text: '配置复杂度集中在内部', weights: [22, 30, 94] },
-  { title: '改版后', text: '口径由用户判断，配置由系统承接', weights: [78, 42, 28] },
+const parts = [
+  { key: 'internal', label: '内部', weight: 94, task: '理解需求、拆解结构和配置数据' },
+  { key: 'user', label: '用户', weight: 30, task: '提出需求、等待交付' },
+  { key: 'system', label: '系统', weight: 22, task: '展示配置结果' },
 ];
 export function ChainResponsibility() {
-  return <figure className="chain-responsibility">
-    <div className="chain-responsibility-charts">{charts.map(chart => {
-      const total = chart.weights.reduce((a, b) => a + b, 0);
-      return <section key={chart.title}><h4>{chart.title}</h4><p>{chart.text}</p>
-        <svg viewBox="0 0 360 250" role="img" aria-label={`${chart.title}复杂度分配示意，系统、用户、内部的相对权重为${chart.weights.join('、')}`}>
-          {roles.map((role, index) => {
-            const percent = chart.weights[index] / total * 100;
-            const radius = Math.sqrt(percent / 100) * 118;
-            const positions = [[112, 84], [105, 168], [224, 130]];
-            const [cx, cy] = positions[index];
-            return <g key={role.key}><circle cx={cx} cy={cy} r={radius} className={`chain-responsibility-${role.key}`} fillOpacity=".28" /><text x={cx} y={cy} textAnchor="middle" dominantBaseline="central" className="chain-bubble-value">{Math.round(percent)}%</text><text x={cx} y={cy + 26} textAnchor="middle" className="chain-bubble-label">{role.label}</text></g>;
-          })}
-        </svg>
-      </section>;
-    })}</div>
-    <div className="chain-responsibility-legend">{roles.map(role => <span key={role.key}><i className={`chain-responsibility-${role.key}`} />{role.label}</span>)}</div>
+  const total = parts.reduce((sum, part) => sum + part.weight, 0);
+  const radius = 88;
+  const circumference = 2 * Math.PI * radius;
+  let offset = 0;
+  return <figure className="chain-responsibility chain-responsibility-before">
+    <div className="chain-donut-copy"><h4>改版前</h4><p>配置复杂度集中在内部</p><ul className="chain-donut-legend">{parts.map(part => <li key={part.key}><i className={`chain-responsibility-${part.key}`} /><div><strong>{part.label}</strong><p>{part.task}</p></div></li>)}</ul></div>
+    <svg viewBox="0 0 280 280" role="img" aria-label="改版前复杂度分配示意：内部约64%，用户约21%，系统约15%">
+      {parts.map(part => {
+        const fraction = part.weight / total;
+        const angle = (offset + fraction / 2) * 2 * Math.PI - Math.PI / 2;
+        const currentOffset = offset;
+        offset += fraction;
+        return <g key={part.key}><circle cx="140" cy="140" r={radius} fill="none" strokeWidth="46" strokeLinecap="round" strokeDasharray={`${fraction * circumference - 18} ${circumference}`} strokeDashoffset={-currentOffset * circumference - 9} transform="rotate(-90 140 140)" className={`chain-donut-${part.key}`} /><text x={140 + Math.cos(angle) * radius} y={140 + Math.sin(angle) * radius} textAnchor="middle" dominantBaseline="central" className="chain-donut-number">{Math.round(fraction * 100)}%</text></g>;
+      })}
+    </svg>
     <figcaption>沿用旧版相对权重展示复杂度分配，不代表实测工作量或耗时占比。</figcaption>
   </figure>;
 }
