@@ -359,7 +359,7 @@ export const qsight: CaseContent = {
         },
         {
           "kind": "subsection",
-          "title": "调整后，三个问题有没有改善",
+          "title": "设计成果",
           "blocks": [
             {
               "kind": "paragraph",
