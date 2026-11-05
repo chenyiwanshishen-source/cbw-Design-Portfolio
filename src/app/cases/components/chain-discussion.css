@@ -43,3 +43,9 @@
 .chain-discussion-compact .case-research-tags li:nth-child(4n + 3) { margin-left: var(--space-3); margin-right: var(--space-4); transform: rotate(-1.5deg); }
 .chain-discussion-compact .case-research-tags li:nth-child(4n) { margin-left: var(--space-6); transform: rotate(2deg); }
 @media (max-width: 639px) { .chain-discussion-compact .case-research-tags li:nth-child(n) { margin-inline: 0; transform: rotate(-1deg); } .chain-discussion-compact .case-research-tags li:nth-child(even) { transform: rotate(1deg); } }
+
+.chain-discussion-compact .case-research-tags { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: var(--rhythm-3) var(--rhythm-2); }
+.chain-discussion-compact .case-research-tags li:nth-child(n) { width: fit-content; max-width: 100%; min-width: 0; margin: 0; white-space: normal; transform: rotate(-2deg); }
+.chain-discussion-compact .case-research-tags li:nth-child(even) { transform: translateY(var(--space-2)) rotate(2deg); }
+.chain-discussion-compact .case-research-quadrant { padding-inline: var(--space-5); }
+@media (max-width: 639px) { .chain-discussion-compact .case-research-tags { grid-template-columns: minmax(0, 1fr); } }
