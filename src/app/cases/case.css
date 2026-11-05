@@ -461,3 +461,12 @@ body:has(.case-page) { background: var(--color-home-bg); }
 .prompt-structure-stages h4 { font-size: var(--text-caption); line-height: var(--text-caption--line-height); }
 .prompt-structure-stages p { margin-top: var(--space-1); font-size: var(--text-label); line-height: var(--text-caption--line-height); }
 @media (max-width: 639px) { .prompt-structure { grid-template-columns: minmax(0, 1fr); } .prompt-before svg { width: 48%; flex: none; } .prompt-structure-stages { width: 100%; } }
+
+/* Keep the short before/after comparison readable within a narrow viewport. */
+.case-table-scroll[aria-label="三个问题调整前后的变化"] .case-table { min-width: 0; table-layout: fixed; }
+.case-table-scroll[aria-label="三个问题调整前后的变化"] :is(th, td) { overflow-wrap: anywhere; }
+.case-table-scroll[aria-label="三个问题调整前后的变化"] th { font: inherit; font-size: var(--text-caption); }
+@media (max-width: 767px) {
+  .case-table-scroll[aria-label="三个问题调整前后的变化"] :is(th, td) { padding: var(--space-3) var(--space-2); font-size: var(--text-caption); }
+  .case-table-scroll[aria-label="三个问题调整前后的变化"] :is(th, td):first-child { width: 24%; }
+}
