@@ -1,4 +1,6 @@
+import { LaunchOutcomes } from './components/LaunchOutcomes';
 import { PromptResults } from './components/PromptResults';
+import { PromptGenerator } from './components/PromptGenerator';
 import { PromptStructure } from './components/PromptStructure';
 import { SourceEvidence } from './components/SourceEvidence';
 import { ReportEditCarousel } from './components/ReportEditCarousel';
@@ -21,6 +23,7 @@ export function CaseBlocks({ blocks, labels, depth = 0 }: { depth?: number; bloc
     const key = index;
     switch (block.kind) {
       case 'problem-cards': return <div key={key} className="case-prompt-problems">{block.items.map(item => <article key={item.label}><h3 className="text-h4 font-medium">{item.label}</h3><p className="text-body text-text-body">{item.text}</p></article>)}</div>;
+      case 'prompt-generator': return <PromptGenerator key={key} />;
       case 'prompt-structure': return <PromptStructure key={key} />;
       case 'source-evidence': return <SourceEvidence key={key} />;
       case 'report-edit-carousel': return <ReportEditCarousel key={key} />;
@@ -39,11 +42,12 @@ export function CaseBlocks({ blocks, labels, depth = 0 }: { depth?: number; bloc
       ].map(({ title, tags }) => <div className="case-research-quadrant" key={title}><h4 className="text-body font-medium">{title}</h4><ul className="case-research-tags">{tags.map(tag => <li key={tag}>{tag}</li>)}</ul></div>)}</div>;
       case 'goal-notes': return <Fragment key={key}><div className="case-goal-notes">{block.texts.map(text => { const [title, ...paragraphs] = text.split('\n\n'); return <div key={title} className="case-goal-note"><h3 className="text-body font-medium">{title}</h3>{paragraphs.map(p => <p key={p} className="text-caption">{p}</p>)}</div>; })}</div><div className="case-research-resources"><h3 className="case-research-resources-title text-h4">准备题库和大纲</h3><QuestionBankLink /><OutlinePaper><h3 className="text-h4">访谈大纲</h3><p className="text-caption">第一轮访谈</p><div className="case-outline-paper-section"><strong>最近一次报告任务</strong><p>最近完成的是哪份报告？为什么做、给谁看、什么时候交？</p></div><div className="case-outline-paper-section"><strong>参与和交接</strong><p>最初要求是什么？范围谁定？三位用户和科长怎样参与、交接？</p></div><div className="case-outline-paper-section"><strong>工作方式</strong><p>材料从哪来？大纲怎么定？正文怎么写？如何修改、审核和保存？</p></div></OutlinePaper></div></Fragment>;
       case 'flow': case 'layers': case 'chat': case 'statement': return <StoryDiagram key={key} block={block} />;
-      case 'paragraph': return <div key={key} className="case-prose">{block.text.split(/\n+/).map((text, i) => <p key={i} className="case-paragraph"><CaseText text={text} />{block.highlight && i === block.text.split(/\n+/).length - 1 && <> <mark className="case-marker"><CaseText text={block.highlight} /></mark></>}</p>)}</div>;
+      case 'paragraph': return <div key={key} className="case-prose">{block.text.split(/\n+/).map((text, i) => <p key={i} className="case-paragraph"><CaseText text={text} highlightPhrases={block.highlightPhrases} />{block.highlight && i === block.text.split(/\n+/).length - 1 && <> <mark className="case-marker"><CaseText text={block.highlight} /></mark></>}</p>)}</div>;
       case 'aside': return <p key={key} className="case-paragraph border-t border-dashed border-border-dashed pt-6"><CaseText text={block.text} /></p>;
       case 'subsection': { const Heading = depth === 0 ? 'h3' : 'h4'; return <div key={key} className={`case-subsection${block.plain ? " case-subsection-plain" : ""}${block.prominent ? " case-subsection-prominent" : ""}`}><Heading className={depth === 0 ? "text-h4 font-medium" : "text-body font-medium"}><CaseText text={block.title} /></Heading><CaseBlocks blocks={block.blocks} labels={labels} depth={depth + 1} /></div>; }
       case 'quotes': return <div key={key} className="case-quotes">{block.texts.map(text => <Quote key={text} text={text} />)}</div>;
       case 'figures': return <div key={key} className={block.figures.length > 1 ? 'case-pair' : undefined}>{block.figures.map(figure => <FigurePlaceholder key={figure.plate} {...figure} />)}{block.arrow && <svg className="case-pair-arrow" viewBox="0 0 200 200" fill="none" aria-hidden="true"><path d="M10 185 C8 164 68 146 82 169 C102 201 54 191 65 159 C85 101 114 49 181 24 M143 16 Q163 20 188 24 Q178 39 160 45" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" /></svg>}</div>;
+      case 'launch-outcomes': return <LaunchOutcomes key={key} {...block} />;
       case 'prompt-results': return <PromptResults key={key} />;
       case 'table': return <DataTable key={key} {...block} />;
       case 'columns': return <div key={key} className={`case-columns ${block.items.length === 3 ? 'case-columns-three' : block.items.length === 4 ? 'case-columns-four' : ''}`}>{block.items.map(item => <div key={item.label}><dl><dt className="text-caption text-text-meta">{item.label}</dt>{item.text && <dd className="text-body text-text-body"><CaseText text={item.text} /></dd>}</dl></div>)}</div>;

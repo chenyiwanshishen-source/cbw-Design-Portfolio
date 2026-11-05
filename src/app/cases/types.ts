@@ -1,10 +1,13 @@
+import type { LaunchOutcomesContent } from './components/LaunchOutcomes';
 import type { HeaderContent } from './components/CaseHeader';
 import type { FigureContent } from './components/FigurePlaceholder';
 type Item = { label: string; text: string };
 export type CaseBlock =
+ | ({ kind: 'launch-outcomes' } & LaunchOutcomesContent)
  | { kind: 'prompt-results' }
  | { kind: 'source-evidence' }
  | { kind: 'prompt-structure' }
+ | { kind: 'prompt-generator' }
  | { kind: 'report-edit-carousel' }
  | { kind: 'outline-devices' }
  | { kind: 'mvp-comparison' }
@@ -20,7 +23,7 @@ export type CaseBlock =
  | { kind: 'layers'; items: { label: string; text?: string }[] }
  | { kind: 'chat'; texts: string[]; note?: string }
  | { kind: 'statement'; text: string }
- | { kind: 'paragraph' | 'aside'; text: string; highlight?: string }
+ | { kind: 'paragraph' | 'aside'; text: string; highlight?: string; highlightPhrases?: string[] }
  | { kind: 'subsection'; title: string; number?: string; plain?: boolean; prominent?: boolean; blocks: CaseBlock[] }
  | { kind: 'quotes'; texts: string[] }
  | { kind: 'figures'; figures: FigureContent[]; arrow?: boolean }
