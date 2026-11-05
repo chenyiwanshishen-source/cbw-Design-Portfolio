@@ -271,7 +271,12 @@ export const qixin: CaseContent = {
           "kind": "paragraph",
           "text": "为了让用户进入系统后直接处理当天的工作，我把首页改成任务看板：报告入口提供企业报告、产业报告和最近报告；动态信息呈现快讯、融资和舆情；业务概览集中地区、产业与预警信息；常用功能保留高频查询和筛选入口。"
         },
-        { "kind": "workbench-laptop" },
+        {
+          "kind": "figures",
+          "figures": [
+            { "plate": "WORKBENCH", "title": "首页工作台", "instruction": "", "caption": "", "src": "images/qixin/home-workbench.webp", "alt": "启信产业大脑首页工作台，包括招商搜索、报告入口、地区概览、常用功能与企业动态", "width": 2880, "height": 2564, "framed": true }
+          ]
+        },
         {
           "kind": "paragraph",
           "text": "结果：【待填：上线后的使用情况或反馈】"
