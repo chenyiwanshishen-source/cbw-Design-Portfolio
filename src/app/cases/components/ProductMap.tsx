@@ -6,6 +6,6 @@ export function ProductMap() {
     <div className="product-map-row"><span className="product-map-label">任务流程</span><div className="product-map-tasks"><div className="product-map-five">{['定位范围', '筛选目标', '判断价值', '持续管理', '输出结果'].map((text, i) => <span className="product-map-cell product-map-step" key={text}>{text}{i < 4 && <span className="product-map-arrow" aria-hidden="true">→</span>}</span>)}</div><div className="product-map-owned">① 首页工作台</div></div></div>
     <div className="product-map-row"><span className="product-map-label">产品能力</span><div className="product-map-capabilities"><div className="product-map-cell">企业、产业与区域数据的查询、研判、管理和输出</div><div className="product-map-owned product-map-chain">② 自定义产业链</div></div></div>
     <div className="product-map-row"><span className="product-map-label">底座</span><div className="product-map-owned">③ 组件库</div></div>
-    <figcaption>深色是我负责的部分</figcaption>
+    <figcaption>深色部分是这次重点讲解、由我主导的案例</figcaption>
   </figure>;
 }

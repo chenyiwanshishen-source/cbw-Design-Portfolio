@@ -83,7 +83,7 @@ export const qixin: CaseContent = {
       "blocks": [
         {
           "kind": "paragraph",
-          "text": "启信产业大脑围绕企业与产业完成查询、研判、管理和输出。下图是整个产品的结构，深色是我负责的部分。"
+          "text": "启信产业大脑围绕企业与产业完成查询、研判、管理和输出。下图是整个产品的结构，深色部分是这次重点讲解、由我主导的案例。"
         },
         {
           "kind": "product-map"
