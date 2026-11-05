@@ -499,3 +499,6 @@ body:has(.case-page) { background: var(--color-home-bg); }
   .prompt-result-featured { grid-row: auto; }
   .prompt-result { padding: var(--space-5); }
 }
+
+.prompt-result-glyph { display: block; width: var(--space-5); height: var(--space-5); background: var(--color-text); mask-size: contain; mask-repeat: no-repeat; mask-position: center; }
+.prompt-mini-label { fill: var(--color-text-meta); font-size: var(--text-micro); }
