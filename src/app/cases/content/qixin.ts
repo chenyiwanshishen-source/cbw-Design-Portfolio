@@ -104,17 +104,17 @@ export const qixin: CaseContent = {
                 {
                   "product": "",
                   "text": "功能和操作入口分散",
-                  "icon": "plugs-connected"
+                  "icon": "Unlink01Icon"
                 },
                 {
                   "product": "",
                   "text": "与用户沟通的成本增加",
-                  "icon": "quotes"
+                  "icon": "BubbleChatDelayIcon"
                 },
                 {
                   "product": "",
                   "text": "视觉样式不统一",
-                  "icon": "wrench"
+                  "icon": "PaintBoardIcon"
                 }
               ]
             },
@@ -124,17 +124,17 @@ export const qixin: CaseContent = {
                 {
                   "product": "",
                   "text": "首页工作台：集中常用功能和任务入口",
-                  "icon": "monitor"
+                  "icon": "DashboardSquare01Icon"
                 },
                 {
                   "product": "",
                   "text": "自定义产业链：让用户自行维护产业链",
-                  "icon": "pencil-fill"
+                  "icon": "HierarchySquare01Icon"
                 },
                 {
                   "product": "",
                   "text": "组件库：统一视觉样式和组件",
-                  "icon": "checks"
+                  "icon": "Layers01Icon"
                 }
               ]
             }

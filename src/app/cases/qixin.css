@@ -15,3 +15,10 @@
 #qixin-01 .case-paragraph { margin: 0; }
 
 .qixin-case .case-trial-icon { display: inline-block; flex: 0 0 var(--space-6); width: var(--space-6); height: var(--space-6); background: var(--color-accent); mask: center / contain no-repeat; }
+
+#qixin-01 .case-trial-panel { box-shadow: none; padding: var(--rhythm-4); }
+#qixin-01 .case-trial-panel h4 { margin-bottom: var(--rhythm-5); }
+#qixin-01 .case-trial-panel ul { gap: var(--rhythm-4); }
+#qixin-01 .case-trial-panel li { background: var(--color-surface); box-shadow: none; }
+#qixin-01 .case-trial-panel-1 li { transform: none; align-self: flex-start; }
+#qixin-01 .case-trial-panel-1 li:nth-child(even) { align-self: flex-end; }
