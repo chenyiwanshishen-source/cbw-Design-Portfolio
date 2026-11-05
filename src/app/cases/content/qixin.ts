@@ -232,6 +232,18 @@ export const qixin: CaseContent = {
         },
         { "kind": "heading", "text": "层级管理" },
         { "kind": "chain-hierarchy" },
+        { "kind": "heading", "text": "企业管理" },
+        {
+          "kind": "paragraph",
+          "text": "用户上传企业后，可以直接查看对应的企业内容和实时舆情，持续了解这些企业的变化。让上传的名单有内容可看、有动态可跟进，也是希望增加用户对平台的信任。",
+          "highlightPhrases": ["查看对应的企业内容和实时舆情"]
+        },
+        {
+          "kind": "figures",
+          "figures": [
+            { "plate": "CHAIN COMPANY", "title": "企业管理", "instruction": "", "caption": "", "src": "images/qixin/chain-company-management.webp", "alt": "产业链企业管理，查看企业资讯，并按发布时间、舆情倾向和分类筛选动态", "width": 1440, "height": 900, "framed": true }
+          ]
+        },
         {
           "kind": "metrics",
           "items": [

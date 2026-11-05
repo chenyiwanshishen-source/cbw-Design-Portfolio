@@ -706,3 +706,4 @@ button.generator-notes { display: block; width: calc(100% - 8px); height: 140px;
 #qixin-03 > .case-metrics { border-top: 0; }
 @media (max-width: 639px) { .chain-hierarchy-plate { padding: var(--space-3); gap: var(--space-3); height: 360px; } .chain-hierarchy-plate img { width: 580px; } }
 #qixin-03 > .case-metrics > div { border-top: 0; }
+.case-figure-framed img[src$="chain-company-management.webp"] { box-shadow: var(--shadow-float); }
