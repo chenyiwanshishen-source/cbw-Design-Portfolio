@@ -75,7 +75,7 @@ export const qixin: CaseContent = {
     {
       "id": "qixin-01",
       "label": "挑战",
-      "title": "问题",
+      "title": "挑战",
       "blocks": [
         {
           "kind": "paragraph",
@@ -90,7 +90,7 @@ export const qixin: CaseContent = {
     {
       "id": "qixin-02",
       "label": "定义问题",
-      "title": "用户场景与核心任务",
+      "title": "项目概述",
       "blocks": [
         {
           "kind": "flow",
