@@ -29,6 +29,7 @@ export function CaseBlocks({ blocks, labels, depth = 0 }: { depth?: number; bloc
     const key = index;
     switch (block.kind) {
       case 'heading': return <h3 key={key} className="case-detail-heading font-medium">{block.text}</h3>;
+      case 'workbench-laptop': return <figure key={key} className="workbench-laptop-plate" aria-label="笔记本电脑中的首页工作台"><div className="workbench-laptop"><div className="workbench-laptop-lid"><span className="workbench-laptop-camera" aria-hidden="true" /><div className="workbench-laptop-screen" tabIndex={0} aria-label="首页工作台截图，可向下滚动查看完整页面"><img src={`${import.meta.env.BASE_URL}images/qixin/home-workbench.webp`} width={2880} height={2564} alt="启信产业大脑首页工作台，包括招商搜索、报告入口、地区概览、常用功能与企业动态" loading="lazy" /></div></div><div className="workbench-laptop-base" aria-hidden="true"><span /></div></div></figure>;
       case 'chain-hierarchy': return <figure key={key} className="chain-hierarchy-plate" aria-label="层级管理的两种操作展示">{[1, 2].map(i => <div key={i}><img src={`${import.meta.env.BASE_URL}images/qixin/chain-hierarchy-${i}.webp`} alt={i === 1 ? '在图谱中拖动产业环节调整层级' : '在左侧层级菜单中拖动调整产业环节'} width={1440} height={900} loading="lazy" /></div>)}</figure>;
       case 'chain-entry-comparison': return <ChainEntryComparison key={key} />;
       case 'chain-responsibility': return <ChainResponsibility key={key} />;

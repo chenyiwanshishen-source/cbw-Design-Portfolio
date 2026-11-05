@@ -5,6 +5,7 @@ type Item = { label: string; text: string };
 export type CaseBlock =
  | { kind: 'heading'; text: string }
  | { kind: 'chain-hierarchy' }
+ | { kind: 'workbench-laptop' }
  | { kind: 'chain-entry-comparison' }
  | { kind: 'chain-responsibility' }
  | { kind: 'chain-user-research' }

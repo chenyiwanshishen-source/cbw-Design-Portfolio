@@ -271,17 +271,7 @@ export const qixin: CaseContent = {
           "kind": "paragraph",
           "text": "为了让用户进入系统后直接处理当天的工作，我把首页改成任务看板：报告入口提供企业报告、产业报告和最近报告；动态信息呈现快讯、融资和舆情；业务概览集中地区、产业与预警信息；常用功能保留高频查询和筛选入口。"
         },
-        {
-          "kind": "figures",
-          "figures": [
-            {
-              "plate": "PLATE 05",
-              "title": "新版首页分区标注",
-              "instruction": "要放：新版首页分区标注",
-              "caption": "新版首页分区标注"
-            }
-          ]
-        },
+        { "kind": "workbench-laptop" },
         {
           "kind": "paragraph",
           "text": "结果：【待填：上线后的使用情况或反馈】"

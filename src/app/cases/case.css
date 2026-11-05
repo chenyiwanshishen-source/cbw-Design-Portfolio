@@ -707,3 +707,14 @@ button.generator-notes { display: block; width: calc(100% - 8px); height: 140px;
 @media (max-width: 639px) { .chain-hierarchy-plate { padding: var(--space-3); gap: var(--space-3); height: 360px; } .chain-hierarchy-plate img { width: 580px; } }
 #qixin-03 > .case-metrics > div { border-top: 0; }
 .case-figure-framed img[src$="chain-company-management.webp"] { box-shadow: var(--shadow-float); }
+
+.workbench-laptop-plate { margin: 0; padding: var(--rhythm-6) var(--rhythm-4); background: var(--color-case-plate); border-radius: var(--space-6); overflow: hidden; }
+.workbench-laptop { width: 100%; padding-inline: var(--space-5); }
+.workbench-laptop-lid { position: relative; padding: var(--space-5) var(--space-2) var(--space-3); border-radius: var(--space-4) var(--space-4) var(--space-2) var(--space-2); background: var(--color-blueprint-bg); border: 1px solid var(--color-text-meta); box-shadow: var(--shadow-float); }
+.workbench-laptop-camera { position: absolute; top: var(--space-2); left: 50%; width: var(--space-1); height: var(--space-1); border-radius: 50%; background: var(--color-text-meta); }
+.workbench-laptop-screen { aspect-ratio: 16 / 10; overflow-y: auto; border-radius: var(--space-1); background: var(--color-surface); scrollbar-width: thin; }
+.workbench-laptop-screen img { width: 100%; height: auto; display: block; }
+.workbench-laptop-screen:focus-visible { outline: 2px solid var(--color-accent); }
+.workbench-laptop-base { position: relative; margin-inline: calc(-1 * var(--space-5)); height: var(--space-4); border-radius: 0 0 50% 50% / 0 0 100% 100%; background: var(--color-border-subtle); border-top: 1px solid var(--color-text-meta); box-shadow: var(--shadow-float); }
+.workbench-laptop-base span { display: block; width: 18%; height: var(--space-1); margin: 0 auto; border-radius: 0 0 var(--space-2) var(--space-2); background: var(--color-text-meta); }
+@media (max-width: 639px) { .workbench-laptop-plate { padding: var(--space-8) var(--space-3); } .workbench-laptop { padding-inline: var(--space-2); } .workbench-laptop-base { margin-inline: calc(-1 * var(--space-2)); } }
