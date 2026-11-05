@@ -90,7 +90,7 @@ export const qixin: CaseContent = {
     {
       "id": "qixin-02",
       "label": "定义问题",
-      "title": "项目概述",
+      "title": "产品概述",
       "blocks": [
         {
           "kind": "flow",
