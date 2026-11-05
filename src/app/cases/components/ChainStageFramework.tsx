@@ -173,9 +173,9 @@ export function ChainStageFramework() {
                       }
                   >
                       <rect
-                        x={node.x}
+                        x={node.x + (node.w - Math.max(node.w, node.label.length * fontSize + fontSize * 2)) / 2}
                         y={node.y + 16 - nodeHeight / 2}
-                        width={node.w}
+                        width={Math.max(node.w, node.label.length * fontSize + fontSize * 2)}
                         height={nodeHeight}
                         rx={ARCH_NODE_RADIUS}
                         fill={lane.tone.fill}
