@@ -89,7 +89,7 @@ export const qixin: CaseContent = {
     {
       "id": "qixin-01",
       "label": "挑战",
-      "title": "挑战",
+      "title": "问题和挑战",
       "blocks": [
         {
           "kind": "paragraph",
@@ -97,7 +97,7 @@ export const qixin: CaseContent = {
         },
         {
           "kind": "paragraph",
-          "text": "改版前，用户卡住的地方主要在沟通上。【待填：一个具体例子，谁和谁之间、为了什么事、结果怎样】"
+          "text": "改版前，用户卡住的地方主要在沟通上。"
         }
       ]
     },
