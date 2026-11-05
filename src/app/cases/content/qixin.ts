@@ -93,7 +93,7 @@ export const qixin: CaseContent = {
       "blocks": [
         {
           "kind": "paragraph",
-          "text": "产业大脑多年迭代，功能越来越多，和用户沟通的成本也随着时间推移不断增加。"
+          "text": "产业大脑多年迭代，功能越来越多，使用中的问题也逐渐积累。我们从中发现问题，再通过设计逐步解决。"
         },
         {
           "kind": "trial-feedback",
