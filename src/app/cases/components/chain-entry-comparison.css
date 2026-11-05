@@ -8,6 +8,7 @@
 .chain-entry-heading p { margin: var(--space-2) 0 0; font-size: var(--text-caption); line-height: var(--text-caption--line-height); color: var(--color-text-secondary); }
 .chain-entry-image { min-height: 0; flex: 1; display: flex; align-items: center; }
 .chain-entry-image img { display: block; width: 100%; height: auto; border-radius: var(--space-4); outline: var(--border-width) solid var(--color-border-subtle); }
+.chain-entry-after .chain-entry-image img { box-shadow: var(--shadow-float); }
 .chain-entry-handle { position: absolute; z-index: 2; inset-block: 0; width: var(--touch-target); transform: translateX(-50%); cursor: ew-resize; touch-action: none; outline: none; }
 .chain-entry-handle::before { content: ''; position: absolute; left: 50%; inset-block: 0; width: 2px; background: var(--color-on-accent); box-shadow: 0 0 0 1px var(--color-drafting-faint); }
 .chain-entry-handle span { position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: var(--touch-target); height: var(--touch-target); display: grid; place-items: center; border-radius: 50%; background: var(--color-on-accent); color: var(--color-text-body); box-shadow: 0 2px 8px var(--color-drafting-line); }
