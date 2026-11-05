@@ -155,6 +155,10 @@ export const qixin: CaseContent = {
           "title": "梳理问题",
           "blocks": [
             {
+              "kind": "paragraph",
+              "text": "同一次配置，用户在等结果，业务要反复确认口径，开发要把要求落实到数据和关系上。把几方的问题放在一起看，才能找出哪里在重复沟通、哪些配置可以交给用户自己做。"
+            },
+            {
               "kind": "chain-discussion"
             }
           ]
