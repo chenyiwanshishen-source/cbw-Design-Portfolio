@@ -699,10 +699,10 @@ button.generator-notes { display: block; width: calc(100% - 8px); height: 140px;
 #qixin-03 { container-type: inline-size; }
 
 .case-detail-heading { margin: 0; font-size: var(--text-case-subheading); line-height: 1.5; }
-.chain-hierarchy-plate { margin: 0; display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: var(--rhythm-4); padding: var(--rhythm-4); background: var(--color-case-plate); border-radius: var(--space-6); overflow: hidden; }
-.chain-hierarchy-plate > div { min-width: 0; overflow: hidden; border-radius: var(--space-4); box-shadow: var(--shadow-float); }
-.chain-hierarchy-plate img { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: right center; }
-.chain-hierarchy-plate > div:last-child img { object-position: left center; }
+.chain-hierarchy-plate { position: relative; margin: 0; display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: var(--rhythm-4); padding: var(--rhythm-4); height: 520px; background: var(--color-case-plate); border-radius: var(--space-6); overflow: hidden; }
+.chain-hierarchy-plate > div { position: relative; min-width: 0; }
+.chain-hierarchy-plate img { position: absolute; top: var(--space-8); right: 0; display: block; width: 840px; max-width: none; height: auto; border-radius: var(--space-4); box-shadow: var(--shadow-float); }
+.chain-hierarchy-plate > div:last-child img { left: 0; right: auto; }
 #qixin-03 > .case-metrics { border-top: 0; }
-@media (max-width: 639px) { .chain-hierarchy-plate { padding: var(--space-3); gap: var(--space-3); } }
+@media (max-width: 639px) { .chain-hierarchy-plate { padding: var(--space-3); gap: var(--space-3); height: 360px; } .chain-hierarchy-plate img { width: 580px; } }
 #qixin-03 > .case-metrics > div { border-top: 0; }
