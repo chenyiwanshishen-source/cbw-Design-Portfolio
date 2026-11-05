@@ -1,14 +1,13 @@
 .chain-entry-comparison { margin: 0; padding: 0; border-radius: var(--space-6); background: var(--color-case-plate); overflow: hidden; }
-.chain-entry-stage { position: relative; aspect-ratio: 1440 / 1240; isolation: isolate; }
+.chain-entry-stage { position: relative; aspect-ratio: 1440 / 1160; isolation: isolate; }
 .chain-entry-layer { position: absolute; inset: 0; padding: var(--rhythm-4); background: var(--color-case-plate); display: flex; flex-direction: column; gap: var(--space-6); }
 .chain-entry-after { background: radial-gradient(ellipse at 12% 110%, color-mix(in srgb, var(--color-chain-backend-fg) 16%, transparent), transparent 48%), radial-gradient(ellipse at 55% 115%, color-mix(in srgb, var(--color-accent) 10%, transparent), transparent 46%), radial-gradient(ellipse at 100% 115%, color-mix(in srgb, var(--color-question-bank) 25%, transparent), transparent 48%), var(--color-case-plate); }
-.chain-entry-layer:not(.chain-entry-after) .chain-entry-image img { width: 72%; left: 14%; top: 21%; }
+.chain-entry-layer:not(.chain-entry-after) .chain-entry-image img { width: 94%; margin-inline: auto; }
 .chain-entry-heading { text-align: center; padding-top: var(--space-3); }
 .chain-entry-heading h4 { margin: 0; font-size: var(--text-body); line-height: var(--text-body--line-height); font-weight: 600; color: var(--color-text); }
 .chain-entry-heading p { margin: var(--space-2) 0 0; font-size: var(--text-caption); line-height: var(--text-caption--line-height); color: var(--color-text-secondary); }
 .chain-entry-image { min-height: 0; flex: 1; display: flex; align-items: center; }
-.chain-entry-image-wrap { position: relative; width: 100%; aspect-ratio: 1000 / 760; }
-.chain-entry-image img { position: absolute; left: 8%; top: 17%; display: block; width: 84%; height: auto; border-radius: var(--space-4); outline: var(--border-width) solid var(--color-border-subtle); }
+.chain-entry-image img { display: block; width: 100%; height: auto; border-radius: var(--space-4); outline: var(--border-width) solid var(--color-border-subtle); }
 .chain-entry-handle { position: absolute; z-index: 2; inset-block: 0; width: var(--touch-target); transform: translateX(-50%); cursor: ew-resize; touch-action: none; outline: none; }
 .chain-entry-handle::before { content: ''; position: absolute; left: 50%; inset-block: 0; width: 2px; background: var(--color-on-accent); box-shadow: 0 0 0 1px var(--color-drafting-faint); }
 .chain-entry-handle span { position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: var(--touch-target); height: var(--touch-target); display: grid; place-items: center; border-radius: 50%; background: var(--color-on-accent); color: var(--color-text-body); box-shadow: 0 2px 8px var(--color-drafting-line); }
@@ -18,23 +17,4 @@
   .chain-entry-stage { aspect-ratio: auto; height: auto; min-height: 280px; }
   .chain-entry-layer { gap: var(--space-3); }
   .chain-entry-heading p { max-width: 17em; margin-inline: auto; }
-}
-
-.chain-entry-annotations { position: absolute; inset: 0; pointer-events: none; }
-.chain-entry-annotations svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; fill: var(--color-text-meta); stroke: var(--color-text-meta); stroke-width: 1; }
-.chain-entry-annotations svg path { fill: none; vector-effect: non-scaling-stroke; }
-.chain-entry-callout { position: absolute; width: 28%; text-align: center; color: var(--color-text-body); font-size: var(--text-caption); line-height: var(--text-caption--line-height); transform: translateY(-50%); }
-.chain-entry-callout-tabs { left: 12.5%; top: 5%; }
-.chain-entry-callout-card { right: 24%; top: 5%; }
-.chain-entry-callout-add { right: 0; top: 95%; }
-@media (max-width: 639px) {
- .chain-entry-stage { min-height: 360px; }
- .chain-entry-image-wrap { aspect-ratio: 1000 / 900; }
- .chain-entry-image img { width: 94%; left: 3%; top: 22%; }
- .chain-entry-layer:not(.chain-entry-after) .chain-entry-image img { width: 80%; left: 10%; top: 25%; }
- .chain-entry-annotations svg { display: none; }
- .chain-entry-callout { width: auto; transform: none; }
- .chain-entry-callout-tabs { left: 0; top: 0; }
- .chain-entry-callout-card { right: 0; top: 10%; }
- .chain-entry-callout-add { right: 0; top: 78%; }
 }
