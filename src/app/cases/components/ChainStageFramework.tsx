@@ -24,6 +24,7 @@ export function ChainStageFramework() {
   }, []);
   type ChainNode = { elevated?: boolean; label: string; rotate?: number; x: number; y: number; w: number; text?: string };
 
+  const nodeHeight = fontSize * 2.8;
   const laneLabelX = 0;
   const stageX = 78;
   const stageY = 54;
@@ -173,9 +174,9 @@ export function ChainStageFramework() {
                   >
                       <rect
                         x={node.x}
-                        y={node.y - 1}
+                        y={node.y + 16 - nodeHeight / 2}
                         width={node.w}
-                        height="34"
+                        height={nodeHeight}
                         rx={ARCH_NODE_RADIUS}
                         fill={lane.tone.fill}
                         filter={node.elevated ? "url(#qixin-chain-node-shadow)" : undefined}
@@ -184,8 +185,9 @@ export function ChainStageFramework() {
                       />
                       <text
                         x={node.x + node.w / 2}
-                        y={node.y + 20}
+                        y={node.y + 16}
                         textAnchor="middle"
+                        dominantBaseline="central"
                         fill={node.text ?? lane.tone.text}
                         style={{ fontSize, fontWeight: 600, fontFamily: "inherit" }}
                       >
@@ -253,7 +255,8 @@ export function ChainStageFramework() {
             />
             <text
               x={stageX + stageW / 2}
-              y={problemY + 20}
+              y={problemY + 16}
+              dominantBaseline="central"
               textAnchor="middle"
               fill="#B45309"
               style={{ fontSize, fontWeight: 600, fontFamily: "inherit" }}
