@@ -9,6 +9,6 @@ export function ChainUserResearch() {
       <li>让用户直接调整产业环节和上下游，继续修改交付后的细节。</li>
       <li>在节点下查看企业名单，自行添加需要的企业、移除不需要的企业。</li>
       <li>让用户持续维护产业链，减少小改动对内部配置的依赖。</li>
-    </ul><p className="case-paragraph"><mark className="case-marker">最大的问题是用户没有安全感，觉得我们不会为他们投入很多时间。</mark></p></div>
+    <li><strong><mark className="case-marker">最大的问题是用户没有安全感，觉得我们不会为他们投入很多时间。</mark></strong></li></ul></div>
   </div>;
 }
