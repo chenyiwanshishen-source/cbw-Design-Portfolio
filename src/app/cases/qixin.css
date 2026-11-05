@@ -29,4 +29,4 @@
 #qixin-01 .case-trial-panel-1 li:nth-child(even) { position: relative; align-self: center; transform: none; }
 
 #qixin-01 .case-trial-panel li { font-weight: 600; }
-#qixin-01 .case-trial-panel-1 li:not(:last-child)::after { content: ''; position: absolute; top: calc(100% + var(--rhythm-2)); left: 50%; transform: translateX(-50%); width: var(--space-6); height: calc(var(--rhythm-6) - var(--rhythm-2) * 2); background: var(--color-text-secondary); mask: url('/images/icons/hugeicons/ArrowDown01Icon.svg') center / 100% 100% no-repeat; }
+#qixin-01 .case-trial-panel-1 li:not(:last-child)::after { content: ''; position: absolute; top: calc(100% + var(--rhythm-2)); left: 50%; transform: translateX(-50%); width: var(--space-6); height: calc(var(--rhythm-6) - var(--rhythm-2) * 2); background: var(--color-text-secondary); mask: url('/images/icons/journey-arrow-down.svg') center / contain no-repeat; }
