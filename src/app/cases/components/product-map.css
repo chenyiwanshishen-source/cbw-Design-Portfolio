@@ -17,7 +17,7 @@
 }
 
 .product-map-scenario-tree { min-width: 0; }
-.product-map-sticky { display: flex; align-items: center; justify-content: center; min-height: var(--space-24); padding: var(--space-4); box-sizing: border-box; background: var(--color-research-note); color: var(--color-text); border-radius: var(--space-1); font-size: var(--text-body); line-height: var(--text-body--line-height); font-weight: 400; text-align: center; }
+.product-map-sticky { display: flex; align-items: center; justify-content: center; min-height: var(--space-24); padding: var(--space-4); box-sizing: border-box; background: linear-gradient(165deg, var(--color-research-note), color-mix(in srgb, var(--color-research-note) 88%, var(--color-question-paper-back))); color: var(--color-text); border-radius: var(--space-3); box-shadow: var(--shadow-float), inset 0 1px 0 var(--color-question-paper-back); font-size: var(--text-body); line-height: var(--text-body--line-height); font-weight: 400; text-align: center; }
 .product-map-root { width: calc((100% - var(--space-4) * 4) / 5); min-height: var(--space-24); font-weight: 600; }
 .product-map-scenarios { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--space-4); }
 .product-map-branches { height: var(--space-16); }
