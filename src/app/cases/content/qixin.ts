@@ -219,7 +219,11 @@ export const qixin: CaseContent = {
             }
           ]
         },
-        { "kind": "heading", "text": "无限画布" },
+        { "kind": "heading", "text": "无限画布和层级管理" },
+        {
+          "kind": "paragraph",
+          "text": "用户选入系统已有的产业环节后，可以自己编辑环节、管理企业，也能按需要调整层级。我希望让用户有更多自由，亲手搭出符合自己要求的产业链，增加参与感和成就感。"
+        },
         {
           "kind": "report-edit-carousel",
           "imageFolder": "qixin",
@@ -230,7 +234,6 @@ export const qixin: CaseContent = {
             { "file": "chain-editor-2.webp", "alt": "在产业环节中添加企业，可选择上传添加或搜索添加" }
           ]
         },
-        { "kind": "heading", "text": "层级管理" },
         { "kind": "chain-hierarchy" },
         { "kind": "heading", "text": "企业管理" },
         {
