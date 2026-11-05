@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react';
 const ICON_BLUE = "#1A42B8";
 const ARCH_ARROW = "#AEB3C1";
 const ARCH_NODE_RADIUS = 12;
@@ -10,6 +11,17 @@ const ARCH_TONES = {
 
 const CHAIN_STAGE_LABELS = ["提出需求", "理解口径", "拆分结构", "内部配置", "交付使用", "反馈修改", "再次配置"];
 export function ChainStageFramework() {
+  const host = useRef<HTMLDivElement>(null);
+  const [fontSize, setFontSize] = useState(14);
+  useEffect(() => {
+    const element = host.current;
+    if (!element) return;
+    const observer = new ResizeObserver(([entry]) => {
+      if (entry.contentRect.width > 0) setFontSize(14 * 1120 / entry.contentRect.width);
+    });
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, []);
   type ChainNode = { elevated?: boolean; label: string; rotate?: number; x: number; y: number; w: number; text?: string };
 
   const laneLabelX = 0;
@@ -64,7 +76,7 @@ export function ChainStageFramework() {
   const keyStageBackgrounds = [3, 6];
 
   return (
-    <div className="qixin-chain-framework">
+    <div ref={host} className="qixin-chain-framework">
       <div className="qixin-chain-framework-inner">
         <svg
           viewBox="0 0 1120 304"
@@ -139,7 +151,7 @@ export function ChainStageFramework() {
                     x={laneLabelX}
                     y={lane.labelY}
                     fill="#696D7A"
-                    style={{ fontSize: 'var(--text-caption)', fontWeight: 400, fontFamily: "inherit" }}
+                    style={{ fontSize, fontWeight: 400, fontFamily: "inherit" }}
                   >
                     {lane.label}
                   </text>
@@ -175,7 +187,7 @@ export function ChainStageFramework() {
                         y={node.y + 20}
                         textAnchor="middle"
                         fill={node.text ?? lane.tone.text}
-                        style={{ fontSize: 'var(--text-caption)', fontWeight: 600, fontFamily: "inherit" }}
+                        style={{ fontSize, fontWeight: 600, fontFamily: "inherit" }}
                       >
                         {node.label}
                       </text>
@@ -215,7 +227,7 @@ export function ChainStageFramework() {
               y={problemY + 20}
               fill="#B45309"
               opacity="0.72"
-              style={{ fontSize: 'var(--text-caption)', fontWeight: 400, fontFamily: "inherit" }}
+              style={{ fontSize, fontWeight: 400, fontFamily: "inherit" }}
             >
               设计判断
             </text>
@@ -244,7 +256,7 @@ export function ChainStageFramework() {
               y={problemY + 20}
               textAnchor="middle"
               fill="#B45309"
-              style={{ fontSize: 'var(--text-caption)', fontWeight: 600, fontFamily: "inherit" }}
+              style={{ fontSize, fontWeight: 600, fontFamily: "inherit" }}
             >
               {problemSummary}
             </text>
@@ -263,7 +275,7 @@ export function ChainStageFramework() {
                     textAnchor="middle"
                     fill={isInternal ? ICON_BLUE : "#1A1C24"}
                     opacity={isInternal ? 0.92 : 0.72}
-                    style={{ fontSize: 'var(--text-caption)', fontWeight: 400, fontFamily: "inherit" }}
+                    style={{ fontSize, fontWeight: 400, fontFamily: "inherit" }}
                   >
                     {stage}
                   </text>
