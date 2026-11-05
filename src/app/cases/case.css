@@ -731,3 +731,11 @@ button.generator-notes { display: block; width: calc(100% - 8px); height: 140px;
 .chain-outcome-bar.is-after { background: var(--color-accent); }
 .chain-outcome-bar span { position: absolute; bottom: calc(100% + var(--space-2)); left: 50%; transform: translateX(-50%); white-space: nowrap; font-size: var(--text-body); color: var(--color-text-body); }
 @media (max-width: 639px) { .chain-outcome-card { grid-template-columns: 1fr; padding: var(--space-6); gap: var(--space-6); } .chain-outcome-value { font-size: var(--text-home-name); } }
+
+.workbench-panels { margin: 0; display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: var(--rhythm-4); }
+.workbench-panels > div { min-width: 0; border-radius: var(--space-6); background: var(--color-case-plate); overflow: hidden; }
+.workbench-overview-panel { display: flex; align-items: center; padding-block: var(--rhythm-6); }
+.workbench-overview-panel img { display: block; width: 145%; max-width: none; height: auto; margin-left: -53%; border-radius: var(--space-4); box-shadow: var(--shadow-float); }
+.workbench-status-panel { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: var(--space-5); padding: var(--rhythm-5); background: radial-gradient(ellipse at 0 0, color-mix(in srgb, var(--color-chain-backend-fg) 12%, transparent), transparent 75%), var(--color-case-plate) !important; }
+.workbench-status-panel img { width: 85%; height: auto; display: block; border-radius: var(--space-4); box-shadow: var(--shadow-float); }
+@media (max-width: 639px) { .workbench-panels { grid-template-columns: 1fr; } .workbench-overview-panel { min-height: 260px; } .workbench-status-panel { padding: var(--space-6); } }

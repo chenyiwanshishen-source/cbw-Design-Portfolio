@@ -7,6 +7,7 @@ export type CaseBlock =
  | { kind: 'chain-hierarchy' }
  | { kind: 'chain-outcome' }
  | { kind: 'workbench-laptop' }
+ | { kind: 'workbench-panels' }
  | { kind: 'chain-entry-comparison' }
  | { kind: 'chain-responsibility' }
  | { kind: 'chain-user-research' }
