@@ -1,12 +1,12 @@
 .chain-entry-comparison { margin: 0; padding: 0; border-radius: var(--space-6); background: var(--color-case-plate); overflow: hidden; }
-.chain-entry-stage { position: relative; aspect-ratio: 1440 / 1160; isolation: isolate; }
+.chain-entry-stage { position: relative; aspect-ratio: 1440 / 940; isolation: isolate; }
 .chain-entry-layer { position: absolute; inset: 0; padding: var(--rhythm-4); background: var(--color-case-plate); display: flex; flex-direction: column; gap: var(--space-6); }
 .chain-entry-after { background: radial-gradient(ellipse at 12% 110%, color-mix(in srgb, var(--color-chain-backend-fg) 16%, transparent), transparent 48%), radial-gradient(ellipse at 55% 115%, color-mix(in srgb, var(--color-accent) 10%, transparent), transparent 46%), radial-gradient(ellipse at 100% 115%, color-mix(in srgb, var(--color-question-bank) 25%, transparent), transparent 48%), var(--color-case-plate); }
 .chain-entry-layer:not(.chain-entry-after) .chain-entry-image img { width: 94%; margin-inline: auto; }
 .chain-entry-heading { text-align: center; padding-top: var(--space-3); }
 .chain-entry-heading h4 { margin: 0; font-size: var(--text-body); line-height: var(--text-body--line-height); font-weight: 600; color: var(--color-text); }
 .chain-entry-heading p { margin: var(--space-2) 0 0; font-size: var(--text-caption); line-height: var(--text-caption--line-height); color: var(--color-text-secondary); }
-.chain-entry-image { min-height: 0; flex: 1; display: flex; align-items: center; }
+.chain-entry-image { min-height: 0; flex: 1; display: flex; align-items: flex-start; padding-top: var(--space-3); }
 .chain-entry-image img { display: block; width: 100%; height: auto; border-radius: var(--space-4); outline: var(--border-width) solid var(--color-border-subtle); }
 .chain-entry-after .chain-entry-image img { box-shadow: var(--shadow-float); }
 .chain-entry-handle { position: absolute; z-index: 2; inset-block: 0; width: var(--touch-target); transform: translateX(-50%); cursor: ew-resize; touch-action: none; outline: none; }
@@ -22,3 +22,5 @@
 .chain-entry-flow { position: relative; }
 .chain-entry-next-arrow { position: absolute; z-index: 4; right: 6%; bottom: calc(-1 * var(--space-16)); width: 60%; height: 280px; color: var(--color-text); pointer-events: none; }
 @media (max-width: 639px) { .chain-entry-next-arrow { right: 6%; width: 56%; height: 140px; bottom: calc(-1 * var(--space-12)); } }
+.chain-entry-flow + .case-pair { position: relative; z-index: 3; margin-top: calc(-1 * var(--space-12)); }
+@media (max-width: 639px) { .chain-entry-flow + .case-pair { margin-top: calc(-1 * var(--space-5)); } }
