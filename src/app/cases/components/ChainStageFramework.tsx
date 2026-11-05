@@ -139,7 +139,7 @@ export function ChainStageFramework() {
                     x={laneLabelX}
                     y={lane.labelY}
                     fill="#696D7A"
-                    style={{ fontSize: 'var(--text-body)', fontWeight: 400, fontFamily: "inherit" }}
+                    style={{ fontSize: 'var(--text-caption)', fontWeight: 400, fontFamily: "inherit" }}
                   >
                     {lane.label}
                   </text>
@@ -175,7 +175,7 @@ export function ChainStageFramework() {
                         y={node.y + 20}
                         textAnchor="middle"
                         fill={node.text ?? lane.tone.text}
-                        style={{ fontSize: 'var(--text-body)', fontWeight: 600, fontFamily: "inherit" }}
+                        style={{ fontSize: 'var(--text-caption)', fontWeight: 600, fontFamily: "inherit" }}
                       >
                         {node.label}
                       </text>
@@ -215,7 +215,7 @@ export function ChainStageFramework() {
               y={problemY + 20}
               fill="#B45309"
               opacity="0.72"
-              style={{ fontSize: 'var(--text-body)', fontWeight: 400, fontFamily: "inherit" }}
+              style={{ fontSize: 'var(--text-caption)', fontWeight: 400, fontFamily: "inherit" }}
             >
               设计判断
             </text>
@@ -244,7 +244,7 @@ export function ChainStageFramework() {
               y={problemY + 20}
               textAnchor="middle"
               fill="#B45309"
-              style={{ fontSize: 'var(--text-body)', fontWeight: 600, fontFamily: "inherit" }}
+              style={{ fontSize: 'var(--text-caption)', fontWeight: 600, fontFamily: "inherit" }}
             >
               {problemSummary}
             </text>
@@ -263,7 +263,7 @@ export function ChainStageFramework() {
                     textAnchor="middle"
                     fill={isInternal ? ICON_BLUE : "#1A1C24"}
                     opacity={isInternal ? 0.92 : 0.72}
-                    style={{ fontSize: 'var(--text-body)', fontWeight: 400, fontFamily: "inherit" }}
+                    style={{ fontSize: 'var(--text-caption)', fontWeight: 400, fontFamily: "inherit" }}
                   >
                     {stage}
                   </text>
