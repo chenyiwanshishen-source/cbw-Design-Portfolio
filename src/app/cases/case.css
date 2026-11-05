@@ -751,3 +751,11 @@ button.generator-notes { display: block; width: calc(100% - 8px); height: 140px;
 .workbench-details img { display: block; width: 100%; height: auto; }
 .workbench-details > div:last-child img { width: 72%; }
 @media (max-width: 639px) { .workbench-details { grid-template-columns: 1fr; } .workbench-details > div { padding: var(--space-6); } }
+
+/* 与 Qsight 共用细线回环箭头，说明保留为可选择文字。 */
+.qixin-case .case-figure-media, .qixin-case .report-edit-slide,
+.workbench-overview-panel, .workbench-status-panel, .workbench-functions-plate, .chain-hierarchy-plate { position: relative; }
+.qixin-annotations { position: absolute; inset: 0; pointer-events: none; z-index: 2; color: var(--color-text); }
+.qixin-annotation-text { position: absolute; max-width: 42%; font-family: var(--font-sans); font-size: var(--text-case-subheading); line-height: 1.5; }
+.qixin-annotation-arrow { position: absolute; height: auto; overflow: visible; }
+@media (max-width: 639px) { .qixin-annotations { position: static; padding: var(--space-3); } .qixin-annotation-text { position: static; display: block; max-width: none; font-size: var(--text-caption); } .qixin-annotation-arrow { display: none; } }

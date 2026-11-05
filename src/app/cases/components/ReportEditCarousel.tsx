@@ -1,3 +1,4 @@
+import { QixinAnnotation } from './QixinAnnotation';
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
@@ -66,6 +67,7 @@ export function ReportEditCarousel({ slides = defaultSlides, imageFolder = 'qsig
     <div className="report-edit-stage">
       {slides.map((slide, index) => <div className="report-edit-slide" key={slide.file} aria-hidden={active !== index}>
         <img src={`${import.meta.env.BASE_URL}images/${imageFolder}/${slide.file}`} alt={slide.alt} width={2880} height={1800} draggable={false} />
+        {imageFolder === 'qixin' && <QixinAnnotation name={slide.file} />}
       </div>)}
     </div>
     {[-1, 1].map(dir => <button key={dir} type="button" className={`report-edit-arrow ${dir < 0 ? 'is-previous' : 'is-next'}`} aria-label={dir < 0 ? `上一张${label}图` : `下一张${label}图`} onClick={event => { press(event.currentTarget); select((active + dir + slides.length) % slides.length, dir); }}>
