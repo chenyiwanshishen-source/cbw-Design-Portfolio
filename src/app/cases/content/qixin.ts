@@ -201,7 +201,7 @@ export const qixin: CaseContent = {
         },
         {
           "kind": "subsection",
-          "title": "查看并维护节点下的企业",
+          "title": "设计方案",
           "blocks": [
             {
               "kind": "paragraph",
