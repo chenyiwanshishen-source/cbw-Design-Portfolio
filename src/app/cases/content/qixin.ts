@@ -195,15 +195,7 @@ export const qixin: CaseContent = {
               "text": "与其让用户对我们的误解继续加深，我想重新分配这些复杂任务：把原本靠内部人员处理的配置交给系统，让用户自己操作。希望这样既能增加他们对我们的信任，也能让他们参与到产业链的调整中。"
             },
             {
-              "kind": "figures",
-              "figures": [
-                {
-                  "plate": "PLATE 03",
-                  "title": "产业链图谱编辑态",
-                  "instruction": "要放：产业链图谱编辑态",
-                  "caption": "产业链图谱编辑态"
-                }
-              ]
+              "kind": "chain-responsibility"
             }
           ]
         },
