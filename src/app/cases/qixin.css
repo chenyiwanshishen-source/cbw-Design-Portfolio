@@ -34,3 +34,14 @@
 .qixin-chain-framework { padding-block: var(--rhythm-3); min-width: 0; }
 .qixin-chain-framework-inner { width: 100%; min-width: 0; }
 .qixin-chain-framework svg { display: block; width: 100%; font-family: var(--font-sans); }
+
+.chain-user-research { display: grid; gap: var(--rhythm-2); }
+.chain-user-research-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--rhythm-3); align-items: start; }
+.chain-user-research figure { margin: 0; min-width: 0; }
+.chain-user-research figure button { display: block; width: 100%; padding: 0; border: 0; background: transparent; cursor: zoom-in; border-radius: var(--space-3); overflow: hidden; }
+.chain-user-research img { display: block; width: 100%; height: auto; }
+.chain-user-research figcaption { margin-top: var(--rhythm-2); }
+.chain-user-research-dialog { width: calc(100vw - var(--space-10)); max-width: var(--container-content); max-height: calc(100vh - var(--space-10)); padding: var(--space-5); border: 0; background: var(--color-surface); color: var(--color-text); }
+.chain-user-research-dialog::backdrop { background: var(--color-text-secondary); }
+.chain-user-research-close { display: block; margin-left: auto; min-height: var(--touch-target); padding-inline: var(--space-4); border: 0; background: var(--color-accent-soft); color: var(--color-accent-text); font: inherit; cursor: pointer; }
+@media (max-width: 767px) { .chain-user-research-grid { grid-template-columns: minmax(0, 1fr); } }

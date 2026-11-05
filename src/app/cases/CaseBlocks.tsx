@@ -1,3 +1,4 @@
+import { ChainUserResearch } from './components/ChainUserResearch';
 import { ChainDiscussion } from './components/ChainDiscussion';
 import { ChainStageFramework } from './components/ChainStageFramework';
 import { ProductMap } from './components/ProductMap';
@@ -25,6 +26,7 @@ export function CaseBlocks({ blocks, labels, depth = 0 }: { depth?: number; bloc
   return <>{blocks.map((block, index) => {
     const key = index;
     switch (block.kind) {
+      case 'chain-user-research': return <ChainUserResearch key={key} />;
       case 'chain-discussion': return <ChainDiscussion key={key} />;
       case 'chain-stage-framework': return <ChainStageFramework key={key} />;
       case 'product-map': return <ProductMap key={key} />;
