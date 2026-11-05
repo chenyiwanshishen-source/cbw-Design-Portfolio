@@ -222,6 +222,7 @@ export const qixin: CaseContent = {
           "kind": "report-edit-carousel",
           "imageFolder": "qixin",
           "label": "产业链编辑",
+          "caption": "增加环节自定义编辑",
           "slides": [
             { "file": "chain-editor-1.webp", "alt": "产业链图谱中打开环节菜单，添加同级或下级环节、重命名和设置权限" },
             { "file": "chain-editor-2.webp", "alt": "在产业环节中添加企业，可选择上传添加或搜索添加" }
