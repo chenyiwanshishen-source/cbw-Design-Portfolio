@@ -29,3 +29,9 @@
 .chain-discussion-tone-1 { --discussion-bg: var(--color-chain-business-bg); --discussion-fg: var(--color-chain-business-fg); --discussion-border: var(--color-chain-business-border); }
 .chain-discussion-tone-2 { --discussion-bg: var(--color-chain-backend-bg); --discussion-fg: var(--color-chain-backend-fg); --discussion-border: var(--color-chain-backend-border); }
 .chain-discussion-row h4, .chain-discussion-row li { background: var(--discussion-bg); color: var(--discussion-fg); border: var(--border-width) solid var(--discussion-border); }
+
+.chain-discussion-compact .case-research-quadrants { min-height: 0; }
+.chain-discussion-compact .case-research-quadrant { min-height: 0; padding: var(--space-5) var(--space-8) var(--space-8); }
+.chain-discussion-compact .case-research-tags { margin-top: var(--rhythm-3); gap: var(--rhythm-3) var(--rhythm-2); }
+.chain-common-problem { padding: var(--space-5) var(--space-8) 0; }
+.chain-common-problem h4 { margin: 0; }
