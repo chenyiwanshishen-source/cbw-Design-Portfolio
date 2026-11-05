@@ -22,3 +22,11 @@
 #qixin-01 .case-trial-panel li { background: var(--color-surface); box-shadow: none; }
 #qixin-01 .case-trial-panel-1 li { transform: none; align-self: flex-start; }
 #qixin-01 .case-trial-panel-1 li:nth-child(even) { align-self: flex-end; }
+
+#qixin-01 .case-trial-panel-0 li { transform: rotate(-6deg); }
+#qixin-01 .case-trial-panel-0 li:nth-child(even) { transform: rotate(5deg); }
+#qixin-01 .case-trial-panel-0 li:nth-child(3n) { transform: rotate(-4deg); }
+#qixin-01 .case-trial-panel-1 ul { gap: var(--rhythm-6); }
+#qixin-01 .case-trial-panel-1 li,
+#qixin-01 .case-trial-panel-1 li:nth-child(even) { position: relative; align-self: center; transform: none; }
+#qixin-01 .case-trial-panel-1 li:not(:last-child)::after { content: '↓'; position: absolute; top: calc(100% + var(--rhythm-2)); left: 50%; transform: translateX(-50%); height: calc(var(--rhythm-6) - var(--rhythm-2) * 2); display: grid; place-items: center; color: var(--color-text-meta); font-size: var(--text-h4); font-weight: 400; }
