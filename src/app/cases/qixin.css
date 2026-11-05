@@ -13,3 +13,5 @@
 #qixin-01 { gap: var(--rhythm-3); }
 #qixin-01 > h2 + .case-prose { margin-top: 0; }
 #qixin-01 .case-paragraph { margin: 0; }
+
+.qixin-case .case-trial-icon { display: inline-block; flex: 0 0 var(--space-6); width: var(--space-6); height: var(--space-6); background: var(--color-accent); mask: center / contain no-repeat; }

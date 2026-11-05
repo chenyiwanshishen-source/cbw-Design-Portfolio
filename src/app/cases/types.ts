@@ -16,7 +16,7 @@ export type CaseBlock =
  | { kind: 'user-flow' }
  | { kind: 'test-feedback-bubbles' }
  | { kind: 'research-quadrants' }
- | { kind: 'trial-feedback'; groups: { title: string; items: { product: string; text: string }[] }[] }
+ | { kind: 'trial-feedback'; groups: { title: string; items: { product: string; text: string; icon?: string }[] }[] }
  | { kind: 'research-topics'; texts: string[] }
  | { kind: 'goal-notes'; texts: string[] }
  | { kind: 'problem-cards'; items: Item[] }
