@@ -1,17 +1,29 @@
-import type { CSSProperties } from 'react';
-const notes: Record<string, { text: string; left: string; top: string; arrow: CSSProperties }[]> = {
-  'chain-create-empty.webp': [{ text: '系统没有的环节，可以直接创建', left: '3%', top: '33%', arrow: { left: '29%', top: '20%', width: '20%', transform: 'rotate(-90deg)' } }],
-  'chain-editor-1.webp': [{ text: '按业务需要，自己管理产业环节', left: '51%', top: '22%', arrow: { left: '39%', top: '19%', width: '12%', transform: 'rotate(170deg)' } }],
-  'chain-editor-2.webp': [{ text: '按业务需要，自己管理产业环节', left: '44%', top: '24%', arrow: { left: '55%', top: '19%', width: '12%', transform: 'rotate(-85deg)' } }],
-  hierarchy: [{ text: '自由调整层级，按自己的思路编排', left: '30%', top: '30%', arrow: { left: '45%', top: '17%', width: '13%', transform: 'rotate(-90deg)' } }],
-  'chain-company-management.webp': [{ text: '建好产业链，就能查看相关资讯', left: '51%', top: '7%', arrow: { left: '43%', top: '3%', width: '10%', transform: 'rotate(165deg)' } }],
-  'chain-company-details.webp': [{ text: '重点企业，随时关注', left: '34%', top: '2%', arrow: { left: '24%', top: '3%', width: '10%', transform: 'rotate(140deg)' } }],
-  overview: [{ text: '实时关注区域动向', left: '38%', top: '12%', arrow: { left: '27%', top: '19%', width: '20%', transform: 'rotate(70deg)' } }],
-  monitor: [{ text: '及时发现企业风险', left: '19%', top: '7%', arrow: { left: '8%', top: '24%', width: '20%', transform: 'rotate(-90deg)' } }],
-  functions: [{ text: '自由规划工作路线', left: '3%', top: '20%', arrow: { left: '9%', top: '27%', width: '12%', transform: 'rotate(10deg)' } }],
+type Point = [number, number];
+type Note = { text: string; left: number; top: number; arrows: { from: Point; to: Point; bend?: number }[] };
+const notes: Record<string, Note[]> = {
+  'chain-create-empty.webp': [{ text: '系统没有的环节，可以直接创建', left: 3, top: 35, arrows: [{ from: [35, 35], to: [49, 25], bend: -7 }] }],
+  'chain-editor-1.webp': [{ text: '按业务需要，自己管理产业环节', left: 56, top: 48, arrows: [{ from: [54, 47], to: [42, 41], bend: -8 }] }],
+  'chain-editor-2.webp': [{ text: '按业务需要，自己管理产业环节', left: 46, top: 29, arrows: [{ from: [64, 35], to: [75, 48], bend: -7 }] }],
+  hierarchy: [{ text: '自由调整层级，按自己的思路编排', left: 39, top: 38, arrows: [{ from: [55, 37], to: [59, 32], bend: 6 }, { from: [40, 45], to: [23, 72], bend: 7 }] }],
+  'chain-company-management.webp': [{ text: '建好产业链，就能查看相关资讯', left: 58, top: 10, arrows: [{ from: [56, 12], to: [49, 7], bend: -5 }] }],
+  'chain-company-details.webp': [{ text: '重点企业，随时关注', left: 34, top: -5, arrows: [{ from: [33, -1], to: [24, 9], bend: -4 }] }],
+  overview: [{ text: '实时关注区域动向', left: 38, top: 12, arrows: [{ from: [38, 19], to: [38, 32], bend: 8 }] }],
+  monitor: [{ text: '及时发现企业风险', left: 3, top: 38, arrows: [{ from: [26, 36], to: [26, 24], bend: -10 }, { from: [26, 44], to: [26, 59], bend: -7 }] }],
+  functions: [{ text: '自由规划工作路线', left: 1, top: 18, arrows: [{ from: [13, 23], to: [18, 28], bend: -7 }] }],
 };
+function arrowPath(from: Point, to: Point, bend = 5) {
+  const [x, y] = from.map(v => v * 10);
+  const [tx, ty] = to.map(v => v * 10);
+  const dx = tx - x, dy = ty - y;
+  const length = Math.hypot(dx, dy) || 1;
+  const nx = -dy / length, ny = dx / length;
+  const cx = x + dx * .5 + nx * bend * 10, cy = y + dy * .5 + ny * bend * 10;
+  const angle = Math.atan2(ty - cy, tx - cx);
+  const size = 15;
+  return `M${x} ${y} C${x + dx * .15 + nx * 12} ${y + dy * .15 + ny * 12} ${cx} ${cy} ${tx} ${ty} M${tx - Math.cos(angle - .5) * size} ${ty - Math.sin(angle - .5) * size} Q${tx - Math.cos(angle) * 4} ${ty - Math.sin(angle) * 4} ${tx} ${ty} L${tx - Math.cos(angle + .5) * size} ${ty - Math.sin(angle + .5) * size}`;
+}
 export function QixinAnnotation({ name }: { name: string }) {
   const items = notes[name];
   if (!items) return null;
-  return <div className="qixin-annotations">{items.map(item => <div key={item.text}><span className="qixin-annotation-text" style={{ left: item.left, top: item.top }}>{item.text}</span><svg className="qixin-annotation-arrow" style={item.arrow} viewBox="0 0 160 110" fill="none" aria-hidden="true"><path d="M8 38 C6 9 52 5 61 27 C72 54 37 53 46 31 C60 3 113 51 144 91 M122 84 Q138 87 144 99 Q152 87 150 72" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg></div>)}</div>;
+  return <div className="qixin-annotations">{items.map(item => <div key={item.text}><span className="qixin-annotation-text" style={{ left: `${item.left}%`, top: `${item.top}%` }}>{item.text}</span><svg className="qixin-annotation-arrow" viewBox="0 0 1000 1000" preserveAspectRatio="none" fill="none" aria-hidden="true">{item.arrows.map((arrow, i) => <path key={i} d={arrowPath(arrow.from, arrow.to, arrow.bend)} stroke="currentColor" strokeWidth="1.5" vectorEffect="non-scaling-stroke" strokeLinecap="round" strokeLinejoin="round" />)}</svg></div>)}</div>;
 }
