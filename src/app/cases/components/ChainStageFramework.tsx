@@ -41,8 +41,8 @@ export function ChainStageFramework() {
   ];
   const businessNodes: ChainNode[] = [
     { label: "理解用户口径", x: stageX + colW + 14, y: 150, w: colW - 28 },
-    { label: "拆分产业链环节", x: stageX + colW * 2 + 12, y: 150, w: colW - 24 },
-    { label: "确认上下游关系", x: stageX + colW * 3 + 12, y: 150, w: colW - 24 },
+    { label: "拆分产业环节", x: stageX + colW * 2 + 12, y: 150, w: colW - 24 },
+    { label: "确认上下游", x: stageX + colW * 3 + 12, y: 150, w: colW - 24 },
     { label: "重新确认口径", x: stageX + colW * 5 + 12, y: 150, w: colW * 1.7 - 24 },
   ];
   const backendNodes: ChainNode[] = [
