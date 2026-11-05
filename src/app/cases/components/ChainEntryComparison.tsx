@@ -19,6 +19,7 @@ export function ChainEntryComparison() {
       {versions.map((version, index) => <div key={version.label} className={`chain-entry-layer${index === 1 ? ' chain-entry-after' : ''}`} style={index === 0 ? { clipPath: `inset(0 ${100 - position}% 0 0)`, zIndex: 1 } : undefined}>
         <div className="chain-entry-heading"><h4>{version.label}</h4><p>{version.text}</p></div>
         <div className="chain-entry-image"><img draggable={false} src={`${import.meta.env.BASE_URL}images/qixin/${version.src}`} alt={version.text} width={1440} height={900} loading="lazy" /></div>
+        {index === 1 && <svg className="chain-entry-next-arrow" viewBox="0 0 420 180" fill="none" aria-hidden="true"><path d="M390 12 C376 57 330 79 306 84 C276 91 290 48 308 49 C344 80 274 109 229 127 C177 149 116 161 35 166 M64 146 Q46 158 30 167 Q52 171 73 173" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" /></svg>}
       </div>)}
       <div className="chain-entry-handle" style={{ left: `${position}%` }} role="slider" tabIndex={0} aria-label="拖动对比列表入口与卡片入口" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(position)}
         onPointerDown={event => { event.currentTarget.setPointerCapture(event.pointerId); update(event); }}

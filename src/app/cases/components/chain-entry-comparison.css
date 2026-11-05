@@ -19,3 +19,5 @@
   .chain-entry-layer { gap: var(--space-3); }
   .chain-entry-heading p { max-width: 17em; margin-inline: auto; }
 }
+.chain-entry-next-arrow { position: absolute; right: 5%; bottom: var(--space-2); width: 48%; height: 26%; color: var(--color-accent); pointer-events: none; }
+@media (max-width: 639px) { .chain-entry-next-arrow { width: 44%; height: 22%; } }
