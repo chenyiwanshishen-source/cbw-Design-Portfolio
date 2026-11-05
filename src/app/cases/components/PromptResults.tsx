@@ -3,7 +3,7 @@ import type { CSSProperties } from 'react';
 const results = [
   { label: '数据有来源', before: 60, after: 90, icon: 'database', description: '编造的情况很少见，数据基本都能找到来源。' },
   { label: '内容符合要求', before: 60, after: 80, icon: 'checks', description: '报告结构更稳定，内容能对应到数据。' },
-  { label: '工具调用成功', before: 50, after: 90, icon: 'plugs-connected', description: '基本能按要求调用工具，很少跳步。' },
+  { label: '工具调用正确', before: 50, after: 90, icon: 'plugs-connected', description: '基本能按要求调用工具，很少跳步。' },
 ];
 
 function ResultChart({ before, after }: { before: number; after: number }) {
@@ -22,28 +22,6 @@ function ResultChart({ before, after }: { before: number; after: number }) {
   </svg>;
 }
 
-function SmallResultChart({ before, after, columns }: { before: number; after: number; columns: boolean }) {
-  const y = (value: number) => 120 - value;
-  return <svg className="prompt-result-chart prompt-result-mini" viewBox="0 0 180 150" role="img" aria-label={`调整前约 ${before}%，调整后约 ${after}%`}>
-    {columns ? <>
-      {[0,50,100].map(value => <line key={value} className="prompt-chart-grid" x1="12" x2="168" y1={y(value)} y2={y(value)} strokeDasharray="2 3" />)}
-      {[before,after].map((value,index) => <g key={index} style={{color: index ? 'oklch(from var(--color-success) .75 .17 h)' : 'oklch(from var(--color-source-web-fg) .72 .19 h)'}}>
-        <rect x={22+index*80} y={y(value)} width="52" height={value} fill="currentColor" opacity=".16" />
-        <rect x={22+index*80} y={y(value)-7} width="52" height="16" rx="8" fill="currentColor" />
-        <text x={48+index*80} y={y(value)+4} textAnchor="middle" fill="var(--color-on-accent)" className="prompt-mini-label-cap">{index ? '调整后' : '调整前'}</text>
-      </g>)}
-    </> : <>
-      <rect x="85" y="16" width="6" height="108" rx="3" fill="var(--color-source-kb-bg)" />
-      {[0,1,2,3,4,5].map(index => <path key={index} d={`M 85 ${18+index*3} l 6 -3`} stroke="var(--result-ink)" strokeOpacity=".3" />)}
-      <rect x="85" y={y(after)} width="6" height={after} rx="3" fill="var(--result-ink)" />
-      <path d={`M 78 ${y(before)} H 98 M 78 ${y(after)} H 98`} stroke="var(--result-ink)" strokeWidth="1" />
-      <text x="77" y={y(before)-4} textAnchor="end" className="prompt-mini-label">调整前</text>
-      <text x="101" y={y(after)+4} className="prompt-mini-label">调整后</text>
-      <text x="101" y="124" className="prompt-mini-label">0%</text>
-    </>}
-  </svg>;
-}
-
 export function PromptResults() {
   return <figure className="prompt-results" aria-label="提示词调整前后对比，比例为粗估值">
     <div className="prompt-results-grid">{results.map(({ label, before, after, icon, description }, index) => <section className={`prompt-result${index === 0 ? ' prompt-result-featured' : ''}`} key={label}>
@@ -53,7 +31,7 @@ export function PromptResults() {
         <p className="prompt-result-description">{description}</p>
         <p className="prompt-result-gain">约提升 {after-before} 个百分点</p>
       </div>
-      {index === 0 ? <ResultChart before={before} after={after} /> : <SmallResultChart before={before} after={after} columns={index === 1} />}
+      <ResultChart before={before} after={after} />
     </section>)}</div>
     <p className="prompt-results-note">比例为测试结果的粗估，具体计数与判定标准待核对。</p>
   </figure>;
