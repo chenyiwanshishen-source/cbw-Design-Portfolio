@@ -94,6 +94,45 @@ export const qixin: CaseContent = {
         {
           "kind": "paragraph",
           "text": "产业大脑多年迭代，功能越来越多，和用户沟通的成本也随着时间推移不断增加。"
+        },
+        {
+          "kind": "trial-feedback",
+          "groups": [
+            {
+              "title": "问题",
+              "items": [
+                {
+                  "product": "",
+                  "text": "功能和操作入口分散"
+                },
+                {
+                  "product": "",
+                  "text": "与用户沟通的成本增加"
+                },
+                {
+                  "product": "",
+                  "text": "视觉样式不统一"
+                }
+              ]
+            },
+            {
+              "title": "解决方案",
+              "items": [
+                {
+                  "product": "",
+                  "text": "首页工作台：集中常用功能和任务入口"
+                },
+                {
+                  "product": "",
+                  "text": "自定义产业链：让用户自行维护产业链"
+                },
+                {
+                  "product": "",
+                  "text": "组件库：统一视觉样式和组件"
+                }
+              ]
+            }
+          ]
         }
       ]
     },
