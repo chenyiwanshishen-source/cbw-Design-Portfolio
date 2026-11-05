@@ -1,16 +1,25 @@
 .chain-responsibility { margin: 0; padding: var(--rhythm-4); background: var(--color-case-plate); border-radius: var(--space-5); display: grid; gap: var(--space-8); }
 .chain-responsibility h4 { margin: 0; font-size: var(--text-body); line-height: var(--text-body--line-height); font-weight: 600; color: var(--color-text); }
-.chain-responsibility-heading p { margin: var(--space-2) 0 0; font-size: var(--text-caption); line-height: var(--text-caption--line-height); color: var(--color-text-secondary); }
-.chain-responsibility h4 span { font-weight: 400; color: var(--color-text-secondary); }
-.chain-responsibility-charts { display: grid; gap: var(--space-8); }
-.chain-responsibility-rows { display: grid; gap: var(--space-3); margin-top: var(--space-3); }
-.chain-responsibility-row { display: grid; grid-template-columns: var(--space-12) minmax(0, 1fr); gap: var(--space-3); align-items: center; font-size: var(--text-caption); line-height: var(--text-caption--line-height); color: var(--color-text-body); }
-.chain-responsibility-track { position: relative; min-height: var(--space-8); display: flex; align-items: center; background-image: repeating-linear-gradient(to right, transparent 0, transparent calc(10% - 1px), var(--color-drafting-faint) calc(10% - 1px), var(--color-drafting-faint) 10%); }
-.chain-responsibility-bar { position: absolute; left: 0; height: var(--space-5); border-radius: var(--space-1); opacity: .5; }
-.chain-responsibility-system { background: var(--color-question-bank); }
-.chain-responsibility-user { background: var(--color-accent); }
-.chain-responsibility-internal { background: var(--color-chain-backend-fg); }
+.chain-responsibility p, .chain-responsibility figcaption { margin: var(--space-2) 0 0; font-size: var(--text-caption); line-height: var(--text-caption--line-height); color: var(--color-text-secondary); }
+.chain-comparison-captions { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: var(--space-8); }
+.chain-comparison-captions > :last-child { text-align: right; }
+.chain-comparison-stage { position: relative; height: clamp(240px, 32vw, 360px); isolation: isolate; }
+.chain-comparison-layer { position: absolute; inset: 0; background: var(--color-case-plate); }
+.chain-comparison-layer:first-child { z-index: 1; }
+.chain-columns { position: absolute; inset: var(--space-4) var(--space-8) 0; display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: var(--space-8); }
+.chain-column { display: grid; grid-template-rows: minmax(0,1fr) var(--space-12); gap: var(--space-3); text-align: center; color: var(--color-text-body); font-size: var(--text-caption); }
+.chain-column-track { display: flex; align-items: end; justify-content: center; border-bottom: 1px solid var(--color-drafting-line); background: repeating-linear-gradient(to top, transparent 0, transparent calc(25% - 1px), var(--color-drafting-faint) calc(25% - 1px), var(--color-drafting-faint) 25%); }
+.chain-column-bar { width: 60%; max-width: var(--space-24); border-radius: var(--space-2) var(--space-2) var(--space-1) var(--space-1); background: linear-gradient(90deg, color-mix(in srgb, var(--column-color), var(--color-on-accent) 28%), transparent 45%, color-mix(in srgb, var(--column-color), var(--color-text) 10%)), repeating-linear-gradient(115deg, transparent 0 12px, color-mix(in srgb, var(--color-on-accent) 20%, transparent) 12px 15px, transparent 15px 25px), var(--column-color); box-shadow: inset 0 1px 2px color-mix(in srgb, var(--color-on-accent) 70%, transparent), inset 0 0 0 1px color-mix(in srgb, var(--column-color) 65%, transparent), 0 2px 4px var(--color-drafting-faint); }
+.chain-column-user { --column-color: var(--color-accent); }
+.chain-column-system { --column-color: var(--color-question-bank); }
+.chain-column-internal { --column-color: var(--color-chain-backend-fg); }
+.chain-comparison-divider { position: absolute; z-index: 2; top: 0; bottom: 0; width: 2px; background: var(--color-on-accent); pointer-events: none; box-shadow: 0 0 0 1px var(--color-drafting-faint); }
+.chain-comparison-divider span { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: var(--touch-target); height: var(--touch-target); display: grid; place-items: center; border-radius: 50%; background: var(--color-on-accent); color: var(--color-text-body); box-shadow: 0 2px 8px var(--color-drafting-line); font-size: var(--text-body); }
+.chain-comparison-slider { position: absolute; z-index: 3; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: ew-resize; touch-action: pan-y; }
+.chain-comparison-stage:focus-within { outline: 2px solid var(--color-accent); outline-offset: var(--space-1); border-radius: var(--space-1); }
 @media (max-width: 639px) {
-  .chain-responsibility { padding: var(--space-4); }
-  .chain-responsibility h4 span { display: block; }
+  .chain-responsibility { padding: var(--space-4); gap: var(--space-5); }
+  .chain-columns { inset-inline: 0; gap: var(--space-3); }
+  .chain-comparison-captions { gap: var(--space-4); }
+  .chain-column-bar { width: 70%; }
 }
