@@ -207,22 +207,7 @@ export const qixin: CaseContent = {
               "kind": "paragraph",
               "text": "我先调整了自定义产业链的入口。考虑到用户自己建的产业链不会太多，我选择用卡片展示，把名称、图标和创建人放在一起，方便浏览和找到要用的产业链。左侧按分组整理，新增入口也放在卡片区，用户可以从这里继续添加。"
             },
-            {
-              "kind": "figures",
-              "figures": [
-                {
-                  "plate": "PLATE 04",
-                  "title": "自定义产业链入口",
-                  "instruction": "",
-                  "caption": "自定义产业链入口：按分组浏览，以卡片展示已有产业链。",
-                  "src": "images/qixin/custom-chain-card-entry.webp",
-                  "framed": true,
-                  "alt": "自定义产业链入口，左侧为分组，右侧以卡片展示产业链名称、图标、创建人及添加入口",
-                  "width": 1440,
-                  "height": 900
-                }
-              ]
-            }
+            { "kind": "chain-entry-comparison" }
           ]
         },
         {

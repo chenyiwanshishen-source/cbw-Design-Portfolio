@@ -1,0 +1,18 @@
+.chain-entry-comparison { margin: 0; padding: var(--rhythm-4); border-radius: var(--space-6); background: var(--color-case-plate); }
+.chain-entry-stage { position: relative; aspect-ratio: 1440 / 1100; isolation: isolate; }
+.chain-entry-layer { position: absolute; inset: 0; background: var(--color-case-plate); display: flex; flex-direction: column; gap: var(--space-6); }
+.chain-entry-heading { text-align: center; padding-top: var(--space-3); }
+.chain-entry-heading h4 { margin: 0; font-size: var(--text-body); line-height: var(--text-body--line-height); font-weight: 600; color: var(--color-text); }
+.chain-entry-heading p { margin: var(--space-2) 0 0; font-size: var(--text-caption); line-height: var(--text-caption--line-height); color: var(--color-text-secondary); }
+.chain-entry-image { min-height: 0; flex: 1; display: flex; align-items: center; }
+.chain-entry-image img { display: block; width: 100%; height: auto; border-radius: var(--space-4); outline: var(--border-width) solid var(--color-border-subtle); }
+.chain-entry-handle { position: absolute; z-index: 2; inset-block: 0; width: var(--touch-target); transform: translateX(-50%); cursor: ew-resize; touch-action: none; outline: none; }
+.chain-entry-handle::before { content: ''; position: absolute; left: 50%; inset-block: 0; width: 2px; background: var(--color-on-accent); box-shadow: 0 0 0 1px var(--color-drafting-faint); }
+.chain-entry-handle span { position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: var(--touch-target); height: var(--touch-target); display: grid; place-items: center; border-radius: 50%; background: var(--color-on-accent); color: var(--color-text-body); box-shadow: 0 2px 8px var(--color-drafting-line); }
+.chain-entry-handle:focus-visible span { outline: 2px solid var(--color-accent); outline-offset: var(--space-1); }
+@media (max-width: 639px) {
+  .chain-entry-comparison { padding: var(--space-3); }
+  .chain-entry-stage { aspect-ratio: auto; height: auto; min-height: 280px; }
+  .chain-entry-layer { gap: var(--space-3); }
+  .chain-entry-heading p { max-width: 17em; margin-inline: auto; }
+}

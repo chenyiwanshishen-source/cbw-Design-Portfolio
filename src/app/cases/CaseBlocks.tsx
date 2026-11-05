@@ -1,3 +1,4 @@
+import { ChainEntryComparison } from './components/ChainEntryComparison';
 import { ChainResponsibility } from './components/ChainResponsibility';
 import { ChainUserResearch } from './components/ChainUserResearch';
 import { ChainDiscussion } from './components/ChainDiscussion';
@@ -27,6 +28,7 @@ export function CaseBlocks({ blocks, labels, depth = 0 }: { depth?: number; bloc
   return <>{blocks.map((block, index) => {
     const key = index;
     switch (block.kind) {
+      case 'chain-entry-comparison': return <ChainEntryComparison key={key} />;
       case 'chain-responsibility': return <ChainResponsibility key={key} />;
       case 'chain-user-research': return <ChainUserResearch key={key} />;
       case 'chain-discussion': return <ChainDiscussion key={key} />;
