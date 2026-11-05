@@ -263,13 +263,13 @@ export const qixin: CaseContent = {
       "label": "首页工作台",
       "title": "首页工作台",
       "blocks": [
-        { "kind": "heading", "text": "问题" },
+        { "kind": "heading", "text": "问题", "prominent": true },
         {
           "kind": "paragraph",
           "text": "几次用户反馈中，大家都提到：需要的预警信息藏在内页，每次查找都要来回翻；功能入口也比较分散，一些重要信息容易漏掉。",
           "highlightPhrases": ["预警信息藏在内页", "功能入口也比较分散", "重要信息容易漏掉"]
         },
-        { "kind": "heading", "text": "我的对策" },
+        { "kind": "heading", "text": "我的对策", "prominent": true },
         {
           "kind": "paragraph",
           "text": "我想让首页同时照顾两类用户：给资深用户自定义常用功能的空间，按自己的工作习惯安排入口；给新用户呈现常见业务场景里的重要资讯和预警，减少查找和遗漏。为此，我把报告入口、快讯、融资、舆情和地区概览集中到首页，让用户进入系统就能看到需要关注的内容。",
@@ -278,9 +278,15 @@ export const qixin: CaseContent = {
         { "kind": "workbench-panels" },
         { "kind": "workbench-functions" },
         { "kind": "workbench-details" },
+        { "kind": "heading", "text": "用户反馈", "prominent": true },
         {
-          "kind": "paragraph",
-          "text": "结果：【待填：上线后的使用情况或反馈】"
+          "kind": "feedback-cards",
+          "items": [
+            { "title": "常用功能自己选，很实用", "text": "首页能自己选常用功能，用起来方便多了。" },
+            { "title": "图表看着很清楚", "text": "这些图表做得挺清楚的。" },
+            { "title": "每天打开先看舆情", "text": "我每天打开工作台，第一件事就是看舆情。" },
+            { "title": "监控数据也能自己选就好了", "text": "希望数据维度也能自定义，把想看的几种监控数据放到首页。" }
+          ]
         }
       ]
     },

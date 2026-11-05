@@ -10,6 +10,7 @@ export type CaseBlock =
  | { kind: 'workbench-panels' }
  | { kind: 'workbench-functions' }
  | { kind: 'workbench-details' }
+ | { kind: 'feedback-cards'; items: { title: string; text: string }[] }
  | { kind: 'chain-entry-comparison' }
  | { kind: 'chain-responsibility' }
  | { kind: 'chain-user-research' }
