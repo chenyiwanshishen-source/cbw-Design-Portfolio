@@ -83,10 +83,6 @@ export const qixin: CaseContent = {
         },
         {
           "kind": "product-map"
-        },
-        {
-          "kind": "paragraph",
-          "text": "接下来按这三部分展开：首页工作台、自定义产业链、组件库。"
         }
       ]
     },
