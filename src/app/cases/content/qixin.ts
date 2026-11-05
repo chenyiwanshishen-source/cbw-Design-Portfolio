@@ -47,6 +47,10 @@ export const qixin: CaseContent = {
   ],
   "toc": [
     {
+      "id": "qixin-00",
+      "label": "产品概述"
+    },
+    {
       "id": "qixin-01",
       "label": "挑战"
     },
@@ -72,6 +76,24 @@ export const qixin: CaseContent = {
     }
   ],
   "chapters": [
+    {
+      "id": "qixin-00",
+      "label": "产品概述",
+      "title": "产品概述",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "启信产业大脑围绕企业与产业完成查询、研判、管理和输出。下图是整个产品的结构，深色是我负责的部分。"
+        },
+        {
+          "kind": "product-map"
+        },
+        {
+          "kind": "paragraph",
+          "text": "接下来按这三部分展开：首页工作台、自定义产业链、组件库。"
+        }
+      ]
+    },
     {
       "id": "qixin-01",
       "label": "挑战",
