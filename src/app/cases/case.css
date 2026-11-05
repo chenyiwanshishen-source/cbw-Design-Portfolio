@@ -691,4 +691,9 @@ button.generator-notes { display: block; width: calc(100% - 8px); height: 140px;
 .launch-report-notes::after { transform: rotate(-2deg) translate(-3px, 2px); }
 
 /* New-chain dialogs share the existing paired figure framing. */
+.case-figure-framed img[src$="chain-create-select.webp"],
+.case-figure-framed img[src$="chain-create-empty.webp"] {
+  outline: var(--border-width) solid var(--color-border-subtle);
+  box-shadow: var(--shadow-float);
+}
 .case-figure-framed:has(img[src$="chain-create-select.webp"]) > .case-figure-media { background: radial-gradient(ellipse at 0 0, color-mix(in srgb, var(--color-chain-backend-fg) 16%, transparent), transparent 70%), var(--color-case-plate); }
