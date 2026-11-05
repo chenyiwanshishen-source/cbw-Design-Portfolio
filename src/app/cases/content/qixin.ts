@@ -168,19 +168,6 @@ export const qixin: CaseContent = {
               "text": "我们和两位用户了解了产业链配置与企业名单维护中的困难。"
             },
             {
-              "kind": "columns",
-              "items": [
-                {
-                  "label": "交付后难微调",
-                  "text": "交付结果还有细节需要调整，但用户无法自己充分修改。"
-                },
-                {
-                  "label": "企业增删依赖内部",
-                  "text": "名单里有不需要的企业，也有希望补充的企业，增删仍需要内部处理。"
-                }
-              ]
-            },
-            {
               "kind": "chain-user-research"
             }
           ]

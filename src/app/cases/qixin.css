@@ -45,3 +45,7 @@
 .chain-user-research-dialog::backdrop { background: var(--color-text-secondary); }
 .chain-user-research-close { display: block; margin-left: auto; min-height: var(--touch-target); padding-inline: var(--space-4); border: 0; background: var(--color-accent-soft); color: var(--color-accent-text); font: inherit; cursor: pointer; }
 @media (max-width: 767px) { .chain-user-research-grid { grid-template-columns: minmax(0, 1fr); } }
+
+.chain-research-points { margin: 0; padding-left: var(--space-5); display: grid; gap: var(--rhythm-2); font-size: var(--text-body); line-height: var(--text-body--line-height); color: var(--color-text-body); list-style: disc; }
+.chain-research-opportunities { display: grid; gap: var(--rhythm-3); margin-top: var(--rhythm-3); }
+.chain-research-opportunities h4 { margin: 0; }
