@@ -32,3 +32,5 @@
 #qixin-01 .case-trial-panel-1 li:not(:last-child)::after { content: '↓'; position: absolute; top: calc(100% + var(--rhythm-2)); left: 50%; transform: translateX(-50%); height: calc(var(--rhythm-6) - var(--rhythm-2) * 2); display: grid; place-items: center; color: var(--color-text-meta); font-size: var(--text-h4); font-weight: 400; }
 #qixin-01 .case-trial-panel-1 li:not(:last-child)::after { content: ''; width: var(--border-width); background: var(--color-border); }
 #qixin-01 .case-trial-panel-1 li:not(:last-child)::before { content: ''; position: absolute; top: calc(100% + var(--rhythm-6) - var(--rhythm-2) - var(--space-1)); left: 50%; width: var(--space-2); height: var(--space-2); border-right: var(--border-width) solid var(--color-border); border-bottom: var(--border-width) solid var(--color-border); transform: translateX(-50%) rotate(45deg); }
+
+#qixin-01 .case-trial-panel li { font-weight: 600; }
