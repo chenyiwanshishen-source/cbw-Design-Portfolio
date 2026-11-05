@@ -150,6 +150,11 @@
 
   --color-home-bg: #FFFFFF;
   --color-home-placeholder: #F3F4F5;
+  --color-case-diffuse-purple: color-mix(in srgb, var(--color-chain-backend-fg) 22%, transparent);
+  --color-case-diffuse-pink: color-mix(in srgb, var(--color-danger) 12%, transparent);
+  --color-case-diffuse-blue: color-mix(in srgb, var(--color-accent) 12%, transparent);
+  --color-case-diffuse-yellow: color-mix(in srgb, var(--color-question-bank) 24%, transparent);
+  --color-case-diffuse-background: radial-gradient(ellipse at 5% 8%, var(--color-case-diffuse-purple), transparent 58%), radial-gradient(ellipse at 8% 95%, var(--color-case-diffuse-pink), transparent 52%), radial-gradient(ellipse at 78% 18%, var(--color-case-diffuse-blue), transparent 58%), radial-gradient(ellipse at 95% 100%, var(--color-case-diffuse-yellow), transparent 50%), var(--color-case-plate);
   --color-case-plate: color-mix(in srgb, var(--color-home-placeholder) 40%, var(--color-home-bg));
   --color-prototype-plate: rgb(246 246 247);
   --color-blueprint-faint: rgba(255,255,255,.10);
