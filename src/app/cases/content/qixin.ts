@@ -73,6 +73,196 @@ export const qixin: CaseContent = {
       "label": "产品概述",
       "title": "产品概述",
       "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "启信产业大脑围绕企业与产业完成查询、研判、管理和输出。"
+        },
+        {
+          "kind": "product-map"
+        }
+      ]
+    },
+    {
+      "id": "qixin-01",
+      "label": "挑战",
+      "title": "问题和挑战",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "产业大脑多年迭代，功能越来越多，使用中的问题也逐渐积累。我们从中发现问题，再通过设计逐步解决。"
+        },
+        {
+          "kind": "trial-feedback",
+          "groups": [
+            {
+              "title": "问题",
+              "items": [
+                {
+                  "product": "",
+                  "text": "功能和操作入口分散",
+                  "icon": "Unlink01Icon"
+                },
+                {
+                  "product": "",
+                  "text": "与用户沟通的成本增加",
+                  "icon": "BubbleChatDelayIcon"
+                },
+                {
+                  "product": "",
+                  "text": "视觉样式不统一",
+                  "icon": "PaintBoardIcon"
+                }
+              ]
+            },
+            {
+              "title": "解决方案",
+              "items": [
+                {
+                  "product": "",
+                  "text": "首页工作台：集中常用功能和任务入口",
+                  "icon": "DashboardSquare01Icon"
+                },
+                {
+                  "product": "",
+                  "text": "自定义产业链：让用户自行维护产业链",
+                  "icon": "HierarchySquare01Icon"
+                },
+                {
+                  "product": "",
+                  "text": "组件库：统一视觉样式和组件",
+                  "icon": "Layers01Icon"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "qixin-03",
+      "label": "自定义产业链",
+      "title": "自定义产业链",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "各地对产业链的划分和本地特色企业的认定不同。过去用户提出需求后，需要等我们梳理结构、完成开发配置；后续调整也要重复这个过程。"
+        },
+        {
+          "kind": "subsection",
+          "title": "功能服务地图",
+          "blocks": [
+            {
+              "kind": "paragraph",
+              "text": "发现这些问题后，我先画了一张简单的服务地图，把用户、业务和开发之间的交接梳理出来，再顺着流程一步步推演解决方案。"
+            },
+            {
+              "kind": "chain-stage-framework"
+            }
+          ]
+        },
+        {
+          "kind": "subsection",
+          "title": "梳理问题",
+          "blocks": [
+            {
+              "kind": "paragraph",
+              "text": "同一次配置，用户在等结果，业务要反复确认口径，开发要把要求落实到数据和关系上。把几方的问题放在一起看，才能找出哪里在重复沟通、哪些配置可以交给用户自己做。"
+            },
+            {
+              "kind": "chain-discussion"
+            }
+          ]
+        },
+        {
+          "kind": "subsection",
+          "title": "和用户沟通",
+          "blocks": [
+            {
+              "kind": "paragraph",
+              "text": "我和两位用户了解了产业链配置与企业名单维护中的困难。"
+            },
+            {
+              "kind": "chain-user-research"
+            }
+          ]
+        },
+        {
+          "kind": "subsection",
+          "title": "思考",
+          "blocks": [
+            {
+              "kind": "paragraph",
+              "text": "与其让用户对我们的误解继续加深，我想重新分配这些复杂任务：把原本靠内部人员处理的配置交给系统，让用户自己操作。希望这样既能增加他们对我们的信任，也能让他们参与到产业链的调整中。"
+            },
+            {
+              "kind": "chain-responsibility"
+            }
+          ]
+        },
+        {
+          "kind": "subsection",
+          "title": "设计方案",
+          "blocks": [
+            {
+              "kind": "paragraph",
+              "text": "我先调整了自定义产业链的入口，用页签切换自定义产业链和标准产业链，左侧保留分组，方便查找。考虑到用户自己建的产业链不会太多，我把列表改成卡片，让每条产业链更大、更聚焦，把名称、图标和创建人放在一起；同时把“添加产业链”放在卡片区，让新增入口更明确。",
+              "highlightPhrases": ["用页签切换", "把列表改成卡片", "更大、更聚焦", "新增入口更明确"]
+            },
+            { "kind": "heading", "text": "调整入口" },
+            { "kind": "chain-entry-comparison" },
+            {
+              "kind": "figures",
+              "figures": [
+                { "plate": "CHAIN CREATE 01", "title": "选择标准产业环节", "instruction": "", "caption": "", "src": "images/qixin/chain-create-select.webp", "alt": "新建产业链：从标准产业链中勾选环节，右侧查看已选内容", "width": 760, "height": 754, "framed": true },
+                { "plate": "CHAIN CREATE 02", "title": "搜索与创建产业环节", "instruction": "", "caption": "", "src": "images/qixin/chain-create-empty.webp", "alt": "新建产业链：搜索没有结果时，可通过创建环节入口补充", "width": 760, "height": 754, "framed": true }
+              ]
+            }
+          ]
+        },
+        { "kind": "heading", "text": "无限画布和层级管理" },
+        {
+          "kind": "paragraph",
+          "text": "用户选入系统已有的产业环节后，可以自己编辑环节、管理企业，也能按需要调整层级。我希望让用户有更多自由，亲手搭出符合自己要求的产业链，增加参与感和成就感。"
+        },
+        {
+          "kind": "report-edit-carousel",
+          "imageFolder": "qixin",
+          "label": "产业链编辑",
+          "caption": "增加环节自定义编辑",
+          "slides": [
+            { "file": "chain-editor-1.webp", "alt": "产业链图谱中打开环节菜单，添加同级或下级环节、重命名和设置权限" },
+            { "file": "chain-editor-2.webp", "alt": "在产业环节中添加企业，可选择上传添加或搜索添加" }
+          ]
+        },
+        { "kind": "chain-hierarchy" },
+        { "kind": "heading", "text": "企业管理" },
+        {
+          "kind": "paragraph",
+          "text": "用户上传企业后，可以直接查看对应的企业内容和实时舆情，持续了解这些企业的变化。让上传的名单有内容可看、有动态可跟进，也是希望增加用户对平台的信任。",
+          "highlightPhrases": ["查看对应的企业内容和实时舆情"]
+        },
+        {
+          "kind": "report-edit-carousel",
+          "imageFolder": "qixin",
+          "label": "企业管理",
+          "slides": [
+            { "file": "chain-company-management.webp", "alt": "查看产业链企业资讯，按发布时间、舆情倾向和分类筛选动态" },
+            { "file": "chain-company-details.webp", "alt": "查看企业详情，包括基本信息、融资信息和舆情动态" }
+          ]
+        },
+        { "kind": "heading", "text": "设计结果", "prominent": true },
+        { "kind": "chain-outcome" },
+        {
+          "kind": "paragraph",
+          "text": "对于需要自定义产业链的用户，这一版是成功的。用户能自己调整和维护产业链，更有掌控感；研究产业政策、了解产业舆情也更方便了。"
+        }
+      ]
+    },
+    {
+      "id": "qixin-04",
+      "label": "首页工作台",
+      "title": "首页工作台",
+      "blocks": [
         { "kind": "heading", "text": "问题" },
         {
           "kind": "paragraph",
