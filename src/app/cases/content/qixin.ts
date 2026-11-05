@@ -273,7 +273,7 @@ export const qixin: CaseContent = {
         {
           "kind": "paragraph",
           "text": "我想让首页同时照顾两类用户：给资深用户自定义常用功能的空间，按自己的工作习惯安排入口；给新用户呈现常见业务场景里的重要资讯和预警，减少查找和遗漏。为此，我把报告入口、快讯、融资、舆情和地区概览集中到首页，让用户进入系统就能看到需要关注的内容。",
-          "highlightPhrases": ["自定义常用功能", "重要资讯和预警", "集中到首页"]
+          "highlightPhrases": ["资深用户", "新用户", "自定义常用功能", "重要资讯和预警", "集中到首页"]
         },
         { "kind": "workbench-panels" },
         { "kind": "workbench-functions" },
