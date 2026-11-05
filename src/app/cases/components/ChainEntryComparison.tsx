@@ -16,7 +16,7 @@ export function ChainEntryComparison() {
   };
   return <figure className="chain-entry-comparison">
     <div className="chain-entry-stage" ref={stage}>
-      {versions.map((version, index) => <div key={version.label} className="chain-entry-layer" style={index === 0 ? { clipPath: `inset(0 ${100 - position}% 0 0)`, zIndex: 1 } : undefined}>
+      {versions.map((version, index) => <div key={version.label} className={`chain-entry-layer${index === 1 ? ' chain-entry-after' : ''}`} style={index === 0 ? { clipPath: `inset(0 ${100 - position}% 0 0)`, zIndex: 1 } : undefined}>
         <div className="chain-entry-heading"><h4>{version.label}</h4><p>{version.text}</p></div>
         <div className="chain-entry-image"><img draggable={false} src={`${import.meta.env.BASE_URL}images/qixin/${version.src}`} alt={version.text} width={1440} height={900} loading="lazy" /></div>
       </div>)}
