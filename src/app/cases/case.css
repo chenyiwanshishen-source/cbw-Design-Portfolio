@@ -718,3 +718,16 @@ button.generator-notes { display: block; width: calc(100% - 8px); height: 140px;
 .workbench-laptop-base { position: relative; margin-inline: calc(-1 * var(--space-5)); height: var(--space-4); border-radius: 0 0 50% 50% / 0 0 100% 100%; background: var(--color-border-subtle); border-top: 1px solid var(--color-text-meta); box-shadow: var(--shadow-float); }
 .workbench-laptop-base span { display: block; width: 18%; height: var(--space-1); margin: 0 auto; border-radius: 0 0 var(--space-2) var(--space-2); background: var(--color-text-meta); }
 @media (max-width: 639px) { .workbench-laptop-plate { padding: var(--space-8) var(--space-3); } .workbench-laptop { padding-inline: var(--space-2); } .workbench-laptop-base { margin-inline: calc(-1 * var(--space-2)); } }
+.chain-outcome-card { margin: 0; padding: var(--rhythm-5); display: grid; grid-template-columns: 1fr 1fr; gap: var(--rhythm-5); align-items: center; background: var(--color-case-plate); border-radius: var(--space-6); }
+.chain-outcome-stat p { margin: 0; font-size: var(--text-body); color: var(--color-text-body); }
+.chain-outcome-value { display: flex; align-items: baseline; gap: var(--space-2); margin-block: var(--space-5); font-size: var(--text-home-name); line-height: 1; font-weight: 600; letter-spacing: -.04em; color: var(--color-text); }
+.chain-outcome-value span { font-size: var(--text-h3); letter-spacing: 0; }
+.chain-outcome-stat .chain-outcome-note { font-size: var(--text-caption); color: var(--color-text-secondary); }
+.chain-outcome-chart { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-8); padding-top: var(--space-8); }
+.chain-outcome-column { text-align: center; }
+.chain-outcome-column p { margin: var(--space-3) 0 0; font-size: var(--text-caption); color: var(--color-text-secondary); }
+.chain-outcome-track { height: 156px; display: flex; justify-content: center; align-items: end; border-bottom: 1px solid var(--color-drafting-line); }
+.chain-outcome-bar { position: relative; width: var(--space-16); border-radius: var(--space-2) var(--space-2) 0 0; background: var(--color-drafting-line); }
+.chain-outcome-bar.is-after { background: var(--color-accent); }
+.chain-outcome-bar span { position: absolute; bottom: calc(100% + var(--space-2)); left: 50%; transform: translateX(-50%); white-space: nowrap; font-size: var(--text-body); color: var(--color-text-body); }
+@media (max-width: 639px) { .chain-outcome-card { grid-template-columns: 1fr; padding: var(--space-6); gap: var(--space-6); } .chain-outcome-value { font-size: var(--text-home-name); } }

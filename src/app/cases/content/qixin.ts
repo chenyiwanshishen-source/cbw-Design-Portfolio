@@ -251,6 +251,7 @@ export const qixin: CaseContent = {
           ]
         },
         { "kind": "heading", "text": "设计结果", "prominent": true },
+        { "kind": "chain-outcome" },
         {
           "kind": "paragraph",
           "text": "对于需要自定义产业链的用户，这一版是成功的。用户能自己调整和维护产业链，更有掌控感；研究产业政策、了解产业舆情也更方便了。"
