@@ -208,6 +208,7 @@ export const qixin: CaseContent = {
               "text": "我先调整了自定义产业链的入口，用页签切换自定义产业链和标准产业链，左侧保留分组，方便查找。考虑到用户自己建的产业链不会太多，我把列表改成卡片，让每条产业链更大、更聚焦，把名称、图标和创建人放在一起；同时把“添加产业链”放在卡片区，让新增入口更明确。",
               "highlightPhrases": ["用页签切换", "把列表改成卡片", "更大、更聚焦", "新增入口更明确"]
             },
+            { "kind": "heading", "text": "调整入口" },
             { "kind": "chain-entry-comparison" },
             {
               "kind": "figures",
@@ -218,6 +219,7 @@ export const qixin: CaseContent = {
             }
           ]
         },
+        { "kind": "heading", "text": "无限画布" },
         {
           "kind": "report-edit-carousel",
           "imageFolder": "qixin",

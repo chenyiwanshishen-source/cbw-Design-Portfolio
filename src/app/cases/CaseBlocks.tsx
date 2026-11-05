@@ -28,6 +28,7 @@ export function CaseBlocks({ blocks, labels, depth = 0 }: { depth?: number; bloc
   return <>{blocks.map((block, index) => {
     const key = index;
     switch (block.kind) {
+      case 'heading': return <h3 key={key} className="text-h4 font-medium">{block.text}</h3>;
       case 'chain-entry-comparison': return <ChainEntryComparison key={key} />;
       case 'chain-responsibility': return <ChainResponsibility key={key} />;
       case 'chain-user-research': return <ChainUserResearch key={key} />;
