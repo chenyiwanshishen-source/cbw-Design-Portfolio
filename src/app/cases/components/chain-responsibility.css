@@ -12,3 +12,6 @@
 @media (max-width: 639px) { .chain-responsibility-charts { grid-template-columns: minmax(0, 1fr); } .chain-responsibility { padding: var(--rhythm-3); } }
 
 .chain-responsibility-empty { fill: var(--color-drafting-faint); }
+
+.chain-bubble-value { fill: var(--color-text); font-size: var(--text-h3); font-weight: 600; font-family: var(--font-sans); }
+.chain-bubble-label { fill: var(--color-text-body); font-size: var(--text-caption); font-family: var(--font-sans); }

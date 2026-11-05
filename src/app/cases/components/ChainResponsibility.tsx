@@ -8,14 +8,14 @@ export function ChainResponsibility() {
   return <figure className="chain-responsibility">
     <div className="chain-responsibility-charts">{charts.map(chart => {
       const total = chart.weights.reduce((a, b) => a + b, 0);
-      const first = chart.weights[0];
-      const second = first + chart.weights[1];
       return <section key={chart.title}><h4>{chart.title}</h4><p>{chart.text}</p>
-        <svg viewBox="0 0 358 178" role="img" aria-label={`${chart.title}复杂度分配示意，系统、用户、内部的相对权重为${chart.weights.join('、')}`}>
-          {Array.from({ length: 200 }, (_, index) => {
-            const rank = (index * 73) % 200;
-            const role = rank >= total ? 'empty' : rank < first ? 'system' : rank < second ? 'user' : 'internal';
-            return <rect key={index} x={index % 20 * 18} y={Math.floor(index / 20) * 18} width="14" height="14" rx="3" className={`chain-responsibility-${role}`} />;
+        <svg viewBox="0 0 360 250" role="img" aria-label={`${chart.title}复杂度分配示意，系统、用户、内部的相对权重为${chart.weights.join('、')}`}>
+          {roles.map((role, index) => {
+            const percent = chart.weights[index] / total * 100;
+            const radius = Math.sqrt(percent / 100) * 118;
+            const positions = [[112, 84], [105, 168], [224, 130]];
+            const [cx, cy] = positions[index];
+            return <g key={role.key}><circle cx={cx} cy={cy} r={radius} className={`chain-responsibility-${role.key}`} fillOpacity=".28" /><text x={cx} y={cy} textAnchor="middle" dominantBaseline="central" className="chain-bubble-value">{Math.round(percent)}%</text><text x={cx} y={cy + 26} textAnchor="middle" className="chain-bubble-label">{role.label}</text></g>;
           })}
         </svg>
       </section>;
