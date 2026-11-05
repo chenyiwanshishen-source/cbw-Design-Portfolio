@@ -3,13 +3,13 @@ import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 
 gsap.registerPlugin(useGSAP);
-const slides = [
+const defaultSlides = [
   { file: 'report-sources-web.webp', alt: '报告正文中选中段落，显示 AI 改写工具栏' },
   { file: 'report-edit-1.webp', alt: '选中报告段落，输入修改要求或选择润色、扩写、缩写与行文风格' },
   { file: 'report-edit-2.webp', alt: '查看 AI 改写结果，可插入段落或替换选段' },
 ];
 
-export function ReportEditCarousel() {
+export function ReportEditCarousel({ slides = defaultSlides, imageFolder = 'qsight', label = '报告编辑' }: { slides?: { file: string; alt: string }[]; imageFolder?: string; label?: string }) {
   const root = useRef<HTMLElement>(null);
   const previous = useRef(0);
   const direction = useRef(1);
@@ -58,21 +58,21 @@ export function ReportEditCarousel() {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     gsap.fromTo(button, { scale: .84 }, { scale: 1, duration: .55, ease: 'elastic.out(1, 0.5)', overwrite: true });
   });
-  return <figure ref={root} className="report-edit-carousel" aria-label="报告编辑操作展示" aria-roledescription="轮播" onKeyDown={event => {
+  return <figure ref={root} className="report-edit-carousel" aria-label={`${label}操作展示`} aria-roledescription="轮播" onKeyDown={event => {
     if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
       event.preventDefault(); select((active + (event.key === 'ArrowRight' ? 1 : -1) + slides.length) % slides.length, event.key === 'ArrowRight' ? 1 : -1);
     }
   }}>
     <div className="report-edit-stage">
       {slides.map((slide, index) => <div className="report-edit-slide" key={slide.file} aria-hidden={active !== index}>
-        <img src={`${import.meta.env.BASE_URL}images/qsight/${slide.file}`} alt={slide.alt} width={2880} height={1800} draggable={false} />
+        <img src={`${import.meta.env.BASE_URL}images/${imageFolder}/${slide.file}`} alt={slide.alt} width={2880} height={1800} draggable={false} />
       </div>)}
     </div>
-    {[-1, 1].map(dir => <button key={dir} type="button" className={`report-edit-arrow ${dir < 0 ? 'is-previous' : 'is-next'}`} aria-label={dir < 0 ? '上一张报告编辑图' : '下一张报告编辑图'} onClick={event => { press(event.currentTarget); select((active + dir + slides.length) % slides.length, dir); }}>
+    {[-1, 1].map(dir => <button key={dir} type="button" className={`report-edit-arrow ${dir < 0 ? 'is-previous' : 'is-next'}`} aria-label={dir < 0 ? `上一张${label}图` : `下一张${label}图`} onClick={event => { press(event.currentTarget); select((active + dir + slides.length) % slides.length, dir); }}>
       <svg viewBox="0 0 24 24" width="20" height="20" fill="none" aria-hidden="true"><path d={dir < 0 ? 'M14 5 7 12 14 19' : 'm10 5 7 7-7 7'} stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
     </button>)}
-    <div className="report-edit-pagination" role="group" aria-label="选择报告编辑图片">
-      {slides.map((slide, index) => <button type="button" key={slide.file} className="report-edit-dot" aria-label={`查看第 ${index + 1} 张报告编辑图`} aria-pressed={active === index} onClick={event => { press(event.currentTarget); select(index); }}><span /></button>)}
+    <div className="report-edit-pagination" role="group" aria-label={`选择${label}图片`}>
+      {slides.map((slide, index) => <button type="button" key={slide.file} className="report-edit-dot" aria-label={`查看第 ${index + 1} 张${label}图`} aria-pressed={active === index} onClick={event => { press(event.currentTarget); select(index); }}><span /></button>)}
     </div>
     <span className="sr-only" aria-live="off">第 {active + 1} 张，共 {slides.length} 张：{slides[active].alt}</span>
   </figure>;

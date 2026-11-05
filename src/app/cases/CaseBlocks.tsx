@@ -38,7 +38,7 @@ export function CaseBlocks({ blocks, labels, depth = 0 }: { depth?: number; bloc
       case 'prompt-generator': return <PromptGenerator key={key} />;
       case 'prompt-structure': return <PromptStructure key={key} />;
       case 'source-evidence': return <SourceEvidence key={key} />;
-      case 'report-edit-carousel': return <ReportEditCarousel key={key} />;
+      case 'report-edit-carousel': return <ReportEditCarousel key={key} slides={block.slides} imageFolder={block.imageFolder} label={block.label} />;
       case 'outline-devices': return <OutlineDevices key={key} />;
       case 'trial-feedback': return <figure key={key} className="case-trial-feedback"><div className="case-trial-panels">{block.groups.map((group, i) => <section key={group.title} className={`case-trial-panel case-trial-panel-${i}`}><h4>{group.title}</h4><ul>{group.items.map(item => <li key={item.product + item.text}><span className="case-trial-product">{item.icon && <span className="case-trial-icon" style={{ maskImage: `url(${import.meta.env.BASE_URL}images/icons/hugeicons/${item.icon}.svg)` }} aria-hidden="true" />}{item.product.split('、').map(product => <span className="case-trial-brand" key={product}>{product === '豆包' || product === '天工' || product === 'Jenni' ? <img src={`${import.meta.env.BASE_URL}images/qsight/brands/${product === '豆包' ? 'doubao.webp' : product === '天工' ? 'tiangong.webp' : 'jenni.svg'}`} alt="" /> : null}{product}</span>)}</span><span>{item.text}</span></li>)}</ul></section>)}</div></figure>;
       case 'test-feedback-bubbles': return <TestFeedbackBubbles key={key} />;

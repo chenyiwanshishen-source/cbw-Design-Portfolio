@@ -14,7 +14,7 @@ export type CaseBlock =
  | { kind: 'source-evidence' }
  | { kind: 'prompt-structure' }
  | { kind: 'prompt-generator' }
- | { kind: 'report-edit-carousel' }
+ | { kind: 'report-edit-carousel'; slides?: { file: string; alt: string }[]; imageFolder?: string; label?: string }
  | { kind: 'outline-devices' }
  | { kind: 'mvp-comparison' }
  | { kind: 'responsive-template'; title?: string; desktopSrc?: string; mobileSrc?: string; mobileAlign?: 'top' | 'bottom' }

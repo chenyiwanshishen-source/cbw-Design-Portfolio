@@ -696,3 +696,4 @@ button.generator-notes { display: block; width: calc(100% - 8px); height: 140px;
   box-shadow: var(--shadow-float);
 }
 .case-figure-framed:has(img[src$="chain-create-select.webp"]) > .case-figure-media { background: radial-gradient(ellipse at 0 0, color-mix(in srgb, var(--color-chain-backend-fg) 16%, transparent), transparent 70%), var(--color-case-plate); }
+#qixin-03 { container-type: inline-size; }
