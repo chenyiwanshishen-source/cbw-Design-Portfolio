@@ -1,3 +1,4 @@
+import { ChainDiscussion } from './components/ChainDiscussion';
 import { ChainStageFramework } from './components/ChainStageFramework';
 import { ProductMap } from './components/ProductMap';
 import { LaunchOutcomes } from './components/LaunchOutcomes';
@@ -24,6 +25,7 @@ export function CaseBlocks({ blocks, labels, depth = 0 }: { depth?: number; bloc
   return <>{blocks.map((block, index) => {
     const key = index;
     switch (block.kind) {
+      case 'chain-discussion': return <ChainDiscussion key={key} />;
       case 'chain-stage-framework': return <ChainStageFramework key={key} />;
       case 'product-map': return <ProductMap key={key} />;
       case 'problem-cards': return <div key={key} className="case-prompt-problems">{block.items.map(item => <article key={item.label}><h3 className="text-h4 font-medium">{item.label}</h3><p className="text-body text-text-body">{item.text}</p></article>)}</div>;

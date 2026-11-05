@@ -151,26 +151,13 @@ export const qixin: CaseContent = {
           "kind": "chain-stage-framework"
         },
         {
-          "kind": "flow",
-          "rows": [
+          "kind": "subsection",
+          "title": "问题研讨发现的问题",
+          "blocks": [
             {
-              "label": "改后",
-              "steps": [
-                "选用标准环节",
-                "新建本地环节",
-                "维护企业名单"
-              ],
-              "highlight": [
-                0,
-                1,
-                2
-              ]
+              "kind": "chain-discussion"
             }
           ]
-        },
-        {
-          "kind": "paragraph",
-          "text": "标准环节可以复用，差异主要在各地的划分方式。我把原本需要开发介入的配置做成了可编辑的产业链图谱。用户可以选用标准环节，也可以新建本地环节，自行维护节点关系和企业名单。"
         },
         {
           "kind": "subsection",
