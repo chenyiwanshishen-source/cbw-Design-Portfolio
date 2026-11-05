@@ -208,7 +208,14 @@ export const qixin: CaseContent = {
               "text": "我先调整了自定义产业链的入口，用页签切换自定义产业链和标准产业链，左侧保留分组，方便查找。考虑到用户自己建的产业链不会太多，我把列表改成卡片，让每条产业链更大、更聚焦，把名称、图标和创建人放在一起；同时把“添加产业链”放在卡片区，让新增入口更明确。",
               "highlightPhrases": ["用页签切换", "把列表改成卡片", "更大、更聚焦", "新增入口更明确"]
             },
-            { "kind": "chain-entry-comparison" }
+            { "kind": "chain-entry-comparison" },
+            {
+              "kind": "figures",
+              "figures": [
+                { "plate": "CHAIN CREATE 01", "title": "选择标准产业环节", "instruction": "", "caption": "", "src": "images/qixin/chain-create-select.webp", "alt": "新建产业链：从标准产业链中勾选环节，右侧查看已选内容", "width": 760, "height": 754, "framed": true },
+                { "plate": "CHAIN CREATE 02", "title": "搜索与创建产业环节", "instruction": "", "caption": "", "src": "images/qixin/chain-create-empty.webp", "alt": "新建产业链：搜索没有结果时，可通过创建环节入口补充", "width": 760, "height": 754, "framed": true }
+              ]
+            }
           ]
         },
         {
