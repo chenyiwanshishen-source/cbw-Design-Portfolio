@@ -148,7 +148,13 @@ export const qixin: CaseContent = {
           "text": "各地对产业链的划分和本地特色企业的认定不同。过去用户提出需求后，需要等我们梳理结构、完成开发配置；后续调整也要重复这个过程。"
         },
         {
-          "kind": "chain-stage-framework"
+          "kind": "subsection",
+          "title": "功能服务地图",
+          "blocks": [
+            {
+              "kind": "chain-stage-framework"
+            }
+          ]
         },
         {
           "kind": "subsection",
