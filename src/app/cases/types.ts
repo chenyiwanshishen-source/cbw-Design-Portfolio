@@ -2,6 +2,7 @@ import type { HeaderContent } from './components/CaseHeader';
 import type { FigureContent } from './components/FigurePlaceholder';
 type Item = { label: string; text: string };
 export type CaseBlock =
+ | { kind: 'prompt-results' }
  | { kind: 'source-evidence' }
  | { kind: 'prompt-structure' }
  | { kind: 'report-edit-carousel' }
