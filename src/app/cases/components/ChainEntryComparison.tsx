@@ -32,6 +32,6 @@ export function ChainEntryComparison() {
         }}><span aria-hidden="true">‹ ›</span></div>
     </div>
   </figure>
-    <svg className="chain-entry-next-arrow" viewBox="0 0 420 220" fill="none" aria-hidden="true" style={{ opacity: position < 90 ? 1 : 0 }}><path d="M390 12 C381 47 342 78 310 83 C278 89 291 52 307 55 C335 85 273 119 220 143 C165 168 103 189 35 204 M60 184 Q44 198 31 205 Q52 207 71 211" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" vectorEffect="non-scaling-stroke" /></svg>
+    <svg className="chain-entry-next-arrow" viewBox="0 0 420 220" fill="none" aria-hidden="true" style={{ opacity: position < 90 ? 1 : 0 }}><path d="M340 20 C336 82 253 136 164 191 M182 168 Q172 181 159 195 Q177 194 195 189" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" vectorEffect="non-scaling-stroke" /></svg>
   </div>;
 }
