@@ -28,7 +28,8 @@ export function CaseBlocks({ blocks, labels, depth = 0 }: { depth?: number; bloc
   return <>{blocks.map((block, index) => {
     const key = index;
     switch (block.kind) {
-      case 'heading': return <h3 key={key} className="text-h4 font-medium">{block.text}</h3>;
+      case 'heading': return <h3 key={key} className="case-detail-heading font-medium">{block.text}</h3>;
+      case 'chain-hierarchy': return <figure key={key} className="chain-hierarchy-plate" aria-label="层级管理的两种操作展示">{[1, 2].map(i => <div key={i}><img src={`${import.meta.env.BASE_URL}images/qixin/chain-hierarchy-${i}.webp`} alt={i === 1 ? '在图谱中拖动产业环节调整层级' : '在左侧层级菜单中拖动调整产业环节'} width={1440} height={900} loading="lazy" /></div>)}</figure>;
       case 'chain-entry-comparison': return <ChainEntryComparison key={key} />;
       case 'chain-responsibility': return <ChainResponsibility key={key} />;
       case 'chain-user-research': return <ChainUserResearch key={key} />;

@@ -230,6 +230,8 @@ export const qixin: CaseContent = {
             { "file": "chain-editor-2.webp", "alt": "在产业环节中添加企业，可选择上传添加或搜索添加" }
           ]
         },
+        { "kind": "heading", "text": "层级管理" },
+        { "kind": "chain-hierarchy" },
         {
           "kind": "metrics",
           "items": [

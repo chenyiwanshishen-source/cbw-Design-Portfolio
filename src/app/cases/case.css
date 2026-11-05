@@ -697,3 +697,12 @@ button.generator-notes { display: block; width: calc(100% - 8px); height: 140px;
 }
 .case-figure-framed:has(img[src$="chain-create-select.webp"]) > .case-figure-media { background: radial-gradient(ellipse at 0 0, color-mix(in srgb, var(--color-chain-backend-fg) 16%, transparent), transparent 70%), var(--color-case-plate); }
 #qixin-03 { container-type: inline-size; }
+
+.case-detail-heading { margin: 0; font-size: var(--text-case-subheading); line-height: 1.5; }
+.chain-hierarchy-plate { margin: 0; display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: var(--rhythm-4); padding: var(--rhythm-4); background: var(--color-case-plate); border-radius: var(--space-6); overflow: hidden; }
+.chain-hierarchy-plate > div { min-width: 0; overflow: hidden; border-radius: var(--space-4); box-shadow: var(--shadow-float); }
+.chain-hierarchy-plate img { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: right center; }
+.chain-hierarchy-plate > div:last-child img { object-position: left center; }
+#qixin-03 > .case-metrics { border-top: 0; }
+@media (max-width: 639px) { .chain-hierarchy-plate { padding: var(--space-3); gap: var(--space-3); } }
+#qixin-03 > .case-metrics > div { border-top: 0; }
