@@ -860,3 +860,8 @@ button.generator-notes { display: block; width: calc(100% - 8px); height: 140px;
   .qixin-component-slot-2 img { width: min(100%, 368px); }
   .qixin-component-slot-3 { grid-column: auto; grid-template-columns: minmax(0, 1fr); }
 }
+
+.qixin-component-buttons { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-6); padding: var(--space-6); }
+.qixin-component-buttons > div { display: flex; flex-direction: column; align-items: center; gap: var(--space-5); }
+.qixin-component-buttons img { display: block; height: var(--space-8); width: auto; max-width: 100%; }
+@media (max-width: 767px) { .qixin-component-buttons { padding: var(--space-4); gap: var(--space-4); } }
