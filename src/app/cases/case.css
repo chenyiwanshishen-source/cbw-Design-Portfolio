@@ -865,3 +865,11 @@ button.generator-notes { display: block; width: calc(100% - 8px); height: 140px;
 .qixin-component-buttons > div { display: flex; flex-direction: column; align-items: center; gap: var(--space-5); }
 .qixin-component-buttons img { display: block; height: var(--space-8); width: auto; max-width: 100%; }
 @media (max-width: 767px) { .qixin-component-buttons { padding: var(--space-4); gap: var(--space-4); } }
+
+.qixin-component-controls { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: var(--space-6); align-items: center; }
+.qixin-component-controls .qixin-component-buttons { grid-column: auto; padding: var(--space-4); gap: var(--space-3); }
+.qixin-component-tags { min-width: 0; display: flex; flex-direction: column; gap: var(--space-3); padding: var(--space-4); }
+.qixin-component-tags > div { display: flex; justify-content: center; gap: var(--space-2); flex-wrap: wrap; }
+.qixin-component-tags img { display: block; max-width: 100%; height: auto; }
+.qixin-component-tag-combos { margin-top: var(--space-2); }
+@media (max-width: 767px) { .qixin-component-controls { grid-template-columns: minmax(0, 1fr); gap: var(--space-4); } }
