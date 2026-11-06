@@ -839,7 +839,6 @@ button.generator-notes { display: block; width: calc(100% - 8px); height: 140px;
   gap: var(--space-4);
   padding: var(--space-6);
   border-radius: var(--space-5);
-  background: var(--color-surface-tint);
 }
 .qixin-component-slot img { display: block; position: static; height: auto; max-width: 100%; }
 .qixin-component-slot-1 img { width: 160px; max-width: 100%; }
