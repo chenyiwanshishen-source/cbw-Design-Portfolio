@@ -782,3 +782,8 @@ button.generator-notes { display: block; width: calc(100% - 8px); height: 140px;
 @media (max-width: 1099px) { .workbench-feedback-section { grid-template-columns: 1fr; } .workbench-feedback-rate { flex-direction: row; align-items: center; } .workbench-feedback-rate-chart { width: 40%; max-width: 240px; } }
 @media (min-width: 640px) and (max-width: 899px) { .workbench-feedback { grid-template-columns: repeat(2,minmax(0,1fr)); } }
 @media (max-width: 639px) { .workbench-feedback-rate { padding: var(--space-6); } }
+
+/* 组件库页面样张：在浅色底板内留出展示空间。 */
+.case-figure-framed:has(img[src$="components-park-list.png"]) > .case-figure-media { padding: var(--space-16); }
+.case-figure-framed img[src$="components-park-list.png"] { outline: var(--space-1) solid var(--color-border-subtle); }
+@media (max-width: 639px) { .case-figure-framed:has(img[src$="components-park-list.png"]) > .case-figure-media { padding: var(--space-6); } }

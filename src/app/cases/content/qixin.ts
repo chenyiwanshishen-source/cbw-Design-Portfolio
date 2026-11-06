@@ -302,7 +302,7 @@ export const qixin: CaseContent = {
         {
           "kind": "figures",
           "figures": [
-            { "plate": "COMPONENTS 01", "title": "园区招商列表视图", "instruction": "", "caption": "", "src": "images/qixin/components-park-list.png", "alt": "组件库应用：园区招商列表视图", "width": 1440, "height": 900 }
+            { "plate": "COMPONENTS 01", "title": "园区招商列表视图", "instruction": "", "caption": "", "src": "images/qixin/components-park-list.png", "alt": "组件库应用：园区招商列表视图", "width": 1440, "height": 900, "framed": true }
           ]
         },
         {
