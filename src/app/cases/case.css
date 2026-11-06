@@ -820,8 +820,8 @@ button.generator-notes { display: block; width: calc(100% - 8px); height: 140px;
 
 .case-figure-framed:has(img[src$="components-park-list.webp"]) > .case-figure-media { overflow: hidden; }
 
-.qixin-component-slots { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--rhythm-4); }
-.qixin-component-slots > div { aspect-ratio: 8 / 5; background: var(--color-case-plate); border-radius: var(--space-6); }
+.qixin-component-slots { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--rhythm-4); background: var(--color-case-plate); border-radius: var(--space-6); overflow: hidden; }
+.qixin-component-slots > div { aspect-ratio: 8 / 5; }
 @media (max-width: 767px) { .qixin-component-slots { grid-template-columns: minmax(0, 1fr); } }
 
 .qixin-component-slot { position: relative; overflow: hidden; }
