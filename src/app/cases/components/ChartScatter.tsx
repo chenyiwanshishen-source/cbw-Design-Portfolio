@@ -1,3 +1,4 @@
+import { AnimatedDonutChart } from './AnimatedDonutChart';
 import { AnimatedBarChart } from './AnimatedBarChart';
 import { useRef, type CSSProperties } from 'react';
 import gsap from 'gsap';
@@ -25,6 +26,7 @@ export function ChartScatter({ figures }: { figures: FigureContent[] }) {
   return <div ref={root} className="chart-scatter" aria-label="图表组件样张，悬停或键盘聚焦可展开查看">
     {sorted.map((f,i) => {
       const [x,y,w] = positions[i];
+      if (f.src?.endsWith('components-chart-1.webp')) return <div key={f.plate} className="chart-scatter-card chart-scatter-animated" style={{ '--card-x': `${x}%`, '--card-y': `${y}%`, '--card-width': `${w}%`, zIndex: i+1 } as CSSProperties}><AnimatedDonutChart /></div>;
       if (f.src?.endsWith('components-chart-5.webp')) return <div key={f.plate} className="chart-scatter-card chart-scatter-animated" style={{ '--card-x': `${x}%`, '--card-y': `${y}%`, '--card-width': `${w}%`, zIndex: i+1 } as CSSProperties}><AnimatedBarChart /></div>;
       return <img tabIndex={0} className="chart-scatter-card" key={f.plate} data-order={i} aria-label={f.alt || f.title}
         style={{ '--card-x': `${x}%`, '--card-y': `${y}%`, '--card-width': `${w}%`, zIndex: i+1, transformOrigin: x > 60 ? 'right center' : x < 10 ? 'left center' : 'center' } as CSSProperties}

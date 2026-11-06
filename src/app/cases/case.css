@@ -862,3 +862,5 @@ button.generator-notes { display: block; width: calc(100% - 8px); height: 140px;
 
 .chart-scatter-animated { background: var(--color-case-plate); clip-path: none; overflow: hidden; }
 .animated-bar-chart svg { display: block; width: 100%; height: auto; }
+
+.animated-donut-chart svg { display: block; width: 100%; height: auto; }
