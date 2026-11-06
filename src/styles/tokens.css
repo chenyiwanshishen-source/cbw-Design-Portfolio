@@ -257,3 +257,14 @@ body {
   --color-qixin-foundation-warning: #C8A74F;
   --color-qixin-foundation-danger: #FF2828;
 }
+
+:root {
+  --color-qixin-blue-light: #A8BEFF;
+  --color-qixin-blue-mid: #618AFF;
+  --color-qixin-purple-light: #D7B0FF;
+  --color-qixin-purple-mid: #B973FF;
+  --color-qixin-purple-deep: #9132F0;
+  --color-qixin-orange-light: #FFAF94;
+  --color-qixin-orange-mid: #FF8157;
+  --color-qixin-orange-deep: #FD5219;
+}

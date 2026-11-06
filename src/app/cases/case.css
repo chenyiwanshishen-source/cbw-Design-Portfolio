@@ -917,3 +917,29 @@ button.generator-notes { display: block; width: calc(100% - 8px); height: 140px;
 .qixin-naming-chain b { position: absolute; right: calc(-1 * var(--space-2)); top: 0; color: var(--color-text-meta); font-weight: 400; }
 .qixin-naming-dot { width: var(--space-3); height: var(--space-3); border-radius: var(--space-1); }
 @media (max-width: 767px) { .qixin-foundation-icons > div { row-gap: var(--space-8); } }
+
+.qixin-foundation-colors > .qixin-palette-stacks { display: flex; flex-direction: column; gap: var(--space-3); padding: var(--space-6); }
+.qixin-palette-stack { display: flex; align-items: stretch; }
+.qixin-palette-tile { flex: 1; min-width: 0; height: var(--space-24); border-radius: var(--space-5); display: flex; align-items: flex-end; padding: var(--space-3); color: var(--color-qixin-foundation-ink); font-size: var(--text-micro); }
+.qixin-palette-tile + .qixin-palette-tile { margin-left: calc(-1 * var(--space-5)); }
+.qixin-palette-tile:last-child { color: var(--color-on-accent); }
+.qixin-color-blue-light { background: var(--color-qixin-blue-light); }
+.qixin-color-blue-mid { background: var(--color-qixin-blue-mid); }
+.qixin-color-purple-light { background: var(--color-qixin-purple-light); }
+.qixin-color-purple-mid { background: var(--color-qixin-purple-mid); }
+.qixin-color-purple-deep { background: var(--color-qixin-purple-deep); }
+.qixin-color-orange-light { background: var(--color-qixin-orange-light); }
+.qixin-color-orange-mid { background: var(--color-qixin-orange-mid); }
+.qixin-color-orange-deep { background: var(--color-qixin-orange-deep); }
+.qixin-palette-stack:last-child .qixin-palette-tile:last-child { color: var(--color-qixin-foundation-ink); }
+
+.qixin-foundation-colors > .qixin-palette-stacks { max-width: 300px; padding: var(--space-5); gap: var(--space-3); }
+.qixin-palette-stack { padding-right: 0; }
+.qixin-palette-tile { flex: 0 0 48%; height: var(--space-16); padding: var(--space-2); border-radius: var(--space-4); font-size: var(--text-label); }
+.qixin-palette-tile + .qixin-palette-tile { margin-left: -22%; }
+.qixin-foundations .qixin-foundation-colors { justify-content: center; gap: var(--space-6); }
+
+.qixin-foundation-colors > .qixin-palette-stacks { max-width: none; padding: var(--space-6); gap: var(--space-5); }
+.qixin-palette-tile { flex: 0 0 50%; height: 100px; padding: var(--space-3); border-radius: var(--space-10) var(--space-10) var(--space-10) var(--space-1); font-size: var(--text-label); }
+.qixin-palette-tile + .qixin-palette-tile { margin-left: -25%; }
+.qixin-palette-tile:last-child { border-radius: var(--space-10); }
