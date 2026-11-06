@@ -801,7 +801,7 @@ button.generator-notes { display: block; width: calc(100% - 8px); height: 140px;
 .case-figure-framed img[src$="components-map-detail.webp"] { position: absolute; top: var(--space-12); left: var(--space-12); width: 240% !important; max-width: none; height: auto !important; border-radius: var(--space-4); object-fit: initial; }
 
 .case-figure-framed:has(img[src$="components-park-list.webp"]) > .case-figure-media { position: relative; }
-.case-figure-framed .case-figure-overlay { position: absolute; left: var(--space-4); bottom: calc(-1 * var(--space-8)); width: 26%; height: auto; border-radius: var(--space-4); outline: none; box-shadow: var(--shadow-float); }
+.case-figure-framed .case-figure-overlay { position: absolute; left: var(--space-4); bottom: calc(-1 * var(--space-8)); width: 29%; height: auto; border-radius: var(--radius-case-mobile-screen); outline: none; box-shadow: var(--shadow-float); }
 
 .case-figure-framed img[src$="components-park-mobile.webp"] { outline: var(--space-1) solid var(--color-drafting-line); border-radius: var(--radius-case-mobile-screen); }
 
