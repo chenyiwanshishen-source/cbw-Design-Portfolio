@@ -12,24 +12,23 @@ const positions = [
 export function ChartScatter({ figures }: { figures: FigureContent[] }) {
   const root = useRef<HTMLDivElement>(null);
   const { contextSafe } = useGSAP({ scope: root });
-  const animate = contextSafe((el: HTMLButtonElement, active: boolean, angle: number) => {
+  const animate = contextSafe((el: HTMLImageElement, active: boolean) => {
     if (!window.matchMedia('(min-width: 768px)').matches) return;
     if (!active && (el.matches(':focus') || el.matches(':hover'))) return;
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const duration = parseFloat(getComputedStyle(el).getPropertyValue('--dur-base')) / 1000;
-    gsap.to(el, { scale: active ? 1.22 : 1, y: active ? -16 : 0, rotation: active ? 0 : angle, duration: reduced ? 0 : duration, ease: 'power3.out', overwrite: true });
+    gsap.to(el, { y: active ? -16 : 0, force3D: false, duration: reduced ? 0 : duration, ease: 'power3.out', overwrite: true });
     el.style.zIndex = active ? '20' : String(Number(el.dataset.order) + 1);
   });
   const sorted = [...figures].sort((a,b) => Number(a.src?.match(/chart-(\d+)/)?.[1]) - Number(b.src?.match(/chart-(\d+)/)?.[1]));
   return <div ref={root} className="chart-scatter" aria-label="图表组件样张，悬停或键盘聚焦可展开查看">
     {sorted.map((f,i) => {
-      const [x,y,w,angle] = positions[i];
-      return <button type="button" className="chart-scatter-card" key={f.plate} data-order={i} aria-label={f.alt || f.title}
-        style={{ '--card-x': `${x}%`, '--card-y': `${y}%`, '--card-width': `${w}%`, transform: `rotate(${angle}deg)`, zIndex: i+1, transformOrigin: x > 60 ? 'right center' : x < 10 ? 'left center' : 'center' } as CSSProperties}
-        onPointerEnter={e=>animate(e.currentTarget,true,angle)} onPointerLeave={e=>animate(e.currentTarget,false,angle)}
-        onFocus={e=>animate(e.currentTarget,true,angle)} onBlur={e=>animate(e.currentTarget,false,angle)}>
-        <img src={`${import.meta.env.BASE_URL}${f.src}`} alt={f.alt || f.title} width={f.width} height={f.height} loading="lazy" />
-      </button>;
+      const [x,y,w] = positions[i];
+      return <img tabIndex={0} className="chart-scatter-card" key={f.plate} data-order={i} aria-label={f.alt || f.title}
+        style={{ '--card-x': `${x}%`, '--card-y': `${y}%`, '--card-width': `${w}%`, zIndex: i+1, transformOrigin: x > 60 ? 'right center' : x < 10 ? 'left center' : 'center' } as CSSProperties}
+        onPointerEnter={e=>animate(e.currentTarget,true)} onPointerLeave={e=>animate(e.currentTarget,false)}
+        onFocus={e=>animate(e.currentTarget,true)} onBlur={e=>animate(e.currentTarget,false)}
+        src={`${import.meta.env.BASE_URL}${f.src}`} alt={f.alt || f.title} width={f.width} height={f.height} loading="lazy" />;
     })}
   </div>;
 }

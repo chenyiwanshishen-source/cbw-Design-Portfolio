@@ -806,8 +806,6 @@ button.generator-notes { display: block; width: calc(100% - 8px); height: 140px;
 .case-figure-framed img[src$="components-park-mobile.webp"] { outline: var(--space-1) solid var(--color-drafting-line); border-radius: var(--radius-case-mobile-screen); }
 
 .chart-scatter { position: relative; height: 1040px; isolation: isolate; background: var(--color-case-plate); border-radius: var(--space-6); }
-.chart-scatter-card { position: absolute; left: var(--card-x); top: var(--card-y); width: var(--card-width); margin: 0; padding: 0; border: 0; background: var(--color-surface); border-radius: var(--space-4); box-shadow: var(--shadow-float); cursor: zoom-in; }
-.chart-scatter-card img { display: block; width: 100%; height: auto; border-radius: inherit; clip-path: inset(2px round var(--space-4)); }
-.chart-scatter-card:has(img[src$="components-chart-6.webp"]) { aspect-ratio: 2; overflow: hidden; }
-.chart-scatter-card img[src$="components-chart-6.webp"] { height: 100%; object-fit: cover; object-position: top; }
-@media (max-width: 767px) { .chart-scatter { display: grid; grid-template-columns: 1fr; gap: var(--space-6); height: auto; padding: var(--space-6); } .chart-scatter-card { position: relative; left: auto; top: auto; width: 100%; transform: none !important; cursor: default; } }
+.chart-scatter-card { display: block; position: absolute; left: var(--card-x); top: var(--card-y); width: var(--card-width); height: auto; margin: 0; padding: 0; border: 0; border-radius: var(--space-4); clip-path: inset(2px round var(--space-4)); }
+.chart-scatter-card[src$="components-chart-6.webp"] { aspect-ratio: 2; object-fit: cover; object-position: top; }
+@media (max-width: 767px) { .chart-scatter { display: grid; grid-template-columns: 1fr; gap: var(--space-6); height: auto; padding: var(--space-6); } .chart-scatter-card { position: relative; left: auto; top: auto; width: 100%; transform: none !important; } }
