@@ -862,4 +862,3 @@ button.generator-notes { display: block; width: calc(100% - 8px); height: 140px;
 
 .chart-scatter-animated { background: var(--color-case-plate); clip-path: none; overflow: hidden; }
 .animated-bar-chart svg { display: block; width: 100%; height: auto; }
-.animated-bar-chart button { display: block; margin: 0 auto; min-height: 44px; padding: var(--space-2) var(--space-4); color: var(--color-accent); font-size: var(--text-caption); cursor: pointer; }
