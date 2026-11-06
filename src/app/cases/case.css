@@ -831,11 +831,8 @@ button.generator-notes { display: block; width: calc(100% - 8px); height: 140px;
 .qixin-component-slot-1 img:nth-child(2) { right: 4%; top: 26%; width: 174px; }
 .qixin-component-slot-1 img:nth-child(3) { left: 6%; top: 48%; width: 216px; }
 .qixin-component-slot-1 img:nth-child(4) { right: 2%; top: 70%; }
-.qixin-component-slot-2 img { width: 70%; }
-.qixin-component-slot-2 img:nth-child(1) { left: 3%; top: 1%; }
-.qixin-component-slot-2 img:nth-child(2) { right: 2%; top: 20%; }
-.qixin-component-slot-2 img:nth-child(3) { left: 1%; top: 43%; }
-.qixin-component-slot-2 img:nth-child(4) { right: 1%; top: 58%; }
+.qixin-component-slot-2 { display: flex; flex-direction: column; align-items: center; gap: var(--space-2); overflow: visible; padding-top: var(--space-2); }
+.qixin-component-slot-2 img { position: static; width: 70%; flex: none; }
 .qixin-component-slot-3 img { width: 76%; }
 .qixin-component-slot-3 img:nth-child(1) { left: 2%; top: 0; }
 .qixin-component-slot-3 img:nth-child(2) { right: 1%; top: 42%; }
