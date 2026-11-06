@@ -826,10 +826,10 @@ button.generator-notes { display: block; width: calc(100% - 8px); height: 140px;
 
 .qixin-component-slot { position: relative; overflow: hidden; }
 .qixin-component-slot img { position: absolute; height: auto; max-width: none; }
-.qixin-component-slot-1 img { width: 52%; }
+.qixin-component-slot-1 img { width: 160px; max-width: 100%; }
 .qixin-component-slot-1 img:nth-child(1) { left: 4%; top: 4%; }
-.qixin-component-slot-1 img:nth-child(2) { right: 4%; top: 26%; }
-.qixin-component-slot-1 img:nth-child(3) { left: 6%; top: 48%; width: 65%; }
+.qixin-component-slot-1 img:nth-child(2) { right: 4%; top: 26%; width: 174px; }
+.qixin-component-slot-1 img:nth-child(3) { left: 6%; top: 48%; width: 216px; }
 .qixin-component-slot-1 img:nth-child(4) { right: 2%; top: 70%; }
 .qixin-component-slot-2 img { width: 70%; }
 .qixin-component-slot-2 img:nth-child(1) { left: 3%; top: 1%; }
