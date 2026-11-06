@@ -302,14 +302,145 @@ export const qixin: CaseContent = {
         {
           "kind": "figures",
           "figures": [
-            { "plate": "COMPONENTS 01", "title": "园区招商列表视图", "instruction": "", "caption": "", "src": "images/qixin/components-park-list.webp", "alt": "组件库应用：园区招商列表视图", "width": 1440, "height": 900, "framed": true, "overlay": { "src": "images/qixin/components-list-overlay.webp", "alt": "移动端园区招商列表", "width": 375, "height": 812 } }
+            {
+              "plate": "COMPONENTS 01",
+              "title": "园区招商列表视图",
+              "instruction": "",
+              "caption": "",
+              "src": "images/qixin/components-park-list.webp",
+              "alt": "组件库应用：园区招商列表视图",
+              "width": 1440,
+              "height": 900,
+              "framed": true,
+              "overlay": {
+                "src": "images/qixin/components-list-overlay.webp",
+                "alt": "移动端园区招商列表",
+                "width": 375,
+                "height": 812
+              }
+            }
           ]
         },
         {
           "kind": "figures",
           "figures": [
-            { "plate": "COMPONENTS 02", "title": "园区地图详情局部", "instruction": "", "caption": "", "src": "images/qixin/components-map-detail.webp", "alt": "园区详情中的产业结构、指标和地图局部放大", "width": 1440, "height": 900, "framed": true },
-            { "plate": "COMPONENTS 03", "title": "关系目标选择局部", "instruction": "", "caption": "", "src": "images/qixin/components-panel-detail.webp", "alt": "关系目标搜索、企业与人员选择的局部放大", "width": 396, "height": 808, "framed": true }
+            {
+              "plate": "COMPONENTS 02",
+              "title": "园区地图详情局部",
+              "instruction": "",
+              "caption": "",
+              "src": "images/qixin/components-map-detail.webp",
+              "alt": "园区详情中的产业结构、指标和地图局部放大",
+              "width": 1440,
+              "height": 900,
+              "framed": true
+            },
+            {
+              "plate": "COMPONENTS 03",
+              "title": "关系目标选择局部",
+              "instruction": "",
+              "caption": "",
+              "src": "images/qixin/components-panel-detail.webp",
+              "alt": "关系目标搜索、企业与人员选择的局部放大",
+              "width": 396,
+              "height": 808,
+              "framed": true
+            }
+          ]
+        },
+        {
+          "kind": "figures",
+          "figures": [
+            {
+              "plate": "CHART 1",
+              "title": "圆头分段环",
+              "instruction": "",
+              "caption": "",
+              "src": "images/qixin/components-chart-0.webp",
+              "alt": "圆头分段环",
+              "width": 317,
+              "height": 384
+            },
+            {
+              "plate": "CHART 4",
+              "title": "企业动态热力图",
+              "instruction": "",
+              "caption": "",
+              "src": "images/qixin/components-chart-3.webp",
+              "alt": "企业动态热力图",
+              "width": 660,
+              "height": 352
+            },
+            {
+              "plate": "CHART 7",
+              "title": "分段进度与面积折线",
+              "instruction": "",
+              "caption": "",
+              "src": "images/qixin/components-chart-6.webp",
+              "alt": "分段进度与面积折线",
+              "width": 640,
+              "height": 320
+            },
+            {
+              "plate": "CHART 2",
+              "title": "外部标注环",
+              "instruction": "",
+              "caption": "",
+              "src": "images/qixin/components-chart-1.webp",
+              "alt": "外部标注环",
+              "width": 579,
+              "height": 424
+            },
+            {
+              "plate": "CHART 5",
+              "title": "企业动态报告",
+              "instruction": "",
+              "caption": "",
+              "src": "images/qixin/components-chart-4.webp",
+              "alt": "企业动态报告",
+              "width": 660,
+              "height": 385
+            },
+            {
+              "plate": "CHART 8",
+              "title": "企业监控",
+              "instruction": "",
+              "caption": "",
+              "src": "images/qixin/components-chart-7.webp",
+              "alt": "企业监控",
+              "width": 344,
+              "height": 310
+            },
+            {
+              "plate": "CHART 3",
+              "title": "分段进度条",
+              "instruction": "",
+              "caption": "",
+              "src": "images/qixin/components-chart-2.webp",
+              "alt": "分段进度条",
+              "width": 601,
+              "height": 136
+            },
+            {
+              "plate": "CHART 6",
+              "title": "蓝绿分段柱",
+              "instruction": "",
+              "caption": "",
+              "src": "images/qixin/components-chart-5.webp",
+              "alt": "蓝绿分段柱",
+              "width": 532,
+              "height": 376
+            },
+            {
+              "plate": "CHART 9",
+              "title": "彩色与中性灰双横条",
+              "instruction": "",
+              "caption": "",
+              "src": "images/qixin/components-chart-8.webp",
+              "alt": "彩色与中性灰双横条",
+              "width": 511,
+              "height": 364
+            }
           ]
         },
         {

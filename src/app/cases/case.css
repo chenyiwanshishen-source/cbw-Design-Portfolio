@@ -802,3 +802,12 @@ button.generator-notes { display: block; width: calc(100% - 8px); height: 140px;
 
 .case-figure-framed:has(img[src$="components-park-list.webp"]) > .case-figure-media { position: relative; }
 .case-figure-framed .case-figure-overlay { position: absolute; left: var(--space-4); bottom: calc(-1 * var(--space-8)); width: 26%; height: auto; border-radius: var(--space-4); outline: none; box-shadow: var(--shadow-float); }
+
+.case-pair:has(img[src*="components-chart-"]) { display: block; columns: 3; column-gap: var(--space-4); padding: var(--space-8); background: var(--color-case-plate); border-radius: var(--space-6); }
+.case-pair:has(img[src*="components-chart-"]) > figure { break-inside: avoid; margin: 0 0 var(--space-4); }
+.case-pair:has(img[src*="components-chart-"]) img { border-radius: var(--space-3); }
+.case-pair:has(img[src*="components-chart-"]) figcaption:empty { display: none; }
+@media (max-width: 639px) { .case-pair:has(img[src*="components-chart-"]) { columns: 1; padding: var(--space-5); } }
+.case-pair:has(img[src*="components-chart-"]) .case-figure-media { overflow: hidden; border-radius: var(--space-3); }
+.case-pair:has(img[src*="components-chart-"]) .case-figure-media:has(img[src$="components-chart-6.webp"]) { aspect-ratio: 2; }
+.case-pair:has(img[src*="components-chart-"]) img[src$="components-chart-6.webp"] { height: 100% !important; object-fit: cover; object-position: top; }
