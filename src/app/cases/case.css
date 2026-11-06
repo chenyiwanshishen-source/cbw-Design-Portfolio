@@ -812,3 +812,5 @@ button.generator-notes { display: block; width: calc(100% - 8px); height: 140px;
 .case-pair:has(img[src*="components-chart-"]) .case-figure-media:has(img[src$="components-chart-6.webp"]) { aspect-ratio: 2; }
 .case-pair:has(img[src*="components-chart-"]) img[src$="components-chart-6.webp"] { height: 100% !important; object-fit: cover; object-position: top; }
 .case-pair:has(img[src*="components-chart-"]) img { clip-path: inset(2px round var(--space-3)); }
+
+.case-figure-framed img[src$="components-park-mobile.webp"] { outline: var(--border-width) solid var(--color-drafting-line); }
