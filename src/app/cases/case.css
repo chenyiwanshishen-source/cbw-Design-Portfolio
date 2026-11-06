@@ -905,3 +905,8 @@ button.generator-notes { display: block; width: calc(100% - 8px); height: 140px;
   .qixin-component-slot-2 { gap: var(--space-3); }
   .qixin-component-slot-3 { gap: var(--space-6); }
 }
+
+.qixin-component-slots { position: relative; }
+.qixin-component-toolbar { position: absolute; left: var(--space-4); top: 50%; transform: translateY(-50%); width: 80px; height: auto; }
+@media (min-width: 768px) { .qixin-component-slots { padding-left: var(--space-24); } }
+@media (max-width: 767px) { .qixin-component-toolbar { position: static; transform: none; justify-self: center; } }
