@@ -873,3 +873,27 @@ button.generator-notes { display: block; width: calc(100% - 8px); height: 140px;
 .qixin-component-tags img { display: block; max-width: 100%; height: auto; }
 .qixin-component-tag-combos { margin-top: var(--space-2); }
 @media (max-width: 767px) { .qixin-component-controls { grid-template-columns: minmax(0, 1fr); gap: var(--space-4); } }
+
+/* Match the preceding 16:10 plate and compose a compact specimen collage. */
+@media (min-width: 768px) {
+  .qixin-component-slots {
+    aspect-ratio: 16 / 10;
+    grid-template-columns: minmax(0, .8fr) minmax(0, 1.1fr) minmax(0, 1fr);
+    grid-template-rows: minmax(0, .8fr) minmax(0, 2fr);
+    padding: var(--space-8);
+    gap: var(--space-5);
+  }
+  .qixin-component-controls { grid-column: 1 / -1; grid-row: 1; align-self: start; }
+  .qixin-component-controls .qixin-component-buttons, .qixin-component-tags { padding: var(--space-2); }
+  .qixin-component-buttons > div { gap: var(--space-2); }
+  .qixin-component-slot { padding: 0; gap: var(--space-2); min-height: 0; }
+  .qixin-component-slot-1 { grid-column: 1; grid-row: 2; align-self: start; padding-top: var(--space-5); }
+  .qixin-component-slot-1 img { width: 80%; }
+  .qixin-component-slot-1 img:nth-child(2) { width: 87%; align-self: end; }
+  .qixin-component-slot-1 img:nth-child(3) { width: 100%; }
+  .qixin-component-slot-1 img:nth-child(4) { align-self: start; }
+  .qixin-component-slot-2 { grid-column: 3; grid-row: 2; align-self: center; }
+  .qixin-component-slot-3 { grid-column: 2; grid-row: 2; display: flex; flex-direction: column; justify-content: center; gap: var(--space-4); }
+  .qixin-component-slot-3 img:first-child { width: 96%; align-self: start; }
+  .qixin-component-slot-3 img:last-child { width: 96%; align-self: end; }
+}
