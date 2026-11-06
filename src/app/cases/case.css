@@ -910,3 +910,13 @@ button.generator-notes { display: block; width: calc(100% - 8px); height: 140px;
 .qixin-component-toolbar { position: absolute; left: var(--space-4); top: 50%; transform: translateY(-50%); width: 80px; height: auto; }
 @media (min-width: 768px) { .qixin-component-slots { padding-left: var(--space-24); } }
 @media (max-width: 767px) { .qixin-component-toolbar { position: static; transform: none; justify-self: center; } }
+
+@media (min-width: 768px) {
+  .qixin-component-slots { grid-template-columns: minmax(0, .7fr) minmax(0, 1.4fr) minmax(0, 1fr); }
+  .qixin-component-slot-1 img { width: 64%; }
+  .qixin-component-slot-1 img:nth-child(2) { width: 70%; }
+  .qixin-component-slot-1 img:nth-child(3) { width: 80%; }
+  .qixin-component-slot-1 img:nth-child(4) { width: 64%; }
+  .qixin-component-slot-1 img:nth-child(n) { align-self: center; }
+  .qixin-component-slot-3 img:first-child, .qixin-component-slot-3 img:last-child { width: 100%; align-self: center; }
+}
