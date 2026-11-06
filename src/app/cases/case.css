@@ -887,3 +887,22 @@ button.generator-notes { display: block; width: calc(100% - 8px); height: 140px;
   .chart-native-grid { grid-template-columns: minmax(0, 1fr); gap: var(--space-4); }
   .chart-native-grid .chart-gallery-panel { width: calc(var(--chart-native-width) / 660 * 100%); justify-self: center; }
 }
+
+.qixin-foundations { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-5); }
+.qixin-foundations figure { margin: 0; min-width: 0; background: var(--color-case-plate); border-radius: var(--space-6); padding: var(--space-10); display: flex; align-items: center; justify-content: center; }
+.qixin-foundation-icons > div { width: 100%; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); place-items: center; gap: var(--space-10) var(--space-6); }
+.qixin-foundation-icons img { display: block; width: var(--space-6); height: var(--space-6); object-fit: contain; }
+.qixin-foundation-colors > div { width: 100%; background: var(--color-home-bg); border-radius: var(--space-4); padding: var(--space-6); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-5) var(--space-4); }
+.qixin-color-item { display: flex; gap: var(--space-3); align-items: center; color: var(--color-text); font-size: var(--text-caption); }
+.qixin-color-swatch { width: var(--space-8); height: var(--space-8); flex: none; border-radius: var(--space-2); }
+.qixin-color-item small { display: block; font-size: var(--text-micro); color: var(--color-text-meta); }
+.qixin-color-primary { background: var(--color-qixin-foundation-primary); }
+.qixin-color-ink { background: var(--color-qixin-foundation-ink); }
+.qixin-color-background { background: var(--color-qixin-foundation-background); border: 1px solid var(--color-qixin-foundation-border); }
+.qixin-color-secondary { background: var(--color-qixin-foundation-secondary); }
+.qixin-color-border { background: var(--color-qixin-foundation-border); }
+.qixin-color-success { background: var(--color-qixin-foundation-success); }
+.qixin-color-warning { background: var(--color-qixin-foundation-warning); }
+.qixin-color-danger { background: var(--color-qixin-foundation-danger); }
+@media (max-width: 1023px) { .qixin-foundations figure { padding: var(--space-6); } .qixin-foundation-colors > div { padding: var(--space-4); } }
+@media (max-width: 767px) { .qixin-foundations { grid-template-columns: minmax(0, 1fr); } }

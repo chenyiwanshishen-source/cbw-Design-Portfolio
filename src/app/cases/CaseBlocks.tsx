@@ -1,3 +1,4 @@
+import { QixinFoundations } from './components/QixinFoundations';
 import { ComponentSpecimen } from './components/ComponentSpecimen';
 import { ChartScatter } from './components/ChartScatter';
 import { QixinAnnotation } from './components/QixinAnnotation';
@@ -32,6 +33,7 @@ export function CaseBlocks({ blocks, labels, depth = 0 }: { depth?: number; bloc
   return <>{blocks.map((block, index) => {
     const key = index;
     switch (block.kind) {
+      case 'qixin-foundations': return <QixinFoundations key={key} />;
       case 'component-slots': return <ComponentSpecimen key={key} />;
       case 'workbench-panels': return <figure key={key} className="workbench-panels" aria-label="首页工作台的地区概览、企业监控与异动预警"><div className="workbench-overview-panel"><img src={`${import.meta.env.BASE_URL}images/qixin/workbench-overview.webp`} alt="地区概览：企业数量、企业类型与本年新增注销对比" width={1680} height={736} loading="lazy" /><QixinAnnotation name="overview" /></div><div className="workbench-status-panel"><img src={`${import.meta.env.BASE_URL}images/qixin/workbench-monitor.webp`} alt="企业监控数据" width={688} height={620} loading="lazy" /><img src={`${import.meta.env.BASE_URL}images/qixin/workbench-risk.webp`} alt="异动预警和风险分布" width={688} height={472} loading="lazy" /><QixinAnnotation name="monitor" /></div></figure>;
       case 'feedback-cards': return <div key={key} className="workbench-feedback-section"><div className="workbench-feedback" aria-label="用户反馈整理">{block.items.map((item, i) => <article key={item.title}><img className="workbench-feedback-avatar" src={`${import.meta.env.BASE_URL}images/qixin/avatars/feedback-${i + 1}.webp`} alt="" width={48} height={48} loading="lazy" /><div><h4>{item.title}</h4><p>{item.text}</p></div></article>)}</div><div className="workbench-feedback-rate"><div><p>反馈好评率</p><strong>90<span>%+</span></strong><p>超过九成反馈为好评</p></div><div className="workbench-feedback-rate-chart" role="img" aria-label="反馈好评超过90%，绿色竖条为比例示意"><div className="workbench-feedback-track" aria-hidden="true"><span className="workbench-feedback-fill" /></div></div></div></div>;

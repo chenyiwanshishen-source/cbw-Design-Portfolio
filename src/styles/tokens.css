@@ -245,3 +245,15 @@ body {
     --stagger: 0ms;
   }
 }
+
+/* Representative colors from the Qixin Figma palette, node 16:2. */
+:root {
+  --color-qixin-foundation-primary: #2258F4;
+  --color-qixin-foundation-ink: #1A1C24;
+  --color-qixin-foundation-background: #FAFBFF;
+  --color-qixin-foundation-secondary: #8A8D96;
+  --color-qixin-foundation-border: #CBCDD4;
+  --color-qixin-foundation-success: #0D800D;
+  --color-qixin-foundation-warning: #C8A74F;
+  --color-qixin-foundation-danger: #FF2828;
+}
