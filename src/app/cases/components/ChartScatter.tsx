@@ -10,7 +10,7 @@ export function ChartScatter({ figures }: { figures: FigureContent[] }) {
     </div>;
   };
   return <div className="chart-gallery">
-    <div className="chart-gallery-grid">{[0, 1, 7, 3, 4, 5].map(render)}</div>
+    <div className="chart-gallery-grid chart-gallery-composition"><div className="chart-gallery-column">{[0, 5, 3].map(render)}</div><div className="chart-gallery-column">{[1, 7, 4].map(render)}</div></div>
     <details className="chart-gallery-more"><summary>更多图表</summary><div className="chart-gallery-grid">{[2, 6, 8].map(render)}</div></details>
   </div>;
 }
