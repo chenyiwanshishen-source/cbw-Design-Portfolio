@@ -897,3 +897,11 @@ button.generator-notes { display: block; width: calc(100% - 8px); height: 140px;
   .qixin-component-slot-3 img:first-child { width: 96%; align-self: start; }
   .qixin-component-slot-3 img:last-child { width: 96%; align-self: end; }
 }
+
+@media (min-width: 768px) {
+  .qixin-component-slots { grid-template-rows: minmax(0, 1fr); align-items: center; }
+  .qixin-component-slot-1, .qixin-component-slot-2, .qixin-component-slot-3 { grid-row: 1; align-self: center; }
+  .qixin-component-slot-1 { padding-top: 0; gap: var(--space-5); }
+  .qixin-component-slot-2 { gap: var(--space-3); }
+  .qixin-component-slot-3 { gap: var(--space-6); }
+}
