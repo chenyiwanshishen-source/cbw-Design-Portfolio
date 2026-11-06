@@ -813,4 +813,4 @@ button.generator-notes { display: block; width: calc(100% - 8px); height: 140px;
 .report-edit-carousel[aria-label="关系触达操作展示"] { height: auto; aspect-ratio: 16 / 10; }
 .report-edit-carousel[aria-label="关系触达操作展示"] .report-edit-stage { inset: var(--space-12) var(--space-16); }
 @media (max-width: 767px) { .report-edit-carousel[aria-label="关系触达操作展示"] .report-edit-stage { inset: var(--space-6) var(--space-10) var(--space-10); } }
-.report-edit-carousel[aria-label="关系触达操作展示"] .report-edit-slide img { width: auto; height: 100%; max-width: 100%; object-fit: contain; outline: none; box-shadow: none; }
+.report-edit-carousel[aria-label="关系触达操作展示"] .report-edit-slide img { width: auto; height: 100%; max-width: 100%; object-fit: contain; outline: var(--space-1) solid var(--color-drafting-line); box-shadow: none; }
