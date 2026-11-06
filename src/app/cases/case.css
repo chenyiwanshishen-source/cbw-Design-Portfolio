@@ -799,3 +799,6 @@ button.generator-notes { display: block; width: calc(100% - 8px); height: 140px;
 
 .case-figure-framed:has(img[src$="components-map-detail.webp"]) > .case-figure-media { position: relative; padding: 0; }
 .case-figure-framed img[src$="components-map-detail.webp"] { position: absolute; top: var(--space-12); left: var(--space-12); width: 240% !important; max-width: none; height: auto !important; border-radius: var(--space-4); object-fit: initial; }
+
+.case-figure-framed:has(img[src$="components-park-list.webp"]) > .case-figure-media { position: relative; }
+.case-figure-framed .case-figure-overlay { position: absolute; left: var(--space-8); bottom: var(--space-8); width: 22%; height: auto; border-radius: var(--space-4); outline: none; box-shadow: var(--shadow-float); }
