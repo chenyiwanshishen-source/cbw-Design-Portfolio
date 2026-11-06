@@ -906,3 +906,14 @@ button.generator-notes { display: block; width: calc(100% - 8px); height: 140px;
 .qixin-color-danger { background: var(--color-qixin-foundation-danger); }
 @media (max-width: 1023px) { .qixin-foundations figure { padding: var(--space-6); } .qixin-foundation-colors > div { padding: var(--space-4); } }
 @media (max-width: 767px) { .qixin-foundations { grid-template-columns: minmax(0, 1fr); } }
+
+.qixin-foundations { align-items: stretch; }
+.qixin-foundation-icons > div { row-gap: var(--space-12); }
+.qixin-foundations .qixin-foundation-colors { flex-direction: column; gap: var(--space-5); padding: var(--space-6); }
+.qixin-foundation-colors > .qixin-naming-card { display: flex; flex-direction: column; padding: var(--space-4); gap: var(--space-4); }
+.qixin-naming-head, .qixin-naming-chain { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-3); }
+.qixin-naming-head { color: var(--color-text-meta); font-size: var(--text-micro); }
+.qixin-naming-chain > div { min-width: 0; position: relative; display: flex; flex-direction: column; gap: var(--space-2); align-items: flex-start; font-size: var(--text-micro); color: var(--color-text-secondary); overflow-wrap: anywhere; }
+.qixin-naming-chain b { position: absolute; right: calc(-1 * var(--space-2)); top: 0; color: var(--color-text-meta); font-weight: 400; }
+.qixin-naming-dot { width: var(--space-3); height: var(--space-3); border-radius: var(--space-1); }
+@media (max-width: 767px) { .qixin-foundation-icons > div { row-gap: var(--space-8); } }
