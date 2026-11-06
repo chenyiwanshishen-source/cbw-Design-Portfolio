@@ -787,3 +787,9 @@ button.generator-notes { display: block; width: calc(100% - 8px); height: 140px;
 .case-figure-framed:has(img[src$="components-park-list.png"]) > .case-figure-media { padding: var(--space-16); }
 .case-figure-framed img[src$="components-park-list.png"] { outline: var(--space-1) solid var(--color-drafting-line); }
 @media (max-width: 639px) { .case-figure-framed:has(img[src$="components-park-list.png"]) > .case-figure-media { padding: var(--space-6); } }
+
+.case-figure-framed:has(img[src$="components-map-detail.png"]) > .case-figure-media,
+.case-figure-framed:has(img[src$="components-panel-detail.png"]) > .case-figure-media { aspect-ratio: 4 / 5; padding: var(--space-8); overflow: hidden; }
+.case-figure-framed img[src$="components-map-detail.png"],
+.case-figure-framed img[src$="components-panel-detail.png"] { height: 100% !important; object-fit: cover; object-position: left top; outline: var(--space-1) solid var(--color-drafting-line); }
+.case-figure-framed img[src$="components-map-detail.png"] { object-position: 28% top; }

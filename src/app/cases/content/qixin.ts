@@ -306,6 +306,13 @@ export const qixin: CaseContent = {
           ]
         },
         {
+          "kind": "figures",
+          "figures": [
+            { "plate": "COMPONENTS 02", "title": "园区地图详情局部", "instruction": "", "caption": "", "src": "images/qixin/components-map-detail.png", "alt": "园区详情中的产业结构、指标和地图局部放大", "width": 1440, "height": 900, "framed": true },
+            { "plate": "COMPONENTS 03", "title": "关系目标选择局部", "instruction": "", "caption": "", "src": "images/qixin/components-panel-detail.png", "alt": "关系目标搜索、企业与人员选择的局部放大", "width": 396, "height": 808, "framed": true }
+          ]
+        },
+        {
           "kind": "layers",
           "items": [
             {
