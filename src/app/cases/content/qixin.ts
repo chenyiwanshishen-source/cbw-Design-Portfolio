@@ -60,7 +60,7 @@ export const qixin: CaseContent = {
     },
     {
       "id": "qixin-05",
-      "label": "设计系统"
+      "label": "组件库"
     },
     {
       "id": "qixin-06",
@@ -292,7 +292,7 @@ export const qixin: CaseContent = {
     },
     {
       "id": "qixin-05",
-      "label": "设计系统",
+      "label": "组件库",
       "title": "组件库",
       "blocks": [
         {
