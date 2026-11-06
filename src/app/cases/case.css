@@ -784,15 +784,15 @@ button.generator-notes { display: block; width: calc(100% - 8px); height: 140px;
 @media (max-width: 639px) { .workbench-feedback-rate { padding: var(--space-6); } }
 
 /* 组件库页面样张：在浅色底板内留出展示空间。 */
-.case-figure-framed:has(img[src$="components-park-list.png"]) > .case-figure-media { padding: var(--space-16); }
-.case-figure-framed img[src$="components-park-list.png"] { outline: var(--space-1) solid var(--color-drafting-line); }
-@media (max-width: 639px) { .case-figure-framed:has(img[src$="components-park-list.png"]) > .case-figure-media { padding: var(--space-6); } }
+.case-figure-framed:has(img[src$="components-park-list.webp"]) > .case-figure-media { padding: var(--space-16); }
+.case-figure-framed img[src$="components-park-list.webp"] { outline: var(--space-1) solid var(--color-drafting-line); }
+@media (max-width: 639px) { .case-figure-framed:has(img[src$="components-park-list.webp"]) > .case-figure-media { padding: var(--space-6); } }
 
-.case-figure-framed:has(img[src$="components-map-detail.png"]) > .case-figure-media,
-.case-figure-framed:has(img[src$="components-panel-detail.png"]) > .case-figure-media { aspect-ratio: 4 / 5; padding: var(--space-12) 0 0 var(--space-12); overflow: hidden; }
-.case-figure-framed img[src$="components-map-detail.png"],
-.case-figure-framed img[src$="components-panel-detail.png"] { height: 100% !important; object-fit: cover; object-position: left top; outline: none; border-radius: var(--space-4); }
-.case-figure-framed img[src$="components-map-detail.png"] { object-position: 28% top; }
+.case-figure-framed:has(img[src$="components-map-detail.webp"]) > .case-figure-media,
+.case-figure-framed:has(img[src$="components-panel-detail.webp"]) > .case-figure-media { aspect-ratio: 4 / 5; padding: var(--space-12) 0 0 var(--space-12); overflow: hidden; }
+.case-figure-framed img[src$="components-map-detail.webp"],
+.case-figure-framed img[src$="components-panel-detail.webp"] { height: 100% !important; object-fit: cover; object-position: left top; outline: none; border-radius: var(--space-4); }
+.case-figure-framed img[src$="components-map-detail.webp"] { object-position: 28% top; }
 
-.case-figure-framed:has(img[src$="components-panel-detail.png"]) > .case-figure-media { display: flex; align-items: center; justify-content: center; padding: var(--space-8); }
-.case-figure-framed img[src$="components-panel-detail.png"] { width: auto !important; max-width: 100%; height: 100% !important; object-fit: contain; }
+.case-figure-framed:has(img[src$="components-panel-detail.webp"]) > .case-figure-media { display: flex; align-items: center; justify-content: center; padding: var(--space-8); }
+.case-figure-framed img[src$="components-panel-detail.webp"] { width: auto !important; max-width: 100%; height: 100% !important; object-fit: contain; }
