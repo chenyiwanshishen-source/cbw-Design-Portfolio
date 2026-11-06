@@ -1,47 +1,78 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="565" height="185" viewBox="60 150 565 185" fill="none" role="img" aria-label="企业动态折线图">
-<g clip-path="url(#chart4-clip0_1118_42077)">
+<svg xmlns="http://www.w3.org/2000/svg" width="660" height="385" viewBox="0 0 660 385" fill="none" role="img" aria-label="chart-vector-4">
+<path d="M0 16C0 7.16345 7.16344 0 16 0H644C652.837 0 660 7.16344 660 16V369C660 377.837 652.837 385 644 385H16C7.16343 385 0 377.837 0 369V16Z" fill="white" />
+<g clip-path="url(#chart-vector-4-clip0_1118_42077)">
+<text fill="#1A1C24" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="16" letter-spacing="0px"><tspan x="24" y="43.76">企业动态报告</tspan></text>
 <rect x="532" y="24" width="104" height="28" rx="8" fill="white" />
-<g clip-path="url(#chart4-clip1_1118_42077)">
+<text fill="#1A1C24" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="14" letter-spacing="0px"><tspan x="544" y="43.04">全部时间</tspan></text>
+<g clip-path="url(#chart-vector-4-clip1_1118_42077)">
 <path d="M612 36H620L616 41L612 36Z" fill="#4E525E" />
 </g>
 </g>
+<text fill="#696D7A" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="12" letter-spacing="0px"><tspan x="24" y="79.32">报告采纳率</tspan></text>
+<text fill="#1A1C24" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="16" letter-spacing="0px"><tspan x="24" y="105.76">72.4%</tspan></text>
 <rect x="66" y="159" width="552" height="1" fill="#E6E7EB" />
+<text fill="#696D7A" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="12" letter-spacing="0px"><tspan x="24" y="163.32">100</tspan></text>
 <rect x="66" y="201.5" width="552" height="1" fill="#E6E7EB" />
+<text fill="#696D7A" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="12" letter-spacing="0px"><tspan x="24" y="205.82">75</tspan></text>
 <rect x="66" y="244" width="552" height="1" fill="#E6E7EB" />
+<text fill="#696D7A" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="12" letter-spacing="0px"><tspan x="24" y="248.32">50</tspan></text>
 <rect x="66" y="286.5" width="552" height="1" fill="#E6E7EB" />
+<text fill="#696D7A" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="12" letter-spacing="0px"><tspan x="24" y="290.82">25</tspan></text>
 <rect x="66" y="329" width="552" height="1" fill="#E6E7EB" />
+<text fill="#696D7A" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="12" letter-spacing="0px"><tspan x="24" y="333.32">0</tspan></text>
 <rect x="66" y="159" width="1" height="170" fill="#E6E7EB" />
+<text fill="#696D7A" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="12" letter-spacing="0px"><tspan x="58" y="355.32">1月</tspan></text>
 <rect x="116.182" y="159" width="1" height="170" fill="#E6E7EB" />
+<text fill="#696D7A" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="12" letter-spacing="0px"><tspan x="108.182" y="355.32">2月</tspan></text>
 <rect x="166.363" y="159" width="1" height="170" fill="#E6E7EB" />
+<text fill="#696D7A" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="12" letter-spacing="0px"><tspan x="158.363" y="355.32">3月</tspan></text>
 <rect x="216.545" y="159" width="1" height="170" fill="#E6E7EB" />
+<text fill="#696D7A" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="12" letter-spacing="0px"><tspan x="208.545" y="355.32">4月</tspan></text>
 <rect x="266.727" y="159" width="1" height="170" fill="#E6E7EB" />
+<text fill="#696D7A" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="12" letter-spacing="0px"><tspan x="258.727" y="355.32">5月</tspan></text>
 <rect x="316.908" y="159" width="1" height="170" fill="#E6E7EB" />
+<text fill="#696D7A" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="12" letter-spacing="0px"><tspan x="308.908" y="355.32">6月</tspan></text>
 <rect x="367.092" y="159" width="1" height="170" fill="#E6E7EB" />
+<text fill="#696D7A" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="12" letter-spacing="0px"><tspan x="359.092" y="355.32">7月</tspan></text>
 <rect x="417.273" y="159" width="1" height="170" fill="#E6E7EB" />
+<text fill="#696D7A" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="12" letter-spacing="0px"><tspan x="409.273" y="355.32">8月</tspan></text>
 <rect x="467.455" y="159" width="1" height="170" fill="#E6E7EB" />
+<text fill="#696D7A" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="12" letter-spacing="0px"><tspan x="459.455" y="355.32">9月</tspan></text>
 <rect x="517.637" y="159" width="1" height="170" fill="#E6E7EB" />
+<text fill="#696D7A" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="12" letter-spacing="0px"><tspan x="509.637" y="355.32">10月</tspan></text>
 <rect x="567.818" y="159" width="1" height="170" fill="#E6E7EB" />
+<text fill="#696D7A" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="12" letter-spacing="0px"><tspan x="559.818" y="355.32">11月</tspan></text>
 <rect x="618" y="159" width="1" height="170" fill="#E6E7EB" />
-<path d="M66 285.727L116.182 233.182L166.364 295L216.545 203.818L266.727 225.454L316.909 162.091L367.091 217.727L417.273 251.727L467.455 223.909L517.636 197.636L567.818 285.727L618 216.182V329H66V285.727Z" fill="url(#chart4-paint0_linear_1118_42077)" fill-opacity="0.48" />
-<g clip-path="url(#chart4-clip2_1118_42077)">
+<text fill="#696D7A" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="12" letter-spacing="0px"><tspan x="610" y="355.32">12月</tspan></text>
+<path d="M66 285.727L116.182 233.182L166.364 295L216.545 203.818L266.727 225.454L316.909 162.091L367.091 217.727L417.273 251.727L467.455 223.909L517.636 197.636L567.818 285.727L618 216.182V329H66V285.727Z" fill="url(#chart-vector-4-paint0_linear_1118_42077)" fill-opacity="0.48" />
+<g clip-path="url(#chart-vector-4-clip2_1118_42077)">
 <path d="M66 285.727L116.182 233.182L166.364 295L216.545 203.818L266.727 225.454L316.909 162.091L367.091 217.727L417.273 251.727L467.455 223.909L517.636 197.636L567.818 285.727L618 216.182" stroke="#64BC64" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
 </g>
-<g clip-path="url(#chart4-clip3_1118_42077)">
-<path d="M66 313.546L116.182 290.364L166.364 316.636L216.545 274.909L266.727 284.182L316.909 257.909L367.091 282.636L417.273 296.546L467.455 282.636L517.636 264.091L567.818 313.546L618 281.091V329H66V313.546Z" fill="url(#chart4-paint1_linear_1118_42077)" fill-opacity="0.48" />
+<g clip-path="url(#chart-vector-4-clip3_1118_42077)">
+<path d="M66 313.546L116.182 290.364L166.364 316.636L216.545 274.909L266.727 284.182L316.909 257.909L367.091 282.636L417.273 296.546L467.455 282.636L517.636 264.091L567.818 313.546L618 281.091V329H66V313.546Z" fill="url(#chart-vector-4-paint1_linear_1118_42077)" fill-opacity="0.48" />
 </g>
-<g clip-path="url(#chart4-clip4_1118_42077)">
+<g clip-path="url(#chart-vector-4-clip4_1118_42077)">
 <path d="M66 313.546L116.182 290.364L166.364 316.636L216.545 274.909L266.727 284.182L316.909 257.909L367.091 282.636L417.273 296.546L467.455 282.636L517.636 264.091L567.818 313.546L618 281.091" stroke="#4777FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
 </g>
 <rect x="467.455" y="227" width="1" height="102" fill="#64BC64" />
 <circle cx="467.455" cy="223.909" r="4" fill="white" stroke="#64BC64" stroke-width="2" />
-<g clip-path="url(#chart4-clip5_1118_42077)">
-<rect x="520" y="74.5" width="14" height="3" rx="1.5" fill="#64BC64" />
+<g filter="url(#chart-vector-4-filter0_d_1118_42077)">
+<rect x="350" y="123" width="162" height="64" rx="8" fill="white" />
+<text fill="#696D7A" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="12" letter-spacing="0px"><tspan x="362" y="147.32">8月16日</tspan></text>
+<text fill="#1A1C24" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="14" letter-spacing="0px"><tspan x="362" y="170.04">84 份报告</tspan></text>
+<rect x="451" y="155" width="45" height="20" rx="10" fill="#E3F5E3" />
+<text fill="#0A600A" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="12" letter-spacing="0px"><tspan x="455" y="169.32">+9.4%</tspan></text>
 </g>
-<g clip-path="url(#chart4-clip6_1118_42077)">
+<g clip-path="url(#chart-vector-4-clip5_1118_42077)">
+<rect x="520" y="74.5" width="14" height="3" rx="1.5" fill="#64BC64" />
+<text fill="#696D7A" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="12" letter-spacing="0px"><tspan x="542" y="80.32">已接收</tspan></text>
+</g>
+<g clip-path="url(#chart-vector-4-clip6_1118_42077)">
 <rect x="520" y="96.5" width="14" height="3" rx="1.5" fill="#4777FF" />
+<text fill="#696D7A" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="12" letter-spacing="0px"><tspan x="542" y="102.32">已采纳</tspan></text>
 </g>
 <defs>
-<filter id="chart4-filter0_d_1118_42077" x="334" y="113" width="194" height="96" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<filter id="chart-vector-4-filter0_d_1118_42077" x="334" y="113" width="194" height="96" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
 <feFlood flood-opacity="0" result="BackgroundImageFix" />
 <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
 <feOffset dy="6" />
@@ -50,29 +81,33 @@
 <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_1118_42077" />
 <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_1118_42077" result="shape" />
 </filter>
-<linearGradient id="chart4-paint0_linear_1118_42077" x1="342" y1="162.091" x2="342" y2="329" gradientUnits="userSpaceOnUse">
+<linearGradient id="chart-vector-4-paint0_linear_1118_42077" x1="342" y1="162.091" x2="342" y2="329" gradientUnits="userSpaceOnUse">
 <stop stop-color="#64BC64" />
 <stop offset="1" stop-color="#85D685" stop-opacity="0" />
 </linearGradient>
-<linearGradient id="chart4-paint1_linear_1118_42077" x1="342" y1="257.909" x2="342" y2="329" gradientUnits="userSpaceOnUse">
+<linearGradient id="chart-vector-4-paint1_linear_1118_42077" x1="342" y1="257.909" x2="342" y2="329" gradientUnits="userSpaceOnUse">
 <stop stop-color="#4777FF" />
 <stop offset="1" stop-color="#85A3FF" stop-opacity="0" />
 </linearGradient>
-<clipPath id="chart4-clip0_1118_42077">
+<clipPath id="chart-vector-4-clip0_1118_42077">
+<rect width="612" height="28" fill="white" transform="translate(24 24)" />
 </clipPath>
-<clipPath id="chart4-clip1_1118_42077">
+<clipPath id="chart-vector-4-clip1_1118_42077">
 <rect width="16" height="16" fill="white" transform="translate(608 30)" />
 </clipPath>
-<clipPath id="chart4-clip2_1118_42077">
+<clipPath id="chart-vector-4-clip2_1118_42077">
+<rect width="552" height="170" fill="white" transform="translate(66 159)" />
 </clipPath>
-<clipPath id="chart4-clip3_1118_42077">
+<clipPath id="chart-vector-4-clip3_1118_42077">
+<rect width="552" height="170" fill="white" transform="translate(66 159)" />
 </clipPath>
-<clipPath id="chart4-clip4_1118_42077">
+<clipPath id="chart-vector-4-clip4_1118_42077">
+<rect width="552" height="170" fill="white" transform="translate(66 159)" />
 </clipPath>
-<clipPath id="chart4-clip5_1118_42077">
+<clipPath id="chart-vector-4-clip5_1118_42077">
 <rect width="58" height="16" fill="white" transform="translate(520 68)" />
 </clipPath>
-<clipPath id="chart4-clip6_1118_42077">
+<clipPath id="chart-vector-4-clip6_1118_42077">
 <rect width="58" height="16" fill="white" transform="translate(520 90)" />
 </clipPath>
 </defs>

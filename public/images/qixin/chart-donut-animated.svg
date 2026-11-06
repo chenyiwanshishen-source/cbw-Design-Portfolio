@@ -1,34 +1,39 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="255" height="255" viewBox="175 125 255 255" fill="none" role="img" aria-label="产业分布：人工智能40%，生物医药25%，集成电路20%，其他产业15%">
-<g>
-<g>
-<path d="M304.904 149.041C326.363 149.64 347.11 156.865 364.299 169.724C381.488 182.583 394.277 200.446 400.91 220.862C407.544 241.278 407.697 263.247 401.349 283.754C395.002 304.26 382.463 322.3 365.456 335.398" stroke="url(#donut-paint0_linear_1118_42160)" stroke-width="36" stroke-linejoin="round" data-donut-segment="true" pathLength="1" />
-<path d="M360.756 338.812C338.827 353.827 311.981 359.877 285.73 355.72C259.48 351.562 235.818 337.512 219.602 316.455" stroke="url(#donut-paint1_linear_1118_42160)" stroke-width="36" stroke-linejoin="round" data-donut-segment="true" pathLength="1" />
-<path d="M216.188 311.757C204.34 294.453 198 273.972 198 253C198 232.029 204.34 211.547 216.188 194.244" stroke="url(#donut-paint2_linear_1118_42160)" stroke-width="36" stroke-linejoin="round" data-donut-segment="true" pathLength="1" />
-<path d="M219.602 189.545C229.017 177.319 241.035 167.341 254.785 160.335C268.534 153.33 283.67 149.471 299.096 149.041" stroke="url(#donut-paint3_linear_1118_42160)" stroke-width="36" stroke-linejoin="round" data-donut-segment="true" pathLength="1" />
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-</g>
-</g>
+<svg xmlns="http://www.w3.org/2000/svg" width="579" height="424" viewBox="0 0 579 424" fill="none" role="img" aria-label="chart-donut-animated">
+<path d="M0 16C0 7.16343 7.16344 0 16 0H563C571.837 0 579 7.16344 579 16V408C579 416.837 571.837 424 563 424H16C7.16344 424 0 416.837 0 408V16Z" fill="white" />
+<text fill="#1A1C24" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="16" letter-spacing="0px"><tspan x="24" y="40.76">外部标注环 / 参考 03</tspan></text>
+<text fill="#696D7A" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="12" letter-spacing="0px"><tspan x="24" y="74.32">粗环、浅色分组、外置标签</tspan></text>
+<path d="M304.904 149.041C326.363 149.64 347.11 156.865 364.299 169.724C381.488 182.583 394.277 200.446 400.91 220.862C407.544 241.278 407.697 263.247 401.349 283.754C395.002 304.26 382.463 322.3 365.456 335.398" stroke="url(#chart-donut-animated-paint0_linear_1118_42160)" stroke-width="36" stroke-linejoin="round" data-donut-segment="true" pathLength="1" />
+<path d="M360.756 338.812C338.827 353.827 311.981 359.877 285.73 355.72C259.48 351.562 235.818 337.512 219.602 316.455" stroke="url(#chart-donut-animated-paint1_linear_1118_42160)" stroke-width="36" stroke-linejoin="round" data-donut-segment="true" pathLength="1" />
+<path d="M216.188 311.757C204.34 294.453 198 273.972 198 253C198 232.029 204.34 211.547 216.188 194.244" stroke="url(#chart-donut-animated-paint2_linear_1118_42160)" stroke-width="36" stroke-linejoin="round" data-donut-segment="true" pathLength="1" />
+<path d="M219.602 189.545C229.017 177.319 241.035 167.341 254.785 160.335C268.534 153.33 283.67 149.471 299.096 149.041" stroke="url(#chart-donut-animated-paint3_linear_1118_42160)" stroke-width="36" stroke-linejoin="round" data-donut-segment="true" pathLength="1" />
+<text fill="#696D7A" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="16" letter-spacing="0px"><tspan x="270" y="262.76">产业分布</tspan></text>
+<rect x="24.5" y="129.5" width="116" height="29" rx="14.5" fill="white" />
+<rect x="24.5" y="129.5" width="116" height="29" rx="14.5" stroke="#E6E7EB" />
+<text fill="#1A1C24" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="14" letter-spacing="0px"><tspan x="37" y="149.04">其他产业 15%</tspan></text>
+<rect x="438.5" y="129.5" width="116" height="29" rx="14.5" fill="white" />
+<rect x="438.5" y="129.5" width="116" height="29" rx="14.5" stroke="#E6E7EB" />
+<text fill="#1A1C24" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="14" letter-spacing="0px"><tspan x="451" y="149.04">人工智能 40%</tspan></text>
+<rect x="438.5" y="346.5" width="116" height="29" rx="14.5" fill="white" />
+<rect x="438.5" y="346.5" width="116" height="29" rx="14.5" stroke="#E6E7EB" />
+<text fill="#1A1C24" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="14" letter-spacing="0px"><tspan x="451" y="366.04">生物医药 25%</tspan></text>
+<rect x="24.5" y="346.5" width="116" height="29" rx="14.5" fill="white" />
+<rect x="24.5" y="346.5" width="116" height="29" rx="14.5" stroke="#E6E7EB" />
+<text fill="#1A1C24" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="14" letter-spacing="0px"><tspan x="37" y="366.04">集成电路 20%</tspan></text>
+<path d="M155 157L187 182M417 182L448 157M155 357L187 328M417 328L448 357" stroke="#E6E7EB" stroke-linecap="round" stroke-linejoin="round" />
 <defs>
-<linearGradient id="donut-paint0_linear_1118_42160" x1="355.452" y1="149.041" x2="355.452" y2="335.398" gradientUnits="userSpaceOnUse">
+<linearGradient id="chart-donut-animated-paint0_linear_1118_42160" x1="355.452" y1="149.041" x2="355.452" y2="335.398" gradientUnits="userSpaceOnUse">
 <stop stop-color="#FF8157" />
 <stop offset="1" stop-color="#F1D891" />
 </linearGradient>
-<linearGradient id="donut-paint1_linear_1118_42160" x1="290.179" y1="316.455" x2="290.179" y2="357" gradientUnits="userSpaceOnUse">
+<linearGradient id="chart-donut-animated-paint1_linear_1118_42160" x1="290.179" y1="316.455" x2="290.179" y2="357" gradientUnits="userSpaceOnUse">
 <stop stop-color="#85D685" />
 <stop offset="1" stop-color="#85D685" />
 </linearGradient>
-<linearGradient id="donut-paint2_linear_1118_42160" x1="207.094" y1="194.244" x2="207.094" y2="311.757" gradientUnits="userSpaceOnUse">
+<linearGradient id="chart-donut-animated-paint2_linear_1118_42160" x1="207.094" y1="194.244" x2="207.094" y2="311.757" gradientUnits="userSpaceOnUse">
 <stop stop-color="#FE89A6" />
 <stop offset="1" stop-color="#FE89A6" />
 </linearGradient>
-<linearGradient id="donut-paint3_linear_1118_42160" x1="259.349" y1="149.041" x2="259.349" y2="189.545" gradientUnits="userSpaceOnUse">
+<linearGradient id="chart-donut-animated-paint3_linear_1118_42160" x1="259.349" y1="149.041" x2="259.349" y2="189.545" gradientUnits="userSpaceOnUse">
 <stop stop-color="#C891FF" />
 <stop offset="1" stop-color="#C891FF" />
 </linearGradient>

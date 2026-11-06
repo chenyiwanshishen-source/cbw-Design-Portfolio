@@ -1,28 +1,44 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="280" height="185" viewBox="50 80 280 185" fill="none" role="img" aria-label="彩色柱状图">
+<svg xmlns="http://www.w3.org/2000/svg" width="344" height="310" viewBox="0 0 344 310" fill="none" role="img" aria-label="chart-vector-7">
+<path d="M0 16C0 7.16345 7.16344 0 16 0H328C336.837 0 344 7.16344 344 16V294C344 302.837 336.837 310 328 310H16C7.16345 310 0 302.837 0 294V16Z" fill="white" />
+<text fill="#1A1C24" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="16" letter-spacing="0px"><tspan x="16" y="33.76">彩色柱状图</tspan></text>
 <rect x="54" y="258" width="270" height="1" fill="#E6E7EB" />
+<text fill="#696D7A" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="12" letter-spacing="0em"><tspan x="20" y="262.82">0</tspan></text>
 <rect opacity="0.45" x="54" y="224" width="270" height="1" fill="#E6E7EB" />
+<text fill="#696D7A" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="12" letter-spacing="0em"><tspan x="20" y="228.82">50</tspan></text>
 <rect opacity="0.45" x="54" y="190" width="270" height="1" fill="#E6E7EB" />
+<text fill="#696D7A" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="12" letter-spacing="0em"><tspan x="20" y="194.82">100</tspan></text>
 <rect opacity="0.45" x="54" y="156" width="270" height="1" fill="#E6E7EB" />
+<text fill="#696D7A" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="12" letter-spacing="0em"><tspan x="20" y="160.82">150</tspan></text>
 <rect opacity="0.45" x="54" y="122" width="270" height="1" fill="#E6E7EB" />
+<text fill="#696D7A" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="12" letter-spacing="0em"><tspan x="20" y="126.82">200</tspan></text>
 <rect opacity="0.45" x="54" y="88" width="270" height="1" fill="#E6E7EB" />
-<path d="M70 244.96C70 241.646 72.6863 238.96 76 238.96H90C93.3137 238.96 96 241.646 96 244.96V258H70V244.96Z" fill="url(#chart7-paint0_linear_1118_42352)" />
-<path d="M135 205.52C135 202.206 137.686 199.52 141 199.52H155C158.314 199.52 161 202.206 161 205.52V258H135V205.52Z" fill="url(#chart7-paint1_linear_1118_42352)" />
-<path d="M200 159.28C200 155.966 202.686 153.28 206 153.28H220C223.314 153.28 226 155.966 226 159.28V258H200V159.28Z" fill="url(#chart7-paint2_linear_1118_42352)" />
-<path d="M265 102.84C265 99.5261 267.686 96.8398 271 96.8398H285C288.314 96.8398 291 99.5261 291 102.84V258H265V102.84Z" fill="url(#chart7-paint3_linear_1118_42352)" />
+<text fill="#696D7A" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="12" letter-spacing="0em"><tspan x="20" y="92.82">250</tspan></text>
+<path d="M70 244.96C70 241.646 72.6863 238.96 76 238.96H90C93.3137 238.96 96 241.646 96 244.96V258H70V244.96Z" fill="url(#chart-vector-7-paint0_linear_1118_42352)" />
+<text fill="#1A1C24" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="12" letter-spacing="0em"><tspan x="75.5" y="228.78">28</tspan></text>
+<text fill="#696D7A" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="12" letter-spacing="0em"><tspan x="59" y="280.82">严重警告</tspan></text>
+<path d="M135 205.52C135 202.206 137.686 199.52 141 199.52H155C158.314 199.52 161 202.206 161 205.52V258H135V205.52Z" fill="url(#chart-vector-7-paint1_linear_1118_42352)" />
+<text fill="#1A1C24" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="12" letter-spacing="0em"><tspan x="140.5" y="189.34">86</tspan></text>
+<text fill="#696D7A" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="12" letter-spacing="0em"><tspan x="136" y="280.82">警告</tspan></text>
+<path d="M200 159.28C200 155.966 202.686 153.28 206 153.28H220C223.314 153.28 226 155.966 226 159.28V258H200V159.28Z" fill="url(#chart-vector-7-paint2_linear_1118_42352)" />
+<text fill="#1A1C24" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="12" letter-spacing="0em"><tspan x="202" y="143.1">154</tspan></text>
+<text fill="#696D7A" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="12" letter-spacing="0em"><tspan x="201" y="280.82">关注</tspan></text>
+<path d="M265 102.84C265 99.5261 267.686 96.8398 271 96.8398H285C288.314 96.8398 291 99.5261 291 102.84V258H265V102.84Z" fill="url(#chart-vector-7-paint3_linear_1118_42352)" />
+<text fill="#1A1C24" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="12" letter-spacing="0em"><tspan x="267" y="86.6598">237</tspan></text>
+<text fill="#696D7A" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="12" letter-spacing="0em"><tspan x="266" y="280.82">提示</tspan></text>
 <defs>
-<linearGradient id="chart7-paint0_linear_1118_42352" x1="83" y1="238.96" x2="83" y2="258" gradientUnits="userSpaceOnUse">
+<linearGradient id="chart-vector-7-paint0_linear_1118_42352" x1="83" y1="238.96" x2="83" y2="258" gradientUnits="userSpaceOnUse">
 <stop stop-color="#FF7070" />
 <stop offset="1" stop-color="#FFB8B8" />
 </linearGradient>
-<linearGradient id="chart7-paint1_linear_1118_42352" x1="148" y1="199.52" x2="148" y2="258" gradientUnits="userSpaceOnUse">
+<linearGradient id="chart-vector-7-paint1_linear_1118_42352" x1="148" y1="199.52" x2="148" y2="258" gradientUnits="userSpaceOnUse">
 <stop stop-color="#FF8157" />
 <stop offset="1" stop-color="#FFAF94" />
 </linearGradient>
-<linearGradient id="chart7-paint2_linear_1118_42352" x1="213" y1="153.28" x2="213" y2="258" gradientUnits="userSpaceOnUse">
+<linearGradient id="chart-vector-7-paint2_linear_1118_42352" x1="213" y1="153.28" x2="213" y2="258" gradientUnits="userSpaceOnUse">
 <stop stop-color="#B973FF" />
 <stop offset="1" stop-color="#D7B0FF" />
 </linearGradient>
-<linearGradient id="chart7-paint3_linear_1118_42352" x1="278" y1="96.8398" x2="278" y2="258" gradientUnits="userSpaceOnUse">
+<linearGradient id="chart-vector-7-paint3_linear_1118_42352" x1="278" y1="96.8398" x2="278" y2="258" gradientUnits="userSpaceOnUse">
 <stop stop-color="#618AFF" />
 <stop offset="1" stop-color="#A8BEFF" />
 </linearGradient>

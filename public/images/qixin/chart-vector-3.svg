@@ -1,4 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="620" height="204" viewBox="20 90 620 204" fill="none" role="img" aria-label="企业动态热力图">
+<svg xmlns="http://www.w3.org/2000/svg" width="660" height="352" viewBox="0 0 660 352" fill="none" role="img" aria-label="chart-vector-3">
+<path d="M0 16C0 7.16345 7.16344 0 16 0H644C652.837 0 660 7.16344 660 16V336C660 344.837 652.837 352 644 352H16C7.16343 352 0 344.837 0 336V16Z" fill="white" />
+<text fill="#1A1C24" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="16" letter-spacing="0px"><tspan x="24" y="40.76">企业动态 / 周度热力晶格</tspan></text>
+<text fill="#696D7A" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="12" letter-spacing="0px"><tspan x="24" y="74.32">横向为周、纵向为星期 · 颜色越深，动态数量越多</tspan></text>
 <path d="M24 98C24 95.7909 25.7909 94 28 94H40.7083C42.9175 94 44.7083 95.7909 44.7083 98V110C44.7083 112.209 42.9175 114 40.7083 114H28C25.7909 114 24 112.209 24 110V98Z" fill="#F6F9FF" />
 <path d="M49.709 98C49.709 95.7909 51.4998 94 53.709 94H66.4173C68.6265 94 70.4173 95.7909 70.4173 98V110C70.4173 112.209 68.6265 114 66.4173 114H53.709C51.4998 114 49.709 112.209 49.709 110V98Z" fill="#A8BEFF" />
 <path d="M75.416 98C75.416 95.7909 77.2069 94 79.416 94H92.1243C94.3335 94 96.1243 95.7909 96.1243 98V110C96.1243 112.209 94.3335 114 92.1243 114H79.416C77.2069 114 75.416 112.209 75.416 110V98Z" fill="#2258F4" />
@@ -167,15 +170,18 @@
 <path d="M563.875 248C563.875 245.791 565.666 244 567.875 244H580.583C582.792 244 584.583 245.791 584.583 248V260C584.583 262.209 582.792 264 580.583 264H567.875C565.666 264 563.875 262.209 563.875 260V248Z" fill="#DCE5FF" />
 <path d="M589.584 248C589.584 245.791 591.375 244 593.584 244H606.292C608.501 244 610.292 245.791 610.292 248V260C610.292 262.209 608.501 264 606.292 264H593.584C591.375 264 589.584 262.209 589.584 260V248Z" fill="#2258F4" />
 <path d="M615.291 248C615.291 245.791 617.082 244 619.291 244H631.999C634.208 244 635.999 245.791 635.999 248V260C635.999 262.209 634.208 264 631.999 264H619.291C617.082 264 615.291 262.209 615.291 260V248Z" fill="#A8BEFF" />
-<g clip-path="url(#chart3-clip0_1068_753)">
+<g clip-path="url(#chart-vector-3-clip0_1068_753)">
+<text fill="#696D7A" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="12" letter-spacing="0px"><tspan x="24" y="292.32">少</tspan></text>
 <path d="M44 284C44 281.791 45.7909 280 48 280H56C58.2091 280 60 281.791 60 284V292C60 294.209 58.2091 296 56 296H48C45.7909 296 44 294.209 44 292V284Z" fill="#F6F9FF" />
 <path d="M68 284C68 281.791 69.7909 280 72 280H80C82.2091 280 84 281.791 84 284V292C84 294.209 82.2091 296 80 296H72C69.7909 296 68 294.209 68 292V284Z" fill="#DCE5FF" />
 <path d="M92 284C92 281.791 93.7909 280 96 280H104C106.209 280 108 281.791 108 284V292C108 294.209 106.209 296 104 296H96C93.7909 296 92 294.209 92 292V284Z" fill="#A8BEFF" />
 <path d="M116 284C116 281.791 117.791 280 120 280H128C130.209 280 132 281.791 132 284V292C132 294.209 130.209 296 128 296H120C117.791 296 116 294.209 116 292V284Z" fill="#618AFF" />
 <path d="M140 284C140 281.791 141.791 280 144 280H152C154.209 280 156 281.791 156 284V292C156 294.209 154.209 296 152 296H144C141.791 296 140 294.209 140 292V284Z" fill="#2258F4" />
+<text fill="#696D7A" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="12" letter-spacing="0px"><tspan x="164" y="292.32">多</tspan></text>
 </g>
+<text fill="#696D7A" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="12" letter-spacing="0px"><tspan x="24" y="324.32">按实际日期排列，空白日期保留无数据状态。</tspan></text>
 <defs>
-<clipPath id="chart3-clip0_1068_753">
+<clipPath id="chart-vector-3-clip0_1068_753">
 <rect width="152" height="16" fill="white" transform="translate(24 280)" />
 </clipPath>
 </defs>

@@ -1,30 +1,27 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="508" height="210" viewBox="12 125 508 210" fill="none" role="img" aria-label="蓝绿分段柱：每日平均使用时长，2小时32分钟">
-<g data-bar-group="true">
+<svg xmlns="http://www.w3.org/2000/svg" width="532" height="376" viewBox="0 0 532 376" fill="none" data-bar-group="true" role="img" aria-label="chart-bars-animated">
+<path d="M0 16C0 7.16344 7.16344 0 16 0H516C524.837 0 532 7.16344 532 16V360C532 368.837 524.837 376 516 376H16C7.16345 376 0 368.837 0 360V16Z" fill="white" />
+<text fill="#1A1C24" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="16" letter-spacing="0px"><tspan x="24" y="40.76">03 / 蓝绿分段柱</tspan></text>
+<text fill="#1A1C24" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="24" letter-spacing="0px"><tspan x="24" y="86.64">2 小时 32 分钟</tspan></text>
+<text fill="#696D7A" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="12" letter-spacing="0px"><tspan x="24" y="113.32">每日平均使用时长</tspan></text>
 <rect x="24" y="170" width="28" height="44" rx="5" fill="#64BC64" />
 <rect x="24" y="223" width="28" height="104" rx="5" fill="#618AFF" />
-</g>
-<g data-bar-group="true">
+<text fill="#696D7A" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="12" letter-spacing="0px"><tspan x="24" y="348.32">周一</tspan></text>
 <rect x="100" y="217" width="28" height="29" rx="5" fill="#64BC64" />
 <rect x="100" y="255" width="28" height="72" rx="5" fill="#618AFF" />
-</g>
-<g data-bar-group="true">
+<text fill="#696D7A" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="12" letter-spacing="0px"><tspan x="100" y="348.32">周二</tspan></text>
 <rect x="176" y="139" width="28" height="33" rx="5" fill="#64BC64" />
 <rect x="176" y="181" width="28" height="146" rx="5" fill="#618AFF" />
-</g>
-<g data-bar-group="true">
+<text fill="#696D7A" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="12" letter-spacing="0px"><tspan x="176" y="348.32">周三</tspan></text>
 <rect x="252" y="191" width="28" height="31" rx="5" fill="#64BC64" />
 <rect x="252" y="231" width="28" height="96" rx="5" fill="#618AFF" />
-</g>
-<g data-bar-group="true">
+<text fill="#696D7A" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="12" letter-spacing="0px"><tspan x="252" y="348.32">周四</tspan></text>
 <rect x="328" y="211" width="28" height="31" rx="5" fill="#64BC64" />
 <rect x="328" y="251" width="28" height="76" rx="5" fill="#618AFF" />
-</g>
-<g data-bar-group="true">
+<text fill="#696D7A" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="12" letter-spacing="0px"><tspan x="328" y="348.32">周五</tspan></text>
 <rect x="404" y="138" width="28" height="47" rx="5" fill="#64BC64" />
 <rect x="404" y="194" width="28" height="133" rx="5" fill="#618AFF" />
-</g>
-<g data-bar-group="true">
+<text fill="#696D7A" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="12" letter-spacing="0px"><tspan x="404" y="348.32">周六</tspan></text>
 <rect x="480" y="224" width="28" height="29" rx="5" fill="#64BC64" />
 <rect x="480" y="262" width="28" height="65" rx="5" fill="#618AFF" />
-</g>
+<text fill="#696D7A" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="12" letter-spacing="0px"><tspan x="480" y="348.32">周日</tspan></text>
 </svg>

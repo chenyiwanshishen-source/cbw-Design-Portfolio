@@ -1,19 +1,36 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="580" height="140" viewBox="42 130 580 140" fill="none" role="img" aria-label="面积折线图">
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="388" viewBox="0 0 640 388" fill="none" role="img" aria-label="chart-vector-6">
+<path d="M0 16C0 7.16345 7.16344 0 16 0H624C632.837 0 640 7.16344 640 16V304C640 312.837 632.837 320 624 320H16C7.16343 320 0 312.837 0 304V16Z" fill="white" />
+<text fill="#1A1C24" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="16" letter-spacing="0px"><tspan x="24" y="40.76">轻面积折线</tspan></text>
+<text fill="#696D7A" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="12" letter-spacing="0px"><tspan x="24" y="74.32">今日累计时间</tspan></text>
+<text fill="#9132F0" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="14" letter-spacing="0px"><tspan x="24" y="99.04">11 小时 20 分钟</tspan></text>
+<rect x="482" y="70" width="106" height="24" rx="12" fill="#E3F5E3" />
+<text fill="#0A600A" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="12" letter-spacing="0px"><tspan x="494" y="86.32">↑ 12% 较昨日</tspan></text>
 <rect x="50" y="140" width="566" height="1" fill="#E6E7EB" />
+<text fill="#696D7A" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="12" letter-spacing="0px"><tspan x="24" y="144.32">12h</tspan></text>
 <rect x="50" y="177" width="566" height="1" fill="#E6E7EB" />
+<text fill="#696D7A" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="12" letter-spacing="0px"><tspan x="24" y="181.32">9h</tspan></text>
 <rect x="50" y="214" width="566" height="1" fill="#E6E7EB" />
+<text fill="#696D7A" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="12" letter-spacing="0px"><tspan x="24" y="218.32">6h</tspan></text>
 <rect x="50" y="251" width="566" height="1" fill="#E6E7EB" />
-<path d="M70 251L148 212H226L304 168H382L460 140H538V262H70V251Z" fill="url(#chart6-paint0_linear_1068_588)" />
+<text fill="#696D7A" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="12" letter-spacing="0px"><tspan x="24" y="255.32">3h</tspan></text>
+<path d="M70 251L148 212H226L304 168H382L460 140H538V262H70V251Z" fill="url(#chart-vector-6-paint0_linear_1068_588)" />
 <path d="M70 251L148 212H226L304 168H382L460 140H538" stroke="#9132F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
 <circle cx="70" cy="251" r="3.25" fill="white" stroke="#9132F0" stroke-width="1.5" />
+<text fill="#696D7A" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="12" letter-spacing="0px"><tspan x="58" y="280.32">周一</tspan></text>
 <circle cx="148" cy="212" r="3.25" fill="white" stroke="#9132F0" stroke-width="1.5" />
+<text fill="#696D7A" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="12" letter-spacing="0px"><tspan x="136" y="280.32">周二</tspan></text>
 <circle cx="226" cy="212" r="3.25" fill="white" stroke="#9132F0" stroke-width="1.5" />
+<text fill="#696D7A" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="12" letter-spacing="0px"><tspan x="214" y="280.32">周三</tspan></text>
 <circle cx="304" cy="168" r="3.25" fill="white" stroke="#9132F0" stroke-width="1.5" />
+<text fill="#696D7A" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="12" letter-spacing="0px"><tspan x="292" y="280.32">周四</tspan></text>
 <circle cx="382" cy="168" r="3.25" fill="white" stroke="#9132F0" stroke-width="1.5" />
+<text fill="#696D7A" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="12" letter-spacing="0px"><tspan x="370" y="280.32">周五</tspan></text>
 <circle cx="460" cy="140" r="4.5" fill="white" stroke="#9132F0" stroke-width="3" />
+<text fill="#9132F0" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="12" letter-spacing="0px"><tspan x="448" y="280.32">周六</tspan></text>
 <circle cx="538" cy="140" r="3.25" fill="white" stroke="#9132F0" stroke-width="1.5" />
+<text fill="#696D7A" style="white-space: pre" xml:space="preserve" font-family="PingFang SC" font-size="12" letter-spacing="0px"><tspan x="526" y="280.32">周日</tspan></text>
 <defs>
-<linearGradient id="chart6-paint0_linear_1068_588" x1="304" y1="140" x2="304" y2="262" gradientUnits="userSpaceOnUse">
+<linearGradient id="chart-vector-6-paint0_linear_1068_588" x1="304" y1="140" x2="304" y2="262" gradientUnits="userSpaceOnUse">
 <stop stop-color="#B973FF" stop-opacity="0.25" />
 <stop offset="1" stop-color="#B973FF" stop-opacity="0" />
 </linearGradient>

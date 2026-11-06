@@ -16,7 +16,7 @@ export function AnimatedVectorChart({ index }: { index: number }) {
   useGSAP(() => {
     const media = gsap.matchMedia();
     media.add('(prefers-reduced-motion: no-preference)', () => {
-      const shapes = [...root.current!.querySelectorAll<SVGGraphicsElement>('path, rect, circle')].filter(el => !el.closest('defs, clipPath'));
+      const shapes = [...root.current!.querySelectorAll<SVGGraphicsElement>('path, rect, circle')].filter(el => !el.closest('defs, clipPath') && !(el.getAttribute('fill') === 'white' && el.getBBox().width > 300));
       const tl = gsap.timeline({ scrollTrigger: { trigger: root.current, start: 'top 85%', once: true } });
       const strokes = shapes.filter(el => el.hasAttribute('stroke') && el.tagName === 'path');
       const fills = shapes.filter(el => !strokes.includes(el));

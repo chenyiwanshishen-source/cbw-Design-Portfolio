@@ -875,3 +875,8 @@ button.generator-notes { display: block; width: calc(100% - 8px); height: 140px;
 .chart-gallery-more[open] summary { margin-bottom: var(--space-4); }
 @media (max-width: 767px) { .chart-gallery-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-3); } .chart-gallery-panel { padding: var(--space-4); } }
 @media (max-width: 479px) { .chart-gallery-grid { grid-template-columns: minmax(0, 1fr); } }
+
+.chart-gallery { background: var(--color-case-plate); padding: var(--space-8); border-radius: var(--space-6); }
+.chart-gallery-panel { background: var(--color-home-bg); padding: var(--space-3); }
+.chart-gallery-panel-0 > div, .chart-gallery-panel-1 > div { width: 100%; }
+@media (max-width: 767px) { .chart-gallery { padding: var(--space-4); } }
