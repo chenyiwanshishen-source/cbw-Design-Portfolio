@@ -3,6 +3,7 @@ import type { HeaderContent } from './components/CaseHeader';
 import type { FigureContent } from './components/FigurePlaceholder';
 type Item = { label: string; text: string };
 export type CaseBlock =
+ | { kind: 'component-slots' }
  | { kind: 'heading'; text: string; prominent?: boolean }
  | { kind: 'chain-hierarchy' }
  | { kind: 'chain-outcome' }

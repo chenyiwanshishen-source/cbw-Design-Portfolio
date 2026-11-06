@@ -364,6 +364,9 @@ export const qixin: CaseContent = {
           ]
         },
         {
+          "kind": "component-slots"
+        },
+        {
           "kind": "figures",
           "figures": [
             {
