@@ -789,13 +789,13 @@ button.generator-notes { display: block; width: calc(100% - 8px); height: 140px;
 @media (max-width: 639px) { .case-figure-framed:has(img[src$="components-park-list.webp"]) > .case-figure-media { padding: var(--space-6); } }
 
 .case-figure-framed:has(img[src$="components-map-detail.webp"]) > .case-figure-media,
-.case-figure-framed:has(img[src$="components-panel-detail.webp"]) > .case-figure-media { aspect-ratio: 4 / 5; padding: var(--space-12) 0 0 var(--space-12); overflow: hidden; }
+.case-figure-framed:has(img[src$="components-park-mobile.webp"]) > .case-figure-media { aspect-ratio: 4 / 5; padding: var(--space-12) 0 0 var(--space-12); overflow: hidden; }
 .case-figure-framed img[src$="components-map-detail.webp"],
-.case-figure-framed img[src$="components-panel-detail.webp"] { height: 100% !important; object-fit: cover; object-position: left top; outline: none; border-radius: var(--space-4); }
+.case-figure-framed img[src$="components-park-mobile.webp"] { height: 100% !important; object-fit: cover; object-position: left top; outline: none; border-radius: var(--space-4); }
 .case-figure-framed img[src$="components-map-detail.webp"] { object-position: 28% top; }
 
-.case-figure-framed:has(img[src$="components-panel-detail.webp"]) > .case-figure-media { display: flex; align-items: center; justify-content: center; padding: var(--space-8); }
-.case-figure-framed img[src$="components-panel-detail.webp"] { width: auto !important; max-width: 100%; height: 100% !important; object-fit: contain; }
+.case-figure-framed:has(img[src$="components-park-mobile.webp"]) > .case-figure-media { display: flex; align-items: center; justify-content: center; padding: var(--space-8); }
+.case-figure-framed img[src$="components-park-mobile.webp"] { width: auto !important; max-width: 100%; height: 100% !important; object-fit: contain; }
 
 .case-figure-framed:has(img[src$="components-map-detail.webp"]) > .case-figure-media { position: relative; padding: 0; }
 .case-figure-framed img[src$="components-map-detail.webp"] { position: absolute; top: var(--space-12); left: var(--space-12); width: 240% !important; max-width: none; height: auto !important; border-radius: var(--space-4); object-fit: initial; }
