@@ -300,6 +300,12 @@ export const qixin: CaseContent = {
           "text": "孵化期为了尽快上线，产业大脑沿用了启信宝的设计规范和组件，但前端实现不太规范，部分地方直接写了固定数值；产品定位分开后，我和两位设计师先梳理已上线页面，再从变量开始搭建五层组件库，最后覆盖整个系统。"
         },
         {
+          "kind": "figures",
+          "figures": [
+            { "plate": "COMPONENTS 01", "title": "园区招商列表视图", "instruction": "", "caption": "", "src": "images/qixin/components-park-list.png", "alt": "组件库应用：园区招商列表视图", "width": 1440, "height": 900 }
+          ]
+        },
+        {
           "kind": "layers",
           "items": [
             {
