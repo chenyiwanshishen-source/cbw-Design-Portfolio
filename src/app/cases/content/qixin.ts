@@ -349,6 +349,21 @@ export const qixin: CaseContent = {
           ]
         },
         {
+          "kind": "report-edit-carousel",
+          "imageFolder": "qixin",
+          "label": "关系触达",
+          "slides": [
+            {
+              "file": "components-relation-1.webp",
+              "alt": "关系触达：找关系界面"
+            },
+            {
+              "file": "components-relation-2.webp",
+              "alt": "关系触达：找关系设置界面"
+            }
+          ]
+        },
+        {
           "kind": "figures",
           "figures": [
             {
