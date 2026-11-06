@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="280" height="280" viewBox="20 90 280 280" fill="none" role="img" aria-label="圆头分段环">
+<path d="M168.721 104.468C200.182 107.221 229.379 121.969 250.264 145.659C271.149 169.348 282.122 200.164 280.91 231.722" stroke="url(#chart0-paint0_linear_1118_42143)" stroke-width="18" stroke-linecap="round" />
+<path d="M278.221 252.993C273.535 274.666 263.078 294.669 247.956 310.886C232.833 327.103 213.608 338.93 192.315 345.116C171.022 351.303 148.452 351.618 126.995 346.028C105.537 340.439 85.9892 329.153 70.4199 313.365" stroke="url(#chart0-paint1_linear_1118_42143)" stroke-width="18" stroke-linecap="round" />
+<path d="M56.7541 296.845C46.1437 281.464 39.1769 263.868 36.3828 245.393" stroke="url(#chart0-paint2_linear_1118_42143)" stroke-width="18" stroke-linecap="round" />
+<path d="M35.0371 223.995C35.7761 193.756 47.6313 164.85 68.3372 142.801C89.0432 120.751 117.148 107.105 147.28 104.468" stroke="url(#chart0-paint3_linear_1118_42143)" stroke-width="18" stroke-linecap="round" />
+<g clip-path="url(#chart0-clip0_1118_42143)">
+</g>
+<defs>
+<linearGradient id="chart0-paint0_linear_1118_42143" x1="224.861" y1="104.468" x2="224.861" y2="231.722" gradientUnits="userSpaceOnUse">
+<stop stop-color="#A652FA" />
+<stop offset="1" stop-color="#C891FF" />
+</linearGradient>
+<linearGradient id="chart0-paint1_linear_1118_42143" x1="174.321" y1="252.993" x2="174.321" y2="350" gradientUnits="userSpaceOnUse">
+<stop stop-color="#FE668C" />
+<stop offset="1" stop-color="#FE89A6" />
+</linearGradient>
+<linearGradient id="chart0-paint2_linear_1118_42143" x1="46.5684" y1="245.393" x2="46.5684" y2="296.845" gradientUnits="userSpaceOnUse">
+<stop stop-color="#FF8157" />
+<stop offset="1" stop-color="#FF9875" />
+</linearGradient>
+<linearGradient id="chart0-paint3_linear_1118_42143" x1="91.1587" y1="104.468" x2="91.1587" y2="223.995" gradientUnits="userSpaceOnUse">
+<stop stop-color="#E6E7EB" />
+<stop offset="1" stop-color="#E6E7EB" />
+</linearGradient>
+<clipPath id="chart0-clip0_1118_42143">
+<rect width="109" height="80" fill="white" transform="translate(110.5 184)" />
+</clipPath>
+</defs>
+</svg>

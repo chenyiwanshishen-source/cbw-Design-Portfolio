@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="32" viewBox="20 56 560 32" fill="none" role="img" aria-label="分段进度条">
+<rect x="24" y="62" width="275" height="18" rx="4" fill="#618AFF" />
+<rect x="303" y="62" width="125" height="18" rx="4" fill="#B973FF" />
+<rect x="432" y="62" width="76" height="18" rx="4" fill="#E3C87B" />
+<rect x="512" y="62" width="65" height="18" rx="4" fill="#B7B934" />
+<g clip-path="url(#chart2-clip0_1118_42407)">
+<rect x="24" y="100" width="8" height="8" rx="4" fill="#618AFF" />
+</g>
+<g clip-path="url(#chart2-clip1_1118_42407)">
+<rect x="174" y="100" width="8" height="8" rx="4" fill="#B973FF" />
+</g>
+<g clip-path="url(#chart2-clip2_1118_42407)">
+<rect x="324" y="100" width="8" height="8" rx="4" fill="#E3C87B" />
+</g>
+<g clip-path="url(#chart2-clip3_1118_42407)">
+<rect x="474" y="100" width="8" height="8" rx="4" fill="#B7B934" />
+</g>
+<defs>
+<clipPath id="chart2-clip0_1118_42407">
+<rect width="71" height="16" fill="white" transform="translate(24 96)" />
+</clipPath>
+<clipPath id="chart2-clip1_1118_42407">
+<rect width="71" height="16" fill="white" transform="translate(174 96)" />
+</clipPath>
+<clipPath id="chart2-clip2_1118_42407">
+<rect width="71" height="16" fill="white" transform="translate(324 96)" />
+</clipPath>
+<clipPath id="chart2-clip3_1118_42407">
+<rect width="71" height="16" fill="white" transform="translate(474 96)" />
+</clipPath>
+</defs>
+</svg>

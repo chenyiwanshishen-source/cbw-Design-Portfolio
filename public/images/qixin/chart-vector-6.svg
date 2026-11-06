@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="580" height="140" viewBox="42 130 580 140" fill="none" role="img" aria-label="面积折线图">
+<rect x="50" y="140" width="566" height="1" fill="#E6E7EB" />
+<rect x="50" y="177" width="566" height="1" fill="#E6E7EB" />
+<rect x="50" y="214" width="566" height="1" fill="#E6E7EB" />
+<rect x="50" y="251" width="566" height="1" fill="#E6E7EB" />
+<path d="M70 251L148 212H226L304 168H382L460 140H538V262H70V251Z" fill="url(#chart6-paint0_linear_1068_588)" />
+<path d="M70 251L148 212H226L304 168H382L460 140H538" stroke="#9132F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+<circle cx="70" cy="251" r="3.25" fill="white" stroke="#9132F0" stroke-width="1.5" />
+<circle cx="148" cy="212" r="3.25" fill="white" stroke="#9132F0" stroke-width="1.5" />
+<circle cx="226" cy="212" r="3.25" fill="white" stroke="#9132F0" stroke-width="1.5" />
+<circle cx="304" cy="168" r="3.25" fill="white" stroke="#9132F0" stroke-width="1.5" />
+<circle cx="382" cy="168" r="3.25" fill="white" stroke="#9132F0" stroke-width="1.5" />
+<circle cx="460" cy="140" r="4.5" fill="white" stroke="#9132F0" stroke-width="3" />
+<circle cx="538" cy="140" r="3.25" fill="white" stroke="#9132F0" stroke-width="1.5" />
+<defs>
+<linearGradient id="chart6-paint0_linear_1068_588" x1="304" y1="140" x2="304" y2="262" gradientUnits="userSpaceOnUse">
+<stop stop-color="#B973FF" stop-opacity="0.25" />
+<stop offset="1" stop-color="#B973FF" stop-opacity="0" />
+</linearGradient>
+</defs>
+</svg>
