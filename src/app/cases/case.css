@@ -809,3 +809,7 @@ button.generator-notes { display: block; width: calc(100% - 8px); height: 140px;
 .chart-scatter-card { display: block; position: absolute; left: var(--card-x); top: var(--card-y); width: var(--card-width); height: auto; margin: 0; padding: 0; border: 0; border-radius: var(--space-4); clip-path: inset(2px round var(--space-4)); }
 .chart-scatter-card[src$="components-chart-6.webp"] { aspect-ratio: 2; object-fit: cover; object-position: top; }
 @media (max-width: 767px) { .chart-scatter { display: grid; grid-template-columns: 1fr; gap: var(--space-6); height: auto; padding: var(--space-6); } .chart-scatter-card { position: relative; left: auto; top: auto; width: 100%; transform: none !important; } }
+
+.report-edit-carousel[aria-label="关系触达操作展示"] { height: auto; aspect-ratio: 16 / 10; }
+.report-edit-carousel[aria-label="关系触达操作展示"] .report-edit-stage { inset: var(--space-12) var(--space-16); }
+@media (max-width: 767px) { .report-edit-carousel[aria-label="关系触达操作展示"] .report-edit-stage { inset: var(--space-6) var(--space-10) var(--space-10); } }
