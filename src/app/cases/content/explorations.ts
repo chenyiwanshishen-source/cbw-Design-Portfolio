@@ -127,17 +127,7 @@ export const explorations: { header: { title: string; intro: string }; intro: st
       "blocks": [
         {
           "kind": "paragraph",
-          "text": "这是一个用于修改页面样式的工具，开发到 v0.2.1 后暂时搁置。"
-        },
-        {
-          "kind": "subsection",
-          "title": "起因",
-          "blocks": [
-            {
-              "kind": "paragraph",
-              "text": "用 AI 生成页面后，即使只调整间距或颜色，也需要重新描述需求并等待修改。我希望这些小范围调整能直接在页面上完成。"
-            }
-          ]
+          "text": "用 AI 生成页面后，改个间距或颜色也要重新描述需求、等待修改，所以我做了这个工具，让这些小调整可以直接在页面上完成。项目开发到 v0.2.1 后暂时搁置。"
         },
         {
           "kind": "subsection",
