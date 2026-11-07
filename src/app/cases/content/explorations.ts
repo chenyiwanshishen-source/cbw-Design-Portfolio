@@ -55,10 +55,9 @@ export const explorations: { header: { title: string; intro: string }; intro: st
       "label": "设计系统",
       "title": "组件库生成规范",
       "blocks": [
-        { "kind": "heading", "text": "背景" },
         {
           "kind": "paragraph",
-          "text": "我原本想让启信产业大脑和 Qsight 共用一套组件库，于是做了一个个人实验：参考成熟设计系统的规则，尝试用 AI 从零搭建组件库，看看这条路能否走通。"
+          "text": "我想尝试用 AI 设计和维护组件库，于是把设计规则和执行流程写成 Skill，看看能否让 AI 按同一套规范生成、检查和修改组件。"
         },
         { "kind": "design-system-summary" },
         {
