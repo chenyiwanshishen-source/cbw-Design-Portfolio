@@ -1002,7 +1002,7 @@ button.generator-notes { display: block; width: calc(100% - 8px); height: 140px;
 
 /* Uniformly tilted columns with consistent gaps; each image stays independent. */
 .qsight-overview { position: relative; container-type: inline-size; margin: 0; aspect-ratio: 10 / 7; overflow: hidden; border-radius: var(--space-6); background: var(--color-case-plate); }
-.qsight-overview > img { position: absolute; display: block; height: auto; max-width: none; border-radius: var(--space-2); outline: var(--border-width) solid var(--color-border-subtle); box-shadow: var(--shadow-float); transform: rotate(-16deg); transform-origin: top left; }
+.qsight-overview > img { position: absolute; display: block; height: auto; max-width: none; border-radius: var(--space-2); outline: var(--border-width) solid color-mix(in srgb, var(--color-border-subtle) 35%, transparent); box-shadow: var(--shadow-float); transform: rotate(-16deg); transform-origin: top left; }
 .qsight-overview > img:nth-child(9),
 .qsight-overview > img:nth-child(10) { border-radius: var(--space-6); }
 
