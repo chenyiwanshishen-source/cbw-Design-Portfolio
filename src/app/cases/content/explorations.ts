@@ -238,7 +238,7 @@ export const explorations: { header: { title: string; intro: string }; intro: st
 },
   {
     "kind": "subsection",
-    "title": "组件库插画",
+    "title": "组件库",
     "blocks": [
       {
         "kind": "figures",
@@ -313,7 +313,7 @@ export const explorations: { header: { title: string; intro: string }; intro: st
   },
   {
     "kind": "subsection",
-    "title": "ye! 插件插画",
+    "title": "ye! 插件",
     "blocks": [
       {
         "kind": "figures",
@@ -388,7 +388,7 @@ export const explorations: { header: { title: string; intro: string }; intro: st
   },
 {
   "kind": "subsection",
-  "title": "空状态插画",
+  "title": "空状态",
   "blocks": [
     {
       "kind": "figures",
@@ -464,6 +464,7 @@ export const explorations: { header: { title: string; intro: string }; intro: st
 ]
         }
       ],
+      "url": "https://github.com/chenyiwanshishen-source/micro-ui-illustration",
       "status": ""
     }
   ]
