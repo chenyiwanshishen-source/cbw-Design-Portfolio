@@ -57,7 +57,19 @@ export const explorations: { header: { title: string; intro: string }; intro: st
       "blocks": [
         {
           "kind": "paragraph",
-          "text": "我通过自己开发的 [Figma 连接器](#/project/explorations/figma-connector)，让 AI 检查 Qsight 的旧设计稿，先整理颜色，再统一基础规范，最后实现前端组件。"
+          "text": "最初，我想把老版启信产业大脑和 Qsight 的组件库集中管理，让两个产品共用一套规范。后来，我把它作为个人实验，尝试用 AI 从零搭建组件库。为弄清数值该怎么定，我查阅了 IBM Carbon 的间距体系、Microsoft Fluent 的阴影规则等资料，再整理成适合自己使用的规则。"
+        },
+        {
+          "kind": "paragraph",
+          "text": "我先把从颜色探索、基础规范到组件生成的流程写成一个 Skill，为不同阶段设置角色。但实际尝试后发现，整套流程太长，消耗的上下文越来越多，AI 到后面会明显偏离前面定好的规则。只靠聊天，也很难让它一直遵守同一套要求。"
+        },
+        {
+          "kind": "paragraph",
+          "text": "于是，我把规则拆成独立文档，分别说明栅格、文字、间距、圆角、阴影和描边该怎么处理。每次只让 AI 读取当前需要的规则，先做样张、检查和调整，确认后再写入变量与样式。"
+        },
+        {
+          "kind": "paragraph",
+          "text": "这些规则也用于检查已有设计。我通过自己开发的 [Figma 连接器](#/project/explorations/figma-connector)，让 AI 读取旧设计稿，对照规则找出定义不清或使用不一致的地方，再逐项确认和修改。下面是这套方法在 Qsight 旧设计稿上的应用；无障碍测试尚未纳入这次拆分后的规则。"
         },
         {
           "kind": "subsection",
