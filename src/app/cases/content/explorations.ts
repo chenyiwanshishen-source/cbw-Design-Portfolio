@@ -68,10 +68,6 @@ export const explorations: { header: { title: string; intro: string }; intro: st
           "text": "于是，我把规则拆成独立文档，分别说明栅格、文字、间距、圆角、阴影和描边该怎么处理。每次只让 AI 读取当前需要的规则，先做样张、检查和调整，确认后再写入变量与样式。"
         },
         {
-          "kind": "paragraph",
-          "text": "这些规则也用于检查已有设计。我通过自己开发的 [Figma 连接器](#/project/explorations/figma-connector)，让 AI 读取旧设计稿，对照规则找出定义不清或使用不一致的地方，再逐项确认和修改。下面是这套方法在 Qsight 旧设计稿上的应用；无障碍测试尚未纳入这次拆分后的规则。"
-        },
-        {
           "kind": "subsection",
           "title": "先看颜色",
           "blocks": [
