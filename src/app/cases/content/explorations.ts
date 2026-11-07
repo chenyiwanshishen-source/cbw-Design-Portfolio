@@ -53,7 +53,7 @@ export const explorations: { header: { title: string; intro: string }; intro: st
     {
       "id": "explorations-02",
       "label": "设计系统",
-      "title": "整理 Qsight 的设计规范与组件",
+      "title": "组件库生成规范",
       "blocks": [
         {
           "kind": "paragraph",
