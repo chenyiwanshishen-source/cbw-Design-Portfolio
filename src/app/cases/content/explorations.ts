@@ -55,17 +55,10 @@ export const explorations: { header: { title: string; intro: string }; intro: st
       "label": "设计系统",
       "title": "组件库生成规范",
       "blocks": [
+        { "kind": "heading", "text": "背景" },
         {
           "kind": "paragraph",
-          "text": "最初，我想把老版启信产业大脑和 Qsight 的组件库集中管理，让两个产品共用一套规范。后来，我把它作为个人实验，尝试用 AI 从零搭建组件库。为弄清数值该怎么定，我查阅了 IBM Carbon 的间距体系、Microsoft Fluent 的阴影规则等资料，再整理成适合自己使用的规则。"
-        },
-        {
-          "kind": "paragraph",
-          "text": "我先把从颜色探索、基础规范到组件生成的流程写成一个 Skill，为不同阶段设置角色。但实际尝试后发现，整套流程太长，消耗的上下文越来越多，AI 到后面会明显偏离前面定好的规则。只靠聊天，也很难让它一直遵守同一套要求。"
-        },
-        {
-          "kind": "paragraph",
-          "text": "于是，我把规则拆成独立文档，分别说明栅格、文字、间距、圆角、阴影和描边该怎么处理。每次只让 AI 读取当前需要的规则，先做样张、检查和调整，确认后再写入变量与样式。"
+          "text": "我原本想让启信产业大脑和 Qsight 共用一套组件库，于是做了一个个人实验：参考成熟设计系统的规则，尝试用 AI 从零搭建组件库，看看这条路能否走通。"
         },
         { "kind": "design-system-summary" },
         {
