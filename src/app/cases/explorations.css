@@ -200,3 +200,6 @@
 .case-pair .case-figure-media:has(.illustration-artwork) { overflow: hidden; }
 
 .illustration-artwork[data-art^="figma-empty-"] > div > svg { width: 82%; height: 82%; }
+.vcc-demo-container { overflow: auto; border-radius: var(--radius-figure, 16px); }
+.vcc-demo-container iframe { min-width: 900px; }
+.vcc-demo-container > p { margin-top: var(--space-3); }

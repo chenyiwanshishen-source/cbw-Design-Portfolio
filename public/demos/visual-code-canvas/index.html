@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Visual Code Canvas</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main id="canvasViewport" class="canvas-viewport" data-testid="infinite-canvas">
+      <div id="canvasWorld" class="canvas-world"></div>
+    </main>
+
+    <div class="floating-cluster project-cluster">
+      <button id="projectButton" class="floating-button project-button" type="button" aria-expanded="false">
+        <span class="project-mark">VC</span>
+        <span>
+          <strong id="projectName">正在读取项目</strong>
+          <small id="activeRoute">/fixtures/m0/Card</small>
+        </span>
+        <span class="chevron">⌄</span>
+      </button>
+      <div class="route-history-controls" role="group" aria-label="页面浏览历史">
+        <button id="routeBackButton" type="button" title="返回上一页" aria-label="返回上一页" disabled>←</button>
+        <button id="routeForwardButton" type="button" title="前进到下一页" aria-label="前进到下一页" disabled>→</button>
+      </div>
+      <section id="projectPopover" class="popover project-popover" hidden>
+        <div class="popover-heading">
+          <span>项目与页面</span>
+          <button type="button" data-close-popover="projectPopover">×</button>
+        </div>
+        <div class="project-summary">
+          <strong id="projectPopoverName">当前项目</strong>
+          <code id="projectPath">—</code>
+          <span id="projectRuntimeStatus" class="project-runtime-status">Fixture 验证模式</span>
+        </div>
+        <div id="pageList" class="page-list"></div>
+        <label class="field-label" for="projectPathInput">导入本地文件或项目目录</label>
+        <div class="compact-input-row project-path-input-row">
+          <input id="projectPathInput" type="text" placeholder="粘贴 HTML 文件或项目目录的绝对路径" />
+          <button id="importProjectButton" class="primary-small" type="button">导入</button>
+        </div>
+        <div class="project-picker-actions" role="group" aria-label="选择本地项目来源">
+          <button id="pickProjectButton" type="button">选择项目文件夹</button>
+          <button id="pickHtmlButton" class="html-picker-button" type="button">选择 HTML 文件</button>
+        </div>
+        <p class="popover-hint">支持粘贴文件或目录路径。Next.js/Vite 项目会运行 dev 脚本；单个 HTML 或无 package.json 的静态目录以 Vanilla Web 只读方式预览。</p>
+      </section>
+    </div>
+
+    <div class="floating-cluster status-cluster" aria-live="polite">
+      <span class="status-dot" aria-hidden="true"></span>
+      <span id="connectionStatus">正在连接源码服务</span>
+      <button id="reconnectSourceButton" class="status-action" type="button" hidden>重新连接</button>
+    </div>
+
+    <aside id="layerPanel" class="layer-panel" data-testid="layer-navigator">
+      <header class="layer-panel-header">
+        <div>
+          <span class="panel-kicker">NAVIGATOR</span>
+          <h2>导航器</h2>
+        </div>
+        <button id="collapseLayerPanelButton" type="button" title="折叠导航器" aria-label="折叠导航器">−</button>
+      </header>
+      <div id="layerPanelBody" class="layer-panel-body">
+        <div class="navigator-tabs" role="tablist" aria-label="导航器内容">
+          <button id="navigatorPagesTab" type="button" role="tab" aria-selected="true" aria-controls="navigatorPagesPanel">页面</button>
+          <button id="navigatorDesignLayersTab" type="button" role="tab" aria-selected="false" aria-controls="navigatorDesignLayersPanel">设计图层</button>
+          <button id="navigatorSourceLayersTab" type="button" role="tab" aria-selected="false" aria-controls="navigatorSourceLayersPanel">源码结构</button>
+        </div>
+        <section id="navigatorPagesPanel" class="navigator-tab-panel" role="tabpanel" aria-labelledby="navigatorPagesTab">
+          <div id="navigatorPageList" class="navigator-page-list" aria-label="项目页面目录"></div>
+        </section>
+        <section id="navigatorDesignLayersPanel" class="navigator-tab-panel" role="tabpanel" aria-labelledby="navigatorDesignLayersTab" hidden>
+          <div class="layer-frame-row">
+            <span>活动视窗</span>
+            <strong id="designLayerFrameLabel">Desktop · 1440</strong>
+          </div>
+          <div id="designLayerTree" class="layer-tree" role="tree" aria-label="当前页面设计图层">
+            <div class="layer-empty-state">等待当前视窗加载设计图层…</div>
+          </div>
+        </section>
+        <section id="navigatorSourceLayersPanel" class="navigator-tab-panel" role="tabpanel" aria-labelledby="navigatorSourceLayersTab" hidden>
+          <div class="layer-frame-row">
+            <span>活动视窗</span>
+            <strong id="layerFrameLabel">Desktop · 1440</strong>
+          </div>
+          <div id="layerTree" class="layer-tree" role="tree" aria-label="当前页面源码层级">
+            <div class="layer-empty-state">等待当前视窗加载页面层级…</div>
+          </div>
+        </section>
+      </div>
+    </aside>
+
+    <aside id="inspectorPanel" class="inspector-panel" data-testid="inspector">
+      <header id="inspectorDragHandle" class="inspector-header">
+        <div>
+          <span class="panel-kicker">INSPECTOR</span>
+          <h1 id="selectionTitle">尚未选择元素</h1>
+        </div>
+        <div class="panel-actions">
+          <button id="collapseInspectorButton" type="button" title="折叠属性面板">−</button>
+        </div>
+      </header>
+
+      <div id="inspectorBody" class="inspector-body">
+        <nav id="selectionBreadcrumbs" class="breadcrumbs" aria-label="元素层级">
+          <span>单击页面中的元素开始</span>
+        </nav>
+
+        <section id="localHierarchySection" class="local-hierarchy-section" hidden>
+          <div class="section-title-row">
+            <h2>当前层级</h2>
+            <span>父级 / 子级</span>
+          </div>
+          <div id="localHierarchy" class="local-hierarchy"></div>
+        </section>
+
+        <section class="context-card">
+          <div class="context-row">
+            <span>当前视窗</span>
+            <strong id="activeFrameLabel">Desktop · 1440</strong>
+          </div>
+          <div class="context-row">
+            <span>当前元素</span>
+            <code id="sourceLocation">—</code>
+          </div>
+          <div class="context-row">
+            <span>布局方式</span>
+            <strong id="layoutMode">—</strong>
+          </div>
+        </section>
+
+        <section class="scope-section" aria-labelledby="scopeTitle">
+          <div class="section-title-row">
+            <h2 id="scopeTitle">生效范围</h2>
+            <span id="impactLabel" class="impact-badge">自动</span>
+          </div>
+          <div class="scope-grid scope-grid-single">
+            <label>
+              <span>响应式范围</span>
+              <select id="breakpointScope" data-testid="responsive-scope-control"></select>
+            </label>
+          </div>
+          <p id="scopeHint" class="scope-hint">选择元素后，这里会说明修改会影响哪些视窗。</p>
+        </section>
+
+        <div hidden aria-hidden="true">
+          <select id="codeScope"><option value="instance">instance</option></select>
+        </div>
+
+        <section class="properties-section">
+          <div class="section-title-row">
+            <h2>样式属性</h2>
+            <span id="selectionDepth" class="depth-badge">层级 0</span>
+          </div>
+          <div id="propertyList" class="property-list">
+            <div class="empty-state">
+              <strong>选择一个页面元素</strong>
+              <span>单击选择外层盒子，双击逐层下钻，Esc 返回父级。</span>
+            </div>
+          </div>
+        </section>
+
+        <section
+          id="readOnlySourceSection"
+          class="readonly-source-section"
+          data-testid="selection-readonly-sources"
+          hidden
+        >
+          <div class="section-title-row">
+            <h2 id="readOnlySourceTitle">只读来源</h2>
+            <span class="readonly-badge">不会写入代码</span>
+          </div>
+          <div id="readOnlySourceList" class="readonly-source-list" aria-live="polite"></div>
+        </section>
+
+        <section class="change-section">
+          <div class="section-title-row">
+            <h2>修改状态</h2>
+            <span id="revisionLabel">Revision 0</span>
+          </div>
+          <div class="change-card">
+            <span id="writeStatus" data-testid="write-status">等待修改</span>
+            <code id="changeDiff">暂无画布修改</code>
+          </div>
+          <details class="source-details" hidden>
+            <summary>查看当前源码</summary>
+            <pre id="sourceCode" data-testid="source-code">正在读取源码…</pre>
+          </details>
+        </section>
+
+        <button id="openHandoffButton" type="button" hidden aria-hidden="true">内部处理</button>
+      </div>
+    </aside>
+
+    <nav class="bottom-toolbar" aria-label="画布工具栏">
+      <div class="mode-switch" role="group" aria-label="页面操作模式">
+        <button data-interaction-mode="interact" type="button" title="交互模式：正常操作页面 (D)" aria-pressed="false">交互</button>
+        <button class="is-active" data-interaction-mode="edit" type="button" title="编辑模式：选择并修改元素 (D)" aria-pressed="true">编辑</button>
+      </div>
+      <span class="toolbar-divider"></span>
+      <div class="tool-group">
+        <button class="tool-button is-active" data-tool="select" type="button" title="选择工具 (V)">↖</button>
+        <button class="tool-button" data-tool="hand" type="button" title="画布拖动工具 (H)">✋</button>
+      </div>
+      <span class="toolbar-divider"></span>
+      <div class="tool-group">
+        <button id="addPageButton" class="tool-button wide" type="button" title="添加页面">＋ 页面</button>
+        <button id="addFrameButton" class="tool-button wide" type="button" title="添加响应式视窗">＋ 视窗</button>
+        <button id="refreshButton" class="tool-button" type="button" title="刷新当前视窗">↻</button>
+      </div>
+      <span class="toolbar-divider"></span>
+      <div class="tool-group">
+        <button id="undoButton" class="tool-button" data-testid="undo" type="button" title="撤销" disabled>↶</button>
+        <button id="redoButton" class="tool-button" data-testid="redo" type="button" title="重做" disabled>↷</button>
+      </div>
+      <span class="toolbar-divider"></span>
+      <div class="tool-group zoom-group">
+        <button id="zoomOutButton" class="tool-button" type="button" title="缩小">−</button>
+        <button id="zoomLabel" class="tool-button zoom-label" type="button" title="适应画布">50%</button>
+        <button id="zoomInButton" class="tool-button" type="button" title="放大">＋</button>
+        <button id="fitButton" class="tool-button" type="button" title="适应全部视窗">⌗</button>
+      </div>
+      <span class="toolbar-divider"></span>
+      <button id="annotationButton" type="button" hidden aria-hidden="true">内部处理</button>
+    </nav>
+
+    <section id="addFramePopover" class="popover bottom-popover" hidden>
+      <div class="popover-heading">
+        <span>添加渲染尺寸</span>
+        <button type="button" data-close-popover="addFramePopover">×</button>
+      </div>
+      <div class="preset-stack">
+        <button type="button" data-frame-preset="mobile"><span>Mobile</span><code>375 × 812</code></button>
+        <button type="button" data-frame-preset="tablet"><span>Tablet</span><code>768 × 1024</code></button>
+        <button type="button" data-frame-preset="desktop1024"><span>Desktop 1024</span><code>1024 × 768</code></button>
+        <button type="button" data-frame-preset="desktop"><span>Desktop 1440</span><code>1440 × 900</code></button>
+        <button type="button" data-frame-preset="wide"><span>Wide 1920</span><code>1920 × 1080</code></button>
+      </div>
+      <div class="custom-size-row">
+        <label><span>宽</span><input id="customFrameWidth" type="number" min="280" max="1920" step="1" value="1024" /></label>
+        <label><span>高</span><input id="customFrameHeight" type="number" min="320" max="1600" step="1" value="768" /></label>
+        <button id="addCustomFrameButton" class="primary-small" type="button">添加</button>
+      </div>
+    </section>
+
+    <section id="addPagePopover" class="popover bottom-popover page-popover" hidden>
+      <div class="popover-heading">
+        <span>添加页面</span>
+        <button type="button" data-close-popover="addPagePopover">×</button>
+      </div>
+      <label class="field-label" for="pageRouteInput">页面路径</label>
+      <input id="pageRouteInput" type="text" value="/fixtures/m0/Card" />
+      <div class="page-action-row">
+        <button id="duplicatePageButton" type="button">复制当前页面组</button>
+        <button id="createPageButton" class="primary-small" type="button">添加路径</button>
+      </div>
+      <p class="popover-hint">真实项目可手动输入任意站内路径；自动路由扫描将在下一步接入。Fixture 模式仍只接受已发现路径。</p>
+    </section>
+
+    <section id="colorPickerPopover" class="color-picker-popover" role="dialog" aria-label="背景颜色编辑器" hidden>
+      <header class="color-picker-header">
+        <div class="color-picker-tabs" aria-label="颜色来源">
+          <button class="is-active" type="button">自定义</button>
+          <button type="button" disabled title="设计变量将在组件库接入阶段开放">变量</button>
+        </div>
+        <button id="colorPickerCloseButton" class="color-picker-close" type="button">关闭</button>
+      </header>
+      <div class="color-picker-current">
+        <span id="colorPickerCurrentSwatch" class="color-picker-current-swatch" aria-hidden="true"></span>
+        <div>
+          <strong id="colorPickerValue">#FFFFFF</strong>
+          <span>确定性写回 Tailwind</span>
+        </div>
+      </div>
+      <div id="iroColorPicker" class="iro-color-picker"></div>
+      <div class="color-channel-row">
+        <label class="color-format-label">
+          <span>模式</span>
+          <select id="colorFormat" aria-label="颜色模式">
+            <option value="hsb">HSB</option>
+          </select>
+        </label>
+        <label><span>H</span><input id="colorHue" type="number" min="0" max="360" step="1" /></label>
+        <label><span>S</span><input id="colorSaturation" type="number" min="0" max="100" step="1" /></label>
+        <label><span>B</span><input id="colorBrightness" type="number" min="0" max="100" step="1" /></label>
+        <label><span>A</span><input id="colorAlpha" type="number" min="0" max="100" step="1" /></label>
+      </div>
+      <div class="color-hex-row">
+        <label for="colorHexInput">HEX</label>
+        <div class="color-hex-input"><span>#</span><input id="colorHexInput" type="text" maxlength="8" autocomplete="off" spellcheck="false" /></div>
+        <button id="colorApplyButton" type="button">应用</button>
+      </div>
+      <div class="color-swatches-section">
+        <span>项目常用色</span>
+        <div id="colorSwatches" class="color-swatches"></div>
+      </div>
+      <p class="color-picker-hint">拖动时只预览，松开后生成一次可撤销的源码事务。</p>
+    </section>
+
+    <dialog id="handoffDialog" class="handoff-dialog">
+      <form method="dialog">
+        <div class="dialog-heading">
+          <div>
+            <span class="panel-kicker">CODEX HANDOFF</span>
+            <h2>标注复杂修改</h2>
+          </div>
+          <button value="cancel" type="submit">×</button>
+        </div>
+        <p>当前元素、Frame 尺寸、源码位置和最新 Hash 会自动加入交接上下文。</p>
+        <textarea id="handoffAnnotation" rows="5" placeholder="例如：让这组操作按钮在手机端纵向排列，并保持桌面端横向。"></textarea>
+        <pre id="handoffPreview">尚未生成交接内容。</pre>
+        <div class="dialog-actions">
+          <button value="cancel" type="submit">取消</button>
+          <button id="prepareHandoffButton" class="primary-small" value="noop" type="button">生成并复制交接内容</button>
+        </div>
+      </form>
+    </dialog>
+
+    <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+    
+    <script type="module" src="./demo.js"></script>
+  </body>
+</html>
