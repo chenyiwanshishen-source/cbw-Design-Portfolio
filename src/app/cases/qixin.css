@@ -96,6 +96,7 @@
 }
 
 .qixin-case > .case-header { margin-bottom: var(--rhythm-4); }
+.qixin-cover-collage + .case-body { margin-top: var(--rhythm-6); }
 .qixin-case > .case-figure .case-figure-box { background: var(--color-case-plate); border-radius: var(--space-6); }
 .qixin-case .case-facts-pills > div:nth-child(4) dd { flex-wrap: wrap; }
 

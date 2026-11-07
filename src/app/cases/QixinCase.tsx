@@ -1,4 +1,3 @@
-import { CaseOpening } from './components/CaseOpening';
 import { useEffect } from 'react';
 import { qixin } from './content/qixin';
 import { CaseLayout } from './components/CaseLayout';
@@ -32,7 +31,6 @@ export function QixinCase() {
           return <img key={index} src={`${import.meta.env.BASE_URL}images/qixin/${image.src}`} alt={image.alt} style={{ left: `${x}%`, top: `${y}cqw`, width: image.mobile ? '18%' : '36%' }} />;
         })}
       </figure>
-      <CaseOpening content={{ ...qixin, opening: [] }} />
       <div className="case-body">
         <CaseToc items={qixin.toc} label={qixin.ui.toc} />
         <div className="case-chapters">{qixin.chapters.map(chapter => <CaseSection key={chapter.id} id={chapter.id} label={chapter.label} title={chapter.title}><CaseBlocks blocks={chapter.blocks} labels={qixin.ui} /></CaseSection>)}</div>
