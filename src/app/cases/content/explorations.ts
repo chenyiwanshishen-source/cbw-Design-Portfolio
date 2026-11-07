@@ -127,7 +127,7 @@ export const explorations: { header: { title: string; intro: string }; intro: st
       "blocks": [
         {
           "kind": "paragraph",
-          "text": "用 AI 生成页面后，改个间距或颜色也要重新描述需求、等待修改，所以我做了这个工具，让这些小调整可以直接在页面上完成。项目开发到 v0.2.1 后暂时搁置。"
+          "text": "设计走查时，间距、颜色这些细节经常要和前端来回沟通、反复调整，所以我做了这个工具，希望能直接在页面上修改并写回源码。后来很多设计开始直接用 AI 做，项目一度停了下来。但用得越多，我越觉得审美判断还是要靠人：不少页面需要自己设计，交给 AI 实现后，细节也还要继续调整，所以我又重新开始做这个项目，目前仍在开发中。"
         },
         {
           "kind": "subsection",
@@ -179,12 +179,12 @@ export const explorations: { header: { title: string; intro: string }; intro: st
           "blocks": [
             {
               "kind": "paragraph",
-              "text": "第一版是 VSCode 插件，后来改为在 Codex 内置浏览器中使用。开发到 v0.2.1 后暂时搁置。【待填：为什么放下，一句】"
+              "text": "第一版是 VSCode 插件，后来改为在 Codex 内置浏览器中使用。目前版本为 v0.2.1，仍在继续开发。"
             }
           ]
         }
       ],
-      "status": "v0.2.1 · 已搁置 · GitHub",
+      "status": "v0.2.1 · 进行中 · GitHub",
       "url": "https://github.com/chenyiwanshishen-source/visual-code-canvas"
     },
     {
@@ -457,5 +457,5 @@ export const explorationProjects = [
   { slug: 'figma-connector', chapter: 'explorations-01', name: 'Figma 连接器', cover: '连接器面板' },
   { slug: 'design-system', chapter: 'explorations-02', name: '设计系统', cover: '颜色审计与组件库' },
   { slug: 'illustration-skill', chapter: 'explorations-04', name: '插画 Skill', cover: 'Micro-UI 插画作品' },
-  { slug: 'visual-code-canvas', chapter: 'explorations-03', name: 'Visual Code Canvas', status: '已搁置', cover: '画布与属性面板' },
+  { slug: 'visual-code-canvas', chapter: 'explorations-03', name: 'Visual Code Canvas', status: '进行中', cover: '画布与属性面板' },
 ].map(item => ({ ...item, href: `#/project/explorations/${item.slug}` }));
