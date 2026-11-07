@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 130" fill="none">
+          <defs>
+
+            <filter id="tableGroundShadow" x="-30%" y="-30%" width="160%" height="170%">
+              <feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="#8A8D96" flood-opacity="0.16" />
+              <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#8A8D96" flood-opacity="0.08" />
+            </filter>
+
+
+            <filter id="tablePanelShadow" x="-30%" y="-30%" width="160%" height="170%">
+              <feDropShadow dx="0" dy="5" stdDeviation="6" flood-color="#1A1C24" flood-opacity="0.12" />
+              <feDropShadow dx="0" dy="1.5" stdDeviation="2" flood-color="#1A1C24" flood-opacity="0.06" />
+            </filter>
+
+
+            <filter id="purpleHeroGlow" x="-30%" y="-30%" width="160%" height="160%">
+              <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#9132F0" flood-opacity="0.35" />
+            </filter>
+
+
+            <linearGradient id="tablePurpleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#A652FA" />
+              <stop offset="100%" stop-color="#7B2ACC" />
+            </linearGradient>
+
+
+            <pattern id="tableHatch" width="6" height="6" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+              <line x1="0" y1="0" x2="0" y2="6" stroke="#E6E7EB" stroke-width="1.2" />
+            </pattern>
+
+
+            <radialGradient id="purpleAmbientGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#EFDFFF" stop-opacity="0.75" />
+              <stop offset="100%" stop-color="#F7EFFF" stop-opacity="0" />
+            </radialGradient>
+          </defs>
+
+
+          <g opacity="0.8" class="art-ambientBackGlow">
+            <ellipse cx="115" cy="55" rx="85" ry="42" fill="url(#purpleAmbientGlow)" opacity="0.35" />
+            <circle cx="115" cy="65" r="95" stroke="#E6E7EB" stroke-width="1" stroke-dasharray="4 4" fill="none" />
+            <circle cx="115" cy="65" r="70" stroke="#EBECEF" stroke-width="1" fill="none" />
+          </g>
+
+
+          <g class="art-tiltedBackPlate">
+            <rect x="20" y="14" width="190" height="102" rx="14" fill="#FFFFFF" filter="url(#tableGroundShadow)" />
+
+
+            <path d="M130 116 L210 116 L210 62 Z" fill="url(#tableHatch)" opacity="0.75" />
+          </g>
+
+
+          <g>
+
+            <g class="art-independent" data-art-x="-1" data-art-y="-3"><rect x="28" y="18" width="174" height="18" rx="6" fill="#EFDFFF" />
+
+
+            <line x1="36" y1="24.5" x2="42" y2="24.5" stroke="#9132F0" stroke-width="1.2" stroke-linecap="round" />
+            <line x1="36" y1="27" x2="40" y2="27" stroke="#9132F0" stroke-width="1.2" stroke-linecap="round" />
+            <line x1="36" y1="29.5" x2="41" y2="29.5" stroke="#9132F0" stroke-width="1.2" stroke-linecap="round" />
+            <text x="46" y="29.5" fill="#6623A8" font-size="6.5" font-weight="bold" font-family="system-ui, sans-serif">ITEM</text>
+
+
+            <text x="111" y="29.5" fill="#6623A8" font-size="6.5" font-weight="bold" text-anchor="middle" font-family="system-ui, sans-serif">STATUS</text>
+
+
+            <text x="180" y="29.5" fill="#6623A8" font-size="6.5" font-weight="bold" text-anchor="end" font-family="system-ui, sans-serif">VALUE</text>
+            <path d="M185 26 L187.5 28.5 L190 26" stroke="#9132F0" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
+
+
+            </g><line x1="86" y1="18" x2="86" y2="92" stroke="#DFC0FF" stroke-width="0.8" stroke-dasharray="2 2" />
+            <line x1="136" y1="18" x2="136" y2="92" stroke="#DFC0FF" stroke-width="0.8" stroke-dasharray="2 2" />
+
+
+            <g class="art-independent" data-art-x="2" data-art-y="-1"><rect x="28" y="36" width="174" height="18" fill="#F7EFFF" />
+
+            <circle cx="38" cy="45" r="3" fill="#9132F0" />
+            <rect x="46" y="41.5" width="30" height="7" rx="3.5" fill="#9132F0" opacity="0.85" />
+
+            <rect x="99" y="40.5" width="24" height="9" rx="3" fill="#9132F0" />
+            <text x="111" y="47" fill="#FFFFFF" font-size="5.5" font-weight="bold" text-anchor="middle" font-family="system-ui, sans-serif">PASS</text>
+
+            <text x="190" y="47.5" fill="#6623A8" font-size="7" font-weight="bold" text-anchor="end" font-family="SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace" letter-spacing="0.3">$4,820.00</text>
+
+
+            <line x1="28" y1="54.5" x2="202" y2="54.5" stroke="#F4F5F7" stroke-width="0.8" />
+
+
+            </g><g class="art-independent" data-art-x="-2" data-art-y="1"><circle cx="38" cy="63.5" r="3" fill="#B3B6BF" />
+            <rect x="46" y="60" width="34" height="7" rx="3.5" fill="#EBECEF" />
+            <rect x="99" y="59" width="24" height="9" rx="3" fill="#F5F5F7" />
+            <text x="111" y="65.5" fill="#696D7A" font-size="5.5" font-weight="bold" text-anchor="middle" font-family="system-ui, sans-serif">INFO</text>
+            <text x="190" y="66" fill="#1A1C24" font-size="7" font-weight="bold" text-anchor="end" font-family="SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace" letter-spacing="0.3">$1,290.00</text>
+
+
+            <line x1="28" y1="73" x2="202" y2="73" stroke="#F4F5F7" stroke-width="0.8" />
+
+
+            </g><g class="art-independent" data-art-x="1" data-art-y="3"><circle cx="38" cy="82.5" r="3" fill="#0D800D" />
+            <rect x="46" y="79" width="26" height="7" rx="3.5" fill="#EBECEF" />
+            <rect x="98" y="78" width="26" height="9" rx="3" fill="#E3F5E3" />
+            <text x="111" y="84.5" fill="#0A600A" font-size="5.5" font-weight="bold" text-anchor="middle" font-family="system-ui, sans-serif">ACTIVE</text>
+            <text x="190" y="85" fill="#0A600A" font-size="7" font-weight="bold" text-anchor="end" font-family="SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace" letter-spacing="0.3">+18.5%</text>
+
+
+            <line x1="28" y1="92" x2="202" y2="92" stroke="#DFC0FF" stroke-width="0.9" />
+
+
+            </g><g class="art-independent" data-art-x="0" data-art-y="5"><rect x="38" y="99" width="14" height="5" rx="2.5" fill="#9132F0" />
+            <rect x="56" y="99" width="6" height="5" rx="2.5" fill="#EBECEF" />
+            <rect x="65" y="99" width="6" height="5" rx="2.5" fill="#EBECEF" />
+            <text x="190" y="103.5" fill="#6623A8" font-size="7" font-weight="bold" text-anchor="end" font-family="SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace">∑ $6,110.00</text>
+          </g></g>
+        </svg>

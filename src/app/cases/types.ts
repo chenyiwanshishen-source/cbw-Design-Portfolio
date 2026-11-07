@@ -3,6 +3,7 @@ import type { HeaderContent } from './components/CaseHeader';
 import type { FigureContent } from './components/FigurePlaceholder';
 type Item = { label: string; text: string };
 export type CaseBlock =
+ | { kind: 'qixin-system-overview' }
  | { kind: 'component-slots' }
  | { kind: 'qixin-foundations' }
  | { kind: 'heading'; text: string; prominent?: boolean }
@@ -26,6 +27,8 @@ export type CaseBlock =
  | { kind: 'prompt-generator' }
  | { kind: 'report-edit-carousel'; slides?: { file: string; alt: string }[]; imageFolder?: string; label?: string; caption?: string }
  | { kind: 'outline-devices' }
+ | { kind: 'analysis-dimensions' }
+ | { kind: 'qsight-overview' }
  | { kind: 'mvp-comparison' }
  | { kind: 'responsive-template'; title?: string; desktopSrc?: string; mobileSrc?: string; mobileAlign?: 'top' | 'bottom' }
  | { kind: 'user-flow' }
@@ -35,14 +38,18 @@ export type CaseBlock =
  | { kind: 'research-topics'; texts: string[] }
  | { kind: 'goal-notes'; texts: string[] }
  | { kind: 'problem-cards'; items: Item[] }
+ | { kind: 'bridge-flow' }
+ | { kind: 'illustration-flow' }
+ | { kind: 'skill-tree'; items: Item[] }
+ | { kind: 'feature-bubbles'; texts: string[] }
  | { kind: 'flow'; rows: { label?: string; steps: string[]; highlight?: number[] }[]; note?: string }
  | { kind: 'layers'; items: { label: string; text?: string }[] }
  | { kind: 'chat'; texts: string[]; note?: string }
  | { kind: 'statement'; text: string }
- | { kind: 'paragraph' | 'aside'; text: string; highlight?: string; highlightPhrases?: string[] }
+ | { kind: 'paragraph' | 'aside'; text: string; highlight?: string; highlightPhrases?: string[]; blueHighlightPhrases?: string[] }
  | { kind: 'subsection'; title: string; number?: string; plain?: boolean; prominent?: boolean; blocks: CaseBlock[] }
  | { kind: 'quotes'; texts: string[] }
- | { kind: 'figures'; figures: FigureContent[]; arrow?: boolean }
+ | { kind: 'figures'; figures: FigureContent[]; arrow?: boolean; stickyNote?: string }
  | { kind: 'table'; headers: string[]; rows: string[][]; label: string; highlighted?: number[]; legend?: string }
  | { kind: 'columns' | 'participants'; items: Item[] }
  | { kind: 'steps'; items: string[]; preparation: string; rework: string }

@@ -49,3 +49,81 @@
 .chain-research-points { margin: 0; padding-left: var(--space-5); display: grid; gap: var(--rhythm-2); font-size: var(--text-body); line-height: var(--text-body--line-height); color: var(--color-text-body); list-style: disc; }
 .chain-research-opportunities { display: grid; gap: var(--rhythm-3); margin-top: var(--rhythm-3); }
 .chain-research-opportunities h4 { margin: 0; }
+/* One shared canvas keeps the specimen sheets on the same axes. */
+.qixin-system-overview {
+  margin: 0;
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-radius: var(--space-6);
+  background: var(--color-home-placeholder);
+  isolation: isolate;
+}
+.qixin-system-overview::after {
+  content: '';
+  position: absolute;
+  inset: 65% 0 0;
+  background: linear-gradient(transparent, var(--color-home-placeholder));
+  pointer-events: none;
+}
+.qixin-system-overview-stage {
+  position: absolute;
+  width: 110%;
+  height: 100%;
+  left: -5%;
+  top: 0;
+  transform: rotate(-12deg);
+  transform-origin: 50% 50%;
+}
+.qixin-system-sheet {
+  position: absolute;
+  display: block;
+  width: 48%;
+  height: auto;
+  border-radius: var(--space-3);
+  box-shadow: var(--shadow-float);
+}
+.qixin-system-sheet-colors { left: -8%; top: -12%; aspect-ratio: 1 / 1; object-fit: cover; object-position: top; }
+.qixin-system-sheet-grid { left: 34%; top: -18%; }
+.qixin-system-sheet-icons { left: 76%; top: -24%; }
+.qixin-system-sheet-type { left: -5%; top: 50%; }
+.qixin-system-sheet-buttons { left: 37%; top: 54%; }
+.qixin-system-sheet-fields { left: 79%; top: 42%; }
+@media (max-width: 767px) {
+  .qixin-system-overview { aspect-ratio: 1 / 1; }
+  .qixin-system-overview-stage { width: 160%; left: -30%; }
+  .qixin-system-sheet { width: 48%; }
+}
+
+.qixin-case > .case-header { margin-bottom: var(--rhythm-4); }
+.qixin-case > .case-figure .case-figure-box { background: var(--color-case-plate); border-radius: var(--space-6); }
+.qixin-case .case-facts-pills > div:nth-child(4) dd { flex-wrap: wrap; }
+
+@media (min-width: 1024px) {
+  .qixin-case > .case-header .case-header-main > p.text-body-lg { max-width: 520px; }
+}
+
+.qixin-case > .case-header .case-facts-pills { row-gap: var(--space-6); column-gap: var(--space-8); }
+.qixin-case .case-facts-pills dt { margin-bottom: var(--space-3); }
+
+/* The screen and device share one transform, keeping replacement images in perspective. */
+.qixin-hero-mockup { position: relative; container-type: inline-size; aspect-ratio: 16 / 7; overflow: hidden; margin: 0; border-radius: var(--space-6); background: var(--color-case-plate); perspective: 1800px; }
+.qixin-hero-word { position: absolute; top: 2%; left: 4%; color: var(--color-border-subtle); font-size: 12cqw; line-height: 1.1; font-weight: 600; white-space: nowrap; }
+.qixin-hero-device { position: absolute; width: 110%; left: 10%; top: 22%; padding: 2.2cqw; border-radius: 4cqw; background: #111; border: .18cqw solid #555; box-shadow: -.7cqw .5cqw 0 #777, -1.1cqw .8cqw 0 #b6b6b6, -2cqw 3cqw 4cqw #0003; transform: rotateX(12deg) rotateY(-10deg) rotateZ(-13deg); transform-origin: 50% 30%; }
+.qixin-hero-screen { width: 100%; aspect-ratio: 1440 / 960; overflow: hidden; border-radius: 1.8cqw; background: white; }
+.qixin-hero-screen img { display: block; width: 100%; height: auto; }
+@media (max-width: 767px) { .qixin-hero-mockup { aspect-ratio: 4 / 3; } .qixin-hero-device { width: 150%; left: 8%; top: 24%; } }
+
+.qixin-cover-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr)); gap: var(--space-5); aspect-ratio: 2 / 1; }
+.qixin-cover-panel { min-width: 0; background: var(--color-case-plate); border-radius: var(--space-6); }
+.qixin-cover-panel-tall { grid-row: 1 / 3; }
+.qixin-cover-panel-wide { grid-column: 2 / 4; }
+@media (max-width: 767px) { .qixin-cover-grid { gap: var(--space-3); aspect-ratio: 1 / 1; } .qixin-cover-panel { border-radius: var(--space-4); } }
+
+.qixin-cover-panel-wide { position: relative; overflow: hidden; }
+.qixin-cover-panel-wide > img { position: absolute; top: var(--space-6); right: var(--space-6); display: block; width: 70%; height: auto; border-radius: var(--space-3); }
+.qixin-cover-panel-wide::after { content: ''; position: absolute; inset: 45% 0 0; background: linear-gradient(to bottom, transparent, var(--color-case-plate)); pointer-events: none; }
+
+.qixin-cover-collage { position: relative; container-type: inline-size; aspect-ratio: 16 / 9; overflow: hidden; margin: 0; border-radius: var(--space-6); background: var(--color-case-plate); }
+.qixin-cover-collage > img { position: absolute; display: block; height: auto; max-width: none; border-radius: var(--space-3); transform: rotate(-14deg); transform-origin: top left; box-shadow: 0 4px 16px #0000000d; }
+.qixin-cover-collage::after { content: ''; position: absolute; inset: 75% 0 0; background: linear-gradient(transparent, var(--color-case-plate)); pointer-events: none; }

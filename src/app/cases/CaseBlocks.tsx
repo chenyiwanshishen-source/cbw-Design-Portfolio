@@ -1,4 +1,7 @@
+import { IllustrationFlow } from './components/IllustrationFlow';
+import { BridgeFlow } from './components/BridgeFlow';
 import { QixinFoundations } from './components/QixinFoundations';
+import { QixinSystemOverview } from './components/QixinSystemOverview';
 import { ComponentSpecimen } from './components/ComponentSpecimen';
 import { ChartScatter } from './components/ChartScatter';
 import { QixinAnnotation } from './components/QixinAnnotation';
@@ -17,6 +20,8 @@ import { SourceEvidence } from './components/SourceEvidence';
 import { ReportEditCarousel } from './components/ReportEditCarousel';
 import { ResponsiveTemplate } from './components/ResponsiveTemplate';
 import { OutlineDevices } from './components/OutlineDevices';
+import { AnalysisDimensions } from './components/AnalysisDimensions';
+import { QsightOverview } from './components/QsightOverview';
 import { TestFeedbackBubbles } from './components/TestFeedbackBubbles';
 import { UserFlow } from './components/UserFlow';
 import { MvpComparison } from './components/MvpComparison';
@@ -33,6 +38,7 @@ export function CaseBlocks({ blocks, labels, depth = 0 }: { depth?: number; bloc
   return <>{blocks.map((block, index) => {
     const key = index;
     switch (block.kind) {
+      case 'qixin-system-overview': return <QixinSystemOverview key={key} />;
       case 'qixin-foundations': return <QixinFoundations key={key} />;
       case 'component-slots': return <ComponentSpecimen key={key} />;
       case 'workbench-panels': return <figure key={key} className="workbench-panels" aria-label="首页工作台的地区概览、企业监控与异动预警"><div className="workbench-overview-panel"><img src={`${import.meta.env.BASE_URL}images/qixin/workbench-overview.webp`} alt="地区概览：企业数量、企业类型与本年新增注销对比" width={1680} height={736} loading="lazy" /><QixinAnnotation name="overview" /></div><div className="workbench-status-panel"><img src={`${import.meta.env.BASE_URL}images/qixin/workbench-monitor.webp`} alt="企业监控数据" width={688} height={620} loading="lazy" /><img src={`${import.meta.env.BASE_URL}images/qixin/workbench-risk.webp`} alt="异动预警和风险分布" width={688} height={472} loading="lazy" /><QixinAnnotation name="monitor" /></div></figure>;
@@ -55,6 +61,8 @@ export function CaseBlocks({ blocks, labels, depth = 0 }: { depth?: number; bloc
       case 'source-evidence': return <SourceEvidence key={key} />;
       case 'report-edit-carousel': return <div key={key}><ReportEditCarousel slides={block.slides} imageFolder={block.imageFolder} label={block.label} />{block.caption && <p className="text-caption text-text-secondary" style={{ textAlign: 'center', margin: 'var(--space-3) 0 0' }}>{block.caption}</p>}</div>;
       case 'outline-devices': return <OutlineDevices key={key} />;
+      case 'analysis-dimensions': return <AnalysisDimensions key={key} />;
+      case 'qsight-overview': return <QsightOverview key={key} />;
       case 'trial-feedback': return <figure key={key} className="case-trial-feedback"><div className="case-trial-panels">{block.groups.map((group, i) => <section key={group.title} className={`case-trial-panel case-trial-panel-${i}`}><h4>{group.title}</h4><ul>{group.items.map(item => <li key={item.product + item.text}><span className="case-trial-product">{item.icon && <span className="case-trial-icon" style={{ maskImage: `url(${import.meta.env.BASE_URL}images/icons/hugeicons/${item.icon}.svg)` }} aria-hidden="true" />}{item.product.split('、').map(product => <span className="case-trial-brand" key={product}>{product === '豆包' || product === '天工' || product === 'Jenni' ? <img src={`${import.meta.env.BASE_URL}images/qsight/brands/${product === '豆包' ? 'doubao.webp' : product === '天工' ? 'tiangong.webp' : 'jenni.svg'}`} alt="" /> : null}{product}</span>)}</span><span>{item.text}</span></li>)}</ul></section>)}</div></figure>;
       case 'test-feedback-bubbles': return <TestFeedbackBubbles key={key} />;
       case 'responsive-template': return <ResponsiveTemplate key={key} title={block.title} desktopSrc={block.desktopSrc} mobileSrc={block.mobileSrc} mobileAlign={block.mobileAlign} />;
@@ -68,12 +76,16 @@ export function CaseBlocks({ blocks, labels, depth = 0 }: { depth?: number; bloc
         { title: '需人工判断', tags: ['统计口径取舍', '缺失数据处理', '结论是否有依据', '报告是否可交付'] }
       ].map(({ title, tags }) => <div className="case-research-quadrant" key={title}><h4 className="text-body font-medium">{title}</h4><ul className="case-research-tags">{tags.map(tag => <li key={tag}>{tag}</li>)}</ul></div>)}</div>;
       case 'goal-notes': return <Fragment key={key}><div className="case-goal-notes">{block.texts.map(text => { const [title, ...paragraphs] = text.split('\n\n'); return <div key={title} className="case-goal-note"><h3 className="text-body font-medium">{title}</h3>{paragraphs.map(p => <p key={p} className="text-caption">{p}</p>)}</div>; })}</div><div className="case-research-resources"><h3 className="case-research-resources-title text-h4">准备题库和大纲</h3><QuestionBankLink /><OutlinePaper><h3 className="text-h4">访谈大纲</h3><p className="text-caption">第一轮访谈</p><div className="case-outline-paper-section"><strong>最近一次报告任务</strong><p>最近完成的是哪份报告？为什么做、给谁看、什么时候交？</p></div><div className="case-outline-paper-section"><strong>参与和交接</strong><p>最初要求是什么？范围谁定？三位用户和科长怎样参与、交接？</p></div><div className="case-outline-paper-section"><strong>工作方式</strong><p>材料从哪来？大纲怎么定？正文怎么写？如何修改、审核和保存？</p></div></OutlinePaper></div></Fragment>;
+      case 'feature-bubbles': return <ul key={key} className="bridge-feature-bubbles">{block.texts.map(text => <li key={text} tabIndex={0}><img src={`${import.meta.env.BASE_URL}images/qsight/brands/figma.svg`} alt="" /><div><span className="bridge-bubble-name">Figma 连接器</span><p>{text}</p></div></li>)}</ul>;
+      case 'skill-tree': return <div key={key} className="illustration-skill-tree"><ul>{block.items.map((item, i) => <li key={item.label}><span className="skill-tree-branch" aria-hidden="true">{i === block.items.length - 1 ? '└──' : '├──'}</span><code>{item.label}</code><span className="skill-tree-description">{item.text}</span></li>)}</ul></div>;
+      case 'illustration-flow': return <IllustrationFlow key={key} />;
+      case 'bridge-flow': return <BridgeFlow key={key} />;
       case 'flow': case 'layers': case 'chat': case 'statement': return <StoryDiagram key={key} block={block} />;
-      case 'paragraph': return <div key={key} className="case-prose">{block.text.split(/\n+/).map((text, i) => <p key={i} className="case-paragraph"><CaseText text={text} highlightPhrases={block.highlightPhrases} />{block.highlight && i === block.text.split(/\n+/).length - 1 && <> <mark className="case-marker"><CaseText text={block.highlight} /></mark></>}</p>)}</div>;
+      case 'paragraph': return <div key={key} className="case-prose">{block.text.split(/\n+/).map((text, i) => <p key={i} className="case-paragraph"><CaseText text={text} highlightPhrases={block.highlightPhrases} blueHighlightPhrases={block.blueHighlightPhrases} />{block.highlight && i === block.text.split(/\n+/).length - 1 && <> <mark className="case-marker"><CaseText text={block.highlight} /></mark></>}</p>)}</div>;
       case 'aside': return <p key={key} className="case-paragraph border-t border-dashed border-border-dashed pt-6"><CaseText text={block.text} /></p>;
       case 'subsection': { const Heading = depth === 0 ? 'h3' : 'h4'; return <div key={key} className={`case-subsection${block.plain ? " case-subsection-plain" : ""}${block.prominent ? " case-subsection-prominent" : ""}`}><Heading className={depth === 0 ? "text-h4 font-medium" : "text-body font-medium"}><CaseText text={block.title} /></Heading><CaseBlocks blocks={block.blocks} labels={labels} depth={depth + 1} /></div>; }
       case 'quotes': return <div key={key} className="case-quotes">{block.texts.map(text => <Quote key={text} text={text} />)}</div>;
-      case 'figures': if (block.figures[0]?.src?.includes('components-chart-')) return <ChartScatter key={key} figures={block.figures} />; return <div key={key} className={block.figures.length > 1 ? 'case-pair' : undefined}>{block.figures.map(figure => <FigurePlaceholder key={figure.plate} {...figure} />)}{block.arrow && <svg className="case-pair-arrow" viewBox="0 0 200 200" fill="none" aria-hidden="true"><path d="M10 185 C8 164 68 146 82 169 C102 201 54 191 65 159 C85 101 114 49 181 24 M143 16 Q163 20 188 24 Q178 39 160 45" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" /></svg>}</div>;
+      case 'figures': if (block.figures[0]?.src?.includes('components-chart-')) return <ChartScatter key={key} figures={block.figures} />; return <div key={key} className={block.figures.length > 1 ? 'case-pair' : undefined}>{block.figures.map(figure => <FigurePlaceholder key={figure.plate} {...figure} />)}{block.stickyNote && <aside className="generator-paper case-pair-sticky-note"><CaseText text={block.stickyNote} /></aside>}{block.arrow && <svg className="case-pair-arrow" viewBox="0 0 200 200" fill="none" aria-hidden="true"><path d="M10 185 C8 164 68 146 82 169 C102 201 54 191 65 159 C85 101 114 49 181 24 M143 16 Q163 20 188 24 Q178 39 160 45" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" /></svg>}</div>;
       case 'launch-outcomes': return <LaunchOutcomes key={key} {...block} />;
       case 'prompt-results': return <PromptResults key={key} />;
       case 'table': return <DataTable key={key} {...block} />;

@@ -15,7 +15,7 @@ export const explorations: { header: { title: string; intro: string }; intro: st
       "blocks": [
         {
           "kind": "paragraph",
-          "text": "一个在自己电脑上运行的 Figma 插件，已经开源。"
+          "text": "我做了一个连接 AI 和 Figma 的小工具，让 AI 能直接读取和修改设计稿。工具在本地运行，代码已开源。"
         },
         {
           "kind": "subsection",
@@ -23,30 +23,16 @@ export const explorations: { header: { title: string; intro: string }; intro: st
           "blocks": [
             {
               "kind": "paragraph",
-              "text": "我想检查 Qsight 旧设计稿中的颜色和组件使用情况，但当时用 Gemini 连接 Figma 经常报错，于是自己开发了这个插件。后续对 [19 个页面](#/project/explorations/design-system)的检查，也是通过它完成的。"
+              "text": "整理 Qsight 的旧设计稿时，我想让 AI 帮忙看看颜色和组件都用在了哪里。但 Gemini 连 Figma 总是报错，我就自己做了这个连接工具，让 AI 继续完成后续工作。它通过 MCP 接入，可以配合目前支持 MCP 的主流智能体使用。"
             }
           ]
         },
         {
           "kind": "subsection",
-          "title": "怎么做的",
+          "title": "工作原理和功能",
           "blocks": [
-            {
-              "kind": "flow",
-              "rows": [
-                {
-                  "steps": [
-                    "AI 说要做什么",
-                    "插件在 Figma 里照做",
-                    "把结果告诉 AI"
-                  ]
-                }
-              ]
-            },
-            {
-              "kind": "paragraph",
-              "text": "插件接收 AI 的操作请求，在 Figma 中执行，再返回结果。\n为了避免改坏设计稿，插件会在每次修改前保存一份，出错时撤回。面板显示当前正在读取还是写入，便于查看执行状态。\n插件在本地运行，无需注册或填写密钥。"
-            },
+            { "kind": "bridge-flow" },
+            {"kind": "feature-bubbles", "texts": ["读取和修改图层、文字、颜色和样式", "查找、导入组件，绑定变量", "查看当前正在读取还是写入", "保存文件链接，跳转到对应节点", "连接本地服务，接收或停止任务", "执行出错时，尝试清理本次新建的节点"]},
             {
               "kind": "figures",
               "figures": [
@@ -213,121 +199,264 @@ export const explorations: { header: { title: string; intro: string }; intro: st
     {
       "id": "explorations-04",
       "label": "插画 Skill",
-      "title": "用可辨认的控件绘制界面插画",
+      "title": "让 AI 为 B 端产品画插画",
       "blocks": [
         {
           "kind": "paragraph",
-          "text": "这是我编写的一套插画绘制规则，用来指导 AI。这个作品集的封面和 ye! 的空状态图都使用了这套规则。"
+          "text": "每次让 AI 画插画，出来的风格总是不统一，所以我做了一个 Skill，让它按统一的风格来执行。"
         },
         {
           "kind": "subsection",
-          "title": "起因",
+          "title": "目录结构和工作原理",
           "blocks": [
-            {
-              "kind": "paragraph",
-              "text": "AI 绘制界面插画时，经常用空白卡片和灰色线条代替内容，难以辨认画的是什么工具。"
-            }
+            {"kind": "skill-tree", "items": [{"label": "SKILL.md", "text": "Skill 主指令：风格约束、设计规则与绘制流程"}, {"label": "assets/", "text": "相关资源文件"}, {"label": "examples/", "text": "可编辑的 SVG 示例"}, {"label": "references/", "text": "参考图谱与绘制说明"}, {"label": "scripts/", "text": "辅助与导出脚本"}, {"label": "styles/", "text": "样式规范与色彩配置"}, {"label": "templates/", "text": "构图与画板模板"}]},
+            { "kind": "illustration-flow" }
           ]
         },
         {
           "kind": "subsection",
-          "title": "控件、层次与尺寸",
+          "title": "使用 Skill 生成的内容",
           "blocks": [
-            {
-              "kind": "columns",
-              "items": [
+            { "kind": "paragraph", "text": "下面这些插画，是我分别用 Codex、Gemini 和 Claude 按这套 Skill 生成的。同一组里的配色、层次和光影基本能保持一致，换场景后也能看出是同一套风格。不过，不同模型对细节的处理仍有差异，局部比例和对齐还需要检查、调整。", "highlightPhrases": ["Codex、Gemini 和 Claude", "配色、层次和光影基本能保持一致", "局部比例和对齐还需要检查、调整"] },
+{
+        "kind": "subsection",
+        "title": "如何使用这个 Skill",
+        "blocks": [
                 {
-                  "label": "控件可辨认",
-                  "text": "使用可辨认的控件，避免用灰色线条代替内容"
-                },
-                {
-                  "label": "区分层次",
-                  "text": "底板、中间的控件、最前面的重点，分成三层"
-                },
-                {
-                  "label": "控制细节",
-                  "text": "按实际展示尺寸检查，每块颜色至少 16 像素，空间不足时减少细节"
+                        "kind": "paragraph",
+                        "text": "每个人想要的插画风格都不一样，所以我把这个 Skill 做成了**可以自定义风格**的方式，并内置了 **SVG 的绘制方法和案例**。使用时，把喜欢的参考图发给 AI，说明想画的场景，它会分析图片的造型、配色和层次，**把参考与分析存进素材库**，再结合内置画法绘制、检查和修改，最后**交付可编辑的 SVG**；满意后，也可以让它**把成图收进案例库**，供下次参考。"
                 }
-              ]
-            },
-            {
-              "kind": "figures",
-              "figures": [
-                {
-                  "plate": "PLATE 05",
-                  "title": "未使用绘制规则的插画",
-                  "instruction": "要放：未使用绘制规则的插画",
-                  "caption": "未使用绘制规则的插画"
-                },
-                {
-                  "plate": "PLATE 06",
-                  "title": "使用绘制规则后的插画",
-                  "instruction": "要放：使用绘制规则后的插画",
-                  "caption": "使用绘制规则后的插画"
-                }
-              ]
-            }
-          ]
+        ]
+},
+  {
+    "kind": "subsection",
+    "title": "组件库插画",
+    "blocks": [
+      {
+        "kind": "figures",
+        "figures": [
+          {
+            "plate": "ILLUSTRATION 01",
+            "title": "细节级间距",
+            "instruction": "",
+            "caption": "",
+            "src": "images/illustration-skill/detailspacing.svg",
+            "alt": "细节级间距插画"
+          },
+          {
+            "plate": "ILLUSTRATION 02",
+            "title": "组件级间距",
+            "instruction": "",
+            "caption": "",
+            "src": "images/illustration-skill/componentspacing.svg",
+            "alt": "组件级间距插画"
+          },
+          {
+            "plate": "ILLUSTRATION 03",
+            "title": "布局级间距",
+            "instruction": "",
+            "caption": "",
+            "src": "images/illustration-skill/layoutspacing.svg",
+            "alt": "布局级间距插画"
+          },
+          {
+            "plate": "ILLUSTRATION 04",
+            "title": "标题",
+            "instruction": "",
+            "caption": "",
+            "src": "images/illustration-skill/headings.svg",
+            "alt": "标题插画"
+          },
+          {
+            "plate": "ILLUSTRATION 05",
+            "title": "正文",
+            "instruction": "",
+            "caption": "",
+            "src": "images/illustration-skill/body.svg",
+            "alt": "正文插画"
+          },
+          {
+            "plate": "ILLUSTRATION 06",
+            "title": "表格",
+            "instruction": "",
+            "caption": "",
+            "src": "images/illustration-skill/table.svg",
+            "alt": "表格插画"
+          },
+          {
+            "plate": "ILLUSTRATION 07",
+            "title": "指标",
+            "instruction": "",
+            "caption": "",
+            "src": "images/illustration-skill/metrics.svg",
+            "alt": "指标插画"
+          },
+          {
+            "plate": "ILLUSTRATION 08",
+            "title": "字阶与行高",
+            "instruction": "",
+            "caption": "",
+            "src": "images/illustration-skill/scales.svg",
+            "alt": "字阶与行高插画"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "kind": "subsection",
+    "title": "ye! 插件插画",
+    "blocks": [
+      {
+        "kind": "figures",
+        "figures": [
+          {
+            "plate": "ILLUSTRATION 09",
+            "title": "书签整理",
+            "instruction": "",
+            "caption": "",
+            "src": "images/illustration-skill/ye-bookmarks.svg",
+            "alt": "书签整理插画"
+          },
+          {
+            "plate": "ILLUSTRATION 10",
+            "title": "书签删除",
+            "instruction": "",
+            "caption": "",
+            "src": "images/illustration-skill/ye-deletion.svg",
+            "alt": "书签删除插画"
+          },
+          {
+            "plate": "ILLUSTRATION 11",
+            "title": "页签整理",
+            "instruction": "",
+            "caption": "",
+            "src": "images/illustration-skill/ye-tabs.svg",
+            "alt": "页签整理插画"
+          },
+          {
+            "plate": "ILLUSTRATION 12",
+            "title": "页签关闭完成",
+            "instruction": "",
+            "caption": "",
+            "src": "images/illustration-skill/ye-closed.svg",
+            "alt": "页签关闭完成插画"
+          },
+          {
+            "plate": "ILLUSTRATION 13",
+            "title": "已被取代的方案",
+            "instruction": "",
+            "caption": "",
+            "src": "images/illustration-skill/ye-superseded.svg",
+            "alt": "已被取代的方案插画"
+          },
+          {
+            "plate": "ILLUSTRATION 14",
+            "title": "书签空状态",
+            "instruction": "",
+            "caption": "",
+            "src": "images/illustration-skill/ye-bookmark-empty.svg",
+            "alt": "书签空状态插画"
+          },
+          {
+            "plate": "ILLUSTRATION 15",
+            "title": "历史记录空状态",
+            "instruction": "",
+            "caption": "",
+            "src": "images/illustration-skill/ye-history-empty.svg",
+            "alt": "历史记录空状态插画"
+          },
+          {
+            "plate": "ILLUSTRATION 16",
+            "title": "书签搜索无结果",
+            "instruction": "",
+            "caption": "",
+            "src": "images/illustration-skill/ye-bookmark-search-empty.svg",
+            "alt": "书签搜索无结果插画"
+          }
+        ]
+      }
+    ]
+  },
+{
+  "kind": "subsection",
+  "title": "空状态插画",
+  "blocks": [
+    {
+      "kind": "figures",
+      "figures": [
+        {
+          "plate": "ILLUSTRATION 17",
+          "title": "首次使用",
+          "instruction": "",
+          "caption": "",
+          "src": "images/illustration-skill/figma-empty-285.svg",
+          "alt": "首次使用插画"
         },
         {
-          "kind": "subsection",
-          "title": "画完要检查",
-          "blocks": [
-            {
-              "kind": "paragraph",
-              "text": "每张插画都按原始尺寸和三倍尺寸检查：原始尺寸下确认控件能否辨认，放大后检查边角和阴影。发现问题后修改，再重新检查。"
-            }
-          ]
+          "plate": "ILLUSTRATION 18",
+          "title": "搜索无结果",
+          "instruction": "",
+          "caption": "",
+          "src": "images/illustration-skill/figma-empty-307.svg",
+          "alt": "搜索无结果插画"
         },
         {
-          "kind": "subsection",
-          "title": "作品",
-          "blocks": [
-            {
-              "kind": "figures",
-              "figures": [
-                {
-                  "plate": "PLATE 07",
-                  "title": "作品集封面",
-                  "instruction": "要放：作品集封面",
-                  "caption": "作品集封面"
-                },
-                {
-                  "plate": "PLATE 08",
-                  "title": "作品集封面",
-                  "instruction": "要放：作品集封面",
-                  "caption": "作品集封面"
-                },
-                {
-                  "plate": "PLATE 09",
-                  "title": "组件库封面",
-                  "instruction": "要放：组件库封面",
-                  "caption": "组件库封面"
-                },
-                {
-                  "plate": "PLATE 10",
-                  "title": "ye! 书签空状态",
-                  "instruction": "要放：ye! 书签空状态",
-                  "caption": "ye! 书签空状态"
-                },
-                {
-                  "plate": "PLATE 11",
-                  "title": "ye! 页签空状态",
-                  "instruction": "要放：ye! 页签空状态",
-                  "caption": "ye! 页签空状态"
-                },
-                {
-                  "plate": "PLATE 12",
-                  "title": "ye! 搜索空状态",
-                  "instruction": "要放：ye! 搜索空状态",
-                  "caption": "ye! 搜索空状态"
-                }
-              ]
-            }
-          ]
+          "plate": "ILLUSTRATION 19",
+          "title": "筛选无匹配",
+          "instruction": "",
+          "caption": "",
+          "src": "images/illustration-skill/figma-empty-326.svg",
+          "alt": "筛选无匹配插画"
+        },
+        {
+          "plate": "ILLUSTRATION 20",
+          "title": "暂无关系",
+          "instruction": "",
+          "caption": "",
+          "src": "images/illustration-skill/figma-empty-349.svg",
+          "alt": "暂无关系插画"
+        },
+        {
+          "plate": "ILLUSTRATION 21",
+          "title": "暂无监控",
+          "instruction": "",
+          "caption": "",
+          "src": "images/illustration-skill/figma-empty-376.svg",
+          "alt": "暂无监控插画"
+        },
+        {
+          "plate": "ILLUSTRATION 22",
+          "title": "暂无收藏",
+          "instruction": "",
+          "caption": "",
+          "src": "images/illustration-skill/figma-empty-398.svg",
+          "alt": "暂无收藏插画"
+        },
+        {
+          "plate": "ILLUSTRATION 23",
+          "title": "加载失败",
+          "instruction": "",
+          "caption": "",
+          "src": "images/illustration-skill/figma-empty-415.svg",
+          "alt": "加载失败插画"
+        },
+        {
+          "plate": "ILLUSTRATION 24",
+          "title": "暂无权限",
+          "instruction": "",
+          "caption": "",
+          "src": "images/illustration-skill/figma-empty-441.svg",
+          "alt": "暂无权限插画"
+        }
+      ]
+    }
+  ]
+}
+]
         }
       ],
-      "status": "已经改到第 4 版，准备开源。【待填：开源后的仓库链接】"
+      "status": ""
     }
   ]
 };

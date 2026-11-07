@@ -4,15 +4,18 @@ export const qsight: CaseContent = {
   "header": {
     "title": "Qsight · AI 报告平台",
     "intro": "Qsight 是合合信息面向研究员的 AI 报告平台。研究员需要整理分散的材料，也担心生成的报告偏离需求、数字缺少依据。我负责核心交互设计和 Prompt 基础框架，参与需求与业务流程梳理，并跟进研发实现和测试验收，直到 1.0 上线。",
+    "introEmphasis": ["报告偏离需求、数字缺少依据", "核心交互设计和 Prompt 基础框架", "直到 1.0 上线"],
+    "factsStyle": "pills",
     "facts": [
-      {
-        "label": "项目周期",
-        "text": "2025.04–2026.05"
-      },
-      {
-        "label": "交付阶段",
-        "text": "从需求梳理到 1.0 上线"
-      }
+      { "label": "角色", "text": "产品设计师", "tags": ["产品设计师"] },
+      { "label": "项目周期", "text": "2025.04–2026.05", "tags": ["2025.04–2026.05"] },
+      { "label": "项目周期", "text": "2025.04–2026.05", "tags": ["2025.04–2026.05"] },
+      { "label": "类型", "text": "B 端 · AI 报告平台 · Web / 移动端", "tags": ["多平台", "B 端", "AI"] },
+      { "label": "工具", "text": "Figma / FigJam · Google AI Studio · Codex", "tools": [
+        { "name": "Figma / FigJam", "icon": "figma" },
+        { "name": "Google AI Studio", "icon": "ai-studio" },
+        { "name": "Codex", "icon": "codex" }
+      ] }
     ]
   },
   "hero": {
@@ -47,7 +50,7 @@ export const qsight: CaseContent = {
     },
     {
       "id": "qsight-06",
-      "label": "项目反思"
+      "label": "总结和思考"
     }
   ],
   "chapters": [
@@ -184,6 +187,18 @@ export const qsight: CaseContent = {
         },
         {
           "kind": "subsection",
+          "title": "用户如何管理数据方案",
+          "blocks": [
+            {
+              "kind": "paragraph",
+              "text": "用户可以查看内置的分析方案，也可以按自己的需求调整分析维度。业务最初只打算提供默认方案。我觉得，既然用户能改大纲，也应该能自己选每章要分析的内容，所以提出让用户自己调整维度。",
+              "highlightPhrases": ["我觉得，既然用户能改大纲，也应该能自己选每章要分析的内容，所以提出让用户自己调整维度。"]
+            },
+            { "kind": "analysis-dimensions" }
+          ]
+        },
+        {
+          "kind": "subsection",
           "title": "生成后继续修改和交付报告",
           "blocks": [
             {
@@ -194,6 +209,7 @@ export const qsight: CaseContent = {
             {
               "kind": "figures",
               "arrow": true,
+              "stickyNote": "手机上要不要编辑报告，我还没确定。所以先只做复制、下载和分享。",
               "figures": [{
                 "plate": "PLATE 04 MOBILE",
                 "title": "移动端报告正文",
@@ -295,6 +311,7 @@ export const qsight: CaseContent = {
           "blocks": [
             {
               "kind": "paragraph",
+              "blueHighlightPhrases": ["我利用 Google AI Studio 搭建了一个提示词生成智能体"],
               "highlightPhrases": ["我先写好系统提示词，把这套结构和生成规则固定下来", "只需替换模板中的相关数据"],
               "text": "考虑到开发成本，我利用 Google AI Studio 搭建了一个提示词生成智能体。我先写好系统提示词，把这套结构和生成规则固定下来，再为每个章节准备好需求模板。团队成员每次只需替换模板中的相关数据，就能按同一套结构生成章节智能体的提示词。"
             },
@@ -343,17 +360,22 @@ export const qsight: CaseContent = {
     },
     {
       "id": "qsight-06",
-      "label": "项目反思",
-      "title": "保留的规则与后续计划",
+      "label": "总结和思考",
+      "title": "项目总结与思考",
       "blocks": [
         {
           "kind": "paragraph",
-          "text": "随着模型能力提升，我认为需要固定下来的规则可以减少。目前 Qsight 仍保留生成前确认、内容标明来源和缺失数据提示这三项要求，具体的写作表达交给模型处理。"
+          "text": "项目历时大半年，从满怀期待地立项到遗憾地关停，有种眼见他起高楼的感觉。这大半年最大的收获，是用 AI 探索了很多原本不熟悉的东西。我通过提示词工程了解了思维链、思维树和 AI 的路径选择，也用 AI 辅助分析用户需求、整理访谈总结和题库、完成设计稿。这个项目让我对原本模糊的概念逐渐有了清晰的认识。智能体不光要有工具、记忆和知识，更要先明确产品形态和边界。这和做传统应用一样，不能一上来就做一个大而全的产品。"
         },
         {
           "kind": "paragraph",
-          "text": "后续计划加入自定义写作样本库和在线编辑，让报告更贴合不同机构的文风。"
-        }
+          "text": "虽然是 AI 项目，我们依然从人出发。从用户调研、可用性测试，到我从零调试提示词，始终围绕人的需求展开。和传统产品相比，我感受到的变化是，过去最大的变量是用户，现在最大的变量可能是 AI。模型的能力边界不断扩大，产品的边际效应好像也被提前了。大家讨论的不只是产品好不好用，还会问他们家用的什么模型。至于产品究竟还能带来多少惊喜，大家也不得而知。"
+        },
+        {
+          "kind": "paragraph",
+          "text": "回头看，当时主要把检查要求写进提示词，让执行智能体自己核对。如果条件允许，我会尝试增加独立评审，根据执行记录检查漏步和内容依据，再让执行智能体针对问题修改。但这套方式是否比自检更有效，还需要通过实际测试验证。"
+        },
+        { "kind": "qsight-overview" }
       ]
     }
   ],

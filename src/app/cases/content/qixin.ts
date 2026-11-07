@@ -3,14 +3,23 @@ import type { CaseContent } from '../types';
 export const qixin: CaseContent = {
   "header": {
     "title": "启信产业大脑",
-    "intro": "启信产业大脑是给政府招商、产业分析和区域经济管理用的企业数据平台。"
+    "intro": "启信产业大脑是给政府招商、产业分析和区域经济管理用的企业数据平台。我从 2021 年起担任主要设计师，负责主要的功能迭代优化，并与两位设计师从零搭建组件库。",
+    "introEmphasis": ["主要设计师", "主要的功能迭代优化", "从零搭建组件库"],
+    "factsStyle": "pills",
+    "facts": [
+      { "label": "角色", "text": "产品设计师", "tags": ["产品设计师"] },
+      { "label": "项目周期", "text": "2021–2026", "tags": ["2021–2026"] },
+      { "label": "设计范围", "text": "交互与界面、组件库", "tags": ["交互与界面", "组件库"] },
+      { "label": "类型", "text": "B 端 · 企业数据平台", "tags": ["B 端", "企业数据平台"] },
+      { "label": "工具", "text": "Figma / FigJam · Codex", "tools": [{ "name": "Figma / FigJam", "icon": "figma" }, { "name": "Codex", "icon": "codex" }] }
+    ]
   },
   "hero": {
     "plate": "PLATE 01",
     "title": "当前首页（脱敏）",
     "instruction": "要放：当前首页（脱敏）",
     "caption": "当前首页（脱敏）",
-    "ratio": "16 / 9"
+    "ratio": "16 / 7"
   },
   "timeline": [
     "2021 招商大脑 1.0",
@@ -222,7 +231,8 @@ export const qixin: CaseContent = {
         { "kind": "heading", "text": "无限画布和层级管理" },
         {
           "kind": "paragraph",
-          "text": "用户选入系统已有的产业环节后，可以自己编辑环节、管理企业，也能按需要调整层级。我希望让用户有更多自由，亲手搭出符合自己要求的产业链，增加参与感和成就感。"
+          "highlightPhrases": ["大部分用户习惯用脑图或 ProcessOn 制图", "沿用他们熟悉的节点图方式，让他们按实际业务编排产业链"],
+          "text": "调研中，大部分用户习惯用脑图或 ProcessOn 制图，所以我沿用他们熟悉的节点图方式，让他们按实际业务编排产业链。用户选入系统已有的产业环节后，可以自己编辑环节、管理企业，也能按需要调整层级。我希望让用户有更多自由，亲手搭出符合自己要求的产业链，增加参与感和成就感。"
         },
         {
           "kind": "report-edit-carousel",
@@ -299,6 +309,10 @@ export const qixin: CaseContent = {
           "kind": "paragraph",
           "text": "孵化期为了尽快上线，产业大脑沿用了启信宝的设计规范和组件，但前端实现不太规范，部分地方直接写了固定数值；产品定位分开后，我和两位设计师先梳理已上线页面，再从变量开始搭建五层组件库，最后覆盖整个系统。"
         },
+        { "kind": "qixin-system-overview" },
+        {
+          "kind": "component-slots"
+        },
         {
           "kind": "figures",
           "figures": [
@@ -362,9 +376,6 @@ export const qixin: CaseContent = {
               "alt": "关系触达：找关系设置界面"
             }
           ]
-        },
-        {
-          "kind": "component-slots"
         },
         {
           "kind": "figures",
@@ -461,14 +472,9 @@ export const qixin: CaseContent = {
             }
           ]
         },
-        { "kind": "qixin-foundations" },
         {
           "kind": "paragraph",
           "text": "原计划按季度推进，实际难度比较大，改成了按年度推进。结果：设计稿基本做到了全覆盖，2025 年设计这边仍在继续推进。前端第一年的组件覆盖率是 40%，2024 年到 60%，2025 年又推进了一个季度，之后因故停了，进度停在 70%。"
-        },
-        {
-          "kind": "paragraph",
-          "text": "结果：【待填：覆盖几条业务线或多少页面】"
         }
       ]
     },

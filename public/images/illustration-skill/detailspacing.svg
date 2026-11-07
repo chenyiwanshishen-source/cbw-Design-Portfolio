@@ -1,0 +1,162 @@
+<svg
+
+          viewBox="0 0 230 130"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+
+        >
+          <defs>
+
+            <filter id="detailGroundShadow" x="-30%" y="-30%" width="160%" height="170%">
+              <feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="#8A8D96" flood-opacity="0.16" />
+              <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#8A8D96" flood-opacity="0.08" />
+            </filter>
+
+
+            <filter id="detailFloatShadow" x="-35%" y="-35%" width="170%" height="180%">
+              <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#1A1C24" flood-opacity="0.10" />
+              <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#1A1C24" flood-opacity="0.06" />
+            </filter>
+
+
+            <filter id="greenGlow" x="-30%" y="-30%" width="160%" height="160%">
+              <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#0D800D" flood-opacity="0.30" />
+            </filter>
+
+
+            <radialGradient id="detailAmbientGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#E3F5E3" stop-opacity="0.7" />
+              <stop offset="100%" stop-color="#F1FAF1" stop-opacity="0" />
+            </radialGradient>
+          </defs>
+
+
+          <g opacity="0.9" class="art-ambientBackGlow">
+            <ellipse cx="115" cy="65" rx="100" ry="48" fill="url(#detailAmbientGlow)" opacity="0.5" />
+            <circle cx="115" cy="65" r="88" stroke="#E6E7EB" stroke-width="1" stroke-dasharray="4 4" fill="none" />
+            <circle cx="115" cy="65" r="62" stroke="#EBECEF" stroke-width="1" fill="none" />
+          </g>
+
+
+          <g class="art-microComponent">
+
+            <rect
+              x="31"
+              y="46"
+              width="168"
+              height="48"
+              rx="14"
+              fill="#FFFFFF"
+              filter="url(#detailFloatShadow)"
+            />
+
+
+            <rect
+              x="45"
+              y="58"
+              width="24"
+              height="24"
+              rx="7"
+              fill="#0D800D"
+            />
+
+            <rect x="55" y="64" width="4" height="12" rx="1.5" fill="#FFFFFF" />
+            <rect x="51" y="68" width="12" height="4" rx="1.5" fill="#FFFFFF" />
+
+
+            <rect
+              x="96"
+              y="63"
+              width="54"
+              height="14"
+              rx="5"
+              fill="#E3F5E3"
+            />
+
+
+            <rect
+              x="156"
+              y="65"
+              width="22"
+              height="10"
+              rx="4"
+              fill="#EBECEF"
+            />
+          </g>
+
+
+          <g class="art-caliperLayer">
+
+            <line x1="69" y1="53" x2="69" y2="87" stroke="#0D800D" stroke-width="1.5" />
+            <line x1="96" y1="53" x2="96" y2="87" stroke="#0D800D" stroke-width="1.5" />
+            <line x1="69" y1="70" x2="96" y2="70" stroke="#0D800D" stroke-width="1.5" />
+
+
+            <g filter="url(#greenGlow)">
+              <rect x="71" y="24" width="24" height="18" rx="5" fill="#0D800D" />
+              <text
+                x="83"
+                y="37"
+                fill="#FFFFFF"
+                font-size="11"
+                font-weight="700"
+                font-family="system-ui, -apple-system, sans-serif"
+                text-anchor="middle"
+              >
+                4
+              </text>
+            </g>
+
+            <line x1="83" y1="42" x2="83" y2="53" stroke="#0D800D" stroke-width="1.2" stroke-dasharray="2 2" />
+
+
+            <line x1="178" y1="54" x2="178" y2="86" stroke="#085108" stroke-width="1.5" opacity="0.85" />
+            <line x1="199" y1="54" x2="199" y2="86" stroke="#085108" stroke-width="1.5" opacity="0.85" />
+            <line x1="178" y1="70" x2="199" y2="70" stroke="#085108" stroke-width="1.5" opacity="0.85" />
+
+
+            <rect x="176" y="85" width="24" height="18" rx="5" fill="#085108" />
+            <text
+              x="188"
+              y="98"
+              fill="#FFFFFF"
+              font-size="11"
+              font-weight="700"
+              font-family="system-ui, -apple-system, sans-serif"
+              text-anchor="middle"
+            >
+              8
+            </text>
+            <line x1="188" y1="77" x2="188" y2="85" stroke="#085108" stroke-width="1.2" stroke-dasharray="2 2" />
+          </g>
+
+
+          <g class="art-compensatorPill">
+
+            <rect
+              x="160"
+              y="14"
+              width="52"
+              height="30"
+              rx="9"
+              fill="#FFFFFF"
+              filter="url(#detailFloatShadow)"
+            />
+
+            <rect x="167" y="21" width="16" height="16" rx="4" fill="#F1FAF1" />
+            <rect x="169" y="23" width="12" height="12" rx="3" fill="#0D800D" />
+
+
+            <text
+              x="197"
+              y="33"
+              fill="#085108"
+              font-size="12"
+              font-weight="700"
+              font-family="system-ui, -apple-system, sans-serif"
+              text-anchor="middle"
+            >
+              2
+            </text>
+          </g>
+        </svg>

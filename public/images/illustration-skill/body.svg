@@ -1,0 +1,186 @@
+<svg
+
+          viewBox="0 0 230 130"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+
+        >
+          <defs>
+
+            <filter id="bodyGroundShadow" x="-30%" y="-30%" width="160%" height="170%">
+              <feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="#8A8D96" flood-opacity="0.16" />
+              <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#8A8D96" flood-opacity="0.08" />
+            </filter>
+
+
+            <filter id="bodyInspectorShadow" x="-35%" y="-35%" width="170%" height="180%">
+              <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#1A1C24" flood-opacity="0.14" />
+              <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#1A1C24" flood-opacity="0.08" />
+            </filter>
+
+
+            <filter id="bodyControlShadow" x="-30%" y="-30%" width="160%" height="170%">
+              <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#1A1C24" flood-opacity="0.10" />
+              <feDropShadow dx="0" dy="1.5" stdDeviation="2" flood-color="#1A1C24" flood-opacity="0.05" />
+            </filter>
+
+
+            <filter id="greenHeroGlow" x="-30%" y="-30%" width="160%" height="160%">
+              <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#0D800D" flood-opacity="0.35" />
+            </filter>
+
+
+            <linearGradient id="bodyGreenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#299E29" />
+              <stop offset="100%" stop-color="#0B700B" />
+            </linearGradient>
+
+
+            <pattern id="bodyHatch" width="6" height="6" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+              <line x1="0" y1="0" x2="0" y2="6" stroke="#E6E7EB" stroke-width="1.2" />
+            </pattern>
+
+
+            <radialGradient id="greenAmbientGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#E3F5E3" stop-opacity="0.75" />
+              <stop offset="100%" stop-color="#F1FAF1" stop-opacity="0" />
+            </radialGradient>
+          </defs>
+
+
+          <g opacity="0.8" class="art-ambientBackGlow">
+            <ellipse cx="115" cy="55" rx="85" ry="42" fill="url(#greenAmbientGlow)" opacity="0.35" />
+            <circle cx="115" cy="65" r="95" stroke="#E6E7EB" stroke-width="1" stroke-dasharray="4 4" fill="none" />
+            <circle cx="115" cy="65" r="70" stroke="#EBECEF" stroke-width="1" fill="none" />
+          </g>
+
+
+          <g class="art-tiltedBackPlate">
+            <rect
+              x="20"
+              y="14"
+              width="190"
+              height="102"
+              rx="14"
+              fill="#FFFFFF"
+              filter="url(#bodyGroundShadow)"
+            />
+
+
+            <path
+              d="M130 116 L210 116 L210 62 Z"
+              fill="url(#bodyHatch)"
+              opacity="0.75"
+            />
+
+
+            <path
+              d="M34 15 L196 15"
+              stroke="#FFFFFF"
+              stroke-width="1.5"
+              stroke-linecap="round"
+            />
+          </g>
+
+
+          <g class="art-heroGlyphGroup">
+
+            <line x1="30" y1="36" x2="104" y2="36" stroke="#85D685" stroke-width="0.9" stroke-dasharray="2.5 2" />
+            <text x="104" y="34" fill="#0B700B" font-size="5.5" font-weight="700" text-anchor="end" font-family="sans-serif">CAP 14</text>
+
+
+            <line x1="30" y1="49" x2="104" y2="49" stroke="#CBCDD4" stroke-width="0.8" stroke-dasharray="2 2" />
+
+
+            <line x1="28" y1="70" x2="106" y2="70" stroke="#0D800D" stroke-width="1.2" />
+            <line x1="28" y1="67" x2="28" y2="73" stroke="#0D800D" stroke-width="1.2" />
+            <text x="106" y="77" fill="#0A600A" font-size="5.5" font-weight="700" text-anchor="end" font-family="sans-serif">BASE</text>
+
+
+            <line x1="24" y1="36" x2="24" y2="70" stroke="#B3B6BF" stroke-width="0.8" />
+            <line x1="22" y1="36" x2="26" y2="36" stroke="#B3B6BF" stroke-width="0.8" />
+            <line x1="22" y1="70" x2="26" y2="70" stroke="#B3B6BF" stroke-width="0.8" />
+
+
+            <text
+              x="34"
+              y="68"
+              fill="#1A1C24"
+              font-size="40"
+              font-weight="900"
+              font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
+              letter-spacing="-1"
+            >
+              A
+            </text>
+            <text
+              x="65"
+              y="68"
+              fill="url(#bodyGreenGrad)"
+              font-size="40"
+              font-weight="700"
+              font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
+              letter-spacing="-1"
+            >
+              a
+            </text>
+          </g>
+
+
+          <g class="art-floatingInspector">
+            <rect
+              x="114"
+              y="22"
+              width="86"
+              height="49"
+              rx="9"
+              fill="#FFFFFF"
+              filter="url(#bodyInspectorShadow)"
+            />
+
+
+            <text x="122" y="34.5" fill="#696D7A" font-size="6.5" font-weight="700" font-family="sans-serif">LEADING</text>
+            <rect x="157" y="27" width="37" height="11" rx="4" fill="#F5F5F7" />
+            <text x="166" y="35" fill="#696D7A" font-size="6" font-weight="600" text-anchor="middle" font-family="sans-serif">20</text>
+
+            <rect x="175" y="27.5" width="18" height="10" rx="3.5" fill="#0D800D" />
+            <text x="184" y="35" fill="#FFFFFF" font-size="6" font-weight="bold" text-anchor="middle" font-family="sans-serif">22</text>
+
+
+            <line x1="120" y1="43" x2="194" y2="43" stroke="#EBECEF" stroke-width="0.8" />
+
+
+            <text x="122" y="53" fill="#696D7A" font-size="6.5" font-weight="700" font-family="sans-serif">TRACK</text>
+            <text x="194" y="53" fill="#0A600A" font-size="6.5" font-weight="bold" text-anchor="end" font-family="sans-serif">0.2px</text>
+
+
+            <rect x="122" y="58" width="72" height="4" rx="2" fill="#E6E7EB" />
+            <rect x="122" y="58" width="44" height="4" rx="2" fill="#0D800D" />
+
+            <circle cx="166" cy="60" r="5" fill="#0D800D" />
+            <circle cx="166" cy="60" r="1.8" fill="#FFFFFF" />
+          </g>
+
+
+          <g class="art-bottomWeightBar">
+            <rect
+              x="26"
+              y="86"
+              width="178"
+              height="20"
+              rx="6"
+              fill="#F5F5F7"
+            />
+
+
+            <rect x="28" y="88" width="58" height="16" rx="5" fill="#FFFFFF" filter="url(#bodyControlShadow)" />
+            <circle cx="37" cy="96" r="2.2" fill="#0D800D" />
+            <text x="60" y="99" fill="#0A600A" font-size="7" font-weight="bold" text-anchor="middle" font-family="sans-serif">Regular</text>
+
+
+            <text x="115" y="99" fill="#696D7A" font-size="7" font-weight="600" text-anchor="middle" font-family="sans-serif">Medium</text>
+
+
+            <text x="172" y="99" fill="#696D7A" font-size="7" font-weight="700" text-anchor="middle" font-family="sans-serif">Bold</text>
+          </g>
+        </svg>

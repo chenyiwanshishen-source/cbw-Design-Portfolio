@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 130" fill="none">
+          <defs>
+
+            <filter id="scalesGroundShadow" x="-30%" y="-30%" width="160%" height="170%">
+              <feDropShadow dx="0" dy="12" stdDeviation="12" flood-color="#1A1C24" flood-opacity="0.08" />
+              <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#1A1C24" flood-opacity="0.05" />
+            </filter>
+
+
+            <filter id="bellflowerHeroGlow" x="-30%" y="-30%" width="160%" height="160%">
+              <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#545AFF" flood-opacity="0.35" />
+            </filter>
+
+
+            <linearGradient id="scalesBellflowerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#737BFF" />
+              <stop offset="100%" stop-color="#4147E6" />
+            </linearGradient>
+
+
+            <pattern id="scalesHatch" width="6" height="6" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+              <line x1="0" y1="0" x2="0" y2="6" stroke="#E6E7EB" stroke-width="1.2" />
+            </pattern>
+
+
+            <radialGradient id="scalesAmbientGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#ECECFF" stop-opacity="0.75" />
+              <stop offset="100%" stop-color="#F4F4FF" stop-opacity="0" />
+            </radialGradient>
+          </defs>
+
+
+          <g opacity="0.8" class="art-ambientBackGlow">
+            <ellipse cx="115" cy="55" rx="85" ry="42" fill="url(#scalesAmbientGlow)" opacity="0.35" />
+            <circle cx="115" cy="65" r="95" stroke="#E6E7EB" stroke-width="1" stroke-dasharray="4 4" fill="none" />
+            <circle cx="115" cy="65" r="70" stroke="#EBECEF" stroke-width="1" fill="none" />
+          </g>
+
+
+          <g class="art-tiltedBackPlate">
+            <rect x="20" y="14" width="190" height="102" rx="14" fill="#FFFFFF" filter="url(#scalesGroundShadow)" />
+
+
+            <path d="M130 116 L210 116 L210 62 Z" fill="url(#scalesHatch)" opacity="0.75" />
+
+
+            <path d="M34 15 L196 15" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" />
+          </g>
+
+
+          <g>
+
+
+            <g class="art-independent" data-art-x="1" data-art-y="-2.0"><rect x="36" y="80" width="15" height="16" rx="3" fill="#E6E7EB" />
+            <text x="43.5" y="91" fill="#696D7A" font-size="5" font-weight="bold" text-anchor="middle" font-family="sans-serif">12</text>
+
+
+            </g><g class="art-independent" data-art-x="-1" data-art-y="-3.0"><rect x="55" y="70" width="17" height="26" rx="4" fill="url(#scalesBellflowerGrad)" filter="url(#bellflowerHeroGlow)" />
+            <text x="63.5" y="86" fill="#FFFFFF" font-size="7" font-weight="bold" text-anchor="middle" font-family="sans-serif">14</text>
+
+
+            </g><g class="art-independent" data-art-x="1" data-art-y="-4.0"><rect x="76" y="62" width="17" height="34" rx="4" fill="#CBCDD4" />
+            <text x="84.5" y="80" fill="#696D7A" font-size="5.5" font-weight="bold" text-anchor="middle" font-family="sans-serif">16</text>
+
+
+            </g><g class="art-independent" data-art-x="-1" data-art-y="-5.0"><rect x="97" y="52" width="17" height="44" rx="4" fill="#696D7A" />
+            <text x="105.5" y="75" fill="#FFFFFF" font-size="6" font-weight="bold" text-anchor="middle" font-family="sans-serif">20</text>
+
+
+            </g><g class="art-independent" data-art-x="1" data-art-y="-6.0"><rect x="118" y="42" width="17" height="54" rx="4" fill="#4A4D57" />
+            <text x="126.5" y="70" fill="#FFFFFF" font-size="6.5" font-weight="bold" text-anchor="middle" font-family="sans-serif">24</text>
+
+
+            </g><g class="art-independent" data-art-x="-1" data-art-y="-7.0"><rect x="139" y="30" width="17" height="66" rx="4" fill="#1A1C24" />
+            <text x="147.5" y="64" fill="#FFFFFF" font-size="7" font-weight="bold" text-anchor="middle" font-family="sans-serif">32</text>
+
+
+
+            </g><g class="art-independent" data-art-x="3" data-art-y="-4"><line x1="168" y1="46" x2="168" y2="84" stroke="#545AFF" stroke-width="1" />
+            <line x1="164" y1="46" x2="172" y2="46" stroke="#545AFF" stroke-width="1" stroke-linecap="round" />
+            <line x1="164" y1="84" x2="172" y2="84" stroke="#545AFF" stroke-width="1" stroke-linecap="round" />
+
+
+            <rect x="175" y="52" width="28" height="26" rx="5" fill="#ECECFF" />
+            <text x="189" y="63" fill="#3B3FA8" font-size="6.5" font-weight="bold" text-anchor="middle" font-family="system-ui, sans-serif">14 / 22</text>
+            <text x="189" y="72.5" fill="#4246E6" font-size="5" font-weight="bold" text-anchor="middle" font-family="system-ui, sans-serif">1.57x</text>
+          </g></g>
+        </svg>

@@ -1,0 +1,199 @@
+<svg
+
+          viewBox="0 0 230 130"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+
+        >
+          <defs>
+
+            <filter id="groundAmbientShadow" x="-30%" y="-30%" width="160%" height="170%">
+              <feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="#8A8D96" flood-opacity="0.18" />
+              <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#8A8D96" flood-opacity="0.10" />
+            </filter>
+
+
+            <filter id="highFloatShadow" x="-35%" y="-35%" width="170%" height="180%">
+              <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#1A1C24" flood-opacity="0.14" />
+              <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#1A1C24" flood-opacity="0.08" />
+            </filter>
+
+
+            <filter id="lowFloatShadow" x="-30%" y="-30%" width="160%" height="170%">
+              <feDropShadow dx="0" dy="5" stdDeviation="5" flood-color="#1A1C24" flood-opacity="0.12" />
+              <feDropShadow dx="0" dy="1.5" stdDeviation="2" flood-color="#1A1C24" flood-opacity="0.06" />
+            </filter>
+
+
+            <filter id="blueGlow" x="-30%" y="-30%" width="160%" height="160%">
+              <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#2258F4" flood-opacity="0.35" />
+            </filter>
+
+
+            <linearGradient id="blueTextGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#4777FF" />
+              <stop offset="100%" stop-color="#1E4DD6" />
+            </linearGradient>
+
+
+            <pattern id="spatialHatch" width="6" height="6" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+              <line x1="0" y1="0" x2="0" y2="6" stroke="#E6E7EB" stroke-width="1.2" />
+            </pattern>
+
+
+            <radialGradient id="blueAmbientGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#D9E4FF" stop-opacity="0.75" />
+              <stop offset="100%" stop-color="#EEF2FF" stop-opacity="0" />
+            </radialGradient>
+          </defs>
+
+
+          <g opacity="0.8" class="art-ambientBackGlow">
+            <ellipse cx="115" cy="55" rx="85" ry="42" fill="url(#blueAmbientGlow)" opacity="0.35" />
+            <circle cx="115" cy="65" r="95" stroke="#E6E7EB" stroke-width="1" stroke-dasharray="4 4" fill="none" />
+            <circle cx="115" cy="65" r="70" stroke="#EBECEF" stroke-width="1" fill="none" />
+          </g>
+
+
+          <g class="art-tiltedBackPlate">
+
+            <rect
+              x="20"
+              y="14"
+              width="190"
+              height="102"
+              rx="14"
+              fill="#FFFFFF"
+              filter="url(#groundAmbientShadow)"
+            />
+
+
+            <path
+              d="M125 116 L210 116 L210 60 Z"
+              fill="url(#spatialHatch)"
+              opacity="0.75"
+            />
+
+
+            <path
+              d="M34 15 L196 15"
+              stroke="#FFFFFF"
+              stroke-width="1.5"
+              stroke-linecap="round"
+            />
+          </g>
+
+
+          <g class="art-heroTypography">
+
+            <text
+              x="30"
+              y="80"
+              fill="#1A1C24"
+              font-size="46"
+              font-weight="900"
+              font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
+              letter-spacing="-2"
+            >
+              Ty
+            </text>
+
+            <text
+              x="84"
+              y="80"
+              fill="url(#blueTextGrad)"
+              font-size="46"
+              font-weight="800"
+              font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
+              letter-spacing="-2"
+            >
+              po
+            </text>
+          </g>
+
+
+          <g class="art-topFloatingInspector">
+            <rect
+              x="114"
+              y="10"
+              width="90"
+              height="38"
+              rx="9"
+              fill="#FFFFFF"
+              filter="url(#highFloatShadow)"
+            />
+
+
+
+            <rect x="120" y="15" width="16" height="10" rx="3.5" fill="#1A1C24" />
+            <line x1="123.5" y1="18.5" x2="132.5" y2="18.5" stroke="#FFFFFF" stroke-width="1.3" stroke-linecap="round" />
+            <line x1="123.5" y1="21.5" x2="129.5" y2="21.5" stroke="#FFFFFF" stroke-width="1.3" stroke-linecap="round" />
+
+
+            <rect x="139" y="15" width="16" height="10" rx="3.5" fill="#F5F5F7" />
+            <line x1="142.5" y1="18.5" x2="151.5" y2="18.5" stroke="#8A8D96" stroke-width="1.3" stroke-linecap="round" />
+            <line x1="144.5" y1="21.5" x2="149.5" y2="21.5" stroke="#8A8D96" stroke-width="1.3" stroke-linecap="round" />
+
+
+            <rect x="158" y="15" width="16" height="10" rx="3.5" fill="#F5F5F7" />
+            <line x1="161.5" y1="18.5" x2="170.5" y2="18.5" stroke="#8A8D96" stroke-width="1.3" stroke-linecap="round" />
+            <line x1="164.5" y1="21.5" x2="170.5" y2="21.5" stroke="#8A8D96" stroke-width="1.3" stroke-linecap="round" />
+
+
+            <rect x="177" y="15" width="16" height="10" rx="3.5" fill="#F5F5F7" />
+            <line x1="180.5" y1="18.5" x2="189.5" y2="18.5" stroke="#8A8D96" stroke-width="1.3" stroke-linecap="round" />
+            <line x1="180.5" y1="21.5" x2="189.5" y2="21.5" stroke="#8A8D96" stroke-width="1.3" stroke-linecap="round" />
+
+
+            <text x="127" y="40" fill="#8A8D96" font-size="7.5" font-weight="600" text-anchor="middle" font-family="sans-serif">S</text>
+            <text x="146" y="40" fill="#8A8D96" font-size="7.5" font-weight="600" text-anchor="middle" font-family="sans-serif">M</text>
+
+            <text x="166" y="40" fill="#1A1C24" font-size="8" font-weight="900" text-anchor="middle" font-family="sans-serif">XL</text>
+            <text x="185" y="40" fill="#8A8D96" font-size="7.5" font-weight="600" text-anchor="middle" font-family="sans-serif">XXL</text>
+          </g>
+
+
+          <g class="art-bottomFloatingWeights">
+            <rect
+              x="28"
+              y="84"
+              width="60"
+              height="24"
+              rx="7"
+              fill="#FFFFFF"
+              filter="url(#lowFloatShadow)"
+            />
+
+            <text x="39" y="100.5" fill="#8A8D96" font-size="13.5" font-weight="300" text-anchor="middle" font-family="sans-serif">t</text>
+
+            <text x="54" y="100.5" fill="#4E525E" font-size="13.5" font-weight="500" text-anchor="middle" font-family="sans-serif">t</text>
+
+            <text x="71" y="100.5" fill="#1A1C24" font-size="13.5" font-weight="900" text-anchor="middle" font-family="sans-serif">t</text>
+            <circle cx="71" cy="104" r="1.5" fill="#2258F4" />
+          </g>
+
+
+          <g class="art-floatingPillBadge">
+            <rect
+              x="154"
+              y="5"
+              width="56"
+              height="20"
+              rx="10"
+              fill="#2258F4"
+              filter="url(#blueGlow)"
+            />
+            <text
+              x="182"
+              y="17.5"
+              fill="#FFFFFF"
+              font-size="8.5"
+              font-weight="bold"
+              text-anchor="middle"
+              font-family="sans-serif"
+              letter-spacing="0.2"
+            >
+              H1 40px
+            </text>
+          </g>
+        </svg>

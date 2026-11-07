@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="224" height="140" viewBox="0 0 448 280">
+  <defs>
+    <clipPath id="rear-image"><rect x="76" y="56" width="192" height="112" rx="12"/></clipPath>
+    <clipPath id="front-image"><rect x="198" y="94" width="192" height="112" rx="12"/></clipPath>
+  </defs>
+  <g data-motion-layer="0">
+    <g transform="translate(-18 -4) rotate(-10 172 128)">
+      <rect x="56" y="36" width="232" height="184" rx="20" fill="#FFF7ED"/>
+      <g clip-path="url(#rear-image)">
+        <rect x="76" y="56" width="192" height="112" fill="#FFEDD5"/>
+        <circle cx="210" cy="90" r="16" fill="#FED7AA"/>
+        <path d="M76 168V146L127 95Q132 90 138 96L211 168Z" fill="#FED7AA"/>
+        <path d="M137 168L205 110Q211 105 217 111L268 152V168Z" fill="#FDBA74"/>
+      </g>
+      <rect x="76" y="178" width="112" height="32" rx="8" fill="#FED7AA"/>
+      <path d="M228 36H268V94Q268 98 264 96L248 86L232 96Q228 98 228 94Z" fill="#FED7AA"/>
+    </g>
+  </g>
+  <g data-motion-layer="2">
+    <g transform="rotate(6 294 166)">
+      <rect x="178" y="74" width="232" height="184" rx="20" fill="#FFFFFF"/>
+      <g clip-path="url(#front-image)">
+        <rect x="198" y="94" width="192" height="112" fill="#FFF7ED"/>
+        <circle cx="332" cy="128" r="16" fill="#FFEDD5"/>
+        <path d="M198 206V184L249 133Q254 128 260 134L333 206Z" fill="#FFEDD5"/>
+        <path d="M259 206L327 148Q333 143 339 149L390 190V206Z" fill="#FED7AA"/>
+      </g>
+      <rect x="198" y="216" width="112" height="32" rx="8" fill="#FED7AA"/>
+      <path d="M350 74H390V132Q390 136 386 134L370 124L354 134Q350 136 350 132Z" fill="#F97316"/>
+    </g>
+  </g>
+</svg>

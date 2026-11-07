@@ -4,7 +4,7 @@ const notes: Record<string, Note[]> = {
   'chain-create-empty.webp': [{ text: '系统没有的环节，可以直接创建', left: 3, top: 35, arrows: [{ from: [35, 35], to: [44, 27], bend: -4 }] }],
   'chain-editor-1.webp': [{ text: '按业务需要，自己管理产业环节', left: 51, top: 25, arrows: [{ from: [52, 31], to: [42, 41], bend: -8 }] }],
   'chain-editor-2.webp': [{ text: '按业务需要，自己管理产业环节', left: 46, top: 29, arrows: [{ from: [64, 35], to: [75, 48], bend: -7 }] }],
-  hierarchy: [{ text: '自由调整层级，按自己的思路编排', left: 39, top: 55, arrows: [{ from: [55, 54], to: [59, 32], bend: 6 }, { from: [40, 61], to: [23, 72], bend: 7 }] }],
+  hierarchy: [{ text: '按实际业务编排图谱', left: 39, top: 55, arrows: [{ from: [55, 54], to: [59, 32], bend: 6 }, { from: [40, 61], to: [23, 72], bend: 7 }] }],
   'chain-company-management.webp': [{ text: '建好产业链，就能查看相关资讯', left: 58, top: 10, arrows: [{ from: [56, 12], to: [49, 7], bend: -5 }] }],
   'chain-company-details.webp': [{ text: '重点企业，随时关注', left: 34, top: -5, arrows: [{ from: [33, -1], to: [24, 9], bend: -4 }] }],
   overview: [{ text: '实时关注区域动向', left: 38, top: 12, arrows: [{ from: [38, 19], to: [38, 32], bend: 8 }] }],

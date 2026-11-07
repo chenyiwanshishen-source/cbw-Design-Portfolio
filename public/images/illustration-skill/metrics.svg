@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 130" fill="none">
+          <defs>
+
+            <filter id="metricsGroundShadow" x="-30%" y="-30%" width="160%" height="170%">
+              <feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="#8A8D96" flood-opacity="0.16" />
+              <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#8A8D96" flood-opacity="0.08" />
+            </filter>
+
+
+            <filter id="metricsBoardShadow" x="-30%" y="-30%" width="160%" height="170%">
+              <feDropShadow dx="0" dy="5" stdDeviation="6" flood-color="#1A1C24" flood-opacity="0.12" />
+              <feDropShadow dx="0" dy="1.5" stdDeviation="2" flood-color="#1A1C24" flood-opacity="0.06" />
+            </filter>
+
+
+            <filter id="orangeHeroGlow" x="-30%" y="-30%" width="160%" height="160%">
+              <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#FD5219" flood-opacity="0.35" />
+            </filter>
+
+
+            <linearGradient id="metricsOrangeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#FF6A38" />
+              <stop offset="100%" stop-color="#D94616" />
+            </linearGradient>
+
+
+            <pattern id="metricsHatch" width="6" height="6" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+              <line x1="0" y1="0" x2="0" y2="6" stroke="#E6E7EB" stroke-width="1.2" />
+            </pattern>
+
+
+            <radialGradient id="orangeAmbientGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#FFDFD4" stop-opacity="0.75" />
+              <stop offset="100%" stop-color="#FFEFEA" stop-opacity="0" />
+            </radialGradient>
+          </defs>
+
+
+          <g opacity="0.8" class="art-ambientBackGlow">
+            <ellipse cx="115" cy="55" rx="85" ry="42" fill="url(#orangeAmbientGlow)" opacity="0.35" />
+            <circle cx="115" cy="65" r="95" stroke="#E6E7EB" stroke-width="1" stroke-dasharray="4 4" fill="none" />
+            <circle cx="115" cy="65" r="70" stroke="#EBECEF" stroke-width="1" fill="none" />
+          </g>
+
+
+          <g class="art-tiltedBackPlate">
+            <rect x="20" y="14" width="190" height="102" rx="14" fill="#FFFFFF" filter="url(#metricsGroundShadow)" />
+
+
+            <path d="M130 116 L210 116 L210 62 Z" fill="url(#metricsHatch)" opacity="0.75" />
+
+
+            <path d="M34 15 L196 15" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" />
+          </g>
+
+
+          <g>
+
+            <g class="art-independent" data-art-x="-2" data-art-y="-4"><rect x="36" y="24" width="14" height="14" rx="4" fill="#FFDFD4" />
+            <path d="M39 33 L42 29.5 L44.5 31.5 L47 27.5" stroke="#FD5219" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" />
+
+            <rect x="56" y="28" width="42" height="7" rx="3.5" fill="#FFEFEA" />
+
+
+            </g><g class="art-independent" data-art-x="2" data-art-y="-5"><rect x="152" y="24" width="36" height="14" rx="7" fill="#FFEFEA" />
+            <circle cx="161" cy="31" r="2.5" fill="#FD5219" />
+            <rect x="167" y="29" width="14" height="4" rx="2" fill="#FFDFD4" />
+
+
+            </g><line x1="110" y1="46" x2="110" y2="76" stroke="#EBECEF" stroke-width="1" stroke-dasharray="3 3" />
+
+
+            <g class="art-independent" data-art-x="-2" data-art-y="-2"><rect x="36" y="47" width="32" height="6" rx="3" fill="#E6E7EB" />
+            <text x="36" y="73" fill="#D94616" font-size="13" font-weight="bold" font-family="system-ui, sans-serif">$</text>
+            <text x="46" y="73" fill="#1A1C24" font-size="20" font-weight="900" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" letter-spacing="-0.5">
+              7,192
+            </text>
+
+
+            </g><g class="art-independent" data-art-x="3" data-art-y="-5"><rect x="156" y="47" width="32" height="6" rx="3" fill="#FFDFD4" />
+            <text x="188" y="73" fill="url(#metricsOrangeGrad)" font-size="20" font-weight="900" text-anchor="end" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" letter-spacing="-0.5">
+              +18.4%
+            </text>
+
+
+            </g><g class="art-independent" data-art-x="0" data-art-y="3"><rect x="36" y="90" width="152" height="8" rx="4" fill="#EBECEF" />
+            <rect x="36" y="90" width="126" height="8" rx="4" fill="url(#metricsOrangeGrad)" />
+
+            </g><g class="art-independent" data-art-x="3" data-art-y="3"><circle cx="162" cy="94" r="6.5" fill="#FFFFFF" filter="url(#orangeHeroGlow)" />
+            <circle cx="162" cy="94" r="3.5" fill="#FD5219" />
+          </g></g>
+        </svg>
