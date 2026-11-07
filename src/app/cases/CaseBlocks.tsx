@@ -1,4 +1,5 @@
 import { IllustrationFlow } from './components/IllustrationFlow';
+import { DesignSystemSummary } from './components/DesignSystemSummary';
 import { BridgeFlow } from './components/BridgeFlow';
 import { QixinFoundations } from './components/QixinFoundations';
 import { QixinSystemOverview } from './components/QixinSystemOverview';
@@ -38,6 +39,7 @@ export function CaseBlocks({ blocks, labels, depth = 0 }: { depth?: number; bloc
   return <>{blocks.map((block, index) => {
     const key = index;
     switch (block.kind) {
+      case 'design-system-summary': return <DesignSystemSummary key={key} />;
       case 'qixin-system-overview': return <QixinSystemOverview key={key} />;
       case 'qixin-foundations': return <QixinFoundations key={key} />;
       case 'component-slots': return <ComponentSpecimen key={key} />;

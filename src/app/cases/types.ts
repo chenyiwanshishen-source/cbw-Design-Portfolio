@@ -3,6 +3,7 @@ import type { HeaderContent } from './components/CaseHeader';
 import type { FigureContent } from './components/FigurePlaceholder';
 type Item = { label: string; text: string };
 export type CaseBlock =
+ | { kind: 'design-system-summary' }
  | { kind: 'qixin-system-overview' }
  | { kind: 'component-slots' }
  | { kind: 'qixin-foundations' }

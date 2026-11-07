@@ -67,6 +67,7 @@ export const explorations: { header: { title: string; intro: string }; intro: st
           "kind": "paragraph",
           "text": "于是，我把规则拆成独立文档，分别说明栅格、文字、间距、圆角、阴影和描边该怎么处理。每次只让 AI 读取当前需要的规则，先做样张、检查和调整，确认后再写入变量与样式。"
         },
+        { "kind": "design-system-summary" },
         {
           "kind": "subsection",
           "title": "先看颜色",
