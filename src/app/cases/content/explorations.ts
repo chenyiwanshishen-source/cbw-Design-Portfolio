@@ -66,7 +66,7 @@ export const explorations: { header: { title: string; intro: string }; intro: st
           "blocks": [
             {
               "kind": "paragraph",
-              "text": "我参考 Carbon、Fluent 等设计系统，尝试用一个 Skill 分角色完成颜色探索到组件生成，但流程太长，上下文不断累积，后期容易偏离规则。调整分工和读取方式后仍不稳定，我最终放下完整流程的 Skill，把规则拆成独立规范，生成和维护组件时按需读取、逐项核对。"
+              "text": "我参考 Carbon、Fluent 等设计系统，结合自己当时在用的设计系统，尝试用一个 Skill 分角色完成颜色探索到组件生成，但流程太长，上下文不断累积，后期容易偏离规则。调整分工和读取方式后仍不稳定，我最终放下完整流程的 Skill，把规则拆成独立规范，生成和维护组件时按需读取、逐项核对。"
             },
             {
               "kind": "figures",
