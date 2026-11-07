@@ -62,11 +62,11 @@ export const explorations: { header: { title: string; intro: string }; intro: st
         { "kind": "design-system-summary" },
         {
           "kind": "subsection",
-          "title": "先看颜色",
+          "title": "设计经历",
           "blocks": [
             {
               "kind": "paragraph",
-              "text": "AI 检查了 19 个页面。文件中已有 186 个颜色，但页面实际引用的是另一个库中的颜色。其中三种相近的蓝色，分别用于按钮、品牌和高亮文字。"
+              "text": "一开始，我想用一个 Skill，让 AI 从颜色探索一路做到基础组件。我参考 Carbon、Fluent 等设计系统，把规则写进去，也为不同阶段设置了角色。但实际跑下来，流程太长，上下文越积越多，后面的结果会偏离前面定好的规则。\n我调整了角色分工和规则的读取方式，重新尝试，还是没能让整套流程稳定执行。最后，我决定不再继续做这个完整流程的 Skill，而是把栅格、文字、间距、圆角、阴影和描边的规则独立出来，形成规范文档。生成或维护组件时，只读取当前需要的部分，再逐项检查和调整。"
             },
             {
               "kind": "figures",
