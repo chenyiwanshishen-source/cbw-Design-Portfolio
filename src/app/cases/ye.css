@@ -66,3 +66,12 @@
 .ye-case #ye-01 .case-trial-panel-1 li:nth-child(3) { align-self: flex-end; margin-right: var(--space-3); --feedback-angle: 3deg; }
 .ye-case #ye-01 .case-trial-panel-1 li:nth-child(4) { align-self: flex-start; --feedback-angle: -4deg; }
 .ye-case #ye-01 .case-trial-panel-1 li:nth-child(5) { align-self: flex-end; --feedback-angle: 5deg; }
+
+.ye-research-cards .case-columns { align-items: stretch; gap: var(--rhythm-3); }
+.ye-research-cards .case-columns > div { min-width: 0; border: 0; border-radius: var(--space-6); padding: var(--rhythm-4); background: var(--color-case-plate); }
+.ye-research-cards .case-columns > div:nth-child(2) { background: var(--color-research-note-blue); }
+.ye-research-cards .case-columns > div:nth-child(3) { background: var(--color-qixin-purple-light); }
+.ye-research-cards dl { margin: 0; }
+.ye-research-cards .case-columns dt { color: var(--color-text); font-size: var(--text-h4); line-height: var(--text-h4--line-height); font-weight: 500; margin-bottom: var(--rhythm-3); }
+.ye-research-cards .case-columns dd { margin: 0; white-space: pre-line; }
+@media (max-width: 767px) { .ye-research-cards .case-columns { grid-template-columns: minmax(0, 1fr); } }
