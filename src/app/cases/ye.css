@@ -16,7 +16,7 @@
 .ye-home-controls .report-edit-arrow { z-index: 2; }
 
 /* Neutral gray screenshot frames derived from portfolio colors. */
-.ye-case { --ye-image-border: color-mix(in srgb, var(--color-text) 8%, var(--color-surface)); }
+.ye-case { --ye-image-border: color-mix(in srgb, var(--color-text) 5%, var(--color-surface)); }
 .ye-home-image, .ye-home-details img, .ye-clarification-image {
   border-radius: var(--space-6);
   outline: calc(3 * var(--border-width)) solid var(--ye-image-border);
