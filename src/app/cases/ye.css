@@ -106,7 +106,7 @@
 
 .ye-research-evidence { height: calc(9 * var(--space-16)); overflow: hidden; display: flex; flex-direction: column; }
 .ye-research-evidence .ye-review-wall { min-height: 0; overflow: hidden; flex: 1; mask-image: linear-gradient(to bottom, black 0%, black 80%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 0%, black 80%, transparent 100%); margin-bottom: calc(-1 * var(--rhythm-4)); padding-bottom: var(--rhythm-4); }
-.ye-research-response-stack { min-width: 0; display: grid; grid-template-rows: auto 1fr; gap: var(--rhythm-3); }
+.ye-research-response-stack { min-width: 0; display: grid; grid-template-rows: auto minmax(0, 1fr); gap: var(--rhythm-3); height: calc(9 * var(--space-16)); }
 .ye-research-response-stack .ye-research-response > p:last-child { margin-bottom: 0; }
 .ye-research-response-stack .ye-research-response dl { margin: 0 0 var(--rhythm-4); gap: var(--rhythm-4); }
 

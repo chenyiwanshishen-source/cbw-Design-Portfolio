@@ -29,14 +29,7 @@ export function YeResearchCards() {
       <h3>对竞品进行体验记录</h3>
       <p>我重点体验了<strong>整理效率、操作理解和恢复能力</strong>，据此确定 ye! 的设计方向：用 AI 减少逐条整理，执行前<strong>先预览、再确认</strong>，出错后<strong>可以撤销</strong>，并保护固定页签。</p>
     </section>
-    <section className="ye-research-panel ye-research-response">
-      <dl>
-        <div><dt>整理依赖逐条操作</dt><dd>用自然语言说明需求，AI 读取内容并提出整理方案。</dd></div>
-        <div><dt>操作入口和结果难理解</dt><dd>在工作台查看内容、继续对话，先检查方案再确认执行。</dd></div>
-        <div><dt>整理后需要恢复</dt><dd>提供最近五步书签变更的撤销，并保护固定页签。</dd></div>
-      </dl>
-      <p className="ye-review-note">这些是已实现的设计回应；跨端同步、长期数据安全和整体性能仍需单独验证。</p>
-    </section>
+    <section className="ye-research-panel ye-research-response ye-research-map" aria-label="收藏流程体验地图" />
     </div>
     <section className="ye-research-panel ye-research-journey">
       <h3>用户旅程图</h3>
