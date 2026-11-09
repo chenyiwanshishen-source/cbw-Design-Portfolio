@@ -83,6 +83,7 @@
 .ye-process-number { font-size: var(--text-caption); color: var(--color-text-meta); }
 .ye-process-paper { width: 80%; min-height: calc(2 * var(--space-16)); transform: rotate(var(--paper-angle)); }
 .ye-process-paper strong { font-size: var(--text-caption); }
+.ye-process-cover-icon { display: block; width: var(--space-8); height: var(--space-8); margin-block: var(--rhythm-2); background: var(--color-text-secondary); mask: center / contain no-repeat; }
 .ye-process-ai { width: 80%; min-height: calc(2 * var(--space-16)); aspect-ratio: auto; color: var(--color-accent); font-size: var(--text-h2); }
 .ye-process-title { font-size: var(--text-body); line-height: var(--text-body--line-height); font-weight: 500; color: var(--color-text); }
 .ye-process-detail { font-size: var(--text-caption); line-height: var(--text-caption--line-height); color: var(--color-text-secondary); }
