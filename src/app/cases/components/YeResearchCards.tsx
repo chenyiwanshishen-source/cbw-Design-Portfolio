@@ -14,10 +14,15 @@ export function YeResearchCards() {
     <section className="ye-research-panel">
       <h3>我查看了同类产品的用户评论</h3>
       <p>从 App Store 和 Chrome 网上应用店的评论中，梳理浏览器书签、页签和窗口整理中的问题。</p>
-      <div className="ye-review-wall">{reviews.map((review, index) => <article className="ye-review-card" key={index}>
+      <ul className="ye-review-themes">
+        <li>整理方式受限，<strong>仍需手动调整</strong></li>
+        <li>入口和设置复杂，<strong>操作不够直观</strong></li>
+        <li>恢复后分组丢失，<strong>需要重新整理</strong></li>
+      </ul>
+      <div className="ye-review-wall">{[0, 1, 2].map(column => <div className="ye-review-column" key={column}>{reviews.filter((_, index) => index % 3 === column).map(review => <article className="ye-review-card" key={review.product + review.date}>
         <p>{review.text}</p>
         <span className="ye-review-product">{review.product}</span>
-      </article>)}</div>
+      </article>)}</div>)}</div>
     </section>
     <section className="ye-research-panel ye-research-response">
       <h3>把问题对应到 ye! 的设计</h3>

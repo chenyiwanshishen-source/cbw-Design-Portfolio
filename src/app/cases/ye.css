@@ -73,20 +73,24 @@
 .ye-research-panel h3 { margin: 0 0 var(--rhythm-3); font-size: var(--text-h4); line-height: var(--text-h4--line-height); font-weight: 500; }
 .ye-research-panel p { font-size: var(--text-body); line-height: var(--text-body--line-height); margin: 0 0 var(--rhythm-3); }
 .ye-research-panel .ye-review-note { font-size: var(--text-caption); color: var(--color-text-secondary); }
-.ye-review-wall { columns: 2; column-gap: var(--rhythm-2); max-width: calc(5 * var(--space-16)); margin: var(--rhythm-4) auto 0; }
-.ye-review-card { break-inside: avoid; padding: var(--space-3); margin-bottom: var(--rhythm-2); border-radius: var(--space-4); background: var(--color-surface); border: var(--border-width) solid var(--color-border-subtle); }
-.ye-review-card:nth-child(3n) { margin-top: var(--rhythm-3); }
+.ye-review-themes { padding-left: var(--space-5); margin: var(--rhythm-3) 0 var(--rhythm-4); color: var(--color-text-body); font-size: var(--text-body); line-height: var(--text-body--line-height); }
+.ye-review-themes strong { font-weight: 600; }
+.ye-review-wall { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--rhythm-1); margin-top: var(--rhythm-4); align-items: start; }
+.ye-review-column { display: grid; gap: var(--rhythm-1); min-width: 0; }
+.ye-review-column:first-child { padding-top: var(--rhythm-4); }
+.ye-review-column:last-child { padding-top: var(--rhythm-3); }
+.ye-review-card { padding: var(--space-3); border-radius: var(--space-4); background: var(--color-surface); border: 0; box-shadow: var(--shadow-float); }
 .ye-review-stars { display: flex; gap: 0; font-size: var(--text-caption); line-height: 1; color: var(--color-border-subtle); margin-bottom: var(--rhythm-1); }
 .ye-review-stars .is-rated { color: var(--color-question-bank); }
-.ye-research-panel .ye-review-card p { font-size: var(--text-caption); line-height: var(--text-caption--line-height); margin: 0 0 var(--rhythm-1); }
-.ye-review-product { font-size: var(--text-caption); line-height: var(--text-caption--line-height); color: var(--color-text-meta); }
+.ye-research-panel .ye-review-card p { font-size: var(--text-micro); line-height: var(--text-micro--line-height); margin: 0 0 var(--rhythm-1); }
+.ye-review-product { font-size: var(--text-micro); line-height: var(--text-micro--line-height); color: var(--color-text-meta); }
 .ye-research-response { background: var(--color-research-note-blue); }
 .ye-research-response dl { margin: var(--rhythm-5) 0; display: grid; gap: var(--rhythm-5); }
 .ye-research-response dt { font-size: var(--text-body); font-weight: 600; margin-bottom: var(--rhythm-2); }
 .ye-research-response dd { margin: 0; font-size: var(--text-body); line-height: var(--text-body--line-height); }
 .ye-research-journey { grid-column: 1 / -1; min-height: calc(4 * var(--space-16)); background: var(--color-case-plate); }
 @media (max-width: 767px) { .ye-research-layout { grid-template-columns: minmax(0, 1fr); } }
-@media (max-width: 399px) { .ye-review-wall { columns: 1; } }
+@media (max-width: 399px) { .ye-review-card { padding: var(--space-2); } }
 
 .ye-case #ye-01 .case-trial-panel-0 li:nth-child(5) { align-self: flex-start; --feedback-angle: -4deg; }
 
