@@ -104,11 +104,11 @@ export const ye: CaseContent = {
               "groups": [
                 { "title": "问题", "items": [
                   { "product": "", "text": "缺少快捷键指南", "icon": "KeyboardIcon" },
-                  { "product": "", "text": "Mac / Win 动效抖动不一致", "icon": "ComputerIcon" },
-                  { "product": "", "text": "希望 AI 结合收藏与习惯推荐相关资讯", "icon": "Bookmark01Icon" },
-                  { "product": "", "text": "AI 迁移后的预览标识不清", "icon": "ArrowDataTransferHorizontalIcon" },
-                  { "product": "", "text": "希望不借助 AI，也能直接搜索定位内容", "icon": "Search01Icon" },
-                  { "product": "", "text": "希望收藏内容支持阅读、星标和划线记录", "icon": "Bookmark01Icon" }
+                  { "product": "", "text": "Mac / Win 动效表现不一", "icon": "ComputerIcon" },
+                  { "product": "", "text": "希望 AI 按收藏与习惯推荐资讯", "icon": "Bookmark01Icon" },
+                  { "product": "", "text": "迁移预览标识不清", "icon": "ArrowDataTransferHorizontalIcon" },
+                  { "product": "", "text": "希望支持非 AI 搜索定位", "icon": "Search01Icon" },
+                  { "product": "", "text": "希望支持收藏阅读、星标和划线", "icon": "Bookmark01Icon" }
                 ] },
                 { "title": "优点", "items": [
                   { "product": "", "text": "交互容易理解，操作顺手", "icon": "UserGroupIcon" },
