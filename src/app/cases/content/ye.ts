@@ -180,7 +180,7 @@ export const ye: CaseContent = {
         },
         {
           "kind": "subsection",
-          "title": "聊天记录",
+          "title": "关于对话",
           "blocks": []
         }
       ]
