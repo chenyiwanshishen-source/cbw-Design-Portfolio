@@ -1,5 +1,6 @@
 .ye-case .case-table th { font-family: var(--font-sans); font-size: var(--text-caption); line-height: var(--text-caption--line-height); }
 .ye-home-carousel { position: relative; min-width: 0; }
+.ye-clarification-image { display: block; width: 100%; height: auto; }
 .ye-home-preview.template-preview { display: grid; background: var(--color-case-plate); padding-inline: var(--rhythm-4); }
 .ye-home-image { position: relative; grid-area: 1 / 1; display: block; width: 100%; height: auto; aspect-ratio: 4986 / 2646; object-fit: contain; border-radius: var(--space-4); box-shadow: var(--shadow-float); }
 .ye-home-image[aria-hidden="true"] { visibility: hidden; pointer-events: none; }
