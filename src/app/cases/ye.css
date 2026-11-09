@@ -25,7 +25,7 @@
 }
 
 /* Use the portfolio reading rhythm for the introduction and its next block. */
-.ye-case > .case-header-compact { padding-bottom: var(--rhythm-6); }
+.case-page:has(.case-opening) .ye-case > .case-header-compact { padding-bottom: var(--rhythm-6); }
 .ye-case .case-header-main { gap: var(--rhythm-3); }
 .ye-case .case-header-main > p { font-size: var(--text-body); line-height: var(--text-body--line-height); }
 .ye-case > .case-opening { margin-block: var(--rhythm-4) var(--rhythm-6); }
