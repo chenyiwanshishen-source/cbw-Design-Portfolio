@@ -3,6 +3,8 @@
 .ye-collaboration-versions { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--rhythm-4); margin: 0 0 var(--rhythm-4); }
 .ye-collaboration-version { display: flex; align-items: center; justify-content: center; gap: var(--rhythm-3); aspect-ratio: 1; background: var(--color-case-plate); border-radius: var(--space-6); }
 .ye-collaboration-version img { display: block; width: var(--rhythm-5); height: var(--rhythm-5); object-fit: contain; }
+.ye-collaboration-logo { display: grid; place-items: center; width: 72px; height: 72px; flex-shrink: 0; border-radius: 22px; background: var(--color-surface); box-shadow: 0 8px 24px #00000006, 0 2px 5px #00000003; }
+@media (max-width: 767px) { .ye-collaboration-logo { width: 48px; height: 48px; border-radius: 16px; } .ye-collaboration-version { flex-wrap: wrap; gap: var(--space-2); padding: var(--space-2); } }
 @media (max-width: 639px) { .ye-collaboration-versions { gap: var(--space-2); } .ye-collaboration-version { gap: var(--space-2); } .ye-collaboration-version img { width: var(--space-6); height: var(--space-6); } }
 .ye-model-states { display: grid; gap: var(--rhythm-3); margin: var(--rhythm-4) 0 0; padding: var(--rhythm-5); background: var(--color-case-plate); border-radius: var(--space-6); }
 .ye-model-states { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: var(--rhythm-4); }
