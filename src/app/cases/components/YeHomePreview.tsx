@@ -90,5 +90,6 @@ export function YeHomePreview() {
     <img className="ye-clarification-image" src={`${import.meta.env.BASE_URL}images/ye/clarification-structure-options.webp`} alt="目录结构方案：选择精细版或精简版，并可补充说明" width="1173" height="566" loading="lazy" decoding="async" />
     <img className="ye-clarification-image" src={`${import.meta.env.BASE_URL}images/ye/clarification-plan-preview.webp`} alt="方案预览：展示设计目录及子目录的分类说明与预计数量" width="1173" height="609" loading="lazy" decoding="async" />
     </figure>
+    <img className="ye-review-plan-image" src={`${import.meta.env.BASE_URL}images/ye/review-plan.webp`} alt="整理方案审查：查看存疑清单、目录调整和书签来源，确认后应用" width="2892" height="2734" loading="lazy" decoding="async" />
   </section></>;
 }
