@@ -10,9 +10,9 @@ export function YeCollaborationIntro() {
     <p className="case-paragraph">使用中，我发现 Claude 能把技术问题拆解得更清楚。第三版因此调整分工：<strong>Claude 定方案、拆任务、写测试文档，Codex 改代码和重建架构，Gemini 跑全量测试、更新项目文档</strong>。</p>
     <p className="case-paragraph">这几次协作让我明确了三点：</p>
     <ul className="ye-collaboration-judgments">
-      <li><strong>先把需求和功能流转想清楚。</strong>模糊的需求容易让实现偏离目标。</li>
-      <li><strong>能完成任务，不代表能判断方案。</strong>上下文不完整、问题没沟通清楚，都可能带偏方向。</li>
-      <li><strong>方案、实现和验证分开负责。</strong>根据实际协作表现分工。</li>
+      <li><strong>只加意图识别，改不了底层仍靠规则执行的问题。</strong>第二版的效果让我决定继续重构。</li>
+      <li><strong>不再让 Codex 和 Gemini 一边写代码，一边决定方案。</strong>它们执行具体任务更顺手，方案分析和拆解交给实际表现更好的 Claude。</li>
+      <li><strong>让 Gemini 专门跑全量测试、更新文档。</strong>代码修改和架构重建交给 Codex，收窄每个智能体负责的范围。</li>
     </ul>
   </div>;
 }
