@@ -61,7 +61,7 @@ export function YeHomePreview() {
     <div className="case-prose"><p className="case-paragraph">页签<mark className="case-marker">按浏览器窗口独立分栏</mark>，方便看清各窗口的内容。书签借鉴苹果的<mark className="case-marker">米勒分栏</mark>，逐层展开，节省空间并保留层级。选中书签可查看详情和<mark className="case-marker">收藏时间</mark>，判断是否仍值得保留。</p></div>
     <div className="ye-home-carousel" ref={root}>
     <figure className="template-preview template-preview-carousel ye-home-preview" aria-label="ye! 首页工作台截图轮播" aria-roledescription="轮播">
-      <div className="ye-home-stage">{slides.map((slide, index) => <img key={slide.src} className="ye-home-image" src={`${import.meta.env.BASE_URL}images/ye/${slide.src}`} alt={slide.alt} width={slide.width} height={slide.height} aria-hidden={active !== index} decoding="async" />)}</div>
+      {slides.map((slide, index) => <img key={slide.src} className="ye-home-image" src={`${import.meta.env.BASE_URL}images/ye/${slide.src}`} alt={slide.alt} width={slide.width} height={slide.height} aria-hidden={active !== index} decoding="async" />)}
     </figure>
     <div className="ye-home-controls">
       {[-1, 1].map(direction => <button key={direction} type="button" className={`report-edit-arrow ${direction < 0 ? 'is-previous' : 'is-next'}`} aria-label={direction < 0 ? '上一张工作台截图' : '下一张工作台截图'} onClick={event => { press(event.currentTarget); select(active + direction, direction); }}>
