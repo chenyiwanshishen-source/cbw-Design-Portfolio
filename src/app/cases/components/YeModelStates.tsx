@@ -11,7 +11,6 @@ const states = [
 export function YeModelStates() {
   return <figure className="ye-model-states" aria-label="五种模型异常状态提示，按插件实际样式展示">
     <div className="ye-model-state-list">{states.map(state => <div className="ye-model-state" key={state.title}>
-      <p>{state.title}</p>
       <div className="ye-model-notice"><AlertCircle size={16} strokeWidth={2} aria-hidden="true" /><span>{state.message}</span>
         <div className="ye-model-notice-actions" aria-hidden="true">{state.title === '其他模型失败' && <FileSearch size={16} strokeWidth={2} />}{state.retry && <RotateCcw size={16} strokeWidth={2} />}{state.settings === 'switch' ? <ArrowLeftRight size={16} strokeWidth={2} /> : state.settings && <Settings size={16} strokeWidth={2} />}<X size={16} strokeWidth={2} /></div>
       </div>
@@ -22,7 +21,7 @@ export function YeModelStates() {
         { type: 'danger', title: '错误', message: '移动失败，请稍后重试。', Icon: AlertCircle },
         { type: 'warning', title: '警告', message: '不能将文件夹移动到其子文件夹中', Icon: AlertTriangle },
         { type: 'info', title: '普通提示', message: '已关闭标签页', Icon: Info },
-      ].map(({ type, title, message, Icon }) => <div key={type}><p>{title}</p><div className={`ye-short-toast ye-short-toast-${type}`}><Icon size={16} strokeWidth={2} /><span>{message}</span><X size={16} strokeWidth={2} /></div></div>)}
+      ].map(({ type, title, message, Icon }) => <div key={type}><div className={`ye-short-toast ye-short-toast-${type}`}><Icon size={16} strokeWidth={2} /><span>{message}</span><X size={16} strokeWidth={2} /></div></div>)}
     </div>
   </figure>;
 }
