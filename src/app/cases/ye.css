@@ -1,7 +1,7 @@
 .ye-case .case-table th { font-family: var(--font-sans); font-size: var(--text-caption); line-height: var(--text-caption--line-height); }
 .ye-home-carousel { position: relative; min-width: 0; }
 .ye-clarification-image { display: block; width: 100%; height: auto; border-radius: var(--space-4); box-shadow: var(--shadow-float); }
-.ye-review-pair > div { display: flex; align-items: flex-start; justify-content: center; padding: var(--rhythm-3); }
+.ye-review-pair > div { display: flex; align-items: flex-start; justify-content: center; aspect-ratio: 10 / 11; padding: var(--rhythm-3); }
 .ye-review-conversation-shadow { display: block; margin-top: var(--rhythm-4); width: 95%; flex-shrink: 0; filter: drop-shadow(var(--shadow-float)); }
 .ye-review-conversation-image { display: block; width: 100%; max-width: none; height: auto; border: 0; border-radius: var(--space-4); clip-path: inset(6.5% 0.6% 0 0 round var(--space-4)); }
 .ye-review-pair > .ye-review-plan-panel { justify-content: flex-start; padding: var(--rhythm-5) 0 0 var(--rhythm-4); }
