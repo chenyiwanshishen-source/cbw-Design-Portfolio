@@ -93,18 +93,13 @@ export function YeHomePreview() {
   </section>
   <section className="case-subsection" aria-labelledby="ye-follow-up-title">
     <h3 id="ye-follow-up-title">关于追问和审查</h3>
-    <div className="case-prose"><p className="case-paragraph">用户的一句话可能有多种理解，也可能缺少完成任务所需的信息。我希望 AI <mark className="case-marker">先结合上下文理解需求，仍不明确时再追问</mark>，避免理解错了就直接执行。问题要具体，让用户知道还缺什么、为什么需要补充，并自然地接着当前对话问下去。</p></div>
+    <div className="case-prose"><p className="case-paragraph">书签数量多、分类因人而异，用户的一句话也可能有多种理解。我将流程分为三层：<mark className="case-marker">先确认整理范围和方向</mark>，信息不足时再追问，避免做偏；<mark className="case-marker">通过 AI 回复反馈理解和存疑项</mark>，方便纠偏，减少逐步确认的打断；<mark className="case-marker">执行前预览并确认具体改动</mark>，保留用户对批量操作的控制。方案可以继续修改，不必重新描述需求。</p></div>
     <figure className="ye-clarification-gallery" aria-label="追问与方案预览截图">
     <img className="ye-clarification-image" src={`${import.meta.env.BASE_URL}images/ye/clarification-example.webp`} alt="AI 追问这次想怎么整理，提供整体重整、只收拢散落书签、只清理重复与失效链接三个选项，并支持补充说明" width="1172" height="746" loading="lazy" decoding="async" />
     <img className="ye-clarification-image" src={`${import.meta.env.BASE_URL}images/ye/clarification-existing-folders.webp`} alt="目录结构方案：选择按目录树整理或沿用现有文件夹归位" width="1175" height="637" loading="lazy" decoding="async" />
     <img className="ye-clarification-image" src={`${import.meta.env.BASE_URL}images/ye/clarification-structure-options.webp`} alt="目录结构方案：选择精细版或精简版，并可补充说明" width="1173" height="566" loading="lazy" decoding="async" />
     <img className="ye-clarification-image" src={`${import.meta.env.BASE_URL}images/ye/clarification-plan-preview.webp`} alt="方案预览：展示设计目录及子目录的分类说明与预计数量" width="1173" height="609" loading="lazy" decoding="async" />
     </figure>
-    <div className="case-prose">
-      <p className="case-paragraph"><strong>第一层：确认整理方向。</strong>“整理书签”可能是重新分类，也可能只是收拢散落的内容。我先让用户确认范围和整理方式，避免 AI 从一开始就做偏。取舍是增加一次必要的选择，但不要求用户提前想好整套目录。</p>
-      <p className="case-paragraph"><strong>第二层：通过对话及时纠偏。</strong>书签标题不一定能说明实际内容，AI 的分类也可能不符合个人习惯。我让 AI 反馈自己的理解、处理结果和存疑项，用户可以随时补充或纠正。这里保留反馈机会，不要求逐步点击确认，减少对任务的打断。</p>
-      <p className="case-paragraph"><strong>第三层：确认具体改动。</strong>认可整理方向，不代表接受每一项移动、合并或删除。我在执行前展示方案，由用户确认后再修改真实书签，并保留方案修改入口。取舍是多一次检查，换取对批量改动的控制；用户也能接着调整，不必重新描述需求。</p>
-    </div>
     <figure className="workbench-panels ye-review-pair" aria-label="审查对话展示">
     <div>
     <span className="ye-review-conversation-shadow"><img className="ye-review-conversation-image" src={`${import.meta.env.BASE_URL}images/ye/review-conversation.webp`} alt="用户指出书签分类问题后，AI 查看实际内容、修正误判，并列出仍需用户确认的存疑项" width="1222" height="2418" loading="lazy" decoding="async" /></span>
