@@ -29,3 +29,17 @@
 .ye-case .case-header-main { gap: var(--rhythm-3); }
 .ye-case .case-header-main > p { font-size: var(--text-body); line-height: var(--text-body--line-height); }
 .ye-case > .case-opening { margin-block: var(--rhythm-4) var(--rhythm-6); }
+
+/* Overview metrics reuse the case card scale, palette and reading rhythm. */
+.ye-progress { margin: 0; }
+.ye-progress-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--rhythm-3); margin: 0; }
+.ye-progress-card { min-width: 0; padding: var(--space-6); border-radius: var(--space-6); background: var(--color-case-plate); }
+.ye-progress-icon { display: flex; align-items: center; justify-content: center; width: var(--space-12); height: var(--space-12); border-radius: 50%; background: var(--color-question-bank); margin-bottom: var(--rhythm-3); }
+.ye-progress-icon img { width: var(--space-6); height: var(--space-6); }
+.ye-progress-card:nth-child(2) .ye-progress-icon { background: var(--color-qixin-blue-light); }
+.ye-progress-card:nth-child(3) .ye-progress-icon { background: var(--color-qixin-green-08); }
+.ye-progress-card:nth-child(4) .ye-progress-icon { background: var(--color-qixin-purple-light); }
+.ye-progress-card dt { font-size: var(--text-caption); line-height: var(--text-caption--line-height); color: var(--color-text-secondary); }
+.ye-progress-card dd { margin: var(--rhythm-1) 0 0; font-size: var(--text-h4); line-height: var(--text-h4--line-height); font-weight: 500; color: var(--color-text); font-variant-numeric: tabular-nums; }
+.ye-progress figcaption { margin-top: var(--rhythm-2); font-size: var(--text-caption); line-height: var(--text-caption--line-height); color: var(--color-text-secondary); }
+@media (max-width: 767px) { .ye-progress-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--rhythm-2); } }
