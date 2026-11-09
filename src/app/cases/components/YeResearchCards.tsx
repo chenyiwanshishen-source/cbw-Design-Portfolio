@@ -14,11 +14,11 @@ export function YeResearchCards() {
     <section className="ye-research-panel">
       <h3>我查看了同类产品的用户评论</h3>
       <p>从 App Store 和 Chrome 网上应用店的评论中，梳理收藏、整理和找回内容时遇到的问题。</p>
-      <p className="ye-review-note">下方为 App Store 评论的中文转述，保留原评分与评论月份，包含历史版本反馈。</p>
+      <p className="ye-review-note">用户评论摘译 · 包含历史版本反馈</p>
       <div className="ye-review-wall">{reviews.map((review, index) => <article className="ye-review-card" key={index}>
         <span className="ye-review-stars" aria-label={`${review.rating} 星，共 5 星`}>{Array.from({ length: 5 }, (_, i) => <span key={i} className={i < review.rating ? 'is-rated' : undefined} aria-hidden="true">★</span>)}</span>
         <p>{review.text}</p>
-        <a href={`https://itunes.apple.com/${review.region}/rss/customerreviews/id=${review.id}/sortby=mostrecent/json`} target="_blank" rel="noreferrer">{review.product} · {review.date} ↗</a>
+        <span className="ye-review-product">{review.product}</span>
       </article>)}</div>
     </section>
     <section className="ye-research-panel ye-research-response">
