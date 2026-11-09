@@ -3,7 +3,7 @@ import type { CaseContent } from '../types';
 export const ye: CaseContent = {
   "header": {
     "title": "ye! · 浏览器整理 agent",
-    "intro": "ye! 是我为整理书签和标签页做的 Chrome 插件。我负责产品与交互设计，与 Gemini、Claude、Codex 协作，直接在代码中完成界面和功能。",
+    "intro": "ye! 是我为整理书签和标签页做的 Chrome 插件。我负责产品与交互设计，与 Gemini、Claude、Codex 协作，直接在代码中完成界面和功能。这次没有使用 Figma，我想试试智能体在设计中能做到哪一步，哪些判断还需要由我来做。",
     "introEmphasis": ["产品与交互设计", "直接在代码中完成界面和功能"],
     "factsStyle": "pills",
     "facts": [
