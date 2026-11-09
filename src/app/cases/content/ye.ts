@@ -108,7 +108,13 @@ export const ye: CaseContent = {
                   { "product": "", "text": "希望结合现有收藏夹和使用习惯，推荐更合适的内容", "icon": "Bookmark01Icon" },
                   { "product": "", "text": "内容迁移缺少清晰标识", "icon": "ArrowDataTransferHorizontalIcon" }
                 ] },
-                { "title": "优点", "items": [{ "product": "", "text": "【待填：朋友们反馈的优点】" }] }
+                { "title": "优点", "items": [
+                  { "product": "", "text": "交互友好", "icon": "UserGroupIcon" },
+                  { "product": "", "text": "反馈及时", "icon": "Clock01Icon" },
+                  { "product": "", "text": "页面清爽", "icon": "DashboardSquare01Icon" },
+                  { "product": "", "text": "层级分布合理", "icon": "Layers01Icon" },
+                  { "product": "", "text": "功能引导一目了然", "icon": "CheckListIcon" }
+                ] }
               ]
             }
           ]
