@@ -11,13 +11,13 @@ const reviews = [
 
 export function YeResearchCards() {
   return <div className="ye-research-layout">
-    <section className="ye-research-panel">
-      <h3>我查看了同类产品的用户评论</h3>
-      <p>从 App Store 和 Chrome 网上应用店的评论中，梳理浏览器书签、页签和窗口整理中的问题。</p>
+    <section className="ye-research-panel ye-research-evidence">
+      <h3>同类产品的用户反馈</h3>
+      <p className="ye-research-intro">App Store 与 Chrome 商店评论中的三类问题：</p>
       <ul className="ye-review-themes">
-        <li>整理方式受限，<strong>仍需手动调整</strong></li>
-        <li>入口和设置复杂，<strong>操作不够直观</strong></li>
-        <li>恢复后分组丢失，<strong>需要重新整理</strong></li>
+        <li>整理方式受限，仍需手动调整</li>
+        <li>入口和设置复杂，操作不够直观</li>
+        <li>恢复后分组丢失，需要重新整理</li>
       </ul>
       <div className="ye-review-wall">{[0, 1, 2].map(column => <div className="ye-review-column" key={column}>{reviews.filter((_, index) => index % 3 === column).map(review => <article className="ye-review-card" key={review.product + review.date}>
         <p>{review.text}</p>

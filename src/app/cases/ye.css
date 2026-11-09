@@ -95,3 +95,11 @@
 .ye-case #ye-01 .case-trial-panel-0 li:nth-child(5) { align-self: flex-start; --feedback-angle: -4deg; }
 
 .ye-case #ye-01 .case-trial-panel-0 li:nth-child(6) { align-self: flex-end; --feedback-angle: 3deg; }
+
+/* Separate the takeaway hierarchy from the small supporting review excerpts. */
+.ye-research-evidence { padding: var(--space-8) var(--rhythm-4) var(--rhythm-4); }
+.ye-research-evidence h3 { font-size: var(--text-h3); line-height: var(--text-h3--line-height); font-weight: 600; color: var(--color-text); margin-bottom: var(--rhythm-3); }
+.ye-research-evidence .ye-research-intro { font-size: var(--text-caption); line-height: var(--text-caption--line-height); color: var(--color-text-secondary); max-width: none; margin: 0; }
+.ye-research-evidence .ye-review-themes { list-style: disc; padding-left: var(--space-5); margin: var(--rhythm-3) 0 var(--rhythm-4); display: grid; gap: var(--space-1); font-size: var(--text-caption); line-height: var(--text-caption--line-height); }
+.ye-review-themes li { display: list-item; }
+.ye-research-evidence .ye-review-wall { margin-top: 0; }
