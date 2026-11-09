@@ -14,10 +14,9 @@ export function YeResearchCards() {
     <section className="ye-research-panel">
       <h3>我查看了同类产品的用户评论</h3>
       <p>从 App Store 和 Chrome 网上应用店的评论中，梳理浏览器书签、页签和窗口整理中的问题。</p>
-      <p className="ye-review-note">用户评论摘译 · 包含历史版本反馈，已确认修复的附后续说明</p>
+      <p className="ye-review-note">用户评论摘译 · 包含历史版本反馈</p>
       <div className="ye-review-wall">{reviews.map((review, index) => <article className="ye-review-card" key={index}>
         <p>{review.text}</p>
-        {review.followup && <p className="ye-review-note">{review.followup}</p>}
         <span className="ye-review-product">{review.product}</span>
       </article>)}</div>
     </section>
