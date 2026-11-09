@@ -85,10 +85,10 @@ export function YeHomePreview() {
     <h3 id="ye-follow-up-title">关于追问</h3>
     <div className="case-prose"><p className="case-paragraph">用户的一句话可能有多种理解，也可能缺少完成任务所需的信息。我希望 AI <mark className="case-marker">先结合上下文理解需求，仍不明确时再追问</mark>，避免理解错了就直接执行。问题要具体，让用户知道还缺什么、为什么需要补充，并自然地接着当前对话问下去。</p></div>
     <figure className="ye-clarification-gallery" aria-label="追问与方案预览截图">
-    <img className="ye-clarification-image" src={`${import.meta.env.BASE_URL}images/ye/clarification-example.webp`} alt="AI 追问这次想怎么整理，提供整体重整、只收拢散落书签、只清理重复与失效链接三个选项，并支持补充说明" width="1214" height="810" loading="lazy" decoding="async" />
-    <img className="ye-clarification-image" src={`${import.meta.env.BASE_URL}images/ye/clarification-plan-preview.webp`} alt="方案预览：展示设计目录及子目录的分类说明与预计数量" width="1204" height="650" loading="lazy" decoding="async" />
-    <img className="ye-clarification-image" src={`${import.meta.env.BASE_URL}images/ye/clarification-structure-options.webp`} alt="目录结构方案：选择精细版或精简版，并可补充说明" width="1218" height="612" loading="lazy" decoding="async" />
-    <img className="ye-clarification-image" src={`${import.meta.env.BASE_URL}images/ye/clarification-existing-folders.webp`} alt="目录结构方案：选择按目录树整理或沿用现有文件夹归位" width="1206" height="660" loading="lazy" decoding="async" />
+    <img className="ye-clarification-image" src={`${import.meta.env.BASE_URL}images/ye/clarification-example.webp`} alt="AI 追问这次想怎么整理，提供整体重整、只收拢散落书签、只清理重复与失效链接三个选项，并支持补充说明" width="1172" height="746" loading="lazy" decoding="async" />
+    <img className="ye-clarification-image" src={`${import.meta.env.BASE_URL}images/ye/clarification-plan-preview.webp`} alt="方案预览：展示设计目录及子目录的分类说明与预计数量" width="1173" height="609" loading="lazy" decoding="async" />
+    <img className="ye-clarification-image" src={`${import.meta.env.BASE_URL}images/ye/clarification-structure-options.webp`} alt="目录结构方案：选择精细版或精简版，并可补充说明" width="1173" height="566" loading="lazy" decoding="async" />
+    <img className="ye-clarification-image" src={`${import.meta.env.BASE_URL}images/ye/clarification-existing-folders.webp`} alt="目录结构方案：选择按目录树整理或沿用现有文件夹归位" width="1175" height="637" loading="lazy" decoding="async" />
     </figure>
   </section></>;
 }
