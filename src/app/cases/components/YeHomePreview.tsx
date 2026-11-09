@@ -101,6 +101,7 @@ export function YeHomePreview() {
     <img className="ye-clarification-image" src={`${import.meta.env.BASE_URL}images/ye/clarification-plan-preview.webp`} alt="方案预览：展示设计目录及子目录的分类说明与预计数量" width="1173" height="609" loading="lazy" decoding="async" />
     </figure>
     <figure className="workbench-panels ye-review-pair" aria-label="审查对话展示">
+    <span className="ye-review-label">插件将 AI 反馈结构化</span>
     <div>
     <span className="ye-review-conversation-shadow"><img className="ye-review-conversation-image" src={`${import.meta.env.BASE_URL}images/ye/review-conversation.webp`} alt="用户指出书签分类问题后，AI 查看实际内容、修正误判，并列出仍需用户确认的存疑项" width="1222" height="2418" loading="lazy" decoding="async" /></span>
     </div>
