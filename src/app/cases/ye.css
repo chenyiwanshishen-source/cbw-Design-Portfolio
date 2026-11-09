@@ -169,4 +169,4 @@
 .ye-home-details img { display: block; width: 100%; max-width: 100%; height: auto; box-shadow: var(--shadow-float); border-radius: var(--space-4); }
 .ye-home-details .ye-collect-detail img { border-radius: 0; box-shadow: none; }
 .ye-home-details > .ye-collect-detail { padding: 0; overflow: hidden; }
-.ye-home-details .ye-collect-detail img { width: 115%; max-width: none; flex-shrink: 0; transform: translate(var(--rhythm-5), calc(var(--rhythm-6) + var(--rhythm-1))); }
+.ye-home-details .ye-collect-detail img { width: 115%; max-width: none; flex-shrink: 0; transform: translate(calc(var(--rhythm-5) + var(--rhythm-1)), calc(var(--rhythm-6) + 2 * var(--rhythm-1))); }
