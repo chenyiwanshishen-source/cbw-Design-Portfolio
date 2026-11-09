@@ -112,3 +112,17 @@
 
 .ye-research-experience { background: var(--color-case-plate); }
 .ye-research-experience strong { font-weight: 600; }
+
+/* A clipped paper preview keeps the full research board available through FigJam. */
+.ye-research-map { position: relative; overflow: hidden; display: flex; flex-direction: column; }
+.ye-research-map > h3,
+.ye-research-map > p { position: relative; z-index: 1; margin-bottom: var(--rhythm-3); }
+.ye-research-map-link { position: relative; z-index: 1; display: inline-flex; align-items: center; align-self: flex-start; gap: var(--rhythm-1); flex-shrink: 0; color: var(--color-text); font-size: var(--text-caption); line-height: var(--text-caption--line-height); text-decoration: none; }
+.ye-research-map-link::after { content: ''; position: absolute; top: 50%; inset-inline: 0; height: var(--touch-target); transform: translateY(-50%); }
+.ye-research-map-link:hover { color: var(--color-accent-text); text-decoration: underline; text-underline-offset: var(--space-1); }
+.ye-research-map-preview { position: absolute; left: var(--rhythm-4); top: 58%; width: 125%; height: 100%; padding: var(--rhythm-2); overflow: hidden; border-radius: var(--space-4); background: var(--color-surface); box-shadow: var(--shadow-float); transform: rotate(-8deg); transform-origin: top left; }
+.ye-research-map-preview img { display: block; width: 440%; max-width: none; height: auto; }
+@media (max-width: 1023px) {
+ .ye-research-response-stack { height: auto; min-height: calc(9 * var(--space-16)); }
+ .ye-research-map { height: calc(7 * var(--space-16)); }
+}

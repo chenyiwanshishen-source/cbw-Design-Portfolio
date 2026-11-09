@@ -30,8 +30,15 @@ export function YeResearchCards() {
       <p>我重点体验了<strong>整理效率、操作理解和恢复能力</strong>，据此确定 ye! 的设计方向：用 AI 减少逐条整理，执行前<strong>先预览、再确认</strong>，出错后<strong>可以撤销</strong>，并保护固定页签。</p>
     </section>
     <section className="ye-research-panel ye-research-response ye-research-map">
-      <h3>构建真实的体验地图</h3>
-      <p>梳理我完整的收藏流程，并在实际使用中逐步完善。</p>
+      <h3>从用户旅程图到架构的定义</h3>
+      <p>每次重构的架构都不同，但始终围绕同一个产品目标。</p>
+      <a className="ye-research-map-link" href="https://www.figma.com/board/hbQZlaNBcgIqvKo5dwBnsF/Untitled?node-id=0-1" target="_blank" rel="noopener noreferrer">
+        <span>查看完整旅程与架构图</span><span aria-hidden="true">→</span>
+        <span className="sr-only">（在新标签页打开 FigJam）</span>
+      </a>
+      <div className="ye-research-map-preview">
+        <img src="/images/ye/journey-to-architecture.webp" alt="ye! 从用户旅程、竞品体验到功能定义与 Agent 架构的完整研究画布" width="14000" height="7311" loading="lazy" decoding="async" />
+      </div>
     </section>
     </div>
     <section className="ye-research-panel ye-research-journey">
