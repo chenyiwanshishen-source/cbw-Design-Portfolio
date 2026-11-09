@@ -46,7 +46,22 @@ export function YeResearchCards() {
   </div>
     <section className="case-subsection" aria-labelledby="ye-visual-definition-title">
       <h3 id="ye-visual-definition-title">视觉定义</h3>
-      <div className="case-prose"><p className="case-paragraph">我沿用了自己在 AI 报告生成项目中总结的一套流程，来生成 ye! 的基础组件内容。</p></div>
+      <div className="case-prose"><p className="case-paragraph">我把在 AI 报告生成项目中总结的样张生成流程用到了 ye!：让 AI 按规则生成基础样张，再逐项检查和调整，确定组件的视觉表现。</p></div>
+      <ol className="ye-visual-steps">
+        <li><strong>确认使用条件</strong><p>先明确目标设备、主题和内容范围，核对实际可用字体、已确认色板，以及侧栏占用的空间。</p></li>
+        <li><strong>分项生成对照样张</strong><p>每次只处理一个基础类别，按规则展示数值与实际效果。</p>
+          <dl className="ye-visual-specimens">
+            <div><dt>间距</dt><dd>对比细节、组件与布局三级节奏，分别展示行内、堆叠、水平与垂直内边距。</dd></div>
+            <div><dt>描边</dt><dd>对比 0 / 1 / 2px 描边、单侧分割线与焦点环，检查切换前后尺寸和内容位置是否稳定。</dd></div>
+            <div><dt>圆角</dt><dd>展示圆角阶梯，对比控件、容器与圆形元素，并核对焦点环与元素轮廓的关系。</dd></div>
+            <div><dt>文字</dt><dd>用标题、正文、表格和指标样张，检查中文、混排、数字与单位、长段落及窄屏下的可读性。</dd></div>
+            <div><dt>栅格</dt><dd>扣除侧栏等影响区，在代表宽度下检查列数、沟槽、端边距与内容落点。</dd></div>
+            <div><dt>阴影</dt><dd>区分浮起层级与滚动溢出提示；已定义阴影分别检查单独效果及叠加背景、描边后的表现。</dd></div>
+          </dl>
+        </li>
+        <li><strong>检查、调整并确认</strong><p>对照规则核对数值、文字、布局和边界，调整不合适的样张。基础样张用于验证规则，具体组件的尺寸和状态另行确定。</p></li>
+        <li><strong>统一写入并复核</strong><p>所需类别确认后，再统一写入可复用变量与样式，让样张使用这些结果，检查绑定和视觉是否发生意外变化。</p></li>
+      </ol>
       <FigurePlaceholder plate="" title="视觉定义" instruction="【待填：ye! 视觉定义】" caption="" />
     </section>
   </>;
