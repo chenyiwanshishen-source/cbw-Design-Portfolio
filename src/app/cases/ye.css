@@ -15,15 +15,16 @@
 .ye-home-controls { display: contents; }
 .ye-home-controls .report-edit-arrow { z-index: 2; }
 
-/* Frame interface screenshots with the portfolio's neutral border token. */
+/* Neutral gray screenshot frames derived from portfolio colors. */
+.ye-case { --ye-image-border: color-mix(in srgb, var(--color-text) 18%, var(--color-surface)); }
 .ye-home-image, .ye-home-details img, .ye-clarification-image {
-  outline: calc(3 * var(--border-width)) solid var(--color-border);
+  outline: calc(3 * var(--border-width)) solid var(--ye-image-border);
   outline-offset: 0;
 }
 .ye-review-conversation-shadow, .ye-review-plan-shadow { position: relative; }
 .ye-review-conversation-shadow::after, .ye-review-plan-shadow::after {
   content: ''; position: absolute; pointer-events: none;
-  border: calc(3 * var(--border-width)) solid var(--color-border);
+  border: calc(3 * var(--border-width)) solid var(--ye-image-border);
   border-radius: var(--space-4);
 }
 .ye-review-conversation-shadow::after { inset: 6.5% 0.6% 0 0; }
