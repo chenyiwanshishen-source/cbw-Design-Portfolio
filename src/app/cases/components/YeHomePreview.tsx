@@ -56,7 +56,7 @@ export function YeHomePreview() {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     gsap.fromTo(button, { scale: .84 }, { scale: 1, duration: .55, ease: 'elastic.out(1, 0.5)', overwrite: true });
   });
-  return <section className="case-subsection" aria-labelledby="ye-home-preview-title">
+  return <><section className="case-subsection" aria-labelledby="ye-home-preview-title">
     <h3 id="ye-home-preview-title">首页设计</h3>
     <div className="case-prose"><p className="case-paragraph">页签<mark className="case-marker">按浏览器窗口独立分栏</mark>，方便看清各窗口的内容。书签借鉴苹果的<mark className="case-marker">米勒分栏</mark>，逐层展开，节省空间并保留层级。选中书签可查看详情和<mark className="case-marker">收藏时间</mark>，判断是否仍值得保留。对话采用助手式设计，<mark className="case-marker">固定在内容区域右侧</mark>。</p></div>
     <div className="ye-home-carousel" ref={root}>
@@ -76,5 +76,9 @@ export function YeHomePreview() {
       <div className="ye-bookmark-detail"><img src={`${import.meta.env.BASE_URL}images/ye/bookmark-detail.webp`} alt="书签详情展示网页名称、网址与收藏时间" width="732" height="768" loading="lazy" decoding="async" /></div>
       <div className="ye-collect-detail"><img src={`${import.meta.env.BASE_URL}images/ye/tab-collect-full.webp`} alt="页签菜单中的收藏操作，可选择分组或让 AI 建议" width="1496" height="1314" loading="lazy" decoding="async" /></div>
     </figure>
-  </section>;
+  </section>
+  <section className="case-subsection" aria-labelledby="ye-character-title">
+    <h3 id="ye-character-title">角色设计</h3>
+    <div className="case-prose"><p className="case-paragraph">为了让插件更有趣，我设计了一个角色，让 AI 助手更有拟人感。</p></div>
+  </section></>;
 }
