@@ -166,6 +166,11 @@ export const ye: CaseContent = {
               "text": "支持撤销最近 5 步操作，并保护固定页签不被移动"
             }
           ]
+        },
+        {
+          "kind": "subsection",
+          "title": "状态设计",
+          "blocks": []
         }
       ]
     },
