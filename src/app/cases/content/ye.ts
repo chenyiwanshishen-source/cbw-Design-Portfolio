@@ -74,7 +74,7 @@ export const ye: CaseContent = {
           "items": [
             {
               "label": "从 0 到 1",
-              "text": "8 周"
+              "text": "6 周"
             },
             {
               "label": "代码提交",
