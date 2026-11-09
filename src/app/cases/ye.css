@@ -168,3 +168,4 @@
 .ye-home-details > div { display: flex; align-items: center; justify-content: center; aspect-ratio: auto; min-height: 0; padding: var(--rhythm-3); overflow: visible; }
 .ye-home-details img { display: block; width: 100%; max-width: 100%; height: auto; box-shadow: var(--shadow-float); border-radius: var(--space-4); }
 .ye-home-details .ye-collect-detail img { border-radius: 0; box-shadow: none; }
+.ye-home-details > .ye-collect-detail { padding: var(--space-1); }
