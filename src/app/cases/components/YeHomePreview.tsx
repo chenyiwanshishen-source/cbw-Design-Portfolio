@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
+import { ClarificationDemo } from './ClarificationDemo';
 gsap.registerPlugin(useGSAP);
 
 const slides = [
@@ -84,5 +85,6 @@ export function YeHomePreview() {
   <section className="case-subsection" aria-labelledby="ye-follow-up-title">
     <h3 id="ye-follow-up-title">关于追问</h3>
     <div className="case-prose"><p className="case-paragraph">用户的一句话可能有多种理解，也可能缺少完成任务所需的信息。我希望 AI <mark className="case-marker">先结合上下文理解需求，仍不明确时再追问</mark>，避免理解错了就直接执行。问题要具体，让用户知道还缺什么、为什么需要补充，并自然地接着当前对话问下去。</p></div>
+    <ClarificationDemo />
   </section></>;
 }
