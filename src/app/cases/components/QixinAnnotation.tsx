@@ -11,7 +11,7 @@ const notes: Record<string, Note[]> = {
   monitor: [{ text: '及时发现企业风险', left: 3, top: 38, arrows: [{ from: [26, 36], to: [26, 24], bend: -10 }, { from: [26, 44], to: [26, 59], bend: -7 }] }],
   functions: [{ text: '自由规划工作路线', left: 1, top: 18, arrows: [{ from: [13, 23], to: [18, 28], bend: -7 }] }],
 };
-function arrowPath(from: Point, to: Point, bend = 5) {
+export function handDrawnArrowPath(from: Point, to: Point, bend = 5) {
   const [x, y] = from.map(v => v * 10);
   const [tx, ty] = to.map(v => v * 10);
   const dx = tx - x, dy = ty - y;
@@ -25,5 +25,5 @@ function arrowPath(from: Point, to: Point, bend = 5) {
 export function QixinAnnotation({ name }: { name: string }) {
   const items = notes[name];
   if (!items) return null;
-  return <div className="qixin-annotations">{items.map(item => <div key={item.text}><span className="qixin-annotation-text" style={{ left: `${item.left}%`, top: `${item.top}%` }}>{item.text}</span><svg className="qixin-annotation-arrow" viewBox="0 0 1000 1000" preserveAspectRatio="none" fill="none" aria-hidden="true">{name === 'chain-create-empty.webp' && <path d="M398 260 C399 227 514 229 510 262 C508 292 395 293 398 260 M404 263 C397 235 510 230 515 259 C520 291 405 295 402 265" stroke="currentColor" strokeWidth="1.4" vectorEffect="non-scaling-stroke" strokeLinecap="round" />}{item.arrows.map((arrow, i) => <path key={i} d={arrowPath(arrow.from, arrow.to, arrow.bend)} stroke="currentColor" strokeWidth="1.5" vectorEffect="non-scaling-stroke" strokeLinecap="round" strokeLinejoin="round" />)}</svg></div>)}</div>;
+  return <div className="qixin-annotations">{items.map(item => <div key={item.text}><span className="qixin-annotation-text" style={{ left: `${item.left}%`, top: `${item.top}%` }}>{item.text}</span><svg className="qixin-annotation-arrow" viewBox="0 0 1000 1000" preserveAspectRatio="none" fill="none" aria-hidden="true">{name === 'chain-create-empty.webp' && <path d="M398 260 C399 227 514 229 510 262 C508 292 395 293 398 260 M404 263 C397 235 510 230 515 259 C520 291 405 295 402 265" stroke="currentColor" strokeWidth="1.4" vectorEffect="non-scaling-stroke" strokeLinecap="round" />}{item.arrows.map((arrow, i) => <path key={i} d={handDrawnArrowPath(arrow.from, arrow.to, arrow.bend)} stroke="currentColor" strokeWidth="1.5" vectorEffect="non-scaling-stroke" strokeLinecap="round" strokeLinejoin="round" />)}</svg></div>)}</div>;
 }
