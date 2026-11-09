@@ -269,7 +269,3 @@
 .ye-import-note, .ye-import-note strong { font-family: var(--font-sans); font-size: var(--text-caption); line-height: var(--text-caption--line-height); }
 
 .ye-review-pair { position: relative; }
-.ye-review-arrows { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; z-index: 3; color: var(--color-text-secondary); }
-.ye-review-arrows path { stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
-@media (max-width: 639px) { .ye-review-arrows { display: none; } }
-

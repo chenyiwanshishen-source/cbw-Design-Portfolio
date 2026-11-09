@@ -105,10 +105,6 @@ export function YeHomePreview() {
     <span className="ye-review-conversation-shadow"><img className="ye-review-conversation-image" src={`${import.meta.env.BASE_URL}images/ye/review-conversation.webp`} alt="用户指出书签分类问题后，AI 查看实际内容、修正误判，并列出仍需用户确认的存疑项" width="1222" height="2418" loading="lazy" decoding="async" /></span>
     </div>
     <div className="ye-review-plan-panel"><span className="ye-review-plan-shadow"><img className="ye-review-plan-image" src={`${import.meta.env.BASE_URL}images/ye/review-plan.webp`} alt="整理方案审查：查看存疑清单、目录调整和书签来源，确认后应用" width="2892" height="2734" loading="lazy" decoding="async" /></span></div>
-    <svg className="ye-review-arrows" viewBox="0 0 1000 1000" preserveAspectRatio="none" fill="none" aria-hidden="true">
-      <path d={handDrawnArrowPath([55, -14], [34, 11], 7)} />
-      <path d={handDrawnArrowPath([44, 49], [58, 46], 3)} />
-    </svg>
     </figure>
   </section></>;
 }
