@@ -13,3 +13,13 @@
  .ye-case > .case-header .case-facts-pills { grid-template-columns: repeat(2, minmax(0, 1fr)); }
  .ye-case .case-facts-pills > div:nth-child(5) { grid-column: 1 / -1; grid-row: 3; }
 }
+
+@media (min-width: 1200px) {
+ .ye-case > .case-header-compact:has(.case-facts-pills) .case-header-main { grid-column: 1 / 6; }
+ .ye-case > .case-header-compact .case-facts-pills {
+  grid-column: 7 / 13;
+  grid-template-columns: max-content minmax(0, 1fr) auto;
+ }
+ .ye-case .case-facts-pills > div:nth-child(3) dd,
+ .ye-case .case-facts-pills > div:nth-child(4) dd { flex-wrap: nowrap; }
+}
