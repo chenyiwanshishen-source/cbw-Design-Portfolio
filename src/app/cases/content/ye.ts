@@ -173,8 +173,8 @@ export const ye: CaseContent = {
           "blocks": [
             {
               "kind": "paragraph",
-              "text": "ye! 不内置模型服务，而是提供 AI 运行所需的环境，用户需要填入自己的大模型 API Key。因此，我设计了模型状态提示，让用户清楚当前模型是否可用。",
-              "highlightPhrases": ["用户需要填入自己的大模型 API Key", "当前模型是否可用"]
+              "text": "ye! 不内置模型服务，而是提供 AI 运行所需的环境，用户需要填入自己的大模型 API Key。因此，我设计了模型状态提示，让用户清楚当前模型是否可用、问题出在哪里。",
+              "highlightPhrases": ["用户需要填入自己的大模型 API Key", "当前模型是否可用、问题出在哪里"]
             }
           ]
         }
