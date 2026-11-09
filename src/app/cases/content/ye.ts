@@ -177,6 +177,11 @@ export const ye: CaseContent = {
               "highlightPhrases": ["用户需要填入自己的大模型 API Key", "当前模型是否可用、问题出在哪里"]
             }
           ]
+        },
+        {
+          "kind": "subsection",
+          "title": "聊天记录",
+          "blocks": []
         }
       ]
     },
