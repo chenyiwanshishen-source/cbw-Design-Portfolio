@@ -211,11 +211,11 @@
 .ye-home-details > div { display: flex; align-items: center; justify-content: center; aspect-ratio: auto; min-height: 0; padding: var(--rhythm-3); overflow: visible; }
 .ye-home-details img { display: block; width: 100%; max-width: 100%; height: auto; box-shadow: var(--ye-image-shadow); border-radius: var(--space-4); }
 .ye-home-details > .ye-home-left-stack { display: grid; gap: var(--rhythm-4); padding: 0; background: transparent; border-radius: 0; align-items: stretch; }
-.ye-home-left-stack > div { min-width: 0; background: var(--color-case-plate); border-radius: var(--space-6); padding: var(--rhythm-3); }
+.ye-home-left-stack > div { min-width: 0; aspect-ratio: 1.5; overflow: hidden; background: var(--color-case-plate); border-radius: var(--space-6); padding: var(--rhythm-3); }
 .ye-home-details .ye-bookmark-detail { display: grid; place-items: center; }
 .ye-folder-actions-detail { display: flex; align-items: center; justify-content: center; }
 .ye-folder-actions-detail img { width: 100%; }
-.ye-home-details .ye-bookmark-detail::before { content: ''; grid-area: 1 / 1; width: 90%; aspect-ratio: 732 / 768; }
+.ye-home-details .ye-bookmark-detail::before { content: none; }
 .ye-home-details .ye-bookmark-detail img { grid-area: 1 / 1; width: 66%; }
 .ye-home-details .ye-collect-detail img { border-radius: var(--space-4); box-shadow: var(--ye-image-shadow); }
 .ye-home-details > .ye-collect-detail { align-items: flex-start; padding: var(--rhythm-2) 0 0; overflow: hidden; }
