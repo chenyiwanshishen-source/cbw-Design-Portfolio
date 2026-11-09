@@ -69,32 +69,28 @@
 
 
 .ye-research-layout { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--rhythm-3); align-items: stretch; }
-.ye-specimen-flows { display: grid; gap: var(--rhythm-4); min-width: 0; }
-.ye-specimen-flows > p { margin: 0; }
-.ye-specimen-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--rhythm-3); }
-.ye-specimen-flow { margin: 0; min-width: 0; padding: var(--rhythm-4); border-radius: var(--space-6); background: var(--color-case-plate); }
-.ye-specimen-flow h4 { margin: 0; font-size: var(--text-h4); line-height: var(--text-h4--line-height); font-weight: 500; }
-.ye-specimen-track { display: grid; grid-template-columns: minmax(0, 1fr) var(--space-16) minmax(0, 1fr); align-items: center; padding-block: var(--rhythm-5); }
-.ye-specimen-rule { min-height: calc(2 * var(--space-16)); }
-.ye-specimen-rule > span:not(.generator-paper-lines) { font-size: var(--text-caption); color: var(--color-text-secondary); }
-.ye-specimen-rule .generator-paper-lines { opacity: 1; }
-.ye-specimen-connector { display: grid; gap: var(--rhythm-1); text-align: center; font-size: var(--text-caption); color: var(--color-text-meta); }
-.ye-specimen-output { min-height: calc(2 * var(--space-16)); }
-.ye-specimen-output > strong, .ye-specimen-rule > strong { font-size: var(--text-caption); white-space: normal; }
-.ye-specimen-preview { display: flex; align-items: end; gap: var(--space-2); min-height: var(--space-16); padding-top: var(--rhythm-3); }
-.ye-specimen-preview > span { display: grid; gap: var(--space-2); font-size: var(--text-micro); color: var(--color-text-secondary); }
-.ye-specimen-preview i { display: block; width: var(--space-3); height: calc(var(--space-2) + var(--sample-index) * var(--space-3)); background: var(--color-accent-soft); }
-.ye-specimen-描边 .ye-specimen-preview i { height: var(--space-8); background: transparent; border: calc(var(--sample-index) * 1px) solid var(--color-text-meta); }
-.ye-specimen-圆角 .ye-specimen-preview i { height: var(--space-6); width: var(--space-4); border-radius: calc(var(--sample-index) * var(--space-1)); }
-.ye-specimen-文字 .ye-specimen-preview { display: grid; gap: var(--space-1); }
-.ye-specimen-文字 .ye-specimen-preview > span { display: block; }
-.ye-specimen-文字 .ye-specimen-preview i { display: none; }
-.ye-specimen-栅格 .ye-specimen-preview i { height: var(--space-8); background: repeating-linear-gradient(to right, var(--color-accent-soft) 0 var(--space-1), transparent var(--space-1) var(--space-2)); }
-.ye-specimen-阴影 .ye-specimen-preview i { height: var(--space-6); background: var(--color-surface); box-shadow: var(--shadow-float); }
-.ye-specimen-阴影 .ye-specimen-preview > span:first-child i { box-shadow: none; }
-.ye-specimen-flow figcaption { display: grid; gap: var(--rhythm-1); font-size: var(--text-caption); line-height: var(--text-caption--line-height); color: var(--color-text-secondary); }
-.ye-specimen-flow figcaption > span { color: var(--color-text); font-weight: 500; }
-@media (max-width: 767px) { .ye-specimen-grid { grid-template-columns: minmax(0, 1fr); } .ye-specimen-flow { padding: var(--rhythm-3); } }
+/* One continuous process, using the shared Qsight paper and connector surfaces. */
+.ye-sample-process { margin: 0; padding: var(--rhythm-5) var(--rhythm-3); background: var(--color-case-plate); border-radius: var(--space-6); }
+.ye-sample-process ol { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); list-style: none; padding: 0; margin: 0; }
+.ye-sample-process li { position: relative; min-width: 0; }
+.ye-process-node { display: flex; flex-direction: column; align-items: center; gap: var(--rhythm-2); padding-inline: var(--rhythm-1); text-align: center; }
+.ye-process-number { font-size: var(--text-caption); color: var(--color-text-meta); }
+.ye-process-paper { width: 80%; min-height: calc(2 * var(--space-16)); transform: rotate(-3deg); }
+.ye-process-paper strong { font-size: var(--text-caption); }
+.ye-process-ai { width: 80%; min-height: calc(2 * var(--space-16)); aspect-ratio: auto; color: var(--color-accent); font-size: var(--text-h2); }
+.ye-process-title { font-size: var(--text-body); line-height: var(--text-body--line-height); font-weight: 500; color: var(--color-text); }
+.ye-process-detail { font-size: var(--text-caption); line-height: var(--text-caption--line-height); color: var(--color-text-secondary); }
+.ye-process-arrow { position: absolute; top: var(--space-24); right: calc(-1 * var(--rhythm-2)); width: var(--space-6); }
+.ye-sample-process figcaption { margin-top: var(--rhythm-5); font-size: var(--text-caption); line-height: var(--text-caption--line-height); color: var(--color-text-secondary); }
+@media (max-width: 767px) {
+ .ye-sample-process ol { grid-template-columns: minmax(0, 1fr); gap: var(--rhythm-5); }
+ .ye-process-node { display: grid; grid-template-columns: var(--space-6) var(--space-24) minmax(0, 1fr); text-align: left; }
+ .ye-process-number { grid-column: 1; grid-row: 1 / 3; }
+ .ye-process-paper, .ye-process-ai { grid-column: 2; grid-row: 1 / 3; width: 100%; min-height: var(--space-24); }
+ .ye-process-title { grid-column: 3; align-self: end; }
+ .ye-process-detail { grid-column: 3; align-self: start; }
+ .ye-process-arrow { top: auto; bottom: calc(-1 * var(--rhythm-4)); left: calc(var(--space-6) + var(--rhythm-2) + var(--space-12)); right: auto; transform: rotate(90deg); }
+}
 .ye-research-panel { min-width: 0; padding: var(--rhythm-4); border-radius: var(--space-6); background: var(--color-case-plate); }
 .ye-research-panel h3 { margin: 0 0 var(--rhythm-3); font-size: var(--text-h4); line-height: var(--text-h4--line-height); font-weight: 500; }
 .ye-research-panel p { font-size: var(--text-body); line-height: var(--text-body--line-height); margin: 0 0 var(--rhythm-3); }
