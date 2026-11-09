@@ -105,7 +105,7 @@ export const ye: CaseContent = {
                 { "title": "问题", "items": [
                   { "product": "", "text": "缺少快捷键指南", "icon": "KeyboardIcon" },
                   { "product": "", "text": "Mac / Win 动效抖动不一致", "icon": "ComputerIcon" },
-                  { "product": "", "text": "希望 AI 根据收藏推荐新技术栈、优质设计资讯", "icon": "Bookmark01Icon" },
+                  { "product": "", "text": "希望 AI 结合收藏与习惯推荐相关资讯", "icon": "Bookmark01Icon" },
                   { "product": "", "text": "AI 迁移后的预览标识不清", "icon": "ArrowDataTransferHorizontalIcon" }
                 ] },
                 { "title": "优点", "items": [
