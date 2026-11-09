@@ -1,4 +1,4 @@
-import { AlertCircle, ArrowLeftRight, ChevronDown, RotateCcw, Settings, X } from 'lucide-react';
+import { AlertCircle, ArrowLeftRight, FileSearch, RotateCcw, Settings, X } from 'lucide-react';
 
 const states = [
   { title: '服务繁忙', message: '服务器这会儿有点忙，稍等片刻再试一下吧', retry: true, settings: 'switch' },
@@ -13,7 +13,7 @@ export function YeModelStates() {
     {states.map(state => <div className="ye-model-state" key={state.title}>
       <p>{state.title}</p>
       <div className="ye-model-notice"><AlertCircle size={16} strokeWidth={2} aria-hidden="true" /><span>{state.message}</span>
-        <div className="ye-model-notice-actions" aria-hidden="true"><ChevronDown size={16} strokeWidth={2} />{state.retry && <RotateCcw size={16} strokeWidth={2} />}{state.settings === 'switch' ? <ArrowLeftRight size={16} strokeWidth={2} /> : state.settings && <Settings size={16} strokeWidth={2} />}<X size={16} strokeWidth={2} /></div>
+        <div className="ye-model-notice-actions" aria-hidden="true">{state.title === '其他模型失败' && <FileSearch size={16} strokeWidth={2} />}{state.retry && <RotateCcw size={16} strokeWidth={2} />}{state.settings === 'switch' ? <ArrowLeftRight size={16} strokeWidth={2} /> : state.settings && <Settings size={16} strokeWidth={2} />}<X size={16} strokeWidth={2} /></div>
       </div>
     </div>)}
   </figure>;
