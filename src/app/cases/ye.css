@@ -3,10 +3,10 @@
 .ye-clarification-image { display: block; width: 100%; height: auto; border-radius: var(--space-4); box-shadow: var(--shadow-float); }
 .ye-review-pair > div { display: flex; align-items: flex-start; justify-content: center; aspect-ratio: 10 / 11; padding: var(--rhythm-3); }
 .ye-review-conversation-shadow { display: block; margin-top: var(--rhythm-4); width: 95%; flex-shrink: 0; filter: drop-shadow(var(--shadow-float)); }
-.ye-review-conversation-image { display: block; width: 100%; max-width: none; height: auto; border: 0; border-radius: var(--space-4); clip-path: inset(6.5% 0.6% 0 0 round var(--space-4)); }
+.ye-review-conversation-image { display: block; width: 100%; max-width: none; height: auto; border: 0; border-radius: var(--space-4); clip-path: inset(6.5% 0.6% 0 0 round var(--space-6)); }
 .ye-review-pair > .ye-review-plan-panel { justify-content: flex-start; padding: var(--rhythm-5) 0 0 var(--rhythm-4); }
 .ye-review-plan-shadow { display: block; width: 185%; flex-shrink: 0; filter: drop-shadow(var(--shadow-float)); }
-.ye-review-plan-image { display: block; width: 100%; max-width: none; height: auto; border-radius: var(--space-4); clip-path: inset(0.5% 0.15% 0.25% 0.5% round var(--space-4)); }
+.ye-review-plan-image { display: block; width: 100%; max-width: none; height: auto; border-radius: var(--space-4); clip-path: inset(0.5% 0.15% 0.25% 0.5% round var(--space-6)); }
 .ye-clarification-gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: center; gap: var(--rhythm-4); margin: 0; padding: var(--rhythm-5); background: var(--color-case-plate); border-radius: var(--space-6); }
 @media (max-width: 639px) { .ye-clarification-gallery { grid-template-columns: 1fr; padding: var(--rhythm-3); } }
 .ye-home-preview.template-preview { display: grid; background: var(--color-case-plate); padding-inline: var(--rhythm-4); }
@@ -16,8 +16,9 @@
 .ye-home-controls .report-edit-arrow { z-index: 2; }
 
 /* Neutral gray screenshot frames derived from portfolio colors. */
-.ye-case { --ye-image-border: color-mix(in srgb, var(--color-text) 18%, var(--color-surface)); }
+.ye-case { --ye-image-border: color-mix(in srgb, var(--color-text) 12%, var(--color-surface)); }
 .ye-home-image, .ye-home-details img, .ye-clarification-image {
+  border-radius: var(--space-6);
   outline: calc(3 * var(--border-width)) solid var(--ye-image-border);
   outline-offset: 0;
 }
@@ -25,7 +26,7 @@
 .ye-review-conversation-shadow::after, .ye-review-plan-shadow::after {
   content: ''; position: absolute; pointer-events: none;
   border: calc(3 * var(--border-width)) solid var(--ye-image-border);
-  border-radius: var(--space-4);
+  border-radius: var(--space-6);
 }
 .ye-review-conversation-shadow::after { inset: 6.5% 0.6% 0 0; }
 .ye-review-plan-shadow::after { inset: 0.5% 0.15% 0.25% 0.5%; }
@@ -195,3 +196,5 @@
 .ye-home-details .ye-collect-detail img { border-radius: var(--space-4); box-shadow: var(--shadow-float); }
 .ye-home-details > .ye-collect-detail { padding: 0; overflow: hidden; }
 .ye-home-details .ye-collect-detail img { width: 115%; max-width: none; flex-shrink: 0; transform: translate(var(--rhythm-6), calc(var(--rhythm-6) + 2 * var(--rhythm-1))); }
+
+.ye-case .ye-home-image, .ye-case .ye-home-details img, .ye-case .ye-clarification-image, .ye-case .ye-review-conversation-image, .ye-case .ye-review-plan-image { border-radius: var(--space-6); }
