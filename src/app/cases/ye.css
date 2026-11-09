@@ -1,6 +1,8 @@
 .ye-case .case-table th { font-family: var(--font-sans); font-size: var(--text-caption); line-height: var(--text-caption--line-height); }
 .ye-home-carousel { position: relative; min-width: 0; }
 .ye-clarification-image { display: block; width: 100%; height: auto; border-radius: var(--space-4); box-shadow: var(--shadow-float); }
+.ye-review-conversation-image { display: block; width: 50%; height: auto; margin-inline: auto; border-radius: var(--space-4); }
+@media (max-width: 639px) { .ye-review-conversation-image { width: 100%; } }
 .ye-review-plan-image { display: block; width: 75%; height: auto; margin-inline: auto; border-radius: var(--space-4); box-shadow: var(--shadow-float); clip-path: inset(0.5% 0.15% 0.25% 0.5% round var(--space-4)); }
 .ye-clarification-gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: center; gap: var(--rhythm-4); margin: 0; padding: var(--rhythm-5); background: var(--color-case-plate); border-radius: var(--space-6); }
 @media (max-width: 639px) { .ye-clarification-gallery { grid-template-columns: 1fr; padding: var(--rhythm-3); } }

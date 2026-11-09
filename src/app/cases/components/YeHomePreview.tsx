@@ -91,5 +91,6 @@ export function YeHomePreview() {
     <img className="ye-clarification-image" src={`${import.meta.env.BASE_URL}images/ye/clarification-plan-preview.webp`} alt="方案预览：展示设计目录及子目录的分类说明与预计数量" width="1173" height="609" loading="lazy" decoding="async" />
     </figure>
     <img className="ye-review-plan-image" src={`${import.meta.env.BASE_URL}images/ye/review-plan.webp`} alt="整理方案审查：查看存疑清单、目录调整和书签来源，确认后应用" width="2892" height="2734" loading="lazy" decoding="async" />
+    <img className="ye-review-conversation-image" src={`${import.meta.env.BASE_URL}images/ye/review-conversation.webp`} alt="用户指出书签分类问题后，AI 查看实际内容、修正误判，并列出仍需用户确认的存疑项" width="1214" height="2412" loading="lazy" decoding="async" />
   </section></>;
 }
