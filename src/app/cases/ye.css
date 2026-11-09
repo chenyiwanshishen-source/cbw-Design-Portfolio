@@ -1,22 +1,22 @@
 .ye-case .case-table th { font-family: var(--font-sans); font-size: var(--text-caption); line-height: var(--text-caption--line-height); }
 .ye-home-carousel { position: relative; min-width: 0; }
-.ye-clarification-image { display: block; width: 100%; height: auto; border-radius: var(--space-4); box-shadow: var(--shadow-float); }
+.ye-clarification-image { display: block; width: 100%; height: auto; border-radius: var(--space-4); box-shadow: var(--ye-image-shadow); }
 .ye-review-pair > div { display: flex; align-items: flex-start; justify-content: center; aspect-ratio: 10 / 11; padding: var(--rhythm-3); }
-.ye-review-conversation-shadow { display: block; margin-top: var(--rhythm-4); width: 95%; flex-shrink: 0; filter: drop-shadow(var(--shadow-float)); }
+.ye-review-conversation-shadow { display: block; margin-top: var(--rhythm-4); width: 95%; flex-shrink: 0; filter: drop-shadow(var(--ye-image-shadow)); }
 .ye-review-conversation-image { display: block; width: 100%; max-width: none; height: auto; border: 0; border-radius: var(--space-4); clip-path: inset(6.5% 0.6% 0 0 round var(--rhythm-3)); }
 .ye-review-pair > .ye-review-plan-panel { justify-content: flex-start; padding: var(--rhythm-5) 0 0 var(--rhythm-4); }
-.ye-review-plan-shadow { display: block; width: 185%; flex-shrink: 0; filter: drop-shadow(var(--shadow-float)); }
+.ye-review-plan-shadow { display: block; width: 185%; flex-shrink: 0; filter: drop-shadow(var(--ye-image-shadow)); }
 .ye-review-plan-image { display: block; width: 100%; max-width: none; height: auto; border-radius: var(--space-4); clip-path: inset(0.5% 0.15% 0.25% 0.5% round var(--rhythm-3)); }
 .ye-clarification-gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: center; gap: var(--rhythm-4); margin: 0; padding: var(--rhythm-5); background: var(--color-case-plate); border-radius: var(--space-6); }
 @media (max-width: 639px) { .ye-clarification-gallery { grid-template-columns: 1fr; padding: var(--rhythm-3); } }
 .ye-home-preview.template-preview { display: grid; background: var(--color-case-plate); padding-inline: var(--rhythm-4); }
-.ye-home-image { position: relative; grid-area: 1 / 1; display: block; width: 100%; height: auto; aspect-ratio: 4986 / 2646; object-fit: contain; border-radius: var(--space-4); box-shadow: var(--shadow-float); }
+.ye-home-image { position: relative; grid-area: 1 / 1; display: block; width: 100%; height: auto; aspect-ratio: 4986 / 2646; object-fit: contain; border-radius: var(--space-4); box-shadow: var(--ye-image-shadow); }
 .ye-home-image[aria-hidden="true"] { visibility: hidden; pointer-events: none; }
 .ye-home-controls { display: contents; }
 .ye-home-controls .report-edit-arrow { z-index: 2; }
 
 /* Neutral gray screenshot frames derived from portfolio colors. */
-.ye-case { --ye-image-border: color-mix(in srgb, var(--color-text) 6.5%, var(--color-surface)); }
+.ye-case { --ye-image-shadow: 0 6px 20px color-mix(in srgb, var(--color-text) 5%, transparent); --ye-image-border: color-mix(in srgb, var(--color-text) 6.5%, var(--color-surface)); }
 .ye-home-image, .ye-home-details img, .ye-clarification-image {
   border-radius: var(--rhythm-3);
   outline: calc(3 * var(--border-width)) solid var(--ye-image-border);
@@ -189,11 +189,11 @@
 
 /* Reuse the portfolio paired plates; crop real UI rather than redraw it. */
 .ye-home-details > div { display: flex; align-items: center; justify-content: center; aspect-ratio: auto; min-height: 0; padding: var(--rhythm-3); overflow: visible; }
-.ye-home-details img { display: block; width: 100%; max-width: 100%; height: auto; box-shadow: var(--shadow-float); border-radius: var(--space-4); }
+.ye-home-details img { display: block; width: 100%; max-width: 100%; height: auto; box-shadow: var(--ye-image-shadow); border-radius: var(--space-4); }
 .ye-home-details > .ye-bookmark-detail { display: grid; place-items: center; }
 .ye-home-details .ye-bookmark-detail::before { content: ''; grid-area: 1 / 1; width: 90%; aspect-ratio: 732 / 768; }
 .ye-home-details .ye-bookmark-detail img { grid-area: 1 / 1; width: 82.8%; }
-.ye-home-details .ye-collect-detail img { border-radius: var(--space-4); box-shadow: var(--shadow-float); }
+.ye-home-details .ye-collect-detail img { border-radius: var(--space-4); box-shadow: var(--ye-image-shadow); }
 .ye-home-details > .ye-collect-detail { padding: 0; overflow: hidden; }
 .ye-home-details .ye-collect-detail img { width: 115%; max-width: none; flex-shrink: 0; transform: translate(var(--rhythm-6), calc(var(--rhythm-6) + 2 * var(--rhythm-1))); }
 
