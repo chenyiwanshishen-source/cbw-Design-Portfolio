@@ -109,3 +109,6 @@
 .ye-research-response-stack { min-width: 0; display: grid; grid-template-rows: auto 1fr; gap: var(--rhythm-3); }
 .ye-research-response-stack .ye-research-response > p:last-child { margin-bottom: 0; }
 .ye-research-response-stack .ye-research-response dl { margin: 0 0 var(--rhythm-4); gap: var(--rhythm-4); }
+
+.ye-research-experience { background: var(--color-case-plate); }
+.ye-research-experience strong { font-weight: 600; }

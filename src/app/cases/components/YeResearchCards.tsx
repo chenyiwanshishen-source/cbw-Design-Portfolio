@@ -25,9 +25,9 @@ export function YeResearchCards() {
       </article>)}</div>)}</div>
     </section>
     <div className="ye-research-response-stack">
-    <section className="ye-research-panel ye-research-response">
-      <h3>把问题对应到 ye! 的设计</h3>
-      <p>重点放在减少手动整理、让用户看懂操作，以及出错后能够回退。</p>
+    <section className="ye-research-panel ye-research-response ye-research-experience">
+      <h3>对竞品进行体验记录</h3>
+      <p>我重点体验了<strong>整理效率、操作理解和恢复能力</strong>，据此确定 ye! 的设计方向：用 AI 减少逐条整理，执行前<strong>先预览、再确认</strong>，出错后<strong>可以撤销</strong>，并保护固定页签。</p>
     </section>
     <section className="ye-research-panel ye-research-response">
       <dl>
