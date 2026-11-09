@@ -218,3 +218,11 @@
 .ye-home-details .ye-collect-detail img { width: 115%; max-width: none; flex-shrink: 0; transform: translate(var(--rhythm-6), calc(var(--rhythm-6) + 2 * var(--rhythm-1))); }
 
 .ye-case .ye-home-image, .ye-case .ye-home-details img, .ye-case .ye-clarification-image, .ye-case .ye-review-conversation-image, .ye-case .ye-review-plan-image { border-radius: var(--rhythm-3); }
+
+/* Compact notification specimens; keep complete messages on one line. */
+.ye-model-states { grid-template-columns: minmax(0, 2.25fr) minmax(0, 1.25fr); padding: var(--rhythm-4); }
+.ye-model-notice { padding: var(--space-3); gap: var(--space-2); font-size: 12px; line-height: 20px; }
+.ye-model-notice > span, .ye-short-toast > span { white-space: nowrap; }
+.ye-model-notice-actions { gap: var(--space-3); }
+.ye-short-toast { padding: var(--space-2) var(--space-3); gap: var(--space-2); font-size: 12px; }
+@media (max-width: 1100px) { .ye-model-states { grid-template-columns: 1fr; } .ye-short-notices { justify-items: start; } }
