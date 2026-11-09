@@ -43,3 +43,11 @@
 .ye-progress-card dd { margin: var(--rhythm-1) 0 0; font-size: var(--text-h4); line-height: var(--text-h4--line-height); font-weight: 500; color: var(--color-text); font-variant-numeric: tabular-nums; }
 .ye-progress figcaption { margin-top: var(--rhythm-2); font-size: var(--text-caption); line-height: var(--text-caption--line-height); color: var(--color-text-secondary); }
 @media (max-width: 767px) { .ye-progress-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--rhythm-2); } }
+
+/* Trial feedback uses the existing two-column block and portfolio card tokens. */
+.ye-case #ye-01 .case-subsection .case-columns { gap: var(--rhythm-3); }
+.ye-case #ye-01 .case-subsection .case-columns > div { border: 0; border-radius: var(--space-6); padding: var(--rhythm-4); min-height: calc(4 * var(--space-16)); background: var(--color-case-plate); }
+.ye-case #ye-01 .case-subsection .case-columns > div:last-child { background: var(--color-qixin-purple-light); }
+.ye-case #ye-01 .case-subsection .case-columns dl { margin: 0; }
+.ye-case #ye-01 .case-subsection .case-columns dt { font-size: var(--text-h4); line-height: var(--text-h4--line-height); font-weight: 500; color: var(--color-text); margin-bottom: var(--rhythm-4); }
+.ye-case #ye-01 .case-subsection .case-columns dd { margin: 0; }

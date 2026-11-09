@@ -7,6 +7,6 @@ export function YeProgressCards({ items, note }: { items: { label: string; text:
       <dt>{item.label}</dt>
       <dd>{item.text}</dd>
     </div>)}</dl>
-    <figcaption>{note}</figcaption>
+    {note && <figcaption>{note}</figcaption>}
   </figure>;
 }

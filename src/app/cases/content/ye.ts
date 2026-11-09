@@ -89,7 +89,7 @@ export const ye: CaseContent = {
               "text": "6 位"
             }
           ],
-          "note": "开发与试用记录。提交数和测试数量用于说明开发规模，不作为体验效果指标。"
+          "note": ""
         },
         {
           "kind": "subsection",
@@ -97,7 +97,14 @@ export const ye: CaseContent = {
           "blocks": [
             {
               "kind": "paragraph",
-              "text": "朋友们试用后的反馈主要集中在两点：分类准确，交互友好。"
+              "text": "参与试用的朋友主要是设计师和开发者。他们提出了不少实际使用中的问题，我目前还在逐步解决。下面整理了反馈较集中的优点和缺点。"
+            },
+            {
+              "kind": "columns",
+              "items": [
+                { "label": "优点", "text": "【待填：朋友们反馈的优点】" },
+                { "label": "缺点", "text": "【待填：朋友们反馈的缺点】" }
+              ]
             }
           ]
         }
