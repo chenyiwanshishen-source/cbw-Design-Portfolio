@@ -252,8 +252,8 @@
 @media (max-width: 1100px) { .ye-model-states { grid-template-columns: 1fr; } .ye-short-notices { justify-items: start; } }
 
 /* Native markup keeps this small plugin specimen sharp at every pixel density. */
-.ye-import-specimen { grid-area: 1 / 1; width: 60%; box-sizing: border-box; padding: 6px; background: #fff; color: #111827; border-radius: var(--rhythm-3); outline: calc(3 * var(--border-width)) solid var(--ye-image-border); box-shadow: var(--ye-image-shadow); font-family: ui-sans-serif, system-ui, sans-serif; font-size: 14px; line-height: 23px; }
+.ye-import-specimen { grid-area: 1 / 1; width: 60%; box-sizing: border-box; padding: 6px; background: #fff; color: #111827; border-radius: 16px; outline: calc(3 * var(--border-width)) solid var(--ye-image-border); box-shadow: var(--ye-image-shadow); font-family: ui-sans-serif, system-ui, sans-serif; font-size: 14px; line-height: 23px; }
 .ye-import-reference { height: 36px; display: flex; align-items: center; gap: 8px; padding: 0 12px; }
-.ye-import-composer { display: flex; flex-direction: column; gap: 8px; padding: 12px; border-radius: 16px; background: #F7F8FA; }
+.ye-import-composer { display: flex; flex-direction: column; gap: 8px; padding: 12px; border-radius: 8px; background: #F7F8FA; }
 .ye-import-placeholder { color: #9CA3AF; white-space: nowrap; }
 .ye-import-send { display: flex; align-items: center; justify-content: center; align-self: flex-end; width: 32px; height: 32px; border-radius: 50%; background: #111827; color: #fff; }
