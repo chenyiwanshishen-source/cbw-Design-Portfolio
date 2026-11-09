@@ -265,3 +265,5 @@
 
 .ye-home-details > .ye-import-note { left: 4%; top: 40%; width: 220px; transform: rotate(-3deg); z-index: 3; }
 @media (max-width: 767px) { .ye-home-details > .ye-import-note { position: relative; left: auto; top: auto; width: auto; grid-column: 1 / -1; margin: var(--space-4); } }
+
+.ye-import-note, .ye-import-note strong { font-family: var(--font-sans); font-size: var(--text-caption); line-height: var(--text-caption--line-height); }
