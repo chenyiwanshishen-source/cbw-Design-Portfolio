@@ -213,8 +213,8 @@
 .ye-home-details > .ye-home-left-stack { display: grid; gap: var(--rhythm-4); padding: 0; background: transparent; border-radius: 0; align-items: stretch; }
 .ye-home-left-stack > div { min-width: 0; aspect-ratio: 1.5; overflow: hidden; background: var(--color-case-plate); border-radius: var(--space-6); padding: var(--rhythm-3); }
 .ye-home-details .ye-bookmark-detail { display: grid; place-items: center; }
-.ye-home-left-stack > .ye-folder-actions-detail { display: flex; align-items: center; justify-content: center; padding: 0; }
-.ye-case .ye-home-details .ye-folder-actions-detail img { width: 95%; max-width: none; flex-shrink: 0; border-radius: var(--rhythm-3); outline: 0; box-shadow: var(--ye-image-shadow); }
+.ye-home-left-stack > .ye-folder-actions-detail { display: flex; align-items: flex-start; justify-content: center; padding: var(--rhythm-4) 0 0; }
+.ye-case .ye-home-details .ye-folder-actions-detail img { width: 95%; max-width: none; flex-shrink: 0; margin: 0; border-radius: var(--rhythm-3) var(--rhythm-3) 0 0; outline: 0; box-shadow: var(--ye-image-shadow); }
 .ye-home-details .ye-bookmark-detail::before { content: none; }
 .ye-home-details .ye-bookmark-detail img { grid-area: 1 / 1; width: 66%; }
 .ye-home-details .ye-collect-detail img { border-radius: var(--space-4); box-shadow: var(--ye-image-shadow); }
