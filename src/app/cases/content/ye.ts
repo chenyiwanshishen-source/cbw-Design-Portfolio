@@ -140,20 +140,6 @@ export const ye: CaseContent = {
           ]
         },
         {
-          "kind": "flow",
-          "rows": [
-            {
-              "steps": [
-                "第一版 MVP",
-                "第一次重构",
-                "第二次重构",
-                "第三次重构",
-                "实际使用与持续完善"
-              ]
-            }
-          ]
-        },
-        {
           "kind": "figures",
           "figures": [
             {
