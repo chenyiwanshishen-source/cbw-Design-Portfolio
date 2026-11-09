@@ -73,7 +73,10 @@ export function YeHomePreview() {
     </div>
     </div>
     <figure className="workbench-panels ye-home-details" aria-label="书签详情与页签收藏操作局部展示">
-      <div className="ye-bookmark-detail"><img src={`${import.meta.env.BASE_URL}images/ye/bookmark-detail.webp`} alt="书签详情展示网页名称、网址与收藏时间" width="732" height="768" loading="lazy" decoding="async" /></div>
+      <div className="ye-home-left-stack">
+        <div className="ye-bookmark-detail"><img src={`${import.meta.env.BASE_URL}images/ye/bookmark-detail.webp`} alt="书签详情展示网页名称、网址与收藏时间" width="732" height="768" loading="lazy" decoding="async" /></div>
+        <div className="ye-folder-actions-detail"><img src={`${import.meta.env.BASE_URL}images/ye/bookmark-folder-actions.webp`} alt="书签分栏目录与分组菜单，支持带入对话、移动、新建分组、重命名、解散分组和删除" width="1566" height="1032" loading="lazy" decoding="async" /></div>
+      </div>
       <div className="ye-collect-detail"><img src={`${import.meta.env.BASE_URL}images/ye/tab-collect-full.webp`} alt="页签菜单中的收藏操作，可选择分组或让 AI 建议" width="1496" height="1314" loading="lazy" decoding="async" /></div>
     </figure>
   </section>
