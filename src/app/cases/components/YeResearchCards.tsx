@@ -16,7 +16,6 @@ export function YeResearchCards() {
       <p>从 App Store 和 Chrome 网上应用店的评论中，梳理浏览器书签、页签和窗口整理中的问题。</p>
       <p className="ye-review-note">用户评论摘译 · 包含历史版本反馈，已确认修复的附后续说明</p>
       <div className="ye-review-wall">{reviews.map((review, index) => <article className="ye-review-card" key={index}>
-        {review.rating !== null && <span className="ye-review-stars" aria-label={`${review.rating} 星，共 5 星`}>{Array.from({ length: 5 }, (_, i) => <span key={i} className={i < review.rating! ? 'is-rated' : undefined} aria-hidden="true">★</span>)}</span>}
         <p>{review.text}</p>
         {review.followup && <p className="ye-review-note">{review.followup}</p>}
         <span className="ye-review-product">{review.product}</span>
