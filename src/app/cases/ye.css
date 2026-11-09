@@ -1,5 +1,12 @@
 .ye-case .case-table th { font-family: var(--font-sans); font-size: var(--text-caption); line-height: var(--text-caption--line-height); }
 .ye-home-carousel { position: relative; min-width: 0; }
+.ye-model-states { display: grid; gap: var(--rhythm-3); margin: var(--rhythm-4) 0 0; padding: var(--rhythm-5); background: var(--color-case-plate); border-radius: var(--space-6); }
+.ye-model-state > p { margin: 0 0 var(--space-2); font-size: var(--text-caption); color: var(--color-text-secondary); }
+.ye-model-notice { display: flex; align-items: center; gap: var(--space-2); padding: var(--space-4); border-radius: var(--space-3); background: var(--color-surface); color: var(--color-text-secondary); font-size: var(--text-caption); line-height: var(--text-caption--line-height); }
+.ye-model-notice > svg { flex-shrink: 0; }
+.ye-model-notice > span { flex: 1; min-width: 0; }
+.ye-model-notice-actions { display: flex; align-items: center; gap: var(--space-5); flex-shrink: 0; color: var(--color-text); }
+@media (max-width: 639px) { .ye-model-states { padding: var(--rhythm-3); } .ye-model-notice { flex-wrap: wrap; } .ye-model-notice-actions { margin-left: auto; gap: var(--space-3); } }
 .ye-clarification-image { display: block; width: 100%; height: auto; border-radius: var(--space-4); box-shadow: var(--ye-image-shadow); }
 .ye-review-pair > div { display: flex; align-items: flex-start; justify-content: center; aspect-ratio: 10 / 11; padding: var(--rhythm-3); }
 .ye-review-conversation-shadow { display: block; margin-top: var(--rhythm-4); width: 95%; flex-shrink: 0; filter: drop-shadow(var(--ye-image-shadow)); }
