@@ -14,7 +14,6 @@ export function YeSpecimenFlows() {
         <div className={step.paper ? 'generator-paper ye-process-paper' : 'generator-app ye-process-ai'}>
           {step.paper ? <><strong>{step.title}</strong><span className="generator-paper-lines" aria-hidden="true"><i/><i/><i/><i/></span></> : <span>AI</span>}
         </div>
-        <strong className="ye-process-title">{step.title}</strong>
         <span className="ye-process-detail">{step.detail}</span>
       </div>
       {index < steps.length - 1 && <svg className="generator-arrow ye-process-arrow" viewBox="0 0 60 20" aria-hidden="true"><path d="M0 10 H57 M51 5 L57 10 L51 15" /></svg>}
