@@ -58,3 +58,7 @@
 .ye-case #ye-01 .case-trial-panel-0 li:nth-child(2) { align-self: flex-end; transform: rotate(5deg); }
 .ye-case #ye-01 .case-trial-panel-0 li:nth-child(3) { align-self: center; transform: rotate(-3deg); }
 .ye-case #ye-01 .case-trial-panel-0 li:nth-child(4) { align-self: flex-end; margin-right: var(--space-4); transform: rotate(4deg); }
+
+.ye-case #ye-01 .case-trial-panel li { flex-wrap: nowrap; }
+.ye-case #ye-01 .case-trial-panel li > span:last-child { min-width: 0; }
+.ye-case #ye-01 .case-trial-brand:empty { display: none; }
