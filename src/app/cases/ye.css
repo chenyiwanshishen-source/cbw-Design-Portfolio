@@ -1,5 +1,9 @@
 .ye-case .case-table th { font-family: var(--font-sans); font-size: var(--text-caption); line-height: var(--text-caption--line-height); }
 .ye-home-carousel { position: relative; min-width: 0; }
+.ye-collaboration-versions { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--rhythm-4); margin: 0 0 var(--rhythm-4); }
+.ye-collaboration-version { display: flex; align-items: center; justify-content: center; gap: var(--rhythm-3); aspect-ratio: 1; background: var(--color-case-plate); border-radius: var(--space-6); }
+.ye-collaboration-version img { display: block; width: var(--rhythm-5); height: var(--rhythm-5); object-fit: contain; }
+@media (max-width: 639px) { .ye-collaboration-versions { gap: var(--space-2); } .ye-collaboration-version { gap: var(--space-2); } .ye-collaboration-version img { width: var(--space-6); height: var(--space-6); } }
 .ye-model-states { display: grid; gap: var(--rhythm-3); margin: var(--rhythm-4) 0 0; padding: var(--rhythm-5); background: var(--color-case-plate); border-radius: var(--space-6); }
 .ye-model-states { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: var(--rhythm-4); }
 .ye-model-state-list, .ye-short-notices { display: grid; align-content: start; gap: var(--rhythm-3); min-width: 0; }
