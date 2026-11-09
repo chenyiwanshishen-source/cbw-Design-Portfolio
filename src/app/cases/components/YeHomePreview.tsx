@@ -100,7 +100,7 @@ export function YeHomePreview() {
     <img className="ye-clarification-image" src={`${import.meta.env.BASE_URL}images/ye/clarification-structure-options.webp`} alt="目录结构方案：选择精细版或精简版，并可补充说明" width="1173" height="566" loading="lazy" decoding="async" />
     <img className="ye-clarification-image" src={`${import.meta.env.BASE_URL}images/ye/clarification-plan-preview.webp`} alt="方案预览：展示设计目录及子目录的分类说明与预计数量" width="1173" height="609" loading="lazy" decoding="async" />
     </figure>
-    <div className="case-prose"><p className="case-paragraph">从确认需求、对话反馈到方案预览，我让用户看清 AI 理解了什么、接下来会改什么，并保留方案修改入口，让用户能接着调整，不必重新描述需求。我希望通过清楚、可调整的过程，帮助用户建立预期和信任。</p></div>
+    <div className="case-prose"><p className="case-paragraph">书签往往积累了很久，数量多、用途杂，怎么分类也因人而异。一句“帮我整理”很难说清该保留什么、改动多少，批量调整还可能打乱用户熟悉的目录。因此，我设置了两次明确确认：开始前确认整理范围和方向，执行前预览具体改动；中间由 AI 在对话中说明自己的理解和处理结果，让用户有机会纠偏，不必每一步都点击确认。方案也保留修改入口，用户可以接着调整，不用重新描述需求。</p></div>
     <figure className="workbench-panels ye-review-pair" aria-label="审查对话展示">
     <div>
     <span className="ye-review-conversation-shadow"><img className="ye-review-conversation-image" src={`${import.meta.env.BASE_URL}images/ye/review-conversation.webp`} alt="用户指出书签分类问题后，AI 查看实际内容、修正误判，并列出仍需用户确认的存疑项" width="1222" height="2418" loading="lazy" decoding="async" /></span>
