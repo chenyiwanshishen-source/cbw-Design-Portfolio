@@ -57,7 +57,8 @@ export function YeHomePreview() {
     gsap.fromTo(button, { scale: .84 }, { scale: 1, duration: .55, ease: 'elastic.out(1, 0.5)', overwrite: true });
   });
   return <section className="case-subsection" aria-labelledby="ye-home-preview-title">
-    <h3 id="ye-home-preview-title">首页工作台</h3>
+    <h3 id="ye-home-preview-title">首页设计</h3>
+    <div className="case-prose"><p className="case-paragraph">在「全部页签」中，我按浏览器窗口分栏展示，让每个窗口的页签独立呈现，方便用户看清当前打开的内容。书签则采用米勒分栏，借鉴苹果的分栏浏览方式，逐层展开文件夹，在有限空间内保留清楚的层级关系。选中具体书签后，可以查看详情和收藏时间，帮助用户判断这条收藏现在是否还有用。</p></div>
     <div className="ye-home-carousel" ref={root}>
     <figure className="template-preview template-preview-carousel ye-home-preview" aria-label="ye! 首页工作台截图轮播" aria-roledescription="轮播">
       <div className="ye-home-stage">{slides.map((slide, index) => <img key={slide.src} className="ye-home-image" src={`${import.meta.env.BASE_URL}images/ye/${slide.src}`} alt={slide.alt} width={slide.width} height={slide.height} aria-hidden={active !== index} decoding="async" />)}</div>
