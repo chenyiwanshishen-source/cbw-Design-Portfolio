@@ -58,6 +58,7 @@ export function YeHomePreview() {
   });
   return <section className="case-subsection" aria-labelledby="ye-home-preview-title">
     <h3 id="ye-home-preview-title">页面设计</h3>
+    <h4>首页</h4>
     <div className="case-prose"><p className="case-paragraph">页签<mark className="case-marker">按浏览器窗口独立分栏</mark>，方便看清各窗口的内容。书签借鉴苹果的<mark className="case-marker">米勒分栏</mark>，逐层展开，节省空间并保留层级。选中书签可查看详情和<mark className="case-marker">收藏时间</mark>，判断是否仍值得保留。</p></div>
     <div className="ye-home-carousel" ref={root}>
     <figure className="template-preview template-preview-carousel ye-home-preview" aria-label="ye! 首页工作台截图轮播" aria-roledescription="轮播">
