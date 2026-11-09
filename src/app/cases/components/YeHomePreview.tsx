@@ -96,9 +96,9 @@ export function YeHomePreview() {
     <div className="case-prose">
       <p className="case-paragraph">书签多、分类因人而异，我用两次明确确认和一次对话反馈，让用户分阶段判断，及时纠偏。</p>
       <ul className="ye-review-points">
-        <li><mark className="case-marker">先确认方向</mark>：明确整理范围和方式，避免做偏。多一次选择，但不用提前规划整套目录。</li>
-        <li><mark className="case-marker">对话中纠偏</mark>：AI 反馈理解和存疑项，方便用户补充。保留干预机会，不要求每一步都点击确认。</li>
-        <li><mark className="case-marker">执行前确认</mark>：预览具体改动，再修改真实书签。多一次检查，保留对批量操作的控制；方案可继续修改，不必重述需求。</li>
+        <li><strong><mark className="case-marker">先确认方向</mark></strong>：明确整理范围和方式，避免做偏。多一次选择，但不用提前规划整套目录。</li>
+        <li><strong><mark className="case-marker">对话中纠偏</mark></strong>：AI 反馈理解和存疑项，方便用户补充。保留干预机会，不要求每一步都点击确认。</li>
+        <li><strong><mark className="case-marker">执行前确认</mark></strong>：预览具体改动，再修改真实书签。多一次检查，保留对批量操作的控制；方案可继续修改，不必重述需求。</li>
       </ul>
     </div>
     <figure className="ye-clarification-gallery" aria-label="追问与方案预览截图">

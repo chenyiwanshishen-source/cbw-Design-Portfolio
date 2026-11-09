@@ -270,5 +270,5 @@
 
 .ye-review-pair { position: relative; }
 
-.ye-review-points { margin: 0; padding-left: 1.4em; font-size: var(--text-body); line-height: var(--text-body--line-height); }
+.ye-review-points { list-style: disc outside; margin: 0; padding-left: 1.4em; font-size: var(--text-body); line-height: var(--text-body--line-height); }
 .ye-review-points li + li { margin-top: var(--space-2); }
