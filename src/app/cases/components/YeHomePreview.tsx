@@ -100,6 +100,7 @@ export function YeHomePreview() {
     <img className="ye-clarification-image" src={`${import.meta.env.BASE_URL}images/ye/clarification-structure-options.webp`} alt="目录结构方案：选择精细版或精简版，并可补充说明" width="1173" height="566" loading="lazy" decoding="async" />
     <img className="ye-clarification-image" src={`${import.meta.env.BASE_URL}images/ye/clarification-plan-preview.webp`} alt="方案预览：展示设计目录及子目录的分类说明与预计数量" width="1173" height="609" loading="lazy" decoding="async" />
     </figure>
+    <div className="case-prose"><p className="case-paragraph">从确认需求、对话反馈到方案预览，我让用户看清 AI 理解了什么、方案如何形成，以及接下来会改动什么，希望帮助用户建立明确的预期，逐步信任 AI 的处理过程。</p></div>
     <figure className="workbench-panels ye-review-pair" aria-label="审查对话展示">
     <div>
     <span className="ye-review-conversation-shadow"><img className="ye-review-conversation-image" src={`${import.meta.env.BASE_URL}images/ye/review-conversation.webp`} alt="用户指出书签分类问题后，AI 查看实际内容、修正误判，并列出仍需用户确认的存疑项" width="1222" height="2418" loading="lazy" decoding="async" /></span>
