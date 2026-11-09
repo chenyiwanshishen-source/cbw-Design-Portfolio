@@ -5,7 +5,7 @@ const states = [
   { title: '网络超时', message: '等了好一会儿还没收到回复，可能是网络或服务器有点慢，再试一次吧', retry: true, settings: 'switch' },
   { title: '余额不足', message: '模型账户的余额好像用完了，充值后就能继续啦', retry: true, settings: 'settings' },
   { title: '密钥错误', message: 'API Key 好像不太对，去设置里检查一下吧', retry: false, settings: 'settings' },
-  { title: '其他模型失败', message: '这次请求没成功，可以再试一次，详细原因放在下面了', retry: true, settings: null },
+  { title: '其他模型失败', message: '这次请求没成功，可以再试一次。', retry: true, settings: null },
 ];
 
 export function YeModelStates() {
