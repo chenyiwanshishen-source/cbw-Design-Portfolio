@@ -97,13 +97,13 @@ export const ye: CaseContent = {
           "blocks": [
             {
               "kind": "paragraph",
-              "text": "参与试用的朋友主要是设计师和开发者。他们提出了不少实际使用中的问题，我目前还在逐步解决。下面整理了反馈较集中的优点和缺点。"
+              "text": "参与试用的朋友主要是设计师和开发者。他们提出了不少实际使用中的问题，我目前还在逐步解决。下面整理了反馈较集中的问题和优点。"
             },
             {
-              "kind": "columns",
-              "items": [
-                { "label": "优点", "text": "【待填：朋友们反馈的优点】" },
-                { "label": "缺点", "text": "【待填：朋友们反馈的缺点】" }
+              "kind": "trial-feedback",
+              "groups": [
+                { "title": "问题", "items": [{ "product": "", "text": "【待填：朋友们反馈的问题】" }] },
+                { "title": "优点", "items": [{ "product": "", "text": "【待填：朋友们反馈的优点】" }] }
               ]
             }
           ]
