@@ -87,3 +87,5 @@
 .ye-research-journey { grid-column: 1 / -1; min-height: calc(4 * var(--space-16)); background: var(--color-case-plate); }
 @media (max-width: 767px) { .ye-research-layout { grid-template-columns: minmax(0, 1fr); } }
 @media (max-width: 399px) { .ye-review-wall { columns: 1; } }
+
+.ye-case #ye-01 .case-trial-panel-0 li:nth-child(5) { align-self: flex-start; --feedback-angle: -4deg; }
