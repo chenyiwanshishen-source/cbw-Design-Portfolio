@@ -183,7 +183,7 @@ export const ye: CaseContent = {
     {
       "id": "ye-02",
       "label": "意图理解",
-      "title": "放弃固定分类规则",
+      "title": "关于协作",
       "blocks": [
         {
           "kind": "paragraph",
