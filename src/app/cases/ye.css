@@ -15,6 +15,20 @@
 .ye-home-controls { display: contents; }
 .ye-home-controls .report-edit-arrow { z-index: 2; }
 
+/* Frame interface screenshots with the portfolio's neutral border token. */
+.ye-home-image, .ye-home-details img, .ye-clarification-image {
+  outline: calc(3 * var(--border-width)) solid var(--color-border);
+  outline-offset: 0;
+}
+.ye-review-conversation-shadow, .ye-review-plan-shadow { position: relative; }
+.ye-review-conversation-shadow::after, .ye-review-plan-shadow::after {
+  content: ''; position: absolute; pointer-events: none;
+  border: calc(3 * var(--border-width)) solid var(--color-border);
+  border-radius: var(--space-4);
+}
+.ye-review-conversation-shadow::after { inset: 6.5% 0.6% 0 0; }
+.ye-review-plan-shadow::after { inset: 0.5% 0.15% 0.25% 0.5%; }
+
 /* Keep the shared 1200px CaseLayout and its twelve-column header grid. */
 .ye-case > .case-header .case-facts-pills {
  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
