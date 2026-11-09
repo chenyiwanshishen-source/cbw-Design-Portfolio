@@ -93,7 +93,7 @@ export const ye: CaseContent = {
         },
         {
           "kind": "subsection",
-          "title": "朋友们的反馈",
+          "title": "朋友试用后的反馈",
           "blocks": [
             {
               "kind": "paragraph",
