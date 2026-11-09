@@ -88,7 +88,6 @@
 .ye-research-response dl { margin: var(--rhythm-5) 0; display: grid; gap: var(--rhythm-5); }
 .ye-research-response dt { font-size: var(--text-body); font-weight: 600; margin-bottom: var(--rhythm-2); }
 .ye-research-response dd { margin: 0; font-size: var(--text-body); line-height: var(--text-body--line-height); }
-.ye-research-journey { grid-column: 1 / -1; min-height: calc(4 * var(--space-16)); background: var(--color-case-plate); }
 @media (max-width: 767px) { .ye-research-layout { grid-template-columns: minmax(0, 1fr); } }
 @media (max-width: 399px) { .ye-review-card { padding: var(--space-2); } }
 

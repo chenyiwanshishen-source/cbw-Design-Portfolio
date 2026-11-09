@@ -1,3 +1,5 @@
+import { FigurePlaceholder } from './FigurePlaceholder';
+
 const reviews = [
   { product: 'Tab Session Manager', rating: null, text: '保存的会话只能删链接，无法拖动排序或补入页签。', source: 'https://chrome-stats.com/d/iaiomicjabeggjcfkbimgmglanimpnae/reviews', date: '2026-10-05' },
   { product: 'Tab Space', rating: 3, text: '恢复后没有保留原来的窗口分组，还得手动重新整理。', source: 'https://apps.apple.com/us/app/tab-space/id1473726602?mt=12&platform=mac&see-all=reviews', date: '2020-03-11' },
@@ -10,7 +12,7 @@ const reviews = [
 ];
 
 export function YeResearchCards() {
-  return <div className="ye-research-layout">
+  return <><div className="ye-research-layout">
     <section className="ye-research-panel ye-research-evidence">
       <h3>同类产品的用户反馈</h3>
       <p className="ye-research-intro">App Store 与 Chrome 商店评论中的三类问题：</p>
@@ -41,9 +43,10 @@ export function YeResearchCards() {
       </div>
     </section>
     </div>
-    <section className="ye-research-panel ye-research-journey">
-      <h3>用户旅程图</h3>
-      <p>【待填：ye! 用户旅程图】</p>
+  </div>
+    <section className="case-subsection" aria-labelledby="ye-visual-definition-title">
+      <h3 id="ye-visual-definition-title">视觉定义</h3>
+      <FigurePlaceholder plate="" title="视觉定义" instruction="【待填：ye! 视觉定义】" caption="" />
     </section>
-  </div>;
+  </>;
 }
