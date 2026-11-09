@@ -12,13 +12,7 @@ export function YeHomePreview() {
     <h3 id="ye-home-preview-title">首页工作台</h3>
     <div className="ye-home-carousel">
     <figure className="template-preview template-preview-carousel ye-home-preview" aria-label="ye! 首页工作台截图轮播" aria-roledescription="轮播">
-      <div className="template-preview-stage">
-        <div className="template-preview-screen" data-device="desktop">
-          <div className="template-preview-media" aria-live="polite">
-            <img src={`${import.meta.env.BASE_URL}images/ye/${slides[active].src}`} alt={slides[active].alt} width={slides[active].width} height={slides[active].height} loading="lazy" decoding="async" />
-          </div>
-        </div>
-      </div>
+      <img className="ye-home-image" src={`${import.meta.env.BASE_URL}images/ye/${slides[active].src}`} alt={slides[active].alt} width={slides[active].width} height={slides[active].height} loading="lazy" decoding="async" />
     </figure>
     <div className="ye-home-controls">
       {[-1, 1].map(direction => <button key={direction} type="button" className={`report-edit-arrow ${direction < 0 ? 'is-previous' : 'is-next'}`} aria-label={direction < 0 ? '上一张工作台截图' : '下一张工作台截图'} onClick={() => select(active + direction)}>

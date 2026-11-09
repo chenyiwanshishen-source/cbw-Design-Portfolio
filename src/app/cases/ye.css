@@ -1,10 +1,9 @@
 .ye-case .case-table th { font-family: var(--font-sans); font-size: var(--text-caption); line-height: var(--text-caption--line-height); }
-.ye-home-preview .template-preview-stage { aspect-ratio: 4986 / 2646; height: auto; }
 .ye-home-carousel { position: relative; min-width: 0; }
 .ye-home-preview.template-preview { background: var(--color-case-plate); }
+.ye-home-image { display: block; width: 100%; height: auto; }
 .ye-home-controls { display: contents; }
 .ye-home-controls .report-edit-arrow { z-index: 2; }
-.ye-home-preview .template-preview-screen[data-device="desktop"] { top: 0; translate: none; }
 
 /* Keep the shared 1200px CaseLayout and its twelve-column header grid. */
 .ye-case > .case-header .case-facts-pills {
