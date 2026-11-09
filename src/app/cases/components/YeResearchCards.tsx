@@ -46,6 +46,7 @@ export function YeResearchCards() {
   </div>
     <section className="case-subsection" aria-labelledby="ye-visual-definition-title">
       <h3 id="ye-visual-definition-title">视觉定义</h3>
+      <div className="case-prose"><p className="case-paragraph">我沿用了自己在 AI 报告生成项目中总结的一套流程，来生成 ye! 的基础组件内容。</p></div>
       <FigurePlaceholder plate="" title="视觉定义" instruction="【待填：ye! 视觉定义】" caption="" />
     </section>
   </>;
