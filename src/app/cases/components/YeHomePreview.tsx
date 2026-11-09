@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
+import { Bookmark, ArrowUp } from 'lucide-react';
 import { useGSAP } from '@gsap/react';
 gsap.registerPlugin(useGSAP);
 
@@ -74,7 +75,7 @@ export function YeHomePreview() {
     </div>
     <figure className="workbench-panels ye-home-details" aria-label="书签详情与页签收藏操作局部展示">
       <div className="ye-home-left-stack">
-        <div className="ye-bookmark-detail"><img src={`${import.meta.env.BASE_URL}images/ye/conversation-import.webp`} alt="带入对话弹框，可为引用的书签补充说明" width="240" height="137" loading="lazy" decoding="async" /></div>
+        <div className="ye-bookmark-detail"><div className="ye-import-specimen" aria-label="带入对话弹框"><div className="ye-import-reference"><Bookmark size={16} strokeWidth={2} /><span>书签</span></div><div className="ye-import-composer"><span className="ye-import-placeholder">补充说明（可选）</span><span className="ye-import-send" aria-hidden="true"><ArrowUp size={16} strokeWidth={2} /></span></div></div></div>
         <div className="ye-folder-actions-detail"><img src={`${import.meta.env.BASE_URL}images/ye/bookmark-folder-actions-v2.webp`} alt="书签分栏目录与分组菜单，支持带入对话、移动、新建分组、重命名、解散分组和删除" width="1534" height="1156" loading="lazy" decoding="async" /></div>
       </div>
       <div className="ye-collect-detail"><img src={`${import.meta.env.BASE_URL}images/ye/tab-collect-full.webp`} alt="页签菜单中的收藏操作，可选择分组或让 AI 建议" width="1496" height="1314" loading="lazy" decoding="async" /></div>
