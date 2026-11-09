@@ -1,5 +1,11 @@
 .ye-case .case-table th { font-family: var(--font-sans); font-size: var(--text-caption); line-height: var(--text-caption--line-height); }
 .ye-home-preview .template-preview-stage { aspect-ratio: 4986 / 2646; height: auto; }
+.ye-home-preview.template-preview { padding: 0 0 var(--rhythm-5); background: transparent; border-radius: 0; overflow: visible; }
+.ye-home-preview .template-preview-screen { border-radius: 0; outline: none; box-shadow: none; }
+.ye-home-preview .report-edit-arrow { top: calc(100% - var(--space-8)); }
+.ye-home-preview .report-edit-arrow.is-previous { left: 0; }
+.ye-home-preview .report-edit-arrow.is-next { right: 0; }
+.ye-home-preview .report-edit-pagination { bottom: 0; }
 .ye-home-preview .template-preview-screen[data-device="desktop"] { top: 0; translate: none; }
 
 /* Keep the shared 1200px CaseLayout and its twelve-column header grid. */
