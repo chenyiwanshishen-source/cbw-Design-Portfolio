@@ -1,5 +1,5 @@
 const steps = [
-  { title: '确认使用场景，生成基础色板', detail: '设备、主题、字体与色板', paper: true },
+  { title: '生成基础色板', detail: '设备、主题、字体与色板', paper: true },
   { title: '明确生成规则', detail: '间距、描边、圆角、文字、栅格、阴影', paper: true },
   { title: '对照规则检查', detail: '核对数值、文字、布局与边界', paper: true },
   { title: '调整并确认', detail: '修正样张，确认视觉表现', paper: true },
@@ -7,7 +7,7 @@ const steps = [
 ];
 
 export function YeSpecimenFlows() {
-  return <figure className="ye-sample-process" aria-label="样张生成流程：确认使用场景，生成基础色板、明确生成规则、对照规则检查、调整并确认、写入并复核">
+  return <figure className="ye-sample-process" aria-label="样张生成流程：生成基础色板、明确生成规则、对照规则检查、调整并确认、写入并复核">
     <ol>{steps.map((step, index) => <li key={step.title}>
       <div className="ye-process-node">
         <span className="ye-process-number" aria-hidden="true">0{index + 1}</span>
