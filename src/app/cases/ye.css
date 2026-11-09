@@ -5,7 +5,8 @@
 .ye-review-conversation-shadow { display: block; margin-top: var(--rhythm-4); width: 95%; flex-shrink: 0; filter: drop-shadow(var(--shadow-float)); }
 .ye-review-conversation-image { display: block; width: 100%; max-width: none; height: auto; border: 0; border-radius: var(--space-4); clip-path: inset(6.5% 0.6% 0 0 round var(--space-4)); }
 .ye-review-pair > .ye-review-plan-panel { justify-content: flex-start; padding: var(--rhythm-5) 0 0 var(--rhythm-4); }
-.ye-review-plan-image { display: block; width: 185%; max-width: none; height: auto; flex-shrink: 0; border-radius: var(--space-4); box-shadow: var(--shadow-float); clip-path: inset(0.5% 0.15% 0.25% 0.5% round var(--space-4)); }
+.ye-review-plan-shadow { display: block; width: 185%; flex-shrink: 0; filter: drop-shadow(var(--shadow-float)); }
+.ye-review-plan-image { display: block; width: 100%; max-width: none; height: auto; border-radius: var(--space-4); clip-path: inset(0.5% 0.15% 0.25% 0.5% round var(--space-4)); }
 .ye-clarification-gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: center; gap: var(--rhythm-4); margin: 0; padding: var(--rhythm-5); background: var(--color-case-plate); border-radius: var(--space-6); }
 @media (max-width: 639px) { .ye-clarification-gallery { grid-template-columns: 1fr; padding: var(--rhythm-3); } }
 .ye-home-preview.template-preview { display: grid; background: var(--color-case-plate); padding-inline: var(--rhythm-4); }
