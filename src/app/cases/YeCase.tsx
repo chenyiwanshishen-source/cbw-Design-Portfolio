@@ -9,6 +9,7 @@ import { FigurePlaceholder } from './components/FigurePlaceholder';
 import { CaseBlocks } from './CaseBlocks';
 import { YeProgressCards } from './components/YeProgressCards';
 import { YeResearchCards } from './components/YeResearchCards';
+import { YeHomePreview } from './components/YeHomePreview';
 import './ye.css';
 
 export function YeCase() {
@@ -18,7 +19,7 @@ export function YeCase() {
       <CaseHeader content={ye.header} compact />
       <FigurePlaceholder {...ye.hero} />
       <CaseOpening content={ye} />
-      <div className="case-body"><CaseToc items={ye.toc} label={ye.ui.toc} /><div className="case-chapters">{ye.chapters.map(chapter => <CaseSection key={chapter.id} id={chapter.id} label={chapter.label} title={chapter.title}>{chapter.blocks.map((block, index) => block.kind === 'metrics' ? <YeProgressCards key={index} items={block.items} note={block.note} /> : chapter.id === 'ye-05' && index === 1 ? <YeResearchCards key={index} /> : <CaseBlocks key={index} blocks={[block]} labels={ye.ui} />)}</CaseSection>)}</div></div>
+      <div className="case-body"><CaseToc items={ye.toc} label={ye.ui.toc} /><div className="case-chapters">{ye.chapters.map(chapter => <CaseSection key={chapter.id} id={chapter.id} label={chapter.label} title={chapter.title}>{chapter.blocks.map((block, index) => block.kind === 'metrics' ? <YeProgressCards key={index} items={block.items} note={block.note} /> : chapter.id === 'ye-05' && index === 1 ? <YeResearchCards key={index} /> : chapter.id === 'ye-05' && block.kind === 'figures' && block.figures.some(figure => figure.plate === 'PLATE 02') ? <YeHomePreview key={index} /> : <CaseBlocks key={index} blocks={[block]} labels={ye.ui} />)}</CaseSection>)}</div></div>
       <nav className="case-switch"><a href="#/project/qixin-brain"><span className="text-caption text-text-meta">{ye.ui.previous}</span><span className="text-h4 font-normal">{ye.ui.previousTitle}</span></a><a href="#ai"><span className="text-caption text-text-meta">{ye.ui.next}</span><span className="text-h4 font-normal">{ye.ui.nextTitle}</span></a></nav>
     </div>
   </CaseLayout>;
