@@ -3,7 +3,16 @@ import type { CaseContent } from '../types';
 export const ye: CaseContent = {
   "header": {
     "title": "ye! · 浏览器整理 agent",
-    "intro": "这个插件最初是为了解决我自己的书签和页签整理问题。前后开发了 8 周，经历三次架构调整，现在有 4 位朋友在用。"
+    "intro": "ye! 是我为解决自己的书签和标签页整理问题做的 Chrome 插件。我负责产品定义、交互与界面设计，并与 Gemini、Claude、Codex 协作，直接在代码中完成设计和开发。用户可以通过对话查找内容、整理分组，再查看和调整 AI 给出的方案。",
+    "introEmphasis": ["产品定义", "交互与界面设计", "直接在代码中完成设计和开发"],
+    "factsStyle": "pills",
+    "facts": [
+      { "label": "角色", "text": "独立产品设计师", "tags": ["独立产品设计师"] },
+      { "label": "项目周期", "text": "2026.09—至今", "tags": ["2026.09—至今"] },
+      { "label": "设计范围", "text": "产品定义、交互与界面、Agent 交互", "tags": ["产品定义", "交互与界面", "Agent 交互"] },
+      { "label": "类型", "text": "个人项目、Chrome 插件", "tags": ["个人项目", "Chrome 插件"] },
+      { "label": "工具", "text": "Gemini、Claude、Codex", "tools": [{ "name": "Gemini", "icon": "gemini" }, { "name": "Claude", "icon": "claude" }, { "name": "Codex", "icon": "codex" }] }
+    ]
   },
   "hero": {
     "plate": "PLATE 01",

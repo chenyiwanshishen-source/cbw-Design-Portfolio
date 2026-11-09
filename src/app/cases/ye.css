@@ -1,5 +1,11 @@
-.ye-case .case-header-compact { padding-bottom: 0; }
+.ye-case .case-header-compact { padding-bottom: var(--rhythm-6); }
 .ye-case .case-table th { font-family: var(--font-sans); font-size: var(--text-caption); line-height: var(--text-caption--line-height); }
 @media (min-width: 1024px) {
- .ye-case .case-header-main { grid-column: 1 / 10; }
+ .ye-case .case-header-main { grid-column: 1 / 7; }
+}
+
+.ye-case .case-facts-pills { row-gap: var(--space-6); column-gap: var(--space-5); }
+.ye-case .case-facts-pills dt { margin-bottom: var(--space-3); }
+@media (min-width: 1024px) {
+ .ye-case .case-header-compact .case-facts { grid-column: 8 / 13; }
 }
