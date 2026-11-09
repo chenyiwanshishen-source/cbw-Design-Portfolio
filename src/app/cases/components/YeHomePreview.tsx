@@ -79,6 +79,6 @@ export function YeHomePreview() {
   </section>
   <section className="case-subsection" aria-labelledby="ye-character-title">
     <h3 id="ye-character-title">角色设计</h3>
-    <div className="case-prose"><p className="case-paragraph">为了让插件更有趣，我设计了一个角色，让 AI 助手更有拟人感。</p></div>
+    <div className="case-prose"><p className="case-paragraph">为了让整个产品更有人情味，我为这个插件设计了一个角色。</p></div>
   </section></>;
 }
