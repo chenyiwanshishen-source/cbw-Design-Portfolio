@@ -62,3 +62,6 @@
 .ye-case #ye-01 .case-trial-panel li { flex-wrap: nowrap; }
 .ye-case #ye-01 .case-trial-panel li > span:last-child { min-width: 0; }
 .ye-case #ye-01 .case-trial-brand:empty { display: none; }
+
+/* Keep staggered positions while rendering feedback text without rotation. */
+.ye-case #ye-01 .case-trial-panel-0 li:nth-child(n) { transform: none; }

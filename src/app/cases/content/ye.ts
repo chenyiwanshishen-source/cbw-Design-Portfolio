@@ -105,15 +105,15 @@ export const ye: CaseContent = {
                 { "title": "问题", "items": [
                   { "product": "", "text": "缺少快捷键指南", "icon": "KeyboardIcon" },
                   { "product": "", "text": "Mac / Win 动效抖动不一致", "icon": "ComputerIcon" },
-                  { "product": "", "text": "希望 AI 分析收藏与习惯，给出更好推荐", "icon": "Bookmark01Icon" },
+                  { "product": "", "text": "希望 AI 根据收藏推荐新技术栈、优质设计资讯", "icon": "Bookmark01Icon" },
                   { "product": "", "text": "AI 迁移后的预览标识不清", "icon": "ArrowDataTransferHorizontalIcon" }
                 ] },
                 { "title": "优点", "items": [
-                  { "product": "", "text": "交互友好", "icon": "UserGroupIcon" },
-                  { "product": "", "text": "反馈及时", "icon": "Clock01Icon" },
-                  { "product": "", "text": "页面清爽", "icon": "DashboardSquare01Icon" },
-                  { "product": "", "text": "层级分布合理", "icon": "Layers01Icon" },
-                  { "product": "", "text": "功能引导一目了然", "icon": "CheckListIcon" }
+                  { "product": "", "text": "交互容易理解，操作顺手", "icon": "UserGroupIcon" },
+                  { "product": "", "text": "操作后能及时看到反馈", "icon": "Clock01Icon" },
+                  { "product": "", "text": "页面清爽，信息不杂乱", "icon": "DashboardSquare01Icon" },
+                  { "product": "", "text": "信息层级清楚，主次分明", "icon": "Layers01Icon" },
+                  { "product": "", "text": "功能引导清晰，知道从哪里开始", "icon": "CheckListIcon" }
                 ] }
               ]
             }
