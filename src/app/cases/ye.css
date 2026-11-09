@@ -54,8 +54,7 @@
 
 .ye-case .case-trial-icon { display: inline-block; flex: 0 0 var(--space-6); width: var(--space-6); height: var(--space-6); background: var(--color-accent); mask: center / contain no-repeat; }
 .ye-case #ye-01 .case-trial-panel ul { gap: var(--rhythm-5); padding-block: var(--rhythm-2); }
-.ye-case #ye-01 .case-trial-panel li:nth-child(n) { position: relative; isolation: isolate; max-width: 90%; flex-wrap: nowrap; background: transparent; transform: none; }
-.ye-case #ye-01 .case-trial-panel li::before { content: ''; position: absolute; inset: 0; z-index: -1; border-radius: inherit; background: var(--color-surface); transform: rotate(var(--feedback-angle)); }
+.ye-case #ye-01 .case-trial-panel li:nth-child(n) { max-width: 90%; flex-wrap: nowrap; background: var(--color-surface); transform: rotate(var(--feedback-angle)); }
 .ye-case #ye-01 .case-trial-panel li > span:last-child { min-width: 0; }
 .ye-case #ye-01 .case-trial-brand:empty { display: none; }
 .ye-case #ye-01 .case-trial-panel-0 li:nth-child(1) { align-self: flex-start; --feedback-angle: -6deg; }
