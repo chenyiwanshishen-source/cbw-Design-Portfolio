@@ -29,7 +29,10 @@ export function YeResearchCards() {
       <h3>对竞品进行体验记录</h3>
       <p>我重点体验了<strong>整理效率、操作理解和恢复能力</strong>，据此确定 ye! 的设计方向：用 AI 减少逐条整理，执行前<strong>先预览、再确认</strong>，出错后<strong>可以撤销</strong>，并保护固定页签。</p>
     </section>
-    <section className="ye-research-panel ye-research-response ye-research-map" aria-label="收藏流程体验地图" />
+    <section className="ye-research-panel ye-research-response ye-research-map">
+      <h3>构建真实的体验地图</h3>
+      <p>梳理我完整的收藏流程，并在实际使用中逐步完善。</p>
+    </section>
     </div>
     <section className="ye-research-panel ye-research-journey">
       <h3>用户旅程图</h3>
