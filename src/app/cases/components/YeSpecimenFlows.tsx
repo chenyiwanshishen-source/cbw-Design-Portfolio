@@ -19,6 +19,5 @@ export function YeSpecimenFlows() {
       </div>
       {index < steps.length - 1 && <svg className="generator-arrow ye-process-arrow" viewBox="0 0 60 20" aria-hidden="true"><path d="M0 10 H57 M51 5 L57 10 L51 15" /></svg>}
     </li>)}</ol>
-    <figcaption>检查不通过时，返回生成样张继续调整；所需类别全部确认后，再统一写入。基础样张用于验证规则，具体组件尺寸和状态另行确定。</figcaption>
   </figure>;
 }
