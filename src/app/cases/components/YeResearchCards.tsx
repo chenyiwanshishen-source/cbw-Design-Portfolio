@@ -1,23 +1,24 @@
 const reviews = [
-  { product: 'Anybox', rating: 1, text: '给多条链接打标签仍要逐条操作，整理耗时。', date: '2026.06', id: '1593408455', region: 'us' },
-  { product: 'Raindrop', rating: 3, text: '批量收藏时没有延续上次分类，需要反复设置。', date: '2024.06', id: '1021913807', region: 'us' },
-  { product: 'Anybox', rating: 1, text: '添加链接的入口不明显，简单操作也难找到。', date: '2024.05', id: '1593408455', region: 'us' },
-  { product: 'Cubox', rating: 3, text: '进入收藏默认落到未读，需要返回才能查看全部。', date: '2025.12', id: '1113361350', region: 'cn' },
-  { product: 'Raindrop', rating: 3, text: '标签输入和自动补全有延迟，打断操作。', date: '2026.08', id: '1021913807', region: 'us' },
-  { product: 'Anybox', rating: 1, text: '两端显示已同步，新增书签却没有出现在另一端。', date: '2024.12', id: '1593408455', region: 'us' },
-  { product: 'GoodLinks', rating: 2, text: '浏览器扩展反复退出登录，中断收藏流程。', date: '2026.06', id: '1474335294', region: 'us' },
-  { product: 'Cubox', rating: 2, text: '批量删除、标记已读没有响应。', date: '2026.03', id: '1113361350', region: 'cn' },
+  { product: 'Tab Session Manager', rating: null, text: '保存的会话只能删链接，无法拖动排序或补入页签。', source: 'https://chrome-stats.com/d/iaiomicjabeggjcfkbimgmglanimpnae/reviews', date: '2026-10-05' },
+  { product: 'Tab Space', rating: 3, text: '恢复后没有保留原来的窗口分组，还得手动重新整理。', source: 'https://apps.apple.com/us/app/tab-space/id1473726602?mt=12&platform=mac&see-all=reviews', date: '2020-03-11' },
+  { product: 'Tab Session Manager', rating: null, text: '缺少入门引导，不知道该点哪个按钮，重命名也难找。', source: 'https://chrome-stats.com/d/iaiomicjabeggjcfkbimgmglanimpnae/reviews', date: '2026-10-02' },
+  { product: 'Bookmark Sidebar', rating: null, text: '设置太复杂，难以调整成自己需要的方式。', source: 'https://chrome-stats.com/d/jdbnofccmhefkmjbkkdkfiicjkgofkdh/reviews', date: '2026-08-06' },
+  { product: 'Workona', rating: null, text: '分组内外的页面切换比较复杂。', source: 'https://chrome-stats.com/d/ailcmbgekjpnablpdkmaaccecekgdhlh/reviews', date: '2026-09-28' },
+  { product: 'Tabby', rating: 1, text: '更新后必须打开独立窗口，原来顺手的菜单栏操作没了。', source: 'https://apps.apple.com/us/app/tabby-browser-tab-manager/id1586203406?mt=12', date: '2025-06-08', followup: '开发者已提供 Classic 版本。' },
+  { product: 'Tab Session Manager', rating: null, text: '分组没有保存，部分页签恢复失败，只能手动重新打开。', source: 'https://chrome-stats.com/d/iaiomicjabeggjcfkbimgmglanimpnae/reviews', date: '2026-10-20' },
+  { product: 'Tab Space', rating: 1, text: '希望在当前网页直接选择保存位置，不用先打开管理空间。', source: 'https://apps.apple.com/us/app/tab-space/id1473726602?mt=12&platform=mac&see-all=reviews', date: '2026-04-05', followup: '开发者回复：已恢复该入口。' },
 ];
 
 export function YeResearchCards() {
   return <div className="ye-research-layout">
     <section className="ye-research-panel">
       <h3>我查看了同类产品的用户评论</h3>
-      <p>从 App Store 和 Chrome 网上应用店的评论中，梳理收藏、整理和找回内容时遇到的问题。</p>
-      <p className="ye-review-note">用户评论摘译 · 包含历史版本反馈</p>
+      <p>从 App Store 和 Chrome 网上应用店的评论中，梳理浏览器书签、页签和窗口整理中的问题。</p>
+      <p className="ye-review-note">用户评论摘译 · 包含历史版本反馈，已确认修复的附后续说明</p>
       <div className="ye-review-wall">{reviews.map((review, index) => <article className="ye-review-card" key={index}>
-        <span className="ye-review-stars" aria-label={`${review.rating} 星，共 5 星`}>{Array.from({ length: 5 }, (_, i) => <span key={i} className={i < review.rating ? 'is-rated' : undefined} aria-hidden="true">★</span>)}</span>
+        {review.rating !== null && <span className="ye-review-stars" aria-label={`${review.rating} 星，共 5 星`}>{Array.from({ length: 5 }, (_, i) => <span key={i} className={i < review.rating! ? 'is-rated' : undefined} aria-hidden="true">★</span>)}</span>}
         <p>{review.text}</p>
+        {review.followup && <p className="ye-review-note">{review.followup}</p>}
         <span className="ye-review-product">{review.product}</span>
       </article>)}</div>
     </section>
