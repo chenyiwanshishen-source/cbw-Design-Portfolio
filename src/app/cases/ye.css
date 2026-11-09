@@ -53,15 +53,17 @@
 .ye-case #ye-01 .case-trial-panel-1 li { align-self: center; transform: none; }
 
 .ye-case .case-trial-icon { display: inline-block; flex: 0 0 var(--space-6); width: var(--space-6); height: var(--space-6); background: var(--color-accent); mask: center / contain no-repeat; }
-.ye-case #ye-01 .case-trial-panel-0 ul { gap: var(--rhythm-5); padding-block: var(--rhythm-2); }
-.ye-case #ye-01 .case-trial-panel-0 li { max-width: 90%; transform: rotate(-6deg); }
-.ye-case #ye-01 .case-trial-panel-0 li:nth-child(2) { align-self: flex-end; transform: rotate(5deg); }
-.ye-case #ye-01 .case-trial-panel-0 li:nth-child(3) { align-self: center; transform: rotate(-3deg); }
-.ye-case #ye-01 .case-trial-panel-0 li:nth-child(4) { align-self: flex-end; margin-right: var(--space-4); transform: rotate(4deg); }
-
-.ye-case #ye-01 .case-trial-panel li { flex-wrap: nowrap; }
+.ye-case #ye-01 .case-trial-panel ul { gap: var(--rhythm-5); padding-block: var(--rhythm-2); }
+.ye-case #ye-01 .case-trial-panel li:nth-child(n) { position: relative; isolation: isolate; max-width: 90%; flex-wrap: nowrap; background: transparent; transform: none; }
+.ye-case #ye-01 .case-trial-panel li::before { content: ''; position: absolute; inset: 0; z-index: -1; border-radius: inherit; background: var(--color-surface); transform: rotate(var(--feedback-angle)); }
 .ye-case #ye-01 .case-trial-panel li > span:last-child { min-width: 0; }
 .ye-case #ye-01 .case-trial-brand:empty { display: none; }
-
-/* Keep staggered positions while rendering feedback text without rotation. */
-.ye-case #ye-01 .case-trial-panel-0 li:nth-child(n) { transform: none; }
+.ye-case #ye-01 .case-trial-panel-0 li:nth-child(1) { align-self: flex-start; --feedback-angle: -6deg; }
+.ye-case #ye-01 .case-trial-panel-0 li:nth-child(2) { align-self: flex-end; --feedback-angle: 5deg; }
+.ye-case #ye-01 .case-trial-panel-0 li:nth-child(3) { align-self: flex-start; margin-left: var(--space-3); --feedback-angle: -3deg; }
+.ye-case #ye-01 .case-trial-panel-0 li:nth-child(4) { align-self: flex-end; margin-right: var(--space-4); --feedback-angle: 4deg; }
+.ye-case #ye-01 .case-trial-panel-1 li:nth-child(1) { align-self: flex-end; --feedback-angle: 4deg; }
+.ye-case #ye-01 .case-trial-panel-1 li:nth-child(2) { align-self: flex-start; --feedback-angle: -5deg; }
+.ye-case #ye-01 .case-trial-panel-1 li:nth-child(3) { align-self: flex-end; margin-right: var(--space-3); --feedback-angle: 3deg; }
+.ye-case #ye-01 .case-trial-panel-1 li:nth-child(4) { align-self: flex-start; --feedback-angle: -4deg; }
+.ye-case #ye-01 .case-trial-panel-1 li:nth-child(5) { align-self: flex-end; --feedback-angle: 5deg; }
