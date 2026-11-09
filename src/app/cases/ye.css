@@ -273,4 +273,3 @@
 .ye-review-arrows path { stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
 @media (max-width: 639px) { .ye-review-arrows { display: none; } }
 
-.ye-review-label { position: absolute; left: var(--rhythm-3); top: var(--rhythm-4); z-index: 3; color: var(--color-text); font-family: var(--font-sans); font-size: var(--text-caption); line-height: var(--text-caption--line-height); }
