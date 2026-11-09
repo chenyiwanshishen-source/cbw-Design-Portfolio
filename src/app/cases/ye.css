@@ -51,3 +51,10 @@
 .ye-case #ye-01 .case-trial-panel li { background: var(--color-surface); font-weight: 600; box-shadow: none; }
 .ye-case #ye-01 .case-trial-panel-0 li { transform: rotate(-6deg); }
 .ye-case #ye-01 .case-trial-panel-1 li { align-self: center; transform: none; }
+
+.ye-case .case-trial-icon { display: inline-block; flex: 0 0 var(--space-6); width: var(--space-6); height: var(--space-6); background: var(--color-accent); mask: center / contain no-repeat; }
+.ye-case #ye-01 .case-trial-panel-0 ul { gap: var(--rhythm-5); padding-block: var(--rhythm-2); }
+.ye-case #ye-01 .case-trial-panel-0 li { max-width: 90%; transform: rotate(-6deg); }
+.ye-case #ye-01 .case-trial-panel-0 li:nth-child(2) { align-self: flex-end; transform: rotate(5deg); }
+.ye-case #ye-01 .case-trial-panel-0 li:nth-child(3) { align-self: center; transform: rotate(-3deg); }
+.ye-case #ye-01 .case-trial-panel-0 li:nth-child(4) { align-self: flex-end; margin-right: var(--space-4); transform: rotate(4deg); }

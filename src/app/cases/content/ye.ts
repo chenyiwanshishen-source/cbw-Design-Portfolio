@@ -103,10 +103,10 @@ export const ye: CaseContent = {
               "kind": "trial-feedback",
               "groups": [
                 { "title": "问题", "items": [
-                  { "product": "", "text": "缺少快捷键使用指南" },
-                  { "product": "", "text": "动效存在抖动，Mac 和 Windows 上的表现未兼顾" },
-                  { "product": "", "text": "希望结合现有收藏夹和使用习惯，推荐更合适的内容" },
-                  { "product": "", "text": "内容迁移缺少清晰标识" }
+                  { "product": "", "text": "缺少快捷键使用指南", "icon": "KeyboardIcon" },
+                  { "product": "", "text": "动效存在抖动，Mac 和 Windows 上的表现未兼顾", "icon": "ComputerIcon" },
+                  { "product": "", "text": "希望结合现有收藏夹和使用习惯，推荐更合适的内容", "icon": "Bookmark01Icon" },
+                  { "product": "", "text": "内容迁移缺少清晰标识", "icon": "ArrowDataTransferHorizontalIcon" }
                 ] },
                 { "title": "优点", "items": [{ "product": "", "text": "【待填：朋友们反馈的优点】" }] }
               ]
