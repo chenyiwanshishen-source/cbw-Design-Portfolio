@@ -89,3 +89,5 @@
 @media (max-width: 399px) { .ye-review-wall { columns: 1; } }
 
 .ye-case #ye-01 .case-trial-panel-0 li:nth-child(5) { align-self: flex-start; --feedback-angle: -4deg; }
+
+.ye-case #ye-01 .case-trial-panel-0 li:nth-child(6) { align-self: flex-end; --feedback-angle: 3deg; }
