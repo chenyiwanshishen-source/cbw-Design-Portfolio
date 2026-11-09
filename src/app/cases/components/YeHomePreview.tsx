@@ -80,7 +80,7 @@ export function YeHomePreview() {
         <div className="ye-folder-actions-detail"><img src={`${import.meta.env.BASE_URL}images/ye/bookmark-folder-actions-v2.webp`} alt="书签分栏目录与分组菜单，支持带入对话、移动、新建分组、重命名、解散分组和删除" width="1534" height="1156" loading="lazy" decoding="async" /></div>
       </div>
       <div className="ye-collect-detail"><img src={`${import.meta.env.BASE_URL}images/ye/tab-collect-full.webp`} alt="页签菜单中的收藏操作，可选择分组或让 AI 建议" width="1496" height="1314" loading="lazy" decoding="async" /></div>
-      <aside className="generator-paper case-pair-sticky-note ye-import-note">为了减少用户描述整理对象的负担，也避免 AI 理解错范围，我让页签和分组可以直接带入对话。</aside>
+      <aside className="generator-paper case-pair-sticky-note ye-import-note">直接带入页签或分组，减少描述负担，避免 AI 误解整理范围。</aside>
       <svg className="ye-import-arrows" viewBox="0 0 1000 1000" preserveAspectRatio="none" fill="none" aria-hidden="true">
         <path d={handDrawnArrowPath([73.5, 28.7], [39, 25], 13)} />
         <path d={handDrawnArrowPath([39.6, 68.7], [35.5, 32], 9)} />
