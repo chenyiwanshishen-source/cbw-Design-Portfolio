@@ -1,7 +1,10 @@
 .ye-case .case-table th { font-family: var(--font-sans); font-size: var(--text-caption); line-height: var(--text-caption--line-height); }
 .ye-home-carousel { position: relative; min-width: 0; }
 .ye-home-preview.template-preview { background: var(--color-case-plate); }
-.ye-home-image { display: block; width: 100%; height: auto; }
+.ye-home-stage { position: relative; aspect-ratio: 1440 / 900; }
+.ye-home-image { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: contain; }
+.ye-home-image[aria-hidden="true"] { visibility: hidden; pointer-events: none; }
+@media (max-width: 767px) { .ye-home-stage { aspect-ratio: auto; height: 400px; } }
 .ye-home-controls { display: contents; }
 .ye-home-controls .report-edit-arrow { z-index: 2; }
 
