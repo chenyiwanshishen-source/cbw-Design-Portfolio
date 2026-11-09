@@ -3,8 +3,8 @@
 /* Keep the shared 1200px CaseLayout and its twelve-column header grid. */
 .ye-case > .case-header .case-facts-pills {
  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
- row-gap: var(--space-6);
- column-gap: var(--space-5);
+ row-gap: var(--rhythm-4);
+ column-gap: var(--rhythm-3);
 }
 .ye-case .case-facts-pills > div { min-width: 0; }
 .ye-case .case-facts-pills dt { margin-bottom: var(--space-3); }
@@ -23,3 +23,9 @@
  .ye-case .case-facts-pills > div:nth-child(3) dd,
  .ye-case .case-facts-pills > div:nth-child(4) dd { flex-wrap: nowrap; }
 }
+
+/* Use the portfolio reading rhythm for the introduction and its next block. */
+.ye-case > .case-header-compact { padding-bottom: var(--rhythm-6); }
+.ye-case .case-header-main { gap: var(--rhythm-3); }
+.ye-case .case-header-main > p { font-size: var(--text-body); line-height: var(--text-body--line-height); }
+.ye-case > .case-opening { margin-block: var(--rhythm-4) var(--rhythm-6); }
