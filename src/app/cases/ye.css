@@ -269,3 +269,6 @@
 .ye-import-note, .ye-import-note strong { font-family: var(--font-sans); font-size: var(--text-caption); line-height: var(--text-caption--line-height); }
 
 .ye-review-pair { position: relative; }
+
+.ye-review-points { margin: 0; padding-left: 1.4em; font-size: var(--text-body); line-height: var(--text-body--line-height); }
+.ye-review-points li + li { margin-top: var(--space-2); }

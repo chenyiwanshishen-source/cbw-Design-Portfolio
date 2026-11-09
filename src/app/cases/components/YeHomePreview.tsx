@@ -93,7 +93,14 @@ export function YeHomePreview() {
   </section>
   <section className="case-subsection" aria-labelledby="ye-follow-up-title">
     <h3 id="ye-follow-up-title">关于追问和审查</h3>
-    <div className="case-prose"><p className="case-paragraph">书签数量多、分类因人而异，用户的一句话也可能有多种理解。我将流程分为三层：<mark className="case-marker">先确认整理范围和方向</mark>，信息不足时再追问，避免做偏；<mark className="case-marker">通过 AI 回复反馈理解和存疑项</mark>，方便纠偏，减少逐步确认的打断；<mark className="case-marker">执行前预览并确认具体改动</mark>，保留用户对批量操作的控制。方案可以继续修改，不必重新描述需求。</p></div>
+    <div className="case-prose">
+      <p className="case-paragraph">书签多、分类因人而异，我用两次明确确认和一次对话反馈，让用户分阶段判断，及时纠偏。</p>
+      <ul className="ye-review-points">
+        <li><mark className="case-marker">先确认方向</mark>：明确整理范围和方式，避免做偏。多一次选择，但不用提前规划整套目录。</li>
+        <li><mark className="case-marker">对话中纠偏</mark>：AI 反馈理解和存疑项，方便用户补充。保留干预机会，不要求每一步都点击确认。</li>
+        <li><mark className="case-marker">执行前确认</mark>：预览具体改动，再修改真实书签。多一次检查，保留对批量操作的控制；方案可继续修改，不必重述需求。</li>
+      </ul>
+    </div>
     <figure className="ye-clarification-gallery" aria-label="追问与方案预览截图">
     <img className="ye-clarification-image" src={`${import.meta.env.BASE_URL}images/ye/clarification-example.webp`} alt="AI 追问这次想怎么整理，提供整体重整、只收拢散落书签、只清理重复与失效链接三个选项，并支持补充说明" width="1172" height="746" loading="lazy" decoding="async" />
     <img className="ye-clarification-image" src={`${import.meta.env.BASE_URL}images/ye/clarification-existing-folders.webp`} alt="目录结构方案：选择按目录树整理或沿用现有文件夹归位" width="1175" height="637" loading="lazy" decoding="async" />
