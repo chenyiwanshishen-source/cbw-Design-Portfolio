@@ -163,3 +163,9 @@
  .ye-research-response-stack { height: auto; min-height: calc(9 * var(--space-16)); }
  .ye-research-map { height: calc(7 * var(--space-16)); }
 }
+
+/* Reuse the portfolio paired plates; crop real UI rather than redraw it. */
+.ye-home-details > div { position: relative; }
+.ye-home-details img { display: block; max-width: none; height: auto; box-shadow: var(--shadow-float); border-radius: var(--space-4); }
+.ye-bookmark-detail img { position: absolute; width: 80%; left: 16%; top: var(--rhythm-5); }
+.ye-collect-detail img { position: absolute; width: 110%; left: var(--rhythm-3); top: var(--rhythm-6); }
