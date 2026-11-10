@@ -1,6 +1,6 @@
 import { Fragment, useEffect, useRef, useState } from 'react';
 import { intro } from './content/zh';
-import { GameBoyPortrait } from './GameBoyPortrait';
+import { ManPeekPortrait } from './ManPeekPortrait';
 import { IntroBlock } from './IntroBlock';
 
 export function Intro() {
@@ -43,7 +43,7 @@ export function Intro() {
           {intro.paragraphs.map((text) => <p key={text} data-intro-paragraph>{paragraph(text)}</p>)}
         </div></IntroBlock>
       </div>
-      <IntroBlock label="PLATE" index={2} className="home-photo min-w-0 lg:col-span-4" {...blockProps}><GameBoyPortrait /></IntroBlock>
+      <IntroBlock label="PLATE" index={2} className="home-photo min-w-0 lg:col-span-4" {...blockProps}><ManPeekPortrait /></IntroBlock>
     </section>
   );
 }
