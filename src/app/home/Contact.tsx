@@ -20,6 +20,10 @@ export function Contact() {
         <dt className="text-body font-medium">专业</dt>
         <dd className="text-body text-text-secondary">工业设计</dd>
       </div>
+      <div className="home-contact-item">
+        <dt className="text-body font-medium">GitHub</dt>
+        <dd className="text-body text-text-secondary"><a className="home-inline" href="https://github.com/chenyiwanshishen-source" target="_blank" rel="noopener noreferrer">chenyiwanshishen-source ↗</a></dd>
+      </div>
     </dl>
   </section>;
 }
