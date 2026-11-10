@@ -479,10 +479,6 @@ export const qixin: CaseContent = {
       "label": "结果与反思",
       "title": "报告联动与项目反思",
       "blocks": [
-        {
-          "kind": "subsection",
-          "title": "先对齐业务，再优化界面",
-          "blocks": [
             {
               "kind": "paragraph",
               "text": "如果重来，我会更早和产品、研发对齐业务规则：哪些内容统一，哪些允许本地调整，谁来维护。把这些决定说清楚，才能减少设计和开发中的反复，也让界面更容易理解。",
@@ -493,8 +489,6 @@ export const qixin: CaseContent = {
               "text": "对我来说，优化流程之前，要先确认产品是否符合用户真实的工作方式，再考虑如何让操作更顺畅。",
               "highlightPhrases": ["先确认产品是否符合用户真实的工作方式"]
             }
-          ]
-        }
       ]
     }
   ],
