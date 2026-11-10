@@ -201,3 +201,7 @@ body:has(.homepage) { background: var(--color-home-bg); }
 
 .home-case-qixin .ye-mascot-preview { width: 160px; top: var(--space-12); right: var(--space-24); }
 .ye-mascot-preview img { box-shadow: none; border-radius: 0; }
+
+.home-case-qixin .qixin-preview-0 { right: 54%; }
+.home-case-qixin .qixin-preview-1 { right: 27%; }
+.home-case-qixin .qixin-preview-2 { right: var(--space-8); top: var(--space-16); width: 250px; }
