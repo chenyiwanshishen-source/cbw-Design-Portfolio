@@ -138,7 +138,7 @@ export const qsight: CaseContent = {
           "kind": "subsection",
           "title": "具体问题",
           "blocks": [
-            { "kind": "paragraph", "text": "试用时，用户对入口、操作步骤和报告交付提出了这些问题。", "highlight": "本轮测试中，用户没有遇到明显阻碍，整体流程基本可行。" },
+            { "kind": "paragraph", "text": "试用时，参与者关心生成内容和数据是否准确，也询问了模板、本地文件、实际效率和报告分享。", "highlight": "本轮测试中，用户没有遇到明显阻碍，整体流程基本可行。" },
             { "kind": "test-feedback-bubbles" }
           ]
         }
