@@ -30,7 +30,7 @@ export function Experience() {
           <p className="text-meta text-text-meta">{experience.period}</p>
         </div>
         <ul className="home-experience-projects">
-          {experience.projects.map(project => <li key={project} className="text-h4 font-normal">{project}</li>)}
+          {experience.projects.map(project => <li key={project} className="text-body font-normal">{project}</li>)}
         </ul>
       </li>)}
     </ol>
