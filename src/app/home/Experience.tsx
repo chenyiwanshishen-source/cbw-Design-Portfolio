@@ -3,7 +3,7 @@ const experiences = [
     period: '2020—2026.05',
     company: '合合信息',
     role: '产品设计师',
-    projects: ['启信宝 B 端客户端', '启信产业大脑', 'Qsight · AI 报告平台'],
+    projects: ['Qsight · AI 报告平台', '启信产业大脑', '启信宝 B 端客户端'],
   },
   {
     period: '2018—2020',
