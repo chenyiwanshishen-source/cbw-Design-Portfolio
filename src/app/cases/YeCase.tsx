@@ -9,7 +9,6 @@ import { CaseLayout } from './components/CaseLayout';
 import { CaseHeader } from './components/CaseHeader';
 import { CaseToc } from './components/CaseToc';
 import { CaseSection } from './components/CaseSection';
-import { FigurePlaceholder } from './components/FigurePlaceholder';
 import { CaseBlocks } from './CaseBlocks';
 import { YeProgressCards } from './components/YeProgressCards';
 import { YeResearchCards, YeVisualDefinition } from './components/YeResearchCards';
@@ -33,7 +32,6 @@ export function YeCase() {
   const renderSubsection = (id: string) => <CaseSection key={id} id={id} label={chapter(id).label} title={chapter(id).title} headingLevel={3}>{renderBlocks(id)}</CaseSection>;
   return <CaseLayout backLabel={ye.ui.back} footer={<span className="text-caption text-text-meta">{ye.ui.footer}</span>}>
     <div className="ye-case">
-      <FigurePlaceholder {...ye.hero} />
       <CaseHeader content={ye.header} compact />
       <div className="case-body"><CaseToc items={ye.toc} label={ye.ui.toc} /><div className="case-chapters"><CaseSection id="ye-01" label="概述" title="概述">{renderBlocks('ye-01')}</CaseSection>
         <CaseSection id="ye-05" label="设计方向" title="设计方向">
