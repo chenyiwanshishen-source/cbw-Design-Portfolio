@@ -176,7 +176,7 @@ export const ye: CaseContent = {
     {
       "id": "ye-model-adaptation",
       "label": "模型适配",
-      "title": "模型适配",
+      "title": "模型适配与成本",
       "blocks": [
         {
           "kind": "paragraph",
