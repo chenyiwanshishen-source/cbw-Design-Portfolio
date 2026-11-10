@@ -1,0 +1,250 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      body {
+        margin: 0;
+        padding: 12px;
+        font: 12px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        color: #111827;
+        background: #ffffff;
+      }
+      .card {
+        background: #ffffff;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        box-shadow: 0 1px 2px rgba(16, 24, 40, 0.06), 0 8px 24px rgba(16, 24, 40, 0.08);
+        padding: 16px;
+      }
+      .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 12px;
+      }
+      .title {
+        font-size: 14px;
+        font-weight: 700;
+      }
+      .headerRight {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: #f3f4f6;
+        border-radius: 999px;
+        color: #374151;
+        font-size: 11px;
+        padding: 4px 10px;
+      }
+      .dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #9ca3af;
+      }
+      .badge[data-state="connected"] .dot { background: #22c55e; }
+      .badge[data-state="writing"] .dot { background: #3b82f6; }
+      .badge[data-state="reading"] .dot { background: #10b981; }
+      .badge[data-state="error"] .dot { background: #ef4444; }
+      .iconBtn {
+        width: 26px;
+        height: 26px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+        background: #ffffff;
+        color: #374151;
+        cursor: pointer;
+        padding: 0;
+      }
+      .iconBtn:hover { background: #f9fafb; }
+      #addLink { font-size: 15px; line-height: 1; }
+      .addRow { display: flex; gap: 8px; margin-bottom: 10px; align-items: center; }
+      .addRow input[type="text"] {
+        box-sizing: border-box;
+        flex: 1;
+        min-width: 0;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+        background: #fafbfc;
+        font: 11px ui-monospace, SFMono-Regular, Menlo, monospace;
+        padding: 8px 10px;
+      }
+      .roundBtn {
+        flex: none;
+        width: 28px;
+        height: 28px;
+        border: 0;
+        border-radius: 50%;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+      }
+      #confirmAdd { background: #111827; color: #ffffff; }
+      #confirmAdd:hover { background: #1f2937; }
+      #cancelAdd { background: #f3f4f6; color: #374151; }
+      #cancelAdd:hover { background: #e5e7eb; }
+      .list { display: flex; flex-direction: column; gap: 6px; margin-bottom: 10px; }
+      .linkRow {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        border: 1px solid #eef0f3;
+        border-radius: 8px;
+        padding: 7px 10px;
+        background: #fafbfc;
+      }
+      .linkRow.active {
+        border-color: #bfdbfe;
+        background: #f5f9ff;
+      }
+      .linkRow input[type="radio"] { accent-color: #2563eb; margin: 0; flex: none; }
+      .linkLabel {
+        flex: 1;
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font: 11px ui-monospace, SFMono-Regular, Menlo, monospace;
+        color: #374151;
+        cursor: pointer;
+      }
+      .removeLink {
+        flex: none;
+        width: 26px;
+        height: 26px;
+        border: 0;
+        background: transparent;
+        color: #9ca3af;
+        cursor: pointer;
+        border-radius: 6px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+      }
+      .removeLink:hover { color: #ef4444; background: #fef2f2; }
+      .aimBtn {
+        flex: none;
+        width: 26px;
+        height: 26px;
+        border: 0;
+        background: transparent;
+        color: #2563eb;
+        cursor: pointer;
+        border-radius: 6px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+      }
+      .aimBtn:hover { background: #eff6ff; }
+      .empty {
+        color: #9ca3af;
+        font-size: 11px;
+        padding: 6px 2px 10px;
+      }
+      .status {
+        color: #6b7280;
+        font-size: 11px;
+        line-height: 1.5;
+        white-space: pre-wrap;
+      }
+      .status.clickable { cursor: pointer; text-decoration: underline; }
+      .actions { display: flex; gap: 8px; margin-top: 12px; }
+      .actions button {
+        border: 0;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 12px;
+        padding: 9px 12px;
+      }
+      #start { flex: 1.6; background: #2563eb; color: #ffffff; padding: 11px 12px; font-size: 13px; }
+      #start:disabled { opacity: 0.45; cursor: default; }
+      #stop { flex: 1; background: #f3f4f6; color: #111827; }
+      #stop:disabled { opacity: 0.45; cursor: default; }
+      #lang {
+        background: #f3f4f6;
+        color: #111827;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+      }
+      .toast {
+        position: fixed;
+        bottom: -48px;
+        left: 12px;
+        right: 12px;
+        background: #fef2f0;
+        border: 1px solid #fecaca;
+        border-radius: 8px;
+        padding: 10px 14px;
+        font-size: 13px;
+        color: #991b1b;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        transition: bottom 0.3s ease, opacity 0.3s ease;
+        opacity: 0;
+        pointer-events: none;
+        z-index: 100;
+      }
+      .toast.show {
+        bottom: 8px;
+        opacity: 1;
+      }
+      .toast svg { flex-shrink: 0; }
+    body { background: transparent; padding: 4px; overflow: hidden; } .card { padding: 12px; } </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="header">
+        <div class="title" id="appTitle">Figma 连接器</div>
+        <div class="headerRight">
+          <span class="badge" id="badge" data-state="off"><span class="dot"></span><span id="badgeText">未连接</span></span>
+        </div>
+      </div>
+
+      <div class="addRow" id="addRow">
+        <input type="text" id="newLink" placeholder="https://www.figma.com/design/..." />
+        <button class="roundBtn" id="confirmAdd" title="添加">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>
+        </button>
+        <button class="roundBtn" id="cancelAdd" title="清空">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"></path></svg>
+        </button>
+      </div>
+      <div class="list" id="list"></div>
+      <div class="empty" id="empty">在上方输入框粘贴 Figma 文件链接即可添加。</div>
+
+      <div class="status" id="status">已停止，队列已清空。点「开始」可重新连接。</div>
+      <div class="toast" id="toast">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+        <span id="toastText"></span>
+      </div>
+
+      <div class="actions">
+        <button id="start" disabled>开始</button>
+        <button id="stop" disabled>停止</button>
+        <button id="lang">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M2 12h20"></path><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+          <span id="langLabel">EN</span>
+        </button>
+      </div>
+    </div>
+
+    
+  </body>
+</html>
