@@ -152,7 +152,7 @@ export const ye: CaseContent = {
         {
           "kind": "subsection",
           "title": "关于对话",
-          "blocks": [{ "kind": "paragraph", "text": "为了避免重要信息淹没在长篇回复里，我根据内容提供了不同的结果展示方式，让用户更容易找到结论和后续操作。" }]
+          "blocks": [{ "kind": "paragraph", "text": "为了避免重要信息淹没在长篇回复里，我根据内容提供了不同的结果展示方式。" }]
         }
       ]
     },
