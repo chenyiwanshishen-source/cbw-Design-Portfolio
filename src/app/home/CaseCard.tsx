@@ -6,7 +6,6 @@ import type { CaseContent } from './content/zh';
 gsap.registerPlugin(useGSAP);
 
 function CaseCopy({ item }: { item: CaseContent }) {
-  const outcomes = 'outcomes' in item && item.outcomes ? item.outcomes : 'outcomeTag' in item && item.outcomeTag ? [item.outcomeTag] : [];
   return <div className="home-case-copy flex min-w-0 flex-col gap-4">
     <h3 className="text-h3 font-normal">{item.name}</h3>
     <p className="text-body text-text-body">{item.summary}</p>
@@ -14,16 +13,16 @@ function CaseCopy({ item }: { item: CaseContent }) {
       <div><dt className="inline">项目周期 · </dt><dd className="inline">{item.period}</dd></div>
       <div><dt className="inline">我的工作 · </dt><dd className="inline">{item.responsibility}</dd></div>
     </dl>
-    {outcomes.length > 0 && <div className="home-case-outcomes">{outcomes.map(outcome => <mark key={outcome.label} className="case-marker home-case-outcome text-caption" aria-label={`${outcome.label}：${outcome.before ? `从 ${outcome.before} 提升至` : '提升'} ${outcome.after}`}>
-      <span>{outcome.label}：</span>
-      {outcome.before && <span>{outcome.before}</span>}
+    {'outcomeTag' in item && item.outcomeTag && <mark className="case-marker home-case-outcome text-caption" aria-label={`${item.outcomeTag.label}：${item.outcomeTag.before ? `从 ${item.outcomeTag.before} 提升至` : '提升'} ${item.outcomeTag.after}`}>
+      <span>{item.outcomeTag.label}：</span>
+      {item.outcomeTag.before && <span>{item.outcomeTag.before}</span>}
       {/* Hugeicons Stroke Rounded · ArrowUp02Icon */}
       <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <path d="M12 5.5V19" />
         <path d="M18 11C18 11 13.5811 5.00001 12 5C10.4188 4.99999 6 11 6 11" />
       </svg>
-      <span>{outcome.after}</span>
-    </mark>)}</div>}
+      <span>{item.outcomeTag.after}</span>
+    </mark>}
     {!item.detailHref && <p className="text-caption text-text-meta">案例整理中</p>}
   </div>;
 }
