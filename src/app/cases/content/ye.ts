@@ -34,7 +34,7 @@ export const ye: CaseContent = {
     { "id": "ye-05", "label": "设计方向" },
     { "id": "ye-interface", "label": "界面与交互" },
     { "id": "ye-implementation", "label": "实现与协作" },
-    { "id": "ye-07", "label": "反思" }
+    { "id": "ye-07", "label": "想法" }
   ],
   "chapters": [
     {
@@ -249,12 +249,12 @@ export const ye: CaseContent = {
     },
     {
       "id": "ye-07",
-      "label": "反思",
-      "title": "反思",
+      "label": "想法",
+      "title": "想法",
       "blocks": [
         {
           "kind": "paragraph",
-          "text": "AI 能帮我把产品做出来，但做出来还不等于好用。目前的判断主要来自我自己的使用和 6 位朋友的试用，还不足以说明它能否长期减轻整理负担。",
+          "text": "AI 能帮人把产品做出来，但做出来还不等于好用。目前的判断主要来自我自己的使用和 6 位朋友的试用。作为一个自研项目，我还没有足够的生产数据来支撑自己的想法，但这也是一次不错的尝试。",
           "highlightPhrases": [
             "做出来还不等于好用"
           ]
