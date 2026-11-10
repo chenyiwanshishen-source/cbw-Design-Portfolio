@@ -34,11 +34,7 @@ export const qsight: CaseContent = {
     },
     {
       "id": "qsight-02",
-      "label": "形成方案"
-    },
-    {
-      "id": "qsight-03",
-      "label": "来源核查"
+      "label": "MVP"
     },
     {
       "id": "qsight-04",
@@ -57,7 +53,7 @@ export const qsight: CaseContent = {
     {
       "id": "qsight-01",
       "label": "调研问题",
-      "title": "从没有明确方向，到确定首版要解决的问题",
+      "title": "调研问题",
       "blocks": [
         {
           "kind": "paragraph",
@@ -147,18 +143,15 @@ export const qsight: CaseContent = {
           ]
         }
           ]
-        },
-        {
-          "kind": "subsection",
-          "title": "MVP 版本的启动",
-          "prominent": true,
-          "blocks": [
-            {
-              "kind": "paragraph",
-              "text": "几轮访谈后，我们开始设计 MVP，尽量解决用户的实际问题，不增加操作负担，让用户顺利完成报告。"
-            }
-          ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "qsight-02",
+      "label": "MVP",
+      "title": "MVP",
+      "blocks": [
+        { "kind": "paragraph", "text": "几轮访谈后，我们开始设计 MVP，尽量解决用户的实际问题，不增加操作负担，让用户顺利完成报告。" },
         {
           "kind": "subsection",
           "title": "快捷模版选择",
@@ -170,14 +163,8 @@ export const qsight: CaseContent = {
             },
             { "kind": "responsive-template", "homeSlides": true }
           ]
-        }
-      ]
-    },
-    {
-      "id": "qsight-02",
-      "label": "形成方案",
-      "title": "用户确认大纲",
-      "blocks": [
+        },
+        { "kind": "subsection", "title": "用户确认大纲", "blocks": [
         {
           "kind": "paragraph",
           "text": "首版完整展示 AI 从公司企业数据表中推荐的维度，虽然页面信息更多，但用户和团队能在生成前核对 AI 是否选对。",
@@ -186,6 +173,7 @@ export const qsight: CaseContent = {
         {
           "kind": "outline-devices"
         },
+        ] },
         {
           "kind": "subsection",
           "title": "用户如何管理数据方案",
