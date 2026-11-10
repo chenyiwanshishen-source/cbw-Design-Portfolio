@@ -17,6 +17,6 @@ export function YeConversationResults() {
     <div className="ye-reply-plate"><div className="ye-reply-surface">
       <div className="ye-reply-source-card"><div><Globe size={16}/><span>example.com</span></div><b>设计系统示例</b><p>页面包含组件规范与使用说明，可归入设计系统目录。</p><div className="ye-reply-source-nav"><ChevronLeft size={16}/><span>1/2</span><ChevronRight size={16}/></div></div>
     </div></div>
-    <div className="ye-reply-plate"><div className="ye-reply-plan"><MoreHorizontal size={16} className="ye-reply-plan-menu"/><img src={`${import.meta.env.BASE_URL}images/illustration-skill/ye-tabs.svg`} alt=""/><b>书签整理方案已就绪</b><p>将 12 个书签整理到 3 个文件夹</p></div></div>
+    <div className="ye-reply-plate"><div className="ye-reply-plan"><MoreHorizontal size={16} className="ye-reply-plan-menu"/><img src={`${import.meta.env.BASE_URL}images/illustration-skill/ye-tabs.svg`} alt=""/><b>页签整理方案已就绪</b><p>将 12 个页签整理到 3 个分组</p></div></div>
   </figure>;
 }
