@@ -224,7 +224,8 @@ export const ye: CaseContent = {
         },
         {
           "kind": "paragraph",
-          "text": "一句话定义产品形态：插件是沙箱，工具是手脚，AI 是大脑。"
+          "text": "一句话定义产品形态：插件是沙箱，工具是手脚，AI 是大脑。",
+          "highlightPhrases": ["插件是沙箱，工具是手脚，AI 是大脑"]
         },
         {
           "kind": "layers",
