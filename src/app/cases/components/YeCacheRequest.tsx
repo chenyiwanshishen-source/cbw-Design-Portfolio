@@ -30,8 +30,8 @@ export function YeCacheRequest() {
 
       </div>
       <div className="ye-cache-dialogue ye-cache-config">
-        <div className="ye-cache-row"><CacheIcon name="Layers01Icon" /><div><strong>先清理旧工具结果</strong></div></div>
-        <div className="ye-cache-row"><CacheIcon name="BubbleChatDelayIcon" /><div><strong>达到压缩线后重建任务状态</strong></div></div>
+        <div className="ye-cache-row"><CacheIcon name="CleanIcon" /><div><strong>先清理旧工具结果</strong></div></div>
+        <div className="ye-cache-row"><CacheIcon name="Refresh01Icon" /><div><strong>达到压缩线后重建任务状态</strong></div></div>
       </div>
       <p className="ye-cache-reuse-note">由插件执行，保留用户要求与任务进度</p>
       <div className="ye-cache-additions" aria-label="本次新增内容">
