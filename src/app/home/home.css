@@ -195,4 +195,4 @@ body:has(.homepage) { background: var(--color-home-bg); }
 
 .qixin-preview-group { position: absolute; inset: 0; }
 .home-case-qixin .qixin-preview-0 { right: 42%; }
-.home-case-qixin .qixin-preview-1 { right: var(--space-8); top: var(--space-16); width: 300px; }
+.home-case-qixin .qixin-preview-1 { right: var(--space-8); top: var(--space-20); width: 300px; }
