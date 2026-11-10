@@ -30,10 +30,13 @@
 .ye-cache-config { display: grid; gap: var(--rhythm-2); }
 .ye-cache-dialogue { margin-top: var(--rhythm-2); }
 .ye-cache-row { display: flex; align-items: flex-start; gap: var(--rhythm-2); }
-.ye-cache-row > svg { flex-shrink: 0; margin-top: var(--space-1); color: var(--color-text-meta); }
+.ye-cache-row > .ye-cache-icon { flex-shrink: 0; margin-top: var(--space-1); color: var(--color-text-meta); }
 .ye-cache-row strong, .ye-cache-row span { display: block; font-size: var(--text-caption); line-height: var(--text-caption--line-height); }
 .ye-cache-row strong { font-weight: 500; }
 .ye-cache-row span { color: var(--color-text-meta); margin-top: var(--space-1); }
 @media (max-width: 639px) {
   .ye-cache-preview { padding: var(--rhythm-2); }
 }
+
+.ye-cache-icon { display: block; width: var(--space-4); height: var(--space-4); flex-shrink: 0; background: currentColor; mask-size: contain; mask-position: center; mask-repeat: no-repeat; }
+.ye-cache-icon-heading { width: var(--space-5); height: var(--space-5); }
