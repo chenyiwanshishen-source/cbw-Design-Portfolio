@@ -71,9 +71,11 @@ export function ExperimentalProjects() {
     <div className="home-side-projects">
       {explorationProjects.filter(project => project.slug !== 'design-system').map(project => <div className="home-side-row" key={project.slug}>
         <a href={project.href} className="home-side-project">
-          <div className={`home-side-cover${project.slug === 'figma-connector' ? ' home-side-cover-bridge' : ''}`} aria-hidden="true">{project.slug === 'figma-connector'
+          <div className={`home-side-cover${['figma-connector', 'visual-code-canvas'].includes(project.slug) ? ' home-side-cover-bridge' : ''}`} aria-hidden="true">{project.slug === 'figma-connector'
             ? <iframe src="/demos/figma-bridge/index.html" title="Figma 桥接器界面预览" loading="lazy" sandbox="allow-scripts" tabIndex={-1} className="w-full h-full min-h-0 border-0 pointer-events-none" />
-            : project.cover}</div>
+            : project.slug === 'visual-code-canvas'
+              ? <iframe src="/demos/visual-code-canvas/index.html?cover" title="页面编辑器界面预览" loading="lazy" tabIndex={-1} className="w-full h-full min-h-0 border-0 pointer-events-none" />
+              : project.cover}</div>
           <div className="home-side-copy">
             <h3>{{'figma-connector': 'Figma 桥接器', 'illustration-skill': 'B 端插画 Skill', 'visual-code-canvas': '页面编辑器'}[project.slug] ?? project.name}</h3>
             {project.status && <span className="text-caption text-text-secondary">{project.status}</span>}
