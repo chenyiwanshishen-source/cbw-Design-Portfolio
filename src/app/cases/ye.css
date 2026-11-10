@@ -334,17 +334,17 @@
 
 /* Product roles use the same paper and app objects as the Qsight workflow. */
 .ye-product-flow { margin: 0; padding: var(--rhythm-5) 0 var(--rhythm-4); background: transparent; border-radius: var(--rhythm-3); }
-.ye-product-main { display: grid; grid-template-columns: 1.8fr .4fr 1.5fr .4fr 1fr .4fr 1fr; align-items: center; }
+.ye-product-main { display: grid; grid-template-columns: 1.4fr .4fr 1.5fr .4fr 1.3fr .4fr 1fr; align-items: center; }
 .ye-product-main .generator-paper { height: 140px; aspect-ratio: auto; transform: rotate(-3deg); }
 .ye-product-main .generator-paper:last-child { transform: rotate(3deg); }
 .ye-product-main .generator-paper > span:not(.generator-paper-lines) { font-size: var(--text-micro); color: var(--color-text-meta); }
 .ye-product-main .generator-paper > svg { width: var(--rhythm-4); height: var(--rhythm-4); color: var(--color-text-meta); stroke-width: 1.5; }
 .ye-product-ai { display: flex; flex-direction: column; align-items: center; gap: var(--rhythm-1); text-align: center; position: relative; }
-.ye-product-ai .generator-app { width: var(--space-24); }
-.ye-product-ai .generator-app svg { width: var(--rhythm-5); height: var(--rhythm-5); color: var(--color-text); stroke-width: 1.5; }
+.ye-product-ai .generator-app { width: var(--space-16); height: var(--space-16); }
+.ye-product-ai .generator-app svg { width: var(--rhythm-4); height: var(--rhythm-4); color: var(--color-text); stroke-width: 1.5; }
 .ye-product-ai strong { font-size: var(--text-caption); font-weight: 500; }
 .ye-product-ai > span { font-size: var(--text-micro); color: var(--color-text-meta); white-space: nowrap; }
-.ye-product-tools { display: flex; flex-direction: column; align-items: center; gap: var(--rhythm-1); margin: var(--rhythm-3) 0 var(--rhythm-4); font-size: var(--text-micro); color: var(--color-text-meta); }
+.ye-product-tools { position: relative; left: 39.84375%; width: max-content; max-width: 100%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: var(--rhythm-1); margin: var(--rhythm-3) 0 var(--rhythm-4); font-size: var(--text-micro); color: var(--color-text-meta); }
 .ye-product-tool-link { font-size: var(--text-h4); }
 .ye-product-tools > div { display: flex; justify-content: center; flex-wrap: wrap; gap: var(--rhythm-2); }
 .ye-product-tools > div > span { display: flex; align-items: center; gap: var(--rhythm-1); padding: var(--rhythm-2); border-radius: var(--rhythm-2); background: var(--color-surface); box-shadow: var(--ye-image-shadow); }
@@ -357,8 +357,8 @@
 .ye-product-request > span { color: var(--color-text-meta); font-size: var(--text-micro); }
 .ye-product-request > .ye-product-composer { width: 100%; padding: var(--rhythm-2); background: var(--color-surface); border: var(--border-width) solid var(--color-drafting-faint); border-radius: var(--rhythm-3); box-shadow: var(--ye-image-shadow); }
 .ye-product-models { display: flex; align-items: center; justify-content: center; padding-block: var(--rhythm-2); }
-.ye-product-models .ye-collaboration-logo { width: var(--space-16); height: var(--space-16); border-radius: var(--rhythm-3); }
-.ye-product-models .ye-collaboration-logo + .ye-collaboration-logo { margin-left: calc(-1 * var(--rhythm-3)); }
+.ye-product-models .ye-collaboration-logo { width: var(--space-12); height: var(--space-12); border-radius: var(--rhythm-3); }
+.ye-product-models .ye-collaboration-logo + .ye-collaboration-logo { margin-left: calc(-1 * var(--rhythm-2)); }
 .ye-product-models .ye-collaboration-logo:nth-child(1) { transform: rotate(-10deg) translateY(var(--rhythm-1)); }
 .ye-product-models .ye-collaboration-logo:nth-child(2) { position: relative; z-index: 1; }
 .ye-product-models .ye-collaboration-logo:nth-child(3) { transform: rotate(10deg) translateY(var(--rhythm-1)); }
@@ -367,12 +367,20 @@
 .ye-product-composer-prompt { display: flex; align-items: center; gap: var(--rhythm-1); white-space: nowrap; font-size: var(--text-micro); }
 .ye-product-composer-prompt > span { padding: var(--rhythm-1); border-radius: var(--rhythm-2); background: var(--color-drafting-faint); }
 .ye-product-composer-prompt em { color: var(--color-text-meta); }
-.ye-product-composer-toolbar { display: flex; align-items: center; gap: var(--rhythm-2); margin-top: var(--rhythm-5); }
+.ye-product-composer-toolbar { display: flex; align-items: center; gap: var(--rhythm-2); margin-top: var(--rhythm-4); }
 .ye-product-composer-toolbar > svg { width: var(--rhythm-2); height: var(--rhythm-2); stroke-width: 1.5; }
 .ye-product-composer-send { margin-left: auto; display: grid; place-items: center; width: var(--rhythm-4); height: var(--rhythm-4); border-radius: 50%; background: var(--color-text); color: var(--color-surface); }
 .ye-product-composer-send svg { width: var(--rhythm-3); height: var(--rhythm-3); stroke-width: 1.5; }
 @media (max-width: 767px) { .ye-product-request { width: var(--space-48); } }
 
-.ye-product-plan-card { justify-self: center; display: flex; flex-direction: column; align-items: center; gap: var(--rhythm-2); padding: var(--rhythm-3); background: var(--color-surface); border: var(--border-width) solid var(--color-drafting-faint); border-radius: var(--rhythm-3); box-shadow: var(--ye-image-shadow); }
-.ye-product-plan-card > svg { width: var(--rhythm-4); height: var(--rhythm-4); color: var(--color-text-meta); stroke-width: 1.5; }
-.ye-product-plan-card > strong { font-size: var(--text-micro); font-weight: 500; white-space: nowrap; }
+
+.ye-product-plan-card { justify-self: center; width: 82%; max-width: var(--space-48); overflow: hidden; background: var(--color-surface); border: var(--border-width) solid var(--color-drafting-faint); border-radius: var(--rhythm-3); box-shadow: var(--ye-image-shadow); }
+.ye-product-plan-summary { display: grid; gap: var(--rhythm-1); padding: var(--rhythm-2); background: var(--color-case-plate); border-bottom: var(--border-width) solid var(--color-drafting-faint); }
+.ye-product-plan-summary i { display: block; height: var(--rhythm-1); border-radius: var(--rhythm-1); background: var(--color-drafting-faint); }
+.ye-product-plan-summary i:first-child { width: 75%; }
+.ye-product-plan-summary i:last-child { width: 66%; }
+.ye-product-plan-caption { display: flex; flex-direction: column; gap: var(--rhythm-1); padding: var(--rhythm-2); font-size: var(--text-micro); }
+.ye-product-plan-caption strong { font-weight: 500; }
+.ye-product-plan-caption > span { color: var(--color-text-meta); }
+
+@media (max-width: 767px) { .ye-product-tools { left: 50%; } }
