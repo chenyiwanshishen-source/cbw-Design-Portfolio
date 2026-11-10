@@ -30,18 +30,11 @@ export const ye: CaseContent = {
   ],
   "opening": [],
   "toc": [
-    {
-      "id": "ye-01",
-      "label": "概述"
-    },
-    {
-      "id": "ye-05",
-      "label": "关于设计"
-    },
-    {
-      "id": "ye-07",
-      "label": "反思"
-    }
+    { "id": "ye-01", "label": "概述" },
+    { "id": "ye-05", "label": "设计方向" },
+    { "id": "ye-interface", "label": "界面与交互" },
+    { "id": "ye-implementation", "label": "实现与协作" },
+    { "id": "ye-07", "label": "反思" }
   ],
   "chapters": [
     {
