@@ -1,5 +1,9 @@
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
 import { useRef, useState } from 'react';
 import type { CaseContent } from './content/zh';
+
+gsap.registerPlugin(useGSAP);
 
 function CaseCopy({ item }: { item: CaseContent }) {
   return <div className="home-case-copy flex min-w-0 flex-col gap-4">
@@ -21,6 +25,25 @@ export function CaseCard({ item, active, muted, onHover, onFocus }: {
   item: CaseContent; active: boolean; muted: boolean;
   onHover: (active: boolean) => void; onFocus: (active: boolean) => void;
 }) {
+  const preview = useRef<HTMLDivElement>(null);
+  useGSAP(() => {
+    if (!preview.current) return;
+    gsap.set(preview.current, { yPercent: 100, rotation: -7.2, autoAlpha: 0 });
+  }, { scope: preview });
+  useGSAP(() => {
+    if (!preview.current) return;
+    const media = gsap.matchMedia();
+    media.add({ motion: '(prefers-reduced-motion: no-preference)', reduced: '(prefers-reduced-motion: reduce)' }, context => {
+      gsap.to(preview.current, {
+        yPercent: active ? 0 : 100,
+        autoAlpha: active ? 1 : 0,
+        duration: context.conditions?.reduced ? 0 : active ? 0.5 : 0.3,
+        ease: active ? 'power3.out' : 'power2.in',
+        overwrite: true,
+      });
+    });
+    return () => media.revert();
+  }, { dependencies: [active], scope: preview, revertOnUpdate: true });
   const [slide, setSlide] = useState(0);
   const strip = useRef<HTMLDivElement>(null);
   const href = item.detailHref;
@@ -29,7 +52,7 @@ export function CaseCard({ item, active, muted, onHover, onFocus }: {
       onPointerEnter={event => { if (event.pointerType === 'mouse') onHover(true); }} onPointerLeave={() => onHover(false)}
       onFocus={() => onFocus(true)} onBlur={() => onFocus(false)}>
       <CaseCopy item={item} />
-      <div className="case-previews" aria-hidden="true">{item.id === 'qixin-brain' ? <div className="case-preview case-preview-2 case-preview-qixin"><img src={`${import.meta.env.BASE_URL}images/qixin/home-cover.webp`} alt="" /></div> : [0, 1, 2].map(index => <div key={index} className={`case-preview case-preview-${index}`}><Placeholder index={index} /></div>)}</div>
+      <div className="case-previews" aria-hidden="true">{item.id === 'qixin-brain' ? <div ref={preview} className="case-preview case-preview-2 case-preview-qixin"><img src={`${import.meta.env.BASE_URL}images/qixin/home-cover.webp`} alt="" /></div> : [0, 1, 2].map(index => <div key={index} className={`case-preview case-preview-${index}`}><Placeholder index={index} /></div>)}</div>
     </a>
     <div className="case-mobile">
       <CaseCopy item={item} />
