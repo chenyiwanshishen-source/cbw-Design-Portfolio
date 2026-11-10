@@ -23,7 +23,11 @@ export const cases = [
     summary: '帮助研究员生成报告，并追溯内容和数据的来源。',
     period: '2025.04–2026.05',
     responsibility: '核心交互设计、Prompt 基础框架',
-    outcomeTag: { label: '溯源率', before: '50%', after: '80%' },
+    outcomes: [
+      { label: '数据有来源', before: '约 60%', after: '约 90%' },
+      { label: '内容符合要求', before: '约 60%', after: '约 80%' },
+      { label: '工具调用正确', before: '约 50%', after: '约 90%' },
+    ],
     meta: '合合信息 · AI 报告平台 Qsight · 2025.04 — 2026.05',
     title: 'Qsight · AI 报告平台',
     context: '研究员写一份区域监测报告，大半天都花在找资料上。他们也不敢让 AI 直接写全文，因为结构容易跑偏，数字查不到出处。',
