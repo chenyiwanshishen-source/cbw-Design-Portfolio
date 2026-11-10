@@ -82,11 +82,11 @@
 </g>
 <g>
 <rect width="240" height="240" transform="translate(2432 1035)" fill="#EEF4FF"/>
-<text fill="#3A3D44" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="24" letter-spacing="-0.011em"><tspan x="2452" y="1081.73">用选好的材料</tspan><tspan x="2452" y="1117.73">起草正文，</tspan><tspan x="2452" y="1153.73">把出处留在文中，</tspan><tspan x="2452" y="1189.73">方便随时查看</tspan></text>
+<text fill="#3A3D44" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="24" letter-spacing="-0.011em"><tspan x="2452" y="1081.73">按章节要求调用</tspan><tspan x="2452" y="1117.73">工具和参考材料，</tspan><tspan x="2452" y="1153.73">生成后检查内容</tspan><tspan x="2452" y="1189.73">与数据依据。</tspan></text>
 </g>
 <g>
 <rect width="240" height="240" transform="translate(2736 1035)" fill="#EEF4FF"/>
-<text fill="#3A3D44" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="24" letter-spacing="-0.011em"><tspan x="2756" y="1081.73">修改时找到需要</tspan><tspan x="2756" y="1117.73">跟着改的段落。</tspan><tspan x="2756" y="1153.73">缺少数据就提示，</tspan><tspan x="2756" y="1189.73">不编造数字</tspan></text>
+<text fill="#3A3D44" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="24" letter-spacing="-0.011em"><tspan x="2756" y="1081.73">选中有问题的</tspan><tspan x="2756" y="1117.73">段落补充要求，</tspan><tspan x="2756" y="1153.73">让 AI 重新修改，</tspan><tspan x="2756" y="1189.73">再由用户核对。</tspan></text>
 </g>
 <rect x="3088" y="181" width="584" height="76" rx="6" stroke="#DDDAD1" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6 6"/>
 <text fill="black" fill-opacity="0.8" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="30" font-weight="bold" letter-spacing="-0.011em"><tspan x="3279.38" y="229.909">05  &#x5ba1;&#x6838;&#x5e76;&#x4fee;&#x6539;</tspan></text>
@@ -108,11 +108,11 @@
 </g>
 <g>
 <rect width="240" height="240" transform="translate(3088 1035)" fill="#EEF4FF"/>
-<text fill="#3A3D44" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="24" letter-spacing="-0.011em"><tspan x="3108" y="1081.73">从正文点开来源，</tspan><tspan x="3108" y="1117.73">查看对应原文，</tspan><tspan x="3108" y="1153.73">少来回翻找</tspan></text>
+<text fill="#3A3D44" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="24" letter-spacing="-0.011em"><tspan x="3108" y="1081.73">正文标注来源，</tspan><tspan x="3108" y="1117.73">点击查看原文，</tspan><tspan x="3108" y="1153.73">核对关键数字</tspan><tspan x="3108" y="1189.73">是否有依据。</tspan></text>
 </g>
 <g>
 <rect width="240" height="240" transform="translate(3392 1035)" fill="#EEF4FF"/>
-<text fill="#3A3D44" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="24" letter-spacing="-0.011em"><tspan x="3412" y="1081.73">把批注放在需要</tspan><tspan x="3412" y="1117.73">修改的段落旁，</tspan><tspan x="3412" y="1153.73">改完后方便</tspan><tspan x="3412" y="1189.73">再次查看</tspan></text>
+<text fill="#3A3D44" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="24" letter-spacing="-0.011em"><tspan x="3412" y="1081.73">资料不足时，</tspan><tspan x="3412" y="1117.73">补充本地文件</tspan><tspan x="3412" y="1153.73">或联网检索，</tspan><tspan x="3412" y="1189.73">再核查并修改。</tspan></text>
 </g>
 <rect x="3744" y="181" width="584" height="76" rx="6" stroke="#DDDAD1" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6 6"/>
 <text fill="black" fill-opacity="0.8" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="30" font-weight="bold" letter-spacing="-0.011em"><tspan x="3935.15" y="229.909">06  交付并保存</tspan></text>
