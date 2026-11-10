@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import { YeSpecimenFlows } from './YeSpecimenFlows';
 
 const reviews = [
@@ -11,7 +12,7 @@ const reviews = [
   { product: 'Tab Space', rating: 1, text: '希望在当前网页直接选择保存位置，不用先打开管理空间。', source: 'https://apps.apple.com/us/app/tab-space/id1473726602?mt=12&platform=mac&see-all=reviews', date: '2026-04-05', followup: '开发者回复：已恢复该入口。' },
 ];
 
-export function YeResearchCards() {
+export function YeResearchCards({ beforeVisual }: { beforeVisual?: ReactNode }) {
   return <><div className="ye-research-layout">
     <section className="ye-research-panel ye-research-evidence">
       <h3>同类产品的用户反馈</h3>
@@ -44,6 +45,7 @@ export function YeResearchCards() {
     </section>
     </div>
   </div>
+    {beforeVisual}
     <section className="case-subsection" aria-labelledby="ye-visual-definition-title">
       <h3 id="ye-visual-definition-title">视觉定义</h3>
       <div className="case-prose"><p className="case-paragraph">我把在 AI 报告生成项目中总结的样张生成流程用到了 ye!：先确认设备、主题、字体和色板，让 AI 按规则逐类生成基础样张，再由我检查、调整并确认，确定组件的视觉表现。</p></div>
