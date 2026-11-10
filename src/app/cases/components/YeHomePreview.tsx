@@ -59,7 +59,7 @@ export function YeHomePreview() {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     gsap.fromTo(button, { scale: .84 }, { scale: 1, duration: .55, ease: 'elastic.out(1, 0.5)', overwrite: true });
   });
-  return <><section className="case-subsection" aria-labelledby="ye-home-preview-title">
+  return <><YeCharacter /><section className="case-subsection" aria-labelledby="ye-home-preview-title">
     <h3 id="ye-home-preview-title">首页设计</h3>
     <div className="case-prose"><p className="case-paragraph">页签<mark className="case-marker">按浏览器窗口独立分栏</mark>，方便看清各窗口的内容。书签借鉴苹果的<mark className="case-marker">米勒分栏</mark>，逐层展开，节省空间并保留层级。选中书签可查看详情和<mark className="case-marker">收藏时间</mark>，判断是否仍值得保留。对话采用助手式设计，<mark className="case-marker">固定在内容区域右侧</mark>。</p></div>
     <div className="ye-home-carousel" ref={root}>
@@ -87,16 +87,6 @@ export function YeHomePreview() {
         <path d={handDrawnArrowPath([39.6, 68.7], [35.5, 32], 9)} />
       </svg>
     </figure>
-  </section>
-  <section className="case-subsection" aria-labelledby="ye-character-title">
-    <h3 id="ye-character-title">角色设定</h3>
-    <div className="case-prose"><p className="case-paragraph">为了让整个产品更有人情味，我为这个插件设计了一个角色。</p></div>
-    <div className="ye-character-gallery" aria-label="ye! 吉祥物动作展示">
-      {['empty-conversation-mascot', 'welcome'].map((action) => <picture key={action}>
-        <source media="(prefers-reduced-motion: reduce)" srcSet={`${import.meta.env.BASE_URL}images/ye/mascot-${action}-still.webp`} />
-        <img src={`${import.meta.env.BASE_URL}images/ye/mascot-${action}.webp`} alt={action === 'welcome' ? 'ye! 吉祥物挥手欢迎' : 'ye! 空对话吉祥物动作'} width="256" height={action === 'welcome' ? 189 : 256} loading="lazy" decoding="async" />
-      </picture>)}
-    </div>
   </section>
   <section className="case-subsection" aria-labelledby="ye-follow-up-title">
     <h3 id="ye-follow-up-title">关于追问和审查</h3>
@@ -126,4 +116,17 @@ export function YeHomePreview() {
     </svg>
     </figure>
   </section></>;
+}
+
+function YeCharacter() {
+  return <section className="case-subsection" aria-labelledby="ye-character-title">
+    <h3 id="ye-character-title">角色设定</h3>
+    <div className="case-prose"><p className="case-paragraph">为了让整个产品更有人情味，我为这个插件设计了一个角色。</p></div>
+    <div className="ye-character-gallery" aria-label="ye! 吉祥物动作展示">
+      {['empty-conversation-mascot', 'welcome'].map((action) => <picture key={action}>
+        <source media="(prefers-reduced-motion: reduce)" srcSet={`${import.meta.env.BASE_URL}images/ye/mascot-${action}-still.webp`} />
+        <img src={`${import.meta.env.BASE_URL}images/ye/mascot-${action}.webp`} alt={action === 'welcome' ? 'ye! 吉祥物挥手欢迎' : 'ye! 空对话吉祥物动作'} width="256" height={action === 'welcome' ? 189 : 256} loading="lazy" decoding="async" />
+      </picture>)}
+    </div>
+  </section>;
 }
