@@ -53,7 +53,7 @@ export const qsight: CaseContent = {
     {
       "id": "qsight-01",
       "label": "调研问题",
-      "title": "调研问题",
+      "title": "从没有明确方向，到确定首版要解决的问题",
       "blocks": [
         {
           "kind": "paragraph",
@@ -149,7 +149,7 @@ export const qsight: CaseContent = {
     {
       "id": "qsight-02",
       "label": "MVP",
-      "title": "MVP",
+      "title": "MVP 版本的启动",
       "blocks": [
         { "kind": "paragraph", "text": "几轮访谈后，我们开始设计 MVP，尽量解决用户的实际问题，不增加操作负担，让用户顺利完成报告。" },
         {
