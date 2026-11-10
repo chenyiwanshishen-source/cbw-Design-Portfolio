@@ -52,16 +52,16 @@ export function ManPeekPortrait() {
       .call(() => { if (objectUrl) node.src = objectUrl; })
       .set(node, { autoAlpha: 1 })
       .call(prepareFall)
-      .to(falling, { y: () => floor, angle: 18, duration: reduced ? 0 : 0.78, ease: 'power1.in', onUpdate: renderFall }, '+=0.12');
+      .to(falling, { y: () => floor, angle: 65, duration: reduced ? 0 : 0.78, ease: 'power1.in', onUpdate: renderFall }, '+=0.12');
     // Ballistic arcs: each impact loses energy, so height and flight time shrink.
-    [64, 25, 8].forEach((height, index) => {
+    [96, 40, 13].forEach((height, index) => {
       const flight = Math.sqrt(2 * height / 1800);
-      timeline.to(falling, { y: () => floor - height, angle: index % 2 ? 10 : -12,
+      timeline.to(falling, { y: () => floor - height, angle: [210, 425, 535][index],
         duration: reduced ? 0 : flight, ease: 'power1.out', onUpdate: renderFall })
-        .to(falling, { y: () => floor, angle: index % 2 ? -5 : 7,
+        .to(falling, { y: () => floor, angle: [340, 500, 565][index],
           duration: reduced ? 0 : flight, ease: 'power1.in', onUpdate: renderFall });
     });
-    timeline.to(falling, { y: () => floor + 32, angle: 0, duration: reduced ? 0 : 0.3, ease: 'power2.in', onUpdate: renderFall })
+    timeline.to(falling, { y: () => floor + 32, angle: 580, duration: reduced ? 0 : 0.3, ease: 'power2.in', onUpdate: renderFall })
       .set(cursor, { opacity: 0 });
 
     const start = () => {
