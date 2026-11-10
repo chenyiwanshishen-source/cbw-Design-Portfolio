@@ -209,4 +209,4 @@
 .home-side-cover.home-side-cover-bridge { background: transparent; padding: 0; }
 
 .case-figure-framed:has(img[src$="figma-bridge-panel.webp"]) > .case-figure-media { display: grid; place-items: center; aspect-ratio: 16 / 10; }
-.case-figure-framed img[src$="figma-bridge-panel.webp"] { max-width: 80%; border-radius: var(--space-4); box-shadow: var(--shadow-float); }
+.case-figure-framed img[src$="figma-bridge-panel.webp"] { max-width: 80%; border-radius: var(--space-4); outline: var(--border-width) solid var(--color-border-subtle); box-shadow: var(--shadow-float); }
