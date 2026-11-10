@@ -316,10 +316,13 @@ body:has(.case-page) { background: var(--color-home-bg); }
   background: var(--color-case-plate);
   cursor: grab; touch-action: none; user-select: none;
   scrollbar-width: thin;
+  scrollbar-color: var(--color-text-meta) transparent;
   overflow-anchor: none;
   overscroll-behavior: contain;
 }
 .case-diagram-canvas[data-dragging] { cursor: grabbing; }
+.case-diagram-canvas::-webkit-scrollbar-track,
+.case-diagram-canvas::-webkit-scrollbar-corner { background: transparent; border: none; box-shadow: none; }
 .case-diagram-canvas img { display: block; max-width: none; height: auto; pointer-events: none; }
 .case-diagram-embedded { height: 100%; border-radius: 0; }
 @media (max-width: 640px) { .case-diagram-canvas:not(.case-diagram-embedded) { height: 400px; } }
