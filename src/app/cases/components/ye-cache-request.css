@@ -1,9 +1,8 @@
 .ye-cache-preview {
   margin: 0;
-  display: flex;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  gap: var(--rhythm-3);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--rhythm-4);
   padding: var(--rhythm-3) 0;
 }
 .ye-cache-card {
@@ -46,3 +45,6 @@
 .ye-cache-additions { display: grid; gap: var(--rhythm-1); padding: var(--rhythm-1); margin-top: var(--rhythm-2); border: 1px dashed var(--color-text-meta); border-radius: var(--space-3); }
 
 .ye-cache-reuse-note { margin: var(--rhythm-1) 0 0; font-size: var(--text-micro); line-height: var(--text-micro--line-height); color: var(--color-text-meta); }
+
+.ye-cache-preview .ye-cache-plate { height: auto; min-height: 360px; }
+@media (max-width: 639px) { .ye-cache-preview { grid-template-columns: 1fr; } }

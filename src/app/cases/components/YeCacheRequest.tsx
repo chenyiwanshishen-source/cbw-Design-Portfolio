@@ -21,8 +21,8 @@ function RequestCard({ followUp = false }: { followUp?: boolean }) {
 
 export function YeCacheRequest() {
   return <figure className="ye-cache-preview" aria-label="缓存命中与压缩机制，虚线框表示追加内容">
-    <RequestCard followUp />
-    <div className="ye-cache-card">
+    <div className="ye-reply-plate ye-cache-plate"><RequestCard followUp /></div>
+    <div className="ye-reply-plate ye-cache-plate"><div className="ye-cache-card">
       <div className="ye-cache-card-heading"><span>压缩机制</span></div>
       <div className="ye-cache-config">
         <div className="ye-cache-row"><CacheIcon name="CheckListIcon" /><div><strong>系统提示词</strong></div></div>
@@ -38,6 +38,6 @@ export function YeCacheRequest() {
         <div className="ye-cache-row"><CacheIcon name="BubbleChatDelayIcon" /><div><strong>新增对话</strong></div></div>
         <div className="ye-cache-row"><CacheIcon name="CheckListIcon" /><div><strong>工具结果</strong></div></div>
       </div>
-    </div>
+    </div></div>
   </figure>;
 }
