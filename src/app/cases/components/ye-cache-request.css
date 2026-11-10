@@ -4,12 +4,12 @@
   align-items: flex-start;
   flex-wrap: wrap;
   gap: var(--rhythm-3);
-  padding: var(--rhythm-5) 0;
+  padding: var(--rhythm-3) 0;
 }
 .ye-cache-card {
   width: 100%;
   max-width: 256px;
-  padding: var(--rhythm-3);
+  padding: var(--rhythm-2);
   border-radius: var(--space-4);
   background: var(--color-home-bg);
   box-shadow: var(--shadow-float);
