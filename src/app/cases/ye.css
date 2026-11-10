@@ -292,3 +292,12 @@
 .ye-reply-source-card { font-size: 12px; line-height: 16px; }.ye-reply-source-card > div { display: flex; align-items: center; gap: 8px; color: #4B5563; margin-bottom: 8px; }.ye-reply-source-card b { display: block; margin-bottom: 8px; font-weight: 500; }.ye-reply-source-card p { margin-bottom: 8px; }.ye-reply-source-card .ye-reply-source-nav { justify-content: space-between; margin-bottom: 0; }
 .ye-reply-plan { position: relative; width: 248px; max-width: 100%; padding: 12px; border-radius: 12px; background: #fff; box-shadow: var(--ye-image-shadow); }.ye-reply-plan img { width: 100%; height: 140px; object-fit: contain; }.ye-reply-plan b { display: block; font-weight: 600; margin: 8px 0; }.ye-reply-plan p { font-size: 12px; color: #4B5563; margin: 0; }.ye-reply-plan-menu { position: absolute; right: 12px; top: 12px; }
 @media(max-width:639px) { .ye-reply-grid { grid-template-columns: 1fr; } }
+
+.ye-reply-path-surface { max-width: 300px; padding: 16px 20px; font-size: 12px; line-height: 1.7; border: 1px solid var(--ye-image-border); box-shadow: var(--ye-image-shadow); }
+.ye-reply-path-list { margin: 0; padding-left: 16px; }
+.ye-reply-path-list li { margin: 10px 0; padding-left: 2px; }
+.ye-reply-path-list li::marker { color: #9CA3AF; }
+.ye-reply-path-list span { display: inline; padding: 2px 6px; border: 1px solid #E5E7EB; border-radius: 8px; background: #F7F8FA; color: #4B5563; font-weight: 600; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+.ye-reply-table-plate { justify-content: flex-start; }
+.ye-reply-table-surface { width: max-content; max-width: none; flex-shrink: 0; }
+.ye-reply-table-surface .ye-reply-table { width: max-content; }
