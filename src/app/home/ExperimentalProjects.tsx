@@ -75,7 +75,7 @@ export function ExperimentalProjects() {
           <div className="home-side-copy">
             <h3>{{'figma-connector': 'Figma 桥接器', 'illustration-skill': 'B 端插画 Skill', 'visual-code-canvas': '页面编辑器'}[project.slug] ?? project.name}</h3>
             {project.status && <span className="text-caption text-text-secondary">{project.status}</span>}
-            <span className="home-side-entry">查看项目 →</span>
+            <span className="home-side-entry">查看</span>
           </div>
         </a>
       </div>)}
