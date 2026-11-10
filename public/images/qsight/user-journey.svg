@@ -21,8 +21,8 @@
 <text fill="black" fill-opacity="0.8" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="30" font-weight="bold" letter-spacing="-0.011em"><tspan x="1281.93" y="229.909">02  &#x627e;&#x9f50;&#x5e76;&#x6574;&#x7406;&#x8d44;&#x6599;</tspan></text>
 <text fill="#3A3D44" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="24" font-weight="bold" letter-spacing="0em"><tspan x="1120" y="300.227">把各处找到的资料整理好</tspan></text>
 <g>
-<rect width="544" height="240" transform="translate(1120 345)" fill="#F3F4F5"/>
-<text fill="#3A3D44" font-family="Inter" font-size="24" letter-spacing="-0.011em"><tspan x="1140" y="391.727">查找公告、网页和已有文件，</tspan><tspan x="1140" y="427.727">整理文字、表格与企业名单，</tspan><tspan x="1140" y="463.727">核对日期、来源和统计口径</tspan></text>
+<rect width="240" height="240" transform="translate(1120 345)" fill="#F3F4F5"/>
+<text fill="#3A3D44" font-family="Inter" font-size="24" letter-spacing="-0.011em"><tspan x="1140" y="391.727">找公告、网页和</tspan><tspan x="1140" y="427.727">已有文件，整理</tspan><tspan x="1140" y="463.727">文字、表格和</tspan><tspan x="1140" y="499.727">企业名单，核对</tspan><tspan x="1140" y="535.727">日期、来源和口径</tspan></text>
 </g>
 <path d="M704 465H1116M1110 459L1116 465L1110 471" stroke="#7E838C" stroke-width="2" fill="none"/>
 
@@ -47,7 +47,7 @@
 <rect width="240" height="240" transform="translate(1776 345)" fill="#F3F4F5"/>
 <text fill="#3A3D44" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="24" letter-spacing="-0.011em"><tspan x="1796" y="391.727">&#x53c2;&#x8003;&#x65e7;&#x62a5;&#x544a;&#x5217;&#x51fa;&#x7ae0;</tspan><tspan x="1796" y="427.727">&#x8282;&#10;</tspan><tspan x="1796" y="463.727">&#x628a;&#x6750;&#x6599;&#x5206;&#x5230;&#x5bf9;&#x5e94;&#x7ae0;</tspan><tspan x="1796" y="499.727">&#x8282;</tspan></text>
 </g>
-<path d="M1667.5 464C1666.95 464 1666.5 464.448 1666.5 465C1666.5 465.552 1666.95 466 1667.5 466V465V464ZM1773.21 465.707C1773.6 465.317 1773.6 464.683 1773.21 464.293L1766.84 457.929C1766.45 457.538 1765.82 457.538 1765.43 457.929C1765.04 458.319 1765.04 458.953 1765.43 459.343L1771.09 465L1765.43 470.657C1765.04 471.047 1765.04 471.681 1765.43 472.071C1765.82 472.462 1766.45 472.462 1766.84 472.071L1773.21 465.707ZM1667.5 465V466H1772.5V465V464H1667.5V465Z" fill="#7E838C"/>
+<path d="M1363.5 464C1362.95 464 1362.5 464.448 1362.5 465C1362.5 465.552 1362.95 466 1363.5 466V465V464ZM1773.21 465.707C1773.6 465.317 1773.6 464.683 1773.21 464.293L1766.84 457.929C1766.45 457.538 1765.82 457.538 1765.43 457.929C1765.04 458.319 1765.04 458.953 1765.43 459.343L1771.09 465L1765.43 470.657C1765.04 471.047 1765.04 471.681 1765.43 472.071C1765.82 472.462 1766.45 472.462 1766.84 472.071L1773.21 465.707ZM1363.5 465V466H1772.5V465V464H1363.5V465Z" fill="#7E838C"/>
 <g>
 <rect width="240" height="240" transform="translate(2080 345)" fill="#F3F4F5"/>
 <text fill="#3A3D44" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="24" letter-spacing="-0.011em"><tspan x="2100" y="391.727">&#x548c;&#x8d1f;&#x8d23;&#x4eba;&#x786e;&#x8ba4;&#x65b9;&#x5411;&#10;</tspan><tspan x="2100" y="427.727">&#x8c03;&#x6574;&#x6807;&#x9898;&#x3001;&#x987a;&#x5e8f;&#x548c;</tspan><tspan x="2100" y="463.727">&#x91cd;&#x70b9;</tspan></text>
