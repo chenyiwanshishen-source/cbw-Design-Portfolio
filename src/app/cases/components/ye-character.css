@@ -1,0 +1,28 @@
+.ye-character-gallery {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--rhythm-4);
+  padding-block: var(--rhythm-4);
+}
+
+.ye-character-gallery picture {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 25%;
+  max-width: 128px;
+  aspect-ratio: 1;
+}
+
+.ye-character-gallery img {
+  display: block;
+  width: auto;
+  max-width: none;
+  height: 100%;
+}
+
+.ye-character-gallery picture:nth-child(2) img {
+  filter: grayscale(1) contrast(1.1) brightness(1.05);
+}
