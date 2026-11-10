@@ -173,3 +173,9 @@ body:has(.homepage) { background: var(--color-home-bg); }
 .home-experience-row + .home-experience-row { border-top: 1px solid var(--color-border-subtle); }
 .home-experience-copy { display: grid; gap: var(--space-4); min-width: 0; }
 @media (max-width: 700px) { .home-experience-row { grid-template-columns: minmax(0, 1fr); gap: var(--space-4); } }
+
+.home-contact { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: var(--space-8); }
+.home-contact-details { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-12) var(--space-8); margin: 0; }
+.home-contact-item { display: grid; align-content: start; gap: var(--space-2); min-width: 0; }
+.home-contact-item dd { margin: 0; overflow-wrap: anywhere; }
+@media (max-width: 700px) { .home-contact { grid-template-columns: minmax(0, 1fr); } .home-contact-details { grid-template-columns: minmax(0, 1fr); gap: var(--space-6); } }

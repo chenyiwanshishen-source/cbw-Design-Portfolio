@@ -1,3 +1,4 @@
+import { Contact } from './Contact';
 import { Experience } from './Experience';
 import { ExperimentalProjects } from './ExperimentalProjects';
 import { useEffect, useState } from 'react';
@@ -36,6 +37,7 @@ export function HomePage({ route }: { route: string }) {
         </section>
         <ExperimentalProjects />
         <Experience />
+        <Contact />
       </div>
     </div>
     {playing && <Blueprint onFinish={finish} />}
