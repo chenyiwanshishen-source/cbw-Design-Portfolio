@@ -306,3 +306,28 @@
 .ye-reply-plan img { filter: drop-shadow(0 3px 3px color-mix(in srgb, var(--color-text) 7%, transparent)); }
 
 .ye-case img[src$="log-management.webp"] { border-radius: var(--rhythm-3); outline: calc(3 * var(--border-width)) solid var(--ye-image-border); box-shadow: var(--ye-image-shadow); }
+
+.ye-case .case-figure-media:has(> img[src$="log-management.webp"]) {
+  position: relative;
+  aspect-ratio: 2 / 1;
+  overflow: hidden;
+  padding: var(--rhythm-4) 0 0;
+}
+.ye-case .case-figure-media > img[src$="log-management.webp"] {
+  width: 86% !important;
+  margin-inline: auto;
+}
+.ye-case .case-figure-media:has(> img[src$="log-management.webp"])::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 24%;
+  background: linear-gradient(to bottom, transparent, var(--color-case-plate));
+  pointer-events: none;
+}
+.ye-case .case-figure-media > img[src$="log-management.webp"] {
+  position: absolute;
+  top: var(--rhythm-4);
+  left: 7%;
+  margin: 0;
+}
