@@ -25,7 +25,7 @@ export function CaseCard({ item, active, muted, onHover, onFocus }: {
   const strip = useRef<HTMLDivElement>(null);
   const href = item.detailHref;
   return <article className={`home-case${active ? ' is-active' : ''}${muted ? ' is-muted' : ''}`}>
-    <a href={href} className="home-case-link case-desktop" tabIndex={0} aria-disabled={!href || undefined} aria-label={href ? `阅读案例：${item.name}` : `${item.name}，案例整理中`}
+    <a href={href} className={`home-case-link case-desktop${item.id === 'qixin-brain' ? ' home-case-qixin' : ''}`} tabIndex={0} aria-disabled={!href || undefined} aria-label={href ? `阅读案例：${item.name}` : `${item.name}，案例整理中`}
       onPointerEnter={event => { if (event.pointerType === 'mouse') onHover(true); }} onPointerLeave={() => onHover(false)}
       onFocus={() => onFocus(true)} onBlur={() => onFocus(false)}>
       <CaseCopy item={item} />
