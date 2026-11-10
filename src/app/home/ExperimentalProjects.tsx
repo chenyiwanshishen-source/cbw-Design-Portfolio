@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { explorationProjects, explorations } from '../cases/content/explorations';
+import { explorationProjects } from '../cases/content/explorations';
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -73,8 +73,8 @@ export function ExperimentalProjects() {
         <a href={project.href} className="home-side-project">
           <div className="home-side-cover" aria-hidden="true">{project.cover}</div>
           <div className="home-side-copy">
-            <span className="text-caption text-text-secondary">{project.name}{project.status && ` · ${project.status}`}</span>
-            <h3>{explorations.chapters.find(chapter => chapter.id === project.chapter)?.title}</h3>
+            <h3>{{'figma-connector': 'Figma 桥接器', 'illustration-skill': 'B 端插画 Skill', 'visual-code-canvas': '页面编辑器'}[project.slug] ?? project.name}</h3>
+            {project.status && <span className="text-caption text-text-secondary">{project.status}</span>}
             <span className="home-side-entry">查看项目 →</span>
           </div>
         </a>
