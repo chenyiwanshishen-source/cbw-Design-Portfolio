@@ -333,7 +333,7 @@
 }
 
 /* Product roles use the same paper and app objects as the Qsight workflow. */
-.ye-product-flow { margin: 0; padding: var(--rhythm-5) var(--rhythm-4) var(--rhythm-4); background: var(--color-case-plate); border-radius: var(--rhythm-3); }
+.ye-product-flow { margin: 0; padding: var(--rhythm-5) var(--rhythm-4) var(--rhythm-4); background: transparent; border-radius: var(--rhythm-3); }
 .ye-product-main { display: grid; grid-template-columns: 1fr .45fr 1.15fr .45fr 1fr .45fr 1fr .45fr 1fr; align-items: center; }
 .ye-product-main .generator-paper { height: 140px; aspect-ratio: auto; transform: rotate(-3deg); }
 .ye-product-main .generator-paper:last-child { transform: rotate(3deg); }
