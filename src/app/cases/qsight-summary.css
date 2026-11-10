@@ -1,0 +1,2 @@
+.qsight-summary-points { list-style: disc outside; margin: 0; padding-left: 1.4em; }
+.qsight-summary-points li + li { margin-top: var(--space-6); }
