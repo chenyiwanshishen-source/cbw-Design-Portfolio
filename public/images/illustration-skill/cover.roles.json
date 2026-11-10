@@ -1,0 +1,9 @@
+{
+  "paper": "--color-home-bg",
+  "plate": "--color-home-placeholder",
+  "blue": "--color-accent",
+  "soft": "--color-research-note-blue",
+  "note": "--color-research-note",
+  "ink": "--color-text-body",
+  "green": "--color-success"
+}
