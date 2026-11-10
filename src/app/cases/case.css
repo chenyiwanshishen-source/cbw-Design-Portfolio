@@ -335,7 +335,6 @@ body:has(.case-page) { background: var(--color-home-bg); }
 
 .case-subsection-prominent > h3 { font-size: var(--text-h2); line-height: var(--text-h2--line-height); }
 
-.case-marker { color: inherit; background: linear-gradient(177deg, transparent 18%, var(--color-research-note) 22%, var(--color-research-note) 89%, transparent 94%); box-decoration-break: clone; -webkit-box-decoration-break: clone; padding-inline: .12em; }
 
 .case-figure-framed > .case-figure-media { display: block; padding: var(--rhythm-4); background: var(--color-case-plate); border-radius: var(--space-6); }
 .case-figure-framed img { border-radius: var(--space-4); }
@@ -944,7 +943,6 @@ button.generator-notes { display: block; width: calc(100% - 8px); height: 140px;
 .qixin-palette-tile + .qixin-palette-tile { margin-left: -25%; }
 .qixin-palette-tile:last-child { border-radius: var(--space-10); }
 
-.case-marker-blue { background: linear-gradient(177deg, transparent 18%, var(--color-accent-soft) 22%, var(--color-accent-soft) 89%, transparent 94%); }
 
 .case-pair:has(> .case-pair-sticky-note) { position: relative; }
 .case-pair-sticky-note {

@@ -1,0 +1,2 @@
+.case-marker { color: inherit; background: linear-gradient(177deg, transparent 18%, var(--color-research-note) 22%, var(--color-research-note) 89%, transparent 94%); box-decoration-break: clone; -webkit-box-decoration-break: clone; padding-inline: .12em; }
+.case-marker-blue { background: linear-gradient(177deg, transparent 18%, var(--color-accent-soft) 22%, var(--color-accent-soft) 89%, transparent 94%); }
