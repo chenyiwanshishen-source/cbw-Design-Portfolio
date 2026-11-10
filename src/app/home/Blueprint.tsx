@@ -33,7 +33,8 @@ export function Blueprint({ onFinish }: { onFinish: () => void }) {
     const result: Frame[] = [];
     page.querySelectorAll<HTMLElement>(selectors).forEach(element => {
       if (element.matches('.home-case-link') || element.closest('.intro-blueprint') || chosen.some(parent => parent.contains(element))) return;
-      const rect = element.getBoundingClientRect();
+      const surface = element.matches('.man-peek-portrait') ? element.querySelector('.man-peek-window') ?? element : element;
+      const rect = surface.getBoundingClientRect();
       if (!rect.width || !rect.height) return;
       chosen.push(element);
       const media = element.matches('.home-portrait,.home-case-visual');
