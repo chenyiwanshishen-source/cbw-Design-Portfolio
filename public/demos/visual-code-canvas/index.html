@@ -322,5 +322,14 @@
 
     
     <script type="module" src="./demo.js"></script>
-  </body>
+  <script>
+if (new URLSearchParams(location.search).has('cover')) {
+const root = document.getElementById('root');
+Object.assign(document.body.style, {background:'transparent',margin:'0'});
+Object.assign(root.style, {position:'absolute',left:'50%',top:'50%',width:'1100px',height:'750px',transformOrigin:'center'});
+function fitCover(){root.style.transform=`translate(-50%, -50%) scale(${Math.min(innerWidth/1100,innerHeight/750)*.98})`;}
+new ResizeObserver(fitCover).observe(document.documentElement);fitCover();
+}
+</script>
+</body>
 </html>
