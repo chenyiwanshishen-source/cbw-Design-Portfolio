@@ -4,8 +4,8 @@
 }
 .ye-cache-card {
   width: 100%;
-  max-width: 300px;
-  padding: var(--rhythm-2);
+  max-width: 256px;
+  padding: var(--rhythm-1);
   border-radius: var(--space-4);
   background: var(--color-home-bg);
   box-shadow: var(--shadow-float);
@@ -14,26 +14,26 @@
 .ye-cache-card-heading {
   display: flex;
   align-items: center;
-  gap: var(--rhythm-2);
-  margin-bottom: var(--rhythm-2);
-  font-size: var(--text-body);
+  gap: var(--rhythm-1);
+  margin-bottom: var(--rhythm-1);
+  font-size: var(--text-caption);
   font-weight: 600;
   color: var(--color-text);
 }
 .ye-cache-config, .ye-cache-dialogue {
-  padding: var(--rhythm-2);
+  padding: var(--rhythm-1);
   background: var(--color-case-plate);
   border-radius: var(--space-3);
 }
-.ye-cache-config { display: grid; gap: var(--rhythm-2); }
+.ye-cache-config { display: grid; gap: var(--rhythm-1); }
 .ye-cache-dialogue { margin-top: var(--rhythm-2); }
-.ye-cache-row { display: flex; align-items: flex-start; gap: var(--rhythm-2); }
+.ye-cache-row { display: flex; align-items: flex-start; gap: var(--rhythm-1); }
 .ye-cache-row > .ye-cache-icon { flex-shrink: 0; margin-top: var(--space-1); color: var(--color-text-meta); }
 .ye-cache-row strong, .ye-cache-row span { display: block; font-size: var(--text-caption); line-height: var(--text-caption--line-height); }
 .ye-cache-row strong { font-weight: 500; }
 .ye-cache-row span { color: var(--color-text-meta); margin-top: var(--space-1); }
 @media (max-width: 639px) {
-  .ye-cache-preview { padding: var(--rhythm-2); }
+  .ye-cache-preview { padding: var(--rhythm-1); }
 }
 
 .ye-cache-icon { display: block; width: var(--space-4); height: var(--space-4); flex-shrink: 0; background: currentColor; mask-size: contain; mask-position: center; mask-repeat: no-repeat; }
