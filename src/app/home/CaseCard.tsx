@@ -32,8 +32,8 @@ export function CaseCard({ item, active, muted, onHover, onFocus }: {
     const media = gsap.matchMedia();
     media.add({ motion: '(prefers-reduced-motion: no-preference)', reduced: '(prefers-reduced-motion: reduce)' }, context => {
       reveal.current = gsap.fromTo(preview.current.children,
-        { yPercent: 100, rotation: (index: number) => index === 0 ? -8 : 7, autoAlpha: 0 },
-        { yPercent: 0, autoAlpha: 1, stagger: context.conditions?.reduced ? 0 : 0.06, duration: context.conditions?.reduced ? 0 : 0.5, ease: 'power3.out', paused: true });
+        { y: 0, yPercent: 100, rotation: (index: number) => index === 0 ? -8 : 7, autoAlpha: 0 },
+        { y: 0, yPercent: 0, autoAlpha: 1, stagger: context.conditions?.reduced ? 0 : 0.06, duration: context.conditions?.reduced ? 0 : 0.5, ease: 'power3.out', paused: true });
       if (active) reveal.current.progress(1);
       return () => { reveal.current = null; };
     });

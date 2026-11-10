@@ -189,7 +189,7 @@ body:has(.homepage) { background: var(--color-home-bg); }
 
 .home-case-qixin { overflow: hidden; }
 .home-case-qixin .case-previews { top: 0; bottom: 0; height: auto; transform: none; }
-.home-case-qixin .case-preview-qixin { top: var(--space-12); right: var(--space-8); transform: translateY(100%) rotate(-7.2deg); transform-origin: bottom center; transition: none; }
+.home-case-qixin .case-preview-qixin { top: var(--space-12); right: var(--space-8); transform: none; transform-origin: bottom center; transition: none; }
 .is-active .home-case-qixin .case-preview-qixin { transition: none; }
 @media (prefers-reduced-motion: reduce) { .home-case-qixin .case-preview-qixin { transition: none; } }
 
