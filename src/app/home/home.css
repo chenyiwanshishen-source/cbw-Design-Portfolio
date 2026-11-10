@@ -151,8 +151,7 @@ body:has(.homepage) { background: var(--color-home-bg); }
 .gameboy-portrait { aspect-ratio: 2 / 3; background: none; border: none; max-width: 384px; margin-inline: auto; width: 100%; }
 .man-peek-portrait { aspect-ratio: 2 / 3; width: 100%; max-width: 320px; margin-inline: auto; background: none; border: none; }
 .man-peek-portrait img { display: block; width: 100%; height: auto; }
-@media (min-width: 1024px) { .man-peek-portrait { margin-left: auto; margin-right: calc(-1 * var(--space-3)); transform: translateY(calc(var(--space-16) + var(--space-4))); } }
-@media (min-width: 1280px) { .man-peek-portrait { margin-right: calc(-1 * var(--space-6)); } }
+@media (min-width: 1024px) { .man-peek-portrait { margin-left: auto; margin-right: 0; transform: translateY(calc(var(--space-16) + var(--space-4))); } }
 .gameboy-float { position: relative; width: 100%; animation: gameboy-float 5s var(--ease-settle) infinite; }
 .gameboy-shell { display: block; width: 100%; height: auto; position: relative; }
 .gameboy-screen { position: absolute; left: 28%; top: 17%; width: 44%; height: 26.5%; overflow: hidden; }
