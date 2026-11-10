@@ -3,7 +3,6 @@ import { YeProductFlow } from './components/YeProductFlow';
 import { YeConversationResults } from './components/YeConversationResults';
 import { YeCollaborationVersions, YeCollaborationIntro } from './components/YeCollaborationVersions';
 import { YeModelStates } from './components/YeModelStates';
-import { CaseOpening } from './components/CaseOpening';
 import { useEffect } from 'react';
 import { ye } from './content/ye';
 import { CaseLayout } from './components/CaseLayout';
@@ -34,9 +33,8 @@ export function YeCase() {
   const renderSubsection = (id: string) => <CaseSection key={id} id={id} label={chapter(id).label} title={chapter(id).title} headingLevel={3}>{renderBlocks(id)}</CaseSection>;
   return <CaseLayout backLabel={ye.ui.back} footer={<span className="text-caption text-text-meta">{ye.ui.footer}</span>}>
     <div className="ye-case">
-      <CaseHeader content={ye.header} compact />
       <FigurePlaceholder {...ye.hero} />
-      <CaseOpening content={ye} />
+      <CaseHeader content={ye.header} compact />
       <div className="case-body"><CaseToc items={ye.toc} label={ye.ui.toc} /><div className="case-chapters"><CaseSection id="ye-01" label="概述" title="概述">{renderBlocks('ye-01')}</CaseSection>
         <CaseSection id="ye-05" label="设计方向" title="设计方向">
           {renderBlocks('ye-05', chapter('ye-05').blocks.slice(0, 1))}

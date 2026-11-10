@@ -21,13 +21,6 @@ export const ye: CaseContent = {
     "caption": "全屏工作台主界面",
     "ratio": "16 / 9"
   },
-  "timeline": [
-    "9 月 7 日 开始",
-    "9 月中旬 第一次推翻",
-    "9 月 26 日 第二次推翻",
-    "10 月 18 日 第三次推翻",
-    "6 位朋友试用"
-  ],
   "opening": [],
   "toc": [
     { "id": "ye-01", "label": "概述" },
