@@ -1,0 +1,20 @@
+/* Shared case entrance: short fade and a small upward settle, once per block. */
+.case-reveal {
+  opacity: 0;
+  translate: 0 var(--space-4);
+  transition: opacity 480ms var(--ease-settle), translate 580ms var(--ease-settle);
+}
+.case-reveal.case-reveal-visible {
+  opacity: 1;
+  translate: 0 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .case-reveal {
+    opacity: 1;
+    translate: none;
+    transition: none;
+  }
+}
+@media print {
+  .case-reveal { opacity: 1; translate: none; }
+}
