@@ -1,10 +1,11 @@
-import { useRef } from 'react';
+import { useId, useRef } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 
 gsap.registerPlugin(useGSAP);
 
 export function ManPeekPortrait() {
+  const clipId = useId().replace(/:/g, '');
   const root = useRef<HTMLElement>(null);
   const image = useRef<HTMLImageElement>(null);
   useGSAP(() => {
@@ -25,13 +26,37 @@ export function ManPeekPortrait() {
       rect?.setAttribute('height', String(drag.size));
       cursor?.setAttribute('transform', `translate(${drag.size - 2} ${drag.size - 2})`);
     };
+    const falling = { x: 316, y: 316, angle: 0 };
+    let floor = 316;
+    const renderFall = () => cursor?.setAttribute('transform', `translate(${falling.x} ${falling.y}) rotate(${falling.angle} 12 12)`);
+    const prepareFall = () => {
+      const svg = root.current?.querySelector('.man-peek-frame')?.getBoundingClientRect();
+      const firstCase = document.querySelector('.home-case')?.getBoundingClientRect();
+      if (!svg || !firstCase) return;
+      const scale = svg.width / 320;
+      const lineY = (firstCase.bottom - svg.top) / scale;
+      floor = Math.max(316, lineY - 24);
+      root.current?.querySelector('.man-peek-floor-clip')?.setAttribute('height', String(lineY + 10000));
+    };
     renderDrag();
     timeline.to(cursor, { opacity: reduced ? 0 : 1, duration: reduced ? 0 : 0.2 })
       .to(drag, { size: 318, duration: reduced ? 0 : 1.65, ease: 'elastic.out(1, 0.65)', onUpdate: renderDrag }, '+=0.15')
       .to(handles, { opacity: 1, duration: reduced ? 0 : 0.15 })
-      .to(cursor, { opacity: 0, duration: reduced ? 0 : 0.25 }, '+=0.15')
       .call(() => { if (objectUrl) node.src = objectUrl; })
-      .set(node, { autoAlpha: 1 });
+      .set(node, { autoAlpha: 1 })
+      .call(prepareFall)
+      .to(falling, { y: () => floor, angle: 18, duration: reduced ? 0 : 0.78, ease: 'power1.in', onUpdate: renderFall }, '+=0.12');
+    // Ballistic arcs: each impact loses energy, so height and flight time shrink.
+    [64, 25, 8].forEach((height, index) => {
+      const flight = Math.sqrt(2 * height / 1800);
+      timeline.to(falling, { y: () => floor - height, angle: index % 2 ? 10 : -12,
+        duration: reduced ? 0 : flight, ease: 'power1.out', onUpdate: renderFall })
+        .to(falling, { y: () => floor, angle: index % 2 ? -5 : 7,
+          duration: reduced ? 0 : flight, ease: 'power1.in', onUpdate: renderFall });
+    });
+    timeline.to(falling, { y: () => floor + 32, angle: 0, duration: reduced ? 0 : 0.3, ease: 'power2.in', onUpdate: renderFall })
+      .set(cursor, { opacity: 0 });
+
     const start = () => {
       if (cancelled) return;
       if (document.querySelector('.intro-blueprint')) frame = requestAnimationFrame(start);
@@ -48,12 +73,13 @@ export function ManPeekPortrait() {
     <div className="man-peek-window">
       <div className="man-peek-clip"><img ref={image} width="320" height="320" alt="戴眼镜的人物探身挥手" /></div>
       <svg className="man-peek-frame" viewBox="0 0 320 320" fill="none" aria-hidden="true">
+        <defs><clipPath id={clipId} clipPathUnits="userSpaceOnUse"><rect className="man-peek-floor-clip" x="-10000" y="-10000" width="20000" height="20000" /></clipPath></defs>
         <rect className="man-peek-outline" x="1" y="1" width="0" height="0" />
         <g className="man-peek-handles">
           {[[1, 1], [319, 1], [319, 319], [1, 319]].map(([x, y]) => <rect key={`${x}-${y}`} className="man-peek-handle" x={x - 4} y={y - 4} width="8" height="8" />)}
         </g>
         {/* Hugeicons Cursor02Icon, MIT free outline rendered with a solid fill. */}
-        <g className="man-peek-cursor"><path d="M9.80282 4.62973L15.8364 6.99069C19.3164 8.35243 21.0564 9.03329 20.9987 10.1133C20.941 11.1934 19.1251 11.6886 15.4933 12.6791C14.412 12.974 13.8713 13.1215 13.4964 13.4963C13.1215 13.8712 12.9741 14.4119 12.6791 15.4933C11.6887 19.125 11.1934 20.9409 10.1134 20.9986C9.03335 21.0563 8.35249 19.3163 6.99075 15.8363L4.62979 9.80276C3.20411 6.15934 2.49127 4.33764 3.41448 3.41442C4.3377 2.49121 6.15941 3.20405 9.80282 4.62973Z" /></g>
+        <g clipPath={`url(#${clipId})`}><g className="man-peek-cursor"><path d="M9.80282 4.62973L15.8364 6.99069C19.3164 8.35243 21.0564 9.03329 20.9987 10.1133C20.941 11.1934 19.1251 11.6886 15.4933 12.6791C14.412 12.974 13.8713 13.1215 13.4964 13.4963C13.1215 13.8712 12.9741 14.4119 12.6791 15.4933C11.6887 19.125 11.1934 20.9409 10.1134 20.9986C9.03335 21.0563 8.35249 19.3163 6.99075 15.8363L4.62979 9.80276C3.20411 6.15934 2.49127 4.33764 3.41448 3.41442C4.3377 2.49121 6.15941 3.20405 9.80282 4.62973Z" /></g></g>
       </svg>
     </div>
   </figure>;
