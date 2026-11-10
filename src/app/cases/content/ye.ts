@@ -214,7 +214,12 @@ export const ye: CaseContent = {
               "plate": "PLATE 03",
               "title": "运行日志导出示例（打码）",
               "instruction": "要放：运行日志导出示例（打码）",
-              "caption": "运行日志导出示例（打码）"
+              "caption": "",
+              "src": "images/ye/log-management.webp",
+              "alt": "日志管理文件夹中保存的对话运行日志",
+              "width": 1166,
+              "height": 748,
+              "framed": true
             }
           ]
         }

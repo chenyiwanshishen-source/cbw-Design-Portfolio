@@ -304,3 +304,5 @@
 .ye-reply-plate:has(.ye-reply-path-surface) { justify-content: center; }
 
 .ye-reply-plan img { filter: drop-shadow(0 3px 3px color-mix(in srgb, var(--color-text) 7%, transparent)); }
+
+.ye-case img[src$="log-management.webp"] { border-radius: var(--rhythm-3); outline: calc(3 * var(--border-width)) solid var(--ye-image-border); box-shadow: var(--ye-image-shadow); }
