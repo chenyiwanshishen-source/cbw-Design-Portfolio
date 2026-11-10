@@ -6,7 +6,7 @@ function CacheIcon({ name, heading = false }: { name: string; heading?: boolean 
 
 function RequestCard({ followUp = false }: { followUp?: boolean }) {
   return <div className="ye-cache-card">
-    <div className="ye-cache-card-heading"><span>{followUp ? '后续请求' : '首次请求'}</span></div>
+    <div className="ye-cache-card-heading"><span>{followUp ? '缓存命中' : '首次请求'}</span></div>
     <div className="ye-cache-config">
       <div className="ye-cache-row"><CacheIcon name="CheckListIcon" /><div><strong>系统提示词</strong></div></div>
       <div className="ye-cache-row"><CacheIcon name="Layers01Icon" /><div><strong>工具定义</strong></div></div>
@@ -20,7 +20,7 @@ function RequestCard({ followUp = false }: { followUp?: boolean }) {
 }
 
 export function YeCacheRequest() {
-  return <figure className="ye-cache-preview" aria-label="后续请求与压缩机制，虚线框表示追加内容">
+  return <figure className="ye-cache-preview" aria-label="缓存命中与压缩机制，虚线框表示追加内容">
     <RequestCard followUp />
     <div className="ye-cache-card">
       <div className="ye-cache-card-heading"><span>压缩机制</span></div>
