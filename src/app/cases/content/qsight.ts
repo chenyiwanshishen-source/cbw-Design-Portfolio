@@ -38,7 +38,7 @@ export const qsight: CaseContent = {
     },
     {
       "id": "qsight-04",
-      "label": "提示词优化"
+      "label": "主导提示词优化"
     },
     {
       "id": "qsight-05",
@@ -256,7 +256,7 @@ export const qsight: CaseContent = {
     },
     {
       "id": "qsight-04",
-      "label": "提示词优化",
+      "label": "主导提示词优化",
       "title": "主导提示词设计",
       "blocks": [
         {
