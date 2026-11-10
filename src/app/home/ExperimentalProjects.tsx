@@ -12,7 +12,7 @@ function EditorCover() {
   useEffect(() => {
     const fit = () => {
       const box = frame.current!;
-      const scale = Math.min(box.clientWidth / 1100, box.clientHeight / 750);
+      const scale = Math.min(box.clientWidth / 1100, box.clientHeight / 750) * 0.9;
       editor.current!.style.transform = `translate(-50%, -50%) scale(${scale})`;
     };
     const observer = new ResizeObserver(fit);
