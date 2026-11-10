@@ -31,9 +31,9 @@ export function CaseCard({ item, active, muted, onHover, onFocus }: {
     if (!preview.current) return;
     const media = gsap.matchMedia();
     media.add({ motion: '(prefers-reduced-motion: no-preference)', reduced: '(prefers-reduced-motion: reduce)' }, context => {
-      reveal.current = gsap.fromTo(preview.current,
-        { yPercent: 100, rotation: -7.2, autoAlpha: 0 },
-        { yPercent: 0, rotation: -7.2, autoAlpha: 1, duration: context.conditions?.reduced ? 0 : 0.5, ease: 'power3.out', paused: true });
+      reveal.current = gsap.fromTo(preview.current.children,
+        { yPercent: 100, rotation: (index: number) => index === 0 ? -8 : 7, autoAlpha: 0 },
+        { yPercent: 0, autoAlpha: 1, stagger: context.conditions?.reduced ? 0 : 0.06, duration: context.conditions?.reduced ? 0 : 0.5, ease: 'power3.out', paused: true });
       if (active) reveal.current.progress(1);
       return () => { reveal.current = null; };
     });
@@ -51,7 +51,7 @@ export function CaseCard({ item, active, muted, onHover, onFocus }: {
       onPointerEnter={event => { if (event.pointerType === 'mouse') onHover(true); }} onPointerLeave={() => onHover(false)}
       onFocus={() => onFocus(true)} onBlur={() => onFocus(false)}>
       <CaseCopy item={item} />
-      <div className="case-previews" aria-hidden="true">{item.id === 'qixin-brain' ? <div ref={preview} className="case-preview case-preview-2 case-preview-qixin"><img src={`${import.meta.env.BASE_URL}images/qixin/hover-620-19593.webp`} alt="" /></div> : [0, 1, 2].map(index => <div key={index} className={`case-preview case-preview-${index}`}><Placeholder index={index} /></div>)}</div>
+      <div className="case-previews" aria-hidden="true">{item.id === 'qixin-brain' ? <div ref={preview} className="qixin-preview-group">{['home-cover.webp', 'hover-620-19593.webp'].map((file, index) => <div key={file} className={`case-preview case-preview-qixin qixin-preview-${index}`}><img src={`${import.meta.env.BASE_URL}images/qixin/${file}`} alt="" /></div>)}</div> : [0, 1, 2].map(index => <div key={index} className={`case-preview case-preview-${index}`}><Placeholder index={index} /></div>)}</div>
     </a>
     <div className="case-mobile">
       <CaseCopy item={item} />

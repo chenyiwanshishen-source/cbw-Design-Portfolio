@@ -192,3 +192,7 @@ body:has(.homepage) { background: var(--color-home-bg); }
 .home-case-qixin .case-preview-qixin { top: var(--space-12); right: var(--space-8); transform: translateY(100%) rotate(-7.2deg); transform-origin: bottom center; transition: none; }
 .is-active .home-case-qixin .case-preview-qixin { transition: none; }
 @media (prefers-reduced-motion: reduce) { .home-case-qixin .case-preview-qixin { transition: none; } }
+
+.qixin-preview-group { position: absolute; inset: 0; }
+.home-case-qixin .qixin-preview-0 { right: 42%; }
+.home-case-qixin .qixin-preview-1 { right: var(--space-8); top: var(--space-16); }
