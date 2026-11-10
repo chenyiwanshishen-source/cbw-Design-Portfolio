@@ -27,7 +27,7 @@ export function ManPeekPortrait() {
     };
     renderDrag();
     timeline.to(cursor, { opacity: reduced ? 0 : 1, duration: reduced ? 0 : 0.2 })
-      .to(drag, { size: 318, duration: reduced ? 0 : 1.35, ease: 'power2.inOut', onUpdate: renderDrag }, '+=0.15')
+      .to(drag, { size: 318, duration: reduced ? 0 : 1.65, ease: 'elastic.out(1, 0.65)', onUpdate: renderDrag }, '+=0.15')
       .to(handles, { opacity: 1, duration: reduced ? 0 : 0.15 })
       .to(cursor, { opacity: 0, duration: reduced ? 0 : 0.25 }, '+=0.15')
       .call(() => { if (objectUrl) node.src = objectUrl; })
