@@ -89,7 +89,7 @@ export function ExperimentalProjects() {
   return <section ref={section} id="ai" aria-labelledby="ai-title" className="home-section">
     <h2 id="ai-title" className="text-h2 font-normal">自研工具</h2>
     <div className="home-side-projects">
-      {explorationProjects.filter(project => project.slug !== 'design-system').map(project => <div className="home-side-row" key={project.slug}>
+      {explorationProjects.filter(project => project.slug !== 'design-system').sort((a, b) => Number(a.slug === 'illustration-skill') - Number(b.slug === 'illustration-skill')).map(project => <div className="home-side-row" key={project.slug}>
         <a href={project.href} className="home-side-project">
           <div className={`home-side-cover${['figma-connector', 'visual-code-canvas', 'illustration-skill'].includes(project.slug) ? ' home-side-cover-bridge' : ''}`} aria-hidden="true">{project.slug === 'figma-connector'
             ? <iframe src="/demos/figma-bridge/index.html" title="Figma 桥接器界面预览" loading="lazy" sandbox="allow-scripts" tabIndex={-1} className="w-full h-full min-h-0 border-0 pointer-events-none" />
