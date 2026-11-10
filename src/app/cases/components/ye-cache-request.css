@@ -9,7 +9,7 @@
 .ye-cache-card {
   width: 100%;
   max-width: 256px;
-  padding: var(--rhythm-1);
+  padding: var(--rhythm-3);
   border-radius: var(--space-4);
   background: var(--color-home-bg);
   box-shadow: var(--shadow-float);
