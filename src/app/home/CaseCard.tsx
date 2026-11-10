@@ -29,7 +29,7 @@ export function CaseCard({ item, active, muted, onHover, onFocus }: {
       onPointerEnter={event => { if (event.pointerType === 'mouse') onHover(true); }} onPointerLeave={() => onHover(false)}
       onFocus={() => onFocus(true)} onBlur={() => onFocus(false)}>
       <CaseCopy item={item} />
-      <div className="case-previews" aria-hidden="true">{[0, 1, 2].map(index => <div key={index} className={`case-preview case-preview-${index}`}><Placeholder index={index} /></div>)}</div>
+      <div className="case-previews" aria-hidden="true">{item.id === 'qixin-brain' ? <div className="case-preview case-preview-2 case-preview-qixin"><img src={`${import.meta.env.BASE_URL}images/qixin/home-cover.webp`} alt="" /></div> : [0, 1, 2].map(index => <div key={index} className={`case-preview case-preview-${index}`}><Placeholder index={index} /></div>)}</div>
     </a>
     <div className="case-mobile">
       <CaseCopy item={item} />
