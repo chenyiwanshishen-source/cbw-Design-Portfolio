@@ -1,5 +1,9 @@
 .ye-cache-preview {
   margin: 0;
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: var(--rhythm-5);
   padding: var(--rhythm-5);
 }
 .ye-cache-card {
@@ -38,3 +42,5 @@
 
 .ye-cache-icon { display: block; width: var(--space-4); height: var(--space-4); flex-shrink: 0; background: currentColor; mask-size: contain; mask-position: center; mask-repeat: no-repeat; }
 .ye-cache-icon-heading { width: var(--space-5); height: var(--space-5); }
+
+.ye-cache-additions { display: grid; gap: var(--rhythm-1); padding: var(--rhythm-1); margin-top: var(--rhythm-2); border: 1px dashed var(--color-text-meta); border-radius: var(--space-3); }
