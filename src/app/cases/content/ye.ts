@@ -174,6 +174,17 @@ export const ye: CaseContent = {
       ]
     },
     {
+      "id": "ye-model-adaptation",
+      "label": "模型适配",
+      "title": "模型适配",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "试用者使用的模型各不相同，包括 DeepSeek、Kimi、GLM、Claude 和 OpenAI，也往往不清楚模型单次能处理多少内容。插件会读取相关限制，并据此分批处理，避免让用户手动填写。"
+        }
+      ]
+    },
+    {
       "id": "ye-02",
       "label": "意图理解",
       "title": "关于协作",
@@ -249,12 +260,8 @@ export const ye: CaseContent = {
     {
       "id": "ye-06",
       "label": "试用与进展",
-      "title": "模型适配与朋友试用",
+      "title": "朋友试用",
       "blocks": [
-        {
-          "kind": "paragraph",
-          "text": "试用者使用的模型各不相同，包括 DeepSeek、Kimi、GLM、Claude 和 OpenAI，也往往不清楚模型单次能处理多少内容。插件会读取相关限制，并据此分批处理，避免让用户手动填写。"
-        },
         {
           "kind": "paragraph",
           "text": "修复问题时，我要求检查其他用户的使用情况，不能只以自己的测试通过为准。6 位朋友试下来，说得最多的两点是：分类准确，交互友好。"
