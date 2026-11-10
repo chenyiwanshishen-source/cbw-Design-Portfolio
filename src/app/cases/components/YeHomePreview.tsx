@@ -121,7 +121,7 @@ export function YeHomePreview() {
 function YeCharacter() {
   return <section className="case-subsection" aria-labelledby="ye-character-title">
     <h3 id="ye-character-title">角色设定</h3>
-    <div className="case-prose"><p className="case-paragraph">为了让产品更有人情味，我以文件夹的形态为基础，设计了一个角色，给它起名叫 ye。</p></div>
+    <div className="case-prose"><p className="case-paragraph">为了让产品更有人情味，我以文件夹的形态为基础，设计了一个角色。</p></div>
     <div className="ye-character-gallery" aria-label="ye! 吉祥物动作展示">
       {['empty-conversation-mascot', 'welcome'].map((action) => <picture key={action}>
         <source media="(prefers-reduced-motion: reduce)" srcSet={`${import.meta.env.BASE_URL}images/ye/mascot-${action}-still.webp`} />
