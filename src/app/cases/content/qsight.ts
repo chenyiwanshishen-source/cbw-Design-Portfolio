@@ -328,7 +328,7 @@ export const qsight: CaseContent = {
     {
       "id": "qsight-05",
       "label": "上线反馈",
-      "title": "项目1.0上线之后的反馈",
+      "title": "项目 MVP 版本反馈",
       "blocks": [
         {
           "kind": "paragraph",
