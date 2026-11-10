@@ -200,7 +200,7 @@ export const ye: CaseContent = {
     {
       "id": "ye-03",
       "label": "排查与回退",
-      "title": "回退版本并补齐日志",
+      "title": "日志管理",
       "blocks": [
         {
           "kind": "paragraph",
