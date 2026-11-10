@@ -7,7 +7,7 @@ const versions = [
 export function YeCollaborationIntro() {
   return <div className="case-prose ye-collaboration-intro">
     <p className="case-paragraph">第一版时，我没有把功能流转想清楚，Gemini 在模糊的需求下做出了一套靠正则和硬约束执行的工作流。第二版由 Codex 和 Gemini 协作重构，但只在原有判断外加了一层意图识别，<strong>重构没有解决根本问题</strong>。</p>
-    <p className="case-paragraph">使用中，我发现 Claude 能把技术问题拆解得更清楚。第三版因此调整分工：<strong>Claude 定方案、拆任务、定测试边界，Codex 改代码和重建架构，Gemini 跑全量测试、更新项目文档</strong>。</p>
+    <p className="case-paragraph">使用中，我发现 Claude 能把技术问题拆解得更清楚。第三版因此调整分工：<strong>Claude 定方案、拆任务、定测试边界，Codex 编写代码和测试，Gemini 跑全量测试、更新项目文档</strong>。</p>
   </div>;
 }
 
