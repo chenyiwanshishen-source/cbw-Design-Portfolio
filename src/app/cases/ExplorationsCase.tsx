@@ -10,7 +10,7 @@ export function ExplorationsCase({ route }: { route: string }) {
   const project = explorationProjects.find(item => item.href === route);
   const chapter = explorations.chapters.find(item => item.id === project?.chapter);
   useEffect(() => { window.scrollTo({ top: 0, behavior: 'instant' }); }, [route]);
-  return <CaseLayout backLabel="← 返回首页" footer={<a href="#ai" className="text-caption text-text-secondary">返回探索项目</a>}>
+  return <CaseLayout backLabel="← 返回首页">
     {chapter ? <div className="exploration-detail">
       <header><h1><CaseText text={project?.name ?? ""} /></h1><p className="text-caption text-text-secondary">{chapter.title}</p></header>
       {(chapter.id === 'explorations-01' || chapter.id === 'explorations-04') ? <>
