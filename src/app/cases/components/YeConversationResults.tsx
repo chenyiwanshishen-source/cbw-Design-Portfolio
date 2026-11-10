@@ -4,7 +4,7 @@ import { Globe, ChevronLeft, ChevronRight, MoreHorizontal } from 'lucide-react';
 // and TaskPlanCardLayout. Product data access and execution stay in the plugin.
 export function YeConversationResults() {
   return <figure className="ye-reply-grid" aria-label="四种聊天回复展示方式">
-    <div className="ye-reply-plate"><div className="ye-reply-surface ye-reply-path-surface">
+    <div className="ye-reply-plate"><div className="ye-reply-path-surface">
       <ul className="ye-reply-path-list">
         <li><span>书签栏/设计/视觉基础/图标</span>：最贴合，图标类资源都归在这里</li>
         <li><span>书签栏/设计/灵感与素材</span>：当作图标素材来源收藏也合适</li>
