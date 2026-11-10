@@ -73,7 +73,7 @@ export const qixin: CaseContent = {
     },
     {
       "id": "qixin-06",
-      "label": "结果与反思"
+      "label": "想法"
     }
   ],
   "chapters": [
@@ -264,7 +264,7 @@ export const qixin: CaseContent = {
         { "kind": "chain-outcome" },
         {
           "kind": "paragraph",
-          "text": "对于需要自定义产业链的用户，这一版是成功的。用户能自己调整和维护产业链，更有掌控感；研究产业政策、了解产业舆情也更方便了。"
+          "text": "用户现在可以自己调整和维护产业链，不用每次都等我们配置，研究产业政策、查看产业舆情也更方便了。"
         }
       ]
     },
@@ -467,17 +467,13 @@ export const qixin: CaseContent = {
               "height": 364
             }
           ]
-        },
-        {
-          "kind": "paragraph",
-          "text": "原计划按季度推进，实际难度比较大，改成了按年度推进。结果：设计稿基本做到了全覆盖，2025 年设计这边仍在继续推进。前端第一年的组件覆盖率是 40%，2024 年到 60%，2025 年又推进了一个季度，之后因故停了，进度停在 70%。"
         }
       ]
     },
     {
       "id": "qixin-06",
-      "label": "结果与反思",
-      "title": "报告联动与项目反思",
+      "label": "想法",
+      "title": "想法",
       "blocks": [
             {
               "kind": "paragraph",
