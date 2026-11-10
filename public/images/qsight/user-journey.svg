@@ -6,11 +6,8 @@
 <rect width="240" height="240" transform="translate(464 345)" fill="#F3F4F5"/>
 <text fill="#3A3D44" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="24" letter-spacing="-0.011em"><tspan x="484" y="391.727">&#x63a5;&#x5230;&#x62a5;&#x544a;&#x4efb;&#x52a1;&#10;</tspan><tspan x="484" y="427.727">&#x786e;&#x8ba4;&#x7ed9;&#x8c01;&#x770b;&#x3001;&#x7528;&#x6765;</tspan><tspan x="484" y="463.727">&#x505a;&#x4ec0;&#x4e48;</tspan></text>
 </g>
-<g>
-<rect width="240" height="240" transform="translate(768 345)" fill="#F3F4F5"/>
-<text fill="#3A3D44" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="24" letter-spacing="-0.011em"><tspan x="788" y="391.727">&#x95ee;&#x6e05;&#x5730;&#x533a;&#x3001;&#x4ea7;&#x4e1a;&#x3001;</tspan><tspan x="788" y="427.727">&#x4f01;&#x4e1a;&#x8303;&#x56f4;&#10;</tspan><tspan x="788" y="463.727">&#x786e;&#x8ba4;&#x65f6;&#x95f4;&#x548c;&#x4ea4;&#x4ed8;&#x8981;</tspan><tspan x="788" y="499.727">&#x6c42;</tspan></text>
-</g>
-<path d="M707.5 464C706.948 464 706.5 464.448 706.5 465C706.5 465.552 706.948 466 707.5 466V465V464ZM765.207 465.707C765.598 465.317 765.598 464.683 765.207 464.293L758.843 457.929C758.453 457.538 757.819 457.538 757.429 457.929C757.038 458.319 757.038 458.953 757.429 459.343L763.086 465L757.429 470.657C757.038 471.047 757.038 471.681 757.429 472.071C757.819 472.462 758.453 472.462 758.843 472.071L765.207 465.707ZM707.5 465V466H764.5V465V464H707.5V465Z" fill="#7E838C"/>
+
+
 <text fill="#3A3D44" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="20" letter-spacing="0em"><tspan x="464" y="634.273">和谁沟通：任务负责人、领导</tspan></text>
 <g>
 <rect width="240" height="240" transform="translate(464 703)" fill="#FFF3D1"/>
@@ -27,7 +24,7 @@
 <rect width="240" height="240" transform="translate(1120 345)" fill="#F3F4F5"/>
 <text fill="#3A3D44" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="24" letter-spacing="-0.011em"><tspan x="1140" y="391.727">&#x627e;&#x516c;&#x544a;&#x3001;&#x7f51;&#x9875;&#x548c;&#x5df2;</tspan><tspan x="1140" y="427.727">&#x6709;&#x6587;&#x4ef6;&#10;</tspan><tspan x="1140" y="463.727">&#x7ffb;&#x540c;&#x7c7b;&#x62a5;&#x544a;&#x3001;&#x627e;&#x4f01;</tspan><tspan x="1140" y="499.727">&#x4e1a;&#x540d;&#x5355;</tspan></text>
 </g>
-<path d="M1011.5 464C1010.95 464 1010.5 464.448 1010.5 465C1010.5 465.552 1010.95 466 1011.5 466V465V464ZM1117.21 465.707C1117.6 465.317 1117.6 464.683 1117.21 464.293L1110.84 457.929C1110.45 457.538 1109.82 457.538 1109.43 457.929C1109.04 458.319 1109.04 458.953 1109.43 459.343L1115.09 465L1109.43 470.657C1109.04 471.047 1109.04 471.681 1109.43 472.071C1109.82 472.462 1110.45 472.462 1110.84 472.071L1117.21 465.707ZM1011.5 465V466H1116.5V465V464H1011.5V465Z" fill="#7E838C"/>
+<path d="M704 465H1116M1110 459L1116 465L1110 471" stroke="#7E838C" stroke-width="2" fill="none"/>
 <g>
 <rect width="240" height="240" transform="translate(1424 345)" fill="#F3F4F5"/>
 <text fill="#3A3D44" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="24" letter-spacing="-0.011em"><tspan x="1444" y="391.727">&#x63d0;&#x53d6;&#x6587;&#x5b57;&#x548c;&#x8868;&#x683c;&#10;</tspan><tspan x="1444" y="427.727">&#x6838;&#x5bf9;&#x65e5;&#x671f;&#x3001;&#x6765;&#x6e90;&#x4e0e;</tspan><tspan x="1444" y="463.727">&#x7edf;&#x8ba1;&#x53e3;&#x5f84;</tspan></text>
