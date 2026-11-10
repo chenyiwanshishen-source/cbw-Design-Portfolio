@@ -5,7 +5,7 @@ export function useCaseReveal(root: RefObject<HTMLElement | null>) {
   useLayoutEffect(() => {
     const page = root.current;
     if (!page || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    const selector = '.case-back, .case-header-main, .case-facts, .exploration-detail > header, .case-section > h2, .case-subsection > h3, .case-prose, figure, .case-switch';
+    const selector = '.case-header-main, .case-facts, .exploration-detail > header, .case-section > h2, .case-subsection > h3, .case-prose, figure, .case-switch';
     const blocks = Array.from(page.querySelectorAll<HTMLElement>(selector)).filter(
       (node) => !node.parentElement?.closest(selector),
     );

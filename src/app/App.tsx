@@ -49,7 +49,7 @@ export default function App() {
   useEffect(() => {
     const onHash = () => {
       setRoute(window.location.hash);
-      window.scrollTo({ top: 0, behavior: "auto" });
+      if (isProjectDetailRoute(window.location.hash)) window.scrollTo({ top: 0, behavior: "instant" });
     };
     window.addEventListener("hashchange", onHash);
     return () => window.removeEventListener("hashchange", onHash);

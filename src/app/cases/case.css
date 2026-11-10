@@ -1,7 +1,8 @@
 body:has(.case-page) { background: var(--color-home-bg); }
 .case-page { background: var(--color-home-bg); padding-inline: max(var(--gutter-x), env(safe-area-inset-left)) max(var(--gutter-x), env(safe-area-inset-right)); overflow-wrap: normal; word-break: normal; line-break: strict; }
 .case-sheet { padding-bottom: var(--rhythm-6); }
-.case-back { display: inline-flex; align-items: center; min-height: var(--touch-target); margin-block: var(--rhythm-4); color: var(--color-text-secondary); }
+.case-back-bar { position: sticky; top: 0; z-index: var(--z-header); background: linear-gradient(to bottom, var(--color-home-bg) 0%, var(--color-home-bg) 55%, transparent 100%); padding-bottom: var(--space-6); }
+.case-back { display: inline-flex; align-items: center; min-height: var(--touch-target); margin-top: var(--rhythm-4); color: var(--color-text-secondary); }
 .case-page a:hover { color: var(--color-accent); }
 .case-header { display: grid; gap: var(--rhythm-6); padding-block: var(--rhythm-6) var(--rhythm-6); }
 .case-header-main, .case-facts { display: flex; flex-direction: column; gap: var(--rhythm-3); min-width: 0; }
