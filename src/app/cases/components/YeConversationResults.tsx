@@ -12,7 +12,6 @@ export function YeConversationResults() {
       <p>书签检查结果</p><table className="ye-reply-table"><thead><tr><th>书签</th><th>处理建议</th></tr></thead><tbody>{[['设计规范','归入设计系统'],['重复资料','等待确认'],['失效链接','等待确认']].map(row=><tr key={row[0]}>{row.map(cell=><td key={cell}>{cell}</td>)}</tr>)}</tbody></table>
     </div></div>
     <div className="ye-reply-plate"><div className="ye-reply-surface">
-      <p>已查看网页内容 <span className="ye-reply-source-chip"><Globe size={14}/>example.com</span></p>
       <div className="ye-reply-source-card"><div><Globe size={16}/><span>example.com</span></div><b>设计系统示例</b><p>页面包含组件规范与使用说明，可归入设计系统目录。</p><div className="ye-reply-source-nav"><ChevronLeft size={16}/><span>1/2</span><ChevronRight size={16}/></div></div>
     </div></div>
     <div className="ye-reply-plate"><div className="ye-reply-plan"><MoreHorizontal size={16} className="ye-reply-plan-menu"/><img src={`${import.meta.env.BASE_URL}images/ye/reply-plan-cover.svg`} alt=""/><b>书签整理方案已就绪</b><p>将 12 个书签整理到 3 个文件夹</p></div></div>
