@@ -47,11 +47,11 @@ export function CaseCard({ item, active, muted, onHover, onFocus }: {
   const strip = useRef<HTMLDivElement>(null);
   const href = item.detailHref;
   return <article className={`home-case${active ? ' is-active' : ''}${muted ? ' is-muted' : ''}`}>
-    <a href={href} className={`home-case-link case-desktop${item.id === 'qixin-brain' ? ' home-case-qixin' : ''}`} tabIndex={0} aria-disabled={!href || undefined} aria-label={href ? `阅读案例：${item.name}` : `${item.name}，案例整理中`}
+    <a href={href} className={`home-case-link case-desktop${item.id === 'qixin-brain' || item.id === 'ai-report' ? ' home-case-qixin' : ''}`} tabIndex={0} aria-disabled={!href || undefined} aria-label={href ? `阅读案例：${item.name}` : `${item.name}，案例整理中`}
       onPointerEnter={event => { if (event.pointerType === 'mouse') onHover(true); }} onPointerLeave={() => onHover(false)}
       onFocus={() => onFocus(true)} onBlur={() => onFocus(false)}>
       <CaseCopy item={item} />
-      <div className="case-previews" aria-hidden="true">{item.id === 'qixin-brain' ? <div ref={preview} className="qixin-preview-group">{['home-cover.webp', 'hover-620-19593.webp'].map((file, index) => <div key={file} className={`case-preview case-preview-qixin qixin-preview-${index}`}><img src={`${import.meta.env.BASE_URL}images/qixin/${file}`} alt="" /></div>)}</div> : [0, 1, 2].map(index => <div key={index} className={`case-preview case-preview-${index}`}><Placeholder index={index} /></div>)}</div>
+      <div className="case-previews" aria-hidden="true">{item.id === 'ai-report' ? <div ref={preview} className="qixin-preview-group"><div className="case-preview case-preview-qixin qsight-preview"><img src={`${import.meta.env.BASE_URL}images/qsight/hover-539-5907.webp`} alt="" /></div></div> : item.id === 'qixin-brain' ? <div ref={preview} className="qixin-preview-group">{['home-cover.webp', 'hover-620-19593.webp'].map((file, index) => <div key={file} className={`case-preview case-preview-qixin qixin-preview-${index}`}><img src={`${import.meta.env.BASE_URL}images/qixin/${file}`} alt="" /></div>)}</div> : [0, 1, 2].map(index => <div key={index} className={`case-preview case-preview-${index}`}><Placeholder index={index} /></div>)}</div>
     </a>
     <div className="case-mobile">
       <CaseCopy item={item} />
