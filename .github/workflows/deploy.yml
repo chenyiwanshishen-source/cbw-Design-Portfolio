@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [main]
+    branches: [integration/portfolio-2026-11-07]
   workflow_dispatch:
 
 permissions:
