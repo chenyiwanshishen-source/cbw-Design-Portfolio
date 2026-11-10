@@ -92,9 +92,9 @@ export function YeHomePreview() {
     <h3 id="ye-character-title">角色设定</h3>
     <div className="case-prose"><p className="case-paragraph">为了让整个产品更有人情味，我为这个插件设计了一个角色。</p></div>
     <div className="ye-character-gallery" aria-label="ye! 吉祥物动作展示">
-      {['empty-conversation-mascot', 'welcome', 'sway'].map((action) => <picture key={action}>
+      {['empty-conversation-mascot', 'welcome'].map((action) => <picture key={action}>
         <source media="(prefers-reduced-motion: reduce)" srcSet={`${import.meta.env.BASE_URL}images/ye/mascot-${action}-still.webp`} />
-        <img src={`${import.meta.env.BASE_URL}images/ye/mascot-${action}.webp`} alt={action === 'welcome' ? 'ye! 吉祥物挥手欢迎' : action === 'sway' ? 'ye! 吉祥物举牌摇摆' : 'ye! 空对话吉祥物动作'} width="256" height={action === 'welcome' ? 189 : 256} loading="lazy" decoding="async" />
+        <img src={`${import.meta.env.BASE_URL}images/ye/mascot-${action}.webp`} alt={action === 'welcome' ? 'ye! 吉祥物挥手欢迎' : 'ye! 空对话吉祥物动作'} width="256" height={action === 'welcome' ? 189 : 256} loading="lazy" decoding="async" />
       </picture>)}
     </div>
   </section>
