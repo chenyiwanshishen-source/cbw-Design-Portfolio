@@ -1,7 +1,7 @@
 import { intro } from './content/zh';
 
 export function Contact() {
-  return <section aria-labelledby="contact-title" className="home-section home-contact border-t border-border">
+  return <section aria-labelledby="contact-title" className="home-section home-contact">
     <h2 id="contact-title" className="text-h2 font-normal">保持联系</h2>
     <dl className="home-contact-details">
       <div className="home-contact-item">
