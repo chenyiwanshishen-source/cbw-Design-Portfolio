@@ -149,7 +149,7 @@ body:has(.homepage) { background: var(--color-home-bg); }
 
 /* Original assets remain separate; the illustration sits behind the transparent screen. */
 .gameboy-portrait { aspect-ratio: 2 / 3; background: none; border: none; max-width: 384px; margin-inline: auto; width: 100%; }
-.man-peek-portrait { aspect-ratio: 2 / 3; width: 100%; max-width: 384px; margin-inline: auto; background: none; border: none; }
+.man-peek-portrait { aspect-ratio: 2 / 3; width: 100%; max-width: 320px; margin-inline: auto; background: none; border: none; }
 .man-peek-portrait img { display: block; width: 100%; height: auto; }
 .gameboy-float { position: relative; width: 100%; animation: gameboy-float 5s var(--ease-settle) infinite; }
 .gameboy-shell { display: block; width: 100%; height: auto; position: relative; }
