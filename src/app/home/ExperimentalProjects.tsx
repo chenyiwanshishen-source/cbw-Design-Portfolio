@@ -12,7 +12,7 @@ function EditorCover() {
   useEffect(() => {
     const fit = () => {
       const box = frame.current!;
-      const scale = Math.min(box.clientWidth / 1100, box.clientHeight / 750) * 0.9;
+      const scale = Math.min(box.clientWidth / 1100, box.clientHeight / 750);
       editor.current!.style.transform = `translate(-50%, -50%) scale(${scale})`;
     };
     const observer = new ResizeObserver(fit);
@@ -20,7 +20,7 @@ function EditorCover() {
     fit();
     return () => observer.disconnect();
   }, []);
-  return <div ref={frame} className="relative w-full h-full min-h-0" style={{border: '1px solid var(--color-border-subtle)', borderRadius: 'var(--space-3)', boxShadow: 'var(--shadow-float)', overflow: 'hidden'}}>
+  return <div ref={frame} className="relative w-full h-full min-h-0" style={{transform: 'scale(0.9)', border: '1px solid var(--color-border-subtle)', borderRadius: 'var(--space-3)', boxShadow: 'var(--shadow-float)', overflow: 'hidden'}}>
     <iframe ref={editor} src="/demos/visual-code-canvas/index.html?home-preview" title="页面编辑器界面预览" loading="lazy" tabIndex={-1}
       style={{position: 'absolute', left: '50%', top: '50%', width: 1100, height: 750, border: 0, maxWidth: 'none', transformOrigin: 'center', pointerEvents: 'none'}} />
   </div>;
