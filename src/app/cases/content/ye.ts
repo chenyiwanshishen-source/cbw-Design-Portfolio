@@ -36,19 +36,7 @@ export const ye: CaseContent = {
     },
     {
       "id": "ye-05",
-      "label": "设计思路"
-    },
-    {
-      "id": "ye-02",
-      "label": "意图理解"
-    },
-    {
-      "id": "ye-03",
-      "label": "排查与回退"
-    },
-    {
-      "id": "ye-04",
-      "label": "工具调用"
+      "label": "设计流程"
     },
     {
       "id": "ye-06",
@@ -125,8 +113,8 @@ export const ye: CaseContent = {
     },
     {
       "id": "ye-05",
-      "label": "设计思路",
-      "title": "设计思路",
+      "label": "设计流程",
+      "title": "设计流程",
       "blocks": [
         {
           "kind": "paragraph",
@@ -188,7 +176,7 @@ export const ye: CaseContent = {
     {
       "id": "ye-02",
       "label": "意图理解",
-      "title": "其他设计",
+      "title": "关于协作",
       "blocks": [
         {
           "kind": "paragraph",
