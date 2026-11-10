@@ -26,16 +26,23 @@ export function ManPeekPortrait() {
       rect?.setAttribute('height', String(drag.size));
       cursor?.setAttribute('transform', `translate(${drag.size - 2} ${drag.size - 2})`);
     };
-    const falling = { x: 316, y: 316, angle: 0 };
+    const falling = { x: 316, y: 337, angle: 0 };
+    const cursorPath = cursor?.querySelector('path');
+    const cursorPoints = cursorPath ? Array.from({ length: 96 }, (_, index) => cursorPath.getPointAtLength(cursorPath.getTotalLength() * index / 95)) : [];
+    const bottomAt = (angle: number) => {
+      const radians = angle * Math.PI / 180;
+      return cursorPoints.length ? Math.max(...cursorPoints.map(point => 12 + (point.x - 12) * Math.sin(radians) + (point.y - 12) * Math.cos(radians))) : 21;
+    };
     let floor = 316;
-    const renderFall = () => cursor?.setAttribute('transform', `translate(${falling.x} ${falling.y}) rotate(${falling.angle} 12 12)`);
+    const renderFall = () => cursor?.setAttribute('transform', `translate(${falling.x} ${falling.y - bottomAt(falling.angle)}) rotate(${falling.angle} 12 12)`);
     const prepareFall = () => {
       const svg = root.current?.querySelector('.man-peek-frame')?.getBoundingClientRect();
-      const firstCase = document.querySelector('.home-case')?.getBoundingClientRect();
-      if (!svg || !firstCase) return;
+      const divider = document.querySelector('.case-list > .home-case:nth-child(2)')?.getBoundingClientRect();
+      if (!svg || !divider) return;
       const scale = svg.width / 320;
-      const lineY = (firstCase.bottom - svg.top) / scale;
-      floor = Math.max(316, lineY - 24);
+      const lineY = (divider.top - svg.top) / scale;
+      floor = Math.max(337, lineY);
+      falling.y = 316 + bottomAt(0);
       root.current?.querySelector('.man-peek-floor-clip')?.setAttribute('height', String(lineY + 10000));
     };
     renderDrag();
