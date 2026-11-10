@@ -295,7 +295,7 @@
 
 .ye-reply-path-surface { width: max-content; max-width: none; flex-shrink: 0; font-size: 12px; line-height: 1.7; }
 .ye-reply-path-list { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
-.ye-reply-path-list li { margin: 0; padding: 12px 16px; white-space: nowrap; background: var(--color-surface); border: 1px solid var(--ye-image-border); border-radius: 12px; box-shadow: var(--ye-image-shadow); }
+.ye-reply-path-list li { margin: 0; padding: 12px 16px; text-align: center; white-space: nowrap; background: var(--color-surface); border: 1px solid var(--ye-image-border); border-radius: 12px; box-shadow: var(--ye-image-shadow); }
 .ye-reply-path-list span { display: inline; padding: 2px 6px; border: 1px solid #E5E7EB; border-radius: 8px; background: #F7F8FA; color: #4B5563; font-weight: 600; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
 .ye-reply-table-plate { justify-content: flex-start; }
 .ye-reply-table-surface { width: max-content; max-width: none; flex-shrink: 0; }
