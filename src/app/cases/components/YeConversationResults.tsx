@@ -6,9 +6,9 @@ export function YeConversationResults() {
   return <figure className="ye-reply-grid" aria-label="四种聊天回复展示方式">
     <div className="ye-reply-plate"><div className="ye-reply-path-surface">
       <ul className="ye-reply-path-list">
-        <li><span>书签栏/设计/视觉基础/图标</span>：最贴合，图标类资源都归在这里</li>
-        <li><span>书签栏/设计/灵感与素材</span>：当作图标素材来源收藏也合适</li>
-        <li><span>书签栏/设计/设计工具</span>：如果你想把它当工具站来用</li>
+        <li><span>书签栏/设计/视觉基础/图标</span>：最适合归类图标资源</li>
+        <li><span>书签栏/设计/灵感与素材</span>：也可作为素材来源收藏</li>
+        <li><span>书签栏/设计/设计工具</span>：也可作为工具站收藏</li>
       </ul>
     </div></div>
     <div className="ye-reply-plate ye-reply-table-plate"><div className="ye-reply-surface ye-reply-table-surface">
