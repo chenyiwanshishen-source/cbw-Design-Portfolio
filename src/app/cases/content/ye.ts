@@ -188,7 +188,7 @@ export const ye: CaseContent = {
     {
       "id": "ye-02",
       "label": "意图理解",
-      "title": "关于协作",
+      "title": "其他设计",
       "blocks": [
         {
           "kind": "paragraph",
