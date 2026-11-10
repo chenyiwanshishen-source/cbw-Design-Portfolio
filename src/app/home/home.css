@@ -154,7 +154,9 @@ body:has(.homepage) { background: var(--color-home-bg); }
 .man-peek-clip { position: absolute; inset: 0; overflow: hidden; }
 .man-peek-portrait img { display: block; width: 100%; height: auto; visibility: hidden; }
 .man-peek-frame { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; stroke: var(--color-portrait-frame); stroke-width: calc(var(--border-width) * 1.5); }
-.man-peek-handle { fill: var(--color-home-bg); opacity: 0; }
+.man-peek-handle { fill: var(--color-home-bg); }
+.man-peek-handles { opacity: 0; }
+.man-peek-cursor { opacity: 0; fill: var(--color-text); stroke: var(--color-home-bg); stroke-width: var(--border-width); stroke-linejoin: round; }
 @media (min-width: 1024px) { .man-peek-window { transform: translate(-42.5%, 21%); } }
 @media (min-width: 1024px) { .man-peek-portrait { margin-left: auto; margin-right: 0; transform: translateY(calc(var(--space-16) + var(--space-4))); } }
 .gameboy-float { position: relative; width: 100%; animation: gameboy-float 5s var(--ease-settle) infinite; }
