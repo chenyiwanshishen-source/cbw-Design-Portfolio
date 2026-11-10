@@ -302,3 +302,5 @@
 .ye-reply-table-surface .ye-reply-table { width: max-content; }
 
 .ye-reply-plate:has(.ye-reply-path-surface) { justify-content: center; }
+
+.ye-reply-plan img { filter: drop-shadow(0 3px 3px color-mix(in srgb, var(--color-text) 7%, transparent)); }
