@@ -257,7 +257,7 @@ export const ye: CaseContent = {
     {
       "id": "ye-07",
       "label": "反思",
-      "title": "如果重来",
+      "title": "反思",
       "blocks": [
         {
           "kind": "paragraph",
