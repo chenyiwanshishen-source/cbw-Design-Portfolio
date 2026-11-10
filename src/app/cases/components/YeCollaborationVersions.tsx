@@ -6,7 +6,7 @@ const versions = [
 
 export function YeCollaborationIntro() {
   return <div className="case-prose ye-collaboration-intro">
-    <p className="case-paragraph">使用中，我发现 Claude 能把技术问题拆解得更清楚。开发中，我负责产品方向和最终决策，交给 AI 的提示词也由我逐句审核。第三版因此调整分工：<strong>Claude 定方案、拆任务、定测试边界，Codex 编写代码和测试，Gemini 跑全量测试、更新项目文档</strong>。</p>
+    <p className="case-paragraph">使用中，我发现 Claude 能把技术问题拆解得更清楚。于是，我负责产品方向和最终决策，复核 AI 方案。第三版因此调整分工：<strong>Claude 定方案、拆任务、定测试边界，Codex 编写代码和测试，Gemini 跑全量测试、更新项目文档</strong>。</p>
   </div>;
 }
 
