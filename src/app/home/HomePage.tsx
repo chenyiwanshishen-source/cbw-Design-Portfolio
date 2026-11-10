@@ -3,7 +3,6 @@ import { Experience } from './Experience';
 import { ExperimentalProjects } from './ExperimentalProjects';
 import { useEffect, useState } from 'react';
 import { DraftingFrame } from './DraftingFrame';
-import { Ruler } from './Ruler';
 import { Blueprint } from './Blueprint';
 import { useIntroOpening } from './useIntroOpening';
 import { Intro } from './Intro';
@@ -29,7 +28,6 @@ export function HomePage({ route }: { route: string }) {
   return <div className="homepage">
     <div className="home-sheet mx-auto w-full max-w-content">
       <DraftingFrame />
-      <Ruler onReplay={() => setReplay(value => value + 1)} />
       <Intro />
       <div className="home-sections">
         <section id="work" aria-label="项目" className="home-section">
