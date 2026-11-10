@@ -107,7 +107,7 @@ body:has(.homepage) { background: var(--color-home-bg); }
 
 /* Interactive project rows, shared by homepage and component gallery. */
 .case-list { display: grid; grid-auto-rows: 1fr; }
-.home-case-outcome { display: inline-flex; align-items: center; align-self: flex-start; gap: var(--space-1); padding: var(--space-1) var(--space-3); border-radius: var(--space-1); background: var(--color-accent-soft); color: var(--color-accent); white-space: nowrap; }
+.home-case-outcome { display: inline-flex; align-items: center; align-self: flex-start; gap: var(--space-1); padding: var(--space-1) var(--space-3); border-radius: var(--radius-outcome-tag); background: var(--color-accent-soft); color: var(--color-accent); white-space: nowrap; }
 .home-case-outcome svg { flex-shrink: 0; }
 .home-case { position: relative; min-width: 0; display: flex; flex-direction: column; }
 .home-case-link { flex: 1; min-height: 0; padding-block: var(--rhythm-5); position: relative; align-items: center; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--rhythm-4); }

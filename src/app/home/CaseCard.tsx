@@ -9,6 +9,10 @@ function CaseCopy({ item }: { item: CaseContent }) {
   return <div className="home-case-copy flex min-w-0 flex-col gap-4">
     <h3 className="text-h3 font-normal">{item.name}</h3>
     <p className="text-body text-text-body">{item.summary}</p>
+    <dl className="flex flex-col gap-3 text-caption text-text-secondary">
+      <div><dt className="inline">项目周期 · </dt><dd className="inline">{item.period}</dd></div>
+      <div><dt className="inline">我的工作 · </dt><dd className="inline">{item.responsibility}</dd></div>
+    </dl>
     {'outcomeTag' in item && item.outcomeTag && <span className="home-case-outcome text-caption" aria-label={`${item.outcomeTag.label}：${item.outcomeTag.before ? `从 ${item.outcomeTag.before} 提升至` : '提升'} ${item.outcomeTag.after}`}>
       <span>{item.outcomeTag.label}：</span>
       {item.outcomeTag.before && <span>{item.outcomeTag.before}</span>}
@@ -19,10 +23,6 @@ function CaseCopy({ item }: { item: CaseContent }) {
       </svg>
       <span>{item.outcomeTag.after}</span>
     </span>}
-    <dl className="flex flex-col gap-3 text-caption text-text-secondary">
-      <div><dt className="inline">项目周期 · </dt><dd className="inline">{item.period}</dd></div>
-      <div><dt className="inline">我的工作 · </dt><dd className="inline">{item.responsibility}</dd></div>
-    </dl>
     {!item.detailHref && <p className="text-caption text-text-meta">案例整理中</p>}
   </div>;
 }
