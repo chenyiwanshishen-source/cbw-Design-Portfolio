@@ -49,7 +49,8 @@ export function YeCase() {
           {renderBlocks('ye-05', chapter('ye-05').blocks.slice(3))}
         </CaseSection>
         <CaseSection id="ye-implementation" label="实现与协作" title="实现与协作">
-          {['ye-model-adaptation', 'ye-02', 'ye-03'].map(renderSubsection)}
+          {renderBlocks('ye-model-adaptation')}
+          {['ye-02', 'ye-03'].map(renderSubsection)}
         </CaseSection>
         <CaseSection id="ye-07" label="反思" title="反思">{renderBlocks('ye-07')}</CaseSection>    <section className="case-subsection" aria-labelledby="ye-architecture-title">
       <h3 id="ye-architecture-title">架构定义</h3>
