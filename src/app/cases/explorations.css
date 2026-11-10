@@ -211,7 +211,7 @@
 .case-figure-framed:has(img[src$="figma-bridge-panel.webp"]) > .case-figure-media { display: grid; place-items: center; aspect-ratio: 16 / 10; }
 .case-figure-framed img[src$="figma-bridge-panel.webp"] { max-width: 80%; border-radius: var(--space-4); outline: var(--border-width) solid var(--color-border-subtle); box-shadow: var(--shadow-float); }
 
-.bridge-state-gallery { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-4); padding: var(--rhythm-4); background: var(--color-case-plate); border-radius: var(--space-6); align-items: center; }
+.bridge-state-gallery { display: grid; grid-template-columns: minmax(0, 380px); justify-content: center; gap: var(--space-4); padding: var(--rhythm-4); background: var(--color-case-plate); border-radius: var(--space-6); align-items: center; }
 .bridge-state-item { min-width: 0; text-align: center; }
 .bridge-state-item iframe { display: block; width: 100%; height: 470px; border: 0; }
 .bridge-state-item figcaption { margin-top: var(--space-3); }
