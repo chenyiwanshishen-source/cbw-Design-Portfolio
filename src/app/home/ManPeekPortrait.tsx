@@ -16,8 +16,15 @@ export function ManPeekPortrait() {
     const controller = new AbortController();
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const timeline = gsap.timeline({ paused: true });
-    timeline.to('.man-peek-outline', { strokeDashoffset: 0, duration: reduced ? 0 : 1.1, ease: 'power2.inOut' })
-      .to('.man-peek-handle', { opacity: 1, duration: reduced ? 0 : 0.2, stagger: reduced ? 0 : 0.06 }, '-=0.15')
+    const edges = root.current?.querySelectorAll('.man-peek-outline') ?? [];
+    edges.forEach((edge, index) => {
+      timeline.to(edge, {
+        strokeDashoffset: 0,
+        duration: reduced ? 0 : 0.48,
+        ease: 'none',
+      }, index === 0 ? 0 : '+=0.04');
+    });
+    timeline.to('.man-peek-handle', { opacity: 1, duration: reduced ? 0 : 0.2, stagger: reduced ? 0 : 0.06 })
       .call(() => { if (objectUrl) node.src = objectUrl; })
       .set(node, { autoAlpha: 1 });
     const start = () => {
@@ -36,7 +43,7 @@ export function ManPeekPortrait() {
     <div className="man-peek-window">
       <div className="man-peek-clip"><img ref={image} width="320" height="320" alt="戴眼镜的人物探身挥手" /></div>
       <svg className="man-peek-frame" viewBox="0 0 320 320" fill="none" aria-hidden="true">
-        <rect className="man-peek-outline" x="1" y="1" width="318" height="318" pathLength="1" strokeDasharray="1" strokeDashoffset="1" />
+        {['M1 1H319', 'M319 1V319', 'M319 319H1', 'M1 319V1'].map(d => <path key={d} className="man-peek-outline" d={d} pathLength="1" strokeDasharray="1" strokeDashoffset="1" />)}
         {[[1, 1], [319, 1], [319, 319], [1, 319]].map(([x, y]) => <rect key={`${x}-${y}`} className="man-peek-handle" x={x - 4} y={y - 4} width="8" height="8" />)}
       </svg>
     </div>
