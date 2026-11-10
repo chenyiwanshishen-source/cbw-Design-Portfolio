@@ -20,8 +20,7 @@ function RequestCard({ followUp = false }: { followUp?: boolean }) {
 }
 
 export function YeCacheRequest() {
-  return <figure className="ye-cache-preview" aria-label="首次请求、后续请求与压缩机制，虚线框表示追加内容">
-    <RequestCard />
+  return <figure className="ye-cache-preview" aria-label="后续请求与压缩机制，虚线框表示追加内容">
     <RequestCard followUp />
     <div className="ye-cache-card">
       <div className="ye-cache-card-heading"><span>压缩机制</span></div>
