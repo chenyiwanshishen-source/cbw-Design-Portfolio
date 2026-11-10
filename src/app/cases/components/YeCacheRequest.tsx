@@ -20,8 +20,21 @@ function RequestCard({ followUp = false }: { followUp?: boolean }) {
 }
 
 export function YeCacheRequest() {
-  return <figure className="ye-cache-preview" aria-label="首次与后续请求对比，虚线框表示新增对话和工具结果">
+  return <figure className="ye-cache-preview" aria-label="首次请求、后续请求与缓存复用，虚线框表示新增对话和工具结果">
     <RequestCard />
     <RequestCard followUp />
+    <div className="ye-cache-card">
+      <div className="ye-cache-card-heading"><span>缓存复用</span></div>
+      <div className="ye-cache-config">
+        <div className="ye-cache-row"><CacheIcon name="CheckListIcon" /><div><strong>系统提示词</strong></div></div>
+        <div className="ye-cache-row"><CacheIcon name="Layers01Icon" /><div><strong>工具定义</strong></div></div>
+        <div className="ye-cache-row"><CacheIcon name="BubbleChatDelayIcon" /><div><strong>已有对话</strong></div></div>
+      </div>
+      <p className="ye-cache-reuse-note">相同前缀可复用缓存</p>
+      <div className="ye-cache-additions" aria-label="本次新增内容">
+        <div className="ye-cache-row"><CacheIcon name="BubbleChatDelayIcon" /><div><strong>新增对话</strong></div></div>
+        <div className="ye-cache-row"><CacheIcon name="CheckListIcon" /><div><strong>工具结果</strong></div></div>
+      </div>
+    </div>
   </figure>;
 }

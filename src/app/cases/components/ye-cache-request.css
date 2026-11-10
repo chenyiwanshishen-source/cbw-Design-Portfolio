@@ -3,8 +3,8 @@
   display: flex;
   align-items: flex-start;
   flex-wrap: wrap;
-  gap: var(--rhythm-5);
-  padding: var(--rhythm-5);
+  gap: var(--rhythm-3);
+  padding: var(--rhythm-5) 0;
 }
 .ye-cache-card {
   width: 100%;
@@ -44,3 +44,5 @@
 .ye-cache-icon-heading { width: var(--space-5); height: var(--space-5); }
 
 .ye-cache-additions { display: grid; gap: var(--rhythm-1); padding: var(--rhythm-1); margin-top: var(--rhythm-2); border: 1px dashed var(--color-text-meta); border-radius: var(--space-3); }
+
+.ye-cache-reuse-note { margin: var(--rhythm-1) 0 0; font-size: var(--text-micro); line-height: var(--text-micro--line-height); color: var(--color-text-meta); }
