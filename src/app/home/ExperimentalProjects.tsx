@@ -1,10 +1,30 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { explorationProjects } from '../cases/content/explorations';
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
+
+function EditorCover() {
+  const frame = useRef<HTMLDivElement>(null);
+  const editor = useRef<HTMLIFrameElement>(null);
+  useEffect(() => {
+    const fit = () => {
+      const box = frame.current!;
+      const scale = Math.min(box.clientWidth / 1100, box.clientHeight / 750);
+      editor.current!.style.transform = `translate(-50%, -50%) scale(${scale})`;
+    };
+    const observer = new ResizeObserver(fit);
+    observer.observe(frame.current!);
+    fit();
+    return () => observer.disconnect();
+  }, []);
+  return <div ref={frame} className="relative w-full h-full min-h-0">
+    <iframe ref={editor} src="/demos/visual-code-canvas/index.html" title="页面编辑器界面预览" loading="lazy" tabIndex={-1}
+      style={{position: 'absolute', left: '50%', top: '50%', width: 1100, height: 750, border: 0, maxWidth: 'none', transformOrigin: 'center', pointerEvents: 'none'}} />
+  </div>;
+}
 
 export function ExperimentalProjects() {
   const section = useRef<HTMLElement>(null);
@@ -74,7 +94,7 @@ export function ExperimentalProjects() {
           <div className={`home-side-cover${['figma-connector', 'visual-code-canvas'].includes(project.slug) ? ' home-side-cover-bridge' : ''}`} aria-hidden="true">{project.slug === 'figma-connector'
             ? <iframe src="/demos/figma-bridge/index.html" title="Figma 桥接器界面预览" loading="lazy" sandbox="allow-scripts" tabIndex={-1} className="w-full h-full min-h-0 border-0 pointer-events-none" />
             : project.slug === 'visual-code-canvas'
-              ? <iframe src="/demos/visual-code-canvas/index.html?cover" title="页面编辑器界面预览" loading="lazy" tabIndex={-1} className="w-full h-full min-h-0 border-0 pointer-events-none" />
+              ? <EditorCover />
               : project.cover}</div>
           <div className="home-side-copy">
             <h3>{{'figma-connector': 'Figma 桥接器', 'illustration-skill': 'B 端插画 Skill', 'visual-code-canvas': '页面编辑器'}[project.slug] ?? project.name}</h3>
