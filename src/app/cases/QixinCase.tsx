@@ -28,7 +28,7 @@ export function QixinCase() {
           const angle = -14 * Math.PI / 180;
           const x = -22 + image.column * Math.cos(angle) - image.row * Math.sin(angle);
           const y = 10 + image.column * Math.sin(angle) + image.row * Math.cos(angle);
-          return <img key={index} src={`${import.meta.env.BASE_URL}images/qixin/${image.src}`} alt={image.alt} style={{ left: `${x}%`, top: `${y}cqw`, width: image.mobile ? '18%' : index === 0 ? '30%' : '36%' }} />;
+          return <img key={index} src={`${import.meta.env.BASE_URL}images/qixin/${image.src}`} alt={image.alt} style={{ left: `${x}%`, top: `${y}cqw`, width: image.mobile ? '18%' : '36%' }} />;
         })}
       </figure>
       <div className="case-body">
