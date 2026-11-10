@@ -52,7 +52,7 @@ export function YeCase() {
           {renderBlocks('ye-model-adaptation')}
           {['ye-02', 'ye-03'].map(renderSubsection)}
         </CaseSection>
-        <CaseSection id="ye-07" label="反思" title="反思">{renderBlocks('ye-07')}</CaseSection>
+        <CaseSection id="ye-07" label="反思" title="反思"><div className="case-prose"><ul className="ye-review-points">{chapter('ye-07').blocks.map((block, index) => block.kind === 'paragraph' ? <li key={index}>{block.text}</li> : null)}</ul></div></CaseSection>
 </div></div>
       <nav className="case-switch"><a href="#/project/qixin-brain"><span className="text-caption text-text-meta">{ye.ui.previous}</span><span className="text-h4 font-normal">{ye.ui.previousTitle}</span></a><a href="#ai"><span className="text-caption text-text-meta">{ye.ui.next}</span><span className="text-h4 font-normal">{ye.ui.nextTitle}</span></a></nav>
     </div>
