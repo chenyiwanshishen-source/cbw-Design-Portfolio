@@ -21,15 +21,12 @@
 <text fill="black" fill-opacity="0.8" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="30" font-weight="bold" letter-spacing="-0.011em"><tspan x="1281.93" y="229.909">02  &#x627e;&#x9f50;&#x5e76;&#x6574;&#x7406;&#x8d44;&#x6599;</tspan></text>
 <text fill="#3A3D44" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="24" font-weight="bold" letter-spacing="0em"><tspan x="1120" y="300.227">把各处找到的资料整理好</tspan></text>
 <g>
-<rect width="240" height="240" transform="translate(1120 345)" fill="#F3F4F5"/>
-<text fill="#3A3D44" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="24" letter-spacing="-0.011em"><tspan x="1140" y="391.727">&#x627e;&#x516c;&#x544a;&#x3001;&#x7f51;&#x9875;&#x548c;&#x5df2;</tspan><tspan x="1140" y="427.727">&#x6709;&#x6587;&#x4ef6;&#10;</tspan><tspan x="1140" y="463.727">&#x7ffb;&#x540c;&#x7c7b;&#x62a5;&#x544a;&#x3001;&#x627e;&#x4f01;</tspan><tspan x="1140" y="499.727">&#x4e1a;&#x540d;&#x5355;</tspan></text>
+<rect width="544" height="240" transform="translate(1120 345)" fill="#F3F4F5"/>
+<text fill="#3A3D44" font-family="Inter" font-size="24" letter-spacing="-0.011em"><tspan x="1140" y="391.727">查找公告、网页和已有文件，</tspan><tspan x="1140" y="427.727">整理文字、表格与企业名单，</tspan><tspan x="1140" y="463.727">核对日期、来源和统计口径</tspan></text>
 </g>
 <path d="M704 465H1116M1110 459L1116 465L1110 471" stroke="#7E838C" stroke-width="2" fill="none"/>
-<g>
-<rect width="240" height="240" transform="translate(1424 345)" fill="#F3F4F5"/>
-<text fill="#3A3D44" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="24" letter-spacing="-0.011em"><tspan x="1444" y="391.727">&#x63d0;&#x53d6;&#x6587;&#x5b57;&#x548c;&#x8868;&#x683c;&#10;</tspan><tspan x="1444" y="427.727">&#x6838;&#x5bf9;&#x65e5;&#x671f;&#x3001;&#x6765;&#x6e90;&#x4e0e;</tspan><tspan x="1444" y="463.727">&#x7edf;&#x8ba1;&#x53e3;&#x5f84;</tspan></text>
-</g>
-<path d="M1363.5 464C1362.95 464 1362.5 464.448 1362.5 465C1362.5 465.552 1362.95 466 1363.5 466V465V464ZM1421.21 465.707C1421.6 465.317 1421.6 464.683 1421.21 464.293L1414.84 457.929C1414.45 457.538 1413.82 457.538 1413.43 457.929C1413.04 458.319 1413.04 458.953 1413.43 459.343L1419.09 465L1413.43 470.657C1413.04 471.047 1413.04 471.681 1413.43 472.071C1413.82 472.462 1414.45 472.462 1414.84 472.071L1421.21 465.707ZM1363.5 465V466H1420.5V465V464H1363.5V465Z" fill="#7E838C"/>
+
+
 <text fill="#3A3D44" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="20" letter-spacing="0em"><tspan x="1120" y="634.273">用到什么：网页、PDF、Excel、旧报告</tspan></text>
 <g>
 <rect width="240" height="240" transform="translate(1120 703)" fill="#FFF3D1"/>
