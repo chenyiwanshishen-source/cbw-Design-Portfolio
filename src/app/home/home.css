@@ -205,3 +205,6 @@ body:has(.homepage) { background: var(--color-home-bg); }
 .home-case-qixin .qixin-preview-0 { right: 54%; }
 .home-case-qixin .qixin-preview-1 { right: 27%; }
 .home-case-qixin .qixin-preview-2 { right: var(--space-8); top: var(--space-16); width: 300px; }
+
+.home-blink-mascot { position: relative; width: 100%; aspect-ratio: 1; background-image: url('/images/ye/mascot-sway-eyeless.webp'); background-size: 1600% 800%; }
+.home-blink-mascot i { position: absolute; background: var(--color-text); mask-image: url('/images/ye/mascot-sway-eye-mask.webp'); mask-repeat: no-repeat; pointer-events: none; }

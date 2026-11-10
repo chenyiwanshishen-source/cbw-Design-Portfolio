@@ -1,3 +1,4 @@
+import { BlinkMascot } from './BlinkMascot';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { useEffect, useRef, useState } from 'react';
@@ -51,7 +52,7 @@ export function CaseCard({ item, active, muted, onHover, onFocus }: {
       onPointerEnter={event => { if (event.pointerType === 'mouse') onHover(true); }} onPointerLeave={() => onHover(false)}
       onFocus={() => onFocus(true)} onBlur={() => onFocus(false)}>
       <CaseCopy item={item} />
-      <div className="case-previews" aria-hidden="true">{item.id === 'ai-report' ? <div ref={preview} className="qixin-preview-group"><div className="case-preview case-preview-qixin qsight-preview"><img src={`${import.meta.env.BASE_URL}images/qsight/hover-539-5069.webp`} alt="" /></div></div> : item.id === 'qixin-brain' ? <div ref={preview} className="qixin-preview-group">{['home-cover.webp', 'hover-620-19593.webp', 'hover-2447-7289.webp'].map((file, index) => <div key={file} className={`case-preview case-preview-qixin qixin-preview-${index}`}><img src={`${import.meta.env.BASE_URL}images/qixin/${file}`} alt="" /></div>)}</div>  : item.id === 'ye-browser' ? <div ref={preview} className="qixin-preview-group"><div className="case-preview case-preview-qixin ye-mascot-preview"><picture><source media="(prefers-reduced-motion: reduce)" srcSet={`${import.meta.env.BASE_URL}images/ye/mascot-sway-still.webp`} /><img src={`${import.meta.env.BASE_URL}images/ye/mascot-sway-hover.webp`} alt="" /></picture></div></div> : [0, 1, 2].map(index => <div key={index} className={`case-preview case-preview-${index}`}><Placeholder index={index} /></div>)}</div>
+      <div className="case-previews" aria-hidden="true">{item.id === 'ai-report' ? <div ref={preview} className="qixin-preview-group"><div className="case-preview case-preview-qixin qsight-preview"><img src={`${import.meta.env.BASE_URL}images/qsight/hover-539-5069.webp`} alt="" /></div></div> : item.id === 'qixin-brain' ? <div ref={preview} className="qixin-preview-group">{['home-cover.webp', 'hover-620-19593.webp', 'hover-2447-7289.webp'].map((file, index) => <div key={file} className={`case-preview case-preview-qixin qixin-preview-${index}`}><img src={`${import.meta.env.BASE_URL}images/qixin/${file}`} alt="" /></div>)}</div>  : item.id === 'ye-browser' ? <div ref={preview} className="qixin-preview-group"><div className="case-preview case-preview-qixin ye-mascot-preview"><BlinkMascot active={active} /></div></div> : [0, 1, 2].map(index => <div key={index} className={`case-preview case-preview-${index}`}><Placeholder index={index} /></div>)}</div>
     </a>
     <div className="case-mobile">
       <CaseCopy item={item} />
