@@ -5,7 +5,7 @@ export type FigureContent = { plate: string; title: string; instruction: string;
 export function FigurePlaceholder({ plate, title, instruction, caption, ratio = '16 / 10', src, alt, width, height, framed, overlay }: FigureContent) {
   if (src === 'images/explorations/figma-bridge-panel.webp') {
     return <figure className="case-figure"><div className="bridge-state-gallery">
-      {([['connected', '已连接 · 多个文件']] as const).map(([state, label]) => <div key={state} className="bridge-state-item"><iframe src={`${import.meta.env.BASE_URL}demos/figma-bridge-states/${state}.html`} title={`Figma 桥接器：${label}`} sandbox="" loading="lazy" /></div>)}
+      {([['connected', '已连接 · 多个文件']] as const).map(([state, label]) => <div key={state} className="bridge-state-item"><iframe src={`${import.meta.env.BASE_URL}demos/figma-bridge-states/${state}.html?v=20261110-center`} title={`Figma 桥接器：${label}`} sandbox="" loading="lazy" /></div>)}
     </div></figure>;
   }
   if (src) {
