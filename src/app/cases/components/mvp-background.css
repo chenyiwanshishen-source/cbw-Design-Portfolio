@@ -1,0 +1,10 @@
+.mvp-comparison-prototype {
+  background: var(--color-case-plate);
+}
+/* The source board has a baked-in 246 gray; lift it to the shared plate. */
+.mvp-comparison-prototype > img {
+  filter: brightness(1.0163);
+}
+.mvp-comparison-prototype .mvp-prototype-title {
+  background: var(--color-case-plate);
+}

@@ -1,3 +1,4 @@
+import './mvp-background.css';
 import { DiagramCanvas } from './UserFlow';
 import { useState, useRef } from 'react';
 import type { PointerEvent } from 'react';
