@@ -52,7 +52,7 @@ export function YeCase() {
           {renderBlocks('ye-model-adaptation')}
           {['ye-02', 'ye-03'].map(renderSubsection)}
         </CaseSection>
-        <CaseSection id="ye-07" label="想法" title="想法">{renderBlocks('ye-07', chapter('ye-07').blocks.slice(0, 4))}<div className="case-prose"><ul className="ye-review-points">{chapter('ye-07').blocks.slice(4, 7).map((block, index) => block.kind === 'paragraph' ? <li key={index}>{block.text}</li> : null)}</ul></div>{renderBlocks('ye-07', chapter('ye-07').blocks.slice(7))}</CaseSection>
+        <CaseSection id="ye-07" label="想法" title="想法">{renderBlocks('ye-07', chapter('ye-07').blocks.slice(0, 3))}<div className="case-prose"><ul className="ye-review-points">{chapter('ye-07').blocks.slice(3, 6).map((block, index) => block.kind === 'paragraph' ? <li key={index}>{block.text}</li> : null)}</ul></div>{renderBlocks('ye-07', chapter('ye-07').blocks.slice(6))}</CaseSection>
 </div></div>
       <nav className="case-switch"><a href="#/project/qixin-brain"><span className="text-caption text-text-meta">{ye.ui.previous}</span><span className="text-h4 font-normal">{ye.ui.previousTitle}</span></a><a href="#ai"><span className="text-caption text-text-meta">{ye.ui.next}</span><span className="text-h4 font-normal">{ye.ui.nextTitle}</span></a></nav>
     </div>
