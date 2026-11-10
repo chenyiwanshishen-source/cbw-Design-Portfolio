@@ -200,9 +200,63 @@
 .case-pair .case-figure-media:has(.illustration-artwork) { overflow: hidden; }
 
 .illustration-artwork[data-art^="figma-empty-"] > div > svg { width: 82%; height: 82%; }
-.vcc-demo-container { overflow: auto; border-radius: var(--radius-figure, 16px); }
+.vcc-demo-container { overflow: auto; border: 6px solid var(--color-case-plate); border-radius: var(--radius-editor-demo); }
 .vcc-demo-container iframe { min-width: 900px; }
-.vcc-demo-container > p { margin-top: var(--space-3); }
+
+/* Reuse the illustration case's existing nodes, logo cluster and arrows. */
+.editor-principle .illustration-workflow { grid-template-columns:220px 48px 110px 48px 110px 48px 110px; justify-content:center; }
+.editor-principle .illustration-endpoint { position:relative; }
+.editor-principle .illustration-endpoint > span { position:absolute; bottom:calc(100% + 12px); }
+.editor-principle .illustration-endpoint > strong { position:absolute; top:calc(100% + 12px); white-space:nowrap; }
+@media(max-width:767px) { .editor-principle .illustration-workflow { min-width:730px; } }
+
+.editor-principle .illustration-flow-icon,.editor-principle .bridge-icon { transition:translate 200ms ease,box-shadow 200ms ease; }
+.editor-principle .illustration-flow-icon:hover,.editor-principle .bridge-icon:hover { translate:0 -4px; box-shadow:0 8px 22px rgb(0 0 0 / 8%); }
+@media(prefers-reduced-motion:no-preference) {
+ .editor-principle .illustration-workflow > * { opacity:0; }
+ .editor-principle.is-visible .illustration-workflow > * { animation:editor-flow-reveal 420ms ease both; }
+ .editor-principle.is-visible .illustration-workflow > :nth-child(2) { animation-delay:120ms; }
+ .editor-principle.is-visible .illustration-workflow > :nth-child(3) { animation-delay:220ms; }
+ .editor-principle.is-visible .illustration-workflow > :nth-child(4) { animation-delay:320ms; }
+ .editor-principle.is-visible .illustration-workflow > :nth-child(5) { animation-delay:420ms; }
+ .editor-principle.is-visible .illustration-workflow > :nth-child(6) { animation-delay:520ms; }
+ .editor-principle.is-visible .illustration-workflow > :nth-child(7) { animation-delay:620ms; }
+ .editor-principle.is-visible .illustration-middle-link { transform-origin:left; animation-name:editor-flow-connect; }
+}
+@keyframes editor-flow-reveal { from { opacity:0; translate:0 8px; } to { opacity:1; translate:0 0; } }
+@keyframes editor-flow-connect { from { opacity:0; transform:scaleX(0); } to { opacity:1; transform:scaleX(1); } }
+
+.editor-principle-layout { display:grid; grid-template-columns:minmax(0,1.65fr) minmax(0,1fr); gap:var(--space-6); align-items:stretch; }
+.editor-principle-layout .editor-principle { display:block; padding:var(--space-8) var(--space-6); min-width:0; }
+.editor-principle-left { display:flex; justify-content:center; align-items:center; min-height:240px; }
+.editor-principle .illustration-workflow { grid-template-columns:200px 24px 80px 24px 80px 24px 80px; gap:var(--space-2); min-width:0; }
+.editor-principle-placeholder { min-height:304px; border:1px dashed var(--color-border); border-radius:var(--space-6); background:var(--color-case-plate); }
+@media(max-width:1100px) { .editor-principle-layout { grid-template-columns:1fr; } .editor-principle-left { overflow-x:auto; justify-content:flex-start; } .editor-principle .illustration-workflow { min-width:560px; margin:auto; } }
+
+.editor-principle-layout { position:relative; }
+.editor-principle-plan { padding:var(--space-8) var(--space-10); display:flex; flex-direction:column; justify-content:center; gap:var(--space-4); }
+.editor-principle-plan h4 { font-size:var(--text-body); font-weight:500; color:var(--color-text); margin:0 0 var(--space-2); }
+.editor-principle-plan p { margin:0; font-size:var(--text-caption); line-height:1.8; color:var(--color-text-secondary); }
+.editor-plan-connection { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; overflow:visible; }
+.editor-plan-connection path { stroke:var(--color-border); stroke-width:1.5; vector-effect:non-scaling-stroke; stroke-linecap:round; stroke-linejoin:round; }
+/* Preserve the resting arrangement while removing compounded hover transforms. */
+.editor-principle .bridge-icon:hover { scale:1; rotate:0deg; }
+@media(max-width:1100px) { .editor-plan-connection { display:none; } }
+
+.editor-plan-models { display:flex; flex-wrap:wrap; align-items:center; gap:var(--space-2); margin-top:var(--space-2); }
+.editor-plan-models .bridge-icon { width:44px; height:44px; border-radius:14px; }
+.editor-plan-models .bridge-icon img { width:28px; height:28px; }
+.editor-plan-connection path { stroke:var(--color-text-meta); stroke-width:1.5; }
+
+.editor-plan-models { flex-wrap:nowrap; gap:0; padding:var(--space-2) 0; }
+.editor-plan-models .bridge-icon { position:relative; flex:none; margin-left:-10px; transition:translate 200ms ease,box-shadow 200ms ease; }
+.editor-plan-models .bridge-icon:first-child { margin-left:0; }
+.editor-plan-models .bridge-icon:nth-child(odd) { transform:rotate(-7deg); }
+.editor-plan-models .bridge-icon:nth-child(even) { transform:rotate(7deg); translate:0 4px; }
+@media(hover:hover) and (prefers-reduced-motion:no-preference) {
+ .editor-plan-models .bridge-icon:hover { z-index:10; translate:0 -6px; scale:1; rotate:0deg; box-shadow:0 8px 22px rgb(0 0 0 / 8%); }
+}
+@media(prefers-reduced-motion:reduce) { .editor-plan-models .bridge-icon { transition:none; } }
 
 .home-side-project:hover .home-side-entry, .home-side-project:focus-visible .home-side-entry { color: var(--color-accent); }
 

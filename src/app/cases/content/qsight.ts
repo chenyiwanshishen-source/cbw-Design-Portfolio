@@ -165,9 +165,10 @@ export const qsight: CaseContent = {
           "blocks": [
             {
               "kind": "paragraph",
-              "text": "用户希望选好模板、稍作调整就能生成报告，这也符合我们快速验证生成质量的需要。因此第一版优先做固定模板，暂不做对话生成；后续也可以保留为快速生成报告的入口。"
+              "text": "用户希望选好模板、稍作调整就能生成报告，这也符合我们快速验证生成质量的需要。因此第一版优先做固定模板，暂不做对话生成；后续也可以保留为快速生成报告的入口。",
+              "highlightPhrases": ["选好模板、稍作调整就能生成报告", "第一版优先做固定模板，暂不做对话生成"]
             },
-            { "kind": "responsive-template" }
+            { "kind": "responsive-template", "homeSlides": true }
           ]
         }
       ]
@@ -191,8 +192,8 @@ export const qsight: CaseContent = {
           "blocks": [
             {
               "kind": "paragraph",
-              "text": "用户可以查看内置的分析方案，也可以按自己的需求调整分析维度。业务最初只打算提供默认方案。我觉得，既然用户能改大纲，也应该能自己选每章要分析的内容，所以提出让用户自己调整维度。",
-              "highlightPhrases": ["我觉得，既然用户能改大纲，也应该能自己选每章要分析的内容，所以提出让用户自己调整维度。"]
+              "text": "用户可以查看内置的分析方案，也可以按自己的需求调整分析维度。业务最初只打算提供默认方案。我判断，既然用户能改大纲，也应该能自己选每章要分析的内容，所以提出让用户自己调整维度。",
+              "highlightPhrases": ["我判断，既然用户能改大纲，也应该能自己选每章要分析的内容，所以提出让用户自己调整维度。"]
             },
             { "kind": "analysis-dimensions" }
           ]
@@ -317,7 +318,8 @@ export const qsight: CaseContent = {
             },
             {
               "kind": "prompt-generator"
-            }
+            },
+            { "kind": "prompt-sources-link" }
           ]
         },
         {
@@ -378,8 +380,7 @@ export const qsight: CaseContent = {
         {
           "kind": "paragraph",
           "text": "尝试用独立评审检查漏步和内容依据，再交回修改；效果仍需实际测试。"
-        },
-        { "kind": "qsight-overview" }
+        }
       ]
     }
   ],

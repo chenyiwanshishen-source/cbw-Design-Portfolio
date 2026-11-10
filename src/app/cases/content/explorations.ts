@@ -40,6 +40,9 @@ export const explorations: { header: { title: string; intro: string }; intro: st
                   "plate": "PLATE 01",
                   "title": "插件面板",
                   "instruction": "要放：插件面板",
+                  "src": "images/explorations/figma-bridge-panel.webp",
+                  "framed": true,
+                  "alt": "Figma 画布中的桥接器插件面板与连接状态",
                   "caption": "插件面板"
                 }
               ]
@@ -122,33 +125,22 @@ export const explorations: { header: { title: string; intro: string }; intro: st
     },
     {
       "id": "explorations-03",
-      "label": "Visual Code Canvas",
+      "label": "页面可视化编辑器",
       "title": "在页面上修改样式并写回源码",
       "blocks": [
         {
           "kind": "paragraph",
-          "text": "走查时，改个间距、颜色也常要和前端反复沟通，所以我想做一个能直接在页面上修改、写回源码的工具。后来转向用 AI 做设计，项目停过一阵；但审美仍要自己把关，AI 生成的页面也需要调整细节，于是我又继续做了。"
+          "text": "走查时，改个间距、颜色也常要和前端反复沟通，所以我想做一个能直接在页面上修改、写回源码的工具。还在迭代中。"
         },
         {
           "kind": "subsection",
-          "title": "怎么用",
+          "title": "工作原理",
           "blocks": [
-            {
-              "kind": "flow",
-              "rows": [
-                {
-                  "steps": [
-                    "在页面上点选",
-                    "在右边改数值",
-                    "自动存回代码",
-                    "页面马上变"
-                  ]
-                }
-              ]
-            },
+            { "kind": "visual-editor-flow" },
             {
               "kind": "paragraph",
-              "text": "工具根据页面上选中的元素定位源码，不必手动查找对应代码。"
+              "text": "直接在代码环境中替换和设计页面元素，并将修改写回源码。这里只嵌入了前端交互，可以点选元素，体验文字和样式调整。",
+              "highlightPhrases": ["直接在代码环境中替换和设计页面元素", "将修改写回源码"]
             },
             {
               "kind": "figures",
@@ -162,29 +154,8 @@ export const explorations: { header: { title: string; intro: string }; intro: st
               ]
             }
           ]
-        },
-        {
-          "kind": "subsection",
-          "title": "工具与 AI 的分工",
-          "blocks": [
-            {
-              "kind": "paragraph",
-              "text": "修改数值、颜色和文字由工具直接执行，不需要为这些确定的操作调用 AI；拆分组件、调整结构则交给 AI。"
-            }
-          ]
-        },
-        {
-          "kind": "subsection",
-          "title": "当前进展",
-          "blocks": [
-            {
-              "kind": "paragraph",
-              "text": "第一版是 VSCode 插件，后来改为在 Codex 内置浏览器中使用。目前版本为 v0.2.1，仍在继续开发。"
-            }
-          ]
         }
       ],
-      "status": "v0.2.1 · 进行中 · GitHub",
       "url": "https://github.com/chenyiwanshishen-source/visual-code-canvas"
     },
     {
@@ -296,7 +267,7 @@ export const explorations: { header: { title: string; intro: string }; intro: st
   },
   {
     "kind": "subsection",
-    "title": "ye! 插件",
+    "title": "浏览器插件",
     "blocks": [
       {
         "kind": "figures",
@@ -457,5 +428,5 @@ export const explorationProjects = [
   { slug: 'figma-connector', chapter: 'explorations-01', name: 'Figma 连接器', cover: '连接器面板' },
   { slug: 'design-system', chapter: 'explorations-02', name: '设计系统', cover: '颜色审计与组件库' },
   { slug: 'illustration-skill', chapter: 'explorations-04', name: '插画 Skill', cover: 'Micro-UI 插画作品' },
-  { slug: 'visual-code-canvas', chapter: 'explorations-03', name: 'Visual Code Canvas', status: '进行中', cover: '画布与属性面板' },
+  { slug: 'visual-code-canvas', chapter: 'explorations-03', name: '页面可视化编辑器', status: '进行中', cover: '画布与属性面板' },
 ].map(item => ({ ...item, href: `#/project/explorations/${item.slug}` }));

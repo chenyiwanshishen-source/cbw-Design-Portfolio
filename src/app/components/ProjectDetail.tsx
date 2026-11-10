@@ -942,7 +942,7 @@ function FinalReportAgentPromptSource() {
   );
 }
 
-function PromptSourceViewer({
+export function PromptSourceViewer({
   isOpen,
   onClose,
   reduceMotion,

@@ -31,7 +31,7 @@ export type CaseBlock =
  | { kind: 'analysis-dimensions' }
  | { kind: 'qsight-overview' }
  | { kind: 'mvp-comparison' }
- | { kind: 'responsive-template'; title?: string; desktopSrc?: string; mobileSrc?: string; mobileAlign?: 'top' | 'bottom' }
+ | { kind: 'responsive-template'; homeSlides?: boolean; title?: string; desktopSrc?: string; mobileSrc?: string; mobileAlign?: 'top' | 'bottom' }
  | { kind: 'user-flow' }
  | { kind: 'test-feedback-bubbles' }
  | { kind: 'research-quadrants' }
@@ -39,7 +39,9 @@ export type CaseBlock =
  | { kind: 'research-topics'; texts: string[] }
  | { kind: 'goal-notes'; texts: string[] }
  | { kind: 'problem-cards'; items: Item[] }
+ | { kind: 'prompt-sources-link' }
  | { kind: 'bridge-flow' }
+ | { kind: 'visual-editor-flow' }
  | { kind: 'illustration-flow' }
  | { kind: 'skill-tree'; items: Item[] }
  | { kind: 'feature-bubbles'; texts: string[] }

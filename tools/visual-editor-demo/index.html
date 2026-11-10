@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Visual Code Canvas · 前端交互演示</title>
+  </head>
+  <body class="bg-slate-950 text-slate-100 overflow-hidden font-sans">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  <script>
+if (new URLSearchParams(location.search).has('cover')) {
+const root = document.getElementById('root');
+Object.assign(document.body.style, {background:'transparent',margin:'0'});
+Object.assign(root.style, {position:'absolute',left:'50%',top:'50%',width:'1100px',height:'750px',transformOrigin:'center'});
+function fitCover(){root.style.transform=`translate(-50%, -50%) scale(${Math.min(innerWidth/1100,innerHeight/750)*.98})`;}
+new ResizeObserver(fitCover).observe(document.documentElement);fitCover();
+}
+</script>
+<script>
+if (new URLSearchParams(location.search).has('home-preview')) {
+const style = document.createElement('style');
+style.textContent = '.canvas-container > iframe { visibility: hidden !important; }';
+document.head.appendChild(style);
+}
+</script>
+</body>
+</html>

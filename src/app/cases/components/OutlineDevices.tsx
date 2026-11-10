@@ -8,7 +8,7 @@ export function OutlineDevices() {
     </div>
     <div className="outline-devices-mobile">
       <figcaption className="outline-devices-note">
-        <h3>设计取舍</h3>
+        <h3>我的取舍</h3>
         <p>移动端只选地区和时间，沿用模板配置；更多参数在电脑端设置。</p>
       </figcaption>
       <div className="outline-device-image">

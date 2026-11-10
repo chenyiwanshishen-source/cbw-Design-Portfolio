@@ -76,7 +76,7 @@ export const aiTools = [
     "status": "已开源"
   },
   {
-    "name": "Visual Code Canvas",
+    "name": "页面可视化编辑器",
     "summary": "AI 写完前端后，在画布上直接改样式并写回源码",
     "status": "v0.2.1"
   },
