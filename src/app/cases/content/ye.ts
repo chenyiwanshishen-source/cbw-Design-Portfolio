@@ -216,7 +216,7 @@ export const ye: CaseContent = {
     {
       "id": "ye-04",
       "label": "工具调用",
-      "title": "关于功能",
+      "title": "定义功能和产品形态",
       "blocks": [
         {
           "kind": "paragraph",
