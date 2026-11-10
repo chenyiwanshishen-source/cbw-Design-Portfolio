@@ -203,3 +203,5 @@
 .vcc-demo-container { overflow: auto; border-radius: var(--radius-figure, 16px); }
 .vcc-demo-container iframe { min-width: 900px; }
 .vcc-demo-container > p { margin-top: var(--space-3); }
+
+.home-side-project:hover .home-side-entry, .home-side-project:focus-visible .home-side-entry { color: var(--color-accent); }
