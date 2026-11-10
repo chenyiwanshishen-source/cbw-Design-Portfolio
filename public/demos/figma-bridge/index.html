@@ -206,7 +206,7 @@
         opacity: 1;
       }
       .toast svg { flex-shrink: 0; }
-    body { background: transparent; padding: 4px; overflow: hidden; } .card { padding: 12px; } </style>
+    html { height: 100%; } body { background: transparent; padding: 0; margin: 0; height: 100%; display: grid; place-items: center; } .card { box-sizing: border-box; width: 360px; padding: 16px; transform-origin: center; } </style>
   </head>
   <body>
     <div class="card">
@@ -246,5 +246,15 @@
     </div>
 
     
+  <script>
+      const card = document.querySelector('.card');
+      function fit() {
+        card.style.transform = 'none';
+        const scale = Math.min(innerWidth / card.offsetWidth, innerHeight / card.offsetHeight, 1);
+        card.style.transform = `scale(${scale})`;
+      }
+      new ResizeObserver(fit).observe(document.documentElement);
+      fit();
+    </script>
   </body>
 </html>
