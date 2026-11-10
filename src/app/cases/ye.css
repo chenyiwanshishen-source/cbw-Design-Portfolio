@@ -2,7 +2,7 @@
 .ye-home-carousel { position: relative; min-width: 0; }
 .ye-collaboration-judgments { list-style: disc; padding-left: 1.5em; margin: 0; font-size: var(--text-body); line-height: var(--text-body--line-height); color: var(--color-text-body); }
 .ye-collaboration-judgments li + li { margin-top: var(--space-2); }
-.ye-collaboration-versions { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--rhythm-4); margin: 0 0 var(--rhythm-4); }
+.ye-collaboration-versions { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--rhythm-4); margin: var(--rhythm-4) 0 0; }
 .ye-collaboration-version { display: flex; align-items: center; justify-content: center; gap: var(--rhythm-3); aspect-ratio: 1; background: var(--color-case-plate); border-radius: var(--space-6); }
 .ye-collaboration-version:nth-child(2), .ye-collaboration-version:nth-child(3) { flex-direction: column; }
 .ye-collaboration-version:nth-child(2) { gap: 0; }
