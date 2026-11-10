@@ -13,7 +13,7 @@ function CaseCopy({ item }: { item: CaseContent }) {
       <div><dt className="inline">项目周期 · </dt><dd className="inline">{item.period}</dd></div>
       <div><dt className="inline">我的工作 · </dt><dd className="inline">{item.responsibility}</dd></div>
     </dl>
-    {'outcomeTag' in item && item.outcomeTag && <mark className="case-marker home-case-outcome text-caption" aria-label={`${item.outcomeTag.label}：${item.outcomeTag.before ? `从 ${item.outcomeTag.before} 提升至` : '提升'} ${item.outcomeTag.after}`}>
+    {'outcomeTag' in item && item.outcomeTag && <div className="flex flex-wrap items-center gap-4"><mark className="case-marker home-case-outcome text-caption" aria-label={`${item.outcomeTag.label}：${item.outcomeTag.before ? `从 ${item.outcomeTag.before} 提升至` : '提升'} ${item.outcomeTag.after}`}>
       <span>{item.outcomeTag.label}：</span>
       {item.outcomeTag.before && <span>{item.outcomeTag.before}</span>}
       {/* Hugeicons Stroke Rounded · ArrowUp02Icon */}
@@ -22,7 +22,7 @@ function CaseCopy({ item }: { item: CaseContent }) {
         <path d="M18 11C18 11 13.5811 5.00001 12 5C10.4188 4.99999 6 11 6 11" />
       </svg>
       <span>{item.outcomeTag.after}</span>
-    </mark>}
+    </mark>{'outcomeNote' in item && item.outcomeNote && <mark className="case-marker text-caption text-text-body">{item.outcomeNote}</mark>}</div>}
     {!item.detailHref && <p className="text-caption text-text-meta">案例整理中</p>}
   </div>;
 }
