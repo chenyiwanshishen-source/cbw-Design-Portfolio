@@ -1,3 +1,4 @@
+import { Experience } from './Experience';
 import { ExperimentalProjects } from './ExperimentalProjects';
 import { useEffect, useState } from 'react';
 import { DraftingFrame } from './DraftingFrame';
@@ -34,7 +35,7 @@ export function HomePage({ route }: { route: string }) {
           <CaseList items={cases} />
         </section>
         <ExperimentalProjects />
-        {[['exp', '经历']].map(([id, title]) => <section id={id} key={id} aria-labelledby={`${id}-title`} className="home-section border-t border-border"><h2 id={`${id}-title`} className="text-h2 font-normal">{title}</h2><p className="text-body text-text-secondary">[待补充]</p></section>)}
+        <Experience />
       </div>
     </div>
     {playing && <Blueprint onFinish={finish} />}
