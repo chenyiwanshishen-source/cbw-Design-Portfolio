@@ -36,7 +36,7 @@ export const ye: CaseContent = {
     },
     {
       "id": "ye-05",
-      "label": "设计流程"
+      "label": "关于设计"
     },
     {
       "id": "ye-07",
@@ -109,8 +109,8 @@ export const ye: CaseContent = {
     },
     {
       "id": "ye-05",
-      "label": "设计流程",
-      "title": "设计流程",
+      "label": "关于设计",
+      "title": "关于设计",
       "blocks": [
         {
           "kind": "paragraph",
