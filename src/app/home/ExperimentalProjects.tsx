@@ -67,7 +67,7 @@ export function ExperimentalProjects() {
   }, { scope: section });
 
   return <section ref={section} id="ai" aria-labelledby="ai-title" className="home-section">
-    <h2 id="ai-title" className="text-h2 font-normal">实验项目</h2>
+    <h2 id="ai-title" className="text-h2 font-normal">自研工具</h2>
     <div className="home-side-projects">
       {explorationProjects.filter(project => project.slug !== 'design-system').map(project => <div className="home-side-row" key={project.slug}>
         <a href={project.href} className="home-side-project">

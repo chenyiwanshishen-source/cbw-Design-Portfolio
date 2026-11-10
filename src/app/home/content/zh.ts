@@ -12,9 +12,8 @@ export const intro = {
 
 export const navigation = [
   { id: 'work', label: '案例' },
-  { id: 'ai', label: '实验项目' },
+  { id: 'ai', label: '自研工具' },
   { id: 'exp', label: '经历' },
-  { id: 'about', label: '关于' },
 ];
 
 export const cases = [
