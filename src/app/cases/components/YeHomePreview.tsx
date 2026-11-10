@@ -128,5 +128,12 @@ function YeCharacter() {
         <img src={`${import.meta.env.BASE_URL}images/ye/mascot-${action}.webp`} alt={action === 'welcome' ? 'ye! 吉祥物挥手欢迎' : 'ye! 空对话吉祥物动作'} width="256" height={action === 'welcome' ? 189 : 256} loading="lazy" decoding="async" />
       </picture>)}
     </div>
+    <div className="ye-character-stills" aria-label="文件夹角色造型展示">
+      {[
+        { file: 'character-whistle.webp', alt: '吹口哨的歪脸文件夹' },
+        { file: 'character-surprised.webp', alt: '惊讶张嘴的文件夹吉祥物' },
+        { file: 'character-sign.webp', alt: '举牌微笑的文件夹吉祥物' },
+      ].map(({ file, alt }) => <img key={file} src={`${import.meta.env.BASE_URL}images/ye/${file}`} alt={alt} width="1254" height="1254" loading="lazy" decoding="async" />)}
+    </div>
   </section>;
 }
