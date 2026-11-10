@@ -71,7 +71,7 @@ export function ExperimentalProjects() {
     <div className="home-side-projects">
       {explorationProjects.filter(project => project.slug !== 'design-system').map(project => <div className="home-side-row" key={project.slug}>
         <a href={project.href} className="home-side-project">
-          <div className="home-side-cover" aria-hidden="true">{project.slug === 'figma-connector'
+          <div className={`home-side-cover${project.slug === 'figma-connector' ? ' home-side-cover-bridge' : ''}`} aria-hidden="true">{project.slug === 'figma-connector'
             ? <iframe src="/demos/figma-bridge/index.html" title="Figma 桥接器界面预览" loading="lazy" sandbox="allow-scripts" tabIndex={-1} className="w-full h-full min-h-0 border-0 pointer-events-none" />
             : project.cover}</div>
           <div className="home-side-copy">

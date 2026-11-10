@@ -205,3 +205,5 @@
 .vcc-demo-container > p { margin-top: var(--space-3); }
 
 .home-side-project:hover .home-side-entry, .home-side-project:focus-visible .home-side-entry { color: var(--color-accent); }
+
+.home-side-cover.home-side-cover-bridge { background: transparent; padding: 0; }
