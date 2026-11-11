@@ -29,12 +29,6 @@ function fitCover(){root.style.transform=`translate(-50%, -50%) scale(${Math.min
 new ResizeObserver(fitCover).observe(document.documentElement);fitCover();
 }
 </script>
-<script>
-if (new URLSearchParams(location.search).has('home-preview')) {
-const style = document.createElement('style');
-style.textContent = '.canvas-container > iframe { visibility: hidden !important; }';
-document.head.appendChild(style);
-}
-</script>
+
 </body>
 </html>

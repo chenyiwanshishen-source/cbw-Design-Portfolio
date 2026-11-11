@@ -21,14 +21,15 @@ function EditorCover() {
     return () => observer.disconnect();
   }, []);
   return <div ref={frame} className="relative w-full h-full min-h-0" style={{transform: 'scale(0.9)', border: '1px solid var(--color-border-subtle)', borderRadius: 'var(--space-3)', boxShadow: 'var(--shadow-float)', overflow: 'hidden'}}>
-    <iframe ref={editor} src="/demos/visual-code-canvas/index.html?home-preview" title="页面编辑器界面预览" loading="lazy" tabIndex={-1}
+    <iframe ref={editor} src="/demos/visual-code-canvas/index.html" title="页面编辑器界面预览" loading="lazy" tabIndex={-1}
       style={{position: 'absolute', left: '50%', top: '50%', width: 1100, height: 750, border: 0, maxWidth: 'none', transformOrigin: 'center', pointerEvents: 'none'}} />
   </div>;
 }
 
-export function ExperimentalProjects() {
+export function ExperimentalProjects({ playing = false }: { playing?: boolean }) {
   const section = useRef<HTMLElement>(null);
   useGSAP(() => {
+    if (playing) return;
     const media = gsap.matchMedia();
     media.add('(min-width: 768px) and (min-height: 600px) and (prefers-reduced-motion: no-preference)', () => {
       const list = section.current!.querySelector<HTMLElement>('.home-side-projects')!;
@@ -84,7 +85,7 @@ export function ExperimentalProjects() {
     let active = true;
     document.fonts.ready.then(() => { if (active) ScrollTrigger.refresh(); });
     return () => { active = false; media.revert(); };
-  }, { scope: section });
+  }, { scope: section, dependencies: [playing], revertOnUpdate: true });
 
   return <section ref={section} id="ai" aria-labelledby="ai-title" className="home-section">
     <h2 id="ai-title" className="text-h2 font-normal">自研工具</h2>

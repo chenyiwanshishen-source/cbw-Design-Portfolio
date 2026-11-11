@@ -45,7 +45,7 @@ export function HomePage({ route }: { route: string }) {
         <section id="work" aria-label="项目" className="home-section">
           <CaseList items={cases} />
         </section>
-        <ExperimentalProjects />
+        <ExperimentalProjects playing={playing} />
         <Experience />
         <Contact />
       </div>

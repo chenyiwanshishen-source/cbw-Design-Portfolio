@@ -28,16 +28,19 @@ export function Blueprint({ onFinish }: { onFinish: () => void }) {
     const page = ref.current?.closest('.homepage');
     if (!page) return;
     const root = page.querySelector('.max-w-content')!.getBoundingClientRect();
-    const selectors = 'h1,h2,h3,p,figcaption,dt,dd,li,.home-portrait,.home-case-visual,button,a';
+    const selectors = 'h1,h2,h3,p,figcaption,dt,dd,li,.home-portrait,.home-case-visual,.home-side-cover,.home-side-entry,button,a';
     const chosen: Element[] = [];
     const result: Frame[] = [];
     page.querySelectorAll<HTMLElement>(selectors).forEach(element => {
       if (element.matches('.home-case-link') || element.closest('.intro-blueprint') || chosen.some(parent => parent.contains(element))) return;
+      // Composite cards contain media and text with their own layout. Trace their
+      // children separately instead of cloning an unconstrained image into text.
+      if (element.matches('a,li') && element.querySelector('h1,h2,h3,p,img,iframe')) return;
       const surface = element.matches('.man-peek-portrait') ? element.querySelector('.man-peek-window') ?? element : element;
       const rect = surface.getBoundingClientRect();
       if (!rect.width || !rect.height) return;
       chosen.push(element);
-      const media = element.matches('.home-portrait,.home-case-visual');
+      const media = element.matches('.home-portrait,.home-case-visual,.home-side-cover');
       const range = document.createRange(); range.selectNodeContents(element);
       const ink = range.getBoundingClientRect();
       const target = media ? rect.width : Math.min(rect.width, Math.max(ink.width, 12));
