@@ -14,7 +14,6 @@ export function ManPeekPortrait() {
     let cancelled = false;
     let frame = 0;
     let objectUrl: string | undefined;
-    let started = false;
     const controller = new AbortController();
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const timeline = gsap.timeline({ paused: true });
@@ -68,20 +67,18 @@ export function ManPeekPortrait() {
     const start = () => {
       if (cancelled) return;
       if (document.querySelector('.intro-blueprint')) frame = requestAnimationFrame(start);
-      else { started = true; timeline.play(); }
+      else timeline.play();
     };
-    // Keep the portrait available when the original animation loads slowly.
-    const fallback = window.setTimeout(() => { frame = requestAnimationFrame(start); }, 1800);
     const file = reduced ? 'man-peek-still.webp' : 'man-peek-46fps.webp';
     fetch(`${import.meta.env.BASE_URL}images/home/man-peek/${file}`, { signal: controller.signal })
       .then(response => { if (!response.ok) throw new Error('Image unavailable'); return response.blob(); })
-      .then(blob => { if (!cancelled) { objectUrl = URL.createObjectURL(blob); window.clearTimeout(fallback); if (started) node.src = objectUrl; else { cancelAnimationFrame(frame); frame = requestAnimationFrame(start); } } })
-      .catch(() => { /* Keep the introduction usable if the image cannot load. */ });
-    return () => { cancelled = true; window.clearTimeout(fallback); controller.abort(); cancelAnimationFrame(frame); if (objectUrl) URL.revokeObjectURL(objectUrl); };
+      .then(blob => { if (!cancelled) { objectUrl = URL.createObjectURL(blob); frame = requestAnimationFrame(start); } })
+      .catch(() => { if (!cancelled) { node.src = `${import.meta.env.BASE_URL}images/home/man-peek/man-peek-still.webp`; frame = requestAnimationFrame(start); } });
+    return () => { cancelled = true; controller.abort(); cancelAnimationFrame(frame); if (objectUrl) URL.revokeObjectURL(objectUrl); };
   }, { scope: root });
   return <figure ref={root} className="home-portrait man-peek-portrait" aria-label="黄色选框画完后，人物从右侧探身挥手">
     <div className="man-peek-window">
-      <div className="man-peek-clip"><img ref={image} src={`${import.meta.env.BASE_URL}images/home/man-peek/man-peek-still.webp`} width="320" height="320" alt="戴眼镜的人物探身挥手" /></div>
+      <div className="man-peek-clip"><img ref={image} width="320" height="320" alt="戴眼镜的人物探身挥手" /></div>
       <svg className="man-peek-frame" viewBox="0 0 320 320" fill="none" aria-hidden="true">
         <defs><clipPath id={clipId} clipPathUnits="userSpaceOnUse"><rect className="man-peek-floor-clip" x="-10000" y="-10000" width="20000" height="20000" /></clipPath></defs>
         <rect className="man-peek-outline" x="1" y="1" width="0" height="0" />
