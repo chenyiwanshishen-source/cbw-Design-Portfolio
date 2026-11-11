@@ -29,7 +29,7 @@ function demoScript(file){
 for(const name of ['figma-bridge','visual-code-canvas']){
  const entry=path.join(root,'public/demos',name,'index.html');
  let content=fs.readFileSync(entry,'utf8');
- content=content.replace(/<script[^>]*src="([^"]+)"[^>]*><\/script>/g,(_,src)=>'<script src="data:text/javascript;base64,'+demoScript(path.resolve(path.dirname(entry),src))+'"></script>');
+ content=content.replace(/<script[^>]*src="([^"]+)"[^>]*><\/script>/g,(_,src)=>'<script defer src="data:text/javascript;base64,'+demoScript(path.resolve(path.dirname(entry),src))+'"></script>');
  content=content.replace(/<link[^>]*href="([^"]+\.css)"[^>]*>/g,(_,href)=>'<style>'+fs.readFileSync(path.resolve(path.dirname(entry),href),'utf8')+'</style>');
  demos['demos/'+name+'/index.html']=content;
 }

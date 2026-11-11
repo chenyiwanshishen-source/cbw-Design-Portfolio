@@ -1,3 +1,4 @@
+import { editorDocument } from '../demos/editor-document';
 import { useEffect, useRef } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
@@ -21,7 +22,7 @@ function EditorCover() {
     return () => observer.disconnect();
   }, []);
   return <div ref={frame} className="relative w-full h-full min-h-0" style={{transform: 'scale(0.9)', border: '1px solid var(--color-border-subtle)', borderRadius: 'var(--space-3)', boxShadow: 'var(--shadow-float)', overflow: 'hidden'}}>
-    <iframe ref={editor} src="/demos/visual-code-canvas/index.html" title="页面编辑器界面预览" loading="lazy" tabIndex={-1}
+    <iframe ref={editor} srcDoc={editorDocument} title="页面编辑器界面预览" tabIndex={-1}
       style={{position: 'absolute', left: '50%', top: '50%', width: 1100, height: 750, border: 0, maxWidth: 'none', transformOrigin: 'center', pointerEvents: 'none'}} />
   </div>;
 }
@@ -93,7 +94,7 @@ export function ExperimentalProjects({ playing = false }: { playing?: boolean })
       {explorationProjects.filter(project => project.slug !== 'design-system').sort((a, b) => Number(a.slug === 'illustration-skill') - Number(b.slug === 'illustration-skill')).map(project => <div className="home-side-row" key={project.slug}>
         <a href={project.href} className="home-side-project">
           <div className={`home-side-cover${['figma-connector', 'visual-code-canvas', 'illustration-skill'].includes(project.slug) ? ' home-side-cover-bridge' : ''}`} aria-hidden="true">{project.slug === 'figma-connector'
-            ? <iframe src="/demos/figma-bridge/index.html" title="Figma 桥接器界面预览" loading="lazy" sandbox="allow-scripts" tabIndex={-1} className="w-full h-full min-h-0 border-0 pointer-events-none" />
+            ? <iframe src="/demos/figma-bridge/index.html" title="Figma 桥接器界面预览" sandbox="allow-scripts" tabIndex={-1} className="w-full h-full min-h-0 border-0 pointer-events-none" />
             : project.slug === 'visual-code-canvas'
               ? <EditorCover />
               : project.slug === 'illustration-skill'
