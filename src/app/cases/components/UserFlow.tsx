@@ -65,6 +65,5 @@ export function UserFlow() {
     <a href={source} target="_blank" rel="noopener noreferrer" aria-label="打开完整用户旅程图">
       <img src={source} alt="报告生产全过程：现状旅程与 Qsight 介入点" loading="lazy" />
     </a>
-    <figcaption className="text-caption text-text-secondary">用户旅程图 · 点击查看原图</figcaption>
   </figure>;
 }
