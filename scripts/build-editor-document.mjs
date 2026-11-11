@@ -16,3 +16,5 @@ fs.writeFileSync(path.join(root,'src/app/demos/editor-document.ts'),'// Generate
 console.log('Self-contained editor document:',Buffer.byteLength(html));
 
 fs.writeFileSync(path.join(root,'src/app/demos/figma-document.ts'),'// Generated from the existing Figma bridge demo.\nexport const figmaDocument = '+JSON.stringify(fs.readFileSync(path.join(root,'public/demos/figma-bridge/index.html'),'utf8'))+';\n');
+
+fs.appendFileSync(path.join(root,'src/app/demos/figma-document.ts'),'export const figmaConnectedDocument = '+JSON.stringify(fs.readFileSync(path.join(root,'public/demos/figma-bridge-states/connected.html'),'utf8'))+';\n');
