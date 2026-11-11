@@ -59,4 +59,12 @@ export function DiagramCanvas({ journey = false, embedded = false }: { journey?:
       alt={journey ? '报告生产全过程：现状旅程与 Qsight 介入点' : 'Qsight 完整用户流程，包含生成、核查、修改返回路径与最终交付'} />
   </div>;
 }
-export function UserFlow() { return <DiagramCanvas journey />; }
+export function UserFlow() {
+  const source = `${import.meta.env.BASE_URL}images/qsight/user-journey.svg`;
+  return <figure className="case-journey-thumbnail">
+    <a href={source} target="_blank" rel="noopener noreferrer" aria-label="打开完整用户旅程图">
+      <img src={source} alt="报告生产全过程：现状旅程与 Qsight 介入点" loading="lazy" />
+    </a>
+    <figcaption className="text-caption text-text-secondary">用户旅程图 · 点击查看原图</figcaption>
+  </figure>;
+}
