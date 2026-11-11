@@ -1,5 +1,5 @@
-import { editorDocument } from '../demos/editor-document';
-import { useEffect, useRef } from 'react';
+import { editorPreviewDocument } from '../demos/editor-document';
+import { useEffect, useLayoutEffect, useRef } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -10,7 +10,7 @@ gsap.registerPlugin(useGSAP, ScrollTrigger);
 function EditorCover() {
   const frame = useRef<HTMLDivElement>(null);
   const editor = useRef<HTMLIFrameElement>(null);
-  useEffect(() => {
+  useLayoutEffect(() => {
     const fit = () => {
       const box = frame.current!;
       const scale = Math.min(box.clientWidth / 1100, box.clientHeight / 750);
@@ -22,7 +22,7 @@ function EditorCover() {
     return () => observer.disconnect();
   }, []);
   return <div ref={frame} className="relative w-full h-full min-h-0" style={{transform: 'scale(0.9)', border: '1px solid var(--color-border-subtle)', borderRadius: 'var(--space-3)', boxShadow: 'var(--shadow-float)', overflow: 'hidden'}}>
-    <iframe ref={editor} srcDoc={editorDocument} title="页面编辑器界面预览" tabIndex={-1}
+    <iframe ref={editor} srcDoc={editorPreviewDocument} title="页面编辑器界面预览" tabIndex={-1}
       style={{position: 'absolute', left: '50%', top: '50%', width: 1100, height: 750, border: 0, maxWidth: 'none', transformOrigin: 'center', pointerEvents: 'none'}} />
   </div>;
 }
