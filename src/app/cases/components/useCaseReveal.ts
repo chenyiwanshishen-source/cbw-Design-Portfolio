@@ -20,13 +20,11 @@ export function useCaseReveal(root: RefObject<HTMLElement | null>) {
       });
     }, { threshold: 0, rootMargin: '0px 0px -64px 0px' });
     blocks.forEach((node) => {
+      const rect = node.getBoundingClientRect();
+      // Reading content already on screen must never become a loading state.
+      if (rect.top < window.innerHeight && rect.bottom > 0) return;
       node.classList.add('case-reveal');
-
-    });
-    // Let the hidden starting state paint before revealing above-the-fold blocks.
-    let secondFrame = 0;
-    const firstFrame = requestAnimationFrame(() => {
-      secondFrame = requestAnimationFrame(() => blocks.forEach((node) => observer.observe(node)));
+      observer.observe(node);
     });
     const revealFocus = (event: FocusEvent) => {
       const target = event.target as HTMLElement;
@@ -34,8 +32,6 @@ export function useCaseReveal(root: RefObject<HTMLElement | null>) {
     };
     page.addEventListener('focusin', revealFocus);
     return () => {
-      cancelAnimationFrame(firstFrame);
-      cancelAnimationFrame(secondFrame);
       observer.disconnect();
       page.removeEventListener('focusin', revealFocus);
       blocks.forEach((node) => {
