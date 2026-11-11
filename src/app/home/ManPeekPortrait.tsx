@@ -72,7 +72,7 @@ export function ManPeekPortrait() {
     };
     // Keep the portrait available when the original animation loads slowly.
     const fallback = window.setTimeout(() => { frame = requestAnimationFrame(start); }, 1800);
-    const file = reduced ? 'man-peek-still.webp' : 'man-peek-original.webp';
+    const file = reduced ? 'man-peek-still.webp' : 'man-peek-50fps.webp';
     fetch(`${import.meta.env.BASE_URL}images/home/man-peek/${file}`, { signal: controller.signal })
       .then(response => { if (!response.ok) throw new Error('Image unavailable'); return response.blob(); })
       .then(blob => { if (!cancelled) { objectUrl = URL.createObjectURL(blob); window.clearTimeout(fallback); if (started) node.src = objectUrl; else { cancelAnimationFrame(frame); frame = requestAnimationFrame(start); } } })
