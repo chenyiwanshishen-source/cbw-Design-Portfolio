@@ -14,7 +14,7 @@ const experiences = [
     projects: ['电商运营后台', '业务系统与数据可视化'],
   },
   {
-    period: '2017—2018',
+    period: '2016—2018',
     company: '鸿惠信息',
     role: 'C 端 UI 设计师',
     projects: ['在线商城'],
