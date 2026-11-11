@@ -1,3 +1,4 @@
+import { figmaDocument } from '../demos/figma-document';
 import { editorPreviewDocument } from '../demos/editor-document';
 import { useEffect, useLayoutEffect, useRef } from 'react';
 import { useGSAP } from '@gsap/react';
@@ -27,10 +28,9 @@ function EditorCover() {
   </div>;
 }
 
-export function ExperimentalProjects({ playing = false }: { playing?: boolean }) {
+export function ExperimentalProjects() {
   const section = useRef<HTMLElement>(null);
   useGSAP(() => {
-    if (playing) return;
     const media = gsap.matchMedia();
     media.add('(min-width: 768px) and (min-height: 600px) and (prefers-reduced-motion: no-preference)', () => {
       const list = section.current!.querySelector<HTMLElement>('.home-side-projects')!;
@@ -86,7 +86,7 @@ export function ExperimentalProjects({ playing = false }: { playing?: boolean })
     let active = true;
     document.fonts.ready.then(() => { if (active) ScrollTrigger.refresh(); });
     return () => { active = false; media.revert(); };
-  }, { scope: section, dependencies: [playing], revertOnUpdate: true });
+  }, { scope: section });
 
   return <section ref={section} id="ai" aria-labelledby="ai-title" className="home-section">
     <h2 id="ai-title" className="text-h2 font-normal">自研工具</h2>
@@ -94,7 +94,7 @@ export function ExperimentalProjects({ playing = false }: { playing?: boolean })
       {explorationProjects.filter(project => project.slug !== 'design-system').sort((a, b) => Number(a.slug === 'illustration-skill') - Number(b.slug === 'illustration-skill')).map(project => <div className="home-side-row" key={project.slug}>
         <a href={project.href} className="home-side-project">
           <div className={`home-side-cover${['figma-connector', 'visual-code-canvas', 'illustration-skill'].includes(project.slug) ? ' home-side-cover-bridge' : ''}`} aria-hidden="true">{project.slug === 'figma-connector'
-            ? <iframe src="/demos/figma-bridge/index.html" title="Figma 桥接器界面预览" sandbox="allow-scripts" tabIndex={-1} className="w-full h-full min-h-0 border-0 pointer-events-none" />
+            ? <iframe srcDoc={figmaDocument} title="Figma 桥接器界面预览" sandbox="allow-scripts" tabIndex={-1} className="w-full h-full min-h-0 border-0 pointer-events-none" />
             : project.slug === 'visual-code-canvas'
               ? <EditorCover />
               : project.slug === 'illustration-skill'
