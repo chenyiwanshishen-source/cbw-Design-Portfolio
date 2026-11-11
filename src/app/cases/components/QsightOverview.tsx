@@ -38,7 +38,7 @@ export function QsightOverview({ hero = false }: { hero?: boolean }) {
       const dy = y - 450;
       const left = (500 + dx * Math.cos(angle) - dy * Math.sin(angle)) / 10;
       const top = (450 + dx * Math.sin(angle) + dy * Math.cos(angle)) / 9;
-      return <img key={alt} src={`${import.meta.env.BASE_URL}images/qsight/${index === 2 ? 'report-edit-original.webp' : index === 7 ? 'report-sources-web.webp' : `overview-${index + 1}.webp`}`} alt={alt} loading={hero ? "eager" : "lazy"} style={{ left: `${hero ? 50 + (left - 50) * 1.08 : left}%`, top: `${hero ? 35 + (top * .9 - 35) * 1.08 : top * .9}cqw`, width: `${width / 10 * (hero ? 1.08 : 1)}%` }} />;
+      return <img key={alt} src={`${import.meta.env.BASE_URL}images/qsight/${hero && (index === 2 || index === 7) ? 'hero/' : ''}${index === 2 ? 'report-edit-original.webp' : index === 7 ? 'report-sources-web.webp' : `overview-${index + 1}.webp`}`} alt={alt} decoding="async" loading={hero ? "eager" : "lazy"} style={{ left: `${hero ? 50 + (left - 50) * 1.08 : left}%`, top: `${hero ? 35 + (top * .9 - 35) * 1.08 : top * .9}cqw`, width: `${width / 10 * (hero ? 1.08 : 1)}%` }} />;
     })}
   </figure>;
 }

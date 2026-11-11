@@ -15,14 +15,21 @@ export function ReportEditCarousel({ slides = defaultSlides, imageFolder = 'qsig
   const previous = useRef(0);
   const direction = useRef(1);
   const [active, setActive] = useState(0);
+  const visited = useRef(new Set([0]));
+  visited.current.add(active);
   useEffect(() => {
     const media = window.matchMedia('(prefers-reduced-motion: reduce)');
-    if (media.matches) return;
-    const timer = window.setInterval(() => { direction.current = 1; setActive(index => (index + 1) % slides.length); }, 4200);
-    const stop = () => { if (media.matches) window.clearInterval(timer); };
-    media.addEventListener('change', stop);
-    return () => { window.clearInterval(timer); media.removeEventListener('change', stop); };
-  }, [active]);
+    let timer: number | undefined;
+    let visible = false;
+    const update = () => {
+      window.clearInterval(timer);
+      if (visible && !media.matches) timer = window.setInterval(() => { direction.current = 1; setActive(index => (index + 1) % slides.length); }, 4200);
+    };
+    const observer = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; update(); });
+    if (root.current) observer.observe(root.current);
+    media.addEventListener('change', update);
+    return () => { window.clearInterval(timer); observer.disconnect(); media.removeEventListener('change', update); };
+  }, [active, slides.length]);
   useGSAP(() => {
     const el = root.current;
     if (!el) return;
@@ -66,7 +73,7 @@ export function ReportEditCarousel({ slides = defaultSlides, imageFolder = 'qsig
   }}>
     <div className="report-edit-stage">
       {slides.map((slide, index) => <div className="report-edit-slide" key={slide.file} aria-hidden={active !== index}>
-        <img src={`${import.meta.env.BASE_URL}images/${imageFolder}/${slide.file}`} alt={slide.alt} width={2880} height={1800} draggable={false} />
+        <img loading="lazy" decoding="async" src={visited.current.has(index) ? `${import.meta.env.BASE_URL}images/${imageFolder}/${slide.file}` : undefined} alt={slide.alt} width={2880} height={1800} draggable={false} />
         {imageFolder === 'qixin' && <QixinAnnotation name={slide.file} />}
       </div>)}
     </div>

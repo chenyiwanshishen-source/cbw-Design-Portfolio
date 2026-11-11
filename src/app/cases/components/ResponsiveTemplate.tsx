@@ -102,7 +102,7 @@ export function ResponsiveTemplate({ title = '模板中心', desktopSrc = 'image
       {devices.map(device => <div className="template-preview-screen" data-device={device} aria-hidden={mode !== device} key={device}>
         <div className="template-preview-media">
           {(homeSlides ? [0, 1] : [1]).map(index => <div key={index} className={homeSlides ? 'template-preview-slide' : undefined} data-slide={index} aria-hidden={homeSlides && active !== index}>
-            <img src={`${import.meta.env.BASE_URL}${homeSlides && index === 0 ? `images/qsight/home-${device}.webp` : device === 'mobile' ? mobileSrc : desktopSrc}`} alt={`Qsight ${homeSlides && index === 0 ? '首页' : title}${device === 'mobile' ? '移动端' : '桌面端'}`} width={device === 'mobile' ? 390 : 1440} height={device === 'mobile' ? 844 : 900} />
+            <img loading="lazy" decoding="async" src={`${import.meta.env.BASE_URL}${homeSlides && index === 0 ? `images/qsight/home-${device}.webp` : device === 'mobile' ? mobileSrc : desktopSrc}`} alt={`Qsight ${homeSlides && index === 0 ? '首页' : title}${device === 'mobile' ? '移动端' : '桌面端'}`} width={device === 'mobile' ? 390 : 1440} height={device === 'mobile' ? 844 : 900} />
           </div>)}
         </div>
       </div>)}

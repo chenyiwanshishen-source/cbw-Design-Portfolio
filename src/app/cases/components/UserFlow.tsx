@@ -55,7 +55,7 @@ export function DiagramCanvas({ journey = false, embedded = false }: { journey?:
       const delta = directions[event.key];
       if (delta) { event.preventDefault(); event.currentTarget.scrollBy(delta[0], delta[1]); }
     }}>
-    <img style={{ width, minWidth: width }} src={`${import.meta.env.BASE_URL}images/qsight/${journey ? 'user-journey' : 'user-flow'}.svg`} draggable={false}
+    <img loading="lazy" decoding="async" style={{ width, minWidth: width }} src={`${import.meta.env.BASE_URL}images/qsight/${journey ? 'user-journey' : 'user-flow'}.svg`} draggable={false}
       alt={journey ? '报告生产全过程：现状旅程与 Qsight 介入点' : 'Qsight 完整用户流程，包含生成、核查、修改返回路径与最终交付'} />
   </div>;
 }
