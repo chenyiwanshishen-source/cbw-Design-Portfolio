@@ -368,6 +368,10 @@ export const qsight: CaseContent = {
         {
           "kind": "paragraph",
           "text": "尝试用独立评审检查漏步和内容依据，再交回修改；效果仍需实际测试。"
+        },
+        {
+          "kind": "paragraph",
+          "text": "如果项目继续，我希望持续收集用户行为和需求，了解这款产品是否真正帮助用户完成这个垂类场景中的工作。"
         }
       ]
     }
