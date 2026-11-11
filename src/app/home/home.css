@@ -230,4 +230,5 @@ body:has(.homepage) { background: var(--color-home-bg); }
 .home-case-qixin .ye-screen-preview-1 { right: var(--space-6); top: var(--space-24); }
 
 /* Let the decorative cursor reach the real case divider above white case surfaces. */
-.home-photo:has(.man-peek-portrait) { position: relative; z-index: 2; pointer-events: none; }
+.home-photo:has(.man-peek-portrait) { position: relative; z-index: var(--z-header); pointer-events: none; }
+.man-peek-portrait, .man-peek-portrait *, .case-previews, .case-previews * { pointer-events: none; }
