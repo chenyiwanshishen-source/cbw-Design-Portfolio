@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 
-const SESSION_KEY = 'introPlayed';
+const SESSION_KEY = 'introPlayed:blueprint-v2';
 const REDUCED_MOTION = '(prefers-reduced-motion: reduce)';
 
 function shouldPlayFirstVisit() {
