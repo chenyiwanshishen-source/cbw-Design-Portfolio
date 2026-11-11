@@ -1,0 +1,7 @@
+/* Site-owned subsets retain the original typefaces without a Google Fonts request.
+   Optional display avoids a delayed font swap on slow connections. */
+@font-face { font-family: 'Noto Sans SC'; font-style: normal; font-weight: 400; font-display: optional; src: url('/fonts/noto-sc-400.woff2') format('woff2'); }
+@font-face { font-family: 'Noto Sans SC'; font-style: normal; font-weight: 500; font-display: optional; src: url('/fonts/noto-sc-500.woff2') format('woff2'); }
+@font-face { font-family: 'Noto Sans SC'; font-style: normal; font-weight: 700; font-display: optional; src: url('/fonts/noto-sc-700.woff2') format('woff2'); }
+@font-face { font-family: 'JetBrains Mono'; font-style: normal; font-weight: 400; font-display: optional; src: url('/fonts/jetbrains-mono-400.woff2') format('woff2'); }
+@font-face { font-family: 'JetBrains Mono'; font-style: normal; font-weight: 500; font-display: optional; src: url('/fonts/jetbrains-mono-500.woff2') format('woff2'); }

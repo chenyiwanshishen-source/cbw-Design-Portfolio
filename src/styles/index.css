@@ -2,6 +2,7 @@
 @import './tailwind.css';
 @import './theme.css';
 @import './tokens.css';
+@import './fonts.css';
 
 
 .skills-sticky-note {

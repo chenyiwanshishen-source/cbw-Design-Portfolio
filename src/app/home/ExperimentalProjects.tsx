@@ -96,7 +96,7 @@ export function ExperimentalProjects() {
             : project.slug === 'visual-code-canvas'
               ? <EditorCover />
               : project.slug === 'illustration-skill'
-                ? <img src={`${import.meta.env.BASE_URL}images/illustration-skill/cover.svg`} alt="" className="w-full h-full object-contain" />
+                ? <img src={`${import.meta.env.BASE_URL}images/illustration-skill/cover.svg`} alt="" loading="lazy" decoding="async" className="w-full h-full object-contain" />
                 : project.cover}</div>
           <div className="home-side-copy">
             <h3>{{'figma-connector': 'Figma 桥接器', 'illustration-skill': 'B 端插画 Skill', 'visual-code-canvas': '页面编辑器'}[project.slug] ?? project.name}</h3>
