@@ -322,7 +322,7 @@ body:has(.case-page) { background: var(--color-home-bg); }
 }
 .case-diagram-canvas[data-dragging] { cursor: grabbing; }
 .case-journey-thumbnail { margin: 0; min-width: 0; }
-.case-journey-thumbnail a { display: block; background: var(--color-case-plate); border-radius: var(--space-6); overflow: hidden; }
+.case-journey-thumbnail > div { display: block; background: var(--color-case-plate); border-radius: var(--space-6); overflow: hidden; }
 .case-journey-thumbnail img { display: block; width: 100%; height: auto; }
 .case-journey-thumbnail figcaption { margin-top: var(--rhythm-2); }
 .case-diagram-canvas::-webkit-scrollbar-track,

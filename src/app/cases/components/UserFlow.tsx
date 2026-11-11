@@ -62,8 +62,8 @@ export function DiagramCanvas({ journey = false, embedded = false }: { journey?:
 export function UserFlow() {
   const source = `${import.meta.env.BASE_URL}images/qsight/user-journey.svg`;
   return <figure className="case-journey-thumbnail">
-    <a href={source} target="_blank" rel="noopener noreferrer" aria-label="打开完整用户旅程图">
+    <div>
       <img src={source} alt="报告生产全过程：现状旅程与 Qsight 介入点" loading="lazy" />
-    </a>
+    </div>
   </figure>;
 }
