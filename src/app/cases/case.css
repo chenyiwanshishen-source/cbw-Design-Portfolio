@@ -352,9 +352,10 @@ body:has(.case-page) { background: var(--color-home-bg); }
 .template-preview { position: relative; margin: 0; padding: var(--rhythm-4); background: var(--color-case-plate); border-radius: var(--space-6); overflow: hidden; }
 .template-preview-stage { aspect-ratio: 1440 / 900; position: relative; isolation: isolate; }
 .template-preview-screen { position: absolute; width: 100%; left: 0; top: 0; border-radius: var(--space-4); outline: var(--border-width) solid var(--color-border-subtle); box-shadow: var(--shadow-float); transform-origin: center; }
-.template-preview-screen[data-device="mobile"] { width: min(390px, 100%); left: 50%; margin-left: calc(min(390px, 100%) / -2); top: 0; bottom: auto; visibility: hidden; opacity: 0; }
+.template-preview-screen[data-device="mobile"] { width: min(390px, 100%); left: 50%; margin-left: calc(min(390px, 100%) / -2); top: 0; bottom: auto; visibility: hidden; opacity: 0; border-radius: var(--space-10); overflow: hidden; }
 .template-preview-screen[aria-hidden="true"] { pointer-events: none; }
 .template-preview-screen .template-preview-media { display: block; border-radius: inherit; }
+.template-preview-media > div { border-radius: inherit; }
 .template-preview-screen img { display: block; width: 100%; height: auto; border-radius: inherit; }
 .template-preview-switch { position: absolute; bottom: var(--space-3); right: var(--space-3); display: flex; z-index: 2; gap: var(--space-2); padding: var(--space-2); border-radius: 999px; background: var(--color-home-bg); box-shadow: var(--shadow-float); }
 .template-preview-switch button { position: relative; display: grid; place-items: center; width: 36px; height: 36px; padding: 0; border: 0; border-radius: 50%; background: transparent; color: var(--color-text-meta); cursor: pointer; }
