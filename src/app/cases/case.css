@@ -996,7 +996,8 @@ button.generator-notes { display: block; width: calc(100% - 8px); height: 140px;
 .analysis-dimensions-plan img { position: absolute; top: 58%; left: -38%; display: block; width: 138%; max-width: none; height: auto; border-radius: var(--space-4); outline: var(--border-width) solid var(--color-border-subtle); box-shadow: var(--shadow-float); }
 .analysis-dimensions-detail { display: flex; align-items: center; padding: var(--rhythm-3); }
 .analysis-dimensions-detail img { display: block; width: 120%; max-width: none; height: auto; transform: translateX(-17%); border-radius: var(--space-4); outline: var(--border-width) solid var(--color-border-subtle); box-shadow: var(--shadow-float); }
-.analysis-dimensions-arrow { position: absolute; z-index: 2; left: 27%; top: 54%; width: 17%; height: 22%; color: var(--ink-900); pointer-events: none; }
+.analysis-dimensions-arrow { position: absolute; z-index: 2; left: 24.24%; top: 79.08%; width: 12.19%; height: 15.16%; color: var(--ink-900); pointer-events: none; overflow: visible; }
+.analysis-dimensions-arrow path { vector-effect: non-scaling-stroke; stroke-width: calc(2.5 * 0.22 / 1.55 * 100cqw / 200); }
 .analysis-dimensions-note { position: absolute; z-index: 3; left: 9%; top: 24%; width: 21%; max-width: none; aspect-ratio: auto; margin: 0; padding: var(--space-4); background: var(--color-research-note-blue); color: var(--color-text-body); font-size: var(--text-caption); line-height: var(--text-body--line-height); transform: rotate(-4deg); }
 .analysis-dimensions-note::before { content: ''; position: absolute; width: var(--space-16); height: var(--space-5); top: calc(-1 * var(--space-2)); left: calc(50% - var(--space-8)); background: color-mix(in srgb, var(--color-question-paper-back) 65%, transparent); border: var(--border-width) solid var(--color-drafting-faint); transform: rotate(5deg); }
 @media (max-width: 767px) {
@@ -1007,6 +1008,220 @@ button.generator-notes { display: block; width: calc(100% - 8px); height: 140px;
  .analysis-dimensions-detail img { width: 100%; transform: none; }
  .analysis-dimensions-note { position: relative; left: auto; top: auto; width: auto; margin-inline: var(--space-6); order: 1; }
  .analysis-dimensions-arrow { display: none; }
+}
+
+/* Arrow from the +23 badge down to the after plate; stroke matches analysis-dimensions-arrow. */
+.source-scheme-flow {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--rhythm-3);
+  container-type: inline-size;
+}
+.source-scheme-flow-arrow {
+  position: absolute;
+  z-index: 2;
+  left: calc(0.3224 * (100cqw - var(--rhythm-4)) - 1.224cqw);
+  top: calc(38.87cqw - 2.04cqw);
+  width: 20.4cqw;
+  height: 36.8cqw;
+  overflow: visible;
+  color: var(--ink-900);
+  pointer-events: none;
+}
+.source-scheme-flow-arrow path {
+  vector-effect: non-scaling-stroke;
+  stroke-width: calc(2.5 * 0.22 / 1.55 * 100cqw / 200);
+}
+@media (max-width: 767px) {
+  .source-scheme-flow-arrow {
+    display: none;
+  }
+}
+
+/* Source panel before/after: independent plates; labels on top, images sit lower. */
+.source-panel-comparison {
+  margin: 0;
+  display: flex;
+  align-items: stretch;
+  gap: var(--rhythm-4);
+}
+.source-panel-comparison-old,
+.source-panel-comparison-current {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--rhythm-3);
+  padding: var(--rhythm-4);
+  background: var(--color-case-plate);
+  border-radius: var(--space-6);
+}
+.source-panel-comparison-old {
+  flex: 2 1 0;
+}
+.source-panel-comparison-current {
+  flex: 3 1 0;
+}
+.source-panel-comparison-label {
+  margin: 0;
+  text-align: center;
+  font-size: var(--text-caption);
+  line-height: var(--text-caption--line-height);
+  color: var(--color-text-meta);
+}
+.source-panel-comparison-text {
+  margin: 0;
+  font-size: var(--text-body);
+  line-height: var(--text-body--line-height);
+  color: var(--color-text-body);
+}
+.source-panel-comparison-old img,
+.source-panel-comparison-current img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: auto;
+  min-width: 0;
+}
+@media (min-width: 1024px) {
+  .source-panel-comparison-current {
+    min-width: auto;
+  }
+  .source-panel-comparison-current .source-panel-comparison-text {
+    white-space: nowrap;
+  }
+}
+.source-panel-comparison-old img {
+  border-radius: calc(100% * 32 / 2020) / calc(100% * 32 / 1416);
+  outline: var(--border-width) solid var(--color-border-subtle);
+  box-shadow: var(--shadow-float);
+}
+.source-panel-comparison-current img {
+  border-radius: var(--space-4);
+  outline: var(--border-width) solid var(--color-border-subtle);
+  box-shadow: var(--shadow-float);
+}
+@media (max-width: 767px) {
+  .source-panel-comparison {
+    flex-direction: column;
+  }
+}
+
+/* Same overall size as nearby plates; cards may be clipped, with the portfolio float shadow. */
+.analysis-plan-cards {
+  margin: 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--rhythm-2);
+  padding: var(--rhythm-4);
+  background: var(--color-case-plate);
+  border-radius: var(--space-6);
+  aspect-ratio: 1.75;
+  overflow: hidden;
+}
+.analysis-plan-cards > img,
+.analysis-plan-card-stage {
+  width: 70%;
+}
+.analysis-plan-cards > img {
+  display: block;
+  height: auto;
+  border-radius: var(--space-3);
+  outline: var(--border-width) solid var(--color-border-subtle);
+  box-shadow: var(--shadow-float);
+}
+.analysis-plan-card-stage {
+  flex: none;
+}
+.analysis-plan-card-shell {
+  position: relative;
+  background: var(--color-surface);
+  border-radius: var(--space-3);
+  outline: var(--border-width) solid var(--color-border-subtle);
+  box-shadow: var(--shadow-float);
+  overflow: hidden;
+  transform-origin: center center;
+}
+.analysis-plan-card-shell img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.analysis-plan-card-status {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--space-4);
+  color: var(--color-text-meta);
+  font-size: var(--text-micro);
+  line-height: var(--text-micro--line-height);
+  white-space: nowrap;
+  pointer-events: none;
+}
+.analysis-plan-card-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+}
+.analysis-plan-check {
+  position: absolute;
+  width: var(--space-6);
+  height: var(--space-6);
+  overflow: visible;
+  color: var(--color-text);
+  transform-origin: center;
+}
+.analysis-plan-check path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.analysis-plan-card-copy {
+  position: relative;
+}
+.analysis-plan-card-copy-ghost {
+  visibility: hidden;
+}
+.analysis-plan-card-copy-typed {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.analysis-plan-wand {
+  flex: none;
+  width: var(--space-6);
+  height: var(--space-6);
+  overflow: visible;
+  color: var(--color-text);
+}
+.analysis-plan-wand-part {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.analysis-plan-wand-part path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.analysis-plan-wand-shine {
+  stroke: var(--blue-300);
+  stroke-width: 2;
+}
+@media (max-width: 767px) {
+  .analysis-plan-cards {
+    aspect-ratio: auto;
+    overflow: visible;
+  }
 }
 
 /* Uniformly tilted columns with consistent gaps; each image stays independent. */

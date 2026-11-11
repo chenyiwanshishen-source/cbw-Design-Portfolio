@@ -29,6 +29,9 @@ export type CaseBlock =
  | { kind: 'report-edit-carousel'; slides?: { file: string; alt: string }[]; imageFolder?: string; label?: string; caption?: string }
  | { kind: 'outline-devices' }
  | { kind: 'analysis-dimensions' }
+ | { kind: 'source-panel-comparison'; text: string; afterText: string }
+ | { kind: 'source-scheme-flow'; paragraph: string; text: string; afterText: string }
+ | { kind: 'analysis-plan-cards' }
  | { kind: 'qsight-overview' }
  | { kind: 'mvp-comparison' }
  | { kind: 'responsive-template'; homeSlides?: boolean; title?: string; desktopSrc?: string; mobileSrc?: string; mobileAlign?: 'top' | 'bottom' }
