@@ -36,7 +36,6 @@ export function Blueprint({ onFinish }: { onFinish: () => void }) {
       const surface = element.matches('.man-peek-portrait') ? element.querySelector('.man-peek-window') ?? element : element;
       const rect = surface.getBoundingClientRect();
       if (!rect.width || !rect.height) return;
-      if (rect.top > window.innerHeight) return;
       chosen.push(element);
       const media = element.matches('.home-portrait,.home-case-visual');
       const range = document.createRange(); range.selectNodeContents(element);
