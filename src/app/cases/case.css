@@ -411,7 +411,7 @@ body:has(.case-page) { background: var(--color-home-bg); }
 .case-pair-arrow { position: absolute; z-index: 1; left: 40%; top: 60%; width: 22%; height: 28%; color: var(--ink-900); pointer-events: none; }
 @media (max-width: 767px) { .case-pair-arrow { display: none; } }
 
-.report-edit-carousel { position: relative; margin: 0; height: calc((100cqw - 2 * var(--rhythm-4)) * .625 + 2 * var(--rhythm-4)); background: var(--color-case-plate); border-radius: var(--space-6); overflow: hidden; }
+.report-edit-carousel { position: relative; margin: 0; height: auto; aspect-ratio: 16 / 10; background: var(--color-case-plate); border-radius: var(--space-6); overflow: hidden; }
 .report-edit-stage { position: absolute; inset: var(--rhythm-4) var(--rhythm-6) var(--space-12); }
 .report-edit-slide { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; visibility: hidden; opacity: 0; }
 .report-edit-slide:first-child { visibility: visible; opacity: 1; }
