@@ -48,6 +48,17 @@ export const explorations: { header: { title: string; intro: string }; intro: st
               ]
             }
           ]
+        },
+        {
+          "kind": "subsection",
+          "title": "迭代计划",
+          "blocks": [
+            {
+              "kind": "paragraph",
+              "text": "增加独立运行的设计机械质检，并提供检查结果的展示与下载功能。用户可以在插件中查看问题，下载全部或选中的问题清单，也可以一键将问题连同规范交给 AI 修正，完成后再次检查。",
+              "highlightPhrases": ["独立运行的设计机械质检", "展示与下载", "一键将问题连同规范交给 AI 修正"]
+            }
+          ]
         }
       ],
       "url": "https://github.com/chenyiwanshishen-source/figma-connector-figma-",
