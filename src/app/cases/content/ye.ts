@@ -5,6 +5,7 @@ export const ye: CaseContent = {
     "title": "ye! · 浏览器整理 agent",
     "intro": "ye! 是我为整理书签和标签页做的 Chrome 插件。我负责产品与交互设计，与 Gemini、Claude、Codex 协作，直接在代码中完成界面和功能。",
     "introEmphasis": ["产品与交互设计"],
+    "repoUrl": "https://github.com/chenyiwanshishen-source/TabPulse",
     "factsStyle": "pills",
     "facts": [
       { "label": "角色", "text": "独立产品设计师", "tags": ["独立产品设计师"] },
