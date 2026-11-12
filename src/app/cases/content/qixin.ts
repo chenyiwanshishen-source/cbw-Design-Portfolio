@@ -279,6 +279,42 @@ export const qixin: CaseContent = {
           "text": "几次用户反馈中，大家都提到：需要的预警信息藏在内页，每次查找都要来回翻；功能入口也比较分散，一些重要信息容易漏掉。",
           "highlightPhrases": ["预警信息藏在内页", "功能入口也比较分散", "重要信息容易漏掉"]
         },
+        {
+          "kind": "competitor-preview",
+          "title": "首页竞品分析",
+          "text": "结合用户的反馈，加上对竞品的 5 个维度的分析，形成方案。",
+          "href": "https://www.figma.com/board/lJcsZzex2W5maDMVu2ZzEz/%E9%A6%96%E9%A1%B5%E7%AB%9E%E5%93%81%E5%88%86%E6%9E%90?node-id=0-1&t=lGHzR27L34TOD157-1",
+          "linkLabel": "查看完整竞品分析",
+          "decisions": {
+            "title": "关键取舍",
+            "items": [
+              { "text": "概览不代替查找", "icon": "Search01Icon" },
+              { "text": "产业与企业分层监控", "icon": "Layers01Icon" },
+              { "text": "围绕产业链组织信息", "icon": "HierarchySquare01Icon" },
+              { "text": "资讯与风险分离", "icon": "News01Icon" },
+              { "text": "聚合入口不堆流程", "icon": "DashboardSquare01Icon" },
+              { "text": "榜单提供线索不替决策", "icon": "RankingIcon" }
+            ]
+          }
+        },
+        {
+          "kind": "workbench-slider",
+          "overlay": {
+            "label": "上线",
+            "src": "workbench-live.webp",
+            "alt": "产业洞察工作台上线页面，含搜索横幅、报告入口、地区概览和资讯",
+            "width": 2880,
+            "height": 3566
+          },
+          "base": {
+            "label": "原型",
+            "src": "workbench-prototype.webp",
+            "alt": "产业洞察工作台原型页面，含搜索、地区概览、重点产业和资讯",
+            "width": 2880,
+            "height": 3566
+          },
+          "ariaLabel": "拖动对比原型与上线工作台"
+        },
         { "kind": "heading", "text": "我的对策", "prominent": true },
         {
           "kind": "paragraph",

@@ -7,14 +7,14 @@ export function OutlineDevices() {
       </div>
     </div>
     <div className="outline-devices-mobile">
-      <figcaption className="outline-devices-note">
-        <h3>我的取舍</h3>
-        <p>移动端只选地区和时间，沿用模板配置；更多参数在电脑端设置。</p>
-      </figcaption>
       <div className="outline-device-image">
         <img src={`${base}outline-settings-mobile.webp`} alt="移动端报告配置，仅保留地区和时间选择" width={780} height={1688} loading="lazy" />
       </div>
     </div>
+    <aside className="outline-devices-sticky" aria-label="我的取舍">
+      <h3>我的取舍</h3>
+      <p>移动端只选地区和时间，沿用模板配置；更多参数在电脑端设置。</p>
+    </aside>
     <svg className="outline-devices-arrow" viewBox="0 0 160 110" fill="none" aria-hidden="true">
       <path d="M8 38 C6 9 52 5 61 27 C72 54 37 53 46 31 C60 3 113 51 144 91 M122 84 Q138 87 144 99 Q152 87 150 72" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>

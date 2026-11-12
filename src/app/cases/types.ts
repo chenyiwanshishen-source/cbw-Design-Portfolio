@@ -12,10 +12,12 @@ export type CaseBlock =
  | { kind: 'chain-outcome' }
  | { kind: 'workbench-laptop' }
  | { kind: 'workbench-panels' }
+ | { kind: 'competitor-preview'; title: string; text: string; href: string; linkLabel: string; decisions: { title: string; items: { text: string; icon: string }[] } }
  | { kind: 'workbench-functions' }
  | { kind: 'workbench-details' }
  | { kind: 'feedback-cards'; items: { title: string; text: string }[] }
  | { kind: 'chain-entry-comparison' }
+ | { kind: 'workbench-slider'; overlay: { label: string; src: string; alt: string; width: number; height: number }; base: { label: string; src: string; alt: string; width: number; height: number }; ariaLabel?: string }
  | { kind: 'chain-responsibility' }
  | { kind: 'chain-user-research' }
  | { kind: 'chain-discussion' }

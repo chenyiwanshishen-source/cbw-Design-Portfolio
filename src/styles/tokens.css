@@ -160,6 +160,7 @@
   --color-case-diffuse-blue: color-mix(in srgb, var(--color-accent) 7%, transparent);
   --color-case-diffuse-yellow: color-mix(in srgb, var(--color-question-bank) 22%, transparent);
   --color-case-diffuse-background: radial-gradient(ellipse 85% 48% at 0 0, var(--color-case-diffuse-purple), transparent 85%), radial-gradient(ellipse 85% 75% at 100% 35%, var(--color-case-diffuse-blue), transparent 90%), var(--color-case-plate);
+  --color-competitor-preview-background: radial-gradient(ellipse 85% 75% at 100% 35%, var(--color-case-diffuse-blue), transparent 90%), var(--color-case-plate);
   --color-case-diffuse-bloom: radial-gradient(ellipse 65% 38% at 0 32%, color-mix(in srgb, var(--color-case-diffuse-pink) 13%, transparent), transparent 85%), radial-gradient(ellipse 100% 70% at 25% 0, var(--color-case-diffuse-blue), transparent 90%), var(--color-case-plate);
   --color-case-diffuse-bottom: radial-gradient(ellipse 30% 32% at 0 105%, color-mix(in srgb, var(--color-case-diffuse-pink) 15%, transparent), transparent 95%), radial-gradient(ellipse 32% 28% at 13% 91%, var(--color-case-diffuse-yellow), transparent 90%), radial-gradient(ellipse 32% 38% at 100% 108%, color-mix(in srgb, var(--color-case-diffuse-pink) 12%, transparent), transparent 95%), var(--color-case-plate);
   --color-case-plate: color-mix(in srgb, var(--color-home-placeholder) 40%, var(--color-home-bg));
