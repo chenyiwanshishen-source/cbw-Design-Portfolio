@@ -191,7 +191,7 @@ export const qsight: CaseContent = {
             },
             {
               "kind": "paragraph",
-              "text": "修改数据之后，有明确的状态告知用户当前 AI 的反馈。"
+              "text": "修改数据之后，有明确的状态告知用户当前系统的情况。"
             },
             {
               "kind": "analysis-plan-cards"
