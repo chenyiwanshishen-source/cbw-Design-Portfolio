@@ -28,8 +28,8 @@ export const ye: CaseContent = {
     { "id": "ye-05", "label": "设计方向" },
     { "id": "ye-interface", "label": "界面与交互" },
     { "id": "ye-implementation", "label": "实现与协作" },
-    { "id": "ye-07", "label": "想法" },
-    { "id": "ye-roadmap", "label": "迭代计划" }
+    { "id": "ye-roadmap", "label": "迭代计划" },
+    { "id": "ye-07", "label": "想法" }
   ],
   "chapters": [
     {
@@ -244,47 +244,6 @@ export const ye: CaseContent = {
       ]
     },
     {
-      "id": "ye-07",
-      "label": "想法",
-      "title": "想法",
-      "blocks": [
-        {
-          "kind": "paragraph",
-          "text": "AI 能帮人把产品做出来，但做出来还不等于好用。目前的判断主要来自我自己的使用和 7 位朋友的试用。作为一个自研项目，我还没有足够的生产数据来支撑自己的想法，但这也是一次不错的尝试。",
-          "highlightPhrases": [
-            "AI 能帮人把产品做出来，但做出来还不等于好用"
-          ]
-        },
-        {
-          "kind": "paragraph",
-          "text": "AI 也会很快做出一套能运行、却不符合预期的流程。它能帮人拆问题、写代码、做设计，但产品方向、体验取舍和最终验收，仍然需要人来判断。"
-        },
-        {
-          "kind": "paragraph",
-          "text": "接下来，我更想了解用户是否愿意持续使用："
-        },
-        {
-          "kind": "paragraph",
-          "text": "一份方案要改几次才能接受"
-        },
-        {
-          "kind": "paragraph",
-          "text": "整理后能否更快找回内容"
-        },
-        {
-          "kind": "paragraph",
-          "text": "过一段时间是否还会继续用"
-        },
-        {
-          "kind": "paragraph",
-          "text": "做这个产品的过程，让我觉得自己对 AI 的能力和边界有了更具体的认识。",
-          "highlightPhrases": [
-            "对 AI 的能力和边界有了更具体的认识"
-          ]
-        }
-      ]
-    },
-    {
       "id": "ye-roadmap",
       "label": "迭代计划",
       "title": "迭代计划",
@@ -337,6 +296,47 @@ export const ye: CaseContent = {
                 "AI 关联相关摘要与文章内容"
               ]
             }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ye-07",
+      "label": "想法",
+      "title": "想法",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "AI 能帮人把产品做出来，但做出来还不等于好用。目前的判断主要来自我自己的使用和 7 位朋友的试用。作为一个自研项目，我还没有足够的生产数据来支撑自己的想法，但这也是一次不错的尝试。",
+          "highlightPhrases": [
+            "AI 能帮人把产品做出来，但做出来还不等于好用"
+          ]
+        },
+        {
+          "kind": "paragraph",
+          "text": "AI 可以很快做出一个能运行的产品，但是否符合预期，仍需要我们自己判断。AI 能够帮人拆问题、写代码、做设计，甚至完成更多工作。但就产品设计而言，产品方向、产品的品味与体验，最终仍需要我们自己做判断。"
+        },
+        {
+          "kind": "paragraph",
+          "text": "接下来，我更想了解用户是否愿意持续使用："
+        },
+        {
+          "kind": "paragraph",
+          "text": "一份方案要改几次才能接受"
+        },
+        {
+          "kind": "paragraph",
+          "text": "整理后能否更快找回内容"
+        },
+        {
+          "kind": "paragraph",
+          "text": "过一段时间是否还会继续用"
+        },
+        {
+          "kind": "paragraph",
+          "text": "做这个产品的过程，让我觉得自己对 AI 的能力和边界有了更具体的认识。",
+          "highlightPhrases": [
+            "对 AI 的能力和边界有了更具体的认识"
           ]
         }
       ]
