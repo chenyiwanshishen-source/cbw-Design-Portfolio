@@ -28,7 +28,8 @@ export const ye: CaseContent = {
     { "id": "ye-05", "label": "设计方向" },
     { "id": "ye-interface", "label": "界面与交互" },
     { "id": "ye-implementation", "label": "实现与协作" },
-    { "id": "ye-07", "label": "想法" }
+    { "id": "ye-07", "label": "想法" },
+    { "id": "ye-roadmap", "label": "迭代计划" }
   ],
   "chapters": [
     {
@@ -279,6 +280,63 @@ export const ye: CaseContent = {
           "text": "做这个产品的过程，让我觉得自己对 AI 的能力和边界有了更具体的认识。",
           "highlightPhrases": [
             "对 AI 的能力和边界有了更具体的认识"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ye-roadmap",
+      "label": "迭代计划",
+      "title": "迭代计划",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "朋友试用时提出了收藏阅读和划线的需求。接下来，我计划围绕用户选中的重要文章，增加正文解析、阅读理解与摘要整理能力，让收藏内容进一步成为可以阅读、记录和关联的个人知识。",
+          "highlightPhrases": [
+            "正文解析、阅读理解与摘要整理"
+          ]
+        },
+        {
+          "kind": "subsection",
+          "title": "阅读与理解",
+          "blocks": [
+            {
+              "kind": "paragraph",
+              "text": "计划增加文章正文解析，让用户在插件内阅读提取后的内容，并按需翻译、调用 AI 解读。用户可以围绕文章中的概念和段落继续提问，结合原文理解内容。",
+              "highlightPhrases": [
+                "在插件内阅读",
+                "按需翻译、调用 AI 解读"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "subsection",
+          "title": "划线与个人摘要",
+          "blocks": [
+            {
+              "kind": "paragraph",
+              "text": "计划支持在阅读时划线、摘录重点，并借助 AI 提炼摘要。用户可以补充自己的理解，将这些内容整理、保存为个人摘要，继续编辑并下载，方便后续回顾和使用。",
+              "highlightPhrases": [
+                "划线、摘录重点",
+                "整理、保存为个人摘要",
+                "编辑并下载"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "subsection",
+          "title": "知识整理与关联",
+          "blocks": [
+            {
+              "kind": "paragraph",
+              "text": "计划以知识库的形式整理保存的摘要，方便按主题归类和回看，并让 AI 关联相关摘要与文章内容，呈现可以相互参照或补充的信息，帮助用户逐步建立自己的知识联系。",
+              "highlightPhrases": [
+                "以知识库的形式整理保存的摘要",
+                "AI 关联相关摘要与文章内容"
+              ]
+            }
           ]
         }
       ]
