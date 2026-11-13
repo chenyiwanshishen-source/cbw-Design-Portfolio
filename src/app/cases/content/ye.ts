@@ -271,7 +271,7 @@ export const ye: CaseContent = {
         },
         {
           "kind": "subsection",
-          "title": "划线与个人摘要",
+          "title": "个人摘要",
           "blocks": [
             {
               "kind": "paragraph",
