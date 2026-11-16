@@ -1,7 +1,8 @@
+import { cssAssetUrl } from '../../assetUrl';
 import './ye-cache-request.css';
 
 function CacheIcon({ name, heading = false }: { name: string; heading?: boolean }) {
-  return <span className={`ye-cache-icon${heading ? ' ye-cache-icon-heading' : ''}`} style={{ maskImage: `url(${import.meta.env.BASE_URL}images/icons/hugeicons/${name}.svg)` }} aria-hidden="true" />;
+  return <span className={`ye-cache-icon${heading ? ' ye-cache-icon-heading' : ''}`} style={{ maskImage: cssAssetUrl(`${import.meta.env.BASE_URL}images/icons/hugeicons/${name}.svg`) }} aria-hidden="true" />;
 }
 
 function RequestCard({ followUp = false }: { followUp?: boolean }) {
