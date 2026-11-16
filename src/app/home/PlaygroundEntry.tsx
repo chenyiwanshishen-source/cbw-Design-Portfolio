@@ -1,38 +1,15 @@
-import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
+import { useCasePreviewReveal } from './useCasePreviewReveal';
 import './playground-entry.css';
 
 export function PlaygroundEntry() {
   const [active, setActive] = useState(false);
-  const preview = useRef<HTMLDivElement>(null);
-  const reveal = useRef<gsap.core.Tween | null>(null);
-
-  useGSAP(() => {
-    if (!preview.current) return;
-    const media = gsap.matchMedia();
-    media.add({
-      motion: '(prefers-reduced-motion: no-preference)',
-      reduced: '(prefers-reduced-motion: reduce)',
-    }, context => {
-      reveal.current = gsap.fromTo(preview.current!.children,
-        { yPercent: 100, rotation: (index: number) => index === 0 ? -8 : 7, autoAlpha: 0 },
-        { yPercent: 0, autoAlpha: 1, stagger: context.conditions?.reduced ? 0 : 0.035, duration: context.conditions?.reduced ? 0 : 0.5, ease: 'back.out(1.5)', paused: true }
-      );
-      if (active) reveal.current.progress(1);
-      return () => { reveal.current = null; };
-    });
-    return () => media.revert();
-  }, { scope: preview });
-
-  useEffect(() => {
-    if (active) reveal.current?.timeScale(1).play();
-    else reveal.current?.timeScale(1.5).reverse();
-  }, [active]);
+  const preview = useCasePreviewReveal(active);
 
   return <section id="playground" className="home-section" aria-labelledby="playground-entry-title">
     <a className={`playground-entry${active ? ' is-active' : ''}`} href="#/playground"
-      onPointerEnter={event => { if (event.pointerType === 'mouse') setActive(true); }}
+      onPointerEnter={() => setActive(true)}
+      onMouseEnter={() => setActive(true)}
       onPointerLeave={() => setActive(false)}
       onFocus={() => setActive(true)}
       onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget)) setActive(false); }}>
