@@ -15,6 +15,7 @@ import {
 const YeCase = lazy(() => loadYeCase().then(module => ({ default: module.YeCase })));
 const QsightCase = lazy(() => import("./cases/QsightCase").then(module => ({ default: module.QsightCase })));
 const QixinCase = lazy(() => import("./cases/QixinCase").then(module => ({ default: module.QixinCase })));
+const PlaygroundPage = lazy(() => import("./home/PlaygroundPage").then(module => ({ default: module.PlaygroundPage })));
 const ExplorationsPage = lazy(() =>
   loadExplorationsPage().then((module) => ({ default: module.ExplorationsCase }))
 );
@@ -201,7 +202,7 @@ export default function App() {
   const detailFallback =
     routeLoaderHref || isProjectRouteReady(route) ? null : <ProjectRouteLoader route={route} />;
 
-  const portfolioContent = route === "#/project/ai-report/questions" ? <QuestionBankPage /> : isYeDetail ? (<Suspense fallback={null}><YeCase /></Suspense>) : isAiDetail ? (
+  const portfolioContent = route === "#/playground" ? <Suspense fallback={null}><PlaygroundPage /></Suspense> : route === "#/project/ai-report/questions" ? <QuestionBankPage /> : isYeDetail ? (<Suspense fallback={null}><YeCase /></Suspense>) : isAiDetail ? (
     <Suspense fallback={null}>
       <QsightCase />
     </Suspense>

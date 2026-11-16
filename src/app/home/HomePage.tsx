@@ -1,6 +1,7 @@
 import { Contact } from './Contact';
 import { Experience } from './Experience';
 import { ExperimentalProjects } from './ExperimentalProjects';
+import { PlaygroundEntry } from './PlaygroundEntry';
 import { useEffect, useState } from 'react';
 import { DraftingFrame } from './DraftingFrame';
 import { Blueprint } from './Blueprint';
@@ -17,7 +18,7 @@ export function HomePage({ route }: { route: string }) {
   const { playing, finish } = useIntroOpening(replay);
   useEffect(() => {
     const frame = requestAnimationFrame(() => {
-      const id = route === '#/project/explorations' ? 'ai' : navigation.find(item => route === `#${item.id}`)?.id;
+      const id = route === '#playground' ? 'playground' : route === '#/project/explorations' ? 'ai' : navigation.find(item => route === `#${item.id}`)?.id;
       if (id) document.getElementById(id)?.scrollIntoView({ behavior: 'instant', block: 'start' });
       else {
         let top = 0;
@@ -45,6 +46,7 @@ export function HomePage({ route }: { route: string }) {
         <section id="work" aria-label="项目" className="home-section">
           <CaseList items={cases} />
         </section>
+        <PlaygroundEntry />
         <ExperimentalProjects />
         <Experience />
         <Contact />

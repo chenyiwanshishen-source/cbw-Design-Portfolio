@@ -5,6 +5,22 @@ import type { CaseContent } from './content/zh';
 
 gsap.registerPlugin(useGSAP);
 
+const mobileCasePreviews: Record<string, { file: string; width: number; height: number; alt: string }[]> = {
+  'ai-report': [
+    { file: 'qsight/hover-539-5069.webp', width: 1000, height: 625, alt: 'Qsight 报告生成与编辑界面' },
+    { file: 'qsight/hover-1363-50416.webp', width: 760, height: 475, alt: 'Qsight 文档仿写入口' },
+  ],
+  'qixin-brain': [
+    { file: 'qixin/home-cover.webp', width: 1440, height: 1783, alt: '启信产业大脑首页工作台' },
+    { file: 'qixin/hover-620-19593.webp', width: 1440, height: 900, alt: '启信产业大脑企业详情界面' },
+    { file: 'qixin/hover-2447-7289.webp', width: 900, height: 563, alt: '启信产业大脑企业监控列表' },
+  ],
+  'ye-browser': [
+    { file: 'ye/home-hover-tabs.webp', width: 1200, height: 643, alt: 'ye! 页签分组整理界面' },
+    { file: 'ye/home-hover.webp', width: 1100, height: 581, alt: 'ye! 书签详情与 AI 对话界面' },
+  ],
+};
+
 function CaseCopy({ item }: { item: CaseContent }) {
   return <div className="home-case-copy flex min-w-0 flex-col gap-4">
     <h3 className="text-h3 font-normal">{item.name}</h3>
@@ -56,6 +72,7 @@ export function CaseCard({ item, active, muted, onHover, onFocus }: {
   const [slide, setSlide] = useState(0);
   const strip = useRef<HTMLDivElement>(null);
   const href = item.detailHref;
+  const mobileImages = mobileCasePreviews[item.id] ?? [];
   return <article className={`home-case${active ? ' is-active' : ''}${muted ? ' is-muted' : ''}`}>
     <a href={href} className={`home-case-link case-desktop${item.id === 'qixin-brain' || item.id === 'ai-report' || item.id === 'ye-browser' ? ' home-case-qixin' : ''}`} tabIndex={0} aria-disabled={!href || undefined} aria-label={href ? `阅读案例：${item.name}` : `${item.name}，案例整理中`}
       onPointerEnter={event => { if (event.pointerType === 'mouse') onHover(true); }} onPointerLeave={() => onHover(false)}
@@ -66,10 +83,10 @@ export function CaseCard({ item, active, muted, onHover, onFocus }: {
     <div className="case-mobile">
       <CaseCopy item={item} />
       <div className="case-strip" ref={strip} role="region" aria-label={`${item.name}界面预览`} tabIndex={0}
-        onScroll={event => { const node = event.currentTarget; const first = node.firstElementChild as HTMLElement; if (first) setSlide(Math.min(2, Math.round(node.scrollLeft / (first.offsetWidth + 8)))); }}>
-        {[0, 1, 2].map(index => <div key={index} className="case-slide"><Placeholder index={index} /></div>)}
+        onScroll={event => { const node = event.currentTarget; const first = node.firstElementChild as HTMLElement; if (first) setSlide(Math.max(0, Math.min(mobileImages.length - 1, Math.round(node.scrollLeft / (first.offsetWidth + 8))))); }}>
+        {mobileImages.map(image => <div key={image.file} className="case-slide relative min-w-0"><img src={`${import.meta.env.BASE_URL}images/${image.file}`} width={image.width} height={image.height} alt={image.alt} loading="lazy" decoding="async" className="absolute inset-0 block h-full w-full object-contain object-top" /></div>)}
       </div>
-      <div className="case-dots" aria-label="选择预览图片">{[0, 1, 2].map(index => <button key={index} type="button" aria-label={`第 ${index + 1} 张图片`} aria-pressed={slide === index} onClick={() => { const node = strip.current; const child = node?.children[index] as HTMLElement | undefined; if (node && child) node.scrollTo({ left: index * (child.offsetWidth + 8), behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' }); }}><span /></button>)}</div>
+      <div className="case-dots" aria-label="选择预览图片">{mobileImages.map((image, index) => <button key={image.file} type="button" aria-label={`第 ${index + 1} 张图片`} aria-pressed={slide === index} onClick={() => { const node = strip.current; const child = node?.children[index] as HTMLElement | undefined; if (node && child) node.scrollTo({ left: index * (child.offsetWidth + 8), behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' }); }}><span /></button>)}</div>
       {href && <a className="home-target inline-flex items-center text-body" href={href}>阅读案例 →</a>}
     </div>
   </article>;

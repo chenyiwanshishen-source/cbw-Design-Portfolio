@@ -1,0 +1,7 @@
+.playground-entry { display: flex; align-items: center; min-height: var(--space-24); padding-block: var(--rhythm-5) var(--space-3); border-top: var(--border-width) solid var(--color-border-subtle); color: var(--color-text); text-decoration: none; }
+.playground-entry-heading { display: flex; align-items: center; gap: var(--space-5); flex-wrap: wrap; }
+.playground-entry p { margin-top: var(--space-2); color: var(--color-text-secondary); font-size: var(--text-caption); line-height: var(--text-caption--line-height); }
+.playground-entry-action { display: flex; align-items: center; gap: var(--space-1); min-height: var(--touch-target); flex-shrink: 0; font-size: var(--text-caption); color: var(--color-text-secondary); }
+.playground-entry:hover .playground-entry-action { color: var(--color-accent); }
+#playground { scroll-margin-top: var(--rhythm-4); }
+#work + #playground { margin-top: calc(-1 * var(--rhythm-6)); }

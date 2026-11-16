@@ -1,0 +1,77 @@
+.playground-page {
+  position: fixed;
+  inset: 0;
+  height: 100dvh;
+  overflow: hidden;
+  background: var(--color-home-bg);
+  color: var(--color-text);
+  isolation: isolate;
+}
+
+.playground-gallery, .playground-viewport { position: absolute; inset: 0; }
+.playground-viewport {
+  overflow: hidden;
+  overflow: clip;
+  touch-action: none;
+  user-select: none;
+  cursor: grab;
+  background-color: var(--color-home-bg);
+  background-image: radial-gradient(circle, var(--color-drafting-line) .8px, transparent .9px);
+  border: 0;
+  outline: none;
+}
+.playground-viewport:focus-visible { box-shadow: inset 0 0 0 2px var(--color-accent-soft); }
+.playground-world { position: absolute; top: 0; left: 0; width: 0; height: 0; transform-origin: 0 0; will-change: transform; }
+.playground-group-note {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  text-align: center;
+  pointer-events: none;
+}
+.playground-group-note h2 { margin: 0; color: var(--color-text-body); font-size: 26px; line-height: 36px; font-weight: 400; }
+.playground-group-note p { margin: 0; color: var(--color-text-secondary); font-size: 22px; line-height: 32px; }
+.playground-piece {
+  position: absolute;
+  margin: 0;
+  border-radius: 10px;
+  background: var(--color-home-bg);
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--color-text) 5%, transparent), 0 16px 32px color-mix(in srgb, var(--color-text) 5%, transparent);
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+.playground-image { display: block; width: 100%; height: 100%; overflow: hidden; border-radius: inherit; }
+.playground-image img { display: block; width: 100%; height: 100%; object-fit: contain; object-position: top center; pointer-events: none; }
+.playground-piece--class-report img, .playground-piece--campaign-invitation img { object-fit: cover; }
+.playground-piece--campaign { background: transparent; box-shadow: none; filter: drop-shadow(0 8px 12px color-mix(in srgb, var(--color-text) 8%, transparent)); }
+.playground-piece--campaign-invitation { border-radius: 20px; }
+.playground-piece--mobile { background: transparent; box-shadow: none; filter: drop-shadow(0 8px 12px color-mix(in srgb, var(--color-text) 8%, transparent)); }
+.playground-piece:focus-visible { outline: var(--focus-ring-width) solid var(--color-accent); outline-offset: var(--focus-ring-offset); }
+.playground-viewport.is-panning, .playground-viewport.is-panning *, .playground-piece.is-dragging { cursor: grabbing; }
+
+.playground-back {
+  position: absolute;
+  z-index: 2;
+  top: max(var(--space-6), env(safe-area-inset-top));
+  left: max(var(--space-6), env(safe-area-inset-left));
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--touch-target);
+  padding-inline: var(--space-3);
+  border-radius: var(--space-3);
+  background: color-mix(in srgb, var(--color-home-bg) 94%, transparent);
+  backdrop-filter: blur(12px);
+  font-size: var(--text-caption);
+  color: var(--color-text-secondary);
+  text-decoration: none;
+}
+.playground-back:hover { color: var(--color-accent); }
+.playground-back:focus-visible { outline: var(--focus-ring-width) solid var(--color-accent); outline-offset: var(--focus-ring-offset); }
+
+@media (max-width: 600px) {
+  .playground-back { top: max(var(--space-3), env(safe-area-inset-top)); left: max(var(--space-3), env(safe-area-inset-left)); }
+}
