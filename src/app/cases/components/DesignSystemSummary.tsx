@@ -1,3 +1,4 @@
+import { cssAssetUrl } from '../../assetUrl';
 const groups = [
   { title: '问题', icon: 'BubbleChatDelayIcon', points: [
     '当时市面上的组件库相关 Skill 还不太稳定。',
@@ -19,7 +20,7 @@ const groups = [
 export function DesignSystemSummary() {
   return <div className="design-system-summary" aria-label="设计系统实验的问题、解决方案与结果">
     {groups.map(group => <section key={group.title}>
-      <span className="design-system-summary-icon" style={{ maskImage: `url(${import.meta.env.BASE_URL}images/icons/hugeicons/${group.icon}.svg)` }} aria-hidden="true" />
+      <span className="design-system-summary-icon" style={{ maskImage: cssAssetUrl(`${import.meta.env.BASE_URL}images/icons/hugeicons/${group.icon}.svg`) }} aria-hidden="true" />
       <h3>{group.title}</h3>
       <ul>{group.points.map(point => <li key={point}>{point}</li>)}</ul>
     </section>)}

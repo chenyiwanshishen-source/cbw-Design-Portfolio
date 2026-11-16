@@ -1,3 +1,4 @@
+import { cssAssetUrl } from '../../assetUrl';
 const steps = [
   { title: '生成基础色板', detail: '设备、主题、字体与色板', icon: 'PaintBoardIcon', paper: true },
   { title: '生成基础规范', detail: '间距、描边、圆角、文字、栅格、阴影', icon: 'Layers01Icon', paper: true },
@@ -12,7 +13,7 @@ export function YeSpecimenFlows() {
       <div className="ye-process-node">
         <span className="ye-process-number" aria-hidden="true">0{index + 1}</span>
         <div className={step.paper ? 'generator-paper ye-process-paper' : 'generator-app ye-process-ai'}>
-          {step.paper ? <><strong>{step.title}</strong><span className="ye-process-cover-icon" aria-hidden="true" style={{ maskImage: `url(${import.meta.env.BASE_URL}images/icons/hugeicons/${step.icon}.svg)` }} /><span className="generator-paper-lines" aria-hidden="true"><i/><i/><i/><i/></span></> : <span>AI</span>}
+          {step.paper ? <><strong>{step.title}</strong><span className="ye-process-cover-icon" aria-hidden="true" style={{ maskImage: cssAssetUrl(`${import.meta.env.BASE_URL}images/icons/hugeicons/${step.icon}.svg`) }} /><span className="generator-paper-lines" aria-hidden="true"><i/><i/><i/><i/></span></> : <span>AI</span>}
         </div>
         <span className="ye-process-detail">{step.detail}</span>
       </div>

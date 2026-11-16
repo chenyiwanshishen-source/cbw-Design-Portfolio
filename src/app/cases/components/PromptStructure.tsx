@@ -1,3 +1,4 @@
+import { cssAssetUrl } from '../../assetUrl';
 import { useId, useRef } from 'react';
 import gsap from 'gsap';
 const icons = ['target', 'wrench', 'shield-check', 'arrows-clockwise'];
@@ -61,6 +62,6 @@ export function PromptStructure() {
       </svg>
       <span className="prompt-input-label">生成要求</span>
     </div>
-    <ul className="prompt-flow-cards">{stages.map(([title, text],i) => { const icon = icons[i]; return <li key={title}><span className="prompt-card-icon"><span className="prompt-flow-glyph" style={{ maskImage: `url(/images/icons/phosphor/${icon}.svg)` }} aria-hidden="true" /></span><div><h4>{title}</h4><p>{text}</p></div></li>; })}</ul>
+    <ul className="prompt-flow-cards">{stages.map(([title, text],i) => { const icon = icons[i]; return <li key={title}><span className="prompt-card-icon"><span className="prompt-flow-glyph" style={{ maskImage: cssAssetUrl(`/images/icons/phosphor/${icon}.svg`) }} aria-hidden="true" /></span><div><h4>{title}</h4><p>{text}</p></div></li>; })}</ul>
   </figure>;
 }

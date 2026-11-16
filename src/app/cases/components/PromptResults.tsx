@@ -1,3 +1,4 @@
+import { cssAssetUrl } from '../../assetUrl';
 import type { CSSProperties } from 'react';
 
 const results = [
@@ -50,7 +51,7 @@ export function PromptResults() {
   return <figure className="prompt-results" aria-label="提示词调整前后对比，比例为粗估值">
     <div className="prompt-results-grid">{results.map(({ label, before, after, icon, description }, index) => <section className={`prompt-result${index === 0 ? ' prompt-result-featured' : ''}`} key={label}>
       <div className="prompt-result-copy">
-        <div className="prompt-result-heading"><span className="prompt-result-icon"><span className="prompt-result-glyph" style={{maskImage: `url(/images/icons/phosphor/${icon}.svg)`} as CSSProperties} aria-hidden="true" /></span><h4>{label}</h4></div>
+        <div className="prompt-result-heading"><span className="prompt-result-icon"><span className="prompt-result-glyph" style={{maskImage: cssAssetUrl(`/images/icons/phosphor/${icon}.svg`)} as CSSProperties} aria-hidden="true" /></span><h4>{label}</h4></div>
         <p className="prompt-result-value"><span>约 {before}%</span><span aria-hidden="true">→</span><strong>约 {after}%</strong></p>
         <p className="prompt-result-description">{description}</p>
         <p className="prompt-result-gain">约提升 {after-before} 个百分点</p>
