@@ -15,8 +15,9 @@
   touch-action: none;
   user-select: none;
   cursor: grab;
-  background-color: var(--color-home-bg);
-  background-image: radial-gradient(circle, var(--color-drafting-line) .8px, transparent .9px);
+  background-color: #fdfdfd;
+  background-image: radial-gradient(circle, #e6e8eb .8px, transparent .9px);
+  background-size: 24px 24px;
   border: 0;
   outline: none;
 }
@@ -49,6 +50,7 @@
 .playground-piece--campaign { background: transparent; box-shadow: none; filter: drop-shadow(0 8px 12px color-mix(in srgb, var(--color-text) 8%, transparent)); }
 .playground-piece--campaign-invitation { border-radius: 20px; }
 .playground-piece--mobile { background: transparent; box-shadow: none; filter: drop-shadow(0 8px 12px color-mix(in srgb, var(--color-text) 8%, transparent)); }
+.playground-piece--shiqu { background: transparent; box-shadow: 0 9px 20px #00000008; }
 .playground-piece:focus-visible { outline: var(--focus-ring-width) solid var(--color-accent); outline-offset: var(--focus-ring-offset); }
 .playground-viewport.is-panning, .playground-viewport.is-panning *, .playground-piece.is-dragging { cursor: grabbing; }
 

@@ -23,9 +23,8 @@ type PinchGesture = {
 };
 type Gesture = SingleGesture | PinchGesture;
 
-const MIN_SCALE = 0.1;
+const MIN_SCALE = 0.08;
 const MAX_SCALE = 2;
-const HOME_VIEW_ZOOM = 1.18;
 const DRAG_THRESHOLD = 6;
 const initialPositions = (items: readonly CanvasItem[]): Positions => Object.fromEntries(items.map(item => [item.id, { x: item.x, y: item.y }]));
 const initialLayers = (items: readonly CanvasItem[]) => Object.fromEntries(items.map((item, index) => [item.id, index + 1]));
@@ -100,14 +99,13 @@ export function usePlaygroundCanvas(items: readonly CanvasItem[]) {
     const top = Math.min(...content.map(item => (nextPositions[item.id] ?? item).y));
     const right = Math.max(...content.map(item => (nextPositions[item.id] ?? item).x + item.width));
     const bottom = Math.max(...content.map(item => (nextPositions[item.id] ?? item).y + item.height));
-    const padding = viewport.clientWidth < 600 ? 28 : 88;
+    const padding = viewport.clientWidth < 600 ? 24 : 60;
     const availableWidth = Math.max(1, viewport.clientWidth - padding * 2);
     const availableHeight = Math.max(1, viewport.clientHeight - padding * 2);
     // Fit may go below the normal zoom minimum if items were dragged far apart.
     const fitScale = Math.max(0.00001, Math.min(1, availableWidth / Math.max(1, right - left), availableHeight / Math.max(1, bottom - top)));
-    // Enlarge the home view while keeping overview as a complete content fit.
-    const homeScale = viewport.clientWidth < 900 ? Math.max(0.36, fitScale) : fitScale;
-    const scale = mode === 'home' ? homeScale * HOME_VIEW_ZOOM : fitScale;
+    // Match the original preview's full-board framing at all viewport widths.
+    const scale = Math.min(1, fitScale);
     commitCamera({
       x: viewport.clientWidth / 2 - (left + right) / 2 * scale,
       y: viewport.clientHeight / 2 - (top + bottom) / 2 * scale,
